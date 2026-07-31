@@ -27,7 +27,11 @@ const (
 )
 
 func main() {
+	// Cloud Run parses structured JSON on stdout into log fields; a plain-text
+	// line arrives as an unparsed blob. Set the default too, so a handler
+	// reaching for the package-level slog still emits JSON.
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	slog.SetDefault(logger)
 
 	if err := run(logger); err != nil {
 		logger.Error("server exited with error", slog.Any("error", err))
@@ -44,12 +48,9 @@ func run(logger *slog.Logger) error {
 		port = defaultPort
 	}
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("GET /healthz", healthz)
-
 	srv := &http.Server{
 		Addr:         ":" + port,
-		Handler:      mux,
+		Handler:      newMux(),
 		ReadTimeout:  readTimeout,
 		WriteTimeout: writeTimeout,
 		IdleTimeout:  idleTimeout,
@@ -83,6 +84,15 @@ func run(logger *slog.Logger) error {
 	}
 
 	return nil
+}
+
+// newMux returns the service's routing table. It is separate from run so tests
+// exercise the routes themselves, not just the handler functions behind them.
+func newMux() *http.ServeMux {
+	mux := http.NewServeMux()
+	mux.HandleFunc("GET /healthz", healthz)
+
+	return mux
 }
 
 // healthz reports liveness. It intentionally does not check Firestore: this

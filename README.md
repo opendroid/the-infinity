@@ -1,6 +1,6 @@
 <div align="center">
 
-# the<span>∞</span>.ai
+# the∞.ai
 
 **Every AI concept, connected. Start anywhere — the map never ends.**
 
