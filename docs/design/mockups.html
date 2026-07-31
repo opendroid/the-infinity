@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>theinfinity.ai — design exploration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0B0E1A;          /* page background — deep indigo, never pure black */
+    --nebula:#151A2E;        /* panel surface */
+    --nebula-2:#1C2240;      /* raised surface */
+    --starlight:#E9EBF8;     /* primary text */
+    --dust:#8B91B3;          /* secondary text */
+    --thread:#8F7BFF;        /* interactive / edges — signal violet */
+    --verified:#E5B54A;      /* trust tier: verified — gold */
+    --frontier:#5FD4C4;      /* trust tier: frontier / new growth — teal */
+    --line:#262D4E;
+    --maxw:960px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--void);
+    color:var(--starlight);
+    font-family:'Schibsted Grotesk',system-ui,sans-serif;
+    line-height:1.6;
+    padding:48px 20px 96px;
+  }
+  ::selection{background:var(--thread);color:var(--void)}
+
+  .board{max-width:var(--maxw);margin:0 auto}
+
+  /* ————— review-board header ————— */
+  .board-head{margin-bottom:56px}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--dust);
+  }
+  .board-head h1{
+    font-family:'Unbounded',sans-serif;font-weight:800;
+    font-size:clamp(26px,5vw,44px);line-height:1.12;margin:14px 0 12px;
+  }
+  .board-head h1 .inf{color:var(--thread)}
+  .board-head p{color:var(--dust);max-width:60ch;font-size:15px}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:18px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dust)}
+  .legend span::before{content:'';display:inline-block;width:9px;height:9px;border-radius:50%;
+    margin-right:7px;vertical-align:0}
+  .legend .l-v::before{background:var(--verified)}
+  .legend .l-f::before{background:var(--frontier)}
+  .legend .l-t::before{background:var(--thread)}
+
+  /* ————— screen frames ————— */
+  .frame{margin:0 0 72px}
+  .frame-label{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+  .frame-label .tag{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--frontier)}
+  .frame-label .note{font-size:13px;color:var(--dust)}
+  .screen{
+    background:var(--nebula);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.45);
+  }
+  .chrome{
+    display:flex;align-items:center;gap:8px;padding:10px 16px;
+    background:var(--nebula-2);border-bottom:1px solid var(--line);
+  }
+  .chrome i{width:9px;height:9px;border-radius:50%;background:#39406B;display:inline-block}
+  .chrome .url{
+    margin-left:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dust);
+    background:var(--void);border:1px solid var(--line);border-radius:6px;padding:4px 12px;
+  }
+
+  /* ————— shared UI atoms ————— */
+  .btn{
+    display:inline-block;border:1px solid var(--thread);color:var(--thread);
+    border-radius:8px;padding:9px 18px;font-size:14px;font-weight:500;
+    text-decoration:none;background:transparent;cursor:pointer;
+    font-family:'Schibsted Grotesk',sans-serif;
+  }
+  .btn.solid{background:var(--thread);color:var(--void);font-weight:700}
+  .chip{
+    display:inline-block;border:1px solid var(--line);background:var(--nebula-2);
+    border-radius:999px;padding:6px 14px;font-size:13px;color:var(--starlight);
+    text-decoration:none;
+  }
+  .chip:hover{border-color:var(--thread)}
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;border-radius:999px;padding:4px 11px;
+  }
+  .badge::before{content:'';width:7px;height:7px;border-radius:50%}
+  .badge.verified{color:var(--verified);border:1px solid rgba(229,181,74,.45)}
+  .badge.verified::before{background:var(--verified)}
+  .badge.frontier{color:var(--frontier);border:1px solid rgba(95,212,196,.45)}
+  .badge.frontier::before{background:var(--frontier)}
+
+  /* ═════════ SCREEN A — UNIVERSE / LANDING ═════════ */
+  .hero{position:relative;padding:64px 24px 56px;text-align:center;overflow:hidden}
+  .hero svg.lemniscate{width:min(560px,92%);height:auto;display:block;margin:0 auto 8px}
+  @media (prefers-reduced-motion:no-preference){
+    .node-pulse{animation:pulse 3.2s ease-in-out infinite}
+    .node-pulse.d1{animation-delay:.9s}
+    .node-pulse.d2{animation-delay:1.7s}
+    @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+  }
+  .wordmark{
+    font-family:'Unbounded',sans-serif;font-weight:800;
+    font-size:clamp(24px,4.6vw,40px);letter-spacing:-.01em;
+  }
+  .wordmark .inf{color:var(--thread)}
+  .hero .tagline{color:var(--dust);margin:10px auto 30px;max-width:44ch;font-size:15px}
+  .search{
+    display:flex;max-width:520px;margin:0 auto;border:1px solid var(--thread);
+    border-radius:12px;overflow:hidden;background:var(--void);
+    box-shadow:0 0 40px rgba(143,123,255,.14);
+  }
+  .search input{
+    flex:1;background:transparent;border:0;outline:0;color:var(--starlight);
+    padding:15px 18px;font-size:15px;font-family:inherit;min-width:0;
+  }
+  .search input::placeholder{color:var(--dust)}
+  .search button{border:0;background:var(--thread);color:var(--void);
+    font-weight:700;padding:0 22px;font-size:14px;cursor:pointer;font-family:inherit}
+  .entry-chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:26px 0 34px}
+  .pulse-line{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dust);
+  }
+  .pulse-line b{color:var(--frontier);font-weight:600}
+
+  /* ═════════ SCREEN B — CONCEPT PAGE ═════════ */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 24px;border-bottom:1px solid var(--line);
+  }
+  .topbar .mini-mark{font-family:'Unbounded',sans-serif;font-weight:600;font-size:14px}
+  .topbar .mini-mark .inf{color:var(--thread)}
+  .topbar .trail-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dust)}
+  .topbar .trail-count b{color:var(--thread)}
+
+  .concept-grid{display:grid;grid-template-columns:1fr 264px;gap:0}
+  @media(max-width:760px){.concept-grid{grid-template-columns:1fr}}
+  .concept-main{padding:32px 28px 28px;min-width:0}
+  .breadcrumb-domain{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--dust);display:flex;align-items:center;
+    gap:12px;flex-wrap:wrap;
+  }
+  .concept-main h2{
+    font-family:'Unbounded',sans-serif;font-weight:600;
+    font-size:clamp(22px,3.6vw,32px);margin:14px 0 14px;line-height:1.18;
+  }
+  .intuition{color:var(--starlight);font-size:15.5px;max-width:62ch}
+  .intuition em{color:var(--thread);font-style:normal;font-weight:500}
+
+  .depth-toggle{
+    display:inline-flex;border:1px solid var(--line);border-radius:10px;
+    overflow:hidden;margin:22px 0 20px;
+  }
+  .depth-toggle button{
+    background:transparent;border:0;color:var(--dust);padding:9px 18px;
+    font-size:13px;font-family:inherit;cursor:pointer;font-weight:500;
+  }
+  .depth-toggle button.active{background:var(--thread);color:var(--void);font-weight:700}
+
+  .viz{
+    border:1px solid var(--line);border-radius:12px;background:var(--void);
+    padding:20px;margin-bottom:6px;
+  }
+  .viz .viz-label{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--dust);margin-bottom:14px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;
+  }
+  .viz .viz-label b{color:var(--frontier);font-weight:600}
+  .token-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+  .token-row .who{
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dust);
+    width:64px;flex:0 0 64px;
+  }
+  .tok{
+    font-family:'JetBrains Mono',monospace;font-size:12px;border-radius:6px;
+    padding:5px 9px;border:1px solid var(--line);color:var(--dust);
+  }
+  .tok.accepted{border-color:rgba(95,212,196,.55);color:var(--frontier)}
+  .tok.rejected{border-color:rgba(229,181,74,.5);color:var(--verified);text-decoration:line-through}
+  .tok.ghost{opacity:.4}
+  .viz .caption{font-size:12.5px;color:var(--dust);margin-top:10px;max-width:58ch}
+
+  .edges{
+    border-left:1px solid var(--line);padding:28px 22px;background:rgba(11,14,26,.35);
+  }
+  @media(max-width:760px){.edges{border-left:0;border-top:1px solid var(--line)}}
+  .edge-group{margin-bottom:24px}
+  .edge-group h4{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--dust);margin-bottom:10px;font-weight:600;
+  }
+  .edge-group h4 .arrow{color:var(--thread)}
+  .edge-link{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    padding:8px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:7px;
+    color:var(--starlight);text-decoration:none;font-size:13.5px;background:var(--nebula);
+  }
+  .edge-link:hover{border-color:var(--thread)}
+  .edge-link .dot{width:7px;height:7px;border-radius:50%;flex:0 0 7px}
+  .edge-link .dot.v{background:var(--verified)}
+  .edge-link .dot.f{background:var(--frontier)}
+  .minimap{margin-top:6px}
+  .minimap h4{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--dust);margin-bottom:10px;font-weight:600;
+  }
+  .minimap svg{width:100%;height:auto;border:1px solid var(--line);border-radius:10px;background:var(--void)}
+
+  .trail-ribbon{
+    display:flex;align-items:center;gap:0;flex-wrap:wrap;row-gap:10px;
+    border-top:1px solid var(--line);padding:16px 24px;background:var(--nebula-2);
+  }
+  .trail-ribbon .lbl{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--dust);margin-right:16px;
+  }
+  .bead{display:flex;align-items:center}
+  .bead a{color:var(--starlight);font-size:13px;text-decoration:none;white-space:nowrap}
+  .bead.current a{color:var(--thread);font-weight:700}
+  .bead .wire{width:26px;height:1px;background:var(--thread);opacity:.5;margin:0 8px}
+  .trail-ribbon .share{margin-left:auto}
+
+  /* ═════════ SCREEN C — TRAIL VIEW ═════════ */
+  .trail-wrap{padding:40px 28px 36px}
+  .trail-wrap .who-line{color:var(--dust);font-size:14px;margin:6px 0 30px}
+  .trail-wrap h2{
+    font-family:'Unbounded',sans-serif;font-weight:600;
+    font-size:clamp(20px,3.2vw,28px);line-height:1.2;
+  }
+  .trail-wrap h2 .inf{color:var(--thread)}
+  .trail-svg{width:100%;height:auto;margin:6px 0 8px}
+  .trail-stops{list-style:none;margin:18px 0 26px}
+  .trail-stops li{
+    display:flex;align-items:center;gap:14px;padding:10px 0;
+    border-bottom:1px solid var(--line);font-size:14.5px;
+  }
+  .trail-stops li:last-child{border-bottom:0}
+  .trail-stops .n{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dust);
+    width:22px;flex:0 0 22px;
+  }
+  .trail-stops .stop-dot{width:8px;height:8px;border-radius:50%;flex:0 0 8px}
+  .trail-stops .stop-dot.v{background:var(--verified)}
+  .trail-stops .stop-dot.f{background:var(--frontier)}
+  .trail-stops .t{flex:1;min-width:0}
+  .trail-stops .depth{
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dust);
+    text-transform:uppercase;letter-spacing:.12em;
+  }
+  .share-row{
+    display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+    border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--void);
+  }
+  .share-row code{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--frontier);
+    overflow-wrap:anywhere;flex:1;min-width:200px;
+  }
+
+  .closing{max-width:var(--maxw);margin:0 auto;color:var(--dust);font-size:13.5px}
+  .closing b{color:var(--starlight)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--frontier);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="board">
+  <header class="board-head">
+    <div class="eyebrow">Design exploration · 3 screens</div>
+    <h1>the<span class="inf">infinity</span>.ai</h1>
+    <p>One thread runs through every screen: knowledge as a continuous line you pull. Color is semantic, not decorative — it encodes the trust tier of every node.</p>
+    <div class="legend">
+      <span class="l-v">Verified — human-reviewed core graph</span>
+      <span class="l-f">Frontier — auto-generated, cited, new growth</span>
+      <span class="l-t">The thread — your path, every edge, every link</span>
+    </div>
+  </header>
+
+  <!-- ══════════ SCREEN A ══════════ -->
+  <section class="frame">
+    <div class="frame-label">
+      <span class="tag">Screen A</span>
+      <span class="note">Universe / landing — the lemniscate is the map, the search is the door</span>
+    </div>
+    <div class="screen">
+      <div class="chrome"><i></i><i></i><i></i><span class="url">theinfinity.ai</span></div>
+      <div class="hero">
+        <svg class="lemniscate" viewBox="0 0 560 220" fill="none" aria-label="Infinity-shaped knowledge graph">
+          <path d="M280 110 C 280 50, 180 30, 130 70 C 80 110, 80 110, 130 150 C 180 190, 280 170, 280 110 C 280 50, 380 30, 430 70 C 480 110, 480 110, 430 150 C 380 190, 280 170, 280 110 Z"
+                stroke="#8F7BFF" stroke-width="1.4" opacity=".8"/>
+          <path d="M280 110 C 280 50, 180 30, 130 70 C 80 110, 80 110, 130 150 C 180 190, 280 170, 280 110"
+                stroke="#8F7BFF" stroke-width="3" opacity=".28"/>
+          <!-- nodes on the thread -->
+          <circle class="node-pulse" cx="130" cy="70" r="6" fill="#E5B54A"/>
+          <circle cx="99" cy="110" r="4" fill="#E5B54A" opacity=".8"/>
+          <circle class="node-pulse d1" cx="130" cy="150" r="5" fill="#E5B54A"/>
+          <circle cx="280" cy="110" r="7" fill="#8F7BFF"/>
+          <circle class="node-pulse d2" cx="430" cy="70" r="6" fill="#5FD4C4"/>
+          <circle cx="461" cy="110" r="4" fill="#5FD4C4" opacity=".8"/>
+          <circle cx="430" cy="150" r="5" fill="#5FD4C4"/>
+          <!-- labels -->
+          <text x="130" y="52" text-anchor="middle" fill="#8B91B3" font-family="JetBrains Mono" font-size="10">backprop</text>
+          <text x="280" y="94" text-anchor="middle" fill="#E9EBF8" font-family="JetBrains Mono" font-size="11">attention</text>
+          <text x="430" y="52" text-anchor="middle" fill="#8B91B3" font-family="JetBrains Mono" font-size="10">mixture-of-experts</text>
+          <text x="430" y="172" text-anchor="middle" fill="#8B91B3" font-family="JetBrains Mono" font-size="10">speculative decoding</text>
+        </svg>
+        <div class="wordmark">the<span class="inf">infinity</span>.ai</div>
+        <p class="tagline">Every AI concept, connected. Start anywhere — the map never ends.</p>
+        <div class="search" role="search">
+          <input type="text" placeholder='Try "attention" or "flow matching"…' aria-label="Search concepts">
+          <button>Explore</button>
+        </div>
+        <div class="entry-chips">
+          <a class="chip" href="#b">Attention</a>
+          <a class="chip" href="#b">RLHF</a>
+          <a class="chip" href="#b">Diffusion</a>
+          <a class="chip" href="#b">KV Cache</a>
+          <a class="chip" href="#b">Agents</a>
+        </div>
+        <div class="pulse-line">1,847 concepts · <b>12 grew on the frontier this week</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SCREEN B ══════════ -->
+  <section class="frame" id="b">
+    <div class="frame-label">
+      <span class="tag">Screen B</span>
+      <span class="note">Concept page — the product. Depth toggle, viz primitive, typed edges, trail ribbon</span>
+    </div>
+    <div class="screen">
+      <div class="chrome"><i></i><i></i><i></i><span class="url">theinfinity.ai/c/speculative-decoding</span></div>
+
+      <div class="topbar">
+        <span class="mini-mark">the<span class="inf">∞</span>.ai</span>
+        <span class="trail-count">trail · <b>3 nodes</b></span>
+      </div>
+
+      <div class="concept-grid">
+        <main class="concept-main">
+          <div class="breadcrumb-domain">
+            <span>Inference / Optimization</span>
+            <span class="badge verified">Verified</span>
+          </div>
+          <h2>Speculative Decoding</h2>
+          <p class="intuition" id="depth-copy">A small, fast draft model races ahead and guesses several tokens; the large model then <em>verifies the whole batch in one pass</em>. Accepted guesses are free speedup — rejected ones cost you nothing you wouldn't have spent anyway.</p>
+
+          <div class="depth-toggle" role="tablist" aria-label="Explanation depth">
+            <button role="tab" data-d="i">Intuition</button>
+            <button role="tab" data-d="e" class="active">Engineer</button>
+            <button role="tab" data-d="m">Math</button>
+          </div>
+
+          <div class="viz">
+            <div class="viz-label"><span>Viz primitive · token-stream</span><b>interactive</b></div>
+            <div class="token-row">
+              <span class="who">draft</span>
+              <span class="tok accepted">The</span><span class="tok accepted">cat</span><span class="tok accepted">sat</span><span class="tok rejected">under</span><span class="tok ghost">the</span><span class="tok ghost">mat</span>
+            </div>
+            <div class="token-row">
+              <span class="who">target</span>
+              <span class="tok accepted">The</span><span class="tok accepted">cat</span><span class="tok accepted">sat</span><span class="tok">on</span>
+            </div>
+            <p class="caption">Three draft tokens accepted in a single target-model pass; the fourth is rejected and corrected. Drag the acceptance rate to see throughput change.</p>
+          </div>
+        </main>
+
+        <aside class="edges">
+          <div class="edge-group">
+            <h4><span class="arrow">◂</span> Requires</h4>
+            <a class="edge-link" href="#"><span>Autoregressive Decoding</span><span class="dot v"></span></a>
+            <a class="edge-link" href="#"><span>KV Cache</span><span class="dot v"></span></a>
+          </div>
+          <div class="edge-group">
+            <h4>Unlocks <span class="arrow">▸</span></h4>
+            <a class="edge-link" href="#"><span>Medusa Heads</span><span class="dot f"></span></a>
+            <a class="edge-link" href="#"><span>EAGLE-3</span><span class="dot f"></span></a>
+          </div>
+          <div class="edge-group">
+            <h4>Adjacent <span class="arrow">↔</span></h4>
+            <a class="edge-link" href="#"><span>Continuous Batching</span><span class="dot v"></span></a>
+          </div>
+          <div class="minimap">
+            <h4>You are here</h4>
+            <svg viewBox="0 0 220 130" aria-label="Local neighborhood map">
+              <line x1="40" y1="40" x2="110" y2="65" stroke="#8F7BFF" stroke-width="1" opacity=".5"/>
+              <line x1="40" y1="95" x2="110" y2="65" stroke="#8F7BFF" stroke-width="1" opacity=".5"/>
+              <line x1="110" y1="65" x2="180" y2="35" stroke="#8F7BFF" stroke-width="1" opacity=".5"/>
+              <line x1="110" y1="65" x2="182" y2="95" stroke="#8F7BFF" stroke-width="1" opacity=".5"/>
+              <circle cx="40" cy="40" r="5" fill="#E5B54A"/>
+              <circle cx="40" cy="95" r="5" fill="#E5B54A"/>
+              <circle cx="110" cy="65" r="8" fill="#8F7BFF"/>
+              <circle cx="180" cy="35" r="5" fill="#5FD4C4"/>
+              <circle cx="182" cy="95" r="5" fill="#5FD4C4"/>
+              <text x="110" y="88" text-anchor="middle" fill="#E9EBF8" font-family="JetBrains Mono" font-size="8">spec. decoding</text>
+            </svg>
+          </div>
+        </aside>
+      </div>
+
+      <div class="trail-ribbon">
+        <span class="lbl">Your thread</span>
+        <span class="bead"><a href="#">Transformer</a><span class="wire"></span></span>
+        <span class="bead"><a href="#">KV Cache</a><span class="wire"></span></span>
+        <span class="bead current"><a href="#">Speculative Decoding</a></span>
+        <button class="btn share">Share trail</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SCREEN C ══════════ -->
+  <section class="frame">
+    <div class="frame-label">
+      <span class="tag">Screen C</span>
+      <span class="note">Shared trail — the growth loop. A trail link is a story someone tells about their own curiosity</span>
+    </div>
+    <div class="screen">
+      <div class="chrome"><i></i><i></i><i></i><span class="url">theinfinity.ai/t/maya-9k2f</span></div>
+      <div class="trail-wrap">
+        <div class="eyebrow">Shared thread · 7 concepts · 42 min of wandering</div>
+        <h2>From Linear Regression to Flow Matching — one pull of the <span class="inf">thread</span></h2>
+        <p class="who-line">Maya's path through the graph, Jul 27 2026</p>
+
+        <svg class="trail-svg" viewBox="0 0 900 90" fill="none" aria-hidden="true">
+          <path d="M20 60 C 120 20, 200 85, 300 50 C 400 15, 480 80, 580 45 C 680 15, 760 75, 880 35"
+                stroke="#8F7BFF" stroke-width="1.6" opacity=".75"/>
+          <circle cx="20" cy="60" r="6" fill="#E5B54A"/>
+          <circle cx="165" cy="52" r="5" fill="#E5B54A"/>
+          <circle cx="300" cy="50" r="5" fill="#E5B54A"/>
+          <circle cx="440" cy="47" r="5" fill="#E5B54A"/>
+          <circle cx="580" cy="45" r="5" fill="#E5B54A"/>
+          <circle cx="722" cy="44" r="5" fill="#5FD4C4"/>
+          <circle cx="880" cy="35" r="7" fill="#5FD4C4"/>
+        </svg>
+
+        <ol class="trail-stops">
+          <li><span class="n">01</span><span class="stop-dot v"></span><span class="t">Linear Regression</span><span class="depth">intuition</span></li>
+          <li><span class="n">02</span><span class="stop-dot v"></span><span class="t">Gradient Descent</span><span class="depth">engineer</span></li>
+          <li><span class="n">03</span><span class="stop-dot v"></span><span class="t">Backpropagation</span><span class="depth">engineer</span></li>
+          <li><span class="n">04</span><span class="stop-dot v"></span><span class="t">Variational Autoencoders</span><span class="depth">engineer</span></li>
+          <li><span class="n">05</span><span class="stop-dot v"></span><span class="t">Diffusion Models</span><span class="depth">engineer</span></li>
+          <li><span class="n">06</span><span class="stop-dot f"></span><span class="t">Rectified Flow</span><span class="depth">math</span></li>
+          <li><span class="n">07</span><span class="stop-dot f"></span><span class="t">Flow Matching</span><span class="depth">math</span></li>
+        </ol>
+
+        <div class="share-row">
+          <code>theinfinity.ai/t/maya-9k2f</code>
+          <button class="btn solid">Copy link</button>
+          <a class="btn" href="#">Walk this trail</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="closing"><b>Notes for build:</b> the numbered trail stops are a true sequence (order carries meaning); everywhere else, structure comes from edge types and trust tiers, not decoration. Node color = trust tier on every surface — landing, edges, minimap, trail. Fonts: Unbounded (display, sparingly) · Schibsted Grotesk (body) · JetBrains Mono (data, labels, edges).</p>
+</div>
+
+<script>
+  // Depth toggle — one honest interaction so the mockup demonstrates the mechanic
+  const copy = {
+    i: 'Imagine a fast intern drafting the next few words of a sentence while the expert only checks the work. When the intern is right, you move faster; when wrong, the expert fixes it — <em>you never go slower than the expert alone</em>.',
+    e: 'A small, fast draft model races ahead and guesses several tokens; the large model then <em>verifies the whole batch in one pass</em>. Accepted guesses are free speedup — rejected ones cost you nothing you wouldn\u2019t have spent anyway.',
+    m: 'Draft q proposes k tokens; target p accepts token x with probability min(1, p(x)/q(x)). On rejection, resample from norm(max(0, p−q)). The output distribution is <em>exactly p</em> — acceleration with zero quality loss.'
+  };
+  document.querySelectorAll('.depth-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.depth-toggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('depth-copy').innerHTML = copy[btn.dataset.d];
+    });
+  });
+</script>
+</body>
+</html>
