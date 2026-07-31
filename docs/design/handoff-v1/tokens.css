@@ -1,0 +1,45 @@
+/* theinfinity.ai — v1 tokens.
+   Semantic, never decorative. Three rules:
+   1. tier color (verified/frontier) is the ONLY meaning of gold/teal
+   2. --thread is the ONLY interactive color
+   3. one glow per screen, max */
+:root{
+  --void:#0B0E1A;
+  --nebula:#151A2E;
+  --nebula-2:#1C2240;
+  --starlight:#E9EBF8;
+  --dust:#8B91B3;
+  --line:#262D4E;
+  --thread:#8F7BFF;
+  --verified:#E5B54A;
+  --frontier:#5FD4C4;
+
+  --tier-border-verified:rgba(229,181,74,.45);
+  --tier-border-frontier:rgba(95,212,196,.45);
+  --thread-soft:rgba(143,123,255,.45);
+  --panel-wash:rgba(11,14,26,.35);
+  --raised-wash:rgba(28,34,64,.45);
+
+  --font-display:'Unbounded',sans-serif;
+  --font-body:'Schibsted Grotesk',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+
+  --r-row:8px;
+  --r-input:9px;
+  --r-control:10px;
+  --r-island:12px;
+  --r-panel:14px;
+  --r-pill:999px;
+
+  --hairline:1px solid var(--line);
+  --glow-thread:0 0 44px rgba(143,123,255,.16); /* landing search only */
+  --focus:2px solid var(--thread);
+}
+
+/* the one animation that ships */
+@media (prefers-reduced-motion: no-preference){
+  @keyframes frontierPulse{0%,100%{opacity:.5}50%{opacity:1}}
+}
+
+:where(a,button,[tabindex]):focus-visible{outline:var(--focus);outline-offset:2px}
+::selection{background:var(--thread);color:var(--void)}
