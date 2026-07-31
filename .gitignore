@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+/api/bin/
+*.exe
+
+# Go — compiled binaries (`go build ./...` drops them beside the package)
+/api/server
+*.test
+*.out
+coverage.out
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Secrets — never commit credentials. CI uses workload identity federation.
+.env
+.env.*
+!.env.example
+*-service-account*.json
+*.pem
+*.key
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Claude Code local settings
+.claude/settings.local.json
