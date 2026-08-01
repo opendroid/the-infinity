@@ -30,7 +30,7 @@ point.
 
 | ADR | Subject | Status |
 |---|---|---|
-| [0001](0001-infrastructure.md) | Infrastructure — project, regions, identities, URL prefix | proposed |
+| [0001](0001-infrastructure.md) | Infrastructure — project, regions, identities, URL prefix | **accepted** — built 2026-08-01 |
 | [0002](0002-content-as-code-and-trust-tiers.md) | Content-as-code and trust tiers | proposed |
 | [0003](0003-static-first-serving.md) | Static-first serving | proposed |
 
