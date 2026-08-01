@@ -238,16 +238,26 @@ echo "  Hosting config is already committed at web/firebase.json."
 echo "  Nothing to deploy until Astro exists (Phase 1) and the API image is"
 echo "  pushed (Phase 3). First real deploy is the M1 walking skeleton."
 
+# The billing account is masked here on purpose. This block exists to be copied
+# into ADR-0001, and the ADR records that value masked — printing it in full
+# invites committing it in full. It is also the block most likely to end up in a
+# screenshot or a pasted log. Not a credential, but nothing needs it published.
+# The script itself still uses the full value where it matters (step 4).
+BILLING_MASKED="${BILLING_ACCOUNT%%-*}-…-${BILLING_ACCOUNT##*-}"
+
 bold "Done — record these in docs/adr/0001-infrastructure.md"
 cat <<EOF
   PROJECT_ID       ${PROJECT_ID}
   PROJECT_NUMBER   ${PROJECT_NUMBER}
-  BILLING_ACCOUNT  ${BILLING_ACCOUNT}
+  BILLING_ACCOUNT  ${BILLING_MASKED}
   REGION           ${REGION}
   FIRESTORE        (default), Native mode, ${REGION}  [permanent]
   ARTIFACT_REPO    ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}
   RUNTIME_SA       ${SA_EMAIL}
   RUN_SERVICE      ${RUN_SERVICE} (${REGION}) — not yet deployed
+
+  Full billing account, when actually needed:
+    gcloud billing projects describe ${PROJECT_ID} --format='value(billingAccountName)'
 EOF
 
 bold "Not done here, on purpose"
