@@ -30,6 +30,36 @@ account — re-run with a suffix and update `web/.firebaserc` to match:
 PROJECT_ID=the-infinity-ai-2 ./infra/setup.sh
 ```
 
+## Backups — `./infra/backups.sh`
+
+Run once, when trails start existing (M2). Re-runnable. Creates a regional bucket with
+90-day lifecycle, a dedicated service account, and a Cloud Scheduler job that calls the
+Firestore Admin API directly every Sunday — no Cloud Function, nothing to keep patched.
+Scheduler's free tier is 3 jobs/month, so it costs nothing to run.
+
+**It backs up `trails`, `concept_requests`, and `concept_reviews` — not the concept
+graph.** Per ADR-0002 the graph lives in git and a re-publish restores it, while those
+three collections exist in Firestore alone. Firestore export is billed at *document read
+rates*, so exporting the graph weekly would be a standing charge to duplicate what git
+already stores for free.
+
+```zsh
+./infra/backups.sh
+
+# trigger one immediately and confirm it lands
+gcloud scheduler jobs run firestore-weekly-export --location=us-west1 --project=the-infinity-ai
+gcloud storage ls gs://the-infinity-ai-firestore-backups
+
+# restore — destructive, overwrites live documents
+gcloud firestore import gs://the-infinity-ai-firestore-backups/<TIMESTAMP> --project=the-infinity-ai
+```
+
+An export of empty collections still writes a metadata object, so an empty listing after a
+run means the job **failed** — not that there was nothing to save.
+
+Delete protection on the database is handled by `setup.sh`, not here. Re-running `setup.sh`
+enables it on a database that already exists.
+
 ## What it does not do
 
 - **DNS.** Cutover is a launch task (M3). The domain stays at GoDaddy, unpointed.
