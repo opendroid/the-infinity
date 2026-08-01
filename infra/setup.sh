@@ -16,7 +16,7 @@
 #
 set -euo pipefail
 
-PROJECT_ID="${PROJECT_ID:-theinfinity-prod}"
+PROJECT_ID="${PROJECT_ID:-the-infinity-ai}"
 PROJECT_NAME="theinfinity.ai"
 REGION="us-west1"                 # Cloud Run + Firestore + Artifact Registry
 AR_REPO="containers"              # Artifact Registry repository
@@ -57,7 +57,8 @@ if gcloud projects describe "$PROJECT_ID" >/dev/null 2>&1; then
   skip "project $PROJECT_ID"
 else
   # Project ids are globally unique across all of GCP, not just your account.
-  # If this fails as taken, re-run with: PROJECT_ID=theinfinity-prod-<suffix> ./infra/setup.sh
+  # If this fails as taken, re-run with: PROJECT_ID=the-infinity-ai-<suffix> ./infra/setup.sh
+  # and update web/.firebaserc to match.
   gcloud projects create "$PROJECT_ID" --name="$PROJECT_NAME"
   ok "created $PROJECT_ID"
 fi

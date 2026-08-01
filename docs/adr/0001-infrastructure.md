@@ -24,11 +24,11 @@ Budget discipline is a stated product principle, not an afterthought: idle cost 
 
 | Resource | Value | Notes |
 |---|---|---|
-| Project ID | `theinfinity-prod` | Globally unique across GCP; if taken, suffix it and update `web/.firebaserc` |
+| Project ID | `the-infinity-ai` | Globally unique across GCP; if taken, suffix it and update `web/.firebaserc` |
 | Region | `us-west1` | Cloud Run, Firestore, and Artifact Registry all colocated |
 | Firestore | `(default)`, Native mode, `us-west1` | **Location is permanent** |
-| Artifact Registry | `us-west1-docker.pkg.dev/theinfinity-prod/containers` | Docker format |
-| Runtime identity | `api-runtime@theinfinity-prod.iam.gserviceaccount.com` | `roles/datastore.user` only |
+| Artifact Registry | `us-west1-docker.pkg.dev/the-infinity-ai/containers` | Docker format |
+| Runtime identity | `api-runtime@the-infinity-ai.iam.gserviceaccount.com` | `roles/datastore.user` only |
 | Cloud Run service | `api`, `us-west1` | Name must match `web/firebase.json` |
 | Budgets | $10 and $25 | Alerts at 50 / 90 / 100% of each |
 
