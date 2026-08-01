@@ -51,20 +51,26 @@ Everything else follows from these. They are why the product looks like one thin
 The handoff's *Anti-patterns — reject on sight* list is the short version of what
 violating these looks like. It is worth reading before writing any CSS.
 
-## Open contract deltas
+## Where this disagrees with the implementation
 
-The handoff specifies the product in more detail than `/docs/PLAN.md` did, and in a
-few places it says something different. These are **unresolved** — Phase 2 reconciles
-them when `node.schema.json` and `openapi.yaml` are written. Tracked in the issue that
-landed this handoff.
+The handoff specifies the product in more detail than `/docs/PLAN.md` did, and in a few
+places it says something different. Those conflicts are **resolved** in
+[ADR-0002](../adr/0002-content-as-code-and-trust-tiers.md) and
+[ADR-0003](../adr/0003-static-first-serving.md). Read them before implementing against
+`API.md` or `DATA-MODEL.md` — in these specific places, the ADRs win:
 
-- Two endpoints the plan doesn't have: `GET /v1/stats` and `POST /v1/reviews`.
-- `domain` is a single string (`"Architecture / Sparsity"`), not an array.
-- `viz` carries `primitive`, `params`, `param_controls`, `caption` — the plan said
-  `{primitive, config}`.
-- New concept fields: `emphasis` (the phrase lifted to violet per depth), `provenance`
-  (frontier), `review` (verified). `citations[]` becomes `provenance.sources[]`.
-- `updated` is `updated_at`.
-- Edges in API responses are denormalized objects carrying the target's `title` and
-  `tier`; node JSON in `/content/nodes` should still store ids only, with the API
-  joining. Confirm when the schema is written.
+| Handoff says | We do | Why |
+|---|---|---|
+| `POST /v1/reviews` flips a node to verified | It returns `202` to a queue; a merged PR is the only thing that promotes a node | Runtime writes to `tier` break "Firestore is downstream of git" |
+| `provenance.sources[]` holds citations, frontier-only | `citations[]` is top-level on every node, tier-independent | Otherwise verifying a node deletes its sources |
+| `tier` is a stored field | Derived: a node is verified iff it carries `review` | Makes "verified with no reviewer" unrepresentable, not just detectable |
+| Nodes declare `requires` and `unlocks` | Declare `requires`; `unlocks` is inverted at publish | They are inverses; authoring both lets two files contradict |
+| `domain` is a string | Stored as a 2-level path array; the API emits the joined string | Keeps it queryable; the eyebrow renders identically |
+| Search types ahead against `GET /v1/search` | A static index, matched client-side. The endpoint is deferred | ~30 KB at this scale, no cold start, works while the API is down |
+| Edges carry `title` and `tier` | True of API responses; node JSON stores ids only | Otherwise renaming a concept edits every file that references it |
+
+Everything else in the handoff — every route, state, token, and component — stands as
+written.
+
+`/changelog`, referenced twice in `DATA-MODEL.md` and specified nowhere, is **out of
+scope for v1** until it has a route spec.
