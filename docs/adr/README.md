@@ -30,6 +30,7 @@ point.
 
 | ADR | Subject | Status |
 |---|---|---|
+| [0001](0001-infrastructure.md) | Infrastructure — project, regions, identities, URL prefix | proposed |
 | [0002](0002-content-as-code-and-trust-tiers.md) | Content-as-code and trust tiers | proposed |
 | [0003](0003-static-first-serving.md) | Static-first serving | proposed |
 
@@ -37,8 +38,4 @@ point.
 
 | ADR | Subject | Phase |
 |---|---|---|
-| 0001 | Infrastructure — GCP project, regions, service accounts | 0 |
 | — | Monorepo, Astro, Firestore | 2 |
-
-0001 is numbered ahead of 0002/0003 but written later — the infrastructure session
-(Phase 0, prompt 1) claims that number. Numbers are allocation order, not writing order.
