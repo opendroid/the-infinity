@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 #
 # theinfinity.ai — GCP + Firebase foundations (Phase 0).
 #
@@ -6,7 +6,8 @@
 # and billing-admin rights. It is re-runnable: every step checks before it
 # creates, so a partial run can be resumed.
 #
-#   ./infra/setup.sh
+#   ./infra/setup.sh          # zsh, per the shebang
+#   bash infra/setup.sh       # also fine — the body is compatible with both
 #
 # Two steps need the web console and cannot be scripted. The script stops at
 # each, tells you exactly what to click, and waits.
@@ -27,9 +28,24 @@ bold() { printf '\n\033[1m%s\033[0m\n' "$*"; }
 ok()   { printf '  \033[32m✓\033[0m %s\n' "$*"; }
 skip() { printf '  \033[90m·\033[0m %s (already exists)\n' "$*"; }
 
+# Prompt for input, into REPLY.
+#
+# `read -rp PROMPT VAR` is bash-only — zsh spells it `read -r "VAR?PROMPT"`,
+# with the prompt attached to the variable rather than passed as a flag. Rather
+# than branch on $ZSH_VERSION, print the prompt ourselves and use a bare read:
+# that form is POSIX and behaves identically in zsh, bash, and sh.
+#
+# The prompt goes to stderr so it never lands in a captured stdout. REPLY is a
+# fixed target on purpose — taking a variable *name* would need ${!name} in
+# bash and ${(P)name} in zsh, reintroducing the same divergence one layer down.
+ask() {  # ask <prompt>  → sets REPLY
+  printf '%s' "$1" >&2
+  IFS= read -r REPLY
+}
+
 pause_for_console() {
   printf '\n\033[33m▸ CONSOLE STEP\033[0m\n%s\n' "$1"
-  read -rp $'\nPress Enter once done (Ctrl-C to stop)… '
+  ask $'\nPress Enter once done (Ctrl-C to stop)… '
 }
 
 command -v gcloud >/dev/null || { echo "gcloud not found: https://cloud.google.com/sdk/docs/install"; exit 1; }
@@ -56,7 +72,8 @@ if [[ "$(gcloud billing projects describe "$PROJECT_ID" --format='value(billingE
 else
   echo "  Available billing accounts:"
   gcloud billing accounts list
-  read -rp "  Billing account ID (XXXXXX-XXXXXX-XXXXXX): " BILLING_ACCOUNT
+  ask "  Billing account ID (XXXXXX-XXXXXX-XXXXXX): "
+  BILLING_ACCOUNT="$REPLY"
   gcloud billing projects link "$PROJECT_ID" --billing-account="$BILLING_ACCOUNT"
   ok "billing linked"
 fi
