@@ -6,16 +6,22 @@ create them.
 
 ## First-time setup
 
-```bash
+```zsh
 gcloud auth login
 npm i -g firebase-tools && firebase login
 
-./infra/setup.sh
+./infra/setup.sh          # zsh, per the shebang
+bash infra/setup.sh       # also fine — the body works under either shell
 ```
 
 Re-runnable — every step checks before it creates, so a partial run resumes. Two steps
 need the web console (billing account selection, Blaze upgrade); the script stops at each
 and tells you what to click.
+
+The script is written to run under **zsh or bash**. The one construct that differs
+between them is prompting for input — `read -rp` is bash-only — so it prints prompts
+itself and uses a bare POSIX `read`. Verified with `zsh -n` and `bash -n`, and by
+exercising the prompt under both.
 
 If `theinfinity-prod` is taken — project IDs are unique across all of GCP, not just your
 account — re-run with a suffix and update `web/.firebaserc` to match:

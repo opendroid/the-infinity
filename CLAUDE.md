@@ -106,6 +106,13 @@ Scopes: `web` · `api` · `content` · `infra` · `docs`.
   (`outline: 2px solid var(--frontier)`), `prefers-reduced-motion` respected on every
   animation, and color never the sole carrier of meaning — tier badges carry text too.
 
+### Shell (`/infra`)
+
+- Scripts run under **zsh or bash** — `zsh -n` and `bash -n` both clean. The usual
+  offender is `read -rp`, which is bash-only; print the prompt and use a bare `read`.
+- `set -euo pipefail` at the top. Check before you create, so a partial run resumes.
+- Anything needing a browser stops and says what to click. Do not fake it.
+
 ### Content (`/content`)
 
 - Node `id` is a kebab-case slug and is the URL: `speculative-decoding` → `/c/speculative-decoding`.
@@ -253,6 +260,10 @@ As tooling lands, replace the placeholder rows above, e.g.:
 ## 8. Working agreement
 
 - **Read `CLAUDE.md` and `/docs/PLAN.md` at the start of every session.**
+- **Every commit references an issue.** File the issue first — it is where the problem and
+  the acceptance criteria get stated — then reference it from the commit and the PR
+  (`Refs #12`, or `Closes #12` when the PR completes it). No issue, no commit; a change
+  worth making is worth being able to find the reasoning for later.
 - One prompt = one session; one subsystem at a time. `/compact` when a session runs long.
 - **Plan before implementing.** Restate the task, list files you'll touch, flag design
   decisions, and wait for a human OK on anything non-obvious.
