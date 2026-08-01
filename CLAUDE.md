@@ -183,7 +183,9 @@ frontier badge dots, staggered so they don't beat in unison, inside
 
 ```
 /web        Astro + TypeScript frontend            (README stub — scaffolded in Phase 1)
+  firebase.json  Hosting config: /api/** → Cloud Run
 /api        Go service for Cloud Run               (stub — built out in Phase 3)
+/infra      setup.sh — GCP + Firebase foundations
 /content
   /nodes    concept node JSON, one file per concept
   /schema   JSON Schema for nodes                  (Phase 2)
@@ -204,12 +206,29 @@ frontier badge dots, staggered so they don't beat in unison, inside
 *Filled in as tooling lands — each phase adds its row. Anything not listed here does not
 exist yet.*
 
-| Command | What it does | Status |
-|---|---|---|
-| — | — | web tooling arrives in Phase 1 |
-| — | — | schema validation arrives in Phase 2 |
-| — | — | `make test` / `make lint` in `/api` arrive in Phase 3 |
-| — | — | CI workflows arrive in Phase 4 |
+| Command | What it does |
+|---|---|
+| `./infra/setup.sh` | Create the GCP project, Firestore, Artifact Registry, runtime service account, and budget alerts. Re-runnable; stops at the two console steps. |
+| `cd api && go run ./cmd/server` | Run the API locally on `:8080` |
+| `cd api && go test ./...` | Table-driven tests |
+| `cd web && firebase deploy --only hosting` | Deploy the built site (nothing to deploy until Phase 1) |
+
+Not yet:
+
+| Command | Arrives |
+|---|---|
+| `npm run dev` / `build` / `lint` / `typecheck` in `/web` | Phase 1 |
+| `npm run validate:content` — nodes against the schema | Phase 2 |
+| `make run` / `test` / `lint` / `docker-build` in `/api` | Phase 3 |
+| CI workflows | Phase 4 |
+
+**Deploying the API** is `gcloud run deploy` with flags that matter — see
+[`/infra/README.md`](infra/README.md). Two are load-bearing: `--service-account`, without
+which Cloud Run silently falls back to an Editor-privileged default identity, and
+`--max-instances`, which is what actually bounds the bill.
+
+**The API serves under `/api/v1`, not `/v1`.** Firebase Hosting rewrites preserve the full
+path, so the `/api` prefix reaches the service. See [ADR-0001](docs/adr/0001-infrastructure.md).
 
 <!--
 As tooling lands, replace the placeholder rows above, e.g.:

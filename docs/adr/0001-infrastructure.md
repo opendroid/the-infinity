@@ -1,0 +1,127 @@
+# 0001 — Infrastructure
+
+- **Status:** proposed
+- **Date:** 2026-08-01
+
+## Context
+
+Phase 0 stands up the GCP and Firebase foundations: one project, Firestore, Artifact
+Registry, a runtime identity, budget alerts, and Firebase Hosting configured to rewrite
+`/api/**` to Cloud Run. `/docs/PLAN.md` fixes the shape — Cloud Run, Firestore Native,
+Firebase Hosting on Blaze, `us-west1`, no GCLB — but not the specific names, roles, or the
+seams where those pieces meet.
+
+Two of those seams are decided here because they are expensive to change later: the
+Firestore location is permanent once set, and the URL prefix the API serves under is
+baked into the OpenAPI contract, the Go router, and every client call.
+
+Budget discipline is a stated product principle, not an afterthought: idle cost should be
+~$0/month, with alerts at $10 and $25 from day one.
+
+## Decision
+
+### Resources
+
+| Resource | Value | Notes |
+|---|---|---|
+| Project ID | `theinfinity-prod` | Globally unique across GCP; if taken, suffix it and update `web/.firebaserc` |
+| Region | `us-west1` | Cloud Run, Firestore, and Artifact Registry all colocated |
+| Firestore | `(default)`, Native mode, `us-west1` | **Location is permanent** |
+| Artifact Registry | `us-west1-docker.pkg.dev/theinfinity-prod/containers` | Docker format |
+| Runtime identity | `api-runtime@theinfinity-prod.iam.gserviceaccount.com` | `roles/datastore.user` only |
+| Cloud Run service | `api`, `us-west1` | Name must match `web/firebase.json` |
+| Budgets | $10 and $25 | Alerts at 50 / 90 / 100% of each |
+
+Everything above is created by [`infra/setup.sh`](../../infra/setup.sh), which is
+re-runnable and stops at the two steps that require the console.
+
+### One region, colocated
+
+Firestore sits in the same region as Cloud Run. A cross-region database would add a
+round-trip to every read on a service whose entire job is reading concept documents, for
+no benefit — there is no second region and no failover story in v1. The Firestore location
+cannot be changed afterwards without creating a new database and migrating, so this is the
+one decision here that is genuinely irreversible.
+
+### Least privilege means passing the service account explicitly
+
+The runtime identity holds `roles/datastore.user` — document read and write, nothing else.
+Not `datastore.owner`, which also grants index and database administration.
+
+This only takes effect if `gcloud run deploy` is passed `--service-account`. Cloud Run
+otherwise defaults to the Compute Engine default service account, which holds project
+**Editor**. Omitting that one flag silently discards least privilege while everything
+still works, so it is recorded here and repeated in `infra/README.md`.
+
+### The API serves under `/api/v1`, not `/v1`
+
+Firebase Hosting rewrites **preserve the full request path**. A request to
+`theinfinity.ai/api/v1/concepts/attention` arrives at the Cloud Run service as
+`/api/v1/concepts/attention` — the `/api` prefix is not stripped, and Hosting offers no
+option to strip it.
+
+`/docs/design/handoff-v1/API.md` states `Base: /v1`. Taken literally with an `/api/**`
+rewrite, every request would 404 in production while working fine against the Cloud Run
+URL directly — a failure that appears only after the first Hosting deploy.
+
+The router therefore mounts at `/api/v1`, so one path works everywhere: through Hosting,
+against the raw Cloud Run URL, and in local development. The alternative —
+`http.StripPrefix` — gives the service two different paths for the same route depending on
+how it is reached, which is worse to debug for no gain.
+
+`/healthz` stays at the service root. Since only `/api/**` is rewritten, it is reachable
+on the Cloud Run URL but **not** through the public domain, which is the right exposure for
+an operational endpoint.
+
+### Cloud Run is publicly invokable
+
+Hosting proxies to Cloud Run anonymously, so the service is deployed
+`--allow-unauthenticated`. The consequence is that the `*.run.app` URL is reachable
+directly, bypassing Hosting's headers and caching. The alternative — granting
+`run.invoker` only to the Firebase Hosting service agent — is stricter but adds a moving
+part to every deploy.
+
+Accepted as-is for v1: the API is a public read API, and the endpoints that write are
+being rate-limited regardless of entry point (#5).
+
+### Budget alerts detect; they do not prevent
+
+A budget alert is an email after the fact. Nothing in this ADR caps spending. Actual
+bounds come from `--max-instances` on the Cloud Run service and from rate limiting the
+public write endpoints (#5). This is stated explicitly because "we have billing alerts" is
+easy to mistake for a spending limit.
+
+### DNS is not touched
+
+The domain stays at GoDaddy with no records pointing here. Cutover is a launch task (M3).
+Pointing DNS early would serve an unfinished site under the real domain and start the
+certificate clock for no reason.
+
+## Consequences
+
+**Easier.** Idle cost is genuinely ~$0: Cloud Run scales to zero, Firestore and Artifact
+Registry have free tiers this project will not exhaust, and Hosting's CDN is free on
+Blaze. One region means no cross-region egress and one place to look. `setup.sh` is
+re-runnable, so a failed run resumes rather than requiring cleanup.
+
+**Harder.** The `/api/v1` prefix has to be respected by the Go router, `openapi.yaml`, and
+every client call — it is a cross-cutting convention that is easy to get wrong once and
+then wrong everywhere. Blaze means a real card is attached to a project with public write
+endpoints, so #5 stops being optional. Any future need for a second region means a new
+Firestore database and a migration.
+
+**Accepted costs.** The raw Cloud Run URL is publicly reachable and always will be under
+this design. `setup.sh` is imperative shell, not declarative infrastructure — fine at this
+size, and the reason `/infra` exists as a directory is so Terraform has somewhere to go if
+that changes. Budget alerts arrive after spend, not before.
+
+## Recorded values
+
+Filled in after `infra/setup.sh` has been run against the real project:
+
+| Field | Value |
+|---|---|
+| Project number | _pending first run_ |
+| Billing account | _pending first run_ |
+| Firestore created | _pending first run_ |
+| Blaze upgrade confirmed | _pending first run_ |
