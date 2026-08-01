@@ -27,6 +27,20 @@ SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 bold() { printf '\n\033[1m%s\033[0m\n' "$*"; }
 ok()   { printf '  \033[32m✓\033[0m %s\n' "$*"; }
 skip() { printf '  \033[90m·\033[0m %s (already exists)\n' "$*"; }
+warn() { printf '  \033[33m!\033[0m %s\n' "$*"; }
+
+# Substring test against already-captured output.
+#
+# Do NOT rewrite this as `some-command | grep -q PATTERN`. Under `set -o
+# pipefail` that construct returns non-zero *when grep succeeds*: grep exits
+# the instant it matches, the writer is still producing output, takes SIGPIPE
+# and exits 141, and pipefail takes the rightmost non-zero status. The guard
+# then reads "not found" precisely because the value was found — so the check
+# is correct only while the thing it looks for is absent, and breaks on the
+# second run. Capture into a variable first; no pipe, no SIGPIPE, no race.
+contains() {  # contains <haystack> <needle>
+  [[ "$1" == *"$2"* ]]
+}
 
 # Prompt for input, into REPLY.
 #
@@ -96,9 +110,12 @@ echo "  (workload identity federation APIs are enabled in Phase 4, with CI)"
 # These ALERT. They do not cap spending — nothing here stops a runaway bill.
 # Bounding actual spend is max-instances (below) and rate limiting (issue #5).
 bold "4. Budget alerts"
+# Fetched once, into a variable rather than through a pipe. See `contains`.
+EXISTING_BUDGETS="$(gcloud billing budgets list --billing-account="$BILLING_ACCOUNT" \
+                      --format='value(displayName)' 2>/dev/null || true)"
 for AMOUNT in 10 25; do
   NAME="theinfinity \$${AMOUNT}"
-  if gcloud billing budgets list --billing-account="$BILLING_ACCOUNT" --format='value(displayName)' 2>/dev/null | grep -qF "$NAME"; then
+  if contains "$EXISTING_BUDGETS" "$NAME"; then
     skip "budget $NAME"
   else
     gcloud billing budgets create \
@@ -183,11 +200,27 @@ ok "granted roles/datastore.user (Firestore documents only)"
 
 # ── 8. Firebase ──────────────────────────────────────────────────────────────
 bold "8. Firebase"
-if firebase projects:list 2>/dev/null | grep -q "$PROJECT_ID"; then
+FB_PROJECTS="$(firebase projects:list 2>/dev/null || true)"
+if contains "$FB_PROJECTS" "$PROJECT_ID"; then
   skip "Firebase enabled on $PROJECT_ID"
 else
-  firebase projects:addfirebase "$PROJECT_ID"
-  ok "Firebase added to $PROJECT_ID"
+  # Not fatal. addfirebase rejects a project that already has Firebase, and the
+  # CLI reports it as "An unexpected error has occurred" with no detail — so a
+  # stale or empty listing above would otherwise abort a re-runnable script on
+  # a step that was already done. Try, then check the end state either way.
+  if firebase projects:addfirebase "$PROJECT_ID"; then
+    ok "Firebase added to $PROJECT_ID"
+  else
+    warn "addfirebase failed — checking whether Firebase is already enabled"
+    FB_PROJECTS="$(firebase projects:list 2>/dev/null || true)"
+    if contains "$FB_PROJECTS" "$PROJECT_ID"; then
+      ok "Firebase is enabled on $PROJECT_ID — the failure was already-exists"
+    else
+      echo "  Firebase is NOT enabled and could not be added. Check 'firebase login',"
+      echo "  then add it manually: firebase projects:addfirebase $PROJECT_ID"
+      exit 1
+    fi
+  fi
 fi
 
 pause_for_console "Upgrade to the Blaze plan — required for Hosting to rewrite to Cloud Run.
