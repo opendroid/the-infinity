@@ -23,11 +23,11 @@ between them is prompting for input — `read -rp` is bash-only — so it prints
 itself and uses a bare POSIX `read`. Verified with `zsh -n` and `bash -n`, and by
 exercising the prompt under both.
 
-If `theinfinity-prod` is taken — project IDs are unique across all of GCP, not just your
+If `the-infinity-ai` is taken — project IDs are unique across all of GCP, not just your
 account — re-run with a suffix and update `web/.firebaserc` to match:
 
-```bash
-PROJECT_ID=theinfinity-prod-2 ./infra/setup.sh
+```zsh
+PROJECT_ID=the-infinity-ai-2 ./infra/setup.sh
 ```
 
 ## What it does not do
@@ -42,7 +42,7 @@ PROJECT_ID=theinfinity-prod-2 ./infra/setup.sh
 
 ```bash
 REGION=us-west1
-PROJECT=theinfinity-prod
+PROJECT=the-infinity-ai
 IMAGE="${REGION}-docker.pkg.dev/${PROJECT}/containers/api:$(git rev-parse --short HEAD)"
 
 docker build -t "$IMAGE" ./api
