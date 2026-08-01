@@ -2,7 +2,7 @@
 
 Guidance for Claude Code (and humans) working in this monorepo. Read this first, every
 session. Deeper context lives in [`/docs/PLAN.md`](docs/PLAN.md); the design source of
-truth is [`/docs/design/mockups.html`](docs/design/mockups.html).
+truth is [`/docs/design/handoff-v1/`](docs/design/handoff-v1/).
 
 ---
 
@@ -116,9 +116,15 @@ Scopes: `web` · `api` · `content` · `infra` · `docs`.
 
 ## 5. Design tokens
 
-Extracted from [`/docs/design/mockups.html`](docs/design/mockups.html), which is the source
-of truth. When Tailwind lands in `/web`, its theme is **generated from these values** —
-never re-typed by hand, never drifted.
+The source of truth is [`/docs/design/handoff-v1/`](docs/design/handoff-v1/) — all five
+routes at implementation fidelity, plus [`tokens.css`](docs/design/handoff-v1/tokens.css)
+and [`tokens.json`](docs/design/handoff-v1/tokens.json). When Tailwind lands in `/web`,
+its theme is **generated from `tokens.json`** — never re-typed by hand, never drifted.
+The table below is the palette in full; the spacing, radius, and type scales live in
+`tokens.json` and are not duplicated here.
+
+`mockups.html` is the earlier exploration, superseded. Where the two disagree, the
+handoff wins.
 
 ### Palette
 
@@ -134,9 +140,19 @@ never re-typed by hand, never drifted.
 | `frontier` | `#5FD4C4` | Trust tier: frontier / new growth — teal |
 | `line` | `#262D4E` | Borders, dividers |
 
-**Rule: color is semantic, never decorative.** A node's color encodes its trust tier on
-every surface — landing lemniscate, edge list, mini-map, trail. `thread` violet means
-"this is interactive or this is your path" and nothing else.
+**Three rules govern every surface. Everything else follows from them:**
+
+1. **Node color always encodes trust tier** — gold verified, teal frontier, on graphs,
+   edge links, mini-maps, trail stops, badges, OG cards. No exceptions.
+2. **`thread` violet is the only interactive color** — links, edges, buttons, focus
+   rings, the thread itself. Gold and teal are never buttons, links, or emphasis; they
+   carry meaning, not attention.
+3. **Glow is rationed** — at most one glowing element per screen, reserved for the
+   primary action or the thread. On the landing page that is the search field and
+   nothing else.
+
+The handoff's *Anti-patterns — reject on sight* list is what violating these looks like.
+Read it before writing CSS.
 
 ### Type
 
@@ -151,8 +167,15 @@ Mono is for anything machine-flavored — uppercase, `letter-spacing: .16em–.1
 ### Signature
 
 **The thread**: one continuous line running through the landing lemniscate, the trail
-ribbon on the concept page, and the shared-trail page. It is the product's one visual idea.
-Content max-width `960px`.
+ribbon on the concept page, and the shared-trail page. It is the product's one visual
+idea. Any new surface must answer: *where does the thread run here?*
+
+Widths are per-route, not global — see the handoff. The concept page is a
+`1fr 288px` grid collapsing to one column under 760px; body copy is capped at 62ch.
+
+**Motion**: exactly one animation ships — a ~3.2s opacity pulse on frontier nodes and
+frontier badge dots, staggered so they don't beat in unison, inside
+`prefers-reduced-motion: no-preference`. Nothing else animates.
 
 ---
 
@@ -167,7 +190,9 @@ Content max-width `960px`.
 /docs
   PLAN.md         the build plan — phases, milestones, budget
   prompt-pack.md  sequenced Claude Code session prompts
-  /design   mockups.html (source of truth), tokens.md (Phase 1)
+  /design
+    handoff-v1/     the design source of truth — 5 routes, tokens, components, API
+    mockups.html    earlier three-screen exploration, superseded
   /adr      architecture decision records
 /.github/workflows   CI                            (Phase 4)
 ```
