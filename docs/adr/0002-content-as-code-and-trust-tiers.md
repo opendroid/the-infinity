@@ -118,6 +118,18 @@ real program — it inverts edges, computes tiers and coordinates, denormalizes,
 rewrites everything — so it needs its own tests, and a bug there corrupts the whole
 served graph at once.
 
+**Interaction state is the only data with no second copy — so it is backed up.** The split
+above makes the concept graph fully recoverable: lose Firestore entirely and one
+re-publish restores it from git. The same split means `trails`, `concept_requests`, and
+`concept_reviews` exist in Firestore alone. Trails are the sharp edge — a shared trail is
+a public URL someone posted, so losing that collection turns every link anyone has shared
+into a permanent 404, which is a worse outcome than losing the graph.
+
+A weekly export to Cloud Storage covers them ([`infra/backups.sh`](../../infra/backups.sh)),
+scoped to those three collections. The concept graph is deliberately excluded: Firestore's
+managed export is billed at document read rates, so exporting it would be a standing weekly
+charge to duplicate something git already stores for free.
+
 **Accepted costs.** Firestore never round-trips into git, so anything a user contributes
 at runtime is inert until a human acts on it. Full re-publish means deploy time grows
 linearly with the graph; fine at 300 nodes, revisit past a few thousand. Deriving `tier`

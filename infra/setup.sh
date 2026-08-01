@@ -129,6 +129,21 @@ else
   ok "Firestore Native in $REGION — this location is permanent"
 fi
 
+# Delete protection, outside the branch above so a re-run enables it on a
+# database that already exists. The location is permanent, and the database
+# holding that decision should not be one command away from deletion.
+# Removing the database later means clearing this flag first — deliberately.
+if [[ "$(gcloud firestore databases describe --database='(default)' --project="$PROJECT_ID" \
+         --format='value(deleteProtectionState)' 2>/dev/null)" == "DELETE_PROTECTION_ENABLED" ]]; then
+  skip "delete protection"
+else
+  gcloud firestore databases update \
+    --database='(default)' \
+    --delete-protection \
+    --project="$PROJECT_ID" >/dev/null
+  ok "delete protection enabled"
+fi
+
 # ── 6. Artifact Registry ─────────────────────────────────────────────────────
 bold "6. Artifact Registry"
 if gcloud artifacts repositories describe "$AR_REPO" --location="$REGION" --project="$PROJECT_ID" >/dev/null 2>&1; then

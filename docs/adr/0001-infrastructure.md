@@ -26,7 +26,8 @@ Budget discipline is a stated product principle, not an afterthought: idle cost 
 |---|---|---|
 | Project ID | `the-infinity-ai` | Globally unique across GCP; if taken, suffix it and update `web/.firebaserc` |
 | Region | `us-west1` | Cloud Run, Firestore, and Artifact Registry all colocated |
-| Firestore | `(default)`, Native mode, `us-west1` | **Location is permanent** |
+| Firestore | `(default)`, Native mode, `us-west1` | **Location is permanent**; delete protection enabled |
+| Firestore backups | `gs://the-infinity-ai-firestore-backups`, `us-west1` | Weekly export of interaction collections only, 90-day retention |
 | Artifact Registry | `us-west1-docker.pkg.dev/the-infinity-ai/containers` | Docker format |
 | Runtime identity | `api-runtime@the-infinity-ai.iam.gserviceaccount.com` | `roles/datastore.user` only |
 | Cloud Run service | `api`, `us-west1` | Name must match `web/firebase.json` |
