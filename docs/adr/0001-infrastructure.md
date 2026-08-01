@@ -1,6 +1,6 @@
 # 0001 — Infrastructure
 
-- **Status:** proposed
+- **Status:** accepted — infrastructure created 2026-08-01, see *Recorded values*
 - **Date:** 2026-08-01
 
 ## Context
@@ -117,11 +117,48 @@ that changes. Budget alerts arrive after spend, not before.
 
 ## Recorded values
 
-Filled in after `infra/setup.sh` has been run against the real project:
+`infra/setup.sh` was run against the real project on **2026-08-01**. Every step
+succeeded, which also promotes the script's `gcloud` invocations from written-but-untested
+to executed.
 
 | Field | Value |
 |---|---|
-| Project number | _pending first run_ |
-| Billing account | _pending first run_ |
-| Firestore created | _pending first run_ |
-| Blaze upgrade confirmed | _pending first run_ |
+| Project ID | `the-infinity-ai` — pre-existing, so the script skipped creation |
+| Project number | `113077672604` |
+| Billing account | `0034A7-…-1ABB96` — masked, see below |
+| Firestore | `(default)` · `FIRESTORE_NATIVE` · `us-west1` · free tier · created `2026-08-01T23:24:51Z` |
+| Firestore uid | `05d87d8a-5705-4022-8cbd-d42d35ff92dd` |
+| Artifact Registry | `us-west1-docker.pkg.dev/the-infinity-ai/containers` |
+| Runtime SA | `api-runtime@the-infinity-ai.iam.gserviceaccount.com` · `roles/datastore.user` |
+| Budgets | `$10` and `$25`, alerts at 50 / 90 / 100% |
+| Firebase | added to the project |
+| Blaze | operator-confirmed — see below |
+| Cloud Run `api` | not deployed; Phase 3 |
+
+**The billing account ID is masked on purpose.** It is not a credential and grants nothing
+on its own, but it is a financial identifier that no reader of this repo needs, and this
+repo is meant to be read by strangers. Retrieve the real value with:
+
+```
+gcloud billing projects describe the-infinity-ai --format='value(billingAccountName)'
+```
+
+**Blaze is recorded as operator-confirmed, not verified.** The script pauses for the
+console upgrade and continues when the operator presses Enter; no CLI reports a Firebase
+project's plan, so nothing checked it. Corroborating evidence: billing was already linked
+at the GCP level before Firebase was added, and Blaze *is* a Cloud Billing account linked
+to the Firebase project — so the console step was likely confirming an already-satisfied
+condition. The real proof is the first `firebase deploy --only hosting` carrying a Cloud
+Run rewrite, which Spark rejects outright.
+
+### Follow-ups opened from this run
+
+Reading the Firestore creation response turned up two gaps, both tracked in #13 and neither
+resolved here:
+
+- `deleteProtectionState: DELETE_PROTECTION_DISABLED` — the database holding this ADR's one
+  irreversible decision can be deleted by a single command.
+- `pointInTimeRecoveryEnablement: POINT_IN_TIME_RECOVERY_DISABLED`, with a 1-hour version
+  retention window. Concept data is rebuildable from git, so this is harmless for the
+  graph — but per ADR-0002 the interaction state (trails, requests, reviews) exists in
+  Firestore alone. Losing it would break every shared trail URL permanently.
