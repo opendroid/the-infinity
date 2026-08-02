@@ -2,8 +2,21 @@
 
 ## `ci.yml` — every pull request, and every push to `main`
 
-Four jobs. Make all four required in the `protect-main` ruleset once they have run
-once — a required check that has never run blocks every merge.
+Four jobs, **all four required in the `protect-main` ruleset**. A red pull request
+cannot be merged.
+
+They were added to the ruleset only after running on `main`, because a required check
+that has never run blocks every merge — including the one that would introduce it.
+
+Two things about that configuration are easy to get wrong:
+
+- **`deploy` must not be required.** It appears in the checks list, but it runs on push
+  to `main` rather than on pull requests, and is skipped until the federation exists.
+  Requiring it would block every pull request.
+- **"Require branches to be up to date before merging" is deliberately off.** It costs a
+  rebase on every pull request whenever `main` moves, and protects against semantic
+  conflicts that serial work rarely produces. Worth turning on if two worktrees are ever
+  in flight at once.
 
 | Job | Steps |
 |---|---|
