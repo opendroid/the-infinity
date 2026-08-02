@@ -1,5 +1,10 @@
 # Multi-stage: the toolchain never ships.
-FROM golang:1.25 AS build
+#
+# Alpine for the builder, and its musl libc is irrelevant here: CGO_ENABLED=0
+# below produces a binary with no libc linkage at all, which is the same reason
+# it can run on distroless/static. What alpine buys is a much smaller image to
+# pull on a cold CI cache — the debian-based tag spent 12.5s extracting.
+FROM golang:1.26-alpine AS build
 
 WORKDIR /src
 

@@ -1,0 +1,44 @@
+# What may reach the Docker build context. The context is /api — this file does
+# not, and cannot, reach outside it.
+#
+# The point is cache stability: `COPY . .` sits above the compile step, so
+# anything in the context invalidates the build layer. Nothing listed here can
+# affect the binary, so nothing listed here should be able to trigger a rebuild.
+
+# Docs and tooling. None of it compiles anything.
+README.md
+Makefile
+Dockerfile
+.dockerignore
+.golangci.yml
+
+# Local build artifacts. `go build ./...` drops binaries beside their package and
+# `make cover` writes a profile; both are gitignored, so they never reach CI, but
+# they are in the context of anyone running `make docker-build` after a local
+# build.
+#
+# These patterns are root-anchored on purpose. Unlike .gitignore, a bare name
+# here matches only at the context root — and `server` must stay that way. As
+# `**/server` it would also match cmd/server, removing the only main package and
+# failing the build with a message about no Go files, nowhere near the cause.
+server
+bin/
+*.test
+*.out
+
+# Never send a repository into a build.
+#
+# Unreachable today — .git sits at the repo root, outside this context — which is
+# why Go's VCS stamping is already inert and the build needs no -buildvcs=false.
+# If the build root ever moves, the alpine builder has no git to stamp with and
+# the failure reads as `error obtaining VCS status`, which points at the
+# toolchain rather than at the context. Named here so that cannot happen.
+.git
+.gitignore
+
+# Deliberately NOT excluded:
+#
+#   go.mod, go.sum   copied explicitly for the module-cache layer
+#   *_test.go        excluding them would silently break any future stage that
+#                    runs tests in the image, and GitHub runners keep no layer
+#                    cache between runs, so the saving would be zero

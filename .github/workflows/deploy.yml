@@ -42,7 +42,7 @@ env:
   REGION: us-west1
   SERVICE: api
   IMAGE_REPO: containers
-  GO_VERSION: '1.25'
+  GO_VERSION: '1.26'
   NODE_VERSION: '22'
 
 jobs:
