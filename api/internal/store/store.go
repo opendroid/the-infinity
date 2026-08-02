@@ -76,10 +76,10 @@ type ParamControl struct {
 }
 
 type Viz struct {
-	Primitive     string             `firestore:"primitive" json:"primitive"`
-	Params        map[string]float64 `firestore:"params" json:"params"`
-	ParamControls List[ParamControl] `firestore:"param_controls" json:"param_controls"`
-	Caption       string             `firestore:"caption" json:"caption"`
+	Primitive     string               `firestore:"primitive" json:"primitive"`
+	Params        Map[string, float64] `firestore:"params" json:"params"`
+	ParamControls List[ParamControl]   `firestore:"param_controls" json:"param_controls"`
+	Caption       string               `firestore:"caption" json:"caption"`
 }
 
 type Bodies struct {
@@ -119,6 +119,22 @@ func (l List[T]) MarshalJSON() ([]byte, error) {
 		return []byte("[]"), nil
 	}
 	return json.Marshal([]T(l))
+}
+
+// Map is List's counterpart: nil marshals as {} rather than null.
+//
+// The same argument, one shape later. `viz.params` is required by openapi.yaml
+// and typed object, and it shipped serialising as null — while `param_controls`
+// beside it in the same struct was already safe, because that one happened to be
+// an array and arrays had been noticed. A client doing
+// Object.entries(viz.params) on a null does not degrade, it throws.
+type Map[K comparable, V any] map[K]V
+
+func (m Map[K, V]) MarshalJSON() ([]byte, error) {
+	if m == nil {
+		return []byte("{}"), nil
+	}
+	return json.Marshal(map[K]V(m))
 }
 
 // Edges is a struct rather than a map so all three groups always serialise —
