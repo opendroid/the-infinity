@@ -39,8 +39,11 @@ func seeded() *store.Fake {
 
 func newServer(t *testing.T, f *store.Fake, opts router.Options) http.Handler {
 	t.Helper()
-	if opts.RateLimit.PerMinute == 0 {
-		opts.RateLimit = generous()
+	if opts.ReadLimit.PerMinute == 0 {
+		opts.ReadLimit = generous()
+	}
+	if opts.WriteLimit.PerMinute == 0 {
+		opts.WriteLimit = generous()
 	}
 	if opts.DailyCap == 0 {
 		opts.DailyCap = 1000
@@ -312,8 +315,9 @@ func TestPerIPRateLimit(t *testing.T) {
 	f := seeded()
 	// One token, no refill worth waiting for.
 	h := newServer(t, f, router.Options{
-		RateLimit: ratelimit.Config{PerMinute: 1, Burst: 1, MaxClients: 16},
-		DailyCap:  1000,
+		ReadLimit:  ratelimit.Config{PerMinute: 1, Burst: 1, MaxClients: 16},
+		WriteLimit: ratelimit.Config{PerMinute: 1, Burst: 1, MaxClients: 16},
+		DailyCap:   1000,
 	})
 
 	first := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"First Concept"}`)
@@ -341,7 +345,7 @@ func TestGlobalDailyCap(t *testing.T) {
 
 	f := seeded()
 	// Per-IP wide open, global cap of two: this proves the cap is what stops it.
-	h := newServer(t, f, router.Options{RateLimit: generous(), DailyCap: 2})
+	h := newServer(t, f, router.Options{ReadLimit: generous(), WriteLimit: generous(), DailyCap: 2})
 
 	for i := range 2 {
 		rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"Concept Name"}`)
@@ -368,9 +372,9 @@ func TestDailyCapResetsWithTheDay(t *testing.T) {
 	f := seeded()
 	day := time.Date(2026, 8, 1, 23, 0, 0, 0, time.UTC)
 	h := newServer(t, f, router.Options{
-		RateLimit: generous(),
-		DailyCap:  1,
-		Now:       func() time.Time { return day },
+		ReadLimit: generous(), WriteLimit: generous(),
+		DailyCap: 1,
+		Now:      func() time.Time { return day },
 	})
 
 	if rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"Day One"}`); rec.Code != http.StatusAccepted {
@@ -393,7 +397,7 @@ func TestReadsAreNotBlockedByTheWriteCap(t *testing.T) {
 	// Exhausting the write budget must not take the graph offline — concept
 	// reads are the product.
 	f := seeded()
-	h := newServer(t, f, router.Options{RateLimit: generous(), DailyCap: 1})
+	h := newServer(t, f, router.Options{ReadLimit: generous(), WriteLimit: generous(), DailyCap: 1})
 
 	if rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"Uses The Budget"}`); rec.Code != http.StatusAccepted {
 		t.Fatalf("status = %d, want 202", rec.Code)
@@ -417,7 +421,7 @@ func TestStatsDoesNotConsumeTheWriteBudget(t *testing.T) {
 	t.Parallel()
 
 	f := seeded()
-	h := newServer(t, f, router.Options{RateLimit: generous(), DailyCap: 3})
+	h := newServer(t, f, router.Options{ReadLimit: generous(), WriteLimit: generous(), DailyCap: 3})
 
 	for i := range 5 {
 		if rec := do(t, h, http.MethodGet, "/api/v1/stats", ""); rec.Code != http.StatusOK {
@@ -504,8 +508,9 @@ func TestReadsAndWritesHaveSeparatePerIPBuckets(t *testing.T) {
 
 	f := seeded()
 	h := newServer(t, f, router.Options{
-		RateLimit: ratelimit.DefaultConfig(), // the real 6/min, burst 3
-		DailyCap:  1000,
+		ReadLimit:  ratelimit.DefaultReadConfig(),
+		WriteLimit: ratelimit.DefaultConfig(),
+		DailyCap:   1000,
 	})
 
 	// Drain the read allowance the way a visitor browsing the site would.
@@ -531,7 +536,7 @@ func TestRejectedRequestsDoNotSpendTheWriteBudget(t *testing.T) {
 	t.Parallel()
 
 	f := seeded()
-	h := newServer(t, f, router.Options{RateLimit: generous(), DailyCap: 2})
+	h := newServer(t, f, router.Options{ReadLimit: generous(), WriteLimit: generous(), DailyCap: 2})
 
 	for i := range 5 {
 		rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"x"}`)
@@ -597,8 +602,10 @@ func TestPartialRateLimitConfigStillServes(t *testing.T) {
 	t.Parallel()
 
 	h := router.New(seeded(), router.Options{
-		RateLimit: ratelimit.Config{PerMinute: 60}, // Burst and MaxClients omitted
-		DailyCap:  1000,
+		// Burst and MaxClients omitted on both.
+		ReadLimit:  ratelimit.Config{PerMinute: 60},
+		WriteLimit: ratelimit.Config{PerMinute: 60},
+		DailyCap:   1000,
 	})
 
 	if rec := do(t, h, http.MethodGet, "/api/v1/stats", ""); rec.Code != http.StatusOK {
@@ -632,7 +639,7 @@ func TestLengthLimitsCountCharactersNotBytes(t *testing.T) {
 	t.Parallel()
 
 	f := seeded()
-	h := newServer(t, f, router.Options{RateLimit: generous(), DailyCap: 1000})
+	h := newServer(t, f, router.Options{ReadLimit: generous(), WriteLimit: generous(), DailyCap: 1000})
 
 	// 40 CJK characters — 120 bytes, well inside the documented 120-character cap.
 	name := strings.Repeat("混合専門家", 8)
@@ -640,5 +647,89 @@ func TestLengthLimitsCountCharactersNotBytes(t *testing.T) {
 	if rec.Code != http.StatusAccepted {
 		t.Errorf("a 40-character name = %d, want 202 — byte counting rejects "+
 			"non-Latin text far below the documented limit", rec.Code)
+	}
+}
+
+// A visitor browsing the graph must never throttle themselves.
+//
+// This is the failure that survived the first fix: reads and writes were given
+// separate buckets but the SAME config. DefaultConfig is 6/min burst 3, tuned
+// for "nobody fills the request form six times a minute". Applied to reads that
+// is three requests and then one every ten seconds — landing page, open a
+// concept, open another, and the fourth navigation 429s while the mini-map
+// silently hides.
+//
+// Deliberately run against the PRODUCTION defaults rather than generous(),
+// because the defaults are the thing under test. The previous regression test
+// for this used generous() and therefore could not fail.
+func TestOrdinaryBrowsingIsNotThrottled(t *testing.T) {
+	t.Parallel()
+
+	h := newServer(t, seeded(), router.Options{
+		ReadLimit:  ratelimit.DefaultReadConfig(),
+		WriteLimit: ratelimit.DefaultConfig(),
+		DailyCap:   1000,
+	})
+
+	// Landing page, then nine concepts opened in quick succession, each firing a
+	// neighborhood call after hydration. Brisk, but nothing unusual.
+	paths := []string{"/api/v1/stats"}
+	for range 9 {
+		paths = append(paths,
+			"/api/v1/concepts/mixture-of-experts",
+			"/api/v1/concepts/mixture-of-experts/neighborhood")
+	}
+
+	for i, p := range paths {
+		if rec := do(t, h, http.MethodGet, p, ""); rec.Code == http.StatusTooManyRequests {
+			t.Fatalf("request %d of %d (%s) was throttled — a reader is being punished for browsing",
+				i+1, len(paths), p)
+		}
+	}
+}
+
+// The write allowance must stay tight even though reads are loose: it is what
+// makes a scripted POST loop hit a wall immediately.
+func TestWritesStayTightWhileReadsAreLoose(t *testing.T) {
+	t.Parallel()
+
+	h := newServer(t, seeded(), router.Options{
+		ReadLimit:  ratelimit.DefaultReadConfig(),
+		WriteLimit: ratelimit.DefaultConfig(),
+		DailyCap:   1000,
+	})
+
+	body := `{"name":"Liquid Neural Networks"}`
+	throttled := false
+	for range 10 {
+		if do(t, h, http.MethodPost, "/api/v1/requests", body).Code == http.StatusTooManyRequests {
+			throttled = true
+			break
+		}
+	}
+	if !throttled {
+		t.Error("ten rapid writes were all accepted — the write allowance is not shaping anything")
+	}
+}
+
+// Reads and writes must not draw on each other. A visitor who has been reading
+// still gets to submit the form — at a read volume the old shared config could
+// not have survived.
+func TestReadsDoNotDrainTheWriteAllowance(t *testing.T) {
+	t.Parallel()
+
+	h := newServer(t, seeded(), router.Options{
+		ReadLimit:  ratelimit.DefaultReadConfig(),
+		WriteLimit: ratelimit.DefaultConfig(),
+		DailyCap:   1000,
+	})
+
+	for range 15 {
+		do(t, h, http.MethodGet, "/api/v1/stats", "")
+	}
+
+	rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"Liquid Neural Networks"}`)
+	if rec.Code == http.StatusTooManyRequests {
+		t.Error("reading drained the write allowance — the buckets are shared again")
 	}
 }

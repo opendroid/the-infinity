@@ -79,16 +79,25 @@ func run(logger *slog.Logger) error {
 	}()
 
 	dailyCap := int64OrDefault("DAILY_WRITE_CAP", apihttp.DefaultDailyWriteCap)
-	rl := ratelimit.DefaultConfig()
-	rl.PerMinute = floatOrDefault("RATE_LIMIT_PER_MINUTE", rl.PerMinute)
+	// Reads and writes are shaped separately: a read is something a visitor's
+	// browser does on their behalf, a write is something they chose to do.
+	writeLimit := ratelimit.DefaultConfig()
+	writeLimit.PerMinute = floatOrDefault("RATE_LIMIT_PER_MINUTE", writeLimit.PerMinute)
+
+	readLimit := ratelimit.DefaultReadConfig()
+	readLimit.PerMinute = floatOrDefault("READ_RATE_LIMIT_PER_MINUTE", readLimit.PerMinute)
+
 	// Zero is a legitimate value here — it means "trust the last entry", which is
 	// correct when nothing fronts the service — so this cannot use the
 	// positive-only helpers above.
-	rl.TrustedProxyHops = hopsOrDefault("TRUSTED_PROXY_HOPS", rl.TrustedProxyHops)
+	hops := hopsOrDefault("TRUSTED_PROXY_HOPS", ratelimit.DefaultTrustedProxyHops)
+	writeLimit.TrustedProxyHops = hops
+	readLimit.TrustedProxyHops = hops
 
 	handler := router.New(store.NewFirestore(client), router.Options{
-		RateLimit: rl,
-		DailyCap:  dailyCap,
+		ReadLimit:  readLimit,
+		WriteLimit: writeLimit,
+		DailyCap:   dailyCap,
 	})
 
 	srv := &http.Server{

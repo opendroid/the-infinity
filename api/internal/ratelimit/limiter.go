@@ -46,11 +46,31 @@ type Config struct {
 	TrustedProxyHops int
 }
 
-// DefaultConfig is deliberately generous for a human and useless for a script:
-// nobody fills the request form six times a minute, and a loop hits the wall
-// immediately.
+// DefaultConfig shapes WRITES. Deliberately generous for a human and useless
+// for a script: nobody fills the request form six times a minute, and a loop
+// hits the wall immediately.
+//
+// Do not apply it to reads. See DefaultReadConfig.
 func DefaultConfig() Config {
 	return Config{PerMinute: 6, Burst: 3, MaxClients: 4096, TrustedProxyHops: DefaultTrustedProxyHops}
+}
+
+// DefaultReadConfig shapes READS, and has to be an order of magnitude looser,
+// because a read is something a visitor's browser does on their behalf rather
+// than something they chose to do.
+//
+// At the write rate a reader gets three requests and then one every ten seconds:
+// landing page (/stats), open a concept (/neighborhood), open another — burst
+// gone, and the fourth navigation inside ten seconds 429s and the mini-map
+// silently hides. That is the product punishing someone for using it.
+//
+// 60/min with a burst of 20 covers brisk clicking through the graph with room to
+// spare, and still bounds the cost it exists to bound: sustained, one address
+// tops out around 86k Firestore reads a day, a few cents. Note that scraping the
+// *content* does not come through here at all — the pages are pre-rendered on the
+// CDN, so this shapes mini-map refetches and island calls, not the graph itself.
+func DefaultReadConfig() Config {
+	return Config{PerMinute: 60, Burst: 20, MaxClients: 4096, TrustedProxyHops: DefaultTrustedProxyHops}
 }
 
 type entry struct {
