@@ -170,19 +170,6 @@ Two things the first deploy turned up:
   path like `/nope` correctly returns this service's structured `not_found`. So the request
   is not reaching the process — `/healthz` is registered on the same router whose
   `NotFound` handler answers `/nope`. Under investigation; it does not affect the API.
-- **The `X-Forwarded-For` chain is still unobserved** — that is what the probe above is for.
-
-## The `X-Forwarded-For` probe is temporary
-
-`apihttp.XFFProbe` logs the raw forwarding chain, the socket address, and the address
-`ratelimit.ClientIP` derives, for the first 50 requests an instance serves. It answered
-#29 — the chain is recorded above — and is kept only until that issue closes, so a future
-change to the serving path can be re-measured rather than re-argued.
-
-```zsh
-gcloud logging read 'jsonPayload.msg="xff probe"' --project the-infinity-ai --limit 5 \
-  --freshness=1h --format='value(jsonPayload.xff, jsonPayload.remote_addr, jsonPayload.client_ip)'
-```
-
-Log ingestion lags by a few seconds; an empty result immediately after a request means too
-early, not broken. **Delete this middleware and its file when #29 closes.**
+- **The `X-Forwarded-For` chain was measured and the rate limiter was wrong.** It keyed on
+  Google's edge, so every visitor shared one bucket. Fixed and confirmed live — see #29 and
+  the rate-limiting section above.
