@@ -46,14 +46,13 @@ const chips = allNodes.slice(0, 6);
       <!--
         The one glow on this screen. Nothing else here carries a shadow.
 
-        `action` points at /concepts, not /search: /search does not exist yet
-        (#106) and this form was submitting readers into a 404. The index is a
-        real answer to "show me what is here" even though it ignores the query,
-        and #45 will intercept the submit before it ever navigates.
+        A real GET form, and that is the point: with no JavaScript it
+        navigates to /search, which answers the query there. The overlay is the
+        better experience and the form is what makes the URL bookmarkable.
       -->
       <form
         role="search"
-        action="/concepts"
+        action="/search"
         method="get"
         class="mx-auto flex max-w-[540px] overflow-hidden rounded-island border border-thread bg-void shadow-thread"
       >
