@@ -72,6 +72,10 @@ alongside the code. They are not authored in a CMS and not edited in the Firesto
 **Every change ships as a PR against `main` with CI green.** No direct pushes to `main`;
 `main` is protected. Squash-merge; the PR title is the commit message.
 
+"CI green" is enforced, not a convention: the `protect-main` ruleset requires `web`,
+`api`, `contracts`, and `pr title` to pass before a merge. See
+[`/.github/workflows/README.md`](.github/workflows/README.md).
+
 ### Commits — [Conventional Commits](https://www.conventionalcommits.org/)
 
 ```
