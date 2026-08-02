@@ -18,6 +18,7 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
+      "lr": 0.001,
       "params": 1
     },
     "param_controls": [
@@ -28,7 +29,7 @@
         "step": 1
       }
     ],
-    "caption": "Final loss at a fixed compute budget, split between model size and tokens. Drag the parameter count to find the bottom of the curve."
+    "caption": "Loss over the tokens a fixed compute budget affords at this model size. Drag the parameter count: a bigger model learns more per token but runs out of budget sooner, so the best final loss sits somewhere in the middle."
   },
   "edges": {
     "requires": [

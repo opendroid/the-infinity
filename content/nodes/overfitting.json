@@ -18,7 +18,8 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
-      "lr": 0.001
+      "lr": 0.001,
+      "holdout": 0.6
     },
     "param_controls": [
       {
