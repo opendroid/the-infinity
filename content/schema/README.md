@@ -30,7 +30,7 @@ primitive is choosing a shape, and the params re-point it.
 |---|---|---|
 | `router-dispatch` | A grid of cells, one per routed unit, shaded by how strongly each is selected — solid = first choice, faint = second, outlined = not selected. A per-unit load row underneath. | `experts` sets the grid width. `top_k`, `capacity_factor`, `devices` re-point it. |
 | `update-spectrum` | Two bar groups side by side: a steeply-decaying baseline, and the same values pulled toward flat. **Raising the control flattens the right-hand group** — that direction is the primitive's contract, not a default. | `bars` sets the group width. `ns_steps`, `gate_temperature`, `d_ff` re-point it. |
-| `attention-heatmap` | A query × key grid, cell opacity proportional to attention weight; causal-masked, since every concept that needs it is decoder-side. | `tokens` sets the grid side. `heads`, `temperature` re-point it. |
+| `attention-heatmap` | A query × key grid, cell opacity proportional to attention weight. A masked cell is an outline, not a dark fill — "cannot see" and "looked and found nothing" are different claims. | `tokens` sets the rows. `keys` sets the columns (defaults to `tokens`; differ them for a rectangle). `lookahead` is how far ahead a query may read — **0 is the causal triangle, absent means unmasked**. `heads`, `decay`, `sink` re-point it. |
 | `loss-curve` | Loss against training step, plotted as a line on a `--nebula` grid. A second faint line where a comparison run is meaningful. | `steps` sets the x extent. `lr`, `warmup`, `batch` re-point it. |
 | `budget-split` | One stacked bar: a whole divided in two, solid violet against the same violet at 45%. **Raising the control raises the part's share**, saturating rather than marching to 100%. | The control names the part; `share_rest` is the fixed remainder **in the same units**. |
 
@@ -82,6 +82,13 @@ Two constraints on params that are easy to trip over:
   encoded `0`/`1`. That is deliberate — a param has to be draggable, and you cannot drag a
   string — but it means a primitive wanting a genuine mode switch is telling you it should
   be two primitives.
+
+  `attention-heatmap`'s `lookahead` is what the alternative looks like. Eight concepts needed
+  a causal triangle, a full square, and a rectangle from one primitive, and the obvious route
+  was a `causal` flag. Instead the param is *how many positions ahead a query may read*: `0`
+  draws the triangle, a large value draws the full grid, and every value between is a real
+  sliding window. Same three pictures, no mode, and a knob that means something everywhere
+  rather than at two points.
 - **The schema does not check that a primitive gets the params it needs.** `attention-heatmap`
   with only `{ "lr": 3 }` validates. Encoding per-primitive requirements as `if`/`then` would
   put the component's contract in the schema, where it would drift from the component the
