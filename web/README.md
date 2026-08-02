@@ -79,3 +79,44 @@ Verify against the deployed site rather than the config:
 curl -sI https://the-infinity-ai.web.app/c/mixture-of-experts | grep -i cache-control
 # public, max-age=0, must-revalidate
 ```
+
+## Calling the API
+
+`src/lib/api.ts` is the only place a request URL is built. No island concatenates one.
+
+```ts
+import { apiUrl } from '../lib/api';
+const res = await fetch(apiUrl(`/concepts/${id}/neighborhood`));
+```
+
+Note the argument is the path **after** the prefix. Routes mount at `/api/v1`, not `/v1`,
+because Firebase Hosting rewrites `/api/**` to Cloud Run *preserving the full path* — a
+client calling `/v1/...` works perfectly against the Cloud Run URL and 404s through the
+domain, which is a failure that appears only in production. Keeping the prefix in one
+module means it can be wrong once rather than at every call site. See ADR-0001.
+
+### `PUBLIC_API_ORIGIN`
+
+| Environment | Value | Why |
+|---|---|---|
+| Production | unset | Hosting rewrites `/api/**`, so every call is same-origin: no CORS, no preflight, no second DNS lookup |
+| `astro dev` | `http://localhost:8080` | There is no rewrite in dev, so the API has to be addressed directly |
+
+```zsh
+PUBLIC_API_ORIGIN=http://localhost:8080 npm run dev   # against a local `cd api && make run`
+```
+
+**A malformed value fails the build, not the browser.** `astro.config.ts` runs the same
+`normaliseOrigin` the client uses, at the moment the build starts:
+
+```
+PUBLIC_API_ORIGIN must be a bare origin with no path, query, or fragment, got "http://localhost:8080/api"
+```
+
+That last case is why the check is stricter than "is this a URL": a path there is silently
+concatenated with the prefix to give `/api/api/v1/stats`, which 404s in a way that reads
+like a routing bug in the API rather than a typo in a config.
+
+The config is `astro.config.ts` rather than `.mjs` precisely so it can import that function
+instead of restating the rule in JavaScript. Two copies of a validation rule are two copies
+free to disagree — the failure mode this repo has hit more than once.
