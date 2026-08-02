@@ -162,3 +162,36 @@ typed by the time they find out.
 over-long slugs all reach a 404 but cannot be concept ids, and treating them as missing
 concepts would mean asking the API a question it cannot answer and offering to add nonsense
 to the graph.
+
+## The mini-map is the one thing that waits
+
+Every other element on a concept page is complete at first paint. The mini-map refetches
+`GET /concepts/{id}/neighborhood` after hydration, and ADR-0003 is explicit that this is
+the point rather than a compromise: it is what makes *"the API is canonical, the static page
+is a build-time cache"* true instead of decorative. A page built last week and cached at the
+CDN shows last week's tier colours; its mini-map shows today's.
+
+Two deviations from the handoff, both deliberate:
+
+**No loading skeleton.** The handoff specifies one. We render the build-time map instead, so
+there is nothing to wait for and nothing to shimmer. The fetch either improves what is
+already on screen or changes nothing.
+
+**No error state.** A failed refetch is not a failure of the component — the map on screen
+is still correct as of the last deploy, and replacing it with an apology would be strictly
+worse. Offline, aborted, cold start, malformed response: all keep the build-time map.
+
+`isNeighborhood` guards the swap, and it carries the whole risk of the island. "The API
+returned 200" is not the same claim as "the API returned a neighbourhood", and swapping in a
+malformed payload would replace something correct with something broken.
+
+### JavaScript on a concept page
+
+```
+client.js (React runtime)  179.7 KB    shared by every island
+MiniMap                      2.2 KB
+DepthToggle                  1.1 KB
+```
+
+The runtime dominates, and it is the number #60's budget needs to hold. Adding this island
+cost 2.2 KB, because the concept page already shipped the runtime for the depth toggle.
