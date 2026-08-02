@@ -18,6 +18,7 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
+      "lr": 0.004,
       "warmup": 100
     },
     "param_controls": [

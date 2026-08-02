@@ -28,7 +28,7 @@
         "step": 100
       }
     ],
-    "caption": "Loss across a full pretraining run on a log axis. Drag the run length to see how little of the improvement arrives in the final stretch."
+    "caption": "Loss across a full pretraining run. Drag the run length to see how little of the improvement arrives in the final stretch."
   },
   "edges": {
     "requires": [
