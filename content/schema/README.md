@@ -29,7 +29,7 @@ primitive is choosing a shape, and the params re-point it.
 | Primitive | What it shows | Params it reads |
 |---|---|---|
 | `router-dispatch` | A grid of cells, one per routed unit, shaded by how strongly each is selected — solid = first choice, faint = second, outlined = not selected. A per-unit load row underneath. | `experts` sets the grid width. `top_k`, `capacity_factor`, `devices` re-point it. |
-| `update-spectrum` | Two bar groups side by side, 8 bars each: one distribution against another. The control morphs the second toward or away from the first. | `bars` sets the group width. `ns_steps`, `gate_temperature`, `d_model`/`d_ff` re-point it. |
+| `update-spectrum` | Two bar groups side by side: a steeply-decaying baseline, and the same values pulled toward flat. **Raising the control flattens the right-hand group** — that direction is the primitive's contract, not a default. | `bars` sets the group width. `ns_steps`, `gate_temperature`, `d_ff` re-point it. |
 | `attention-heatmap` | A query × key grid, cell opacity proportional to attention weight; causal-masked, since every concept that needs it is decoder-side. | `tokens` sets the grid side. `heads`, `temperature` re-point it. |
 | `loss-curve` | Loss against training step, plotted as a line on a `--nebula` grid. A second faint line where a comparison run is meaningful. | `steps` sets the x extent. `lr`, `warmup`, `batch` re-point it. |
 
@@ -50,6 +50,20 @@ distinguishes two.
 The rule it encodes is the one worth keeping: **no caption may describe a mark absent from
 the rendering it appears under.** Component-owned marks — a dashed cell, a bar — are
 explained by the primitive's own depth-scoped legend; the caption carries the concept.
+
+### A primitive's control has a direction, and a node has to agree with it
+
+`update-spectrum` flattens as its control rises. That is not an implementation detail a
+caption can ignore — it is half of what the picture says. `feed-forward-network` originally
+read *"drag d_ff to see how quickly the feed-forward layer comes to **dominate** the
+parameter budget"* while the rendering spread the distribution perfectly **even**: the
+caption and the picture claimed opposite things, and only one of them was on screen for the
+reader to check.
+
+Before pointing a node at a primitive, read the direction in the table above and ask which
+way this concept moves. A concept whose idea runs the other way needs a different primitive,
+**not an inverted flag** — a mode switch in the params would mean two primitives wearing one
+name, which is the thing the closed enum exists to prevent.
 
 Two constraints on params that are easy to trip over:
 

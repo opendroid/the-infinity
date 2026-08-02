@@ -15,7 +15,7 @@
     "primitive": "update-spectrum",
     "params": { "d_model": 512, "d_ff": 2048 },
     "param_controls": [{ "name": "d_ff", "min": 512, "max": 4096, "step": 512 }],
-    "caption": "Parameter share of the block as d_ff grows against a fixed d_model. Drag d_ff to see how quickly the feed-forward layer comes to dominate the parameter budget."
+    "caption": "The block's parameter mass across weight directions, at a narrow feed-forward layer and at the current one. Drag d_ff to watch a wider layer spread the same budget over more directions."
   },
   "edges": {
     "requires": [],

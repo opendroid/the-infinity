@@ -4,38 +4,46 @@
 //
 // This dispatches on `viz.primitive` to the component that implements it, and
 // falls back to a generic placeholder for the primitives that have not landed
-// yet. That default is load-bearing, not politeness: the schema's enum names
-// four primitives and only some of them are built (content/schema/README.md),
-// so a switch without a default would blank the island for any node using one
-// of the others. The enum keeps typos out; the default keeps honest names from
-// rendering nothing.
+// yet. That fallback is load-bearing, not politeness: the schema's enum names
+// four primitives and only some are built (content/schema/README.md), so a
+// dispatch without one would blank the island for any node using the others.
+// The enum keeps typos out; the fallback keeps honest names from rendering
+// nothing.
+//
+// IMPLEMENTED is written out rather than inferred so the fallback is a
+// deliberate list instead of an `else`. Shipping a primitive means adding its
+// name here — and forgetting to is a visible placeholder, not a blank box.
 import type { ResolvedNode } from '../lib/graph';
 import RouterDispatch from './viz/RouterDispatch';
+import UpdateSpectrum from './viz/UpdateSpectrum';
 
 interface Props { node: ResolvedNode }
 const { node } = Astro.props;
 const { viz } = node;
 
+const IMPLEMENTED = new Set(['router-dispatch', 'update-spectrum']);
+
+const shared = {
+  seed: node.id,
+  params: viz.params,
+  control: viz.param_controls[0],
+  caption: viz.caption,
+  captionEngineer: viz.caption_engineer,
+};
+
 const params = Object.entries(viz.params)
   .map(([k, v]) => `${k} = ${v}`)
   .join(' · ');
-const control = viz.param_controls[0];
 // Deterministic pseudo-bars: a placeholder shape, not a real simulation. The
-// remaining interactive primitives land as their own issues.
+// remaining primitives land as their own issues.
 const bars = Array.from({ length: 8 }, (_, i) => 30 + ((i * 37) % 70));
 ---
 
+{viz.primitive === 'router-dispatch' && <RouterDispatch client:load {...shared} />}
+{viz.primitive === 'update-spectrum' && <UpdateSpectrum client:load {...shared} />}
+
 {
-  viz.primitive === 'router-dispatch' ? (
-    <RouterDispatch
-      client:load
-      seed={node.id}
-      params={viz.params}
-      control={control}
-      caption={viz.caption}
-      captionEngineer={viz.caption_engineer}
-    />
-  ) : (
+  !IMPLEMENTED.has(viz.primitive) && (
     <figure class="rounded-island border border-line bg-void p-[22px]">
       <figcaption class="mb-3.5 flex flex-wrap justify-between gap-1.5 font-mono text-[10px] uppercase tracking-[.16em] text-dust">
         <span>Viz primitive · {viz.primitive}</span>
@@ -53,9 +61,9 @@ const bars = Array.from({ length: 8 }, (_, i) => 30 + ((i * 37) % 70));
       </div>
       <p class="mt-2.5 max-w-[58ch] text-[12.5px] text-dust">{viz.caption}</p>
       {
-        control && (
+        shared.control && (
           <p class="mt-2 font-mono text-[10px] uppercase tracking-[.14em] text-dust">
-            Draggable: {control.name} ({control.min}–{control.max})
+            Draggable: {shared.control.name} ({shared.control.min}–{shared.control.max})
           </p>
         )
       }
