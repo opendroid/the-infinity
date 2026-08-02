@@ -36,6 +36,19 @@ freezing. A pin far behind what `brew install golangci-lint` gives you today mak
 check` fail locally on code CI calls clean, and the gap only widens with each release.
 Bumping it is routine: run the new version, fix what it finds, move the pin.
 
+The two versions are coupled in one direction that is easy to trip over:
+
+```
+can't load config: the Go language version (go1.25) used to build golangci-lint
+is lower than the targeted Go version (1.26.0)
+```
+
+**`golangci-lint` must be built with a Go at least as new as the `go` directive in
+`go.mod`** — not merely able to run, built with. Official release binaries and Homebrew
+both track the current Go closely, so this is invisible until you install golangci-lint
+with `go install` on an older toolchain, which builds it with whatever you have. If you
+see that error, reinstall from a release rather than downgrading `go.mod`.
+
 ## Layout notes
 
 `router` is a separate package from `apihttp` so the dependency arrow points one way:
