@@ -1,0 +1,53 @@
+{
+  "id": "overfitting",
+  "title": "Overfitting",
+  "domain": [
+    "Optimization",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "A model that keeps improving on its training data while getting worse on everything else has stopped learning and started memorising. The gap between the two curves is the whole diagnostic, which is why nobody trains without holding some data back.",
+    "engineer": "Classically the fix is to stop where validation loss turns up. Large language models mostly do not get there — trained for a single pass over an enormous corpus, they are underfitted rather than overfitted, and the classical picture is further complicated by double descent, where test error falls again past the point where the old story says it should not.",
+    "math": "Training risk falls monotonically with capacity while test risk is U-shaped in the classical regime. Beyond the interpolation threshold test risk can fall a second time, which the bias-variance decomposition alone does not predict."
+  },
+  "emphasis": {
+    "intuition": "stopped learning and started memorising",
+    "engineer": "they are underfitted rather than overfitted"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "lr": 0.001
+    },
+    "param_controls": [
+      {
+        "name": "steps",
+        "min": 100,
+        "max": 5000,
+        "step": 100
+      }
+    ],
+    "caption": "Training loss against held-out loss over a run. Drag the length to find where the two curves stop agreeing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-function",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1912.02292",
+      "title": "Deep Double Descent: Where Bigger Models and More Data Hurt",
+      "url": "https://arxiv.org/abs/1912.02292"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

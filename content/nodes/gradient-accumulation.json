@@ -1,0 +1,53 @@
+{
+  "id": "gradient-accumulation",
+  "title": "Gradient Accumulation",
+  "domain": [
+    "Systems",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "Sometimes the batch size a run needs does not fit in memory. Gradient accumulation runs several smaller batches, adds their gradients together, and only then takes a step — the same update as one large batch, spread over several forward passes.",
+    "engineer": "Skip the optimizer step for k micro-batches and divide the accumulated gradient by k. It buys effective batch size at the cost of wall-clock, and is not free with normalization layers whose statistics are computed per micro-batch rather than over the whole effective batch.",
+    "math": "g = (1/k)Σ_{i=1..k} ∇L_{B_i}, then one step. Mathematically identical to a batch of size k|B| for the gradient, but not for anything computing batch statistics inside the forward pass."
+  },
+  "emphasis": {
+    "intuition": "the same update as one large batch",
+    "engineer": "is not free with normalization layers"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "microbatches": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "microbatches",
+        "min": 1,
+        "max": 32,
+        "step": 1
+      }
+    ],
+    "caption": "Share of memory the activations take against everything else held during a step. Drag the micro-batch count to watch peak memory fall while the step takes longer."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "batch-size",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.02677",
+      "title": "Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour",
+      "url": "https://arxiv.org/abs/1706.02677"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

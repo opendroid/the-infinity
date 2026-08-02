@@ -1,0 +1,53 @@
+{
+  "id": "stochastic-gradient-descent",
+  "title": "Stochastic Gradient Descent",
+  "domain": [
+    "Optimization",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "Computing the gradient over the whole dataset for every step is unaffordable. Stochastic gradient descent estimates it from a small random batch instead — noisier, but hundreds of times cheaper, so it takes many more steps in the same wall-clock time and gets further.",
+    "engineer": "Sample a minibatch, compute its gradient, step. The noise is not purely a cost: it helps escape sharp regions and is part of why these methods generalise. Batch size trades gradient quality against step count, and the useful range is bounded at the top by diminishing returns rather than by memory alone.",
+    "math": "θ_{t+1} = θ_t − η∇L_B(θ_t) for a batch B, with E[∇L_B] = ∇L and variance falling as 1/|B|. Halving noise therefore costs four times the batch, which is the shape of the diminishing return."
+  },
+  "emphasis": {
+    "intuition": "so it takes many more steps in the same wall-clock time",
+    "engineer": "The noise is not purely a cost"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "batch": 32
+    },
+    "param_controls": [
+      {
+        "name": "batch",
+        "min": 1,
+        "max": 512,
+        "step": 1
+      }
+    ],
+    "caption": "Loss over steps with gradient noise from a finite batch. Drag the batch size to watch the trajectory smooth out while each step costs more."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.02677",
+      "title": "Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour",
+      "url": "https://arxiv.org/abs/1706.02677"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

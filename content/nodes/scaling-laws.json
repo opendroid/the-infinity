@@ -1,0 +1,53 @@
+{
+  "id": "scaling-laws",
+  "title": "Scaling Laws",
+  "domain": [
+    "Optimization",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "Loss falls predictably as models, data and compute grow — smoothly, along a straight line on a log-log plot, over many orders of magnitude. That predictability is what makes it possible to justify a training run costing millions before it starts: the result can be extrapolated from small ones.",
+    "engineer": "Fit a power law in parameters, dataset size and compute; the exponents are small, so each factor of two in loss reduction costs far more than the last. The laws describe pretraining loss, not capability, and the relationship between the two is neither smooth nor predicted by them.",
+    "math": "L(N) ≈ (N_c/N)^α with α around 0.076 for parameters, and similar forms in data and compute. Each is measured with the other resources non-limiting, which is why the joint form matters more than any single curve."
+  },
+  "emphasis": {
+    "intuition": "the result can be extrapolated from small ones",
+    "engineer": "describe pretraining loss, not capability"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "params",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "caption": "Loss against training compute for one model size. Drag the parameter count to watch the whole curve shift down along the power law."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-function",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2001.08361",
+      "title": "Scaling Laws for Neural Language Models",
+      "url": "https://arxiv.org/abs/2001.08361"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

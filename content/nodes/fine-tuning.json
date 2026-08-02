@@ -1,0 +1,53 @@
+{
+  "id": "fine-tuning",
+  "title": "Fine-Tuning",
+  "domain": [
+    "Optimization",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "A pretrained model knows a great deal but will happily continue text rather than answer a question. Fine-tuning continues training on a much smaller, curated set to shape how it behaves — the knowledge is already there, and this is about which of it surfaces and in what form.",
+    "engineer": "Orders of magnitude less data and compute than pretraining, at a much lower learning rate, because large steps will overwrite what pretraining bought. Full fine-tuning updates every parameter and therefore needs the full optimizer state, which is what parameter-efficient methods exist to avoid.",
+    "math": "Continue optimising the same objective, or an instruction-shaped variant, from pretrained θ₀ with η typically 10–100× smaller. Catastrophic forgetting is the failure mode: the fine-tuning distribution is narrow, and nothing in the objective preserves what is outside it."
+  },
+  "emphasis": {
+    "intuition": "which of it surfaces and in what form",
+    "engineer": "overwrite what pretraining bought"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "tokens": 1,
+      "share_rest": 1000
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "caption": "Share of total training compute spent fine-tuning against pretraining. Drag the fine-tuning size to see how small it stays even when it dominates behaviour."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2109.01652",
+      "title": "Finetuned Language Models Are Zero-Shot Learners",
+      "url": "https://arxiv.org/abs/2109.01652"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

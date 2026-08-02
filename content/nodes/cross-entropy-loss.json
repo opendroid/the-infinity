@@ -1,0 +1,57 @@
+{
+  "id": "cross-entropy-loss",
+  "title": "Cross-Entropy Loss",
+  "domain": [
+    "Optimization",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "For a model that outputs a probability distribution, cross-entropy asks a simple question: how much probability did you put on the right answer? Put a lot and the loss is small; put almost none and it is enormous. It punishes confident mistakes far harder than uncertain ones.",
+    "engineer": "Negative log likelihood of the correct class under the predicted distribution. Paired with softmax it has an unusually clean gradient — predicted minus target — which is why the pair is ubiquitous and why implementations fuse them rather than composing them. Perplexity, the number usually reported for language models, is just its exponential.",
+    "math": "ℓ = −Σ_c y_c log p_c, which for a one-hot target reduces to −log p_correct. With p = softmax(z), ∂ℓ/∂z = p − y. Perplexity is exp(ℓ) averaged over tokens, so a loss of 2.0 is a perplexity of about 7.4."
+  },
+  "emphasis": {
+    "intuition": "punishes confident mistakes far harder than uncertain ones",
+    "engineer": "predicted minus target"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "confidence": 1.0,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "confidence",
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1
+      }
+    ],
+    "caption": "The predicted distribution against the target it is scored on. Drag confidence to watch the loss fall as probability concentrates on the right answer, and explode when it concentrates on the wrong one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-function",
+        "reviewed": false
+      },
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

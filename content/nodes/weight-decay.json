@@ -1,0 +1,53 @@
+{
+  "id": "weight-decay",
+  "title": "Weight Decay",
+  "domain": [
+    "Optimization",
+    "Regularization"
+  ],
+  "bodies": {
+    "intuition": "A model with enormous weights has usually memorised something rather than learned it. Weight decay pulls every parameter slightly toward zero on every step, so a weight has to keep earning its size. It is the simplest regulariser and often the only one a large model needs.",
+    "engineer": "Shrink each parameter by a fixed fraction per step. Added to the gradient it becomes L2 regularisation, which interacts badly with adaptive optimizers — the adaptive scaling divides the penalty differently per parameter, so the effective decay is not what was configured. Decoupling it from the gradient is what AdamW fixes.",
+    "math": "Coupled: g ← g + λθ, then the optimizer scales both together. Decoupled: θ ← θ − ηλθ applied separately from the gradient step. Under Adam the two differ because the adaptive denominator √v̂ divides the coupled penalty per-parameter and the decoupled one not at all."
+  },
+  "emphasis": {
+    "intuition": "a weight has to keep earning its size",
+    "engineer": "the effective decay is not what was configured"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "decay": 0.1,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "decay",
+        "min": 0,
+        "max": 0.5,
+        "step": 0.01
+      }
+    ],
+    "caption": "Weight magnitudes without decay and with it. Drag the coefficient to watch the largest weights pulled in hardest."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1711.05101",
+      "title": "Decoupled Weight Decay Regularization",
+      "url": "https://arxiv.org/abs/1711.05101"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "gradient-descent",
+  "title": "Gradient Descent",
+  "domain": [
+    "Optimization",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "The gradient points in the direction the loss increases fastest, so stepping the other way makes it smaller. Repeat a few hundred thousand times. That is the whole algorithm — the sophistication in modern training is entirely in how big the step is and how much of the previous steps it remembers.",
+    "engineer": "Subtract the gradient scaled by a learning rate. On a non-convex surface there is no guarantee of reaching a global minimum and in practice nobody needs one: the minima found by these methods generalise about equally well. Step size is the parameter that decides whether it converges, oscillates, or diverges.",
+    "math": "θ_{t+1} = θ_t − η∇L(θ_t). For L with L-Lipschitz gradients, convergence to a stationary point requires η < 2/L; above that the iterates diverge. The bound is unknowable in practice, which is why the learning rate is tuned rather than derived."
+  },
+  "emphasis": {
+    "intuition": "That is the whole algorithm",
+    "engineer": "whether it converges, oscillates, or diverges"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "lr": 0.001
+    },
+    "param_controls": [
+      {
+        "name": "lr",
+        "min": 0.0001,
+        "max": 0.01,
+        "step": 0.0001
+      }
+    ],
+    "caption": "Loss over steps at one learning rate. Drag it up to watch convergence accelerate and then break into oscillation."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "backpropagation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1502.05767",
+      "title": "Automatic differentiation in machine learning: a survey",
+      "url": "https://arxiv.org/abs/1502.05767"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

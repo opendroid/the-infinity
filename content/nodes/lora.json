@@ -1,0 +1,53 @@
+{
+  "id": "lora",
+  "title": "LoRA",
+  "domain": [
+    "Optimization",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Fine-tuning every parameter of a large model means storing a whole new model per task. LoRA freezes the original and learns a small low-rank correction beside it, so a task costs megabytes instead of gigabytes and the base model is shared across all of them.",
+    "engineer": "Represent the weight update as the product of two thin matrices and train only those. Optimizer state shrinks with the trainable count rather than the model size, which is the memory saving that matters. The adapters can be merged into the weights after training, so inference costs nothing extra.",
+    "math": "W = W₀ + BA with B ∈ ℝ^{d×r}, A ∈ ℝ^{r×k} and r ≪ min(d,k), giving r(d+k) trainable parameters against dk. At r = 8 on a 4096×4096 matrix that is 65k parameters instead of 16.8M."
+  },
+  "emphasis": {
+    "intuition": "a task costs megabytes instead of gigabytes",
+    "engineer": "the memory saving that matters"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "rank": 8,
+      "share_rest": 4096
+    },
+    "param_controls": [
+      {
+        "name": "rank",
+        "min": 1,
+        "max": 256,
+        "step": 1
+      }
+    ],
+    "caption": "Share of parameters that are trainable against the frozen base beside them. Drag the rank to watch the trainable slice stay a rounding error."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2106.09685",
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "url": "https://arxiv.org/abs/2106.09685"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

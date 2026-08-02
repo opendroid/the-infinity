@@ -1,0 +1,48 @@
+{
+  "id": "loss-function",
+  "title": "Loss Function",
+  "domain": [
+    "Optimization",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "Training needs a single number saying how wrong the model currently is. The loss function produces it. Everything else — gradients, updates, the entire training run — is machinery for pushing that number down, so the choice of what it measures is the choice of what the model becomes good at.",
+    "engineer": "Map a prediction and a target to a scalar, differentiable almost everywhere so a gradient exists. It is a proxy, not the goal: nobody wants low cross-entropy, they want a useful model, and the gap between the two is where most surprising training behaviour lives. Loss going down while the thing you care about stagnates is the normal case, not a bug.",
+    "math": "L(θ) = (1/N) Σ_i ℓ(f_θ(x_i), y_i) for a per-example loss ℓ. Training seeks argmin_θ L, but only the empirical L over the training set is observable; the quantity that matters is the expectation over the true distribution, which is never computed."
+  },
+  "emphasis": {
+    "intuition": "the choice of what the model becomes good at",
+    "engineer": "It is a proxy, not the goal"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "lr": 0.001
+    },
+    "param_controls": [
+      {
+        "name": "steps",
+        "min": 100,
+        "max": 5000,
+        "step": 100
+      }
+    ],
+    "caption": "Loss against training step, falling fast and then slowly. Drag the step count to see how much of the total improvement arrives in the first fraction of the run."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1502.05767",
+      "title": "Automatic differentiation in machine learning: a survey",
+      "url": "https://arxiv.org/abs/1502.05767"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

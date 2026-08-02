@@ -1,0 +1,53 @@
+{
+  "id": "momentum",
+  "title": "Momentum",
+  "domain": [
+    "Optimization",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "Plain gradient descent forgets everything between steps, so it zig-zags across narrow valleys instead of running along them. Momentum keeps a running average of recent gradients and steps in that direction, cancelling the oscillation and accumulating speed where the direction is consistent.",
+    "engineer": "Maintain a velocity buffer and update parameters with it rather than the raw gradient. It costs one extra tensor the size of the parameters and is the ancestor of every adaptive optimizer since. In transformer training it is rarely used alone, but the buffer it introduced is what Adam and its descendants build on.",
+    "math": "v_{t+1} = βv_t + ∇L(θ_t); θ_{t+1} = θ_t − ηv_{t+1}. With β = 0.9 the effective step is roughly 1/(1−β) = 10 times the gradient along a consistent direction, while oscillating components cancel in the average."
+  },
+  "emphasis": {
+    "intuition": "zig-zags across narrow valleys instead of running along them",
+    "engineer": "the buffer it introduced"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "beta": 0.9,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "beta",
+        "min": 0,
+        "max": 0.99,
+        "step": 0.01
+      }
+    ],
+    "caption": "Raw gradient magnitudes against the momentum-smoothed ones. Drag beta up to watch the noise average away and the consistent direction survive."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "stochastic-gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.02677",
+      "title": "Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour",
+      "url": "https://arxiv.org/abs/1706.02677"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

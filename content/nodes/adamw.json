@@ -1,0 +1,57 @@
+{
+  "id": "adamw",
+  "title": "AdamW",
+  "domain": [
+    "Optimization",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "AdamW is Adam with the weight decay applied separately from the gradient rather than folded into it. That sounds like a detail and is not: under Adam's per-parameter scaling, decay folded into the gradient gets divided differently for every parameter, so it does not do what was configured. Separating it makes the setting mean what it says.",
+    "engineer": "Apply the Adam update, then shrink the weights by η·λ·θ independently. The change is a few lines and it is the default for transformer training. Comparisons between papers that predate it and papers that do not are frequently not comparing the same regulariser at all.",
+    "math": "θ ← θ − η(m̂/(√v̂ + ε) + λθ) is the coupled form; θ ← θ − η·m̂/(√v̂ + ε) − ηλθ is decoupled. The λθ term escapes the adaptive denominator, so the decay applied is uniform across parameters rather than inversely scaled by gradient variance."
+  },
+  "emphasis": {
+    "intuition": "so it does not do what was configured",
+    "engineer": "not comparing the same regulariser at all"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "decay": 0.1,
+      "share_rest": 0.1
+    },
+    "param_controls": [
+      {
+        "name": "decay",
+        "min": 0.01,
+        "max": 1,
+        "step": 0.01
+      }
+    ],
+    "caption": "Share of each step coming from weight decay against the gradient beside it. Drag the coefficient to see how much of the update is regularisation."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "adam",
+        "reviewed": false
+      },
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1711.05101",
+      "title": "Decoupled Weight Decay Regularization",
+      "url": "https://arxiv.org/abs/1711.05101"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

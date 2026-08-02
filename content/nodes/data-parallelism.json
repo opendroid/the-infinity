@@ -1,0 +1,58 @@
+{
+  "id": "data-parallelism",
+  "title": "Data Parallelism",
+  "domain": [
+    "Systems",
+    "Distributed"
+  ],
+  "bodies": {
+    "intuition": "The simplest way to use many accelerators is to put a full copy of the model on each, give each a different slice of the batch, and average the gradients before stepping. Every copy stays identical, so the result is one large-batch update computed in parallel.",
+    "engineer": "An all-reduce of the gradients every step. It scales until the communication stops overlapping with computation, or until the effective batch passes the point where more examples stop helping. It also requires the whole model and its optimizer state to fit on one device, which is the constraint sharding exists to remove.",
+    "math": "Each of N workers computes ∇L_{B_i} over |B|/N examples; an all-reduce produces the mean. Communication per step is Θ(P) for P parameters regardless of N with ring all-reduce, so the cost is bandwidth-bound rather than worker-count-bound."
+  },
+  "emphasis": {
+    "intuition": "Every copy stays identical",
+    "engineer": "which is the constraint sharding exists to remove"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "workers": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "workers",
+        "min": 1,
+        "max": 64,
+        "step": 1
+      }
+    ],
+    "caption": "Share of step time spent communicating gradients against computing them. Drag the worker count to watch communication grow into the bottleneck."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "stochastic-gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "expert-parallelism",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2006.15704",
+      "title": "PyTorch Distributed: Experiences on Accelerating Data Parallel Training",
+      "url": "https://arxiv.org/abs/2006.15704"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}
