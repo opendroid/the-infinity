@@ -7,7 +7,11 @@ package store
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
 	"errors"
+	"strings"
 )
 
 // ErrNotFound is returned when a lookup finds nothing. Handlers match it with
@@ -100,19 +104,64 @@ type Provenance struct {
 	DraftedAt string `json:"drafted_at"`
 }
 
+// Edges is a struct rather than a map so the three groups always serialise,
+// and MarshalJSON emits [] rather than null for an absent group. openapi.yaml
+// marks all three required; a client doing edges.adjacent.map(...) would
+// otherwise crash on exactly the nodes the empty-state design exists for.
+type Edges struct {
+	Requires []Edge `json:"requires"`
+	Unlocks  []Edge `json:"unlocks"`
+	Adjacent []Edge `json:"adjacent"`
+}
+
+// MarshalJSON guarantees the shape regardless of what a store populated.
+func (e Edges) MarshalJSON() ([]byte, error) {
+	type wire struct {
+		Requires []Edge `json:"requires"`
+		Unlocks  []Edge `json:"unlocks"`
+		Adjacent []Edge `json:"adjacent"`
+	}
+	return json.Marshal(wire{
+		Requires: orEmpty(e.Requires),
+		Unlocks:  orEmpty(e.Unlocks),
+		Adjacent: orEmpty(e.Adjacent),
+	})
+}
+
+// Get returns the group for a type, so callers keep map-like access.
+func (e Edges) Get(t EdgeType) []Edge {
+	switch t {
+	case EdgeRequires:
+		return e.Requires
+	case EdgeUnlocks:
+		return e.Unlocks
+	case EdgeAdjacent:
+		return e.Adjacent
+	default:
+		return nil
+	}
+}
+
+func orEmpty(in []Edge) []Edge {
+	if in == nil {
+		return []Edge{}
+	}
+	return in
+}
+
 type Concept struct {
-	ID        string              `json:"id"`
-	Title     string              `json:"title"`
-	Domain    string              `json:"domain"`
-	Tier      Tier                `json:"tier"`
-	Bodies    Bodies              `json:"bodies"`
-	Emphasis  *Emphasis           `json:"emphasis,omitempty"`
-	Viz       Viz                 `json:"viz"`
-	Edges     map[EdgeType][]Edge `json:"edges"`
-	Citations []Citation          `json:"citations"`
-	Review    *Review             `json:"review"`
-	Prov      *Provenance         `json:"provenance"`
-	UpdatedAt string              `json:"updated_at"`
+	ID        string      `json:"id"`
+	Title     string      `json:"title"`
+	Domain    string      `json:"domain"`
+	Tier      Tier        `json:"tier"`
+	Bodies    Bodies      `json:"bodies"`
+	Emphasis  *Emphasis   `json:"emphasis,omitempty"`
+	Viz       Viz         `json:"viz"`
+	Edges     Edges       `json:"edges"`
+	Citations []Citation  `json:"citations"`
+	Review    *Review     `json:"review"`
+	Prov      *Provenance `json:"provenance"`
+	UpdatedAt string      `json:"updated_at"`
 }
 
 // NearestConcept is what a 404 offers instead of a dead end.
@@ -225,4 +274,52 @@ type Store interface {
 	// the bill: the in-process rate limiter resets on cold start and does not
 	// coordinate across instances, so it cannot.
 	ReserveWrite(ctx context.Context, day string, limit int64) (bool, error)
+}
+
+// TrailKey fingerprints a stop sequence.
+//
+// Both Fake and Firestore derive a trail's identity from this one function, so
+// they cannot disagree about what "the same walk" means. They previously did:
+// the fake keyed on the sequence while Firestore appended a random nonce to the
+// document id, so the idempotency openapi.yaml promises held in tests and would
+// have failed in production. Sharing the derivation makes that unrepresentable
+// rather than merely tested.
+func TrailKey(stops []NewTrailStop) string {
+	parts := make([]string, 0, len(stops))
+	for _, s := range stops {
+		parts = append(parts, s.ID+":"+string(s.DepthReadAt))
+	}
+	sum := sha256.Sum256([]byte(strings.Join(parts, "|")))
+	return hex.EncodeToString(sum[:4])
+}
+
+// TrailKeyOf fingerprints an already-built trail, for comparison against
+// TrailKey.
+func TrailKeyOf(t *Trail) string {
+	stops := make([]NewTrailStop, 0, len(t.Stops))
+	for _, s := range t.Stops {
+		stops = append(stops, NewTrailStop{ID: s.ID, DepthReadAt: s.DepthReadAt})
+	}
+	return TrailKey(stops)
+}
+
+// TrailSlug is the shareable id: readable endpoints plus the fingerprint, so
+// the same walk always lands on the same document.
+func TrailSlug(stops []NewTrailStop) string {
+	key := TrailKey(stops)
+	if len(stops) == 0 {
+		return "empty-" + key
+	}
+	first := truncateSlug(stops[0].ID, 20)
+	if len(stops) == 1 {
+		return first + "-" + key
+	}
+	return first + "-to-" + truncateSlug(stops[len(stops)-1].ID, 20) + "-" + key
+}
+
+func truncateSlug(s string, n int) string {
+	if len(s) > n {
+		s = s[:n]
+	}
+	return strings.Trim(s, "-")
 }

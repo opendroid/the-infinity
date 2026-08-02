@@ -56,9 +56,11 @@ func New(s store.Store, opts Options) http.Handler {
 		v1.Get("/concepts/{id}/neighborhood", c.Neighborhood)
 
 		// Stats is called on every landing-page view, which makes it the
-		// highest-volume path here and one Cloud Run invocation per visitor.
-		// It is limited for the same reason the write endpoints are.
-		v1.With(writes.Middleware).Get("/stats", c.Stats)
+		// highest-volume path here and one Cloud Run invocation per visitor —
+		// so it is shaped per-IP. It deliberately does NOT go through the write
+		// limiter: spending the daily write budget on page views would let
+		// ordinary traffic disable the contribution endpoints.
+		v1.With(writes.ReadMiddleware).Get("/stats", c.Stats)
 
 		v1.Get("/trails/{slug}", t.Get)
 

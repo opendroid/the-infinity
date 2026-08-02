@@ -70,6 +70,24 @@ func NewWriteLimiter(s store.Store, cfg ratelimit.Config, dailyCap int64, now fu
 	return &WriteLimiter{perIP: ratelimit.NewPerIP(cfg), store: s, dailyCap: dailyCap, now: now}
 }
 
+// ReadMiddleware applies ONLY the per-IP layer.
+//
+// Read endpoints must not spend the daily WRITE budget. GET /stats is called on
+// every landing-page view, so counting it against that budget meant roughly
+// DAILY_WRITE_CAP visitors a day would silently disable concept requests and
+// reviews for everyone — popular traffic taking out the contribution path,
+// which is exactly backwards. Per-IP shaping still bounds a single abusive
+// client without letting ordinary readers exhaust anything shared.
+func (l *WriteLimiter) ReadMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if !l.perIP.Allow(ratelimit.ClientIP(r)) {
+			WriteRateLimited(w, l.perIP.RetryAfter())
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
 // Middleware rejects a request that exceeds either layer.
 //
 // Order matters: the per-IP check is in-memory and free, so it absorbs the

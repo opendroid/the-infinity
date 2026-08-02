@@ -24,7 +24,7 @@ func seeded() *store.Fake {
 	f.Concepts["mixture-of-experts"] = &store.Concept{
 		ID: "mixture-of-experts", Title: "Mixture-of-Experts", Domain: "Architecture / Sparsity",
 		Tier: store.TierVerified, UpdatedAt: "2026-08-01",
-		Edges: map[store.EdgeType][]store.Edge{store.EdgeRequires: {{ID: "feed-forward-network"}}},
+		Edges: store.Edges{Requires: []store.Edge{{ID: "feed-forward-network", Title: "Feed-Forward Network"}}},
 	}
 	f.Concepts["muon-optimizer"] = &store.Concept{
 		ID: "muon-optimizer", Title: "Muon", Tier: store.TierFrontier, UpdatedAt: "2026-08-01",
@@ -393,5 +393,91 @@ func TestReadsAreNotBlockedByTheWriteCap(t *testing.T) {
 	rec := do(t, h, http.MethodGet, "/api/v1/concepts/mixture-of-experts", "")
 	if rec.Code != http.StatusOK {
 		t.Errorf("concept read = %d after the write cap was hit, want 200", rec.Code)
+	}
+}
+
+// Regression: GET /stats must not spend the daily WRITE budget.
+//
+// It briefly did. At the default cap, roughly 500 visitors a day would have
+// silently disabled concept requests and reviews for everyone — ordinary
+// traffic taking out the contribution path.
+func TestStatsDoesNotConsumeTheWriteBudget(t *testing.T) {
+	t.Parallel()
+
+	f := seeded()
+	h := newServer(t, f, router.Options{RateLimit: generous(), DailyCap: 3})
+
+	for i := range 5 {
+		if rec := do(t, h, http.MethodGet, "/api/v1/stats", ""); rec.Code != http.StatusOK {
+			t.Fatalf("stats view %d = %d, want 200", i+1, rec.Code)
+		}
+	}
+
+	rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"A Real Request"}`)
+	if rec.Code != http.StatusAccepted {
+		t.Errorf("a genuine write after 5 page views = %d, want 202 — reads are "+
+			"spending the write budget", rec.Code)
+	}
+}
+
+// Regression: openapi.yaml marks requires, unlocks and adjacent all required.
+// A map omitted absent groups, so a client doing edges.adjacent.map(...) would
+// crash on exactly the nodes the empty-state design exists for.
+func TestConceptAlwaysSerialisesAllThreeEdgeGroups(t *testing.T) {
+	t.Parallel()
+
+	f := store.NewFake()
+	f.Concepts["lonely"] = &store.Concept{ID: "lonely", Title: "Lonely", Tier: store.TierFrontier}
+	h := newServer(t, f, router.Options{})
+
+	rec := do(t, h, http.MethodGet, "/api/v1/concepts/lonely", "")
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200", rec.Code)
+	}
+
+	var body struct {
+		Edges map[string]json.RawMessage `json:"edges"`
+	}
+	if err := json.Unmarshal(rec.Body.Bytes(), &body); err != nil {
+		t.Fatalf("response is not JSON: %v", err)
+	}
+	for _, group := range []string{"requires", "unlocks", "adjacent"} {
+		raw, ok := body.Edges[group]
+		if !ok {
+			t.Errorf("edges.%s is missing — openapi marks it required", group)
+			continue
+		}
+		if string(raw) != "[]" {
+			t.Errorf("edges.%s = %s, want [] — a nil slice marshals as null", group, raw)
+		}
+	}
+}
+
+// Regression: the fake and Firestore must agree on what "the same walk" means.
+//
+// They did not: the fake keyed on the stop sequence while Firestore appended a
+// random nonce to the document id, so the idempotency openapi.yaml promises held
+// in tests and would have failed in production. Both now derive the slug from
+// store.TrailSlug, so a divergence would have to be introduced deliberately.
+func TestTrailSlugIsDeterministicAndShared(t *testing.T) {
+	t.Parallel()
+
+	walk := []store.NewTrailStop{
+		{ID: "feed-forward-network", DepthReadAt: store.DepthIntuition},
+		{ID: "mixture-of-experts", DepthReadAt: store.DepthEngineer},
+	}
+	other := []store.NewTrailStop{
+		{ID: "feed-forward-network", DepthReadAt: store.DepthEngineer},
+		{ID: "mixture-of-experts", DepthReadAt: store.DepthEngineer},
+	}
+
+	if a, b := store.TrailSlug(walk), store.TrailSlug(walk); a != b {
+		t.Errorf("the same walk produced two slugs: %q and %q", a, b)
+	}
+	if a, b := store.TrailSlug(walk), store.TrailSlug(other); a == b {
+		t.Errorf("walks differing only in depth collided on %q", a)
+	}
+	if got := store.TrailSlug(walk); !strings.Contains(got, "feed-forward-network") {
+		t.Errorf("slug %q is not human-readable", got)
 	}
 }

@@ -29,8 +29,6 @@ type Fake struct {
 
 	// Err, when set, is returned by every method — for exercising the 500 path.
 	Err error
-	// TrailSlug is the slug CreateTrail hands out, so tests stay deterministic.
-	TrailSlug string
 }
 
 func NewFake() *Fake {
@@ -39,7 +37,6 @@ func NewFake() *Fake {
 		Neighborhoods: map[string]*Neighborhood{},
 		Trails:        map[string]*Trail{},
 		Writes:        map[string]int64{},
-		TrailSlug:     "a-trail-0000",
 	}
 }
 
@@ -118,12 +115,10 @@ func (f *Fake) CreateTrail(_ context.Context, nt NewTrail) (*Trail, error) {
 		return nil, f.Err
 	}
 
-	// Idempotent on an identical stop sequence, matching the real store.
-	key := trailKey(nt)
-	for _, existing := range f.Trails {
-		if trailKeyOf(existing) == key {
-			return existing, nil
-		}
+	// Idempotent on an identical stop sequence. The key comes from the shared
+	// TrailKey so this cannot drift from the Firestore implementation.
+	if existing, ok := f.Trails[TrailSlug(nt.Stops)]; ok {
+		return existing, nil
 	}
 
 	stops := make([]TrailStop, 0, len(nt.Stops))
@@ -138,7 +133,7 @@ func (f *Fake) CreateTrail(_ context.Context, nt NewTrail) (*Trail, error) {
 	}
 
 	t := &Trail{
-		Slug:      f.TrailSlug,
+		Slug:      TrailSlug(nt.Stops),
 		Title:     trailTitle(stops),
 		CreatedAt: "2026-01-01",
 		DurationS: nt.DurationS,
@@ -182,22 +177,6 @@ func (f *Fake) ReserveWrite(_ context.Context, day string, limit int64) (bool, e
 	}
 	f.Writes[day]++
 	return true, nil
-}
-
-func trailKey(nt NewTrail) string {
-	parts := make([]string, 0, len(nt.Stops))
-	for _, s := range nt.Stops {
-		parts = append(parts, s.ID+":"+string(s.DepthReadAt))
-	}
-	return strings.Join(parts, "|")
-}
-
-func trailKeyOf(t *Trail) string {
-	parts := make([]string, 0, len(t.Stops))
-	for _, s := range t.Stops {
-		parts = append(parts, s.ID+":"+string(s.DepthReadAt))
-	}
-	return strings.Join(parts, "|")
 }
 
 // trailTitle is generated from the first and last stop; the page appends
