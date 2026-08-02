@@ -41,6 +41,38 @@ contains() {  # contains <haystack> <needle>
   [[ "$1" == *"$2"* ]]
 }
 
+# A service account is not usable in an IAM policy the moment it is created.
+# `service-accounts create` returns once the account exists in the IAM API; the
+# policy API learns about it seconds later, and until it does, the binding
+# that follows fails with
+#
+#   INVALID_ARGUMENT: Service account <sa> does not exist
+#
+# — which reads like the create silently failed, and did not.
+#
+# There is nothing useful to poll: `service-accounts describe` already succeeds
+# while the policy API is still rejecting the same address, so waiting on the
+# account proves nothing about the API that is actually behind. The only honest
+# response is to retry the binding itself and stay quiet until it settles.
+# Output is captured so six attempts do not print six gcloud error blocks; the
+# last one is printed if it never settles.
+settle() {   # settle <cmd...>
+  local attempt=1 delay=2 err
+  while true; do
+    if err="$("$@" 2>&1)"; then
+      return 0
+    fi
+    if (( attempt >= 6 )); then
+      printf '%s\n' "$err" >&2
+      return 1
+    fi
+    printf '  \033[90m·\033[0m IAM has not caught up yet; retrying in %ss\n' "$delay"
+    sleep "$delay"
+    attempt=$(( attempt + 1 ))
+    delay=$(( delay * 2 ))
+  done
+}
+
 command -v gcloud >/dev/null || { echo "gcloud not found: https://cloud.google.com/sdk/docs/install"; exit 1; }
 
 gcloud config set project "$PROJECT_ID" >/dev/null
@@ -79,19 +111,19 @@ for role in \
   roles/firebasehosting.admin \
   roles/serviceusage.serviceUsageConsumer
 do
-  gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  settle gcloud projects add-iam-policy-binding "$PROJECT_ID" \
     --member="serviceAccount:${SA_EMAIL}" \
     --role="$role" \
-    --condition=None >/dev/null
+    --condition=None
   ok "$role"
 done
 
 # `gcloud run deploy --service-account=api-runtime` is an act of impersonation:
 # without this the deploy fails with a permission error naming a service account
 # it never asked for, which is a genuinely confusing half hour.
-gcloud iam service-accounts add-iam-policy-binding "$RUNTIME_SA" \
+settle gcloud iam service-accounts add-iam-policy-binding "$RUNTIME_SA" \
   --member="serviceAccount:${SA_EMAIL}" \
-  --role="roles/iam.serviceAccountUser" >/dev/null
+  --role="roles/iam.serviceAccountUser"
 ok "may act as ${RUNTIME_SA}"
 
 # ── 4. Workload identity pool ────────────────────────────────────────────────
@@ -127,9 +159,9 @@ POOL_ID="projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POO
 # Scoped to the repository, not to the pool: any principal in the pool would
 # mean any GitHub repository the provider's condition lets in, and conditions
 # are easier to widen by accident than a binding is.
-gcloud iam service-accounts add-iam-policy-binding "$SA_EMAIL" \
+settle gcloud iam service-accounts add-iam-policy-binding "$SA_EMAIL" \
   --role="roles/iam.workloadIdentityUser" \
-  --member="principalSet://iam.googleapis.com/${POOL_ID}/attribute.repository/${REPO}" >/dev/null
+  --member="principalSet://iam.googleapis.com/${POOL_ID}/attribute.repository/${REPO}"
 ok "${REPO} may impersonate ${SA_NAME}"
 
 # ── 5. What to put in GitHub ─────────────────────────────────────────────────

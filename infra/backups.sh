@@ -45,6 +45,38 @@ bold() { printf '\n\033[1m%s\033[0m\n' "$*"; }
 ok()   { printf '  \033[32m✓\033[0m %s\n' "$*"; }
 skip() { printf '  \033[90m·\033[0m %s (already exists)\n' "$*"; }
 
+# A service account is not usable in an IAM policy the moment it is created.
+# `service-accounts create` returns once the account exists in the IAM API; the
+# policy API learns about it seconds later, and until it does, the binding
+# that follows fails with
+#
+#   INVALID_ARGUMENT: Service account <sa> does not exist
+#
+# — which reads like the create silently failed, and did not.
+#
+# There is nothing useful to poll: `service-accounts describe` already succeeds
+# while the policy API is still rejecting the same address, so waiting on the
+# account proves nothing about the API that is actually behind. The only honest
+# response is to retry the binding itself and stay quiet until it settles.
+# Output is captured so six attempts do not print six gcloud error blocks; the
+# last one is printed if it never settles.
+settle() {   # settle <cmd...>
+  local attempt=1 delay=2 err
+  while true; do
+    if err="$("$@" 2>&1)"; then
+      return 0
+    fi
+    if (( attempt >= 6 )); then
+      printf '%s\n' "$err" >&2
+      return 1
+    fi
+    printf '  \033[90m·\033[0m IAM has not caught up yet; retrying in %ss\n' "$delay"
+    sleep "$delay"
+    attempt=$(( attempt + 1 ))
+    delay=$(( delay * 2 ))
+  done
+}
+
 command -v gcloud >/dev/null || { echo "gcloud not found: https://cloud.google.com/sdk/docs/install"; exit 1; }
 
 # ── 1. API ───────────────────────────────────────────────────────────────────
@@ -93,18 +125,18 @@ fi
 
 # datastore.importExportAdmin is project-scoped — there is no narrower role for
 # triggering an export.
-gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+settle gcloud projects add-iam-policy-binding "$PROJECT_ID" \
   --member="serviceAccount:${SA_EMAIL}" \
   --role="roles/datastore.importExportAdmin" \
-  --condition=None >/dev/null
+  --condition=None
 ok "granted roles/datastore.importExportAdmin"
 
 # Storage access is granted on THE BUCKET, not the project, so this identity
 # cannot touch any other bucket.
-gcloud storage buckets add-iam-policy-binding "gs://${BUCKET}" \
+settle gcloud storage buckets add-iam-policy-binding "gs://${BUCKET}" \
   --member="serviceAccount:${SA_EMAIL}" \
   --role="roles/storage.admin" \
-  --project="$PROJECT_ID" >/dev/null
+  --project="$PROJECT_ID"
 ok "granted roles/storage.admin on gs://${BUCKET} only"
 
 # ── 4. Schedule ──────────────────────────────────────────────────────────────
