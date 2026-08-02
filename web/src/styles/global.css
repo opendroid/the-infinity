@@ -29,4 +29,45 @@
     outline: var(--focus-ring);
     outline-offset: 2px;
   }
+
+  /* The viz islands' parameter slider.
+   *
+   * `accent-color` alone is not enough: it tints the filled portion violet and
+   * leaves the browser to invent the rest, which renders as an olive track on
+   * this palette — a colour the handoff never sanctioned, sitting inside an
+   * island whose whole rule is that violet is the only data channel. So both
+   * halves are stated explicitly rather than half-delegated. */
+  input[type='range'] {
+    appearance: none;
+    background: transparent;
+  }
+
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-line);
+  }
+
+  input[type='range']::-moz-range-track {
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-line);
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    margin-top: -5px;
+    border-radius: 999px;
+    background: var(--color-thread);
+  }
+
+  input[type='range']::-moz-range-thumb {
+    width: 13px;
+    height: 13px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-thread);
+  }
 }
