@@ -32,10 +32,10 @@ PROJECT_ID=the-infinity-ai-2 ./infra/setup.sh
 
 ## Backups — `./infra/backups.sh`
 
-Run once, when trails start existing (M2). Re-runnable. Creates a regional bucket with
-90-day lifecycle, a dedicated service account, and a Cloud Scheduler job that calls the
-Firestore Admin API directly every Sunday — no Cloud Function, nothing to keep patched.
-Scheduler's free tier is 3 jobs/month, so it costs nothing to run.
+**Applied and verified 2026-08-02**, including a restore. Re-runnable. Creates a regional
+bucket with 90-day lifecycle, a dedicated service account, and a Cloud Scheduler job that
+calls the Firestore Admin API directly every Sunday — no Cloud Function, nothing to keep
+patched.
 
 **It backs up `trails`, `concept_requests`, and `concept_reviews` — not the concept
 graph.** Per ADR-0002 the graph lives in git and a re-publish restores it, while those
@@ -49,13 +49,82 @@ already stores for free.
 # trigger one immediately and confirm it lands
 gcloud scheduler jobs run firestore-weekly-export --location=us-west1 --project=the-infinity-ai
 gcloud storage ls gs://the-infinity-ai-firestore-backups
-
-# restore — destructive, overwrites live documents
-gcloud firestore import gs://the-infinity-ai-firestore-backups/<TIMESTAMP> --project=the-infinity-ai
 ```
+
+`jobs run` returns as soon as it *triggers* the job, not when the export finishes, so an
+`ls` on the next line can come back empty from a run that is about to succeed. Read the
+operation, not the bucket:
+
+```zsh
+gcloud firestore operations list --project=the-infinity-ai \
+  --format='table(metadata.operationState, metadata.startTime, metadata.progressDocuments.completedWork, metadata.outputUriPrefix)'
+```
+
+`COMPLETED_WORK` is the count of documents actually exported, and it is the only field that
+distinguishes a real backup from a successful export of nothing. Note that `--limit=1` does
+**not** return the newest operation — it returned the oldest here, which is a good way to
+convince yourself a run failed when it did not.
 
 An export of empty collections still writes a metadata object, so an empty listing after a
 run means the job **failed** — not that there was nothing to save.
+
+### Schedule: automated, not a reminder
+
+Sundays 09:00 `America/Los_Angeles`, via Cloud Scheduler. This was a choice between a cron
+job and a calendar reminder, and the deciding argument is that a reminder is a backup
+strategy that stops working the week you are busy — which correlates with the weeks worth
+backing up. Scheduler's free tier is 3 jobs per billing account per month, so the automated
+version is also the free one.
+
+### Restoring — rehearse into a scratch database, never into production
+
+`gcloud firestore import` restores a collection under **its original name**. There is no
+rename-on-import, so pointing it at `(default)` overwrites live documents. What makes a
+rehearsal safe is a separate database, not a separate collection:
+
+```zsh
+gcloud firestore databases create --database=restore-drill \
+  --location=us-west1 --type=firestore-native --project=the-infinity-ai
+
+gcloud firestore import gs://the-infinity-ai-firestore-backups/<TIMESTAMP> \
+  --database=restore-drill --project=the-infinity-ai
+
+# import is async — wait for SUCCESSFUL, then read the documents back
+gcloud firestore operations list --database=restore-drill --project=the-infinity-ai \
+  --format='table(metadata.operationState, metadata.progressDocuments.completedWork)'
+curl -s -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+  "https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/restore-drill/documents/trails"
+
+gcloud firestore databases delete --database=restore-drill --project=the-infinity-ai
+```
+
+Delete the scratch database afterwards: it reports `freeTier: false`, because the Firestore
+free tier applies to `(default)` only. A forgotten rehearsal database bills for its storage
+indefinitely.
+
+The real restore, when it is ever needed, is the same import without `--database`.
+
+### What the 2026-08-02 drill proved, and what it cost
+
+Three throwaway documents were written to `trails`, exported through the real scheduler job
+and the real `firestore-backup` identity, imported into a scratch database, and read back
+with their contents intact — then the documents, the scratch database, and both test
+exports were deleted. The test exports were removed rather than left to age out because an
+export containing `_drill-*` documents is a backup that quietly reintroduces junk the day
+someone uses it.
+
+That is the criterion worth caring about: an export that exists is not the same claim as an
+export that restores. The first attempt exported **zero** documents — the collections are
+empty until trails ship in M2 — and would have "passed" a restore test while proving
+nothing.
+
+**Cost of one run: $0.00.** An export is billed at document read rates plus GCS storage for
+what it writes; at three documents and a few KB it lands below the smallest billable unit
+and does not appear as a distinguishable line in the billing report. Scheduler is free at
+this volume. The number that will eventually matter is the document count, since one run
+costs one read per document in the three collections — so at 10,000 trails a weekly export
+is ~10,000 reads/week, still cents per year. Re-check this when trails reach five figures,
+not before.
 
 Delete protection on the database is handled by `setup.sh`, not here. Re-running `setup.sh`
 enables it on a database that already exists.
