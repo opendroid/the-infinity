@@ -9,27 +9,20 @@ import type { Tier } from '../lib/graph';
 
 const { concepts, grewThisWeek } = stats();
 
-// Lemniscate bead positions are a committed static layout (ADR-0003) — never a
-// force simulation at load. Verified nodes take the left lobe, frontier the
+// Bead positions come from the curve itself (src/lib/curve.ts), so they cannot
+// drift off the stroke. Verified nodes take the left lobe and frontier the
 // right, so the figure reads as "reviewed core → new growth".
-const LEFT = [
-  { x: 145, y: 72 },
-  { x: 104, y: 115 },
-  { x: 145, y: 158 },
-];
-const RIGHT = [
-  { x: 475, y: 72 },
-  { x: 516, y: 115 },
-  { x: 475, y: 158 },
-];
+//
+// Which concepts appear is a committed static layout (ADR-0003) — deterministic
+// from the content, never a force simulation at load.
+const lobe = (tier: Tier) =>
+  allNodes
+    .filter((n) => n.tier === tier)
+    .slice(0, 3)
+    .map((n) => ({ tier, label: n.title }));
 
-const verified = allNodes.filter((n) => n.tier === 'verified');
-const frontier = allNodes.filter((n) => n.tier === 'frontier');
-
-const beads = [
-  ...verified.slice(0, 3).map((n, i) => ({ ...LEFT[i]!, tier: 'verified' as Tier, label: n.id })),
-  ...frontier.slice(0, 3).map((n, i) => ({ ...RIGHT[i]!, tier: 'frontier' as Tier, label: n.id })),
-];
+const verified = lobe('verified');
+const frontier = lobe('frontier');
 
 const chips = allNodes.slice(0, 6);
 ---
@@ -40,7 +33,7 @@ const chips = allNodes.slice(0, 6);
 >
   <main class="hero-lift overflow-hidden px-10 pb-[52px] pt-14 text-center max-md:px-[22px] max-md:pb-10 max-md:pt-9">
     <div class="mx-auto max-w-[620px]">
-      <Thread variant="lemniscate" beads={beads} class="mx-auto mb-2" />
+      <Thread variant="lemniscate" primary={verified} secondary={frontier} class="mx-auto mb-2" />
 
       <h1 class="font-display text-[38px] font-extrabold tracking-[-.015em] max-md:text-[26px]">
         the<span class="text-thread">infinity</span>.ai
@@ -87,7 +80,7 @@ const chips = allNodes.slice(0, 6);
       </div>
 
       <p class="font-mono text-[12px] text-dust">
-        {concepts.toLocaleString()} concepts ·
+        {concepts.toLocaleString()} concepts &middot;{' '}
         <b class="font-semibold text-frontier">{grewThisWeek} grew on the frontier this week</b>
       </p>
     </div>

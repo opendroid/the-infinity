@@ -7,6 +7,6 @@ const { trailCount = 0 } = Astro.props;
     the<span class="text-thread">∞</span>.ai
   </a>
   <span class="font-mono text-[11px] text-dust">
-    trail · <b class:list={[trailCount > 0 ? 'text-thread' : 'text-dust']}>{trailCount} nodes</b>
+    trail · <b class:list={[trailCount > 0 ? 'text-thread' : 'text-dust']}>{trailCount} {trailCount === 1 ? 'node' : 'nodes'}</b>
   </span>
 </header>

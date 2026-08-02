@@ -1,54 +1,92 @@
 ---
-// The signature. One continuous line, tier-filled beads on it.
-// Every surface that shows the thread uses this component.
+// The signature. One continuous line with tier-filled beads ON it.
+//
+// Bead positions are computed from the same curve that draws the stroke
+// (src/lib/curve.ts) rather than authored alongside it — the first version kept
+// two hand-written lists in sync by hope, and they drifted by up to 7px.
 import type { Tier } from '../lib/graph';
-interface Bead { x: number; y: number; tier: Tier; label?: string; href?: string }
+import {
+  LEMNISCATE,
+  LEMNISCATE_CENTRE,
+  LEMNISCATE_LEFT,
+  LEMNISCATE_RIGHT,
+  TRAIL,
+  spread,
+  toPathD,
+} from '../lib/curve';
+
+interface Labelled {
+  tier: Tier;
+  label?: string;
+}
+
 interface Props {
   variant: 'lemniscate' | 'trail';
-  beads: Bead[];
+  /** Left lobe on the lemniscate; the whole thread on a trail. */
+  primary: Labelled[];
+  /** Right lobe. Lemniscate only. */
+  secondary?: Labelled[];
   class?: string;
 }
-const { variant, beads, class: cls = '' } = Astro.props;
 
-const LEMNISCATE =
-  'M310 115 C 310 50, 200 28, 145 72 C 90 115, 90 115, 145 158 C 200 202, 310 180, 310 115 ' +
-  'C 310 50, 420 28, 475 72 C 530 115, 530 115, 475 158 C 420 202, 310 180, 310 115 Z';
-const TRAIL = 'M20 60 C 140 20, 260 85, 380 50 C 500 15, 620 80, 760 45 C 860 20, 930 55, 980 35';
+const { variant, primary, secondary = [], class: cls = '' } = Astro.props;
 
-const viewBox = variant === 'lemniscate' ? '0 0 620 230' : '0 0 1000 90';
-const path = variant === 'lemniscate' ? LEMNISCATE : TRAIL;
-const fill = (t: Tier) => (t === 'verified' ? '#E5B54A' : '#5FD4C4');
+const isLemniscate = variant === 'lemniscate';
+const viewBox = isLemniscate ? '0 0 620 230' : '0 0 1000 90';
+
+const stroke = toPathD(isLemniscate ? LEMNISCATE : TRAIL);
+// The lemniscate carries a thicker, fainter pass over one lobe — it reads as
+// depth without introducing a second colour.
+const depthPass = isLemniscate ? toPathD(LEMNISCATE_LEFT) : null;
+
+const placed = isLemniscate
+  ? [
+      ...spread(LEMNISCATE_LEFT, primary.length).map((pt, i) => ({ ...pt, ...primary[i]! })),
+      ...spread(LEMNISCATE_RIGHT, secondary.length).map((pt, i) => ({ ...pt, ...secondary[i]! })),
+    ]
+  : spread(TRAIL, primary.length).map((pt, i) => ({ ...pt, ...primary[i]! }));
+
+const fill = (tier: Tier) => (tier === 'verified' ? '#E5B54A' : '#5FD4C4');
+
+// Labels sit clear of their bead: above when the bead is in the upper half,
+// below when it is in the lower. A fixed offset put text on top of the dot
+// whenever the bead sat high on the curve.
+const centreY = isLemniscate ? LEMNISCATE_CENTRE.y : 45;
+const labelDy = (y: number) => (y <= centreY ? -13 : 19);
+
+const lastIndex = placed.length - 1;
 ---
+
 <svg viewBox={viewBox} class:list={['h-auto w-full', cls]} fill="none" aria-hidden="true">
-  <path d={path} stroke="#8F7BFF" stroke-width={variant === 'lemniscate' ? '1.4' : '1.6'} opacity={variant === 'lemniscate' ? '.8' : '.75'} />
+  <path
+    d={stroke}
+    stroke="#8F7BFF"
+    stroke-width={isLemniscate ? '1.4' : '1.6'}
+    opacity={isLemniscate ? '.8' : '.75'}
+  />
+  {depthPass && <path d={depthPass} stroke="#8F7BFF" stroke-width="4" opacity=".2" />}
+
+  {isLemniscate && <circle cx={LEMNISCATE_CENTRE.x} cy={LEMNISCATE_CENTRE.y} r="7.5" fill="#8F7BFF" />}
+
   {
-    variant === 'lemniscate' && (
-      <path
-        d="M310 115 C 310 50, 200 28, 145 72 C 90 115, 90 115, 145 158 C 200 202, 310 180, 310 115"
-        stroke="#8F7BFF"
-        stroke-width="4"
-        opacity=".2"
-      />
-    )
-  }
-  {
-    beads.map((bead, i) => (
+    placed.map((bead, i) => (
       <circle
         cx={bead.x}
         cy={bead.y}
-        r={i === beads.length - 1 && variant === 'trail' ? 7 : 5.5}
+        r={!isLemniscate && i === lastIndex ? 7 : 5.5}
         fill={fill(bead.tier)}
         class:list={[bead.tier === 'frontier' ? `pulse pulse-${i % 3}` : '']}
       />
     ))
   }
+
   {
-    beads
-      .filter((b) => b.label)
+    placed
+      .filter((bead) => bead.label)
       .map((bead) => (
         <text
           x={bead.x}
-          y={bead.y - 14}
+          y={bead.y + labelDy(bead.y)}
           text-anchor="middle"
           fill="#8B91B3"
           font-family="JetBrains Mono"

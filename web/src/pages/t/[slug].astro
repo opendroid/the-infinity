@@ -28,13 +28,8 @@ const stops = sample.stops.map((stop, i) => {
   };
 });
 
-// Bead coordinates are computed from stop count, matching the thread path.
-const BEAD_Y = [60, 40, 48, 42, 50, 38, 44, 35];
-const beads = stops.map((stop, i) => ({
-  x: Math.round((1000 * (i + 1)) / (stops.length + 1)),
-  y: BEAD_Y[i % BEAD_Y.length]!,
-  tier: stop.tier as Tier,
-}));
+// Bead positions come from the trail curve itself, so they sit on the thread.
+const beads = stops.map((stop) => ({ tier: stop.tier as Tier }));
 
 const minutes = Math.round(sample.duration_s / 60);
 const last = stops[stops.length - 1];
@@ -57,7 +52,7 @@ const last = stops[stops.length - 1];
       Walked {sample.created_at}, ending on {last?.title}
     </p>
 
-    <Thread variant="trail" beads={beads} class="my-2 max-md:hidden" />
+    <Thread variant="trail" primary={beads} class="my-2 max-md:hidden" />
 
     <!-- Numbering is legitimate here and nowhere else: order IS the content. -->
     <ol class="mb-[26px] mt-[18px] list-none">
