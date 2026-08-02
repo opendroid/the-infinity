@@ -216,18 +216,32 @@ exist yet.*
 | Command | What it does |
 |---|---|
 | `./infra/setup.sh` | Create the GCP project, Firestore, Artifact Registry, runtime service account, and budget alerts. Re-runnable; stops at the two console steps. |
+| `cd web && npm install` | Install web dependencies (first run only) |
+| `cd web && npm run dev` | Astro dev server on `:4321`. Regenerates design tokens first. |
+| `cd web && npm run build` | Static build to `web/dist` |
+| `cd web && npm run typecheck` | `astro check` |
+| `cd web && npm run lint` | ESLint, zero warnings tolerated |
+| `cd web && npm test` | Vitest — graph derivation plus the node-shape invariants |
 | `cd api && go run ./cmd/server` | Run the API locally on `:8080` |
 | `cd api && go test ./...` | Table-driven tests |
-| `cd web && firebase deploy --only hosting` | Deploy the built site (nothing to deploy until Phase 1) |
+| `cd web && firebase deploy --only hosting` | Deploy the built site |
 
 Not yet:
 
 | Command | Arrives |
 |---|---|
-| `npm run dev` / `build` / `lint` / `typecheck` in `/web` | Phase 1 |
-| `npm run validate:content` — nodes against the schema | Phase 2 |
+| `npm run validate:content` — nodes against `node.schema.json` | Phase 2 |
 | `make run` / `test` / `lint` / `docker-build` in `/api` | Phase 3 |
 | CI workflows | Phase 4 |
+
+**The Tailwind theme is generated, not written.** `web/scripts/generate-tokens.mjs` reads
+[`tokens.json`](docs/design/handoff-v1/tokens.json) and emits `src/styles/tokens.generated.css`,
+which is gitignored so committed source cannot drift from the handoff. It runs from
+`prebuild`, `dev`, and `typecheck`. No hex value belongs in hand-written source.
+
+**Content loads from `/content` via `node:fs`, resolved from `process.cwd()`** — not from
+`import.meta.url`, which points at the bundled chunk during `astro build` and fails only
+there, never in dev.
 
 **Deploying the API** is `gcloud run deploy` with flags that matter — see
 [`/infra/README.md`](infra/README.md). Two are load-bearing: `--service-account`, without
