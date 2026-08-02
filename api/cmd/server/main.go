@@ -81,6 +81,10 @@ func run(logger *slog.Logger) error {
 	dailyCap := int64OrDefault("DAILY_WRITE_CAP", apihttp.DefaultDailyWriteCap)
 	rl := ratelimit.DefaultConfig()
 	rl.PerMinute = floatOrDefault("RATE_LIMIT_PER_MINUTE", rl.PerMinute)
+	// Zero is a legitimate value here — it means "trust the last entry", which is
+	// correct when nothing fronts the service — so this cannot use the
+	// positive-only helpers above.
+	rl.TrustedProxyHops = hopsOrDefault("TRUSTED_PROXY_HOPS", rl.TrustedProxyHops)
 
 	handler := router.New(store.NewFirestore(client), router.Options{
 		RateLimit: rl,
@@ -138,6 +142,22 @@ func int64OrDefault(key string, fallback int64) int64 {
 	}
 	n, err := strconv.ParseInt(v, 10, 64)
 	if err != nil || n <= 0 {
+		slog.Warn("ignoring invalid value", slog.String("key", key), slog.String("value", v))
+		return fallback
+	}
+	return n
+}
+
+// hopsOrDefault parses a non-negative count. Unlike the other helpers, zero is
+// meaningful rather than missing: it says the last X-Forwarded-For entry is the
+// caller, which is true for a service nothing fronts.
+func hopsOrDefault(key string, fallback int) int {
+	v := os.Getenv(key)
+	if v == "" {
+		return fallback
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil || n < 0 {
 		slog.Warn("ignoring invalid value", slog.String("key", key), slog.String("value", v))
 		return fallback
 	}

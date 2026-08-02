@@ -56,17 +56,21 @@ func ok() http.Handler {
 // does ClientIP pick — to be re-derived by whoever reads the log.
 func TestProbeLogsTheChainAndTheDerivedAddress(t *testing.T) {
 	buf := capture(t)
-	serve(t, apihttp.XFFProbe(ok()), "1.1.1.1, 203.0.113.7")
+	// The chain shape observed through Firebase Hosting: caller first, Google's
+	// edge appended last.
+	serve(t, apihttp.XFFProbe(ok()), "203.0.113.7, 74.125.209.39")
 
 	got := lines(buf)
 	if len(got) != 1 {
 		t.Fatalf("got %d log lines, want 1", len(got))
 	}
 	for field, want := range map[string]string{
-		"xff":         "1.1.1.1, 203.0.113.7",
+		"xff":         "203.0.113.7, 74.125.209.39",
 		"remote_addr": "10.0.0.1:443",
-		"client_ip":   "203.0.113.7",
-		"path":        "/api/v1/stats",
+		// The caller, not the edge — the probe reports what the limiter keys on,
+		// so this tracks ClientIP's semantics rather than restating them.
+		"client_ip": "203.0.113.7",
+		"path":      "/api/v1/stats",
 	} {
 		if got[0][field] != want {
 			t.Errorf("%s = %v, want %q", field, got[0][field], want)

@@ -46,7 +46,7 @@ func XFFProbe(next http.Handler) http.Handler {
 				slog.String("remote_addr", r.RemoteAddr),
 				// What ratelimit.ClientIP returns today. If this is Google's edge
 				// rather than the caller, every visitor keys into one bucket.
-				slog.String("client_ip", ratelimit.ClientIP(r)),
+				slog.String("client_ip", ratelimit.ClientIP(r, ratelimit.DefaultTrustedProxyHops)),
 				slog.String("path", r.URL.Path),
 				slog.Int64("n", n))
 		}
