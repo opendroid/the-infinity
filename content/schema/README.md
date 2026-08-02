@@ -32,6 +32,7 @@ primitive is choosing a shape, and the params re-point it.
 | `update-spectrum` | Two bar groups side by side: a steeply-decaying baseline, and the same values pulled toward flat. **Raising the control flattens the right-hand group** — that direction is the primitive's contract, not a default. | `bars` sets the group width. `ns_steps`, `gate_temperature`, `d_ff` re-point it. |
 | `attention-heatmap` | A query × key grid, cell opacity proportional to attention weight; causal-masked, since every concept that needs it is decoder-side. | `tokens` sets the grid side. `heads`, `temperature` re-point it. |
 | `loss-curve` | Loss against training step, plotted as a line on a `--nebula` grid. A second faint line where a comparison run is meaningful. | `steps` sets the x extent. `lr`, `warmup`, `batch` re-point it. |
+| `budget-split` | One stacked bar: a whole divided in two, solid violet against the same violet at 45%. **Raising the control raises the part's share**, saturating rather than marching to 100%. | The control names the part; `share_rest` is the fixed remainder **in the same units**. |
 
 ### `caption_engineer` — optional, and only where the picture actually changes
 
@@ -64,6 +65,16 @@ Before pointing a node at a primitive, read the direction in the table above and
 way this concept moves. A concept whose idea runs the other way needs a different primitive,
 **not an inverted flag** — a mode switch in the params would mean two primitives wearing one
 name, which is the thing the closed enum exists to prevent.
+
+`share_rest` is the one param an author has to *derive* rather than read off the concept, so
+here is the worked example. `feed-forward-network` sets it to `1024`, which is `2 · d_model`
+— a transformer block's attention costs about `4·d_model²` in projections and its
+feed-forward layer about `2·d_model·d_ff`, so cancelling `2·d_model` leaves the share as
+`d_ff / (d_ff + 2·d_model)`. At the conventional `d_ff = 4·d_model` that is `4/6`, which is
+where the engineer body's "roughly two thirds" comes from. **Nothing validates that
+`share_rest` still matches `d_model` if `d_model` changes** — no validator can know the
+relationship. Keeping the arithmetic in the content rather than the component is the trade
+([ADR-0007](../../docs/adr/0007-budget-split-primitive.md)).
 
 Two constraints on params that are easy to trip over:
 

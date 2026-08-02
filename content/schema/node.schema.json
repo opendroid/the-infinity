@@ -62,7 +62,7 @@
         "primitive": {
           "type": "string",
           "description": "Names an implemented viz primitive — a reusable visual shape, not a per-concept drawing. A typo here would render an empty island, so the set is closed and grows only as primitives land. What each one shows, and which params it reads, is documented in content/schema/README.md.",
-          "enum": ["router-dispatch", "update-spectrum", "attention-heatmap", "loss-curve"]
+          "enum": ["router-dispatch", "update-spectrum", "attention-heatmap", "loss-curve", "budget-split"]
         },
         "params": {
           "type": "object",

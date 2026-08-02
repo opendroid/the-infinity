@@ -16,12 +16,13 @@
 import type { ResolvedNode } from '../lib/graph';
 import RouterDispatch from './viz/RouterDispatch';
 import UpdateSpectrum from './viz/UpdateSpectrum';
+import BudgetSplit from './viz/BudgetSplit';
 
 interface Props { node: ResolvedNode }
 const { node } = Astro.props;
 const { viz } = node;
 
-const IMPLEMENTED = new Set(['router-dispatch', 'update-spectrum']);
+const IMPLEMENTED = new Set(['router-dispatch', 'update-spectrum', 'budget-split']);
 
 const shared = {
   seed: node.id,
@@ -41,6 +42,7 @@ const bars = Array.from({ length: 8 }, (_, i) => 30 + ((i * 37) % 70));
 
 {viz.primitive === 'router-dispatch' && <RouterDispatch client:load {...shared} />}
 {viz.primitive === 'update-spectrum' && <UpdateSpectrum client:load {...shared} />}
+{viz.primitive === 'budget-split' && <BudgetSplit client:load {...shared} />}
 
 {
   !IMPLEMENTED.has(viz.primitive) && (

@@ -36,6 +36,7 @@ point.
 | [0004](0004-runtime-collections.md) | Runtime collections — the state git does not own | **accepted** — written after the code |
 | [0005](0005-depth-coupled-viz.md) | The depth toggle publishes depth; the viz reads it | **accepted** |
 | [0006](0006-per-depth-captions.md) | Per-depth divergence in content is an optional override | **accepted** |
+| [0007](0007-budget-split-primitive.md) | A fourth shape: one whole divided in two | **accepted** |
 
 ## Planned
 
