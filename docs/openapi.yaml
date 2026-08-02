@@ -95,6 +95,7 @@ paths:
                   param_controls:
                     - { name: top_k, min: 1, max: 4, step: 1 }
                   caption: Solid cells are each token's first-choice expert…
+                  caption_engineer: 'Same primitive, engineer depth: per-expert utilisation…'
                 edges:
                   requires:
                     - { id: feed-forward-network, title: Feed-Forward Network, tier: verified, reviewed: true }
@@ -500,6 +501,13 @@ components:
                   max: { type: number }
                   step: { type: number }
             caption: { type: string }
+            caption_engineer:
+              type: string
+              description: >-
+                Replaces `caption` at the Engineer depth, for a primitive whose Engineer
+                rendering is a different picture. Absent means `caption` serves every
+                depth. Optional — most concepts omit it.
+              example: 'Same primitive, engineer depth: per-expert utilisation across the batch…'
         edges:
           type: object
           required: [requires, unlocks, adjacent]

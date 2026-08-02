@@ -33,6 +33,24 @@ primitive is choosing a shape, and the params re-point it.
 | `attention-heatmap` | A query × key grid, cell opacity proportional to attention weight; causal-masked, since every concept that needs it is decoder-side. | `tokens` sets the grid side. `heads`, `temperature` re-point it. |
 | `loss-curve` | Loss against training step, plotted as a line on a `--nebula` grid. A second faint line where a comparison run is meaningful. | `steps` sets the x extent. `lr`, `warmup`, `batch` re-point it. |
 
+### `caption_engineer` — optional, and only where the picture actually changes
+
+A primitive may render differently per depth ([ADR-0005](../../docs/adr/0005-depth-coupled-viz.md)):
+`router-dispatch` is a token × expert grid at Intuition and per-expert utilisation bars at
+Engineer. One caption cannot describe both — *"solid cells are each token's first-choice
+expert"* names marks that do not exist in the bars.
+
+So `viz.caption_engineer` replaces `viz.caption` at the Engineer depth, and **is omitted by
+every node whose primitive draws one thing.** Three of the five committed nodes have no use
+for it. That is why it is an optional sibling rather than `caption: {intuition, engineer,
+math}`: mirroring `bodies` would have made every author write three captions to solve a
+problem two nodes have, and would have modelled three depths when the rendering mechanism
+distinguishes two.
+
+The rule it encodes is the one worth keeping: **no caption may describe a mark absent from
+the rendering it appears under.** Component-owned marks — a dashed cell, a bar — are
+explained by the primitive's own depth-scoped legend; the caption carries the concept.
+
 Two constraints on params that are easy to trip over:
 
 - **Params are numbers only** (`additionalProperties: { type: number }`), so a flag has to be

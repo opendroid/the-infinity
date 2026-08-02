@@ -86,7 +86,13 @@
             }
           }
         },
-        "caption": { "type": "string", "minLength": 10, "maxLength": 320 }
+        "caption": { "type": "string", "minLength": 10, "maxLength": 320 },
+        "caption_engineer": {
+          "type": "string",
+          "description": "Replaces `caption` at the Engineer depth, for a primitive whose Engineer rendering is a different picture (ADR-0005). Optional: omit it and `caption` is shown at every depth, which is right whenever the primitive draws one thing.",
+          "minLength": 10,
+          "maxLength": 320
+        }
       }
     },
 

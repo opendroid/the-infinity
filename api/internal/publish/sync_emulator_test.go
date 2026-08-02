@@ -230,8 +230,13 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 		},
 		{name: "concept.bodies", doc: concepts.Doc(id), at: "bodies",
 			want: []string{"engineer", "intuition", "math"}},
+		// caption_engineer carries no `omitempty` on its firestore tag, so it is
+		// stored — as "" — even for the nodes that do not author one. That is
+		// deliberate: the stored shape stays the same for every concept, and the
+		// "absent means use the default" distinction is made at the JSON edge,
+		// where clients read it, rather than in the document layout.
 		{name: "concept.viz", doc: concepts.Doc(id), at: "viz",
-			want: []string{"caption", "param_controls", "params", "primitive"}},
+			want: []string{"caption", "caption_engineer", "param_controls", "params", "primitive"}},
 		{name: "concept.edges", doc: concepts.Doc(id), at: "edges",
 			want: []string{"adjacent", "requires", "unlocks"}},
 		{name: "concept.edges.unlocks[]", doc: concepts.Doc(id), at: "edges.unlocks.[]",

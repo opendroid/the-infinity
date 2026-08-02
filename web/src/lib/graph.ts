@@ -43,6 +43,8 @@ export interface AuthoredNode {
     params: Record<string, number>;
     param_controls: { name: string; min: number; max: number; step: number }[];
     caption: string;
+    /** Replaces `caption` at the Engineer depth. Absent means "use `caption`" (ADR-0005). */
+    caption_engineer?: string;
   };
   edges: { requires: AuthoredEdge[]; adjacent: AuthoredEdge[] };
   citations: Citation[];

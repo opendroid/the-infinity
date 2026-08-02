@@ -35,7 +35,8 @@ navigating between concept pages after hydration.
     "param_controls": [
       { "name": "top_k", "min": 1, "max": 4, "step": 1 }
     ],
-    "caption": "Solid = first choice, faint = second…"
+    "caption": "Solid = first choice, faint = second…",
+    "caption_engineer": "Same primitive, engineer depth: per-expert utilisation over a batch…"
   },
   "edges": {
     "requires":  [{ "id": "feed-forward-network", "title": "Feed-Forward Network", "tier": "verified", "reviewed": true }],

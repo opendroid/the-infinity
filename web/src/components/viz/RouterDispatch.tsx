@@ -30,6 +30,8 @@ interface Props {
   params: Record<string, number>;
   control?: Control | undefined;
   caption: string;
+  /** Shown instead of `caption` at Engineer depth. Absent means the one caption serves both. */
+  captionEngineer?: string | undefined;
 }
 
 /** Trailing zeros make a mono row of numbers noisy; 1.25 and 8 should both read cleanly. */
@@ -52,7 +54,13 @@ function read(params: Record<string, number>): RouterParams {
   };
 }
 
-export default function RouterDispatch({ seed, params, control, caption }: Props) {
+export default function RouterDispatch({
+  seed,
+  params,
+  control,
+  caption,
+  captionEngineer,
+}: Props) {
   const [value, setValue] = useState<number>(
     control ? (params[control.name] ?? control.min) : 0,
   );
@@ -169,7 +177,25 @@ export default function RouterDispatch({ seed, params, control, caption }: Props
         <p className="sr-only">{summary}</p>
       </div>
 
-      <p className="mt-4 max-w-[58ch] text-[12.5px] leading-[1.6] text-dust">{caption}</p>
+      {/*
+        The caption is depth-scoped for the same reason the renderings and the
+        legends are (#94). A node that authors only `caption` gets one <p> with
+        no depth class, shown at every depth — the override is for a primitive
+        whose Engineer depth is genuinely a different picture, not a tax on
+        every node.
+      */}
+      {captionEngineer ? (
+        <>
+          <p className="depth-default mt-4 max-w-[58ch] text-[12.5px] leading-[1.6] text-dust">
+            {caption}
+          </p>
+          <p className="depth-engineer mt-4 max-w-[58ch] text-[12.5px] leading-[1.6] text-dust">
+            {captionEngineer}
+          </p>
+        </>
+      ) : (
+        <p className="mt-4 max-w-[58ch] text-[12.5px] leading-[1.6] text-dust">{caption}</p>
+      )}
 
       {/*
         Not carried by colour alone: dropped cells are dashed AND named here,

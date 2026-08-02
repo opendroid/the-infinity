@@ -16,7 +16,8 @@
     "primitive": "router-dispatch",
     "params": { "experts": 8, "top_k": 2, "capacity_factor": 1.25 },
     "param_controls": [{ "name": "top_k", "min": 1, "max": 4, "step": 1 }],
-    "caption": "Solid cells are each token's first-choice expert, faint cells its second. Outlined experts stay asleep for this batch. Drag top-k to watch compute rise as more experts wake."
+    "caption": "Solid cells are each token's first-choice expert, faint cells its second. Outlined experts stay asleep for this batch. Drag top-k to watch compute rise as more experts wake.",
+    "caption_engineer": "Same primitive, engineer depth: per-expert utilisation across the batch. Experts near capacity sit beside experts that idle — the imbalance the auxiliary loss is paid to fix. Drag top-k to watch load balance and FLOPs move together."
   },
   "edges": {
     "requires": [

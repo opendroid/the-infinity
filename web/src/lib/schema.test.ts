@@ -74,6 +74,18 @@ describe('node.schema.json accepts', () => {
     });
   }
 
+  it('an engineer caption override', () => {
+    const node = valid();
+    Object.assign(node.viz, { caption_engineer: 'What the engineer depth draws instead.' });
+    expect(validate(node)).toBe(true);
+  });
+
+  it('no engineer caption at all — the override is optional', () => {
+    // The common case: a primitive that draws one thing at every depth pays
+    // nothing for the fact that another primitive draws two.
+    expect(validate(valid())).toBe(true);
+  });
+
   it('exactly these primitives and no others', () => {
     // Pins the enum to the list above, so adding a primitive to the schema
     // without deciding what it shows fails here rather than at a reader.
@@ -101,6 +113,10 @@ describe('node.schema.json rejects', () => {
     { name: 'an empty citations array', mutate: (n) => Object.assign(n, { citations: [] }) },
     { name: 'a non-https citation url', mutate: (n) => Object.assign(n, { citations: [{ ref: 'r', title: 't', url: 'http://insecure.example' }] }) },
     { name: 'an unknown viz primitive', mutate: (n) => Object.assign(n.viz, { primitive: 'not-implemented' }) },
+    // A blank override would render an empty caption at engineer depth, which
+    // is the failure this field exists to prevent, arriving by another door.
+    { name: 'an empty engineer caption', mutate: (n) => Object.assign(n.viz, { caption_engineer: '' }) },
+    { name: 'a per-depth caption object, which is not the shape chosen', mutate: (n) => Object.assign(n.viz, { caption: { intuition: 'x', engineer: 'y' } }) },
     { name: 'two draggable viz parameters', mutate: (n) => n.viz.param_controls.push({ name: 'other', min: 0, max: 1, step: 1 }) },
     { name: 'an edge without a reviewed flag', mutate: (n) => n.edges.requires.push({ id: 'x' } as never) },
     { name: 'a missing depth body', mutate: (n) => delete (n.bodies as { math?: string }).math },
