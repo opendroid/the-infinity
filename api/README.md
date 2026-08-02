@@ -66,15 +66,15 @@ work perfectly against the Cloud Run URL and 404 through the domain — a failur
 appears after the first Hosting deploy. See [ADR-0001](../docs/adr/0001-infrastructure.md).
 
 `GET /healthz` sits at the service root, outside the mount. Since only `/api/**` is
-rewritten it is reachable on the Cloud Run URL but **not** through the public domain —
-the right exposure for an operational endpoint, and why it is absent from the OpenAPI spec.
+rewritten it is unreachable through the public domain — the right exposure for an
+operational endpoint, and why it is absent from the OpenAPI spec. It answers "is the
+process up", not "is the whole system well": it deliberately does not touch Firestore, so
+a database outage does not pull instances out of rotation.
 
-```
-GET /healthz  →  200  {"status":"ok"}
-```
-
-It answers "is the process up", not "is the whole system well": it deliberately does not
-touch Firestore, so a database outage does not pull instances out of rotation.
+**It does not currently work.** On the Cloud Run URL it returns Google's 404 page, and the
+Cloud Run request log has no entry for it — the request never reaches the container, while
+`/nope` from the same session does and returns this service's structured 404. Tracked in
+#75.
 
 ## Rate limiting
 
@@ -89,14 +89,29 @@ called on every landing-page view. Two layers, because neither is enough alone:
 The per-IP check runs first so it absorbs the cheap rejections. **A rejected request
 performs no writes at all.**
 
-Client IP comes from `X-Forwarded-For`, specifically its **last** entry — Cloud Run appends
-the real caller, so earlier entries are attacker-controlled. `RemoteAddr` behind Hosting is
-the load balancer, so limiting on it would throttle every client as one.
+Client IP comes from `X-Forwarded-For`, counting back **`TRUSTED_PROXY_HOPS` entries from
+the right** — one by default. Measured, not assumed. A real request through the domain
+arrives as:
+
+```
+X-Forwarded-For: 2600:6c52:…:702e, 74.125.209.39
+RemoteAddr:      169.254.169.126:55758
+```
+
+The caller is first; `74.125.209.39` is Google's edge, appended last; `RemoteAddr` is a
+link-local sandbox address identical on every request. Taking the last entry — as this
+service originally did — keyed every visitor onto Google's edge, which at `DefaultConfig()`
+means roughly the fourth request per minute *across all users* returns 429. Site-wide, from
+a rate limiter working exactly as written. See #29.
+
+Counting from the right is still what makes it unforgeable: each hop appends the peer it
+received from, so a client's own header is prepended and cannot reach the trusted position.
+Only the count was wrong.
 
 The IP map is LRU-bounded. Without that, a spray of distinct source addresses would make
 the rate limiter the memory exhaustion it exists to prevent.
 
-Tunable by environment variable: `DAILY_WRITE_CAP`, `RATE_LIMIT_PER_MINUTE`.
+Tunable by environment variable: `DAILY_WRITE_CAP`, `RATE_LIMIT_PER_MINUTE`, `TRUSTED_PROXY_HOPS`.
 
 ## Storage
 
@@ -160,21 +175,14 @@ Two things the first deploy turned up:
 ## The `X-Forwarded-For` probe is temporary
 
 `apihttp.XFFProbe` logs the raw forwarding chain, the socket address, and the address
-`ratelimit.ClientIP` derives from them, for the first 50 requests an instance serves.
-
-It exists because `ClientIP` takes the **last** `X-Forwarded-For` entry, which is right
-for exactly one appending hop. Production is Firebase Hosting → Cloud Run, and if Google's
-edge appends after the client then the entry we trust is infrastructure — every visitor
-keys into one bucket and roughly the fourth request per minute across all users gets a
-429, site-wide. The question is not answerable by reasoning, and it cannot be reproduced
-against the `*.run.app` URL, because what Hosting adds is the whole question.
-
-Read it after a request through the public domain:
+`ratelimit.ClientIP` derives, for the first 50 requests an instance serves. It answered
+#29 — the chain is recorded above — and is kept only until that issue closes, so a future
+change to the serving path can be re-measured rather than re-argued.
 
 ```zsh
 gcloud logging read 'jsonPayload.msg="xff probe"' --project the-infinity-ai --limit 5 \
-  --format='value(jsonPayload.xff, jsonPayload.remote_addr, jsonPayload.client_ip)'
+  --freshness=1h --format='value(jsonPayload.xff, jsonPayload.remote_addr, jsonPayload.client_ip)'
 ```
 
-Compare the entries against your own address (`curl ifconfig.me`). **Delete this middleware
-and its file when #29 closes.**
+Log ingestion lags by a few seconds; an empty result immediately after a request means too
+early, not broken. **Delete this middleware and its file when #29 closes.**

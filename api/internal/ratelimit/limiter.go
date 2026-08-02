@@ -39,13 +39,18 @@ type Config struct {
 	// source addresses grows the map without limit — the rate limiter becomes
 	// the memory exhaustion it was added to prevent.
 	MaxClients int
+	// TrustedProxyHops is how many trailing X-Forwarded-For entries belong to
+	// infrastructure. Getting this wrong in either direction is severe: too few
+	// keys every visitor onto the proxy and throttles the world as one, too many
+	// keys onto an entry the caller controls and shapes nobody.
+	TrustedProxyHops int
 }
 
 // DefaultConfig is deliberately generous for a human and useless for a script:
 // nobody fills the request form six times a minute, and a loop hits the wall
 // immediately.
 func DefaultConfig() Config {
-	return Config{PerMinute: 6, Burst: 3, MaxClients: 4096}
+	return Config{PerMinute: 6, Burst: 3, MaxClients: 4096, TrustedProxyHops: DefaultTrustedProxyHops}
 }
 
 type entry struct {
@@ -135,21 +140,63 @@ func (p *PerIP) RetryAfter() int {
 	return int(60.0/p.cfg.PerMinute) + 1
 }
 
-// ClientIP extracts the caller's address.
+// DefaultTrustedProxyHops is how many trailing X-Forwarded-For entries belong to
+// infrastructure rather than to a caller, measured rather than assumed.
 //
-// Behind Firebase Hosting and Cloud Run, RemoteAddr is the load balancer, so
-// limiting on it would throttle every client on the planet as one. Cloud Run
-// appends the real caller to X-Forwarded-For; the LAST entry is the one it
-// added, and earlier entries are attacker-controlled.
-func ClientIP(r *http.Request) string {
+// A real request through https://the-infinity-ai.web.app arrives as:
+//
+//	X-Forwarded-For: 2600:6c52:…:702e, 74.125.209.39
+//	RemoteAddr:      169.254.169.126:55758
+//
+// The caller is FIRST; 74.125.209.39 is Google's edge, appended last. So exactly
+// one trailing entry is ours to discard. Override with TRUSTED_PROXY_HOPS if the
+// path ever changes — a load balancer in front of Hosting would add another.
+const DefaultTrustedProxyHops = 1
+
+// ClientIP extracts the caller's address, skipping hops trailing proxy entries.
+//
+// RemoteAddr is useless here: behind Cloud Run it is a link-local sandbox address
+// (169.254.169.126), identical for every request, so limiting on it would throttle
+// the world as one.
+//
+// Counting from the RIGHT is what makes this unforgeable, and that part of the
+// original reasoning was sound — each hop appends the peer it received from, so a
+// client that sends its own X-Forwarded-For gets it PREPENDED and cannot push
+// itself into a trusted position. What the original got wrong was the count: it
+// took the last entry, which through Hosting is Google's edge, collapsing every
+// visitor into one bucket. At DefaultConfig that is roughly the fourth request
+// per minute across all users returning 429 — site-wide, from a rate limiter
+// working exactly as written.
+//
+// hops below zero is treated as zero. A negative value would index past the end
+// and silently key on nothing.
+func ClientIP(r *http.Request, hops int) string {
+	if hops < 0 {
+		hops = 0
+	}
+
 	if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
 		parts := strings.Split(xff, ",")
-		for i := len(parts) - 1; i >= 0; i-- {
+
+		// Walk left from the first untrusted position. Empty entries are skipped
+		// rather than counted, so a stray comma cannot shift the window.
+		for i := len(parts) - 1 - hops; i >= 0; i-- {
 			if ip := strings.TrimSpace(parts[i]); ip != "" {
 				return ip
 			}
 		}
+
+		// The chain is shorter than the hop count — a direct hit on the Cloud Run
+		// URL rather than a request through Hosting. Fall back to the leftmost
+		// entry: it is client-controlled and therefore weak, but weak beats
+		// keying on the proxy, which is the outage this function exists to avoid.
+		for _, p := range parts {
+			if ip := strings.TrimSpace(p); ip != "" {
+				return ip
+			}
+		}
 	}
+
 	if host, _, err := net.SplitHostPort(r.RemoteAddr); err == nil {
 		return host
 	}

@@ -56,15 +56,19 @@ func LimitBody(next http.Handler) http.Handler {
 // exactly that failure in place.
 type PerIPLimiter struct {
 	perIP *ratelimit.PerIP
+	// hops is carried per limiter rather than read from a package-level global,
+	// so a test can construct one that keys on a different position without
+	// mutating state every other test shares.
+	hops int
 }
 
 func NewPerIPLimiter(cfg ratelimit.Config) *PerIPLimiter {
-	return &PerIPLimiter{perIP: ratelimit.NewPerIP(cfg)}
+	return &PerIPLimiter{perIP: ratelimit.NewPerIP(cfg), hops: cfg.TrustedProxyHops}
 }
 
 func (l *PerIPLimiter) Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if !l.perIP.Allow(ratelimit.ClientIP(r)) {
+		if !l.perIP.Allow(ratelimit.ClientIP(r, l.hops)) {
 			WriteRateLimited(w, l.perIP.RetryAfter())
 			return
 		}
