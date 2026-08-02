@@ -55,3 +55,27 @@ interaction state, written at runtime and never authored in git.
 
 Search overlay, 404 / request page, OG cards, the real interactive viz primitives, and any
 API call. Each is its own issue.
+
+## Cache headers and clean URLs
+
+`firebase.json` sets `cleanUrls: true`, and Astro's `directory` build format emits
+`dist/c/<id>/index.html`. So a concept page is *requested* at `/c/<id>` — a path with no
+`.html` in it.
+
+Header `source` globs match **the request path, not the file on disk**. That makes
+`**/*.@(html)` useless for these routes: it matches neither the clean URL nor the
+directory form, and Firebase's default `max-age=3600` applies instead. The first deploy
+shipped exactly that, and a concept page was cached for an hour when it was meant to
+revalidate (#72).
+
+**Adding a top-level route means adding a header entry.** The routes are enumerated —
+`/`, `/c/**`, `/t/**` — rather than matched by a single clever glob, because none of them
+overlaps `/_astro/**` and the result therefore does not depend on how Firebase resolves
+two rules matching one request. A search or changelog route needs its own line.
+
+Verify against the deployed site rather than the config:
+
+```zsh
+curl -sI https://the-infinity-ai.web.app/c/mixture-of-experts | grep -i cache-control
+# public, max-age=0, must-revalidate
+```
