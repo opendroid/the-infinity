@@ -137,3 +137,28 @@ nothing reports.
 
 The removal is a verified step in #65 and #66 rather than a note here, because forgetting it
 is silent: the site works perfectly and is simply never found.
+
+## The 404 is a product surface
+
+The graph never dead-ends (CLAUDE.md §1), so `/c/<unknown>` is a page rather than an error.
+
+One pre-rendered `404.html` serves every unmatched path, which means the slug a reader typed
+is **unknowable at build time**. So the page splits:
+
+| | |
+|---|---|
+| Static | broken-thread SVG, `Gap in the graph`, the heading, and a link back into the graph |
+| Island | the slug, the nearest concepts (`GET /concepts/{id}` — its 404 body already carries them), and the request form |
+
+Everything in the island is an improvement on a page that already works. A reader with no
+JavaScript still learns the graph has a gap and gets somewhere to go.
+
+**The form is rendered only after hydration, deliberately.** It posts JSON, so it cannot
+work without JavaScript, and putting it in the static HTML would place a button on the page
+that silently does nothing — worse than not offering it, because the reader has already
+typed by the time they find out.
+
+`slugFromPath` is stricter than "the path starts with `/c/`". Uppercase, spaces, `..`, and
+over-long slugs all reach a 404 but cannot be concept ids, and treating them as missing
+concepts would mean asking the API a question it cannot answer and offering to add nonsense
+to the graph.
