@@ -20,10 +20,16 @@ import (
 
 // Options configures the router. The zero value is production-shaped; tests
 // override Now and the limits.
+//
+// Reads and writes are named separately rather than sharing one RateLimit field.
+// One field made it possible — and then actual — to shape reads with the
+// allowance tuned for form submissions, which is not a mistake a reviewer can
+// see: the call sites looked identical because they were.
 type Options struct {
-	RateLimit ratelimit.Config
-	DailyCap  int64
-	Now       func() time.Time
+	ReadLimit  ratelimit.Config
+	WriteLimit ratelimit.Config
+	DailyCap   int64
+	Now        func() time.Time
 }
 
 // New builds the whole surface.
@@ -37,8 +43,11 @@ type Options struct {
 // it is reachable on the Cloud Run URL but not through the public domain, which
 // is the right exposure for an operational endpoint.
 func New(s store.Store, opts Options) http.Handler {
-	if opts.RateLimit.PerMinute == 0 {
-		opts.RateLimit = ratelimit.DefaultConfig()
+	if opts.ReadLimit.PerMinute == 0 {
+		opts.ReadLimit = ratelimit.DefaultReadConfig()
+	}
+	if opts.WriteLimit.PerMinute == 0 {
+		opts.WriteLimit = ratelimit.DefaultConfig()
 	}
 
 	budget := apihttp.NewWriteLimiter(s, opts.DailyCap, opts.Now)
@@ -46,10 +55,12 @@ func New(s store.Store, opts Options) http.Handler {
 	t := trails.New(s, budget)
 	q := queues.New(s, budget)
 
-	// Reads and writes get separate buckets. Sharing one meant a visitor's own
-	// page views drained the allowance tuned for form submissions.
-	reads := apihttp.NewPerIPLimiter(opts.RateLimit)
-	writeShaping := apihttp.NewPerIPLimiter(opts.RateLimit)
+	// Separate buckets AND separate rates. Separating the buckets alone — as an
+	// earlier fix did — left every read shaped by the write allowance, so a
+	// visitor's own page views still throttled them: three requests, then one
+	// every ten seconds.
+	reads := apihttp.NewPerIPLimiter(opts.ReadLimit)
+	writeShaping := apihttp.NewPerIPLimiter(opts.WriteLimit)
 
 	r := chi.NewRouter()
 	r.Use(apihttp.Recoverer, apihttp.Timeout)

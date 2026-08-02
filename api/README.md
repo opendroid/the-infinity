@@ -78,8 +78,9 @@ Cloud Run request log has no entry for it — the request never reaches the cont
 
 ## Rate limiting
 
-`POST /requests` and `POST /reviews` are unauthenticated public writes, and `GET /stats` is
-called on every landing-page view. Two layers, because neither is enough alone:
+`POST /requests` and `POST /reviews` are unauthenticated public writes, and every read is an
+unauthenticated Firestore read plus a Cloud Run invocation. Two layers, because neither is
+enough alone:
 
 | Layer | Bounds | What it covers for |
 |---|---|---|
@@ -88,6 +89,21 @@ called on every landing-page view. Two layers, because neither is enough alone:
 
 The per-IP check runs first so it absorbs the cheap rejections. **A rejected request
 performs no writes at all.**
+
+**Reads and writes have separate buckets AND separate rates.** Separating the buckets alone
+is half a fix, and shipped as one: both drew on `DefaultConfig` — 6/min, burst 3, sized for
+"nobody fills the request form six times a minute". Applied to reads that is three requests
+and then one every ten seconds, so a visitor who opened the landing page and two concepts
+got a 429 on their next click and watched the mini-map silently vanish. The product
+punishing someone for using it.
+
+| | Rate | Why |
+|---|---|---|
+| Reads | 60/min, burst 20 | A read is something a browser does on a visitor's behalf, not something they chose. Covers brisk clicking with room to spare; one address still tops out near 86k Firestore reads a day, a few cents. |
+| Writes | 6/min, burst 3 | A write is deliberate. A script hits the wall immediately. |
+
+Scraping the *content* never reaches here — the pages are pre-rendered on the CDN — so the
+read limit shapes mini-map refetches and island calls, not the graph itself.
 
 Client IP comes from `X-Forwarded-For`, counting back **`TRUSTED_PROXY_HOPS` entries from
 the right** — one by default. Measured, not assumed. A real request through the domain
@@ -111,7 +127,8 @@ Only the count was wrong.
 The IP map is LRU-bounded. Without that, a spray of distinct source addresses would make
 the rate limiter the memory exhaustion it exists to prevent.
 
-Tunable by environment variable: `DAILY_WRITE_CAP`, `RATE_LIMIT_PER_MINUTE`, `TRUSTED_PROXY_HOPS`.
+Tunable by environment variable: `DAILY_WRITE_CAP`, `RATE_LIMIT_PER_MINUTE`,
+`READ_RATE_LIMIT_PER_MINUTE`, `TRUSTED_PROXY_HOPS`.
 
 ## Storage
 
