@@ -7,7 +7,7 @@ import Topbar from '../../components/Topbar.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import TierBadge from '../../components/TierBadge.astro';
 import EdgeGroup from '../../components/EdgeGroup.astro';
-import MiniMap from '../../components/MiniMap.astro';
+import MiniMap from '../../components/MiniMap';
 import VizIsland from '../../components/VizIsland.astro';
 import TrailRibbon from '../../components/TrailRibbon.astro';
 import DepthToggle from '../../components/DepthToggle';
@@ -103,7 +103,7 @@ const trail = [node];
       <EdgeGroup type="requires" edges={node.edges.requires} />
       <EdgeGroup type="unlocks" edges={node.edges.unlocks} />
       <EdgeGroup type="adjacent" edges={node.edges.adjacent} />
-      <MiniMap data={map} />
+      <MiniMap id={node.id} initial={map} client:idle />
     </aside>
   </div>
 
