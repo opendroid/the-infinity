@@ -2,9 +2,7 @@ package store
 
 import (
 	"context"
-	"errors"
 	"fmt"
-	"strings"
 	"time"
 
 	"cloud.google.com/go/firestore"
@@ -68,15 +66,15 @@ func (f *Firestore) Concept(ctx context.Context, id string) (*Concept, error) {
 // so the page is not a dead end, not to be a search engine — real search ships
 // as a static index (ADR-0003).
 func (f *Firestore) Nearest(ctx context.Context, id string, limit int) ([]NearestConcept, error) {
-	prefix := id
-	if i := strings.Index(id, "-"); i > 0 {
-		prefix = id[:i]
-	}
+	prefix := ConceptPrefix(id)
 
+	// Fetch one extra: self-exclusion happens below, and limiting in the query
+	// would silently return limit-1 suggestions whenever the queried id exists.
 	docs, err := f.client.Collection(collConcepts).
+		Select("id", "title", "tier").
 		Where("id", ">=", prefix).
 		Where("id", "<", prefix+prefixUpperBound).
-		Limit(limit).
+		Limit(limit + 1).
 		Documents(ctx).GetAll()
 	if err != nil {
 		return nil, fmt.Errorf("finding concepts near %s: %w", id, err)
@@ -92,6 +90,9 @@ func (f *Firestore) Nearest(ctx context.Context, id string, limit int) ([]Neares
 			continue
 		}
 		out = append(out, NearestConcept{ID: c.ID, Title: c.Title, Tier: c.Tier})
+		if len(out) == limit {
+			break
+		}
 	}
 	return out, nil
 }
@@ -139,6 +140,24 @@ func (f *Firestore) Trail(ctx context.Context, slug string) (*Trail, error) {
 }
 
 func (f *Firestore) CreateTrail(ctx context.Context, nt NewTrail) (*Trail, error) {
+	// The slug needs only the request body, so check for an existing trail
+	// before resolving anything. Resolving first made a retry — the exact case
+	// idempotency exists for — pay N document reads to return a cached result,
+	// and made the fake and Firestore disagree when a stop's concept had since
+	// been removed.
+	slug := TrailSlug(nt.Stops)
+	ref := f.client.Collection(collTrails).Doc(slug)
+
+	if existing, err := ref.Get(ctx); err == nil {
+		var t Trail
+		if err := existing.DataTo(&t); err != nil {
+			return nil, fmt.Errorf("decoding existing trail %s: %w", slug, err)
+		}
+		return &t, nil
+	} else if status.Code(err) != codes.NotFound {
+		return nil, fmt.Errorf("checking for existing trail %s: %w", slug, err)
+	}
+
 	stops := make([]TrailStop, 0, len(nt.Stops))
 	for i, s := range nt.Stops {
 		c, err := f.Concept(ctx, s.ID)
@@ -148,23 +167,6 @@ func (f *Firestore) CreateTrail(ctx context.Context, nt NewTrail) (*Trail, error
 		stops = append(stops, TrailStop{
 			N: i + 1, ID: c.ID, Title: c.Title, Tier: c.Tier, DepthReadAt: s.DepthReadAt,
 		})
-	}
-
-	// Idempotent on the stop sequence: the fingerprint IS part of the document
-	// id, so a client retrying after a dropped response reuses the same trail
-	// instead of littering. Derived by the shared TrailSlug, so this cannot
-	// drift from the fake — it previously did, appending a random nonce here
-	// while the fake keyed on the sequence.
-	slug := TrailSlug(nt.Stops)
-	ref := f.client.Collection(collTrails).Doc(slug)
-
-	if existing, err := ref.Get(ctx); err == nil {
-		var t Trail
-		if err := existing.DataTo(&t); err == nil {
-			return &t, nil
-		}
-	} else if status.Code(err) != codes.NotFound {
-		return nil, fmt.Errorf("checking for existing trail %s: %w", slug, err)
 	}
 
 	t := Trail{
@@ -222,10 +224,21 @@ func (f *Firestore) ReserveWrite(ctx context.Context, day string, limit int64) (
 		doc, err := tx.Get(ref)
 		switch {
 		case err == nil:
-			if v, err := doc.DataAt("count"); err == nil {
-				if n, ok := v.(int64); ok {
-					count = n
-				}
+			v, err := doc.DataAt("count")
+			if err != nil {
+				return fmt.Errorf("reading count from write counter for %s: %w", day, err)
+			}
+			// A counter of an unexpected type must fail the request, not silently
+			// read as zero — that would leave the cap permanently disabled with
+			// no signal. Firestore returns whole numbers as int64, but an export,
+			// a console edit, or a restore can produce a float.
+			switch n := v.(type) {
+			case int64:
+				count = n
+			case float64:
+				count = int64(n)
+			default:
+				return fmt.Errorf("write counter for %s has type %T, want a number", day, v)
 			}
 		case status.Code(err) == codes.NotFound:
 			count = 0
@@ -247,7 +260,3 @@ func (f *Firestore) ReserveWrite(ctx context.Context, day string, limit int64) (
 }
 
 var _ Store = (*Firestore)(nil)
-
-// ErrNoClient is returned by the constructor when Firestore is unreachable at
-// startup, so main can fail loudly rather than serving 500s.
-var ErrNoClient = errors.New("no firestore client")

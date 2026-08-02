@@ -1,9 +1,12 @@
-// Package apihttp holds the router, the structured error responses, and the
-// middleware every route shares.
+// Package apihttp holds the structured error responses, the request decoder,
+// and the middleware every route shares. The router lives in internal/router so
+// the dependency arrow points one way.
 package apihttp
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -84,4 +87,34 @@ func WriteRateLimited(w http.ResponseWriter, retryAfter int) {
 func WriteInternal(w http.ResponseWriter, err error, op string) {
 	slog.Error("request failed", slog.String("op", op), slog.Any("error", err))
 	WriteError(w, http.StatusInternalServerError, CodeInternal, "Unexpected error.")
+}
+
+// DecodeJSON reads a JSON body, distinguishing an oversized body from malformed
+// JSON so the client learns which mistake it made.
+//
+// Lives here, beside MaxBodyBytes, because it is the other half of LimitBody:
+// the middleware creates the condition and this interprets it. It was
+// previously duplicated byte-for-byte in two handler packages, each carrying
+// its own hand-typed copy of the size limit.
+//
+// Returns false when it has already written a response.
+func DecodeJSON(w http.ResponseWriter, r *http.Request, dst any) bool {
+	dec := json.NewDecoder(r.Body)
+	dec.DisallowUnknownFields()
+
+	if err := dec.Decode(dst); err != nil {
+		var maxErr *http.MaxBytesError
+		if errors.As(err, &maxErr) {
+			WriteError(w, http.StatusRequestEntityTooLarge, CodePayloadTooLarge,
+				fmt.Sprintf("Request body exceeds %d KiB.", MaxBodyBytes>>10))
+			return false
+		}
+		// Deliberately not "not valid JSON": the body is often valid JSON that
+		// simply does not match this endpoint's shape, and saying otherwise
+		// sends the caller looking for a syntax error that is not there.
+		WriteError(w, http.StatusBadRequest, CodeInvalidRequest,
+			"Request body does not match this endpoint's schema.")
+		return false
+	}
+	return true
 }

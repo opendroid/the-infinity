@@ -201,18 +201,28 @@ func TestConceptNotFoundOffersNearest(t *testing.T) {
 	}
 }
 
-func TestNearestFailureStillReturns404(t *testing.T) {
+func TestNearestFailureStillDegradesTo404(t *testing.T) {
 	t.Parallel()
 
 	// Suggestions are best-effort: a failure there must degrade the 404, not
-	// turn an honest 404 into a 500.
+	// replace an honest 404 with a 500.
+	//
+	// The previous version of this test asserted with t.Logf, so it could never
+	// fail — and it set the fake's shared Err, which makes Concept() fail first,
+	// so the branch it named was never reached either.
 	f := seeded()
+	f.NearestErr = errors.New("suggestion lookup is having a day")
 	h := newServer(t, f, router.Options{})
-	f.Err = errors.New("firestore is having a day")
 
 	rec := do(t, h, http.MethodGet, "/api/v1/concepts/nope", "")
-	if rec.Code != http.StatusInternalServerError {
-		t.Logf("store failure surfaces as %d", rec.Code)
+
+	if rec.Code != http.StatusNotFound {
+		t.Fatalf("status = %d, want 404 — a failed suggestion lookup must not "+
+			"turn an honest 404 into a 500", rec.Code)
+	}
+	body := decodeError(t, rec)
+	if got, ok := body["nearest"].([]any); !ok || len(got) != 0 {
+		t.Errorf("nearest = %v, want an empty array", body["nearest"])
 	}
 }
 
@@ -479,5 +489,154 @@ func TestTrailSlugIsDeterministicAndShared(t *testing.T) {
 	}
 	if got := store.TrailSlug(walk); !strings.Contains(got, "feed-forward-network") {
 		t.Errorf("slug %q is not human-readable", got)
+	}
+}
+
+// Regression: reads and writes must not share a per-IP bucket.
+//
+// The first fix separated only the daily counter and claimed the problem
+// solved. At production defaults three landing-page views still 429'd a genuine
+// submission — and the regression test passed because it used generous().
+func TestReadsAndWritesHaveSeparatePerIPBuckets(t *testing.T) {
+	t.Parallel()
+
+	f := seeded()
+	h := newServer(t, f, router.Options{
+		RateLimit: ratelimit.DefaultConfig(), // the real 6/min, burst 3
+		DailyCap:  1000,
+	})
+
+	// Drain the read allowance the way a visitor browsing the site would.
+	for i := range 3 {
+		if rec := do(t, h, http.MethodGet, "/api/v1/stats", ""); rec.Code != http.StatusOK {
+			t.Fatalf("page view %d = %d, want 200", i+1, rec.Code)
+		}
+	}
+
+	rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"A Real Request"}`)
+	if rec.Code != http.StatusAccepted {
+		t.Errorf("a submission after 3 page views = %d, want 202 — reading is "+
+			"draining the allowance tuned for writing", rec.Code)
+	}
+}
+
+// Regression: a request the handler rejects must not spend the daily budget.
+//
+// Reserving in middleware meant 500 malformed bodies could exhaust the day's
+// cap while writing nothing — the outage the cap exists to prevent, caused by
+// the cap, plus 500 billed Firestore transactions.
+func TestRejectedRequestsDoNotSpendTheWriteBudget(t *testing.T) {
+	t.Parallel()
+
+	f := seeded()
+	h := newServer(t, f, router.Options{RateLimit: generous(), DailyCap: 2})
+
+	for i := range 5 {
+		rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"x"}`)
+		if rec.Code != http.StatusBadRequest {
+			t.Fatalf("malformed request %d = %d, want 400", i+1, rec.Code)
+		}
+	}
+
+	if spent := f.Writes; len(spent) != 0 {
+		t.Errorf("rejected requests spent budget: %v", spent)
+	}
+	if rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"A Real Request"}`); rec.Code != http.StatusAccepted {
+		t.Errorf("a valid request after 5 rejections = %d, want 202", rec.Code)
+	}
+}
+
+// Regression: every array the contract marks required must serialise as [].
+//
+// Edges was fixed with a bespoke MarshalJSON; citations, viz params, mini-map
+// nodes and links, and trail stops all still emitted null.
+func TestRequiredArraysNeverSerialiseAsNull(t *testing.T) {
+	t.Parallel()
+
+	f := store.NewFake()
+	f.Concepts["sparse"] = &store.Concept{ID: "sparse", Title: "Sparse", Tier: store.TierFrontier}
+	f.Neighborhoods["sparse"] = &store.Neighborhood{Center: store.MiniMapNode{ID: "sparse"}}
+	f.Trails["empty-trail"] = &store.Trail{Slug: "empty-trail", Title: "Empty"}
+	h := newServer(t, f, router.Options{})
+
+	cases := []struct {
+		path   string
+		fields []string
+	}{
+		{"/api/v1/concepts/sparse", []string{"citations"}},
+		{"/api/v1/concepts/sparse/neighborhood", []string{"nodes", "links"}},
+		{"/api/v1/trails/empty-trail", []string{"stops"}},
+	}
+
+	for _, c := range cases {
+		t.Run(c.path, func(t *testing.T) {
+			rec := do(t, h, http.MethodGet, c.path, "")
+			if rec.Code != http.StatusOK {
+				t.Fatalf("status = %d, want 200", rec.Code)
+			}
+			var body map[string]json.RawMessage
+			if err := json.Unmarshal(rec.Body.Bytes(), &body); err != nil {
+				t.Fatalf("not JSON: %v", err)
+			}
+			for _, f := range c.fields {
+				if got := string(body[f]); got != "[]" {
+					t.Errorf("%s = %s, want [] — a nil slice marshals as null", f, got)
+				}
+			}
+		})
+	}
+}
+
+// Regression: a partially-filled Config must not deny everything.
+//
+// rate.NewLimiter(r, 0) allows nothing, ever, so omitting Burst silently 429'd
+// the entire surface with a clean startup and nothing in the logs.
+func TestPartialRateLimitConfigStillServes(t *testing.T) {
+	t.Parallel()
+
+	h := router.New(seeded(), router.Options{
+		RateLimit: ratelimit.Config{PerMinute: 60}, // Burst and MaxClients omitted
+		DailyCap:  1000,
+	})
+
+	if rec := do(t, h, http.MethodGet, "/api/v1/stats", ""); rec.Code != http.StatusOK {
+		t.Errorf("stats = %d, want 200 — an omitted Burst denied every request", rec.Code)
+	}
+}
+
+// Regression: an id that is not a slug is the client's error, not a 500.
+func TestMalformedConceptIDsAreRejectedAsBadRequests(t *testing.T) {
+	t.Parallel()
+
+	h := newServer(t, seeded(), router.Options{})
+
+	cases := []struct{ name, body string }{
+		{"path separator in a review", `{"concept_id":"a/b","kind":"flag"}`},
+		{"uppercase in a review", `{"concept_id":"Not-Kebab","kind":"flag"}`},
+		{"over-long id in a review", `{"concept_id":"` + strings.Repeat("a", 200) + `","kind":"flag"}`},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			rec := do(t, h, http.MethodPost, "/api/v1/reviews", c.body)
+			if rec.Code != http.StatusBadRequest {
+				t.Errorf("status = %d, want 400 (body: %s)", rec.Code, rec.Body.String())
+			}
+		})
+	}
+}
+
+// Regression: the contract counts characters, not bytes.
+func TestLengthLimitsCountCharactersNotBytes(t *testing.T) {
+	t.Parallel()
+
+	f := seeded()
+	h := newServer(t, f, router.Options{RateLimit: generous(), DailyCap: 1000})
+
+	// 40 CJK characters — 120 bytes, well inside the documented 120-character cap.
+	name := strings.Repeat("混合専門家", 8)
+	rec := do(t, h, http.MethodPost, "/api/v1/requests", `{"name":"`+name+`"}`)
+	if rec.Code != http.StatusAccepted {
+		t.Errorf("a 40-character name = %d, want 202 — byte counting rejects "+
+			"non-Latin text far below the documented limit", rec.Code)
 	}
 }

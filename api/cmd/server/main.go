@@ -25,11 +25,14 @@ import (
 )
 
 const (
-	defaultPort     = "8080"
-	readTimeout     = 5 * time.Second
-	writeTimeout    = 15 * time.Second
-	idleTimeout     = 60 * time.Second
-	shutdownTimeout = 10 * time.Second
+	defaultPort  = "8080"
+	readTimeout  = 5 * time.Second
+	writeTimeout = 15 * time.Second
+	idleTimeout  = 60 * time.Second
+	// Longer than apihttp's request timeout: a request that starts just before
+	// SIGTERM runs its full deadline, and Shutdown must outlast it or a clean
+	// scale-down returns DeadlineExceeded and is logged as a crash.
+	shutdownTimeout = 15 * time.Second
 	dialTimeout     = 15 * time.Second
 )
 
@@ -59,7 +62,10 @@ func run(logger *slog.Logger) error {
 		return errors.New("GOOGLE_CLOUD_PROJECT is not set")
 	}
 
-	dialCtx, cancelDial := context.WithTimeout(ctx, dialTimeout)
+	// Parented on Background, not the signal context: cancelling the client's
+	// context the instant SIGTERM arrives would break in-flight requests that
+	// Shutdown is still draining.
+	dialCtx, cancelDial := context.WithTimeout(context.Background(), dialTimeout)
 	defer cancelDial()
 
 	client, err := firestore.NewClient(dialCtx, projectID)

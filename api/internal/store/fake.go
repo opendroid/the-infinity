@@ -29,6 +29,10 @@ type Fake struct {
 
 	// Err, when set, is returned by every method — for exercising the 500 path.
 	Err error
+	// NearestErr fails only Nearest, so a test can reach the 404 path and check
+	// that a failed suggestion lookup degrades it rather than replacing it with
+	// a 500. One shared Err cannot express that: it fails Concept() first.
+	NearestErr error
 }
 
 func NewFake() *Fake {
@@ -56,12 +60,18 @@ func (f *Fake) Concept(_ context.Context, id string) (*Concept, error) {
 func (f *Fake) Nearest(_ context.Context, id string, limit int) ([]NearestConcept, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
+	if f.NearestErr != nil {
+		return nil, f.NearestErr
+	}
 	if f.Err != nil {
 		return nil, f.Err
 	}
+	// Same prefix rule and self-exclusion as Firestore, so a test here proves
+	// something about production.
+	prefix := ConceptPrefix(id)
 	var out []NearestConcept
 	for _, c := range f.Concepts {
-		if strings.HasPrefix(c.ID, strings.Split(id, "-")[0]) {
+		if c.ID != id && strings.HasPrefix(c.ID, prefix) {
 			out = append(out, NearestConcept{ID: c.ID, Title: c.Title, Tier: c.Tier})
 		}
 	}

@@ -2,9 +2,9 @@
 package trails
 
 import (
-	"encoding/json"
 	"errors"
 	"net/http"
+	"strconv"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/opendroid/the-infinity/api/internal/apihttp"
@@ -21,10 +21,13 @@ const (
 )
 
 type Handler struct {
-	store store.Store
+	store  store.Store
+	budget *apihttp.WriteLimiter
 }
 
-func New(s store.Store) *Handler { return &Handler{store: s} }
+func New(s store.Store, budget *apihttp.WriteLimiter) *Handler {
+	return &Handler{store: s, budget: budget}
+}
 
 type createRequest struct {
 	Stops []struct {
@@ -46,7 +49,7 @@ type createResponse struct {
 // after a dropped response does not litter.
 func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	var body createRequest
-	if !decodeJSON(w, r, &body) {
+	if !apihttp.DecodeJSON(w, r, &body) {
 		return
 	}
 
@@ -65,17 +68,22 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 
 	stops := make([]store.NewTrailStop, 0, len(body.Stops))
 	for i, s := range body.Stops {
-		if s.ID == "" {
-			apihttp.WriteFieldError(w, "stops", "Every stop needs an \"id\".")
+		if !store.ValidConceptID(s.ID) {
+			apihttp.WriteFieldError(w, "stops",
+				"Stop "+strconv.Itoa(i+1)+" has an id that is not a kebab-case slug.")
 			return
 		}
 		depth := store.Depth(s.DepthReadAt)
 		if !store.ValidDepth(depth) {
 			apihttp.WriteFieldError(w, "stops",
-				"Stop "+itoa(i+1)+" has an unknown \"depth_read_at\".")
+				"Stop "+strconv.Itoa(i+1)+" has an unknown \"depth_read_at\".")
 			return
 		}
 		stops = append(stops, store.NewTrailStop{ID: s.ID, DepthReadAt: depth})
+	}
+
+	if h.budget.Reserve(w, r) {
+		return
 	}
 
 	trail, err := h.store.CreateTrail(r.Context(), store.NewTrail{Stops: stops, DurationS: body.DurationS})
@@ -108,38 +116,4 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	default:
 		apihttp.WriteInternal(w, err, "fetching trail")
 	}
-}
-
-// decodeJSON reads the body, distinguishing an oversized body from malformed
-// JSON so the client learns which mistake it made.
-func decodeJSON(w http.ResponseWriter, r *http.Request, dst any) bool {
-	dec := json.NewDecoder(r.Body)
-	dec.DisallowUnknownFields()
-
-	if err := dec.Decode(dst); err != nil {
-		var maxErr *http.MaxBytesError
-		if errors.As(err, &maxErr) {
-			apihttp.WriteError(w, http.StatusRequestEntityTooLarge,
-				apihttp.CodePayloadTooLarge, "Request body exceeds 16 KiB.")
-			return false
-		}
-		apihttp.WriteError(w, http.StatusBadRequest, apihttp.CodeInvalidRequest,
-			"Request body is not valid JSON for this endpoint.")
-		return false
-	}
-	return true
-}
-
-func itoa(n int) string {
-	if n == 0 {
-		return "0"
-	}
-	var buf [20]byte
-	i := len(buf)
-	for n > 0 {
-		i--
-		buf[i] = byte('0' + n%10)
-		n /= 10
-	}
-	return string(buf[i:])
 }

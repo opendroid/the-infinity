@@ -15,8 +15,11 @@ run: ## Run locally on :8080 (needs GOOGLE_CLOUD_PROJECT and application-default
 test: ## Table-driven tests, with the race detector
 	go test -race ./...
 
-cover: ## Tests with a coverage summary, over the packages that have tests
-	go test -race -coverprofile=coverage.out $$(go list ./... | xargs -I{} sh -c 'ls $$(go list -f "{{.Dir}}" {})/*_test.go >/dev/null 2>&1 && echo {}')
+# -coverpkg=./... so packages with no tests count as 0% rather than dropping out
+# of the denominator — otherwise deleting a test raises the headline number.
+# Needs a complete toolchain: a partial SDK without `covdata` fails here.
+cover: ## Tests with a coverage summary across ALL packages
+	go test -race -coverprofile=coverage.out -coverpkg=./... ./...
 	go tool cover -func=coverage.out | tail -1
 
 lint: ## go vet, gofmt check, and golangci-lint if installed
@@ -35,7 +38,7 @@ fmt: ## Format
 tidy: ## Prune go.mod
 	go mod tidy
 
-docker-build: ## Multi-stage distroless nonroot image
-	docker build -t $(IMAGE):$(TAG) .
+docker-build: ## Multi-stage distroless nonroot image (amd64 — Cloud Run runs nothing else)
+	docker build --platform linux/amd64 -t $(IMAGE):$(TAG) .
 
 check: lint test ## What CI runs

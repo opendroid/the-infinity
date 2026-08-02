@@ -41,10 +41,15 @@ func New(s store.Store, opts Options) http.Handler {
 		opts.RateLimit = ratelimit.DefaultConfig()
 	}
 
+	budget := apihttp.NewWriteLimiter(s, opts.DailyCap, opts.Now)
 	c := concepts.New(s)
-	t := trails.New(s)
-	q := queues.New(s)
-	writes := apihttp.NewWriteLimiter(s, opts.RateLimit, opts.DailyCap, opts.Now)
+	t := trails.New(s, budget)
+	q := queues.New(s, budget)
+
+	// Reads and writes get separate buckets. Sharing one meant a visitor's own
+	// page views drained the allowance tuned for form submissions.
+	reads := apihttp.NewPerIPLimiter(opts.RateLimit)
+	writeShaping := apihttp.NewPerIPLimiter(opts.RateLimit)
 
 	r := chi.NewRouter()
 	r.Use(apihttp.Recoverer, apihttp.Timeout)
@@ -52,25 +57,26 @@ func New(s store.Store, opts Options) http.Handler {
 	r.Get("/healthz", healthz)
 
 	r.Route("/api/v1", func(v1 chi.Router) {
-		v1.Get("/concepts/{id}", c.Get)
-		v1.Get("/concepts/{id}/neighborhood", c.Neighborhood)
+		// Every read is an unauthenticated Firestore read and a Cloud Run
+		// invocation, so shaping applies to the group rather than to whichever
+		// route someone remembered. /neighborhood in particular fires on every
+		// concept-page hydration and is a deeper read than /stats.
+		v1.Group(func(rd chi.Router) {
+			rd.Use(reads.Middleware)
+			rd.Get("/concepts/{id}", c.Get)
+			rd.Get("/concepts/{id}/neighborhood", c.Neighborhood)
+			rd.Get("/stats", c.Stats)
+			rd.Get("/trails/{slug}", t.Get)
+		})
 
-		// Stats is called on every landing-page view, which makes it the
-		// highest-volume path here and one Cloud Run invocation per visitor —
-		// so it is shaped per-IP. It deliberately does NOT go through the write
-		// limiter: spending the daily write budget on page views would let
-		// ordinary traffic disable the contribution endpoints.
-		v1.With(writes.ReadMiddleware).Get("/stats", c.Stats)
-
-		v1.Get("/trails/{slug}", t.Get)
-
-		// Every unauthenticated write goes through both the body cap and the
-		// two-layer limiter. See package ratelimit.
-		v1.Group(func(w chi.Router) {
-			w.Use(apihttp.LimitBody, writes.Middleware)
-			w.Post("/trails", t.Create)
-			w.Post("/requests", q.CreateRequest)
-			w.Post("/reviews", q.CreateReview)
+		// Writes get the body cap plus their own per-IP bucket. The daily budget
+		// is charged by the handlers after validation, so a rejected request
+		// costs nothing.
+		v1.Group(func(wr chi.Router) {
+			wr.Use(apihttp.LimitBody, writeShaping.Middleware)
+			wr.Post("/trails", t.Create)
+			wr.Post("/requests", q.CreateRequest)
+			wr.Post("/reviews", q.CreateReview)
 		})
 	})
 

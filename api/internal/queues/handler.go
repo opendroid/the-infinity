@@ -12,10 +12,10 @@
 package queues
 
 import (
-	"encoding/json"
 	"errors"
 	"net/http"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/opendroid/the-infinity/api/internal/apihttp"
 	"github.com/opendroid/the-infinity/api/internal/store"
@@ -28,10 +28,13 @@ const (
 )
 
 type Handler struct {
-	store store.Store
+	store  store.Store
+	budget *apihttp.WriteLimiter
 }
 
-func New(s store.Store) *Handler { return &Handler{store: s} }
+func New(s store.Store, budget *apihttp.WriteLimiter) *Handler {
+	return &Handler{store: s, budget: budget}
+}
 
 // accepted is the only success body either endpoint returns. 202 rather than
 // 201: nothing has been created, and saying otherwise would promise a page that
@@ -48,23 +51,29 @@ type conceptRequestBody struct {
 // CreateRequest serves POST /api/v1/requests — the 404 page's form.
 func (h *Handler) CreateRequest(w http.ResponseWriter, r *http.Request) {
 	var body conceptRequestBody
-	if !decodeJSON(w, r, &body) {
+	if !apihttp.DecodeJSON(w, r, &body) {
 		return
 	}
 
 	name := strings.TrimSpace(body.Name)
-	if len(name) < 2 {
+	if utf8.RuneCountInString(name) < 2 {
 		apihttp.WriteFieldError(w, "name", "\"name\" must be at least 2 characters.")
 		return
 	}
 	// Reject rather than truncate: silently storing half of what someone typed
 	// is worse than telling them it was too long.
-	if len(name) > maxNameLen {
+	if utf8.RuneCountInString(name) > maxNameLen {
 		apihttp.WriteFieldError(w, "name", "\"name\" exceeds 120 characters.")
 		return
 	}
-	if len(body.Referrer) > maxReferrerLen {
+	if utf8.RuneCountInString(body.Referrer) > maxReferrerLen {
 		apihttp.WriteFieldError(w, "referrer", "\"referrer\" exceeds 200 characters.")
+		return
+	}
+
+	// Reserved only once the body is known good, so a rejected request costs
+	// nothing — neither a budget slot nor a Firestore transaction.
+	if h.budget.Reserve(w, r) {
 		return
 	}
 
@@ -89,12 +98,13 @@ type reviewBody struct {
 // actions. It records intent for a human; it never changes a tier.
 func (h *Handler) CreateReview(w http.ResponseWriter, r *http.Request) {
 	var body reviewBody
-	if !decodeJSON(w, r, &body) {
+	if !apihttp.DecodeJSON(w, r, &body) {
 		return
 	}
 
-	if body.ConceptID == "" {
-		apihttp.WriteFieldError(w, "concept_id", "\"concept_id\" is required.")
+	if !store.ValidConceptID(body.ConceptID) {
+		apihttp.WriteFieldError(w, "concept_id",
+			"\"concept_id\" must be a kebab-case slug.")
 		return
 	}
 	kind := store.ReviewKind(body.Kind)
@@ -102,8 +112,12 @@ func (h *Handler) CreateReview(w http.ResponseWriter, r *http.Request) {
 		apihttp.WriteFieldError(w, "kind", "\"kind\" must be \"flag\" or \"volunteer\".")
 		return
 	}
-	if len(body.Note) > maxNoteLen {
+	if utf8.RuneCountInString(body.Note) > maxNoteLen {
 		apihttp.WriteFieldError(w, "note", "\"note\" exceeds 2000 characters.")
+		return
+	}
+
+	if h.budget.Reserve(w, r) {
 		return
 	}
 
@@ -121,22 +135,4 @@ func (h *Handler) CreateReview(w http.ResponseWriter, r *http.Request) {
 	default:
 		apihttp.WriteInternal(w, err, "queueing review")
 	}
-}
-
-func decodeJSON(w http.ResponseWriter, r *http.Request, dst any) bool {
-	dec := json.NewDecoder(r.Body)
-	dec.DisallowUnknownFields()
-
-	if err := dec.Decode(dst); err != nil {
-		var maxErr *http.MaxBytesError
-		if errors.As(err, &maxErr) {
-			apihttp.WriteError(w, http.StatusRequestEntityTooLarge,
-				apihttp.CodePayloadTooLarge, "Request body exceeds 16 KiB.")
-			return false
-		}
-		apihttp.WriteError(w, http.StatusBadRequest, apihttp.CodeInvalidRequest,
-			"Request body is not valid JSON for this endpoint.")
-		return false
-	}
-	return true
 }

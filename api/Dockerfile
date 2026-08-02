@@ -12,7 +12,7 @@ COPY . .
 # CGO off so the binary is fully static and can run on distroless/static.
 # Stripping symbols and trimming paths keeps the image small and the build
 # reproducible across machines.
-RUN CGO_ENABLED=0 GOOS=linux go build \
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
       -trimpath -ldflags="-s -w" \
       -o /out/server ./cmd/server
 

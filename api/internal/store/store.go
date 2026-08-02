@@ -11,6 +11,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"regexp"
 	"strings"
 )
 
@@ -53,166 +54,145 @@ const (
 // Edge is denormalized for serving: it carries the target's title and tier so
 // a row renders without extra reads. Node JSON stores ids alone.
 type Edge struct {
-	ID    string `json:"id"`
-	Title string `json:"title"`
-	Tier  Tier   `json:"tier"`
+	ID    string `firestore:"id" json:"id"`
+	Title string `firestore:"title" json:"title"`
+	Tier  Tier   `firestore:"tier" json:"tier"`
 	// Reviewed is authored per edge, not derived from the target's tier — the
 	// case that matters is an unchecked claim between two verified concepts.
-	Reviewed bool `json:"reviewed"`
+	Reviewed bool `firestore:"reviewed" json:"reviewed"`
 }
 
 type Citation struct {
-	Ref   string `json:"ref"`
-	Title string `json:"title"`
-	URL   string `json:"url"`
+	Ref   string `firestore:"ref" json:"ref"`
+	Title string `firestore:"title" json:"title"`
+	URL   string `firestore:"url" json:"url"`
 }
 
 type ParamControl struct {
-	Name string  `json:"name"`
-	Min  float64 `json:"min"`
-	Max  float64 `json:"max"`
-	Step float64 `json:"step"`
+	Name string  `firestore:"name" json:"name"`
+	Min  float64 `firestore:"min" json:"min"`
+	Max  float64 `firestore:"max" json:"max"`
+	Step float64 `firestore:"step" json:"step"`
 }
 
 type Viz struct {
-	Primitive     string             `json:"primitive"`
-	Params        map[string]float64 `json:"params"`
-	ParamControls []ParamControl     `json:"param_controls"`
-	Caption       string             `json:"caption"`
+	Primitive     string             `firestore:"primitive" json:"primitive"`
+	Params        map[string]float64 `firestore:"params" json:"params"`
+	ParamControls List[ParamControl] `firestore:"param_controls" json:"param_controls"`
+	Caption       string             `firestore:"caption" json:"caption"`
 }
 
 type Bodies struct {
-	Intuition string `json:"intuition"`
-	Engineer  string `json:"engineer"`
-	Math      string `json:"math"`
+	Intuition string `firestore:"intuition" json:"intuition"`
+	Engineer  string `firestore:"engineer" json:"engineer"`
+	Math      string `firestore:"math" json:"math"`
 }
 
 type Emphasis struct {
-	Intuition string `json:"intuition,omitempty"`
-	Engineer  string `json:"engineer,omitempty"`
-	Math      string `json:"math,omitempty"`
+	Intuition string `firestore:"intuition" json:"intuition,omitempty"`
+	Engineer  string `firestore:"engineer" json:"engineer,omitempty"`
+	Math      string `firestore:"math" json:"math,omitempty"`
 }
 
 type Review struct {
-	ReviewedBy string `json:"reviewed_by"`
-	ReviewedAt string `json:"reviewed_at"`
+	ReviewedBy string `firestore:"reviewed_by" json:"reviewed_by"`
+	ReviewedAt string `firestore:"reviewed_at" json:"reviewed_at"`
 }
 
 // Provenance holds frontier drafting metadata only. Sources live in the
 // concept's top-level Citations, so verifying a node never drops them.
 type Provenance struct {
-	DraftedAt string `json:"drafted_at"`
+	DraftedAt string `firestore:"drafted_at" json:"drafted_at"`
 }
 
-// Edges is a struct rather than a map so the three groups always serialise,
-// and MarshalJSON emits [] rather than null for an absent group. openapi.yaml
-// marks all three required; a client doing edges.adjacent.map(...) would
-// otherwise crash on exactly the nodes the empty-state design exists for.
+// List marshals nil as [] rather than null.
+//
+// openapi.yaml marks a dozen arrays required, and a nil Go slice marshals as
+// null — so a client doing citations.map(...) crashes on exactly the sparse
+// nodes the empty-state design exists for. Fixing this per-struct means the
+// next required array added is wrong by default; making it a property of the
+// type means it cannot be.
+type List[T any] []T
+
+func (l List[T]) MarshalJSON() ([]byte, error) {
+	if l == nil {
+		return []byte("[]"), nil
+	}
+	return json.Marshal([]T(l))
+}
+
+// Edges is a struct rather than a map so all three groups always serialise —
+// openapi.yaml marks each of them required.
 type Edges struct {
-	Requires []Edge `json:"requires"`
-	Unlocks  []Edge `json:"unlocks"`
-	Adjacent []Edge `json:"adjacent"`
-}
-
-// MarshalJSON guarantees the shape regardless of what a store populated.
-func (e Edges) MarshalJSON() ([]byte, error) {
-	type wire struct {
-		Requires []Edge `json:"requires"`
-		Unlocks  []Edge `json:"unlocks"`
-		Adjacent []Edge `json:"adjacent"`
-	}
-	return json.Marshal(wire{
-		Requires: orEmpty(e.Requires),
-		Unlocks:  orEmpty(e.Unlocks),
-		Adjacent: orEmpty(e.Adjacent),
-	})
-}
-
-// Get returns the group for a type, so callers keep map-like access.
-func (e Edges) Get(t EdgeType) []Edge {
-	switch t {
-	case EdgeRequires:
-		return e.Requires
-	case EdgeUnlocks:
-		return e.Unlocks
-	case EdgeAdjacent:
-		return e.Adjacent
-	default:
-		return nil
-	}
-}
-
-func orEmpty(in []Edge) []Edge {
-	if in == nil {
-		return []Edge{}
-	}
-	return in
+	Requires List[Edge] `firestore:"requires" json:"requires"`
+	Unlocks  List[Edge] `firestore:"unlocks" json:"unlocks"`
+	Adjacent List[Edge] `firestore:"adjacent" json:"adjacent"`
 }
 
 type Concept struct {
-	ID        string      `json:"id"`
-	Title     string      `json:"title"`
-	Domain    string      `json:"domain"`
-	Tier      Tier        `json:"tier"`
-	Bodies    Bodies      `json:"bodies"`
-	Emphasis  *Emphasis   `json:"emphasis,omitempty"`
-	Viz       Viz         `json:"viz"`
-	Edges     Edges       `json:"edges"`
-	Citations []Citation  `json:"citations"`
-	Review    *Review     `json:"review"`
-	Prov      *Provenance `json:"provenance"`
-	UpdatedAt string      `json:"updated_at"`
+	ID        string         `firestore:"id" json:"id"`
+	Title     string         `firestore:"title" json:"title"`
+	Domain    string         `firestore:"domain" json:"domain"`
+	Tier      Tier           `firestore:"tier" json:"tier"`
+	Bodies    Bodies         `firestore:"bodies" json:"bodies"`
+	Emphasis  *Emphasis      `firestore:"emphasis" json:"emphasis,omitempty"`
+	Viz       Viz            `firestore:"viz" json:"viz"`
+	Edges     Edges          `firestore:"edges" json:"edges"`
+	Citations List[Citation] `firestore:"citations" json:"citations"`
+	Review    *Review        `firestore:"review" json:"review"`
+	Prov      *Provenance    `firestore:"provenance" json:"provenance"`
+	UpdatedAt string         `firestore:"updated_at" json:"updated_at"`
 }
 
 // NearestConcept is what a 404 offers instead of a dead end.
 type NearestConcept struct {
-	ID    string `json:"id"`
-	Title string `json:"title"`
-	Tier  Tier   `json:"tier"`
+	ID    string `firestore:"id" json:"id"`
+	Title string `firestore:"title" json:"title"`
+	Tier  Tier   `firestore:"tier" json:"tier"`
 }
 
 // MiniMapNode carries coordinates computed at publish time in a 240x132
 // viewBox (ADR-0003) — the client never runs layout, so the map never jitters.
 type MiniMapNode struct {
-	ID    string  `json:"id"`
-	Title string  `json:"title"`
-	Tier  Tier    `json:"tier"`
-	X     float64 `json:"x"`
-	Y     float64 `json:"y"`
+	ID    string  `firestore:"id" json:"id"`
+	Title string  `firestore:"title" json:"title"`
+	Tier  Tier    `firestore:"tier" json:"tier"`
+	X     float64 `firestore:"x" json:"x"`
+	Y     float64 `firestore:"y" json:"y"`
 }
 
 type MiniMapLink struct {
-	From     string   `json:"from"`
-	To       string   `json:"to"`
-	Type     EdgeType `json:"type"`
-	Reviewed bool     `json:"reviewed"`
+	From     string   `firestore:"from" json:"from"`
+	To       string   `firestore:"to" json:"to"`
+	Type     EdgeType `firestore:"type" json:"type"`
+	Reviewed bool     `firestore:"reviewed" json:"reviewed"`
 }
 
 type Neighborhood struct {
-	Center MiniMapNode   `json:"center"`
-	Nodes  []MiniMapNode `json:"nodes"`
-	Links  []MiniMapLink `json:"links"`
+	Center MiniMapNode       `firestore:"center" json:"center"`
+	Nodes  List[MiniMapNode] `firestore:"nodes" json:"nodes"`
+	Links  List[MiniMapLink] `firestore:"links" json:"links"`
 }
 
 type Stats struct {
-	Concepts     int `json:"concepts"`
-	GrewThisWeek int `json:"grew_this_week"`
+	Concepts     int `firestore:"concepts" json:"concepts"`
+	GrewThisWeek int `firestore:"grew_this_week" json:"grew_this_week"`
 }
 
 type TrailStop struct {
-	N           int    `json:"n"`
-	ID          string `json:"id"`
-	Title       string `json:"title"`
-	Tier        Tier   `json:"tier"`
-	DepthReadAt Depth  `json:"depth_read_at"`
+	N           int    `firestore:"n" json:"n"`
+	ID          string `firestore:"id" json:"id"`
+	Title       string `firestore:"title" json:"title"`
+	Tier        Tier   `firestore:"tier" json:"tier"`
+	DepthReadAt Depth  `firestore:"depth_read_at" json:"depth_read_at"`
 }
 
 type Trail struct {
-	Slug      string      `json:"slug"`
-	Title     string      `json:"title"`
-	CreatedAt string      `json:"created_at"`
-	DurationS int         `json:"duration_s"`
-	Stops     []TrailStop `json:"stops"`
+	Slug      string          `firestore:"slug" json:"slug"`
+	Title     string          `firestore:"title" json:"title"`
+	CreatedAt string          `firestore:"created_at" json:"created_at"`
+	DurationS int             `firestore:"duration_s" json:"duration_s"`
+	Stops     List[TrailStop] `firestore:"stops" json:"stops"`
 }
 
 // NewTrail is a share request: concept ids and the depth each was read at.
@@ -290,17 +270,7 @@ func TrailKey(stops []NewTrailStop) string {
 		parts = append(parts, s.ID+":"+string(s.DepthReadAt))
 	}
 	sum := sha256.Sum256([]byte(strings.Join(parts, "|")))
-	return hex.EncodeToString(sum[:4])
-}
-
-// TrailKeyOf fingerprints an already-built trail, for comparison against
-// TrailKey.
-func TrailKeyOf(t *Trail) string {
-	stops := make([]NewTrailStop, 0, len(t.Stops))
-	for _, s := range t.Stops {
-		stops = append(stops, NewTrailStop{ID: s.ID, DepthReadAt: s.DepthReadAt})
-	}
-	return TrailKey(stops)
+	return hex.EncodeToString(sum[:8])
 }
 
 // TrailSlug is the shareable id: readable endpoints plus the fingerprint, so
@@ -322,4 +292,30 @@ func truncateSlug(s string, n int) string {
 		s = s[:n]
 	}
 	return strings.Trim(s, "-")
+}
+
+// ConceptPrefix is the search prefix for 404 suggestions.
+//
+// Shared so Fake and Firestore cannot disagree, which they did: one used
+// strings.Split(id, "-")[0] and the other guarded on strings.Index(id, "-") > 0,
+// so an id beginning with a hyphen matched everything in one and nothing in the
+// other.
+func ConceptPrefix(id string) string {
+	if i := strings.Index(id, "-"); i > 0 {
+		return id[:i]
+	}
+	return id
+}
+
+// conceptID is the slug pattern openapi.yaml declares for a concept id.
+var conceptID = regexp.MustCompile(`^[a-z0-9]+(-[a-z0-9]+)*$`)
+
+// ValidConceptID reports whether id is a well-formed slug.
+//
+// Checked at every entry point that accepts one: an id containing "/" builds an
+// odd-component Firestore path and an over-long id exceeds the 1500-byte
+// document-id limit, both of which surface as a 500 for what is plainly a
+// client error.
+func ValidConceptID(id string) bool {
+	return len(id) >= 2 && len(id) <= 64 && conceptID.MatchString(id)
 }

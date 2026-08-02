@@ -63,8 +63,18 @@ type PerIP struct {
 }
 
 func NewPerIP(cfg Config) *PerIP {
+	// Every field is normalized, not just this one: rate.NewLimiter(r, 0) denies
+	// every request forever, so a partially-filled Config would silently 429 the
+	// entire surface with a clean startup and nothing in the logs.
+	def := DefaultConfig()
 	if cfg.MaxClients <= 0 {
-		cfg.MaxClients = DefaultConfig().MaxClients
+		cfg.MaxClients = def.MaxClients
+	}
+	if cfg.Burst <= 0 {
+		cfg.Burst = def.Burst
+	}
+	if cfg.PerMinute <= 0 {
+		cfg.PerMinute = def.PerMinute
 	}
 	return &PerIP{
 		cfg:   cfg,

@@ -49,10 +49,38 @@ func LimitBody(next http.Handler) http.Handler {
 	})
 }
 
-// WriteLimiter guards the unauthenticated write endpoints. See package
-// ratelimit for why there are two layers.
+// PerIPLimiter shapes any route by client address. Reads and writes get their
+// OWN instance: sharing one bucket meant a visitor's landing-page views drained
+// the allowance tuned for form submissions, so three page views 429'd their own
+// contribution. Separating only the daily counter — as an earlier fix did — left
+// exactly that failure in place.
+type PerIPLimiter struct {
+	perIP *ratelimit.PerIP
+}
+
+func NewPerIPLimiter(cfg ratelimit.Config) *PerIPLimiter {
+	return &PerIPLimiter{perIP: ratelimit.NewPerIP(cfg)}
+}
+
+func (l *PerIPLimiter) Middleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if !l.perIP.Allow(ratelimit.ClientIP(r)) {
+			WriteRateLimited(w, l.perIP.RetryAfter())
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
+// WriteLimiter is the global daily budget — the layer that actually bounds the
+// bill, since the per-IP layer resets on cold start and does not coordinate
+// across instances.
+//
+// It is NOT middleware. Reserving in middleware spent budget on requests the
+// handler then rejected, so 500 malformed bodies could exhaust the day's cap
+// while writing nothing — the outage the cap exists to prevent, produced by the
+// cap. Handlers call Reserve after validation, immediately before their write.
 type WriteLimiter struct {
-	perIP    *ratelimit.PerIP
 	store    store.Store
 	dailyCap int64
 	now      func() time.Time
@@ -60,59 +88,33 @@ type WriteLimiter struct {
 
 // NewWriteLimiter wires the two layers. now is injectable so tests can cross a
 // day boundary without sleeping.
-func NewWriteLimiter(s store.Store, cfg ratelimit.Config, dailyCap int64, now func() time.Time) *WriteLimiter {
+func NewWriteLimiter(s store.Store, dailyCap int64, now func() time.Time) *WriteLimiter {
 	if now == nil {
 		now = time.Now
 	}
 	if dailyCap <= 0 {
 		dailyCap = DefaultDailyWriteCap
 	}
-	return &WriteLimiter{perIP: ratelimit.NewPerIP(cfg), store: s, dailyCap: dailyCap, now: now}
+	return &WriteLimiter{store: s, dailyCap: dailyCap, now: now}
 }
 
-// ReadMiddleware applies ONLY the per-IP layer.
+// Reserve counts one write against the day's budget, answering false when the
+// cap is spent. Call it AFTER validation and immediately before the store
+// write, so a rejected request costs nothing.
 //
-// Read endpoints must not spend the daily WRITE budget. GET /stats is called on
-// every landing-page view, so counting it against that budget meant roughly
-// DAILY_WRITE_CAP visitors a day would silently disable concept requests and
-// reviews for everyone — popular traffic taking out the contribution path,
-// which is exactly backwards. Per-IP shaping still bounds a single abusive
-// client without letting ordinary readers exhaust anything shared.
-func (l *WriteLimiter) ReadMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if !l.perIP.Allow(ratelimit.ClientIP(r)) {
-			WriteRateLimited(w, l.perIP.RetryAfter())
-			return
-		}
-		next.ServeHTTP(w, r)
-	})
-}
-
-// Middleware rejects a request that exceeds either layer.
-//
-// Order matters: the per-IP check is in-memory and free, so it absorbs the
-// cheap rejections before anything touches the store. A rejected request
-// performs no writes at all.
-func (l *WriteLimiter) Middleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if !l.perIP.Allow(ratelimit.ClientIP(r)) {
-			WriteRateLimited(w, l.perIP.RetryAfter())
-			return
-		}
-
-		allowed, err := l.store.ReserveWrite(r.Context(), ratelimit.Day(l.now()), l.dailyCap)
-		if err != nil {
-			WriteInternal(w, err, "reserving daily write budget")
-			return
-		}
-		if !allowed {
-			// Until the UTC day rolls over. Nothing shorter would help.
-			WriteRateLimited(w, secondsUntilNextUTCDay(l.now()))
-			return
-		}
-
-		next.ServeHTTP(w, r)
-	})
+// Returns handled=true when it has already written a response.
+func (l *WriteLimiter) Reserve(w http.ResponseWriter, r *http.Request) (handled bool) {
+	allowed, err := l.store.ReserveWrite(r.Context(), ratelimit.Day(l.now()), l.dailyCap)
+	if err != nil {
+		WriteInternal(w, err, "reserving daily write budget")
+		return true
+	}
+	if !allowed {
+		// Until the UTC day rolls over. Nothing shorter would help.
+		WriteRateLimited(w, secondsUntilNextUTCDay(l.now()))
+		return true
+	}
+	return false
 }
 
 func secondsUntilNextUTCDay(t time.Time) int {
