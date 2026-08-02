@@ -9,11 +9,14 @@
     "preview": "astro preview",
     "typecheck": "node scripts/generate-tokens.mjs && astro check",
     "lint": "eslint . --max-warnings 0",
-    "test": "vitest run"
+    "test": "vitest run",
+    "validate:content": "node scripts/validate-content.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",
     "@tailwindcss/vite": "^4.3.3",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "astro": "^7.1.6",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theinfinity.ai/schema/node.schema.json",
+  "title": "Concept node",
+  "description": "The AUTHORED shape of a concept, as committed to /content/nodes. Not the shape the API serves: `tier` and `edges.unlocks` are derived at publish time and must never appear in a file here. See ADR-0002.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "domain", "bodies", "viz", "edges", "citations", "updated_at"],
+
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Kebab-case slug. Also the URL: `speculative-decoding` serves at /c/speculative-decoding. Must match the filename.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 64
+    },
+
+    "title": {
+      "type": "string",
+      "description": "Display name, set in Unbounded.",
+      "minLength": 1,
+      "maxLength": 80
+    },
+
+    "domain": {
+      "type": "array",
+      "description": "A two-level path, rendered as the mono eyebrow: [\"Architecture\",\"Sparsity\"] becomes \"Architecture / Sparsity\". A path, not multi-membership — a concept sits in one place.",
+      "items": { "type": "string", "minLength": 1, "maxLength": 40 },
+      "minItems": 2,
+      "maxItems": 2
+    },
+
+    "bodies": {
+      "type": "object",
+      "description": "The depth toggle. All three ship in the pre-rendered HTML.",
+      "additionalProperties": false,
+      "required": ["intuition", "engineer", "math"],
+      "properties": {
+        "intuition": { "$ref": "#/$defs/body" },
+        "engineer": { "$ref": "#/$defs/body" },
+        "math": { "$ref": "#/$defs/body" }
+      }
+    },
+
+    "emphasis": {
+      "type": "object",
+      "description": "The phrase lifted to violet weight 500, per depth. Each value must be a VERBATIM substring of the matching body — a constraint JSON Schema cannot express, enforced by scripts/validate-content.mjs.",
+      "additionalProperties": false,
+      "properties": {
+        "intuition": { "type": "string", "minLength": 4 },
+        "engineer": { "type": "string", "minLength": 4 },
+        "math": { "type": "string", "minLength": 4 }
+      }
+    },
+
+    "viz": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primitive", "params", "param_controls", "caption"],
+      "properties": {
+        "primitive": {
+          "type": "string",
+          "description": "Names an implemented viz primitive. A typo here would render an empty island, so the set is closed and grows as primitives land.",
+          "enum": ["router-dispatch", "update-spectrum"]
+        },
+        "params": {
+          "type": "object",
+          "description": "Initial parameter values.",
+          "minProperties": 1,
+          "additionalProperties": { "type": "number" }
+        },
+        "param_controls": {
+          "type": "array",
+          "description": "The draggable parameter. At most one: the design gives each island a single control, and two would need a layout that does not exist.",
+          "maxItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "min", "max", "step"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "min": { "type": "number" },
+              "max": { "type": "number" },
+              "step": { "type": "number", "exclusiveMinimum": 0 }
+            }
+          }
+        },
+        "caption": { "type": "string", "minLength": 10, "maxLength": 320 }
+      }
+    },
+
+    "edges": {
+      "type": "object",
+      "description": "Only `requires` and `adjacent` are authored. `unlocks` is inverted from `requires` at publish time (ADR-0002) — authoring it would let two files disagree about one fact, so it is rejected here.",
+      "additionalProperties": false,
+      "required": ["requires", "adjacent"],
+      "properties": {
+        "requires": { "$ref": "#/$defs/edgeList" },
+        "adjacent": { "$ref": "#/$defs/edgeList" }
+      }
+    },
+
+    "citations": {
+      "type": "array",
+      "description": "Real, resolvable sources. Top-level and tier-independent: a node keeps its citations when it is verified. Never nested under `provenance`.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ref", "title", "url"],
+        "properties": {
+          "ref": { "type": "string", "minLength": 1, "description": "Short handle, e.g. arXiv:2502.16982" },
+          "title": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "format": "uri", "pattern": "^https://" }
+        }
+      }
+    },
+
+    "review": {
+      "type": "object",
+      "description": "Present iff the node is verified. Its presence IS the tier — adding it in a PR, and merging that PR, is the act of verification (ADR-0002).",
+      "additionalProperties": false,
+      "required": ["reviewed_by", "reviewed_at"],
+      "properties": {
+        "reviewed_by": { "type": "string", "minLength": 1 },
+        "reviewed_at": { "$ref": "#/$defs/date" }
+      }
+    },
+
+    "provenance": {
+      "type": "object",
+      "description": "Present iff the node is frontier. Drafting metadata only — sources live in top-level `citations`.",
+      "additionalProperties": false,
+      "required": ["drafted_at"],
+      "properties": { "drafted_at": { "$ref": "#/$defs/date" } }
+    },
+
+    "updated_at": { "$ref": "#/$defs/date" }
+  },
+
+  "oneOf": [
+    {
+      "title": "verified — carries a reviewer, and no provenance",
+      "required": ["review"],
+      "properties": { "review": true, "provenance": false }
+    },
+    {
+      "title": "frontier — carries drafting provenance, and no reviewer",
+      "required": ["provenance"],
+      "properties": { "provenance": true, "review": false }
+    }
+  ],
+
+  "$defs": {
+    "body": { "type": "string", "minLength": 40, "maxLength": 1400 },
+
+    "date": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+
+    "edgeList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "reviewed"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "reviewed": {
+            "type": "boolean",
+            "description": "Has a human confirmed this relationship? Authored, not derived — the case that matters is an unchecked claim between two verified nodes, which deriving from tier would erase."
+          }
+        }
+      }
+    }
+  }
+}

@@ -221,7 +221,8 @@ exist yet.*
 | `cd web && npm run build` | Static build to `web/dist` |
 | `cd web && npm run typecheck` | `astro check` |
 | `cd web && npm run lint` | ESLint, zero warnings tolerated |
-| `cd web && npm test` | Vitest — graph derivation plus the node-shape invariants |
+| `cd web && npm test` | Vitest — graph derivation, node-shape invariants, schema rejection cases |
+| `cd web && npm run validate:content` | Nodes against `node.schema.json`, plus the cross-field invariants |
 | `cd api && go run ./cmd/server` | Run the API locally on `:8080` |
 | `cd api && go test ./...` | Table-driven tests |
 | `cd web && firebase deploy --only hosting` | Deploy the built site |
@@ -230,7 +231,6 @@ Not yet:
 
 | Command | Arrives |
 |---|---|
-| `npm run validate:content` — nodes against `node.schema.json` | Phase 2 |
 | `make run` / `test` / `lint` / `docker-build` in `/api` | Phase 3 |
 | CI workflows | Phase 4 |
 
@@ -251,23 +251,6 @@ which Cloud Run silently falls back to an Editor-privileged default identity, an
 **The API serves under `/api/v1`, not `/v1`.** Firebase Hosting rewrites preserve the full
 path, so the `/api` prefix reaches the service. See [ADR-0001](docs/adr/0001-infrastructure.md).
 
-<!--
-As tooling lands, replace the placeholder rows above, e.g.:
-
-### Web (`/web`)
-| `npm run dev` | Astro dev server |
-| `npm run build` | Static build |
-| `npm run lint` / `npm run typecheck` | ESLint / tsc --noEmit |
-
-### API (`/api`)
-| `make run` | Run the service locally |
-| `make test` | Table-driven tests |
-| `make lint` | golangci-lint |
-| `make docker-build` | Multi-stage distroless image |
-
-### Content
-| `npm run validate:content` | Validate every node against the schema |
--->
 
 ---
 
