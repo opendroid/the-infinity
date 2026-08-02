@@ -80,6 +80,12 @@ type Viz struct {
 	Params        Map[string, float64] `firestore:"params" json:"params"`
 	ParamControls List[ParamControl]   `firestore:"param_controls" json:"param_controls"`
 	Caption       string               `firestore:"caption" json:"caption"`
+
+	// CaptionEngineer replaces Caption at the Engineer depth, where a primitive
+	// draws a different picture (ADR-0005). Optional, and omitted rather than
+	// emitted empty: a caption that is absent means "use the default", which is
+	// a different claim from a caption that is blank.
+	CaptionEngineer string `firestore:"caption_engineer" json:"caption_engineer,omitempty"`
 }
 
 type Bodies struct {
