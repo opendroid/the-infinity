@@ -28,7 +28,14 @@ func emulatorClient(t *testing.T) *firestore.Client {
 	t.Helper()
 
 	if os.Getenv("FIRESTORE_EMULATOR_HOST") == "" {
-		t.Skip("FIRESTORE_EMULATOR_HOST is not set — start the emulator to run the round-trip tests")
+		// Loud in CI, quiet on a laptop. A skip prints nothing without -v, so a
+		// dropped env var would turn the only tests that touch real
+		// serialisation into a no-op and leave the run green — the exact shape
+		// of the problem these tests exist to catch.
+		if os.Getenv("CI") != "" {
+			t.Fatal("FIRESTORE_EMULATOR_HOST is not set in CI: the emulator step must run before the tests")
+		}
+		t.Skip("FIRESTORE_EMULATOR_HOST is not set — see `make test-emulator` to run the round-trip tests")
 	}
 
 	// The emulator accepts any project id and never authenticates. A distinct one
