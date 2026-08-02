@@ -2,6 +2,170 @@
   "_note": "DERIVED, NOT AUTHORED. Regenerate with `cd api && make golden`. Checked by api/internal/publish (Go) and web/src/lib/golden.test.ts (TypeScript) so the served graph and the pre-rendered graph cannot drift apart.",
   "concepts": [
     {
+      "id": "alibi",
+      "title": "ALiBi",
+      "domain": "Attention / Position",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "positional-encoding",
+            "title": "Positional Encoding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "attention",
+      "title": "Attention",
+      "domain": "Attention / Core",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "cross-attention",
+            "title": "Cross-Attention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "query-key-value",
+            "title": "Query, Key, Value",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "self-attention",
+            "title": "Self-Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "attention-sink",
+      "title": "Attention Sink",
+      "domain": "Attention / Behaviour",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-masking",
+            "title": "Causal Masking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "autoregressive-decoding",
+      "title": "Autoregressive Decoding",
+      "domain": "Inference / Decoding",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-masking",
+            "title": "Causal Masking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "byte-pair-encoding",
+      "title": "Byte-Pair Encoding",
+      "domain": "Foundations / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "tokenization",
+            "title": "Tokenization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "causal-masking",
+      "title": "Causal Masking",
+      "domain": "Attention / Core",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "self-attention",
+            "title": "Self-Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "attention-sink",
+            "title": "Attention Sink",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "autoregressive-decoding",
+            "title": "Autoregressive Decoding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "decoder-only-transformer",
+            "title": "Decoder-Only Transformer",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "conditional-computation",
       "title": "Conditional Computation",
       "domain": "Architecture / Sparsity",
@@ -22,6 +186,124 @@
             "title": "Feed-Forward Network",
             "tier": "verified",
             "reviewed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-window",
+      "title": "Context Window",
+      "domain": "Inference / Memory",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "positional-encoding",
+            "title": "Positional Encoding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "rotary-position-embedding",
+            "title": "Rotary Position Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross-attention",
+      "title": "Cross-Attention",
+      "domain": "Attention / Core",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "attention",
+            "title": "Attention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "encoder-decoder",
+            "title": "Encoder-Decoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "decoder-only-transformer",
+      "title": "Decoder-Only Transformer",
+      "domain": "Architecture / Blocks",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-masking",
+            "title": "Causal Masking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "transformer-block",
+            "title": "Transformer Block",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "encoder-decoder",
+            "title": "Encoder-Decoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "encoder-decoder",
+      "title": "Encoder-Decoder",
+      "domain": "Architecture / Blocks",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "transformer-block",
+            "title": "Transformer Block",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "cross-attention",
+            "title": "Cross-Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "decoder-only-transformer",
+            "title": "Decoder-Only Transformer",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -57,6 +339,12 @@
             "title": "Mixture-of-Experts",
             "tier": "verified",
             "reviewed": true
+          },
+          {
+            "id": "transformer-block",
+            "title": "Transformer Block",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -65,6 +353,116 @@
             "title": "Conditional Computation",
             "tier": "verified",
             "reviewed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "flash-attention",
+      "title": "FlashAttention",
+      "domain": "Attention / Efficiency",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "self-attention",
+            "title": "Self-Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "grouped-query-attention",
+      "title": "Grouped-Query Attention",
+      "domain": "Attention / Efficiency",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "multi-query-attention",
+            "title": "Multi-Query Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "kv-cache",
+      "title": "KV Cache",
+      "domain": "Inference / Memory",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-masking",
+            "title": "Causal Masking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "self-attention",
+            "title": "Self-Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "attention-sink",
+            "title": "Attention Sink",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "multi-query-attention",
+            "title": "Multi-Query Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "layer-normalization",
+      "title": "Layer Normalization",
+      "domain": "Architecture / Normalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "rmsnorm",
+            "title": "RMSNorm",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "transformer-block",
+            "title": "Transformer Block",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "residual-connection",
+            "title": "Residual Connection",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -101,6 +499,68 @@
       }
     },
     {
+      "id": "multi-head-attention",
+      "title": "Multi-Head Attention",
+      "domain": "Attention / Core",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "self-attention",
+            "title": "Self-Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "multi-query-attention",
+            "title": "Multi-Query Attention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "transformer-block",
+            "title": "Transformer Block",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "multi-query-attention",
+      "title": "Multi-Query Attention",
+      "domain": "Attention / Efficiency",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "multi-head-attention",
+            "title": "Multi-Head Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "grouped-query-attention",
+            "title": "Grouped-Query Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "muon-optimizer",
       "title": "Muon",
       "domain": "Optimization / Training",
@@ -110,9 +570,590 @@
         "unlocks": [],
         "adjacent": []
       }
+    },
+    {
+      "id": "positional-encoding",
+      "title": "Positional Encoding",
+      "domain": "Attention / Position",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "token-embedding",
+            "title": "Token Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "alibi",
+            "title": "ALiBi",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "rotary-position-embedding",
+            "title": "Rotary Position Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "query-key-value",
+      "title": "Query, Key, Value",
+      "domain": "Attention / Core",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "attention",
+            "title": "Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "self-attention",
+            "title": "Self-Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "residual-connection",
+      "title": "Residual Connection",
+      "domain": "Architecture / Blocks",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "transformer-block",
+            "title": "Transformer Block",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "layer-normalization",
+            "title": "Layer Normalization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "rmsnorm",
+      "title": "RMSNorm",
+      "domain": "Architecture / Normalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "layer-normalization",
+            "title": "Layer Normalization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "rotary-position-embedding",
+      "title": "Rotary Position Embedding",
+      "domain": "Attention / Position",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "positional-encoding",
+            "title": "Positional Encoding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "self-attention",
+      "title": "Self-Attention",
+      "domain": "Attention / Core",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "attention",
+            "title": "Attention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "query-key-value",
+            "title": "Query, Key, Value",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "causal-masking",
+            "title": "Causal Masking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "flash-attention",
+            "title": "FlashAttention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "multi-head-attention",
+            "title": "Multi-Head Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "softmax",
+      "title": "Softmax",
+      "domain": "Foundations / Functions",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "autoregressive-decoding",
+            "title": "Autoregressive Decoding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "attention",
+            "title": "Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "token-embedding",
+      "title": "Token Embedding",
+      "domain": "Foundations / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "tokenization",
+            "title": "Tokenization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "positional-encoding",
+            "title": "Positional Encoding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "tokenization",
+      "title": "Tokenization",
+      "domain": "Foundations / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "byte-pair-encoding",
+            "title": "Byte-Pair Encoding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "token-embedding",
+            "title": "Token Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "transformer-block",
+      "title": "Transformer Block",
+      "domain": "Architecture / Blocks",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "feed-forward-network",
+            "title": "Feed-Forward Network",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "layer-normalization",
+            "title": "Layer Normalization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "multi-head-attention",
+            "title": "Multi-Head Attention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "residual-connection",
+            "title": "Residual Connection",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "decoder-only-transformer",
+            "title": "Decoder-Only Transformer",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "encoder-decoder",
+            "title": "Encoder-Decoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
     }
   ],
   "neighborhoods": [
+    {
+      "id": "alibi",
+      "center": {
+        "id": "alibi",
+        "title": "ALiBi",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "positional-encoding",
+          "title": "Positional Encoding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "positional-encoding",
+          "to": "alibi",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "attention",
+      "center": {
+        "id": "attention",
+        "title": "Attention",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-attention",
+          "title": "Cross-Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "query-key-value",
+          "title": "Query, Key, Value",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "self-attention",
+          "title": "Self-Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        },
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "attention",
+          "to": "cross-attention",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "attention",
+          "to": "query-key-value",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "attention",
+          "to": "self-attention",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "attention",
+          "to": "softmax",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "attention-sink",
+      "center": {
+        "id": "attention-sink",
+        "title": "Attention Sink",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-masking",
+          "title": "Causal Masking",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-masking",
+          "to": "attention-sink",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "attention-sink",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "autoregressive-decoding",
+      "center": {
+        "id": "autoregressive-decoding",
+        "title": "Autoregressive Decoding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-masking",
+          "title": "Causal Masking",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-masking",
+          "to": "autoregressive-decoding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "autoregressive-decoding",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "byte-pair-encoding",
+      "center": {
+        "id": "byte-pair-encoding",
+        "title": "Byte-Pair Encoding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "tokenization",
+          "title": "Tokenization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "tokenization",
+          "to": "byte-pair-encoding",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "causal-masking",
+      "center": {
+        "id": "causal-masking",
+        "title": "Causal Masking",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "self-attention",
+          "title": "Self-Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "attention-sink",
+          "title": "Attention Sink",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
+          "id": "autoregressive-decoding",
+          "title": "Autoregressive Decoding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "decoder-only-transformer",
+          "title": "Decoder-Only Transformer",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        }
+      ],
+      "links": [
+        {
+          "from": "self-attention",
+          "to": "causal-masking",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "causal-masking",
+          "to": "attention-sink",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-masking",
+          "to": "autoregressive-decoding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-masking",
+          "to": "decoder-only-transformer",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-masking",
+          "to": "kv-cache",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
     {
       "id": "conditional-computation",
       "center": {
@@ -150,6 +1191,205 @@
           "to": "feed-forward-network",
           "type": "adjacent",
           "reviewed": true
+        }
+      ]
+    },
+    {
+      "id": "context-window",
+      "center": {
+        "id": "context-window",
+        "title": "Context Window",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "positional-encoding",
+          "title": "Positional Encoding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "rotary-position-embedding",
+          "title": "Rotary Position Embedding",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "kv-cache",
+          "to": "context-window",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "positional-encoding",
+          "to": "context-window",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "rotary-position-embedding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "cross-attention",
+      "center": {
+        "id": "cross-attention",
+        "title": "Cross-Attention",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "attention",
+          "title": "Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "encoder-decoder",
+          "title": "Encoder-Decoder",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "attention",
+          "to": "cross-attention",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "encoder-decoder",
+          "to": "cross-attention",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "decoder-only-transformer",
+      "center": {
+        "id": "decoder-only-transformer",
+        "title": "Decoder-Only Transformer",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-masking",
+          "title": "Causal Masking",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "transformer-block",
+          "title": "Transformer Block",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "encoder-decoder",
+          "title": "Encoder-Decoder",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-masking",
+          "to": "decoder-only-transformer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "transformer-block",
+          "to": "decoder-only-transformer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "decoder-only-transformer",
+          "to": "encoder-decoder",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "encoder-decoder",
+      "center": {
+        "id": "encoder-decoder",
+        "title": "Encoder-Decoder",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "transformer-block",
+          "title": "Transformer Block",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "cross-attention",
+          "title": "Cross-Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "decoder-only-transformer",
+          "title": "Decoder-Only Transformer",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "transformer-block",
+          "to": "encoder-decoder",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "encoder-decoder",
+          "to": "cross-attention",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "encoder-decoder",
+          "to": "decoder-only-transformer",
+          "type": "adjacent",
+          "reviewed": false
         }
       ]
     },
@@ -195,7 +1435,14 @@
           "title": "Mixture-of-Experts",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "transformer-block",
+          "title": "Transformer Block",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "conditional-computation",
@@ -214,9 +1461,201 @@
         },
         {
           "from": "feed-forward-network",
+          "to": "transformer-block",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "feed-forward-network",
           "to": "conditional-computation",
           "type": "adjacent",
           "reviewed": true
+        }
+      ]
+    },
+    {
+      "id": "flash-attention",
+      "center": {
+        "id": "flash-attention",
+        "title": "FlashAttention",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "self-attention",
+          "title": "Self-Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "self-attention",
+          "to": "flash-attention",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "grouped-query-attention",
+      "center": {
+        "id": "grouped-query-attention",
+        "title": "Grouped-Query Attention",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "multi-query-attention",
+          "title": "Multi-Query Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "multi-query-attention",
+          "to": "grouped-query-attention",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "kv-cache",
+      "center": {
+        "id": "kv-cache",
+        "title": "KV Cache",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-masking",
+          "title": "Causal Masking",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "self-attention",
+          "title": "Self-Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "attention-sink",
+          "title": "Attention Sink",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "multi-query-attention",
+          "title": "Multi-Query Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-masking",
+          "to": "kv-cache",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "self-attention",
+          "to": "kv-cache",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "attention-sink",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "context-window",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "multi-query-attention",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "layer-normalization",
+      "center": {
+        "id": "layer-normalization",
+        "title": "Layer Normalization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "rmsnorm",
+          "title": "RMSNorm",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "transformer-block",
+          "title": "Transformer Block",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "residual-connection",
+          "title": "Residual Connection",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "layer-normalization",
+          "to": "rmsnorm",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "layer-normalization",
+          "to": "transformer-block",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "layer-normalization",
+          "to": "residual-connection",
+          "type": "adjacent",
+          "reviewed": false
         }
       ]
     },
@@ -274,6 +1713,112 @@
       ]
     },
     {
+      "id": "multi-head-attention",
+      "center": {
+        "id": "multi-head-attention",
+        "title": "Multi-Head Attention",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "self-attention",
+          "title": "Self-Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "multi-query-attention",
+          "title": "Multi-Query Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "transformer-block",
+          "title": "Transformer Block",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "self-attention",
+          "to": "multi-head-attention",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multi-head-attention",
+          "to": "multi-query-attention",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "multi-head-attention",
+          "to": "transformer-block",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "multi-query-attention",
+      "center": {
+        "id": "multi-query-attention",
+        "title": "Multi-Query Attention",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "multi-head-attention",
+          "title": "Multi-Head Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "grouped-query-attention",
+          "title": "Grouped-Query Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "kv-cache",
+          "to": "multi-query-attention",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multi-head-attention",
+          "to": "multi-query-attention",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multi-query-attention",
+          "to": "grouped-query-attention",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "muon-optimizer",
       "center": {
         "id": "muon-optimizer",
@@ -284,6 +1829,523 @@
       },
       "nodes": [],
       "links": []
+    },
+    {
+      "id": "positional-encoding",
+      "center": {
+        "id": "positional-encoding",
+        "title": "Positional Encoding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "token-embedding",
+          "title": "Token Embedding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "alibi",
+          "title": "ALiBi",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "rotary-position-embedding",
+          "title": "Rotary Position Embedding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        }
+      ],
+      "links": [
+        {
+          "from": "token-embedding",
+          "to": "positional-encoding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "positional-encoding",
+          "to": "alibi",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "positional-encoding",
+          "to": "context-window",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "positional-encoding",
+          "to": "rotary-position-embedding",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "query-key-value",
+      "center": {
+        "id": "query-key-value",
+        "title": "Query, Key, Value",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "attention",
+          "title": "Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "self-attention",
+          "title": "Self-Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "attention",
+          "to": "query-key-value",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "query-key-value",
+          "to": "self-attention",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "residual-connection",
+      "center": {
+        "id": "residual-connection",
+        "title": "Residual Connection",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "transformer-block",
+          "title": "Transformer Block",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "layer-normalization",
+          "title": "Layer Normalization",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "residual-connection",
+          "to": "transformer-block",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "residual-connection",
+          "to": "layer-normalization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "rmsnorm",
+      "center": {
+        "id": "rmsnorm",
+        "title": "RMSNorm",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "layer-normalization",
+          "title": "Layer Normalization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "layer-normalization",
+          "to": "rmsnorm",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "rotary-position-embedding",
+      "center": {
+        "id": "rotary-position-embedding",
+        "title": "Rotary Position Embedding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "positional-encoding",
+          "title": "Positional Encoding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "positional-encoding",
+          "to": "rotary-position-embedding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "rotary-position-embedding",
+          "to": "context-window",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "self-attention",
+      "center": {
+        "id": "self-attention",
+        "title": "Self-Attention",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "attention",
+          "title": "Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "query-key-value",
+          "title": "Query, Key, Value",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "causal-masking",
+          "title": "Causal Masking",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
+          "id": "flash-attention",
+          "title": "FlashAttention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "multi-head-attention",
+          "title": "Multi-Head Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        }
+      ],
+      "links": [
+        {
+          "from": "attention",
+          "to": "self-attention",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "query-key-value",
+          "to": "self-attention",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "self-attention",
+          "to": "causal-masking",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "self-attention",
+          "to": "flash-attention",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "self-attention",
+          "to": "kv-cache",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "self-attention",
+          "to": "multi-head-attention",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "softmax",
+      "center": {
+        "id": "softmax",
+        "title": "Softmax",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autoregressive-decoding",
+          "title": "Autoregressive Decoding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "attention",
+          "title": "Attention",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "softmax",
+          "to": "autoregressive-decoding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "attention",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "token-embedding",
+      "center": {
+        "id": "token-embedding",
+        "title": "Token Embedding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "tokenization",
+          "title": "Tokenization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "positional-encoding",
+          "title": "Positional Encoding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "tokenization",
+          "to": "token-embedding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "token-embedding",
+          "to": "positional-encoding",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "tokenization",
+      "center": {
+        "id": "tokenization",
+        "title": "Tokenization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "byte-pair-encoding",
+          "title": "Byte-Pair Encoding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "token-embedding",
+          "title": "Token Embedding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "tokenization",
+          "to": "byte-pair-encoding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tokenization",
+          "to": "token-embedding",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "transformer-block",
+      "center": {
+        "id": "transformer-block",
+        "title": "Transformer Block",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "feed-forward-network",
+          "title": "Feed-Forward Network",
+          "tier": "verified",
+          "x": 40,
+          "y": 26
+        },
+        {
+          "id": "layer-normalization",
+          "title": "Layer Normalization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 53
+        },
+        {
+          "id": "multi-head-attention",
+          "title": "Multi-Head Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 79
+        },
+        {
+          "id": "residual-connection",
+          "title": "Residual Connection",
+          "tier": "frontier",
+          "x": 40,
+          "y": 106
+        },
+        {
+          "id": "decoder-only-transformer",
+          "title": "Decoder-Only Transformer",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "encoder-decoder",
+          "title": "Encoder-Decoder",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "feed-forward-network",
+          "to": "transformer-block",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "layer-normalization",
+          "to": "transformer-block",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multi-head-attention",
+          "to": "transformer-block",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "residual-connection",
+          "to": "transformer-block",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "transformer-block",
+          "to": "decoder-only-transformer",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "transformer-block",
+          "to": "encoder-decoder",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
     }
   ]
 }

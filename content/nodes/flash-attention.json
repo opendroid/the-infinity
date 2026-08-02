@@ -1,0 +1,58 @@
+{
+  "id": "flash-attention",
+  "title": "FlashAttention",
+  "domain": [
+    "Attention",
+    "Efficiency"
+  ],
+  "bodies": {
+    "intuition": "Standard attention writes the whole score matrix to memory, then reads it back to apply the softmax, then reads it again for the weighted sum. FlashAttention never writes it at all: it works through the sequence in tiles small enough to stay in fast on-chip memory, accumulating the result as it goes. Identical answer, a fraction of the memory traffic.",
+    "engineer": "Tile the computation and use an online softmax that can be updated as new blocks arrive, rescaling the running total rather than needing all scores first. The gain is in memory movement, not arithmetic — attention was bandwidth-bound, not compute-bound, which is why the speedup arrives with no change to the maths.",
+    "math": "Online softmax keeps a running maximum m and sum ℓ, rescaling the accumulator by exp(m_old − m_new) as each block is processed. Memory traffic drops from Θ(n²) to Θ(n²d/M) for on-chip memory of size M, while the output is exact rather than approximate."
+  },
+  "emphasis": {
+    "intuition": "Identical answer, a fraction of the memory traffic",
+    "engineer": "attention was bandwidth-bound, not compute-bound"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "tile": 128,
+      "share_rest": 128
+    },
+    "param_controls": [
+      {
+        "name": "tile",
+        "min": 16,
+        "max": 512,
+        "step": 16
+      }
+    ],
+    "caption": "Memory traffic saved by tiling against what a materialised score matrix would move. Drag the tile size to trade on-chip residency against the number of passes."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "self-attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2205.14135",
+      "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+      "url": "https://arxiv.org/abs/2205.14135"
+    },
+    {
+      "ref": "arXiv:2307.08691",
+      "title": "FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning",
+      "url": "https://arxiv.org/abs/2307.08691"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "rotary-position-embedding",
+  "title": "Rotary Position Embedding",
+  "domain": [
+    "Attention",
+    "Position"
+  ],
+  "bodies": {
+    "intuition": "Rather than adding position to a token's representation, RoPE rotates it — by an angle proportional to where it sits. Two tokens dotted together then depend only on the angle between them, which is the distance separating them. Relative position falls out of the geometry instead of being learned.",
+    "engineer": "Rotate each pair of dimensions of Q and K by an angle proportional to position before the dot product. It touches queries and keys only, never values, and adds no parameters. The relative property holds exactly, which is why it extrapolates further than absolute schemes and why context-extension tricks work by rescaling its base frequency.",
+    "math": "Group the d_k dimensions into pairs and rotate pair i at position m by angle mθ_i with θ_i = 10000^{−2i/d}. Then ⟨R_m q, R_n k⟩ depends on m − n alone. Scaling θ's base extends the usable context by slowing the rotation."
+  },
+  "emphasis": {
+    "intuition": "Relative position falls out of the geometry",
+    "engineer": "It touches queries and keys only, never values"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "frequencies": 8,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "frequencies",
+        "min": 2,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Rotation rates across dimension pairs, fastest first. Drag the count to see the spread of scales a position is encoded across."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "positional-encoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2104.09864",
+      "title": "RoFormer: Enhanced Transformer with Rotary Position Embedding",
+      "url": "https://arxiv.org/abs/2104.09864"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

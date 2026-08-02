@@ -1,0 +1,57 @@
+{
+  "id": "autoregressive-decoding",
+  "title": "Autoregressive Decoding",
+  "domain": [
+    "Inference",
+    "Decoding"
+  ],
+  "bodies": {
+    "intuition": "A language model does not write a sentence, it writes a token and then reads what it wrote. Each step produces a distribution over the vocabulary, one token is chosen from it, and the choice becomes part of the input for the next step. The whole output is that loop, run until something stops it.",
+    "engineer": "Every step is a full forward pass for a single token, which makes generation memory-bound rather than compute-bound: the weights are read in their entirety to produce one token. That imbalance is why batching helps so much, and why speculative methods that verify several tokens per pass are worth the complexity.",
+    "math": "x_t ~ p(· | x_{<t}) with p from a softmax over logits, optionally temperature-scaled or truncated by top-k or nucleus sampling. Generating n tokens costs n sequential forward passes regardless of hardware width, so latency is bounded by depth rather than throughput."
+  },
+  "emphasis": {
+    "intuition": "writes a token and then reads what it wrote",
+    "engineer": "the weights are read in their entirety to produce one token"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "temperature": 1.0,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "temperature",
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1
+      }
+    ],
+    "caption": "The distribution over candidate tokens at one step, before and after temperature. Drag it down to watch the choice collapse onto the most likely token."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "causal-masking",
+        "reviewed": false
+      },
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2005.14165",
+      "title": "Language Models are Few-Shot Learners",
+      "url": "https://arxiv.org/abs/2005.14165"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

@@ -1,0 +1,63 @@
+{
+  "id": "attention",
+  "title": "Attention",
+  "domain": [
+    "Attention",
+    "Core"
+  ],
+  "bodies": {
+    "intuition": "A model reading a sentence needs to decide, for each word, which other words matter. Attention is that decision made numerically: every position scores every other position, the scores become weights, and the position reads a weighted blend of what it found. Nothing is hard-wired about which words matter — the weights are computed fresh for every input.",
+    "engineer": "Score each query against every key, scale by the square root of the head dimension, softmax the scores into weights, and take the weighted sum of the values. The scaling is not cosmetic: without it the dot products grow with dimension, the softmax saturates, and gradients vanish. Cost is quadratic in sequence length because every position scores every other one.",
+    "math": "Attention(Q,K,V) = softmax(QKᵀ / √d_k) · V, with Q ∈ ℝ^{n×d_k}, K ∈ ℝ^{m×d_k}, V ∈ ℝ^{m×d_v}. The softmax is row-wise, so each query's weights over the m keys sum to one. The √d_k divisor keeps the variance of the dot products near one when the entries of Q and K are unit-variance."
+  },
+  "emphasis": {
+    "intuition": "the weights are computed fresh for every input",
+    "engineer": "The scaling is not cosmetic"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "heads": 1
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 4,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Each row is a query, each column a key it can attend to; brighter cells carry more of the weight. Drag the sequence length to watch the cost of attending grow with the square of it."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1409.0473",
+      "title": "Neural Machine Translation by Jointly Learning to Align and Translate",
+      "url": "https://arxiv.org/abs/1409.0473"
+    },
+    {
+      "ref": "arXiv:1508.04025",
+      "title": "Effective Approaches to Attention-based Neural Machine Translation",
+      "url": "https://arxiv.org/abs/1508.04025"
+    },
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

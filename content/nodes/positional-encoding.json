@@ -1,0 +1,53 @@
+{
+  "id": "positional-encoding",
+  "title": "Positional Encoding",
+  "domain": [
+    "Attention",
+    "Position"
+  ],
+  "bodies": {
+    "intuition": "Attention has no idea what order anything is in. Shuffle the input and the output shuffles with it, unchanged. Positional encoding puts the order back by adding a position-dependent signal to each token's representation, so that a word at the start and the same word at the end no longer look identical.",
+    "engineer": "The original scheme adds fixed sinusoids of geometrically spaced frequencies, chosen so that a fixed offset is a linear function of the encoding — which in principle lets the model learn relative positions. Learned absolute embeddings are the simple alternative and do not extrapolate past the trained length. Everything since has been an attempt to encode relative position more directly.",
+    "math": "PE(pos,2i) = sin(pos/10000^{2i/d}), PE(pos,2i+1) = cos(pos/10000^{2i/d}), added to the token embedding. Wavelengths form a geometric progression from 2π to 10000·2π, so low dimensions vary quickly with position and high dimensions slowly."
+  },
+  "emphasis": {
+    "intuition": "Shuffle the input and the output shuffles with it",
+    "engineer": "do not extrapolate past the trained length"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "frequencies": 8,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "frequencies",
+        "min": 2,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "The frequency bands making up a position's signal, from fastest to slowest. Drag the band count to see how finely position can be distinguished."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "token-embedding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

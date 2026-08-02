@@ -1,0 +1,54 @@
+{
+  "id": "token-embedding",
+  "title": "Token Embedding",
+  "domain": [
+    "Foundations",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "A token id is just a number with no meaning — id 400 is not twice id 200. The embedding table gives each id a vector instead, learned during training, so that tokens used in similar ways end up pointing in similar directions. It is the step that turns arbitrary labels into geometry the model can do arithmetic on.",
+    "engineer": "A lookup table of shape |V| × d_model, indexed by token id. It is often the single largest parameter tensor in a small model, and is frequently tied to the output projection so the same matrix maps in and out. Tying saves |V|·d_model parameters and usually costs nothing in quality.",
+    "math": "E ∈ ℝ^{|V|×d_model}, with the embedding of token t being row E_t. With weight tying, the output logits are h·Eᵀ rather than h·W for a separate W. The transformer's original scheme also scales embeddings by √d_model before adding positional encoding."
+  },
+  "emphasis": {
+    "intuition": "turns arbitrary labels into geometry",
+    "engineer": "often the single largest parameter tensor in a small model"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "vocab": 32000,
+      "d_model": 4096,
+      "share_rest": 4096
+    },
+    "param_controls": [
+      {
+        "name": "vocab",
+        "min": 1000,
+        "max": 128000,
+        "step": 1000
+      }
+    ],
+    "caption": "Share of the model's parameters held by the embedding table against everything else. Drag the vocabulary to watch the table take over the budget in a small model."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tokenization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

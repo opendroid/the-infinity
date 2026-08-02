@@ -1,0 +1,58 @@
+{
+  "id": "residual-connection",
+  "title": "Residual Connection",
+  "domain": [
+    "Architecture",
+    "Blocks"
+  ],
+  "bodies": {
+    "intuition": "Instead of asking a layer to produce its output from scratch, a residual connection asks it only for the change, and adds that to what came in. A layer with nothing useful to contribute can output approximately zero and do no harm, which is what makes stacking a hundred of them survivable.",
+    "engineer": "Output x + F(x) rather than F(x). The addition gives the gradient an unobstructed path to every earlier layer — it flows through the identity term whatever F does — which is what removes the degradation that made very deep plain networks train worse than shallow ones. In a transformer, every attention and feed-forward sub-layer sits inside one.",
+    "math": "y = x + F(x), so ∂y/∂x = I + ∂F/∂x. The identity term keeps the Jacobian away from zero regardless of F's own gradient, so the product across L layers does not decay geometrically. This is the mechanism behind trainability at depth, not merely an optimisation trick."
+  },
+  "emphasis": {
+    "intuition": "can output approximately zero and do no harm",
+    "engineer": "it flows through the identity term whatever F does"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "depth": 12,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "depth",
+        "min": 2,
+        "max": 24,
+        "step": 2
+      }
+    ],
+    "caption": "Gradient magnitude reaching each layer, without the residual path and with it. Drag the depth to watch the unaided signal decay while the residual one holds."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "layer-normalization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1512.03385",
+      "title": "Deep Residual Learning for Image Recognition",
+      "url": "https://arxiv.org/abs/1512.03385"
+    },
+    {
+      "ref": "arXiv:2002.04745",
+      "title": "On Layer Normalization in the Transformer Architecture",
+      "url": "https://arxiv.org/abs/2002.04745"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "causal-masking",
+  "title": "Causal Masking",
+  "domain": [
+    "Attention",
+    "Core"
+  ],
+  "bodies": {
+    "intuition": "A model trained to predict the next word must not be allowed to see it. Causal masking blocks every position from attending to anything later than itself, so the prediction at each step is made from the past alone. It is what makes a single forward pass over a sentence into n training examples at once rather than one.",
+    "engineer": "Add negative infinity to the upper triangle of the score matrix before the softmax, so those weights come out as exactly zero. Masking after the softmax would be wrong: the denominator would still include the future. This is the difference between a decoder and an encoder, and it is why decoder attention patterns are always triangular.",
+    "math": "Scores S_ij + M_ij where M_ij = 0 for j ≤ i and −∞ otherwise, then row-wise softmax. exp(−∞) = 0 makes the masked weights vanish while the remaining row still sums to one. The lower-triangular structure is what allows the KV cache: position i's keys and values never change when position i+1 arrives."
+  },
+  "emphasis": {
+    "intuition": "n training examples at once rather than one",
+    "engineer": "Masking after the softmax would be wrong"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "heads": 1
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 4,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "The triangular pattern masking leaves behind: every position sees itself and everything before it, nothing after. Drag the sequence length to watch the visible half grow while the masked half grows with it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "self-attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    },
+    {
+      "ref": "arXiv:2005.14165",
+      "title": "Language Models are Few-Shot Learners",
+      "url": "https://arxiv.org/abs/2005.14165"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

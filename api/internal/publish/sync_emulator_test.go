@@ -208,7 +208,29 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 	client := emulatorClient(t)
 	graph, _ := publishRealContent(t, client)
 
+	// Pick a concept per assertion rather than reusing the first one for all of
+	// them. `review` and `edges.unlocks[]` only exist on concepts that have
+	// them, so a single id checks those two paths only while it happens to be
+	// a verified concept with dependents — which is a property of alphabetical
+	// order, not of the test. Seed batch 1 added `alibi`, it sorted to the
+	// front, and both assertions started reading nil.
+	//
+	// find() fails loudly when the corpus has no such concept, because the
+	// alternative is an assertion that quietly stops running.
+	find := func(what string, ok func(store.Concept) bool) string {
+		t.Helper()
+		for _, c := range graph.Concepts {
+			if ok(c) {
+				return c.ID
+			}
+		}
+		t.Fatalf("no concept in /content/nodes %s — this assertion cannot run", what)
+		return ""
+	}
+
 	id := graph.Concepts[0].ID
+	verifiedID := find("carries a review", func(c store.Concept) bool { return c.Review != nil })
+	unlocksID := find("has an unlocks edge", func(c store.Concept) bool { return len(c.Edges.Unlocks) > 0 })
 	concepts := client.Collection(store.CollConcepts)
 
 	tests := []struct {
@@ -239,11 +261,11 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 			want: []string{"caption", "caption_engineer", "param_controls", "params", "primitive"}},
 		{name: "concept.edges", doc: concepts.Doc(id), at: "edges",
 			want: []string{"adjacent", "requires", "unlocks"}},
-		{name: "concept.edges.unlocks[]", doc: concepts.Doc(id), at: "edges.unlocks.[]",
+		{name: "concept.edges.unlocks[]", doc: concepts.Doc(unlocksID), at: "edges.unlocks.[]",
 			want: []string{"id", "reviewed", "tier", "title"}},
 		{name: "concept.citations[]", doc: concepts.Doc(id), at: "citations.[]",
 			want: []string{"ref", "title", "url"}},
-		{name: "concept.review", doc: concepts.Doc(id), at: "review",
+		{name: "concept.review", doc: concepts.Doc(verifiedID), at: "review",
 			want: []string{"reviewed_at", "reviewed_by"}},
 		{
 			name: "neighborhood",

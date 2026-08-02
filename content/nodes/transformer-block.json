@@ -1,0 +1,66 @@
+{
+  "id": "transformer-block",
+  "title": "Transformer Block",
+  "domain": [
+    "Architecture",
+    "Blocks"
+  ],
+  "bodies": {
+    "intuition": "The transformer is one block repeated. Each block does two things: attention, where positions exchange information, and a feed-forward network, where each position thinks about what it received on its own. Both sit inside residual connections with normalization, and stacking the block dozens of times is the whole architecture.",
+    "engineer": "Two sub-layers, each wrapped as x + F(LN(x)) in the pre-norm arrangement. Attention is the only place information crosses positions; the feed-forward layer is position-wise and holds most of the parameters. That split is what makes the block easy to parallelise and is the seam every sparsity method cuts along.",
+    "math": "h = x + MHA(LN(x)); y = h + FFN(LN(h)). Parameters per block are roughly 4·d_model² for attention projections and 2·d_model·d_ff for the feed-forward layer, so at the conventional d_ff = 4·d_model the block is about one third attention and two thirds feed-forward."
+  },
+  "emphasis": {
+    "intuition": "stacking the block dozens of times is the whole architecture",
+    "engineer": "the seam every sparsity method cuts along"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "d_model": 512,
+      "d_ff": 2048,
+      "share_rest": 1024
+    },
+    "param_controls": [
+      {
+        "name": "d_ff",
+        "min": 512,
+        "max": 4096,
+        "step": 512
+      }
+    ],
+    "caption": "How a block's parameters divide between the feed-forward layer and the attention beside it. Drag d_ff to the conventional 4× d_model and the feed-forward side takes two thirds."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "multi-head-attention",
+        "reviewed": false
+      },
+      {
+        "id": "feed-forward-network",
+        "reviewed": false
+      },
+      {
+        "id": "residual-connection",
+        "reviewed": false
+      },
+      {
+        "id": "layer-normalization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

@@ -1,0 +1,54 @@
+{
+  "id": "grouped-query-attention",
+  "title": "Grouped-Query Attention",
+  "domain": [
+    "Attention",
+    "Efficiency"
+  ],
+  "bodies": {
+    "intuition": "Multi-head attention gives every head its own keys and values; multi-query gives them all one set. Grouped-query sits between: heads are divided into groups, and each group shares. It recovers most of the quality lost by full sharing while keeping most of the memory saved.",
+    "engineer": "Choose g key-value groups with h heads spread across them; g = h is multi-head, g = 1 is multi-query. Existing multi-head checkpoints can be converted by mean-pooling the projections within each group and briefly fine-tuning, which is why it spread quickly rather than needing new pretraining runs.",
+    "math": "Cache size scales as 2·g·d_head·n per layer, interpolating between the two endpoints. Quality is close to multi-head at g of roughly 8 for h of 64, so most of the memory reduction is available at little cost."
+  },
+  "emphasis": {
+    "intuition": "heads are divided into groups, and each group shares",
+    "engineer": "rather than needing new pretraining runs"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "groups": 8,
+      "heads": 64,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "groups",
+        "min": 1,
+        "max": 64,
+        "step": 1
+      }
+    ],
+    "caption": "Cache taken by the shared key and value groups against the rest of memory. Drag the group count from one to the head count to move between multi-query and multi-head."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "multi-query-attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.13245",
+      "title": "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints",
+      "url": "https://arxiv.org/abs/2305.13245"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}
