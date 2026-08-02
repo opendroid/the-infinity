@@ -120,3 +120,20 @@ like a routing bug in the API rather than a typo in a config.
 The config is `astro.config.ts` rather than `.mjs` precisely so it can import that function
 instead of restating the rule in JavaScript. Two copies of a validation rule are two copies
 free to disagree — the failure mode this repo has hit more than once.
+
+## The site is deliberately unindexable right now
+
+`public/robots.txt` disallows everything and `firebase.json` sets
+`X-Robots-Tag: noindex, nofollow` on every route. Both are pre-launch measures (#84).
+
+The site is live at `the-infinity-ai.web.app` while the real domain is still parked, and
+indexing that URL would put the same content on two domains, index the graph at its
+thinnest, and attach the history to an address we are about to abandon.
+
+**Both come off at the DNS cutover (#65), together.** `robots.txt` asks a crawler not to
+*crawl*; the header tells it not to *index*, and a page linked from somewhere else can be
+indexed without ever being crawled. Removing only one leaves the site half-blocked in a way
+nothing reports.
+
+The removal is a verified step in #65 and #66 rather than a note here, because forgetting it
+is silent: the site works perfectly and is simply never found.
