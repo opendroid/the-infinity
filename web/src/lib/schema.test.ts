@@ -57,6 +57,29 @@ describe('node.schema.json accepts', () => {
     node.viz.param_controls = [];
     expect(validate(node)).toBe(true);
   });
+
+  /**
+   * The v1 primitive set (#46). Written out rather than read from the schema:
+   * asserting the enum against itself would pass no matter what it said, and the
+   * point of this list is that changing the enum requires someone to type the
+   * new name twice, in two files, having read what it means.
+   */
+  const PRIMITIVES = ['router-dispatch', 'update-spectrum', 'attention-heatmap', 'loss-curve'];
+
+  for (const primitive of PRIMITIVES) {
+    it(`the ${primitive} primitive`, () => {
+      const node = valid();
+      node.viz.primitive = primitive;
+      expect(validate(node)).toBe(true);
+    });
+  }
+
+  it('exactly these primitives and no others', () => {
+    // Pins the enum to the list above, so adding a primitive to the schema
+    // without deciding what it shows fails here rather than at a reader.
+    const enumerated = schema.properties.viz.properties.primitive.enum;
+    expect(enumerated).toEqual(PRIMITIVES);
+  });
 });
 
 describe('node.schema.json rejects', () => {
