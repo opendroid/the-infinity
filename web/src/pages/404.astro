@@ -1,0 +1,55 @@
+---
+// The graph never dead-ends (CLAUDE.md §1), which makes this a product surface
+// rather than an error page.
+//
+// One pre-rendered 404.html serves every unmatched path, so the slug a reader
+// typed is unknowable at build time. Everything that depends on it — the slug
+// itself, the nearest concepts, the request form — is in the island. Everything
+// above it is static and already enough: a reader with no JavaScript still gets
+// told the graph has a gap and handed a way back into it.
+import Base from '../layouts/Base.astro';
+import Topbar from '../components/Topbar.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import RequestConcept from '../components/RequestConcept';
+---
+
+<Base
+  title="Gap in the graph · theinfinity.ai"
+  description="This concept isn't in the graph yet. Request it, or follow the thread somewhere else."
+>
+  <Topbar />
+
+  <main class="mx-auto max-w-[680px] px-[26px] py-12">
+    <!--
+      The broken thread: a solid path to a verified node, a dashed gap where the
+      concept would be, then a ghosted continuation to a frontier node. The one
+      visual idea of the product, saying the specific thing this page means —
+      the thread does not stop here, it is just unfinished.
+    -->
+    <svg viewBox="0 0 320 60" class="mb-7 w-full max-w-[320px]" role="img" aria-label="The thread breaks at a missing concept and continues beyond it">
+      <path d="M8 30 C 60 30, 70 30, 104 30" stroke="#8F7BFF" stroke-width="1.5" fill="none" />
+      <circle cx="104" cy="30" r="6" fill="#E5B54A" />
+      <circle cx="160" cy="30" r="9" fill="none" stroke="#8F7BFF" stroke-width="1.5" stroke-dasharray="3 4" />
+      <g opacity=".2">
+        <path d="M216 30 C 250 30, 260 30, 300 30" stroke="#8F7BFF" stroke-width="1.5" fill="none" />
+      </g>
+      <circle cx="300" cy="30" r="6" fill="#5FD4C4" opacity=".35" />
+    </svg>
+
+    <Eyebrow>Gap in the graph</Eyebrow>
+    <h1 class="mt-1.5 font-display text-[26px] font-semibold text-starlight">
+      This node doesn't exist yet
+    </h1>
+
+    <RequestConcept client:load />
+
+    <!--
+      Always present, never conditional. Whatever the island manages to do, the
+      page ends with somewhere to go — which is the whole rule this page exists
+      to keep.
+    -->
+    <p class="mt-8 border-t border-line pt-6 text-[14px] text-dust">
+      <a href="/" class="text-thread no-underline hover:underline">Start from the beginning of the thread</a>
+    </p>
+  </main>
+</Base>
