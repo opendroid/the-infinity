@@ -100,6 +100,26 @@ resolve.** If a batch was generated without egress — as these Claude Code sess
 its citations are unverified until someone runs it with network access. Say so in the PR
 rather than letting a green CI imply otherwise.
 
+Two environments where "unreachable" is a lie about the network rather than the papers:
+
+- **A Claude Code session on a restrictive egress policy.** `arxiv.org` is not on the
+  allowlist by default, and every citation fails with the proxy's own status. The script
+  reports this correctly; the fix, if you want citations verified at authoring time, is to
+  allow `arxiv.org` in the environment's network policy and start a fresh session — the
+  policy is fixed when the container boots.
+- **A laptop behind a corporate proxy.** Node's built-in `fetch` does not read `HTTPS_PROXY`
+  in every version, so it can fail to connect while `curl` succeeds from the same shell.
+  That looks identical to arXiv being down. If you have a proxy set and the check cannot
+  reach anything:
+
+  ```zsh
+  NODE_USE_ENV_PROXY=1 npm run check:citations   # Node >= 22.21
+  ```
+
+  Confirm with `curl -sI https://arxiv.org/abs/1706.03762 | head -1` first: if curl resolves
+  it and the script does not, the script is not seeing your proxy, and no citation has been
+  judged either way.
+
 ## The prompt
 
 Paste this at the repo root with the id list substituted.
