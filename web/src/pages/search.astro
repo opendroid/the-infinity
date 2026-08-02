@@ -1,0 +1,42 @@
+---
+// Route 4's fallback. The handoff specifies search as an overlay, and it is —
+// but the landing field is a real GET form, so with no JavaScript it navigates
+// here, and `/search?q=lora` has to be a URL somebody can paste (#106).
+//
+// The query is read in the browser, not at build: this is a static site and the
+// build cannot know what anyone will type. With JavaScript the island answers
+// it; without, the page still says what the graph contains and hands the reader
+// the index, which is a real answer rather than an apology.
+import Base from '../layouts/Base.astro';
+import Topbar from '../components/Topbar.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import SearchPanel from '../components/SearchPanel';
+import { allNodes } from '../lib/content';
+
+const total = allNodes.length;
+---
+
+<Base title="Search · theinfinity.ai" description={`Search ${total} concepts in the graph.`}>
+  <Topbar />
+
+  <main class="mx-auto max-w-[620px] px-[26px] py-12">
+    <Eyebrow>Search</Eyebrow>
+    <h1 class="mb-6 mt-1.5 font-display text-[26px] font-semibold text-starlight">
+      Find a concept
+    </h1>
+
+    <SearchPanel client:load mode="page" />
+
+    <noscript>
+      <p class="mt-5 rounded-control border border-line bg-nebula px-3.5 py-3 text-[14px] text-starlight">
+        Search needs JavaScript to match against the index. Every one of the {total} concepts is
+        listed on <a href="/concepts" class="text-thread underline">the index page</a>, grouped by
+        domain — no JavaScript required.
+      </p>
+    </noscript>
+
+    <p class="mt-8 border-t border-line pt-6 text-[14px] text-dust">
+      Or <a href="/concepts" class="text-thread no-underline hover:underline">browse all {total} concepts</a>.
+    </p>
+  </main>
+</Base>
