@@ -6,10 +6,20 @@
 // In production this is the ONE element that waits on the network: it refetches
 // /api/v1/concepts/{id}/neighborhood after hydration so a page cached last week
 // still shows today's tier colours. Server-rendered here as the first paint.
-import type { Neighborhood } from '../lib/graph';
+import type { MiniMapNode, Neighborhood } from '../lib/graph';
 interface Props { data: Neighborhood }
 const { data } = Astro.props;
 const fill = (tier: string) => (tier === 'verified' ? '#E5B54A' : '#5FD4C4');
+
+// Links name their endpoints by id — the shape the API returns — so drawing one
+// means looking its ends up here. The centre is in the map too: every link has
+// exactly one end on it.
+const points = new Map<string, MiniMapNode>([data.center, ...data.nodes].map((n) => [n.id, n]));
+const drawable = data.links.flatMap((link) => {
+  const from = points.get(link.from);
+  const to = points.get(link.to);
+  return from && to ? [{ from, to, reviewed: link.reviewed }] : [];
+});
 ---
 <div>
   <h4 class="mb-2.5 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-dust">
@@ -22,7 +32,7 @@ const fill = (tier: string) => (tier === 'verified' ? '#E5B54A' : '#5FD4C4');
     aria-label={`Concepts one step from ${data.center.title}`}
   >
     {
-      data.links.map((link) => (
+      drawable.map((link) => (
         <line
           x1={link.from.x}
           y1={link.from.y}
@@ -46,7 +56,7 @@ const fill = (tier: string) => (tier === 'verified' ? '#E5B54A' : '#5FD4C4');
       font-size="8">{data.center.id}</text>
   </svg>
   {
-    data.links.some((l) => !l.reviewed) && (
+    drawable.some((l) => !l.reviewed) && (
       <p class="mt-1.5 font-mono text-[10px] uppercase tracking-[.12em] text-dust">
         Dashed = unreviewed edge
       </p>

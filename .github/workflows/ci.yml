@@ -1,0 +1,194 @@
+# Every pull request. Four jobs, all required before a merge.
+#
+# The gates are the ones in CLAUDE.md, run where a human cannot forget them.
+# Nothing here deploys — see deploy.yml.
+name: ci
+
+on:
+  # `edited` is here for the title check. Without it a bad title cannot be
+  # fixed: editing does not retrigger, and re-running replays the stored event
+  # payload with the old title, so the only way out is an unrelated commit. The
+  # cost is that editing a description re-runs the other three jobs, which the
+  # concurrency group below keeps to one run.
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  # Also on main, so a required check has a green baseline to compare against
+  # and a squash-merge that breaks the build says so within the minute.
+  push:
+    branches: [main]
+
+# Read-only. Nothing in this workflow writes to the repository, and a token that
+# cannot push is one that cannot be turned into a push by a malicious dependency.
+permissions:
+  contents: read
+
+# A second push supersedes the first: the older run's answer is about code
+# nobody will merge.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Pinned so a green CI stays green. Bumping either is a deliberate commit.
+  GO_VERSION: '1.25'
+  NODE_VERSION: '22'
+
+jobs:
+  web:
+    name: web
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      # ci, not install: it installs exactly the lockfile and fails if
+      # package.json and the lock have drifted apart.
+      - run: npm ci
+
+      # Content first. A bad node fails here with the file and the field named,
+      # rather than fifty lines later as a type error in a page that loaded it.
+      - name: Validate content
+        run: npm run validate:content
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Includes golden.test.ts, which asserts that this side's derivation still
+      # agrees with the publish tool's. See content/derived.golden.json.
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  api:
+    name: api
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: api/go.sum
+
+      # The emulator is a Java process. Ubuntu runners ship a JDK, but which one
+      # is not a promise, and a version drift here would look like a flaky test.
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Vet and gofmt
+        run: |
+          go vet ./...
+          test -z "$(gofmt -l .)" || { echo "gofmt needed:"; gofmt -l .; exit 1; }
+
+      - uses: golangci/golangci-lint-action@v8
+        with:
+          version: v2.5.0
+          working-directory: api
+
+      # The jar is fetched directly rather than through `gcloud components
+      # install`, so this job needs neither the SDK nor any credential: the
+      # emulator authenticates nothing and accepts any project id.
+      - name: Start the Firestore emulator
+        run: |
+          set -euo pipefail
+          curl -sSfL -o "$RUNNER_TEMP/firestore-emulator.jar" \
+            "https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v${EMULATOR_VERSION}.jar"
+          nohup java -jar "$RUNNER_TEMP/firestore-emulator.jar" \
+            --host=127.0.0.1 --port=8081 > "$RUNNER_TEMP/emulator.log" 2>&1 &
+          for _ in $(seq 1 60); do
+            if curl -sf -o /dev/null http://127.0.0.1:8081; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "the emulator did not come up:" >&2
+          cat "$RUNNER_TEMP/emulator.log" >&2
+          exit 1
+        env:
+          EMULATOR_VERSION: 1.19.8
+
+      # Without FIRESTORE_EMULATOR_HOST the round-trip tests skip rather than
+      # fail — which is right on a laptop and wrong here, so the emulator step
+      # above must have succeeded for this to mean anything.
+      - name: Test
+        run: go test -race ./...
+        env:
+          FIRESTORE_EMULATOR_HOST: 127.0.0.1:8081
+
+      - name: Build
+        run: go build ./...
+
+      # The Dockerfile is otherwise unverified: no daemon is reachable where the
+      # code is written, so until this ran, "it builds" was an assumption.
+      # Built, not pushed — deploy.yml owns the registry.
+      - name: Docker build
+        run: docker build --platform linux/amd64 -t the-infinity-api:ci .
+
+  contracts:
+    name: contracts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # /docs/openapi.yaml is the contract the handlers and the islands are both
+      # written against, so it is linted on its own rather than as a step of a
+      # job that could be skipped when only the spec changed.
+      - name: Lint the OpenAPI document
+        run: npx --yes @redocly/cli@2 lint docs/openapi.yaml
+
+  title:
+    name: pr title
+    # A push to main has no title to check, and the squashed commit message is
+    # the PR title anyway — checked when it was still possible to fix.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      # The PR title becomes the commit message on squash-merge, so this is
+      # commitlint on the only message that will exist. Kept as a regex rather
+      # than a dependency: the rule is four lines of CLAUDE.md, and the scope
+      # list is closed.
+      - name: Conventional Commits
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          pattern='^(feat|fix|chore|docs|refactor|test|ci|content)(\((web|api|content|infra|docs)\))?!?: .+'
+          if ! printf '%s' "$TITLE" | grep -Eq "$pattern"; then
+            cat >&2 <<EOF
+          The pull request title is not a Conventional Commit:
+
+            $TITLE
+
+          Expected <type>(<scope>): <description>, for example
+
+            feat(web): add depth toggle island
+            fix(api): propagate context deadline to Firestore reads
+
+          type   feat | fix | chore | docs | refactor | test | ci | content
+          scope  web | api | content | infra | docs   (optional)
+
+          See CLAUDE.md, "Commits".
+          EOF
+            exit 1
+          fi

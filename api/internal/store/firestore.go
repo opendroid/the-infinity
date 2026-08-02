@@ -18,15 +18,27 @@ import (
 // that could never match. It read as a bug during review and was not one.
 const prefixUpperBound = "\uf8ff"
 
-// Collection names. Concepts is written only by the publish tool on merge to
-// main; everything else is written at runtime and never syncs back to git.
-// See ADR-0002.
+// Collection and document names.
+//
+// Exported because the publish tool writes the documents this file reads, and a
+// second hand-typed copy of "concepts" in cmd/publish is exactly the kind of
+// divergence that passes every test and serves an empty graph.
+//
+// CollConcepts is written only by the publish tool on merge to main; everything
+// else is written at runtime and never syncs back to git. See ADR-0002.
 const (
-	collConcepts = "concepts"
-	collTrails   = "trails"
-	collRequests = "concept_requests"
-	collReviews  = "concept_reviews"
-	collCounters = "counters"
+	CollConcepts = "concepts"
+	CollTrails   = "trails"
+	CollRequests = "concept_requests"
+	CollReviews  = "concept_reviews"
+	CollCounters = "counters"
+
+	// A concept's mini-map lives in a subcollection with a single document, so
+	// reading a concept never drags its neighbourhood along.
+	SubNeighborhood = "neighborhood"
+	DocNeighborhood = "default"
+
+	DocStats = "stats"
 )
 
 // Firestore implements Store against Firestore in Native mode.
@@ -51,7 +63,7 @@ func notFound(err error, what string) error {
 }
 
 func (f *Firestore) Concept(ctx context.Context, id string) (*Concept, error) {
-	doc, err := f.client.Collection(collConcepts).Doc(id).Get(ctx)
+	doc, err := f.client.Collection(CollConcepts).Doc(id).Get(ctx)
 	if err != nil {
 		return nil, notFound(err, "fetching concept "+id)
 	}
@@ -70,7 +82,7 @@ func (f *Firestore) Nearest(ctx context.Context, id string, limit int) ([]Neares
 
 	// Fetch one extra: self-exclusion happens below, and limiting in the query
 	// would silently return limit-1 suggestions whenever the queried id exists.
-	docs, err := f.client.Collection(collConcepts).
+	docs, err := f.client.Collection(CollConcepts).
 		Select("id", "title", "tier").
 		Where("id", ">=", prefix).
 		Where("id", "<", prefix+prefixUpperBound).
@@ -98,8 +110,8 @@ func (f *Firestore) Nearest(ctx context.Context, id string, limit int) ([]Neares
 }
 
 func (f *Firestore) Neighborhood(ctx context.Context, id string) (*Neighborhood, error) {
-	doc, err := f.client.Collection(collConcepts).Doc(id).
-		Collection("neighborhood").Doc("default").Get(ctx)
+	doc, err := f.client.Collection(CollConcepts).Doc(id).
+		Collection(SubNeighborhood).Doc(DocNeighborhood).Get(ctx)
 	if err != nil {
 		return nil, notFound(err, "fetching neighborhood "+id)
 	}
@@ -111,7 +123,7 @@ func (f *Firestore) Neighborhood(ctx context.Context, id string) (*Neighborhood,
 }
 
 func (f *Firestore) Stats(ctx context.Context) (*Stats, error) {
-	doc, err := f.client.Collection(collCounters).Doc("stats").Get(ctx)
+	doc, err := f.client.Collection(CollCounters).Doc(DocStats).Get(ctx)
 	if err != nil {
 		// Stats gates nothing — the landing page ships build-time values — so
 		// an absent counter is zeroes rather than an error.
@@ -128,7 +140,7 @@ func (f *Firestore) Stats(ctx context.Context) (*Stats, error) {
 }
 
 func (f *Firestore) Trail(ctx context.Context, slug string) (*Trail, error) {
-	doc, err := f.client.Collection(collTrails).Doc(slug).Get(ctx)
+	doc, err := f.client.Collection(CollTrails).Doc(slug).Get(ctx)
 	if err != nil {
 		return nil, notFound(err, "fetching trail "+slug)
 	}
@@ -146,7 +158,7 @@ func (f *Firestore) CreateTrail(ctx context.Context, nt NewTrail) (*Trail, error
 	// and made the fake and Firestore disagree when a stop's concept had since
 	// been removed.
 	slug := TrailSlug(nt.Stops)
-	ref := f.client.Collection(collTrails).Doc(slug)
+	ref := f.client.Collection(CollTrails).Doc(slug)
 
 	if existing, err := ref.Get(ctx); err == nil {
 		var t Trail
@@ -183,7 +195,7 @@ func (f *Firestore) CreateTrail(ctx context.Context, nt NewTrail) (*Trail, error
 }
 
 func (f *Firestore) EnqueueConceptRequest(ctx context.Context, r ConceptRequest) error {
-	_, _, err := f.client.Collection(collRequests).Add(ctx, map[string]any{
+	_, _, err := f.client.Collection(CollRequests).Add(ctx, map[string]any{
 		"name":       r.Name,
 		"referrer":   r.Referrer,
 		"status":     "queued",
@@ -201,7 +213,7 @@ func (f *Firestore) EnqueueReview(ctx context.Context, r ReviewSubmission) error
 	if _, err := f.Concept(ctx, r.ConceptID); err != nil {
 		return err
 	}
-	_, _, err := f.client.Collection(collReviews).Add(ctx, map[string]any{
+	_, _, err := f.client.Collection(CollReviews).Add(ctx, map[string]any{
 		"concept_id": r.ConceptID,
 		"kind":       string(r.Kind),
 		"note":       r.Note,
@@ -216,7 +228,7 @@ func (f *Firestore) EnqueueReview(ctx context.Context, r ReviewSubmission) error
 // ReserveWrite increments the day's counter inside a transaction, so two
 // instances racing cannot both slip past the cap.
 func (f *Firestore) ReserveWrite(ctx context.Context, day string, limit int64) (bool, error) {
-	ref := f.client.Collection(collCounters).Doc("writes-" + day)
+	ref := f.client.Collection(CollCounters).Doc("writes-" + day)
 
 	allowed := false
 	err := f.client.RunTransaction(ctx, func(ctx context.Context, tx *firestore.Transaction) error {

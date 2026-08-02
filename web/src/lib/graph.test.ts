@@ -70,6 +70,49 @@ describe('resolveGraph', () => {
     expect(g.get('a')?.edges.requires[0]).toMatchObject({ title: 'Bee', tier: 'frontier' });
   });
 
+  it('resolves contradictory two-sided adjacency to unreviewed', () => {
+    // Keeping the first arrival would resolve this on slug order, and half the
+    // time render an explicitly unchecked claim as a solid, verified edge.
+    const g = resolveGraph([
+      node('a', { edges: { requires: [], adjacent: [{ id: 'b', reviewed: true }] } }),
+      node('b', { edges: { requires: [], adjacent: [{ id: 'a', reviewed: false }] } }),
+    ]);
+    expect(g.get('a')?.edges.adjacent[0]?.reviewed).toBe(false);
+    expect(g.get('b')?.edges.adjacent[0]?.reviewed).toBe(false);
+  });
+
+  const twoWays = [
+    {
+      name: 'one target in two authored groups',
+      nodes: [
+        node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [{ id: 'b', reviewed: true }] } }),
+        node('b'),
+      ],
+    },
+    {
+      name: 'a mutual requires, which is a circular prerequisite',
+      nodes: [
+        node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [] } }),
+        node('b', { edges: { requires: [{ id: 'a', reviewed: true }], adjacent: [] } }),
+      ],
+    },
+    {
+      name: 'a prerequisite that the other side calls adjacent',
+      nodes: [
+        node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [] } }),
+        node('b', { edges: { requires: [], adjacent: [{ id: 'a', reviewed: true }] } }),
+      ],
+    },
+  ] as const;
+
+  for (const c of twoWays) {
+    // Each of these would place one concept twice in the mini-map, at two
+    // coordinates, leaving a line on the wrong circle and a circle orphaned.
+    it(`throws on ${c.name}`, () => {
+      expect(() => resolveGraph([...c.nodes])).toThrow(/related in two ways at once/);
+    });
+  }
+
   it('throws on an edge to a node that does not exist', () => {
     expect(() => resolveGraph([node('a', { edges: { requires: [{ id: 'ghost', reviewed: true }], adjacent: [] } })])).toThrow(
       /"ghost", which does not exist/,
@@ -114,6 +157,21 @@ describe('neighborhood', () => {
 
   it('is deterministic — the same graph yields identical coordinates', () => {
     expect(neighborhood(graph, 'center')).toEqual(neighborhood(graph, 'center'));
+  });
+
+  it('names link endpoints by id, so the API payload can replace this one', () => {
+    const n = neighborhood(graph, 'center');
+    const ids = new Set([n.center.id, ...n.nodes.map((x) => x.id)]);
+    for (const link of n.links) {
+      expect(ids.has(link.from), `link from "${link.from}" has no node`).toBe(true);
+      expect(ids.has(link.to), `link to "${link.to}" has no node`).toBe(true);
+    }
+  });
+
+  it('points a prerequisite inwards and an unlocked concept outwards', () => {
+    const n = neighborhood(graph, 'center');
+    expect(n.links.find((l) => l.type === 'requires')).toMatchObject({ from: 'req', to: 'center' });
+    expect(n.links.find((l) => l.type === 'unlocks')).toMatchObject({ from: 'center', to: 'unl' });
   });
 
   it('marks an unreviewed edge so the mini-map can dash it', () => {

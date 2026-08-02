@@ -3,7 +3,10 @@ SHELL := /bin/bash
 IMAGE ?= us-west1-docker.pkg.dev/the-infinity-ai/containers/api
 TAG   ?= $(shell git rev-parse --short HEAD 2>/dev/null || echo dev)
 
-.PHONY: help run test cover lint fmt tidy docker-build check
+NODES  ?= ../content/nodes
+GOLDEN ?= ../content/derived.golden.json
+
+.PHONY: help run publish golden test test-emulator cover lint fmt tidy docker-build check
 .DEFAULT_GOAL := help
 
 help: ## List targets
@@ -12,8 +15,28 @@ help: ## List targets
 run: ## Run locally on :8080 (needs GOOGLE_CLOUD_PROJECT and application-default credentials)
 	go run ./cmd/server
 
+publish: ## Sync /content/nodes to Firestore (needs GOOGLE_CLOUD_PROJECT and credentials)
+	go run ./cmd/publish -nodes $(NODES)
+
+golden: ## Regenerate the derivation fixture both /api and /web are checked against
+	go run ./cmd/publish -nodes $(NODES) -out $(GOLDEN)
+
 test: ## Table-driven tests, with the race detector
 	go test -race ./...
+
+# The round-trip tests in internal/publish skip without this, so `make test` on a
+# laptop stays one command with no daemon to start. CI always runs them.
+test-emulator: ## Tests including the Firestore round-trip suite
+	@command -v gcloud >/dev/null || { echo "gcloud not found — CI downloads the emulator jar directly; see .github/workflows/ci.yml"; exit 1; }
+	gcloud emulators firestore start --host-port=127.0.0.1:8081 & \
+	  trap 'kill %1 2>/dev/null' EXIT; \
+	  for i in $$(seq 1 60); do \
+	    curl -sf -o /dev/null http://127.0.0.1:8081 && break; \
+	    sleep 1; \
+	  done; \
+	  curl -sf -o /dev/null http://127.0.0.1:8081 || \
+	    { echo "the emulator did not come up — is the cloud-firestore-emulator component installed, and is :8081 free?"; exit 1; }; \
+	  FIRESTORE_EMULATOR_HOST=127.0.0.1:8081 go test -race -count=1 ./...
 
 # -coverpkg=./... so packages with no tests count as 0% rather than dropping out
 # of the denominator — otherwise deleting a test raises the headline number.

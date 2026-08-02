@@ -6,15 +6,19 @@ no authentication.
 ```zsh
 make run          # :8080 — needs GOOGLE_CLOUD_PROJECT and application-default credentials
 make test         # table-driven, with the race detector
+make test-emulator# the same, plus the Firestore round-trip suite
 make lint         # go vet, gofmt, golangci-lint
 make check        # both — what CI runs
 make docker-build # multi-stage distroless nonroot image
+make publish      # sync /content/nodes → Firestore
+make golden       # regenerate content/derived.golden.json
 ```
 
 ## Layout
 
 ```
 cmd/server/       wiring, graceful SIGTERM shutdown
+cmd/publish/      git → Firestore, on merge to main
 internal/
   router/         the surface — mounts everything, owns nothing
   apihttp/        structured errors, body cap, recoverer, write limiter
@@ -22,6 +26,7 @@ internal/
   trails/         POST trail · GET trail
   queues/         POST requests · POST reviews — both 202, neither mutates the graph
   ratelimit/      per-IP buckets, client IP extraction, the day key
+  publish/        load · derive · sync — the only writer of `concepts`
   store/          interface, Fake, Firestore
 ```
 
@@ -74,14 +79,42 @@ Tunable by environment variable: `DAILY_WRITE_CAP`, `RATE_LIMIT_PER_MINUTE`.
 
 ## Storage
 
-Handlers depend on `store.Store`, never on Firestore, and test against `store.Fake`. An
-emulator would mostly test Google's client library, which is not the part that breaks.
+Handlers depend on `store.Store`, never on Firestore, and test against `store.Fake`. That
+covers the branching, and it cannot cover serialisation: the fake hands back the same Go
+value it was given, so no field name ever crosses a wire. `internal/publish` carries the
+tests that do — see below.
 
 **`POST /reviews` never changes a concept's tier.** It appends to a queue. Promotion
 happens by editing the node's JSON in a pull request and merging it — the merge is the act
 of verification. A runtime write to `tier` would make Firestore diverge from git, and git
 is the only writer of concept state. See
 [ADR-0002](../docs/adr/0002-content-as-code-and-trust-tiers.md).
+
+## Publishing
+
+`cmd/publish` is the only writer of the `concepts` collection. It reads `/content/nodes`,
+derives what ADR-0002 refuses to store — `tier` from the presence of a reviewer, `unlocks`
+inverted from other nodes' `requires`, adjacency symmetrised, edges denormalised with the
+target's title and tier, mini-map coordinates — and re-syncs the whole graph.
+
+A full re-sync every run, not a diff. A few hundred nodes is a few hundred writes, a
+fraction of a cent; an incremental publish would need to know which documents changed,
+which is the same derivation problem again with a cache in front of it, and the cache is
+where the bugs would live. Concepts git no longer has are deleted, mini-map included.
+
+**It shares the `store` types rather than describing the documents itself.** Publish and the
+API therefore cannot disagree about a field name — but they can be wrong together, which is
+what `TestPublishedDocumentsUseTheDocumentedFieldNames` checks: it reads the raw documents
+back and asserts the stored keys are the ones `/docs/openapi.yaml` promises. A dropped
+`firestore` tag renames `grew_this_week` to `GrewThisWeek`, every round-trip still passes,
+and every consumer that is not this binary breaks.
+
+Those tests need the emulator and skip without `FIRESTORE_EMULATOR_HOST`, so `make test`
+stays one command with no daemon to start. CI always sets it.
+
+`content/derived.golden.json` is the fixture this package shares with
+`web/src/lib/graph.ts`, which does the same derivation for the pre-rendered pages. Change
+one and the other's test fails.
 
 ## Deploying
 
@@ -91,5 +124,6 @@ default identity, and `--max-instances`, which is what actually bounds the bill.
 
 ## Not built yet
 
-`cmd/publish` — the merge-to-main sync (Phase 4) — CI, and any Firestore integration test.
-The emulator arrives with CI.
+The image has never run on Cloud Run: the first `gcloud run deploy` is M1. Until then
+`docker build` in CI is the only evidence the Dockerfile is correct, and nothing has
+observed a real `X-Forwarded-For` through the Hosting domain — see issue #29.

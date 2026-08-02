@@ -1,0 +1,289 @@
+{
+  "_note": "DERIVED, NOT AUTHORED. Regenerate with `cd api && make golden`. Checked by api/internal/publish (Go) and web/src/lib/golden.test.ts (TypeScript) so the served graph and the pre-rendered graph cannot drift apart.",
+  "concepts": [
+    {
+      "id": "conditional-computation",
+      "title": "Conditional Computation",
+      "domain": "Architecture / Sparsity",
+      "tier": "verified",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "mixture-of-experts",
+            "title": "Mixture-of-Experts",
+            "tier": "verified",
+            "reviewed": true
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "feed-forward-network",
+            "title": "Feed-Forward Network",
+            "tier": "verified",
+            "reviewed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "expert-parallelism",
+      "title": "Expert Parallelism",
+      "domain": "Systems / Distributed",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "mixture-of-experts",
+            "title": "Mixture-of-Experts",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "feed-forward-network",
+      "title": "Feed-Forward Network",
+      "domain": "Architecture / Blocks",
+      "tier": "verified",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "mixture-of-experts",
+            "title": "Mixture-of-Experts",
+            "tier": "verified",
+            "reviewed": true
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "conditional-computation",
+            "title": "Conditional Computation",
+            "tier": "verified",
+            "reviewed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "mixture-of-experts",
+      "title": "Mixture-of-Experts",
+      "domain": "Architecture / Sparsity",
+      "tier": "verified",
+      "edges": {
+        "requires": [
+          {
+            "id": "conditional-computation",
+            "title": "Conditional Computation",
+            "tier": "verified",
+            "reviewed": true
+          },
+          {
+            "id": "feed-forward-network",
+            "title": "Feed-Forward Network",
+            "tier": "verified",
+            "reviewed": true
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "expert-parallelism",
+            "title": "Expert Parallelism",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "muon-optimizer",
+      "title": "Muon",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [],
+        "adjacent": []
+      }
+    }
+  ],
+  "neighborhoods": [
+    {
+      "id": "conditional-computation",
+      "center": {
+        "id": "conditional-computation",
+        "title": "Conditional Computation",
+        "tier": "verified",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mixture-of-experts",
+          "title": "Mixture-of-Experts",
+          "tier": "verified",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "feed-forward-network",
+          "title": "Feed-Forward Network",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "conditional-computation",
+          "to": "mixture-of-experts",
+          "type": "unlocks",
+          "reviewed": true
+        },
+        {
+          "from": "conditional-computation",
+          "to": "feed-forward-network",
+          "type": "adjacent",
+          "reviewed": true
+        }
+      ]
+    },
+    {
+      "id": "expert-parallelism",
+      "center": {
+        "id": "expert-parallelism",
+        "title": "Expert Parallelism",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mixture-of-experts",
+          "title": "Mixture-of-Experts",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "mixture-of-experts",
+          "to": "expert-parallelism",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "feed-forward-network",
+      "center": {
+        "id": "feed-forward-network",
+        "title": "Feed-Forward Network",
+        "tier": "verified",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mixture-of-experts",
+          "title": "Mixture-of-Experts",
+          "tier": "verified",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "conditional-computation",
+          "title": "Conditional Computation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "feed-forward-network",
+          "to": "mixture-of-experts",
+          "type": "unlocks",
+          "reviewed": true
+        },
+        {
+          "from": "feed-forward-network",
+          "to": "conditional-computation",
+          "type": "adjacent",
+          "reviewed": true
+        }
+      ]
+    },
+    {
+      "id": "mixture-of-experts",
+      "center": {
+        "id": "mixture-of-experts",
+        "title": "Mixture-of-Experts",
+        "tier": "verified",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "conditional-computation",
+          "title": "Conditional Computation",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "feed-forward-network",
+          "title": "Feed-Forward Network",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "expert-parallelism",
+          "title": "Expert Parallelism",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "conditional-computation",
+          "to": "mixture-of-experts",
+          "type": "requires",
+          "reviewed": true
+        },
+        {
+          "from": "feed-forward-network",
+          "to": "mixture-of-experts",
+          "type": "requires",
+          "reviewed": true
+        },
+        {
+          "from": "mixture-of-experts",
+          "to": "expert-parallelism",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "muon-optimizer",
+      "center": {
+        "id": "muon-optimizer",
+        "title": "Muon",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [],
+      "links": []
+    }
+  ]
+}

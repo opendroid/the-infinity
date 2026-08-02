@@ -189,13 +189,17 @@ frontier badge dots, staggered so they don't beat in unison, inside
 ## 6. Layout
 
 ```
-/web        Astro + TypeScript frontend            (README stub — scaffolded in Phase 1)
+/web        Astro + TypeScript frontend
   firebase.json  Hosting config: /api/** → Cloud Run
-/api        Go service for Cloud Run               (stub — built out in Phase 3)
+/api        Go service for Cloud Run
+  cmd/server     the API
+  cmd/publish    git → Firestore, on merge to main
 /infra      setup.sh — GCP + Firebase foundations
+            cicd.sh  — the workload identity federation CI deploys through
 /content
   /nodes    concept node JSON, one file per concept
-  /schema   JSON Schema for nodes                  (Phase 2)
+  /schema   JSON Schema for nodes
+  derived.golden.json   derived, not authored — the fixture /api and /web share
 /docs
   PLAN.md         the build plan — phases, milestones, budget
   prompt-pack.md  sequenced Claude Code session prompts
@@ -203,7 +207,9 @@ frontier badge dots, staggered so they don't beat in unison, inside
     handoff-v1/     the design source of truth — 5 routes, tokens, components, API
     mockups.html    earlier three-screen exploration, superseded
   /adr      architecture decision records
-/.github/workflows   CI                            (Phase 4)
+/.github
+  pull_request_template.md
+  /workflows  ci.yml — every PR · deploy.yml — merge to main
 ```
 
 ---
@@ -216,6 +222,7 @@ exist yet.*
 | Command | What it does |
 |---|---|
 | `./infra/setup.sh` | Create the GCP project, Firestore, Artifact Registry, runtime service account, and budget alerts. Re-runnable; stops at the two console steps. |
+| `./infra/cicd.sh` | Create the workload identity federation CI deploys through, and print the two repository variables to set. Re-runnable. |
 | `cd web && npm install` | Install web dependencies (first run only) |
 | `cd web && npm run dev` | Astro dev server on `:4321`. Regenerates design tokens first. |
 | `cd web && npm run build` | Static build to `web/dist` |
@@ -226,16 +233,13 @@ exist yet.*
 | `cd web && npm run validate:openapi` | `redocly lint` on `/docs/openapi.yaml` — zero warnings tolerated |
 | `cd api && make run` | Run the API locally on `:8080` (needs `GOOGLE_CLOUD_PROJECT`) |
 | `cd api && make test` | Table-driven tests, with the race detector |
+| `cd api && make test-emulator` | The same, plus the Firestore round-trip suite (starts an emulator) |
 | `cd api && make lint` | `go vet`, `gofmt` check, `golangci-lint` |
-| `cd api && make check` | Both — what CI will run |
+| `cd api && make check` | Both — what CI runs |
 | `cd api && make docker-build` | Multi-stage distroless nonroot image |
+| `cd api && make publish` | Sync `/content/nodes` → Firestore (needs `GOOGLE_CLOUD_PROJECT`) |
+| `cd api && make golden` | Regenerate `content/derived.golden.json` after a content change |
 | `cd web && firebase deploy --only hosting` | Deploy the built site |
-
-Not yet:
-
-| Command | Arrives |
-|---|---|
-| CI workflows | Phase 4 |
 
 **The Tailwind theme is generated, not written.** `web/scripts/generate-tokens.mjs` reads
 [`tokens.json`](docs/design/handoff-v1/tokens.json) and emits `src/styles/tokens.generated.css`,
@@ -253,6 +257,20 @@ which Cloud Run silently falls back to an Editor-privileged default identity, an
 
 **The API serves under `/api/v1`, not `/v1`.** Firebase Hosting rewrites preserve the full
 path, so the `/api` prefix reaches the service. See [ADR-0001](docs/adr/0001-infrastructure.md).
+
+**One derivation, two implementations, one fixture.** `api/internal/publish` computes what
+the API serves; `web/src/lib/graph.ts` computes what the static pages render. Both must
+turn the same nodes into the same graph, and both are checked against
+[`content/derived.golden.json`](content/derived.golden.json) — regenerated with
+`cd api && make golden`, never hand-edited. Change one side's derivation and the other
+side's test fails, which is the entire point: a reader must never see a page whose edge
+list and mini-map describe different graphs.
+
+**CI is `.github/workflows/ci.yml`; deploys are `deploy.yml`.** The Firestore round-trip
+tests only run in CI — they skip without `FIRESTORE_EMULATOR_HOST`, so `go test ./...`
+stays one command locally. **CI authenticates to GCP with workload identity federation. No
+JSON service-account keys, ever**, and `deploy.yml` stays inert until `./infra/cicd.sh` has
+run and its two repository variables are set.
 
 
 ---

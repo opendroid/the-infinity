@@ -72,9 +72,19 @@ export interface MiniMapNode {
   y: number;
 }
 
+/**
+ * A link names its endpoints by id, not by coordinate — the same shape
+ * `GET /api/v1/concepts/{id}/neighborhood` returns, so the mini-map island can
+ * swap the server-rendered payload for a fresh one without a translation layer.
+ *
+ * The direction follows the relationship rather than the traversal: a `requires`
+ * link runs from the prerequisite into the centre, an `unlocks` link runs out of
+ * it.
+ */
 export interface MiniMapLink {
-  from: { x: number; y: number };
-  to: { x: number; y: number };
+  from: string;
+  to: string;
+  type: EdgeType;
   reviewed: boolean;
 }
 
@@ -117,9 +127,16 @@ export function resolveGraph(authored: AuthoredNode[]): Map<string, ResolvedNode
     });
   }
 
+  // Merges rather than first-wins: when the two sides of an adjacency disagree
+  // about `reviewed`, first-wins would resolve on slug order and half the time
+  // publish an explicitly unchecked claim as a verified one. An unreviewed
+  // assertion from either side has to survive.
   const push = (nodeId: string, type: EdgeType, edge: ResolvedEdge) => {
     const group = out.get(nodeId)?.edges[type];
-    if (group && !group.some((e) => e.id === edge.id)) group.push(edge);
+    if (!group) return;
+    const existing = group.find((e) => e.id === edge.id);
+    if (existing) existing.reviewed = existing.reviewed && edge.reviewed;
+    else group.push(edge);
   };
 
   for (const node of authored) {
@@ -150,9 +167,38 @@ export function resolveGraph(authored: AuthoredNode[]): Map<string, ResolvedNode
     for (const group of Object.values(node.edges)) {
       group.sort((a, b) => a.id.localeCompare(b.id));
     }
+    assertOneRelationship(node);
   }
 
   return out;
+}
+
+/**
+ * A pair of concepts is related in exactly one way.
+ *
+ * Two groups naming the same target has no coherent reading — B cannot be both
+ * a prerequisite for A and merely adjacent to it — and mutual `requires` lands
+ * here too, which is a circular prerequisite.
+ *
+ * It is also what breaks the mini-map: the layout places one circle per edge per
+ * group, so a target in two groups gets two circles at two coordinates, and the
+ * renderer resolves link endpoints by id — one line lands on the wrong circle
+ * and the other circle is orphaned.
+ */
+function assertOneRelationship(node: ResolvedNode): void {
+  const seen = new Map<string, EdgeType>();
+  for (const type of ['requires', 'unlocks', 'adjacent'] as const) {
+    for (const edge of node.edges[type]) {
+      const first = seen.get(edge.id);
+      if (first) {
+        throw new Error(
+          `concepts "${node.id}" and "${edge.id}" are related in two ways at once (${first} and ${type}): ` +
+            'a pair of concepts has exactly one relationship',
+        );
+      }
+      seen.set(edge.id, type);
+    }
+  }
 }
 
 const VIEWBOX = { w: 240, h: 132 } as const;
@@ -200,8 +246,15 @@ export function neighborhood(graph: Map<string, ResolvedNode>, id: string): Neig
   const links: MiniMapLink[] = [];
   for (const type of ['requires', 'unlocks', 'adjacent'] as const) {
     for (const edge of node.edges[type]) {
-      const to = placed.find((p) => p.id === edge.id);
-      if (to) links.push({ from: { x: cx, y: cy }, to: { x: to.x, y: to.y }, reviewed: edge.reviewed });
+      if (!placed.some((p) => p.id === edge.id)) continue;
+      // A prerequisite points inwards; everything else points out from centre.
+      const inbound = type === 'requires';
+      links.push({
+        from: inbound ? edge.id : node.id,
+        to: inbound ? node.id : edge.id,
+        type,
+        reviewed: edge.reviewed,
+      });
     }
   }
 
