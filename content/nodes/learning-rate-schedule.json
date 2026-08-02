@@ -1,0 +1,53 @@
+{
+  "id": "learning-rate-schedule",
+  "title": "Learning-Rate Schedule",
+  "domain": [
+    "Optimization",
+    "Schedules"
+  ],
+  "bodies": {
+    "intuition": "A good learning rate early is a bad one late. Early on the model is far from anything useful and can take large steps; near the end it needs small ones to settle. A schedule moves the rate down over the run, usually along a cosine, so the same run gets both.",
+    "engineer": "Cosine decay to near zero over the planned number of steps is the common default. The schedule is tied to the total length, so stopping early leaves the model at a rate it was never meant to finish at, and extending a run means the tail of the schedule has already been spent.",
+    "math": "η_t = η_min + ½(η_max − η_min)(1 + cos(πt/T)) for total steps T. Because T appears in the formula, the trajectory for a run of length T is not a prefix of the trajectory for a longer one."
+  },
+  "emphasis": {
+    "intuition": "so the same run gets both",
+    "engineer": "stopping early leaves the model at a rate it was never meant to finish at"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "lr": 0.001
+    },
+    "param_controls": [
+      {
+        "name": "steps",
+        "min": 100,
+        "max": 5000,
+        "step": 100
+      }
+    ],
+    "caption": "Loss under a decaying schedule against a flat rate. Drag the run length to see the schedule stretch to fit it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "learning-rate",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1608.03983",
+      "title": "SGDR: Stochastic Gradient Descent with Warm Restarts",
+      "url": "https://arxiv.org/abs/1608.03983"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

@@ -1,0 +1,57 @@
+{
+  "id": "zero-redundancy-optimizer",
+  "title": "ZeRO",
+  "domain": [
+    "Systems",
+    "Distributed"
+  ],
+  "bodies": {
+    "intuition": "Data parallelism keeps a complete copy of the optimizer state on every worker, which is the same numbers stored N times. ZeRO shards them instead: each worker holds a slice, and the pieces are gathered when needed. The memory per worker falls almost linearly with the number of workers.",
+    "engineer": "Three stages shard the optimizer state, then the gradients, then the parameters themselves. Each stage saves more memory and adds more communication, so the choice is a memory-for-bandwidth trade rather than a free win. Stage 3 makes models far larger than one device trainable without model parallelism.",
+    "math": "With Ψ parameters, N workers and K bytes of optimizer state per parameter, memory per worker goes from 2Ψ + 2Ψ + KΨ to roughly 2Ψ + 2Ψ + KΨ/N at stage 1 and (2 + 2 + K)Ψ/N at stage 3."
+  },
+  "emphasis": {
+    "intuition": "the same numbers stored N times",
+    "engineer": "a memory-for-bandwidth trade rather than a free win"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "workers": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "workers",
+        "min": 1,
+        "max": 64,
+        "step": 1
+      }
+    ],
+    "caption": "Share of per-worker memory removed by sharding against what stays replicated. Drag the worker count to watch the shared portion shrink toward nothing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-parallelism",
+        "reviewed": false
+      },
+      {
+        "id": "optimizer-state",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1910.02054",
+      "title": "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models",
+      "url": "https://arxiv.org/abs/1910.02054"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

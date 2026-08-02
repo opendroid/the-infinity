@@ -1,0 +1,53 @@
+{
+  "id": "backpropagation",
+  "title": "Backpropagation",
+  "domain": [
+    "Optimization",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "To improve, a model needs to know how much each of its millions of parameters contributed to being wrong. Backpropagation computes that by running the chain rule backwards through the network, reusing each layer's result for the layer before it. Without the reuse the calculation would be hopeless; with it, one backward pass costs about what the forward pass did.",
+    "engineer": "Reverse-mode automatic differentiation over the computation graph. The forward pass stores activations because the backward pass needs them, which is why memory scales with depth and why checkpointing trades recomputation for it. The cost is roughly two forward passes, independent of parameter count.",
+    "math": "For y = f_L(…f_1(x)), ∂L/∂θ_i = (∂L/∂y)·Π_{j>i}(∂f_j/∂f_{j−1})·(∂f_i/∂θ_i). Reverse mode evaluates the product right to left so each factor is applied to a vector rather than a matrix, giving cost proportional to outputs rather than to parameters."
+  },
+  "emphasis": {
+    "intuition": "one backward pass costs about what the forward pass did",
+    "engineer": "which is why memory scales with depth"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "depth": 12,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "depth",
+        "min": 2,
+        "max": 24,
+        "step": 2
+      }
+    ],
+    "caption": "Gradient magnitude arriving at each layer, at the output and back at the input. Drag the depth to watch the signal attenuate as it travels."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-function",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1502.05767",
+      "title": "Automatic differentiation in machine learning: a survey",
+      "url": "https://arxiv.org/abs/1502.05767"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

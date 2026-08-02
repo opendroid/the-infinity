@@ -1,0 +1,53 @@
+{
+  "id": "adam",
+  "title": "Adam",
+  "domain": [
+    "Optimization",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "Different parameters need different step sizes, and nobody can tune them individually. Adam gives each one its own, derived from how large and how variable its gradients have recently been: parameters with small, steady gradients take bigger steps, and noisy ones take smaller. It is the default because it works without much tuning.",
+    "engineer": "Track running averages of the gradient and of its square, correct both for initialisation bias, and divide one by the root of the other. The cost is two extra tensors the size of the model, which is why optimizer state rather than weights often dominates training memory. Its convergence proof was later shown to be flawed; it remains the default anyway.",
+    "math": "m_t = β₁m_{t−1} + (1−β₁)g_t, v_t = β₂v_{t−1} + (1−β₂)g_t², with bias-corrected m̂, v̂ and update θ ← θ − η·m̂/(√v̂ + ε). Defaults β₁ = 0.9, β₂ = 0.999, ε = 10⁻⁸."
+  },
+  "emphasis": {
+    "intuition": "It is the default because it works without much tuning",
+    "engineer": "which is why optimizer state rather than weights often dominates training memory"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "beta2": 0.999,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "beta2",
+        "min": 0.9,
+        "max": 0.9999,
+        "step": 0.0001
+      }
+    ],
+    "caption": "Per-parameter step sizes before and after Adam's scaling. Drag the second moment decay to watch the update even out across parameters of very different gradient scale."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "momentum",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1412.6980",
+      "title": "Adam: A Method for Stochastic Optimization",
+      "url": "https://arxiv.org/abs/1412.6980"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

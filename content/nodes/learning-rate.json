@@ -1,0 +1,53 @@
+{
+  "id": "learning-rate",
+  "title": "Learning Rate",
+  "domain": [
+    "Optimization",
+    "Schedules"
+  ],
+  "bodies": {
+    "intuition": "The learning rate decides how far to move on each step. Too small and training takes forever; too large and it overshoots and diverges. It is the single most important number in a training run, and the range that works spans about one order of magnitude.",
+    "engineer": "Almost never held constant in practice. The workable maximum scales with batch size and shrinks as the model gets larger, and the standard way to find it is a short sweep rather than any principled derivation. A run that diverges in the first few hundred steps is almost always this parameter.",
+    "math": "θ ← θ − η∇L. Stability requires η below roughly 2/λ_max of the loss Hessian, which is neither known nor stationary. Linear scaling η ∝ |B| holds empirically over a wide batch range, breaking down at the top of it."
+  },
+  "emphasis": {
+    "intuition": "the single most important number in a training run",
+    "engineer": "almost always this parameter"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "lr": 0.001
+    },
+    "param_controls": [
+      {
+        "name": "lr",
+        "min": 0.0001,
+        "max": 0.02,
+        "step": 0.0001
+      }
+    ],
+    "caption": "Loss over steps at a fixed learning rate. Drag it across its range to find the band between crawling and diverging."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.02677",
+      "title": "Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour",
+      "url": "https://arxiv.org/abs/1706.02677"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

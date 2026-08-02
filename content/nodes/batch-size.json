@@ -1,0 +1,58 @@
+{
+  "id": "batch-size",
+  "title": "Batch Size",
+  "domain": [
+    "Optimization",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "Batch size is how many examples the model looks at before each update. Larger batches give a cleaner estimate of the right direction and use hardware better, but past a point the extra examples stop buying accuracy and simply cost more. The useful range is set by that ceiling, not by memory.",
+    "engineer": "Doubling the batch roughly halves the number of steps but only reduces gradient noise by √2, so throughput gains outrun quality gains and then stop. There is a critical batch size beyond which additional examples are close to wasted. Learning rate must scale with batch, or a larger batch simply trains slower per epoch.",
+    "math": "Gradient variance falls as 1/|B|, so noise falls as 1/√|B| while cost rises linearly. Linear scaling η ∝ |B| holds until the critical batch size, past which the step count stops falling proportionally."
+  },
+  "emphasis": {
+    "intuition": "set by that ceiling, not by memory",
+    "engineer": "close to wasted"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "batch": 32,
+      "share_rest": 32
+    },
+    "param_controls": [
+      {
+        "name": "batch",
+        "min": 1,
+        "max": 512,
+        "step": 1
+      }
+    ],
+    "caption": "Share of the step's cost spent on the batch against everything else in the update. Drag the batch size to watch throughput and diminishing returns move together."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "stochastic-gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.02677",
+      "title": "Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour",
+      "url": "https://arxiv.org/abs/1706.02677"
+    },
+    {
+      "ref": "arXiv:1609.04836",
+      "title": "On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima",
+      "url": "https://arxiv.org/abs/1609.04836"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "mixed-precision-training",
+  "title": "Mixed-Precision Training",
+  "domain": [
+    "Systems",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "Most of training does not need full precision. Doing the arithmetic in half precision roughly doubles throughput and halves activation memory, while keeping a full-precision copy of the weights so that many tiny updates still accumulate instead of rounding away to nothing.",
+    "engineer": "Forward and backward in fp16 or bf16, master weights and the optimizer step in fp32. fp16 needs loss scaling because small gradients underflow its range; bf16 has the range of fp32 with less mantissa and needs no scaling, which is why it took over. The saving is in activations and bandwidth more than in weights.",
+    "math": "fp16 has 10 mantissa bits and a minimum normal near 6·10⁻⁵; bf16 has 7 mantissa bits and fp32's exponent range. Loss scaling multiplies the loss by S before the backward pass and divides gradients by S afterwards, shifting small values into representable range."
+  },
+  "emphasis": {
+    "intuition": "instead of rounding away to nothing",
+    "engineer": "which is why it took over"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "activations": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "activations",
+        "min": 1,
+        "max": 32,
+        "step": 1
+      }
+    ],
+    "caption": "Memory held by half-precision activations against the full-precision state beside them. Drag the activation size to see which half of the budget precision actually saves."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "backpropagation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1710.03740",
+      "title": "Mixed Precision Training",
+      "url": "https://arxiv.org/abs/1710.03740"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

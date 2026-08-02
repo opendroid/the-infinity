@@ -2,6 +2,68 @@
   "_note": "DERIVED, NOT AUTHORED. Regenerate with `cd api && make golden`. Checked by api/internal/publish (Go) and web/src/lib/golden.test.ts (TypeScript) so the served graph and the pre-rendered graph cannot drift apart.",
   "concepts": [
     {
+      "id": "adam",
+      "title": "Adam",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "momentum",
+            "title": "Momentum",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "adamw",
+            "title": "AdamW",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "optimizer-state",
+            "title": "Optimizer State",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "adamw",
+      "title": "AdamW",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "adam",
+            "title": "Adam",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "muon-optimizer",
+            "title": "Muon",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "alibi",
       "title": "ALiBi",
       "domain": "Attention / Position",
@@ -105,6 +167,68 @@
       }
     },
     {
+      "id": "backpropagation",
+      "title": "Backpropagation",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-function",
+            "title": "Loss Function",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "gradient-clipping",
+            "title": "Gradient Clipping",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "mixed-precision-training",
+            "title": "Mixed-Precision Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "batch-size",
+      "title": "Batch Size",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "stochastic-gradient-descent",
+            "title": "Stochastic Gradient Descent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "gradient-accumulation",
+            "title": "Gradient Accumulation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "byte-pair-encoding",
       "title": "Byte-Pair Encoding",
       "domain": "Foundations / Representation",
@@ -162,6 +286,24 @@
             "reviewed": false
           }
         ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "compute-optimal-training",
+      "title": "Compute-Optimal Training",
+      "domain": "Optimization / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "scaling-laws",
+            "title": "Scaling Laws",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
         "adjacent": []
       }
     },
@@ -246,6 +388,69 @@
       }
     },
     {
+      "id": "cross-entropy-loss",
+      "title": "Cross-Entropy Loss",
+      "domain": "Optimization / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-function",
+            "title": "Loss Function",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "data-parallelism",
+      "title": "Data Parallelism",
+      "domain": "Systems / Distributed",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "stochastic-gradient-descent",
+            "title": "Stochastic Gradient Descent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "zero-redundancy-optimizer",
+            "title": "ZeRO",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "expert-parallelism",
+            "title": "Expert Parallelism",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "decoder-only-transformer",
       "title": "Decoder-Only Transformer",
       "domain": "Architecture / Blocks",
@@ -265,11 +470,36 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "encoder-decoder",
             "title": "Encoder-Decoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropout",
+      "title": "Dropout",
+      "domain": "Optimization / Regularization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
             "tier": "frontier",
             "reviewed": false
           }
@@ -323,7 +553,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "data-parallelism",
+            "title": "Data Parallelism",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -358,6 +595,31 @@
       }
     },
     {
+      "id": "fine-tuning",
+      "title": "Fine-Tuning",
+      "domain": "Optimization / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "lora",
+            "title": "LoRA",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "flash-attention",
       "title": "FlashAttention",
       "domain": "Attention / Efficiency",
@@ -372,6 +634,79 @@
           }
         ],
         "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "gradient-accumulation",
+      "title": "Gradient Accumulation",
+      "domain": "Systems / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "batch-size",
+            "title": "Batch Size",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "gradient-clipping",
+      "title": "Gradient Clipping",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "gradient-descent",
+      "title": "Gradient Descent",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "learning-rate",
+            "title": "Learning Rate",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "stochastic-gradient-descent",
+            "title": "Stochastic Gradient Descent",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": []
       }
     },
@@ -463,8 +798,136 @@
             "title": "Residual Connection",
             "tier": "frontier",
             "reviewed": false
+          },
+          {
+            "id": "warmup",
+            "title": "Warmup",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
+      }
+    },
+    {
+      "id": "learning-rate",
+      "title": "Learning Rate",
+      "domain": "Optimization / Schedules",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "learning-rate-schedule",
+            "title": "Learning-Rate Schedule",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "learning-rate-schedule",
+      "title": "Learning-Rate Schedule",
+      "domain": "Optimization / Schedules",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "learning-rate",
+            "title": "Learning Rate",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "warmup",
+            "title": "Warmup",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "lora",
+      "title": "LoRA",
+      "domain": "Optimization / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "loss-function",
+      "title": "Loss Function",
+      "domain": "Optimization / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "scaling-laws",
+            "title": "Scaling Laws",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "mixed-precision-training",
+      "title": "Mixed-Precision Training",
+      "domain": "Systems / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
       }
     },
     {
@@ -491,6 +954,37 @@
           {
             "id": "expert-parallelism",
             "title": "Expert Parallelism",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "momentum",
+      "title": "Momentum",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "stochastic-gradient-descent",
+            "title": "Stochastic Gradient Descent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "adam",
+            "title": "Adam",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "muon-optimizer",
+            "title": "Muon",
             "tier": "frontier",
             "reviewed": false
           }
@@ -566,7 +1060,64 @@
       "domain": "Optimization / Training",
       "tier": "frontier",
       "edges": {
-        "requires": [],
+        "requires": [
+          {
+            "id": "momentum",
+            "title": "Momentum",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "adamw",
+            "title": "AdamW",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "optimizer-state",
+      "title": "Optimizer State",
+      "domain": "Systems / Memory",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "adam",
+            "title": "Adam",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "zero-redundancy-optimizer",
+            "title": "ZeRO",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "overfitting",
+      "title": "Overfitting",
+      "domain": "Optimization / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-function",
+            "title": "Loss Function",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "unlocks": [],
         "adjacent": []
       }
@@ -601,6 +1152,37 @@
           {
             "id": "rotary-position-embedding",
             "title": "Rotary Position Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "pretraining",
+      "title": "Pretraining",
+      "domain": "Optimization / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "decoder-only-transformer",
+            "title": "Decoder-Only Transformer",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
             "tier": "frontier",
             "reviewed": false
           }
@@ -702,6 +1284,31 @@
       }
     },
     {
+      "id": "scaling-laws",
+      "title": "Scaling Laws",
+      "domain": "Optimization / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-function",
+            "title": "Loss Function",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "compute-optimal-training",
+            "title": "Compute-Optimal Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "self-attention",
       "title": "Self-Attention",
       "domain": "Attention / Core",
@@ -763,6 +1370,12 @@
             "title": "Autoregressive Decoding",
             "tier": "frontier",
             "reviewed": false
+          },
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -773,6 +1386,43 @@
             "reviewed": false
           }
         ]
+      }
+    },
+    {
+      "id": "stochastic-gradient-descent",
+      "title": "Stochastic Gradient Descent",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "batch-size",
+            "title": "Batch Size",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "data-parallelism",
+            "title": "Data Parallelism",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "momentum",
+            "title": "Momentum",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
       }
     },
     {
@@ -872,9 +1522,196 @@
         ],
         "adjacent": []
       }
+    },
+    {
+      "id": "warmup",
+      "title": "Warmup",
+      "domain": "Optimization / Schedules",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "learning-rate-schedule",
+            "title": "Learning-Rate Schedule",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "layer-normalization",
+            "title": "Layer Normalization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "weight-decay",
+      "title": "Weight Decay",
+      "domain": "Optimization / Regularization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "adamw",
+            "title": "AdamW",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "dropout",
+            "title": "Dropout",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-redundancy-optimizer",
+      "title": "ZeRO",
+      "domain": "Systems / Distributed",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-parallelism",
+            "title": "Data Parallelism",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "optimizer-state",
+            "title": "Optimizer State",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
     }
   ],
   "neighborhoods": [
+    {
+      "id": "adam",
+      "center": {
+        "id": "adam",
+        "title": "Adam",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "momentum",
+          "title": "Momentum",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "adamw",
+          "title": "AdamW",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "optimizer-state",
+          "title": "Optimizer State",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "momentum",
+          "to": "adam",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "adam",
+          "to": "adamw",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "adam",
+          "to": "optimizer-state",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "adamw",
+      "center": {
+        "id": "adamw",
+        "title": "AdamW",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "adam",
+          "title": "Adam",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "muon-optimizer",
+          "title": "Muon",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "adam",
+          "to": "adamw",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
+          "to": "adamw",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "adamw",
+          "to": "muon-optimizer",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
     {
       "id": "alibi",
       "center": {
@@ -1049,6 +1886,112 @@
       ]
     },
     {
+      "id": "backpropagation",
+      "center": {
+        "id": "backpropagation",
+        "title": "Backpropagation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-function",
+          "title": "Loss Function",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "gradient-clipping",
+          "title": "Gradient Clipping",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "mixed-precision-training",
+          "title": "Mixed-Precision Training",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-function",
+          "to": "backpropagation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "gradient-clipping",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "gradient-descent",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "mixed-precision-training",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "batch-size",
+      "center": {
+        "id": "batch-size",
+        "title": "Batch Size",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "stochastic-gradient-descent",
+          "title": "Stochastic Gradient Descent",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "gradient-accumulation",
+          "title": "Gradient Accumulation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "stochastic-gradient-descent",
+          "to": "batch-size",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "batch-size",
+          "to": "gradient-accumulation",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "byte-pair-encoding",
       "center": {
         "id": "byte-pair-encoding",
@@ -1150,6 +2093,33 @@
           "from": "causal-masking",
           "to": "kv-cache",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "compute-optimal-training",
+      "center": {
+        "id": "compute-optimal-training",
+        "title": "Compute-Optimal Training",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "scaling-laws",
+          "title": "Scaling Laws",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "scaling-laws",
+          "to": "compute-optimal-training",
+          "type": "requires",
           "reviewed": false
         }
       ]
@@ -1288,6 +2258,112 @@
       ]
     },
     {
+      "id": "cross-entropy-loss",
+      "center": {
+        "id": "cross-entropy-loss",
+        "title": "Cross-Entropy Loss",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-function",
+          "title": "Loss Function",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-function",
+          "to": "cross-entropy-loss",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "cross-entropy-loss",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "pretraining",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "data-parallelism",
+      "center": {
+        "id": "data-parallelism",
+        "title": "Data Parallelism",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "stochastic-gradient-descent",
+          "title": "Stochastic Gradient Descent",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "zero-redundancy-optimizer",
+          "title": "ZeRO",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "expert-parallelism",
+          "title": "Expert Parallelism",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "stochastic-gradient-descent",
+          "to": "data-parallelism",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "data-parallelism",
+          "to": "zero-redundancy-optimizer",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "data-parallelism",
+          "to": "expert-parallelism",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "decoder-only-transformer",
       "center": {
         "id": "decoder-only-transformer",
@@ -1312,6 +2388,13 @@
           "y": 88
         },
         {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "encoder-decoder",
           "title": "Encoder-Decoder",
           "tier": "frontier",
@@ -1334,7 +2417,40 @@
         },
         {
           "from": "decoder-only-transformer",
+          "to": "pretraining",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "decoder-only-transformer",
           "to": "encoder-decoder",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "dropout",
+      "center": {
+        "id": "dropout",
+        "title": "Dropout",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "dropout",
+          "to": "weight-decay",
           "type": "adjacent",
           "reviewed": false
         }
@@ -1409,6 +2525,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "data-parallelism",
+          "title": "Data Parallelism",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -1416,6 +2539,12 @@
           "from": "mixture-of-experts",
           "to": "expert-parallelism",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "expert-parallelism",
+          "to": "data-parallelism",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -1474,6 +2603,46 @@
       ]
     },
     {
+      "id": "fine-tuning",
+      "center": {
+        "id": "fine-tuning",
+        "title": "Fine-Tuning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "lora",
+          "title": "LoRA",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "pretraining",
+          "to": "fine-tuning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "lora",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "flash-attention",
       "center": {
         "id": "flash-attention",
@@ -1496,6 +2665,126 @@
           "from": "self-attention",
           "to": "flash-attention",
           "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "gradient-accumulation",
+      "center": {
+        "id": "gradient-accumulation",
+        "title": "Gradient Accumulation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "batch-size",
+          "title": "Batch Size",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "batch-size",
+          "to": "gradient-accumulation",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "gradient-clipping",
+      "center": {
+        "id": "gradient-clipping",
+        "title": "Gradient Clipping",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "gradient-clipping",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "gradient-descent",
+      "center": {
+        "id": "gradient-descent",
+        "title": "Gradient Descent",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "learning-rate",
+          "title": "Learning Rate",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "stochastic-gradient-descent",
+          "title": "Stochastic Gradient Descent",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "gradient-descent",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "learning-rate",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "stochastic-gradient-descent",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "weight-decay",
+          "type": "unlocks",
           "reviewed": false
         }
       ]
@@ -1634,8 +2923,15 @@
           "id": "residual-connection",
           "title": "Residual Connection",
           "tier": "frontier",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "warmup",
+          "title": "Warmup",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -1655,6 +2951,212 @@
           "from": "layer-normalization",
           "to": "residual-connection",
           "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "layer-normalization",
+          "to": "warmup",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "learning-rate",
+      "center": {
+        "id": "learning-rate",
+        "title": "Learning Rate",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "learning-rate-schedule",
+          "title": "Learning-Rate Schedule",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-descent",
+          "to": "learning-rate",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "learning-rate",
+          "to": "learning-rate-schedule",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "learning-rate-schedule",
+      "center": {
+        "id": "learning-rate-schedule",
+        "title": "Learning-Rate Schedule",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "learning-rate",
+          "title": "Learning Rate",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "warmup",
+          "title": "Warmup",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "learning-rate",
+          "to": "learning-rate-schedule",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "learning-rate-schedule",
+          "to": "warmup",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "lora",
+      "center": {
+        "id": "lora",
+        "title": "LoRA",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "fine-tuning",
+          "to": "lora",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "loss-function",
+      "center": {
+        "id": "loss-function",
+        "title": "Loss Function",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "scaling-laws",
+          "title": "Scaling Laws",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-function",
+          "to": "backpropagation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-function",
+          "to": "cross-entropy-loss",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-function",
+          "to": "overfitting",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-function",
+          "to": "scaling-laws",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "mixed-precision-training",
+      "center": {
+        "id": "mixed-precision-training",
+        "title": "Mixed-Precision Training",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "mixed-precision-training",
+          "type": "requires",
           "reviewed": false
         }
       ]
@@ -1707,6 +3209,59 @@
         {
           "from": "mixture-of-experts",
           "to": "expert-parallelism",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "momentum",
+      "center": {
+        "id": "momentum",
+        "title": "Momentum",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "stochastic-gradient-descent",
+          "title": "Stochastic Gradient Descent",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "adam",
+          "title": "Adam",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "muon-optimizer",
+          "title": "Muon",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "stochastic-gradient-descent",
+          "to": "momentum",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "momentum",
+          "to": "adam",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "momentum",
+          "to": "muon-optimizer",
           "type": "unlocks",
           "reviewed": false
         }
@@ -1827,8 +3382,103 @@
         "x": 120,
         "y": 66
       },
-      "nodes": [],
-      "links": []
+      "nodes": [
+        {
+          "id": "momentum",
+          "title": "Momentum",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "adamw",
+          "title": "AdamW",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "momentum",
+          "to": "muon-optimizer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "muon-optimizer",
+          "to": "adamw",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "optimizer-state",
+      "center": {
+        "id": "optimizer-state",
+        "title": "Optimizer State",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "adam",
+          "title": "Adam",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "zero-redundancy-optimizer",
+          "title": "ZeRO",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "adam",
+          "to": "optimizer-state",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "optimizer-state",
+          "to": "zero-redundancy-optimizer",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "overfitting",
+      "center": {
+        "id": "overfitting",
+        "title": "Overfitting",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-function",
+          "title": "Loss Function",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-function",
+          "to": "overfitting",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
     },
     {
       "id": "positional-encoding",
@@ -1891,6 +3541,59 @@
         {
           "from": "positional-encoding",
           "to": "rotary-position-embedding",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "pretraining",
+      "center": {
+        "id": "pretraining",
+        "title": "Pretraining",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "decoder-only-transformer",
+          "title": "Decoder-Only Transformer",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-entropy-loss",
+          "to": "pretraining",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "decoder-only-transformer",
+          "to": "pretraining",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
+          "to": "fine-tuning",
           "type": "unlocks",
           "reviewed": false
         }
@@ -2044,6 +3747,46 @@
       ]
     },
     {
+      "id": "scaling-laws",
+      "center": {
+        "id": "scaling-laws",
+        "title": "Scaling Laws",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-function",
+          "title": "Loss Function",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "compute-optimal-training",
+          "title": "Compute-Optimal Training",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-function",
+          "to": "scaling-laws",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "scaling-laws",
+          "to": "compute-optimal-training",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "self-attention",
       "center": {
         "id": "self-attention",
@@ -2150,7 +3893,14 @@
           "title": "Autoregressive Decoding",
           "tier": "frontier",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "attention",
@@ -2169,8 +3919,80 @@
         },
         {
           "from": "softmax",
+          "to": "cross-entropy-loss",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
           "to": "attention",
           "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "stochastic-gradient-descent",
+      "center": {
+        "id": "stochastic-gradient-descent",
+        "title": "Stochastic Gradient Descent",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "batch-size",
+          "title": "Batch Size",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "data-parallelism",
+          "title": "Data Parallelism",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "momentum",
+          "title": "Momentum",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-descent",
+          "to": "stochastic-gradient-descent",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "stochastic-gradient-descent",
+          "to": "batch-size",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "stochastic-gradient-descent",
+          "to": "data-parallelism",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "stochastic-gradient-descent",
+          "to": "momentum",
+          "type": "unlocks",
           "reviewed": false
         }
       ]
@@ -2343,6 +4165,139 @@
           "from": "transformer-block",
           "to": "encoder-decoder",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "warmup",
+      "center": {
+        "id": "warmup",
+        "title": "Warmup",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "learning-rate-schedule",
+          "title": "Learning-Rate Schedule",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "layer-normalization",
+          "title": "Layer Normalization",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "learning-rate-schedule",
+          "to": "warmup",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "warmup",
+          "to": "layer-normalization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "weight-decay",
+      "center": {
+        "id": "weight-decay",
+        "title": "Weight Decay",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "adamw",
+          "title": "AdamW",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "dropout",
+          "title": "Dropout",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-descent",
+          "to": "weight-decay",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
+          "to": "adamw",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
+          "to": "dropout",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "zero-redundancy-optimizer",
+      "center": {
+        "id": "zero-redundancy-optimizer",
+        "title": "ZeRO",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-parallelism",
+          "title": "Data Parallelism",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "optimizer-state",
+          "title": "Optimizer State",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "data-parallelism",
+          "to": "zero-redundancy-optimizer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "optimizer-state",
+          "to": "zero-redundancy-optimizer",
+          "type": "requires",
           "reviewed": false
         }
       ]

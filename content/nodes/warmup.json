@@ -1,0 +1,63 @@
+{
+  "id": "warmup",
+  "title": "Warmup",
+  "domain": [
+    "Optimization",
+    "Schedules"
+  ],
+  "bodies": {
+    "intuition": "At the very start of training the parameters are random and the gradients are large and meaningless. Taking full-size steps then can wreck the run in the first few hundred iterations. Warmup ramps the learning rate up from near zero over the first stretch, so the model gets its bearings before it starts sprinting.",
+    "engineer": "Linear ramp over a few thousand steps, then hand off to the decay schedule. Post-norm transformers need it to train at all; pre-norm ones are stable without it and use it anyway because it still helps. Adam's second-moment estimate is also badly conditioned in the first steps, which is an independent reason for the ramp.",
+    "math": "η_t = η_max·t/T_w for t < T_w, then the decay schedule. The need is sharpest for post-norm, where the residual branch is not yet scaled and early updates can move the network far enough to be unrecoverable."
+  },
+  "emphasis": {
+    "intuition": "before it starts sprinting",
+    "engineer": "an independent reason for the ramp"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "warmup": 100
+    },
+    "param_controls": [
+      {
+        "name": "warmup",
+        "min": 0,
+        "max": 1000,
+        "step": 10
+      }
+    ],
+    "caption": "Loss through the opening of a run, with and without a ramp. Drag the warmup length to watch the early instability disappear."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "learning-rate-schedule",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "layer-normalization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.02677",
+      "title": "Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour",
+      "url": "https://arxiv.org/abs/1706.02677"
+    },
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

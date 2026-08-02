@@ -1,7 +1,10 @@
 {
   "id": "muon-optimizer",
   "title": "Muon",
-  "domain": ["Optimization", "Training"],
+  "domain": [
+    "Optimization",
+    "Training"
+  ],
   "bodies": {
     "intuition": "Momentum-based optimizers take a step in whatever direction the gradient points, and for a weight matrix that direction is usually dominated by a few strong components. Muon flattens the update before applying it, so every direction gets a comparable share of the step. The matrix moves in a more balanced way than the raw gradient asks for.",
     "engineer": "Take the momentum buffer for a 2-D parameter and orthogonalize it before the update, approximating the nearest semi-orthogonal matrix with a handful of Newton–Schulz iterations rather than an SVD. Five steps is typical and runs in bf16. It applies only to matrix-shaped parameters — embeddings, biases, and norms stay on AdamW — so it is a supplement to an existing optimizer, not a wholesale replacement.",
@@ -14,13 +17,33 @@
   },
   "viz": {
     "primitive": "update-spectrum",
-    "params": { "ns_steps": 5, "bars": 8 },
-    "param_controls": [{ "name": "ns_steps", "min": 0, "max": 8, "step": 1 }],
+    "params": {
+      "ns_steps": 5,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "ns_steps",
+        "min": 0,
+        "max": 8,
+        "step": 1
+      }
+    ],
     "caption": "Singular values of the raw momentum buffer beside the same buffer after orthogonalization. Drag the Newton–Schulz step count to watch a steep spectrum flatten toward one."
   },
   "edges": {
-    "requires": [],
-    "adjacent": []
+    "requires": [
+      {
+        "id": "momentum",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "adamw",
+        "reviewed": false
+      }
+    ]
   },
   "citations": [
     {
@@ -29,6 +52,8 @@
       "url": "https://arxiv.org/abs/2502.16982"
     }
   ],
-  "provenance": { "drafted_at": "2026-08-01" },
+  "provenance": {
+    "drafted_at": "2026-08-01"
+  },
   "updated_at": "2026-08-01"
 }

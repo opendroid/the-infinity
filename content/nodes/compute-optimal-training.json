@@ -1,0 +1,53 @@
+{
+  "id": "compute-optimal-training",
+  "title": "Compute-Optimal Training",
+  "domain": [
+    "Optimization",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "Given a fixed compute budget, you can spend it on a bigger model or on more data. For years the field chose bigger models, and it was wrong: for a given budget the two should grow roughly in step, which means most large models of that era were badly undertrained.",
+    "engineer": "Roughly 20 training tokens per parameter is the ratio the Chinchilla work identified as optimal for pretraining loss under a fixed budget. Serving cost changes the calculus — a smaller model trained on more tokens is cheaper to run forever after — so production models deliberately overshoot the ratio.",
+    "math": "Minimising L(N, D) subject to C ≈ 6ND gives N ∝ C^0.5 and D ∝ C^0.5, so both scale as the square root of compute. The earlier convention scaled N far faster than D and landed away from that optimum."
+  },
+  "emphasis": {
+    "intuition": "and it was wrong",
+    "engineer": "deliberately overshoot the ratio"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "params",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "caption": "Final loss at a fixed compute budget, split between model size and tokens. Drag the parameter count to find the bottom of the curve."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "scaling-laws",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2203.15556",
+      "title": "Training Compute-Optimal Large Language Models",
+      "url": "https://arxiv.org/abs/2203.15556"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

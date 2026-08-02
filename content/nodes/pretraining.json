@@ -1,0 +1,62 @@
+{
+  "id": "pretraining",
+  "title": "Pretraining",
+  "domain": [
+    "Optimization",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Pretraining is the long, expensive first phase where a model learns language itself by predicting the next token over an enormous corpus. No labels, no task, no human supervision — just the text, and an objective that turns out to require learning a great deal in order to do well at.",
+    "engineer": "One pass, or close to it, over trillions of tokens with cross-entropy on next-token prediction. It is where nearly all the compute and nearly all the capability come from; everything afterwards adjusts behaviour rather than adding knowledge. Data composition matters as much as data volume and is the least published part of any model.",
+    "math": "Maximise Σ_t log p_θ(x_t | x_{<t}) over the corpus. With C ≈ 6ND FLOPs for N parameters and D tokens, the budget is fixed before the run begins, which is why the schedule is planned against a step count decided in advance."
+  },
+  "emphasis": {
+    "intuition": "just the text",
+    "engineer": "everything afterwards adjusts behaviour rather than adding knowledge"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "lr": 0.001
+    },
+    "param_controls": [
+      {
+        "name": "steps",
+        "min": 100,
+        "max": 5000,
+        "step": 100
+      }
+    ],
+    "caption": "Loss across a full pretraining run on a log axis. Drag the run length to see how little of the improvement arrives in the final stretch."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      },
+      {
+        "id": "decoder-only-transformer",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2005.14165",
+      "title": "Language Models are Few-Shot Learners",
+      "url": "https://arxiv.org/abs/2005.14165"
+    },
+    {
+      "ref": "arXiv:2001.08361",
+      "title": "Scaling Laws for Neural Language Models",
+      "url": "https://arxiv.org/abs/2001.08361"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

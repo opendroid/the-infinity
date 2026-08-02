@@ -1,0 +1,53 @@
+{
+  "id": "dropout",
+  "title": "Dropout",
+  "domain": [
+    "Optimization",
+    "Regularization"
+  ],
+  "bodies": {
+    "intuition": "Dropout switches off a random subset of units on every training step, so no unit can rely on any particular other one being there. The network is forced to spread its representation around instead of building fragile chains, and what remains works better on data it has not seen.",
+    "engineer": "Zero each activation with probability p during training and scale the survivors by 1/(1−p) so the expected value is unchanged; disable it entirely at inference. Large language models use very little or none of it — with enough data, memorisation is less of a threat than underfitting, and the noise costs more than it buys.",
+    "math": "h ← h·m/(1−p) with m ~ Bernoulli(1−p) elementwise. The 1/(1−p) factor keeps E[h] fixed so train and test distributions match, which is why the alternative of scaling at test time is equivalent but less convenient."
+  },
+  "emphasis": {
+    "intuition": "instead of building fragile chains",
+    "engineer": "the noise costs more than it buys"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "rate": 0.1,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "rate",
+        "min": 0,
+        "max": 0.9,
+        "step": 0.05
+      }
+    ],
+    "caption": "Activations before and after units are dropped and the survivors rescaled. Drag the rate to watch the representation thin out while its expected size holds."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1207.0580",
+      "title": "Improving neural networks by preventing co-adaptation of feature detectors",
+      "url": "https://arxiv.org/abs/1207.0580"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}
