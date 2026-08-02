@@ -27,7 +27,16 @@ export default [
     // Build scripts and the content loader run in Node, not the browser.
     files: ['scripts/**/*.mjs', 'src/lib/**/*.ts'],
     languageOptions: {
-      globals: { process: 'readonly', console: 'readonly' },
+      // `fetch` and `AbortSignal` are Node globals from 18 on, used by
+      // check-citations.mjs to resolve a citation. Listed rather than pulled in
+      // via a globals package: the set a build script is allowed to reach for
+      // is short, and keeping it short is the point.
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
+        fetch: 'readonly',
+        AbortSignal: 'readonly',
+      },
     },
   },
 ];
