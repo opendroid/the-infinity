@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-// @ts-expect-error — plain .mjs script, no types; the checks are the subject, not the typing.
 import { readCitations, structuralProblems } from '../../scripts/check-citations.mjs';
 
 /**
