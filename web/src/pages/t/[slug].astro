@@ -1,0 +1,103 @@
+---
+// Route 3 — Shared trail. A wander turned into a shareable artifact.
+//
+// The sample trail is a FIXTURE under /web, not content. Per ADR-0002 trails
+// are interaction state — written at runtime, never authored in git — so
+// putting one in /content would contradict the ADR it was accepted under.
+import Base from '../../layouts/Base.astro';
+import Topbar from '../../components/Topbar.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Thread from '../../components/Thread.astro';
+import TierDot from '../../components/TierDot.astro';
+import { nodeOrThrow } from '../../lib/content';
+import sample from '../../fixtures/trail.sample.json';
+import type { Depth, Tier } from '../../lib/graph';
+
+export function getStaticPaths() {
+  return [{ params: { slug: sample.slug } }];
+}
+
+const stops = sample.stops.map((stop, i) => {
+  const node = nodeOrThrow(stop.id);
+  return {
+    n: i + 1,
+    id: node.id,
+    title: node.title,
+    tier: node.tier,
+    depth: stop.depth_read_at as Depth,
+  };
+});
+
+// Bead coordinates are computed from stop count, matching the thread path.
+const BEAD_Y = [60, 40, 48, 42, 50, 38, 44, 35];
+const beads = stops.map((stop, i) => ({
+  x: Math.round((1000 * (i + 1)) / (stops.length + 1)),
+  y: BEAD_Y[i % BEAD_Y.length]!,
+  tier: stop.tier as Tier,
+}));
+
+const minutes = Math.round(sample.duration_s / 60);
+const last = stops[stops.length - 1];
+---
+
+<Base
+  title={`${sample.title} — theinfinity.ai`}
+  description={`A path through the concept graph: ${stops.map((s) => s.title).join(' → ')}`}
+>
+  <Topbar trailCount={stops.length} />
+
+  <main class="px-[34px] pb-9 pt-10 max-md:px-[22px]">
+    <Eyebrow>Shared thread · {stops.length} concepts · {minutes} min of wandering</Eyebrow>
+
+    <h1 class="mt-2 max-w-[34ch] font-display text-[28px] font-semibold leading-[1.2] max-md:text-[23px]">
+      {sample.title} — one pull of the <span class="text-thread">thread</span>
+    </h1>
+
+    <p class="mb-[30px] mt-1.5 text-[14px] text-dust">
+      Walked {sample.created_at}, ending on {last?.title}
+    </p>
+
+    <Thread variant="trail" beads={beads} class="my-2 max-md:hidden" />
+
+    <!-- Numbering is legitimate here and nowhere else: order IS the content. -->
+    <ol class="mb-[26px] mt-[18px] list-none">
+      {
+        stops.map((stop, i) => (
+          <li
+            class:list={[
+              'flex items-center gap-4 py-3',
+              i < stops.length - 1 ? 'border-b border-line' : '',
+            ]}
+          >
+            <span class="w-[22px] shrink-0 font-mono text-[11px] text-dust">
+              {String(stop.n).padStart(2, '0')}
+            </span>
+            <TierDot tier={stop.tier} size={8} />
+            <a href={`/c/${stop.id}`} class="min-w-0 flex-1 text-[15px] text-starlight no-underline hover:text-thread">
+              {stop.title}
+            </a>
+            <span class="font-mono text-[10px] uppercase tracking-[.12em] text-dust">{stop.depth}</span>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="flex flex-wrap items-center gap-3 rounded-control border border-line bg-void px-4 py-3.5">
+      <code class="min-w-[200px] flex-1 break-words font-mono text-[12px] text-dust">
+        theinfinity.ai/t/{sample.slug}
+      </code>
+      <button
+        type="button"
+        class="cursor-pointer rounded-row border border-line bg-transparent px-[18px] py-[9px] text-[14px] text-starlight max-md:w-full"
+      >
+        Copy link
+      </button>
+      <a
+        href={`/c/${stops[0]?.id}`}
+        class="rounded-row bg-thread px-[18px] py-[9px] text-[14px] font-bold text-void no-underline max-md:order-first max-md:w-full max-md:text-center"
+      >
+        Walk this trail
+      </a>
+    </div>
+  </main>
+</Base>

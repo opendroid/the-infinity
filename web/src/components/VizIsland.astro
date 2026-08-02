@@ -1,0 +1,38 @@
+---
+// Inside the island, violet is the DATA channel. Tier colours never appear
+// here — a bar is not a trust signal.
+import type { ResolvedNode } from '../lib/graph';
+interface Props { node: ResolvedNode }
+const { node } = Astro.props;
+const params = Object.entries(node.viz.params)
+  .map(([k, v]) => `${k} = ${v}`)
+  .join(' · ');
+const control = node.viz.param_controls[0];
+// Deterministic pseudo-bars: a placeholder shape, not a real simulation. The
+// interactive primitives land as their own issues.
+const bars = Array.from({ length: 8 }, (_, i) => 30 + ((i * 37) % 70));
+---
+<figure class="rounded-island border border-line bg-void p-[22px]">
+  <figcaption class="mb-3.5 flex flex-wrap justify-between gap-1.5 font-mono text-[10px] uppercase tracking-[.16em] text-dust">
+    <span>Viz primitive · {node.viz.primitive}</span>
+    <span>{params}</span>
+  </figcaption>
+  <div class="flex h-[104px] items-end gap-1.5" aria-hidden="true">
+    {
+      bars.map((h, i) => (
+        <div
+          class="flex-1 rounded-[2px]"
+          style={`height:${h}%;background:${i % 3 === 0 ? '#8F7BFF' : 'rgba(143,123,255,.45)'}`}
+        />
+      ))
+    }
+  </div>
+  <p class="mt-2.5 max-w-[58ch] text-[12.5px] text-dust">{node.viz.caption}</p>
+  {
+    control && (
+      <p class="mt-2 font-mono text-[10px] uppercase tracking-[.14em] text-dust">
+        Draggable: {control.name} ({control.min}–{control.max})
+      </p>
+    )
+  }
+</figure>

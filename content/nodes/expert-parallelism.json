@@ -1,0 +1,38 @@
+{
+  "id": "expert-parallelism",
+  "title": "Expert Parallelism",
+  "domain": ["Systems", "Distributed"],
+  "bodies": {
+    "intuition": "A mixture-of-experts model holds more parameters than one accelerator can, so the experts are spread across devices. Each token then has to travel to whichever device owns the expert that was chosen for it, and come back. The routing decision stops being arithmetic and becomes network traffic.",
+    "engineer": "Shard experts across devices and keep the rest of the model replicated. Each layer becomes two all-to-all collectives: one to dispatch tokens to the devices owning their chosen experts, one to return the outputs. Throughput is then bounded by interconnect bandwidth and by the slowest device, so a load-imbalanced router stalls the whole step. The capacity factor exists to bound this — tokens beyond an expert's capacity are dropped rather than allowed to skew the collective.",
+    "math": "With E experts over D devices, each device holds E/D experts. For batch B and top-k routing, the expected tokens arriving at one device is B·k/D under uniform routing, and each device provisions capacity C = ⌈(B·k/D)·c⌉ for capacity factor c. Tokens beyond C are dropped, so drop rate rises with routing skew: for a device receiving a fraction p of tokens rather than 1/D, overflow is max(0, p·B·k − C)."
+  },
+  "emphasis": {
+    "intuition": "The routing decision stops being arithmetic and becomes network traffic",
+    "engineer": "a load-imbalanced router stalls the whole step"
+  },
+  "viz": {
+    "primitive": "router-dispatch",
+    "params": { "experts": 8, "devices": 4, "capacity_factor": 1.25 },
+    "param_controls": [{ "name": "capacity_factor", "min": 1, "max": 2, "step": 0.05 }],
+    "caption": "Tokens dispatched across four devices, with dropped tokens marked where an expert exceeds capacity. Drag the capacity factor to trade wasted memory against dropped tokens."
+  },
+  "edges": {
+    "requires": [{ "id": "mixture-of-experts", "reviewed": false }],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2006.16668",
+      "title": "GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding",
+      "url": "https://arxiv.org/abs/2006.16668"
+    },
+    {
+      "ref": "arXiv:2101.03961",
+      "title": "Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity",
+      "url": "https://arxiv.org/abs/2101.03961"
+    }
+  ],
+  "provenance": { "drafted_at": "2026-08-01" },
+  "updated_at": "2026-08-01"
+}

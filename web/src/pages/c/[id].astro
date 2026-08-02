@@ -1,0 +1,111 @@
+---
+// Route 2 — Concept page. The product. ~95% of traffic arrives here from search,
+// so it pre-renders complete: all three depth bodies, every edge, the mini-map's
+// first paint. Nothing below waits on the API to be readable.
+import Base from '../../layouts/Base.astro';
+import Topbar from '../../components/Topbar.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import TierBadge from '../../components/TierBadge.astro';
+import EdgeGroup from '../../components/EdgeGroup.astro';
+import MiniMap from '../../components/MiniMap.astro';
+import VizIsland from '../../components/VizIsland.astro';
+import TrailRibbon from '../../components/TrailRibbon.astro';
+import DepthToggle from '../../components/DepthToggle';
+import { allNodes, graph, nodeOrThrow } from '../../lib/content';
+import { neighborhood, splitEmphasis, type Depth } from '../../lib/graph';
+
+export function getStaticPaths() {
+  return allNodes.map((node) => ({ params: { id: node.id } }));
+}
+
+const { id } = Astro.params;
+const node = nodeOrThrow(id!);
+const map = neighborhood(graph, node.id);
+
+const DEPTHS: Depth[] = ['intuition', 'engineer', 'math'];
+const bodies = DEPTHS.map((depth) => {
+  const [before, emphasis, after] = splitEmphasis(node.bodies[depth], node.emphasis?.[depth]);
+  return { depth, before, emphasis, after };
+});
+
+// A trail the reader hasn't walked yet is just this node. The real trail comes
+// from localStorage after hydration (ADR-0002: interaction state is never
+// authored), so the server renders the honest single-stop version.
+const trail = [node];
+---
+
+<Base title={`${node.title} — theinfinity.ai`} description={node.bodies.intuition.slice(0, 155)}>
+  <Topbar trailCount={trail.length} />
+
+  <div class="grid grid-cols-[1fr_288px] max-[760px]:grid-cols-1">
+    <main class="min-w-0 px-[30px] pb-[30px] pt-[34px]">
+      <div class="flex flex-wrap items-center gap-3">
+        <Eyebrow>{node.domain.join(' / ')}</Eyebrow>
+        <TierBadge tier={node.tier} />
+      </div>
+
+      <h1 class="my-4 font-display text-[32px] font-semibold leading-[1.16] max-md:text-[23px] max-md:leading-[1.2]">
+        {node.title}
+      </h1>
+
+      <DepthToggle client:load bodies={bodies} initial="intuition" />
+
+      <div class="mt-6">
+        <VizIsland node={node} />
+      </div>
+
+      {
+        node.tier === 'frontier' && node.provenance && (
+          <section class="mt-6 rounded-island border border-line bg-raised-wash px-5 py-[18px]">
+            <Eyebrow>Provenance · frontier node</Eyebrow>
+            <p class="mt-2 max-w-[62ch] text-[14px] text-dust">
+              Drafted {node.provenance.drafted_at} and awaiting human review. The sources below are
+              what it was written from.
+            </p>
+            <ul class="mt-3 space-y-1.5">
+              {node.citations.map((c) => (
+                <li class="font-mono text-[11.5px] text-dust">
+                  <a href={c.url} class="text-thread no-underline hover:underline">{c.ref}</a> — {c.title}
+                </li>
+              ))}
+            </ul>
+            <div class="mt-4 flex flex-wrap gap-2.5">
+              <button type="button" class="cursor-pointer rounded-row border border-thread bg-transparent px-[18px] py-[9px] text-[13px] text-thread">
+                Flag an error
+              </button>
+              <button type="button" class="cursor-pointer rounded-row border border-line bg-transparent px-[18px] py-[9px] text-[13px] text-starlight">
+                Volunteer to review
+              </button>
+            </div>
+          </section>
+        )
+      }
+
+      {
+        node.tier === 'verified' && node.review && (
+          <section class="mt-6">
+            <Eyebrow>
+              Reviewed by {node.review.reviewed_by} · {node.review.reviewed_at}
+            </Eyebrow>
+            <ul class="mt-3 space-y-1.5">
+              {node.citations.map((c) => (
+                <li class="font-mono text-[11.5px] text-dust">
+                  <a href={c.url} class="text-thread no-underline hover:underline">{c.ref}</a> — {c.title}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </main>
+
+    <aside class="border-l border-line bg-panel-wash px-6 py-[30px] max-[760px]:border-l-0 max-[760px]:border-t">
+      <EdgeGroup type="requires" edges={node.edges.requires} />
+      <EdgeGroup type="unlocks" edges={node.edges.unlocks} />
+      <EdgeGroup type="adjacent" edges={node.edges.adjacent} />
+      <MiniMap data={map} />
+    </aside>
+  </div>
+
+  <TrailRibbon stops={trail} currentId={node.id} />
+</Base>

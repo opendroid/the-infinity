@@ -1,0 +1,58 @@
+---
+// The signature. One continuous line, tier-filled beads on it.
+// Every surface that shows the thread uses this component.
+import type { Tier } from '../lib/graph';
+interface Bead { x: number; y: number; tier: Tier; label?: string; href?: string }
+interface Props {
+  variant: 'lemniscate' | 'trail';
+  beads: Bead[];
+  class?: string;
+}
+const { variant, beads, class: cls = '' } = Astro.props;
+
+const LEMNISCATE =
+  'M310 115 C 310 50, 200 28, 145 72 C 90 115, 90 115, 145 158 C 200 202, 310 180, 310 115 ' +
+  'C 310 50, 420 28, 475 72 C 530 115, 530 115, 475 158 C 420 202, 310 180, 310 115 Z';
+const TRAIL = 'M20 60 C 140 20, 260 85, 380 50 C 500 15, 620 80, 760 45 C 860 20, 930 55, 980 35';
+
+const viewBox = variant === 'lemniscate' ? '0 0 620 230' : '0 0 1000 90';
+const path = variant === 'lemniscate' ? LEMNISCATE : TRAIL;
+const fill = (t: Tier) => (t === 'verified' ? '#E5B54A' : '#5FD4C4');
+---
+<svg viewBox={viewBox} class:list={['h-auto w-full', cls]} fill="none" aria-hidden="true">
+  <path d={path} stroke="#8F7BFF" stroke-width={variant === 'lemniscate' ? '1.4' : '1.6'} opacity={variant === 'lemniscate' ? '.8' : '.75'} />
+  {
+    variant === 'lemniscate' && (
+      <path
+        d="M310 115 C 310 50, 200 28, 145 72 C 90 115, 90 115, 145 158 C 200 202, 310 180, 310 115"
+        stroke="#8F7BFF"
+        stroke-width="4"
+        opacity=".2"
+      />
+    )
+  }
+  {
+    beads.map((bead, i) => (
+      <circle
+        cx={bead.x}
+        cy={bead.y}
+        r={i === beads.length - 1 && variant === 'trail' ? 7 : 5.5}
+        fill={fill(bead.tier)}
+        class:list={[bead.tier === 'frontier' ? `pulse pulse-${i % 3}` : '']}
+      />
+    ))
+  }
+  {
+    beads
+      .filter((b) => b.label)
+      .map((bead) => (
+        <text
+          x={bead.x}
+          y={bead.y - 14}
+          text-anchor="middle"
+          fill="#8B91B3"
+          font-family="JetBrains Mono"
+          font-size="10">{bead.label}</text>
+      ))
+  }
+</svg>
