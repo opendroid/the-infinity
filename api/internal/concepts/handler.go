@@ -28,6 +28,7 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	concept, err := h.store.Concept(ctx, id)
 	switch {
 	case err == nil:
+		apihttp.CacheFor(w, apihttp.ConceptBrowserTTL, apihttp.ConceptEdgeTTL)
 		apihttp.WriteJSON(w, http.StatusOK, concept)
 	case errors.Is(err, store.ErrNotFound):
 		h.writeNotFound(w, r, id)
@@ -49,6 +50,9 @@ func (h *Handler) writeNotFound(w http.ResponseWriter, r *http.Request, id strin
 		}
 	}
 
+	// Not cached: a concept that does not exist today may exist after the next
+	// publish, and a cached 404 would outlive its own truth.
+	apihttp.NoStore(w)
 	apihttp.WriteJSON(w, http.StatusNotFound, apihttp.NotFoundConcept{
 		Error: apihttp.Error{
 			Code:    apihttp.CodeNotFound,
@@ -70,6 +74,7 @@ func (h *Handler) Neighborhood(w http.ResponseWriter, r *http.Request) {
 	n, err := h.store.Neighborhood(r.Context(), id)
 	switch {
 	case err == nil:
+		apihttp.CacheFor(w, apihttp.ConceptBrowserTTL, apihttp.ConceptEdgeTTL)
 		apihttp.WriteJSON(w, http.StatusOK, n)
 	case errors.Is(err, store.ErrNotFound):
 		apihttp.WriteError(w, http.StatusNotFound, apihttp.CodeNotFound,
@@ -90,5 +95,6 @@ func (h *Handler) Stats(w http.ResponseWriter, r *http.Request) {
 		apihttp.WriteInternal(w, err, "fetching stats")
 		return
 	}
+	apihttp.CacheFor(w, apihttp.StatsBrowserTTL, apihttp.StatsEdgeTTL)
 	apihttp.WriteJSON(w, http.StatusOK, s)
 }

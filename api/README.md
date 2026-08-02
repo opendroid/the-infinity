@@ -130,6 +130,34 @@ the rate limiter the memory exhaustion it exists to prevent.
 Tunable by environment variable: `DAILY_WRITE_CAP`, `RATE_LIMIT_PER_MINUTE`,
 `READ_RATE_LIMIT_PER_MINUTE`, `TRUSTED_PROXY_HOPS`.
 
+## Caching
+
+Every read carries a `Cache-Control`; nothing else does.
+
+| Route | Header | Why |
+|---|---|---|
+| `/concepts/{id}`, `/neighborhood` | `public, max-age=60, s-maxage=300` | Changes only when a merge publishes it |
+| `/stats` | `public, max-age=60, s-maxage=300` | Highest-volume path, cheapest thing to be slightly wrong about |
+| `/trails/{slug}` | `public, max-age=600, s-maxage=3600` | Written once, never updated |
+| Everything else | `no-store` | See below |
+
+Two knobs because the browser and the CDN want different answers: `max-age` is one visitor's
+tab, `s-maxage` is the shared edge where a hit costs nothing and serves everyone. Until this
+landed nothing set the header at all, so Hosting cached nothing and every mini-map refetch
+woke Cloud Run — static-first undercut from the other side, with the pages on a CDN and the
+calls they make not.
+
+**Errors are never cacheable, and that matters more than the positive cases.** A cached 429
+would keep serving a rate-limit rejection to everyone behind that edge long after the burst
+that caused it — a momentary limit turned into an outage with no purge button. A cached 500
+does the same for a transient fault, and a cached 404 outlives its own truth, since a
+concept that does not exist today may exist after the next publish.
+
+The ceiling on all of these is staleness after a publish: a Hosting deploy does **not** purge
+entries cached from a Cloud Run rewrite, so `s-maxage` is how long the API may serve the
+previous graph. ADR-0003 already accepts staleness of exactly this shape; these numbers keep
+it to one coffee rather than one afternoon.
+
 ## Storage
 
 Handlers depend on `store.Store`, never on Firestore, and test against `store.Fake`. That

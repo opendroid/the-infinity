@@ -733,3 +733,120 @@ func TestReadsDoNotDrainTheWriteAllowance(t *testing.T) {
 		t.Error("reading drained the write allowance — the buckets are shared again")
 	}
 }
+
+// Every read carries a Cache-Control, and every non-read does not.
+//
+// Until this landed nothing set the header at all, so Firebase Hosting cached
+// nothing and every mini-map refetch woke Cloud Run — static-first undercut from
+// the other side: the pages sit on a CDN and the calls they make did not.
+func TestReadsAreCacheableAndEverythingElseIsNot(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name   string
+		method string
+		path   string
+		body   string
+		want   string
+	}{
+		{
+			name: "concept", method: http.MethodGet, path: "/api/v1/concepts/mixture-of-experts",
+			want: "public, max-age=60, s-maxage=300",
+		},
+		{
+			name: "neighborhood", method: http.MethodGet, path: "/api/v1/concepts/mixture-of-experts/neighborhood",
+			want: "public, max-age=60, s-maxage=300",
+		},
+		{
+			name: "stats", method: http.MethodGet, path: "/api/v1/stats",
+			want: "public, max-age=60, s-maxage=300",
+		},
+		{
+			// A trail is written once and never updated, so it can be held far
+			// longer than anything derived from the graph.
+			name: "trail", method: http.MethodGet, path: "/api/v1/trails/a-trail-0000",
+			want: "public, max-age=600, s-maxage=3600",
+		},
+		{
+			// A concept that does not exist today may exist after the next
+			// publish. A cached 404 would outlive its own truth.
+			name: "missing concept", method: http.MethodGet, path: "/api/v1/concepts/nope",
+			want: "no-store",
+		},
+		{
+			name: "missing trail", method: http.MethodGet, path: "/api/v1/trails/nope",
+			want: "no-store",
+		},
+		{
+			name: "unknown endpoint", method: http.MethodGet, path: "/api/v1/nope",
+			want: "no-store",
+		},
+		{
+			name: "rejected body", method: http.MethodPost, path: "/api/v1/requests",
+			body: `{"name":"x"}`, want: "no-store",
+		},
+		{
+			// An acknowledgement of a side effect. Cached, a repeat submission
+			// would look accepted while never reaching the queue.
+			name: "accepted request", method: http.MethodPost, path: "/api/v1/requests",
+			body: `{"name":"Liquid Neural Networks"}`, want: "no-store",
+		},
+		{
+			name: "created trail", method: http.MethodPost, path: "/api/v1/trails",
+			body: `{"stops":[{"id":"mixture-of-experts","depth_read_at":"engineer"}]}`,
+			want: "no-store",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			h := newServer(t, seeded(), router.Options{})
+			rec := do(t, h, tt.method, tt.path, tt.body)
+
+			if got := rec.Header().Get("Cache-Control"); got != tt.want {
+				t.Errorf("Cache-Control = %q, want %q (status %d)", got, tt.want, rec.Code)
+			}
+		})
+	}
+}
+
+// A 429 must never be cached. The CDN would go on serving the rejection to
+// everyone behind that edge long after the burst that caused it had passed,
+// turning a momentary limit into an outage with no way to purge it.
+func TestRateLimitedResponsesAreNotCached(t *testing.T) {
+	t.Parallel()
+
+	h := newServer(t, seeded(), router.Options{
+		ReadLimit:  ratelimit.Config{PerMinute: 1, Burst: 1, MaxClients: 8},
+		WriteLimit: generous(),
+		DailyCap:   1000,
+	})
+
+	do(t, h, http.MethodGet, "/api/v1/stats", "")
+	rec := do(t, h, http.MethodGet, "/api/v1/stats", "")
+
+	if rec.Code != http.StatusTooManyRequests {
+		t.Fatalf("second request = %d, want 429", rec.Code)
+	}
+	if got := rec.Header().Get("Cache-Control"); got != "no-store" {
+		t.Errorf("Cache-Control on a 429 = %q, want no-store", got)
+	}
+}
+
+// A 500 must never be cached either — it is by definition the transient case.
+func TestInternalErrorsAreNotCached(t *testing.T) {
+	t.Parallel()
+
+	f := seeded()
+	f.Err = errors.New("firestore is unhappy")
+	h := newServer(t, f, router.Options{})
+
+	rec := do(t, h, http.MethodGet, "/api/v1/concepts/mixture-of-experts", "")
+	if rec.Code != http.StatusInternalServerError {
+		t.Fatalf("status = %d, want 500", rec.Code)
+	}
+	if got := rec.Header().Get("Cache-Control"); got != "no-store" {
+		t.Errorf("Cache-Control on a 500 = %q, want no-store", got)
+	}
+}
