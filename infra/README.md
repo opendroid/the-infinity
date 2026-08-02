@@ -112,3 +112,31 @@ cd web && npm run build && firebase deploy --only hosting
 The `/api/**` rewrite sends matching requests to the Cloud Run service named `api` in
 `us-west1`. **Hosting does not strip the prefix** — the service receives the full
 `/api/v1/...` path, which is why the router mounts there. See ADR-0001.
+
+## CI/CD identity
+
+```zsh
+./infra/cicd.sh
+```
+
+Creates the workload identity federation `.github/workflows/deploy.yml` authenticates
+through, plus a `deployer` service account, and prints the two repository variables to set.
+Re-runnable.
+
+**No JSON service-account keys, ever.** A key is a permanent credential in a settings page:
+it does not expire, it is copied wherever it is pasted, and nothing tells you when it leaks.
+Federation issues GitHub a token that lives for the length of one job and is bound to
+`opendroid/the-infinity`, so what the repository actually stores is a *name* — which is why
+the two values go in Variables rather than Secrets.
+
+The deployer is a separate identity from `api-runtime`. The runtime holds `datastore.user`
+and nothing else; if it also held `run.admin`, a bug in a request handler would be a bug
+that can deploy.
+
+Two locks on who may use it, because the second one is free: the provider carries
+`--attribute-condition="assertion.repository == 'opendroid/the-infinity'"`, and the
+impersonation binding is scoped to `attribute.repository/...` rather than to the whole pool.
+Either alone would do; conditions are easier to widen by accident than bindings are.
+
+Everything in `deploy.yml` is idempotent, so re-running a half-finished deploy from the
+Actions tab is the normal fix.

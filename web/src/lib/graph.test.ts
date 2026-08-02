@@ -116,6 +116,21 @@ describe('neighborhood', () => {
     expect(neighborhood(graph, 'center')).toEqual(neighborhood(graph, 'center'));
   });
 
+  it('names link endpoints by id, so the API payload can replace this one', () => {
+    const n = neighborhood(graph, 'center');
+    const ids = new Set([n.center.id, ...n.nodes.map((x) => x.id)]);
+    for (const link of n.links) {
+      expect(ids.has(link.from), `link from "${link.from}" has no node`).toBe(true);
+      expect(ids.has(link.to), `link to "${link.to}" has no node`).toBe(true);
+    }
+  });
+
+  it('points a prerequisite inwards and an unlocked concept outwards', () => {
+    const n = neighborhood(graph, 'center');
+    expect(n.links.find((l) => l.type === 'requires')).toMatchObject({ from: 'req', to: 'center' });
+    expect(n.links.find((l) => l.type === 'unlocks')).toMatchObject({ from: 'center', to: 'unl' });
+  });
+
   it('marks an unreviewed edge so the mini-map can dash it', () => {
     const n = neighborhood(graph, 'center');
     expect(n.links.some((l) => !l.reviewed)).toBe(true);

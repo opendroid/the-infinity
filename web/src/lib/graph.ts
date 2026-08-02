@@ -72,9 +72,19 @@ export interface MiniMapNode {
   y: number;
 }
 
+/**
+ * A link names its endpoints by id, not by coordinate — the same shape
+ * `GET /api/v1/concepts/{id}/neighborhood` returns, so the mini-map island can
+ * swap the server-rendered payload for a fresh one without a translation layer.
+ *
+ * The direction follows the relationship rather than the traversal: a `requires`
+ * link runs from the prerequisite into the centre, an `unlocks` link runs out of
+ * it.
+ */
 export interface MiniMapLink {
-  from: { x: number; y: number };
-  to: { x: number; y: number };
+  from: string;
+  to: string;
+  type: EdgeType;
   reviewed: boolean;
 }
 
@@ -200,8 +210,15 @@ export function neighborhood(graph: Map<string, ResolvedNode>, id: string): Neig
   const links: MiniMapLink[] = [];
   for (const type of ['requires', 'unlocks', 'adjacent'] as const) {
     for (const edge of node.edges[type]) {
-      const to = placed.find((p) => p.id === edge.id);
-      if (to) links.push({ from: { x: cx, y: cy }, to: { x: to.x, y: to.y }, reviewed: edge.reviewed });
+      if (!placed.some((p) => p.id === edge.id)) continue;
+      // A prerequisite points inwards; everything else points out from centre.
+      const inbound = type === 'requires';
+      links.push({
+        from: inbound ? edge.id : node.id,
+        to: inbound ? node.id : edge.id,
+        type,
+        reviewed: edge.reviewed,
+      });
     }
   }
 
