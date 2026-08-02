@@ -234,6 +234,7 @@ exist yet.*
 | `cd web && npm run lint` | ESLint, zero warnings tolerated |
 | `cd web && npm test` | Vitest — graph derivation, node-shape invariants, schema rejection cases |
 | `cd web && npm run validate:content` | Nodes against `node.schema.json`, plus the cross-field invariants |
+| `cd web && npm run check:citations` | Every citation resolves. `-- --offline` skips the network and says so — it exits 2 rather than passing when nothing could be reached |
 | `cd web && npm run validate:openapi` | `redocly lint` on `/docs/openapi.yaml` — zero warnings tolerated |
 | `cd api && make run` | Run the API locally on `:8080` (needs `GOOGLE_CLOUD_PROJECT`) |
 | `cd api && make test` | Table-driven tests, with the race detector |
