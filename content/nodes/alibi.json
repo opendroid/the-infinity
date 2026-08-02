@@ -17,8 +17,10 @@
   "viz": {
     "primitive": "attention-heatmap",
     "params": {
-      "tokens": 8,
-      "heads": 4
+      "tokens": 10,
+      "heads": 4,
+      "lookahead": 0,
+      "decay": 3
     },
     "param_controls": [
       {
@@ -28,7 +30,7 @@
         "step": 1
       }
     ],
-    "caption": "Attention weights after a distance penalty is added to the scores. Drag the head count to see slopes from steeply local to nearly flat."
+    "caption": "Attention weights for one head once a distance penalty is added to the scores. Drag the head count to watch that head's slope go from steeply local to nearly flat."
   },
   "edges": {
     "requires": [

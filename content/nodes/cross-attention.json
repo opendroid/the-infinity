@@ -17,7 +17,8 @@
   "viz": {
     "primitive": "attention-heatmap",
     "params": {
-      "tokens": 8,
+      "tokens": 6,
+      "keys": 11,
       "heads": 1
     },
     "param_controls": [
