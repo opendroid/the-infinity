@@ -64,7 +64,13 @@ describe('node.schema.json accepts', () => {
    * point of this list is that changing the enum requires someone to type the
    * new name twice, in two files, having read what it means.
    */
-  const PRIMITIVES = ['router-dispatch', 'update-spectrum', 'attention-heatmap', 'loss-curve'];
+  const PRIMITIVES = [
+    'router-dispatch',
+    'update-spectrum',
+    'attention-heatmap',
+    'loss-curve',
+    'budget-split',
+  ];
 
   for (const primitive of PRIMITIVES) {
     it(`the ${primitive} primitive`, () => {

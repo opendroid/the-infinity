@@ -12,10 +12,11 @@
     "engineer": "the natural seam at which to introduce sparsity"
   },
   "viz": {
-    "primitive": "update-spectrum",
-    "params": { "d_model": 512, "d_ff": 2048 },
+    "primitive": "budget-split",
+    "params": { "d_model": 512, "d_ff": 2048, "share_rest": 1024 },
     "param_controls": [{ "name": "d_ff", "min": 512, "max": 4096, "step": 512 }],
-    "caption": "The block's parameter mass across weight directions, at a narrow feed-forward layer and at the current one. Drag d_ff to watch a wider layer spread the same budget over more directions."
+    "caption": "Share of a transformer block's parameters held by the feed-forward layer, against the attention it sits beside. Drag d_ff to the conventional 4× d_model and the block takes two thirds of the budget.",
+    "caption_engineer": "Attention costs about 4·d_model² in projections; the feed-forward layer costs about 2·d_model·d_ff. The split is d_ff / (d_ff + 2·d_model) — at d_ff = 4·d_model that is exactly 4/6, which is where the two-thirds figure comes from."
   },
   "edges": {
     "requires": [],
