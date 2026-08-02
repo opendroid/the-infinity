@@ -87,6 +87,12 @@ Read CLAUDE.md, /docs/PLAN.md, and the fake nodes in /content/nodes/.
 PR: "feat: node schema and openapi v1". Walk me through both contracts before opening it.
 ```
 
+> **Superseded by what it produced.** Kept as the record of what was asked; do not paste it
+> again. ADR-0002 moved `tier` and `edges.unlocks` out of the authored file — both are
+> derived at publish, and the schema now *rejects* them — and `viz` is
+> `{primitive, params, param_controls, caption}`, not `{primitive, config}`.
+> [`content/schema/node.schema.json`](../content/schema/node.schema.json) is the authority.
+
 ## Prompt 4 — Go service scaffold (Phase 3)
 
 ```
@@ -135,6 +141,12 @@ milestone (M1/M2/M3), estimate (S/M/L). Show me the full list as a table FIRST; 
 approve/edit, create them with gh issue create and set up the milestones.
 ```
 
+> **Superseded by what it produced** — the backlog exists; do not paste it again. Its
+> primitive list (`token-stream`, `vector-space`, `distribution-slider`) was a guess made
+> before the design handoff, and the handoff's names won. The v1 set is four, not five:
+> `router-dispatch`, `update-spectrum`, `attention-heatmap`, `loss-curve`, documented in
+> [`content/schema/README.md`](../content/schema/README.md).
+
 ## Prompt 7 — The issue loop (Phase 6; reusable — this is your daily driver)
 
 ```
@@ -157,7 +169,9 @@ Read /content/schema/node.schema.json and 3 existing verified nodes as style ref
 
 Write (or reuse) /workflows/generate-nodes: a workflow script that, given a list of concept
 ids I provide, generates one JSON node per concept — all three depth bodies, typed edges
-that reference existing or planned node ids only, viz primitive choice + config, real
+that reference existing or planned node ids only, a viz primitive + params (the primitive
+MUST be one of the four in the schema's closed enum — read content/schema/README.md for
+what each one shows and which params it reads), real
 citations (arxiv/source links). Validate every node against the schema; reject and retry
 invalid ones inside the loop. Report to me only: count generated, validation failures,
 edge references to nodes that don't exist yet.

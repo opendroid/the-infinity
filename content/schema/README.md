@@ -18,6 +18,55 @@ in six months:
 | `provenance.sources` | Citations are top-level and tier-independent |
 | both or neither of `review` / `provenance` | Exactly one, and it determines the tier |
 
+## Viz primitives — a closed set, extended only by a deliberate schema change
+
+`viz.primitive` names **a reusable visual shape, not a drawing of one concept.** The same
+primitive serves any concept whose idea has that shape: `update-spectrum` carries Muon's
+singular values, the feed-forward block's parameter share, and a relaxed gate's output
+distribution, because all three are *this distribution against that one*. Choosing a
+primitive is choosing a shape, and the params re-point it.
+
+| Primitive | What it shows | Params it reads |
+|---|---|---|
+| `router-dispatch` | A grid of cells, one per routed unit, shaded by how strongly each is selected — solid = first choice, faint = second, outlined = not selected. A per-unit load row underneath. | `experts` sets the grid width. `top_k`, `capacity_factor`, `devices` re-point it. |
+| `update-spectrum` | Two bar groups side by side, 8 bars each: one distribution against another. The control morphs the second toward or away from the first. | `bars` sets the group width. `ns_steps`, `gate_temperature`, `d_model`/`d_ff` re-point it. |
+| `attention-heatmap` | A query × key grid, cell opacity proportional to attention weight; causal-masked, since every concept that needs it is decoder-side. | `tokens` sets the grid side. `heads`, `temperature` re-point it. |
+| `loss-curve` | Loss against training step, plotted as a line on a `--nebula` grid. A second faint line where a comparison run is meaningful. | `steps` sets the x extent. `lr`, `warmup`, `batch` re-point it. |
+
+Two constraints on params that are easy to trip over:
+
+- **Params are numbers only** (`additionalProperties: { type: number }`), so a flag has to be
+  encoded `0`/`1`. That is deliberate — a param has to be draggable, and you cannot drag a
+  string — but it means a primitive wanting a genuine mode switch is telling you it should
+  be two primitives.
+- **The schema does not check that a primitive gets the params it needs.** `attention-heatmap`
+  with only `{ "lr": 3 }` validates. Encoding per-primitive requirements as `if`/`then` would
+  put the component's contract in the schema, where it would drift from the component the
+  first time one changed; the component owns its own defaults instead, and
+  `param_controls[].name` naming a key that exists in `params` is the invariant actually
+  worth enforcing.
+
+### The rule: the enum grows by deliberate schema change, one name per landed primitive
+
+The set is closed because a typo has no other backstop — a content PR naming
+`atention-heatmap` would validate against an open schema, merge, publish, and reach a
+reader as a broken island. Closing it moves that failure to CI, where it is a red check
+instead of a bad page.
+
+So extending it is its own reviewed decision, never a line that rides along in a content
+PR. The four names above are the **v1 set**, fixed by
+[#46](https://github.com/opendroid/the-infinity/issues/46); `attention-heatmap` and
+`loss-curve` were added there ahead of their components (#48–#51) precisely so that the
+schema change was reviewed once, on its own, rather than four times inside four feature
+PRs.
+
+That ordering has one consequence worth stating, because it is a promise the schema cannot
+keep on its own: **a name in the enum does not mean a component answers to it.** Until the
+matching primitive ships, `VizIsland` renders the same placeholder for every value, so an
+unimplemented primitive degrades to a generic shape rather than to nothing. Each primitive
+component must keep that fallback when it lands — a `switch` on `primitive` with no default
+is how the closed enum stops protecting anybody.
+
 ## Four invariants live outside the schema
 
 JSON Schema cannot express a constraint that spans fields or files, so

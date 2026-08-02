@@ -474,7 +474,17 @@ components:
           type: object
           required: [primitive, params, param_controls, caption]
           properties:
-            primitive: { type: string }
+            primitive:
+              type: string
+              # Deliberately not an enum here. The closed set lives in
+              # content/schema/node.schema.json and is enforced at authoring time —
+              # nothing reaches Firestore without passing it — so repeating the list
+              # would create a second copy to keep in sync and a second way to be
+              # wrong. See content/schema/README.md for what each primitive shows.
+              description: >-
+                Names a viz primitive. The set is closed and enforced by the node schema
+                at authoring time; see content/schema/README.md.
+              example: router-dispatch
             params:
               type: object
               additionalProperties: { type: number }
