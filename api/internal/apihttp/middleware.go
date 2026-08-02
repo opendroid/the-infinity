@@ -2,6 +2,7 @@ package apihttp
 
 import (
 	"context"
+	"errors"
 	"log/slog"
 	"net/http"
 	"time"
@@ -27,12 +28,23 @@ const DefaultDailyWriteCap int64 = 500
 func Recoverer(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
-			if rec := recover(); rec != nil {
-				slog.Error("panic in handler",
-					slog.Any("recovered", rec),
-					slog.String("path", r.URL.Path))
-				WriteError(w, http.StatusInternalServerError, CodeInternal, "Unexpected error.")
+			rec := recover()
+			if rec == nil {
+				return
 			}
+
+			// http.ErrAbortHandler is not a crash. It is Go's documented way for
+			// a handler to abandon a response on purpose, and net/http expects to
+			// receive it: swallowing it logs a crash that did not happen and then
+			// writes a second status onto a response already in flight.
+			if err, ok := rec.(error); ok && errors.Is(err, http.ErrAbortHandler) {
+				panic(rec)
+			}
+
+			slog.Error("panic in handler",
+				slog.Any("recovered", rec),
+				slog.String("path", r.URL.Path))
+			WriteError(w, http.StatusInternalServerError, CodeInternal, "Unexpected error.")
 		}()
 		next.ServeHTTP(w, r)
 	})
