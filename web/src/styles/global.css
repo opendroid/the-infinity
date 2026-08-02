@@ -30,6 +30,26 @@
     outline-offset: 2px;
   }
 
+  /* Depth-coupled viz renderings (ADR-0005).
+   *
+   * `DepthToggle` publishes the reader's depth as `data-depth` on the scope
+   * element; a primitive marks its variants and these three rules decide which
+   * one is visible. No component reads the attribute in JavaScript, and with JS
+   * disabled the attribute is simply absent — which lands on the default, the
+   * same depth the server rendered. The fallback is the unstyled case, so there
+   * is no state left to be wrong about. */
+  [data-depth-scope] .depth-engineer {
+    display: none;
+  }
+
+  [data-depth-scope][data-depth='engineer'] .depth-engineer {
+    display: block;
+  }
+
+  [data-depth-scope][data-depth='engineer'] .depth-default {
+    display: none;
+  }
+
   /* The viz islands' parameter slider.
    *
    * `accent-color` alone is not enough: it tints the filled portion violet and

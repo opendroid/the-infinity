@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Depth } from '../lib/graph';
 
 interface Body {
@@ -28,10 +28,21 @@ const LABEL: Record<Depth, string> = {
  */
 export default function DepthToggle({ bodies, initial = 'intuition' }: Props) {
   const [depth, setDepth] = useState<Depth>(initial);
+  const root = useRef<HTMLDivElement>(null);
+
+  // Publishes depth to the DOM so the viz island can follow it without the two
+  // components knowing about each other (ADR-0005). This writes; nothing here
+  // reads. The attribute's absence is the no-JavaScript case, and it is exactly
+  // the intuition default the server already rendered.
+  useEffect(() => {
+    const scope = root.current?.closest('[data-depth-scope]');
+    if (scope instanceof HTMLElement) scope.dataset.depth = depth;
+  }, [depth]);
 
   return (
     <>
       <div
+        ref={root}
         role="tablist"
         aria-label="Explanation depth"
         className="my-5 inline-flex overflow-hidden rounded-control border border-line max-md:w-full"
