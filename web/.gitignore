@@ -1,0 +1,3 @@
+# Generated from docs/design/handoff-v1/tokens.json at prebuild — never committed,
+# so the committed source cannot drift from the handoff.
+src/styles/tokens.generated.css

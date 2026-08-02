@@ -1,0 +1,12 @@
+---
+interface Props { trailCount?: number }
+const { trailCount = 0 } = Astro.props;
+---
+<header class="flex items-center justify-between gap-3 border-b border-line px-[26px] py-3.5">
+  <a href="/" class="font-display text-[14px] font-semibold text-starlight no-underline">
+    the<span class="text-thread">∞</span>.ai
+  </a>
+  <span class="font-mono text-[11px] text-dust">
+    trail · <b class:list={[trailCount > 0 ? 'text-thread' : 'text-dust']}>{trailCount} {trailCount === 1 ? 'node' : 'nodes'}</b>
+  </span>
+</header>

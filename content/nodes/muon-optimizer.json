@@ -1,0 +1,34 @@
+{
+  "id": "muon-optimizer",
+  "title": "Muon",
+  "domain": ["Optimization", "Training"],
+  "bodies": {
+    "intuition": "Momentum-based optimizers take a step in whatever direction the gradient points, and for a weight matrix that direction is usually dominated by a few strong components. Muon flattens the update before applying it, so every direction gets a comparable share of the step. The matrix moves in a more balanced way than the raw gradient asks for.",
+    "engineer": "Take the momentum buffer for a 2-D parameter and orthogonalize it before the update, approximating the nearest semi-orthogonal matrix with a handful of Newton–Schulz iterations rather than an SVD. Five steps is typical and runs in bf16. It applies only to matrix-shaped parameters — embeddings, biases, and norms stay on AdamW — so it is a supplement to an existing optimizer, not a wholesale replacement.",
+    "math": "For momentum buffer M with SVD M = UΣVᵀ, the orthogonalized update is O = UVᵀ, discarding Σ entirely. Newton–Schulz approximates this by iterating X ← aX + b(XXᵀ)X + c(XXᵀ)²X on a spectrally normalized X₀ = M/‖M‖_F, with coefficients chosen to push singular values toward 1. The iteration need not converge tightly: the update direction is what matters, and a rough orthogonalization already equalizes the spectrum enough to change the step."
+  },
+  "emphasis": {
+    "intuition": "every direction gets a comparable share of the step",
+    "engineer": "a supplement to an existing optimizer, not a wholesale replacement",
+    "math": "the update direction is what matters"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": { "ns_steps": 5, "bars": 8 },
+    "param_controls": [{ "name": "ns_steps", "min": 0, "max": 8, "step": 1 }],
+    "caption": "Singular values of the raw momentum buffer beside the same buffer after orthogonalization. Drag the Newton–Schulz step count to watch a steep spectrum flatten toward one."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2502.16982",
+      "title": "Muon is Scalable for LLM Training",
+      "url": "https://arxiv.org/abs/2502.16982"
+    }
+  ],
+  "provenance": { "drafted_at": "2026-08-01" },
+  "updated_at": "2026-08-01"
+}

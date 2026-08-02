@@ -1,0 +1,8 @@
+---
+// Mono, uppercase, wide tracking, dust. Sits above every major heading.
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<p class:list={['font-mono text-[11px] uppercase tracking-[.17em] text-dust', cls]}>
+  <slot />
+</p>

@@ -1,0 +1,38 @@
+{
+  "id": "feed-forward-network",
+  "title": "Feed-Forward Network",
+  "domain": ["Architecture", "Blocks"],
+  "bodies": {
+    "intuition": "Attention decides which tokens a position should look at. The feed-forward network is what the position does with what it found — a small two-layer network applied to each position independently. Attention moves information between positions; the feed-forward block thinks about it in place.",
+    "engineer": "Two linear projections with a non-linearity between them, applied identically at every position: up-project from d_model to d_ff, activate, project back down. d_ff is conventionally 4·d_model, which puts roughly two thirds of a transformer's parameters in a block that never looks sideways. Because it is position-wise, it is embarrassingly parallel and the natural seam at which to introduce sparsity.",
+    "math": "FFN(x) = W₂ · σ(W₁x + b₁) + b₂ with W₁ ∈ ℝ^{d_ff×d_model} and W₂ ∈ ℝ^{d_model×d_ff}. σ was ReLU originally and is now usually GeLU or a gated variant such as SwiGLU, which splits the up-projection in two and multiplies one half through a sigmoid gate. Gated variants use d_ff ≈ (8/3)·d_model to hold the parameter count fixed against the extra projection."
+  },
+  "emphasis": {
+    "intuition": "Attention moves information between positions; the feed-forward block thinks about it in place",
+    "engineer": "the natural seam at which to introduce sparsity"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": { "d_model": 512, "d_ff": 2048 },
+    "param_controls": [{ "name": "d_ff", "min": 512, "max": 4096, "step": 512 }],
+    "caption": "Parameter share of the block as d_ff grows against a fixed d_model. Drag d_ff to see how quickly the feed-forward layer comes to dominate the parameter budget."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [{ "id": "conditional-computation", "reviewed": true }]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    },
+    {
+      "ref": "arXiv:2002.05202",
+      "title": "GLU Variants Improve Transformer",
+      "url": "https://arxiv.org/abs/2002.05202"
+    }
+  ],
+  "review": { "reviewed_by": "opendroid", "reviewed_at": "2026-08-01" },
+  "updated_at": "2026-08-01"
+}

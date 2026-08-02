@@ -1,0 +1,15 @@
+---
+// The atom. Used in edge rows, trail stops, search results, mini-maps.
+// Colour comes from the tier it is handed — never from where it is rendered.
+import type { Tier } from '../lib/graph';
+interface Props { tier: Tier; size?: number; class?: string }
+const { tier, size = 7, class: cls = '' } = Astro.props;
+const fill = tier === 'verified' ? 'bg-verified' : 'bg-frontier';
+// Handoff: frontier pulses, verified does not.
+const pulse = tier === 'frontier' ? 'pulse' : '';
+---
+<span
+  class:list={['inline-block shrink-0 rounded-pill', fill, pulse, cls]}
+  style={`width:${size}px;height:${size}px`}
+  aria-hidden="true"
+></span>

@@ -1,0 +1,22 @@
+---
+// Tier is never the sole signal: the dot is paired with a text label, so the
+// meaning survives for anyone who cannot distinguish gold from teal.
+import type { Tier } from '../lib/graph';
+import TierDot from './TierDot.astro';
+interface Props { tier: Tier }
+const { tier } = Astro.props;
+const tone =
+  tier === 'verified'
+    ? 'text-verified border-tier-border-verified'
+    : 'text-frontier border-tier-border-frontier';
+---
+<span
+  class:list={[
+    'inline-flex items-center gap-1.5 rounded-pill border px-[11px] py-[4px]',
+    'font-mono text-[10px] uppercase tracking-[.14em]',
+    tone,
+  ]}
+>
+  <TierDot tier={tier} />
+  {tier}
+</span>

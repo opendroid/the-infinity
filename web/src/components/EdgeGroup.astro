@@ -1,0 +1,41 @@
+---
+// Empty groups render an honest dashed box rather than disappearing —
+// "the graph never dead-ends" means saying so when it does.
+import type { EdgeType, ResolvedEdge } from '../lib/graph';
+import EdgeRow from './EdgeRow.astro';
+interface Props { type: EdgeType; edges: ResolvedEdge[] }
+const { type, edges } = Astro.props;
+const ARROW: Record<EdgeType, string> = { requires: '◂', unlocks: '▸', adjacent: '↔' };
+const LABEL: Record<EdgeType, string> = { requires: 'Requires', unlocks: 'Unlocks', adjacent: 'Adjacent' };
+
+// Each group needs its own sentence. "Nothing builds on this yet" is true of an
+// empty Unlocks and false of the other two — reusing it made Requires and
+// Adjacent read as a rendering bug.
+const EMPTY: Record<EdgeType, string> = {
+  requires:
+    "Nothing is needed first — this is a place the graph can be entered cold.",
+  unlocks: "Nothing builds on this yet — it's the current end of the thread.",
+  adjacent: 'No siblings mapped yet. Concepts that sit alongside this one belong here.',
+};
+
+const leading = type === 'requires';
+---
+<div class="mb-6">
+  <h4 class="mb-2.5 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-dust">
+    {leading && <span class="mr-1.5 text-thread">{ARROW[type]}</span>}
+    {LABEL[type]}
+    {!leading && <span class="ml-1.5 text-thread">{ARROW[type]}</span>}
+  </h4>
+  {
+    edges.length > 0 ? (
+      edges.map((edge) => <EdgeRow edge={edge} />)
+    ) : (
+      <div class="rounded-row border border-dashed border-line px-[11px] py-2.5">
+        <p class="text-[13px] text-dust">{EMPTY[type]}</p>
+        <a href="/request" class="mt-1.5 inline-block font-mono text-[10px] uppercase tracking-[.14em] text-thread">
+          Suggest an edge
+        </a>
+      </div>
+    )
+  }
+</div>

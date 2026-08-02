@@ -1,0 +1,55 @@
+---
+// ADR-0003: coordinates are computed at build time, deterministically by edge
+// type — requires left, unlocks right, adjacent vertical. No force simulation,
+// so the map is byte-identical across builds unless the graph changed.
+//
+// In production this is the ONE element that waits on the network: it refetches
+// /api/v1/concepts/{id}/neighborhood after hydration so a page cached last week
+// still shows today's tier colours. Server-rendered here as the first paint.
+import type { Neighborhood } from '../lib/graph';
+interface Props { data: Neighborhood }
+const { data } = Astro.props;
+const fill = (tier: string) => (tier === 'verified' ? '#E5B54A' : '#5FD4C4');
+---
+<div>
+  <h4 class="mb-2.5 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-dust">
+    You are here
+  </h4>
+  <svg
+    viewBox="0 0 240 132"
+    class="w-full rounded-control border border-line bg-void"
+    role="img"
+    aria-label={`Concepts one step from ${data.center.title}`}
+  >
+    {
+      data.links.map((link) => (
+        <line
+          x1={link.from.x}
+          y1={link.from.y}
+          x2={link.to.x}
+          y2={link.to.y}
+          stroke="#8F7BFF"
+          stroke-width="1"
+          opacity={link.reviewed ? '.5' : '.35'}
+          stroke-dasharray={link.reviewed ? undefined : '3 4'}
+        />
+      ))
+    }
+    {data.nodes.map((n) => <circle cx={n.x} cy={n.y} r="5" fill={fill(n.tier)} />)}
+    <circle cx={data.center.x} cy={data.center.y} r="8" fill={data.center.tier === 'frontier' ? '#5FD4C4' : '#8F7BFF'} />
+    <text
+      x={data.center.x}
+      y={data.center.y + 23}
+      text-anchor="middle"
+      fill="#E9EBF8"
+      font-family="JetBrains Mono"
+      font-size="8">{data.center.id}</text>
+  </svg>
+  {
+    data.links.some((l) => !l.reviewed) && (
+      <p class="mt-1.5 font-mono text-[10px] uppercase tracking-[.12em] text-dust">
+        Dashed = unreviewed edge
+      </p>
+    )
+  }
+</div>

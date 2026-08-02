@@ -1,0 +1,13 @@
+---
+import type { ResolvedEdge } from '../lib/graph';
+import TierDot from './TierDot.astro';
+interface Props { edge: ResolvedEdge }
+const { edge } = Astro.props;
+---
+<a
+  href={`/c/${edge.id}`}
+  class="mb-[7px] flex min-h-11 items-center justify-between gap-2 rounded-row border border-line bg-nebula px-[11px] py-[9px] text-[13.5px] text-starlight no-underline hover:border-thread md:min-h-0"
+>
+  <span>{edge.title}</span>
+  <TierDot tier={edge.tier} />
+</a>

@@ -1,0 +1,32 @@
+@import 'tailwindcss';
+@import './tokens.generated.css';
+
+/* Handoff: the only gradient in the product, and it reads as depth. */
+@utility hero-lift {
+  background: radial-gradient(120% 90% at 50% 0%, #141a31 0%, var(--color-void) 62%);
+}
+
+@layer base {
+  html {
+    background: var(--color-void);
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--color-void);
+    color: var(--color-starlight);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background: var(--color-thread);
+    color: var(--color-void);
+  }
+
+  /* Handoff: focus visible in thread, 2px, offset 2. */
+  :where(a, button, input, [tabindex]):focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 2px;
+  }
+}

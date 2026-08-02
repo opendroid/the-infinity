@@ -1,0 +1,42 @@
+{
+  "id": "mixture-of-experts",
+  "title": "Mixture-of-Experts",
+  "domain": ["Architecture", "Sparsity"],
+  "bodies": {
+    "intuition": "A dense model pushes every token through every parameter it owns. A mixture-of-experts model keeps many parallel sub-networks and wakes only a couple per token, chosen by a small router. The model can hold far more knowledge than it spends compute on, because you pay for the experts you wake up, not the ones you own.",
+    "engineer": "Replace the feed-forward block with N expert FFNs and a learned router. The router scores every token against all N experts and dispatches it to the top-k, usually k=2. Compute scales with k, not N, so parameter count and FLOPs decouple. The cost moves from compute to memory and to balance: every expert must be resident, and a router that favours a few experts wastes the rest while overflowing its favourites past their capacity factor.",
+    "math": "For token x, the router computes g = softmax(W_r · x) over N experts and selects T = top-k(g). The output is y = Σ_{i∈T} (g_i / Σ_{j∈T} g_j) · E_i(x), so the mixture stays a convex combination of the chosen experts. Training adds an auxiliary load-balancing loss, typically α · N · Σ_i f_i · P_i, where f_i is the fraction of tokens routed to expert i and P_i the mean router probability for it. The product is minimised when both are uniform."
+  },
+  "emphasis": {
+    "intuition": "you pay for the experts you wake up, not the ones you own",
+    "engineer": "The cost moves from compute to memory and to balance",
+    "math": "the mixture stays a convex combination of the chosen experts"
+  },
+  "viz": {
+    "primitive": "router-dispatch",
+    "params": { "experts": 8, "top_k": 2, "capacity_factor": 1.25 },
+    "param_controls": [{ "name": "top_k", "min": 1, "max": 4, "step": 1 }],
+    "caption": "Solid cells are each token's first-choice expert, faint cells its second. Outlined experts stay asleep for this batch. Drag top-k to watch compute rise as more experts wake."
+  },
+  "edges": {
+    "requires": [
+      { "id": "feed-forward-network", "reviewed": true },
+      { "id": "conditional-computation", "reviewed": true }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1701.06538",
+      "title": "Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer",
+      "url": "https://arxiv.org/abs/1701.06538"
+    },
+    {
+      "ref": "arXiv:2101.03961",
+      "title": "Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity",
+      "url": "https://arxiv.org/abs/2101.03961"
+    }
+  ],
+  "review": { "reviewed_by": "opendroid", "reviewed_at": "2026-08-01" },
+  "updated_at": "2026-08-01"
+}

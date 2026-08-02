@@ -1,0 +1,96 @@
+---
+// The signature. One continuous line with tier-filled beads ON it.
+//
+// Bead positions are computed from the same curve that draws the stroke
+// (src/lib/curve.ts) rather than authored alongside it — the first version kept
+// two hand-written lists in sync by hope, and they drifted by up to 7px.
+import type { Tier } from '../lib/graph';
+import {
+  LEMNISCATE,
+  LEMNISCATE_CENTRE,
+  LEMNISCATE_LEFT,
+  LEMNISCATE_RIGHT,
+  TRAIL,
+  spread,
+  toPathD,
+} from '../lib/curve';
+
+interface Labelled {
+  tier: Tier;
+  label?: string;
+}
+
+interface Props {
+  variant: 'lemniscate' | 'trail';
+  /** Left lobe on the lemniscate; the whole thread on a trail. */
+  primary: Labelled[];
+  /** Right lobe. Lemniscate only. */
+  secondary?: Labelled[];
+  class?: string;
+}
+
+const { variant, primary, secondary = [], class: cls = '' } = Astro.props;
+
+const isLemniscate = variant === 'lemniscate';
+const viewBox = isLemniscate ? '0 0 620 230' : '0 0 1000 90';
+
+const stroke = toPathD(isLemniscate ? LEMNISCATE : TRAIL);
+// The lemniscate carries a thicker, fainter pass over one lobe — it reads as
+// depth without introducing a second colour.
+const depthPass = isLemniscate ? toPathD(LEMNISCATE_LEFT) : null;
+
+const placed = isLemniscate
+  ? [
+      ...spread(LEMNISCATE_LEFT, primary.length).map((pt, i) => ({ ...pt, ...primary[i]! })),
+      ...spread(LEMNISCATE_RIGHT, secondary.length).map((pt, i) => ({ ...pt, ...secondary[i]! })),
+    ]
+  : spread(TRAIL, primary.length).map((pt, i) => ({ ...pt, ...primary[i]! }));
+
+const fill = (tier: Tier) => (tier === 'verified' ? '#E5B54A' : '#5FD4C4');
+
+// Labels sit clear of their bead: above when the bead is in the upper half,
+// below when it is in the lower. A fixed offset put text on top of the dot
+// whenever the bead sat high on the curve.
+const centreY = isLemniscate ? LEMNISCATE_CENTRE.y : 45;
+const labelDy = (y: number) => (y <= centreY ? -13 : 19);
+
+const lastIndex = placed.length - 1;
+---
+
+<svg viewBox={viewBox} class:list={['h-auto w-full', cls]} fill="none" aria-hidden="true">
+  <path
+    d={stroke}
+    stroke="#8F7BFF"
+    stroke-width={isLemniscate ? '1.4' : '1.6'}
+    opacity={isLemniscate ? '.8' : '.75'}
+  />
+  {depthPass && <path d={depthPass} stroke="#8F7BFF" stroke-width="4" opacity=".2" />}
+
+  {isLemniscate && <circle cx={LEMNISCATE_CENTRE.x} cy={LEMNISCATE_CENTRE.y} r="7.5" fill="#8F7BFF" />}
+
+  {
+    placed.map((bead, i) => (
+      <circle
+        cx={bead.x}
+        cy={bead.y}
+        r={!isLemniscate && i === lastIndex ? 7 : 5.5}
+        fill={fill(bead.tier)}
+        class:list={[bead.tier === 'frontier' ? `pulse pulse-${i % 3}` : '']}
+      />
+    ))
+  }
+
+  {
+    placed
+      .filter((bead) => bead.label)
+      .map((bead) => (
+        <text
+          x={bead.x}
+          y={bead.y + labelDy(bead.y)}
+          text-anchor="middle"
+          fill="#8B91B3"
+          font-family="JetBrains Mono"
+          font-size="10">{bead.label}</text>
+      ))
+  }
+</svg>
