@@ -143,8 +143,38 @@ See [`/infra/README.md`](../infra/README.md). Two flags carry more weight than t
 `--service-account`, without which Cloud Run silently falls back to an Editor-privileged
 default identity, and `--max-instances`, which is what actually bounds the bill.
 
-## Not built yet
+## Deployed, as of the first M1 deploy
 
-The image has never run on Cloud Run: the first `gcloud run deploy` is M1. Until then
-`docker build` in CI is the only evidence the Dockerfile is correct, and nothing has
-observed a real `X-Forwarded-For` through the Hosting domain — see issue #29.
+The service is live and answering through the Hosting domain — `/api/v1/stats` and
+`/api/v1/concepts/{id}` both verified against `https://the-infinity-ai.web.app`, which is
+the check ADR-0001 exists for.
+
+Two things the first deploy turned up:
+
+- **`GET /healthz` returns Google's 404 page on the Cloud Run URL**, while an unmatched
+  path like `/nope` correctly returns this service's structured `not_found`. So the request
+  is not reaching the process — `/healthz` is registered on the same router whose
+  `NotFound` handler answers `/nope`. Under investigation; it does not affect the API.
+- **The `X-Forwarded-For` chain is still unobserved** — that is what the probe above is for.
+
+## The `X-Forwarded-For` probe is temporary
+
+`apihttp.XFFProbe` logs the raw forwarding chain, the socket address, and the address
+`ratelimit.ClientIP` derives from them, for the first 50 requests an instance serves.
+
+It exists because `ClientIP` takes the **last** `X-Forwarded-For` entry, which is right
+for exactly one appending hop. Production is Firebase Hosting → Cloud Run, and if Google's
+edge appends after the client then the entry we trust is infrastructure — every visitor
+keys into one bucket and roughly the fourth request per minute across all users gets a
+429, site-wide. The question is not answerable by reasoning, and it cannot be reproduced
+against the `*.run.app` URL, because what Hosting adds is the whole question.
+
+Read it after a request through the public domain:
+
+```zsh
+gcloud logging read 'jsonPayload.msg="xff probe"' --project the-infinity-ai --limit 5 \
+  --format='value(jsonPayload.xff, jsonPayload.remote_addr, jsonPayload.client_ip)'
+```
+
+Compare the entries against your own address (`curl ifconfig.me`). **Delete this middleware
+and its file when #29 closes.**

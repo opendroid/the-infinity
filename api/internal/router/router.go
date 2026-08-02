@@ -52,7 +52,9 @@ func New(s store.Store, opts Options) http.Handler {
 	writeShaping := apihttp.NewPerIPLimiter(opts.RateLimit)
 
 	r := chi.NewRouter()
-	r.Use(apihttp.Recoverer, apihttp.Timeout)
+	// XFFProbe is TEMPORARY and comes out with #29. It is first so it observes
+	// the chain as it arrived, before anything downstream can touch it.
+	r.Use(apihttp.XFFProbe, apihttp.Recoverer, apihttp.Timeout)
 
 	r.Get("/healthz", healthz)
 
