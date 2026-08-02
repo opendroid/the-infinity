@@ -1,0 +1,48 @@
+{
+  "id": "softmax",
+  "title": "Softmax",
+  "domain": [
+    "Foundations",
+    "Functions"
+  ],
+  "bodies": {
+    "intuition": "Softmax turns a list of arbitrary scores into a list of probabilities: everything comes out positive and the whole thing sums to one. It is how a model converts an opinion of unequal strengths into a distribution it can sample from or average over. The largest score gets the most weight, but not all of it.",
+    "engineer": "Exponentiate each score and divide by the sum of the exponentials. Implementations subtract the row maximum first — mathematically a no-op, numerically the difference between working and overflowing to infinity. A temperature divides the scores before exponentiating: below one it sharpens toward the argmax, above one it flattens toward uniform.",
+    "math": "softmax(z)_i = exp(z_i) / Σ_j exp(z_j). With temperature τ, softmax(z/τ). As τ → 0 the output approaches a one-hot vector at argmax z; as τ → ∞ it approaches the uniform distribution. The Jacobian is diag(p) − ppᵀ, which is why the gradient vanishes once one entry dominates."
+  },
+  "emphasis": {
+    "intuition": "but not all of it",
+    "engineer": "the difference between working and overflowing to infinity"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "temperature": 1.0,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "temperature",
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1
+      }
+    ],
+    "caption": "The same scores as a distribution, before and after temperature is applied. Drag temperature up to watch a confident distribution flatten toward uniform, and down to watch it collapse onto its argmax."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

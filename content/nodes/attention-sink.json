@@ -1,0 +1,57 @@
+{
+  "id": "attention-sink",
+  "title": "Attention Sink",
+  "domain": [
+    "Attention",
+    "Behaviour"
+  ],
+  "bodies": {
+    "intuition": "Trained transformers dump a surprising amount of attention on the very first token, regardless of what it is. The softmax has to put its weight somewhere even when a position has nothing it needs, and the first token becomes the place it goes. Evict it from the cache and quality collapses, for a token carrying no information.",
+    "engineer": "The mechanism is that softmax weights must sum to one, so a head with nothing to retrieve still distributes weight, and the earliest position is visible to every query. Streaming methods exploit this by keeping the first few tokens permanently while rolling the rest, which restores quality that naive window eviction destroys.",
+    "math": "Because Σ_j a_ij = 1 by construction, a head cannot attend to nothing; the surplus concentrates on positions visible to all queries. Retaining k initial tokens alongside a sliding window of size w gives a cache of k + w rather than n while keeping perplexity near the full-context value."
+  },
+  "emphasis": {
+    "intuition": "for a token carrying no information",
+    "engineer": "restores quality that naive window eviction destroys"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "heads": 1
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 4,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Attention weights with a bright first column every row falls back on. Drag the length to see the sink persist however far the sequence runs."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "causal-masking",
+        "reviewed": false
+      },
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2309.17453",
+      "title": "Efficient Streaming Language Models with Attention Sinks",
+      "url": "https://arxiv.org/abs/2309.17453"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

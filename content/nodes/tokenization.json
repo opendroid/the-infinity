@@ -1,0 +1,53 @@
+{
+  "id": "tokenization",
+  "title": "Tokenization",
+  "domain": [
+    "Foundations",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "A model does not see text, it sees numbers. Tokenization is the step that chops a string into pieces and assigns each an id. The choice of pieces is a trade: characters are universal but make sequences long, whole words are compact but leave the model helpless on anything unseen.",
+    "engineer": "Subword schemes take the middle: frequent words stay whole, rare ones split into parts that were seen in training. Vocabulary size trades against sequence length, and both cost money — the embedding table scales with the vocabulary while attention scales with the square of the sequence. Tokenizer choices are effectively permanent, since changing them invalidates every trained weight tied to the table.",
+    "math": "A tokenizer is a map from strings to sequences over a vocabulary V. Embedding parameters scale as |V|·d_model, while attention cost scales as n². For a fixed corpus, larger |V| lowers mean n, so the total is minimised somewhere in between rather than at either end."
+  },
+  "emphasis": {
+    "intuition": "characters are universal but make sequences long",
+    "engineer": "Tokenizer choices are effectively permanent"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "vocab": 32000,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "vocab",
+        "min": 1000,
+        "max": 128000,
+        "step": 1000
+      }
+    ],
+    "caption": "How the same text divides into tokens at one vocabulary size and another. Drag the vocabulary up to watch sequences shorten as the table grows."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1508.07909",
+      "title": "Neural Machine Translation of Rare Words with Subword Units",
+      "url": "https://arxiv.org/abs/1508.07909"
+    },
+    {
+      "ref": "arXiv:1808.06226",
+      "title": "SentencePiece: A simple and language independent subword tokenizer and detokenizer for Neural Text Processing",
+      "url": "https://arxiv.org/abs/1808.06226"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

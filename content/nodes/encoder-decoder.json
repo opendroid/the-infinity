@@ -1,0 +1,68 @@
+{
+  "id": "encoder-decoder",
+  "title": "Encoder-Decoder",
+  "domain": [
+    "Architecture",
+    "Blocks"
+  ],
+  "bodies": {
+    "intuition": "When the input and the output are different things — a French sentence and its English translation — one stack can read the input with no restrictions while another writes the output one token at a time. The reader sees everything at once; the writer sees only what it has already produced, plus whatever it pulls from the reader.",
+    "engineer": "An unmasked encoder stack and a causally masked decoder stack, joined by cross-attention where the decoder's queries meet the encoder's keys and values. It costs roughly twice the parameters of a decoder alone, and it remains the better fit where the input is genuinely a fixed object to be consumed rather than a prefix to be continued.",
+    "math": "Encoder produces H = Enc(x) once. Each decoder layer runs masked self-attention over y_{<t}, then cross-attention with Q from the decoder and K, V from H. H is computed once and reused at every decoding step."
+  },
+  "emphasis": {
+    "intuition": "The reader sees everything at once",
+    "engineer": "a fixed object to be consumed rather than a prefix to be continued"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "layers": 12,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "layers",
+        "min": 2,
+        "max": 48,
+        "step": 2
+      }
+    ],
+    "caption": "How the parameter budget divides between the encoder and the decoder beside it. Drag the decoder depth to shift the balance between reading and writing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "transformer-block",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "decoder-only-transformer",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    },
+    {
+      "ref": "arXiv:1409.3215",
+      "title": "Sequence to Sequence Learning with Neural Networks",
+      "url": "https://arxiv.org/abs/1409.3215"
+    },
+    {
+      "ref": "arXiv:1810.04805",
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+      "url": "https://arxiv.org/abs/1810.04805"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

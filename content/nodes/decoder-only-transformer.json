@@ -1,0 +1,63 @@
+{
+  "id": "decoder-only-transformer",
+  "title": "Decoder-Only Transformer",
+  "domain": [
+    "Architecture",
+    "Blocks"
+  ],
+  "bodies": {
+    "intuition": "The original transformer had an encoder that read and a decoder that wrote. Modern language models keep only the decoder: one stack, causally masked, trained to predict the next token. Everything else — translation, answering, summarising — is expressed as a continuation of text rather than a separate mechanism.",
+    "engineer": "A stack of causally masked blocks over a single sequence, with a language-modelling head on top. Dropping the encoder removes cross-attention and halves the architecture, and the masking means every position in a training sequence contributes a prediction. Task specificity moves out of the architecture and into the prompt.",
+    "math": "p(x) = Π_t p(x_t | x_{<t}), with each conditional produced by the stack at position t. The causal mask makes all n conditionals computable in one forward pass, so a sequence of length n yields n supervised examples for the cost of one."
+  },
+  "emphasis": {
+    "intuition": "expressed as a continuation of text rather than a separate mechanism",
+    "engineer": "Task specificity moves out of the architecture and into the prompt"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "layers": 32,
+      "d_model": 4096,
+      "share_rest": 4096
+    },
+    "param_controls": [
+      {
+        "name": "layers",
+        "min": 4,
+        "max": 80,
+        "step": 4
+      }
+    ],
+    "caption": "Share of parameters in the repeated block stack against the embedding and head around it. Drag the depth to watch the stack dominate as the model grows."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "transformer-block",
+        "reviewed": false
+      },
+      {
+        "id": "causal-masking",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2005.14165",
+      "title": "Language Models are Few-Shot Learners",
+      "url": "https://arxiv.org/abs/2005.14165"
+    },
+    {
+      "ref": "arXiv:2302.13971",
+      "title": "LLaMA: Open and Efficient Foundation Language Models",
+      "url": "https://arxiv.org/abs/2302.13971"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

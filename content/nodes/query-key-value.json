@@ -1,0 +1,53 @@
+{
+  "id": "query-key-value",
+  "title": "Query, Key, Value",
+  "domain": [
+    "Attention",
+    "Core"
+  ],
+  "bodies": {
+    "intuition": "Attention borrows its vocabulary from databases. Each position emits a query — what am I looking for — and every position also offers a key, advertising what it has. Queries and keys are matched to decide where to look; the value is what actually gets read once the match is made. Splitting the three lets a position advertise something different from what it delivers.",
+    "engineer": "Three learned projections of the same input: Q = XW_Q, K = XW_K, V = XW_V. Keys and queries must share a dimension because they are dotted together; values need not, and their dimension sets the output width. Separating K from V is what lets the model be found for one reason and read for another, which a single shared projection cannot express.",
+    "math": "For input X ∈ ℝ^{n×d_model}, W_Q, W_K ∈ ℝ^{d_model×d_k} and W_V ∈ ℝ^{d_model×d_v}. In self-attention all three project the same X; in cross-attention Q comes from one sequence and K, V from another. The parameter cost is d_model·(2d_k + d_v) per head."
+  },
+  "emphasis": {
+    "intuition": "advertise something different from what it delivers",
+    "engineer": "found for one reason and read for another"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "heads": 1
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 4,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Query rows against key columns, with weight shown by cell brightness. Drag the sequence length to see how many pairings the projection has to score."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

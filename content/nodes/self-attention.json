@@ -1,0 +1,57 @@
+{
+  "id": "self-attention",
+  "title": "Self-Attention",
+  "domain": [
+    "Attention",
+    "Core"
+  ],
+  "bodies": {
+    "intuition": "Self-attention is attention pointed at its own input: the queries, keys and values all come from the same sequence. Every position gets to look at every other position in one step, so information moves across the whole sequence without being passed along hop by hop the way a recurrent network passes it.",
+    "engineer": "Project the same input three ways and run attention. The property that matters is the path length between any two positions: one, regardless of distance. A recurrent network needs a number of steps proportional to the gap, which is what makes long-range dependencies hard to learn. The price is the quadratic score matrix, and every efficiency variant since has been an attempt to avoid materialising it.",
+    "math": "SelfAttn(X) = softmax(XW_Q(XW_K)ᵀ / √d_k) · XW_V. The score matrix is n×n for a sequence of length n, so both time and memory are Θ(n²d) before any fusion. Position information is absent by construction: permuting the rows of X permutes the output identically, which is why positional encoding exists."
+  },
+  "emphasis": {
+    "intuition": "without being passed along hop by hop",
+    "engineer": "one, regardless of distance"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "heads": 1
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 4,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Every position scoring every other, itself included. Drag the sequence length to watch the score matrix grow quadratically while the path between any two positions stays at one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "attention",
+        "reviewed": false
+      },
+      {
+        "id": "query-key-value",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

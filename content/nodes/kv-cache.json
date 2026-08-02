@@ -1,0 +1,62 @@
+{
+  "id": "kv-cache",
+  "title": "KV Cache",
+  "domain": [
+    "Inference",
+    "Memory"
+  ],
+  "bodies": {
+    "intuition": "Generating a token requires attending to everything before it. Without a cache, each new token would recompute the keys and values for the entire prefix — work already done, and done again for every token. The cache keeps them, turning quadratic regeneration into a single step per token.",
+    "engineer": "Store K and V per layer per head and append one column each step. Causal masking is what makes this valid: an earlier position's keys never change when a later one arrives. The cost moves from compute to memory, and the cache grows linearly with context and batch size until it, not the weights, is what fills the accelerator.",
+    "math": "Cache size is 2 · layers · heads · d_head · n · batch · bytes. Without it, generating n tokens costs Θ(n³d) in attention; with it, Θ(n²d). The memory is the reason multi-query and grouped-query attention exist."
+  },
+  "emphasis": {
+    "intuition": "work already done, and done again for every token",
+    "engineer": "until it, not the weights, is what fills the accelerator"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "context": 4096,
+      "share_rest": 4096
+    },
+    "param_controls": [
+      {
+        "name": "context",
+        "min": 512,
+        "max": 32768,
+        "step": 512
+      }
+    ],
+    "caption": "Share of accelerator memory taken by the cache against the weights beside it. Drag the context length to watch the cache overtake the model itself."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "causal-masking",
+        "reviewed": false
+      },
+      {
+        "id": "self-attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1911.02150",
+      "title": "Fast Transformer Decoding: One Write-Head is All You Need",
+      "url": "https://arxiv.org/abs/1911.02150"
+    },
+    {
+      "ref": "arXiv:2309.06180",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "url": "https://arxiv.org/abs/2309.06180"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

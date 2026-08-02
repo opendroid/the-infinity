@@ -1,0 +1,67 @@
+{
+  "id": "context-window",
+  "title": "Context Window",
+  "domain": [
+    "Inference",
+    "Memory"
+  ],
+  "bodies": {
+    "intuition": "A model can only attend to what fits in its context window — the maximum number of tokens it can hold at once. Everything outside is invisible, not merely deprioritised. Extending it is one of the more expensive things to ask for, because attention cost grows with the square of the length and the cache grows linearly with it.",
+    "engineer": "The limit comes from two places: positional encodings trained only up to a certain length, and memory for the score matrix and the cache. Extension methods attack these separately — rescaling the rotary base for the first, and paging or eviction for the second. A model run beyond its trained length usually degrades quietly rather than failing.",
+    "math": "Attention cost is Θ(n²d) and cache memory Θ(n) per layer, so doubling the window quadruples one and doubles the other. Interpolating rotary frequencies by a factor s lets a model trained at n serve s·n with modest fine-tuning."
+  },
+  "emphasis": {
+    "intuition": "Everything outside is invisible, not merely deprioritised",
+    "engineer": "degrades quietly rather than failing"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "context": 4096,
+      "share_rest": 4096
+    },
+    "param_controls": [
+      {
+        "name": "context",
+        "min": 512,
+        "max": 32768,
+        "step": 512
+      }
+    ],
+    "caption": "Share of the memory budget the context takes against the weights. Drag the window to watch the cost of length overtake the model itself."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      },
+      {
+        "id": "positional-encoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "rotary-position-embedding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1901.02860",
+      "title": "Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context",
+      "url": "https://arxiv.org/abs/1901.02860"
+    },
+    {
+      "ref": "arXiv:2004.05150",
+      "title": "Longformer: The Long-Document Transformer",
+      "url": "https://arxiv.org/abs/2004.05150"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

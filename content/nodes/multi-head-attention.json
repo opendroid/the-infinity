@@ -1,0 +1,53 @@
+{
+  "id": "multi-head-attention",
+  "title": "Multi-Head Attention",
+  "domain": [
+    "Attention",
+    "Core"
+  ],
+  "bodies": {
+    "intuition": "One attention pass has to settle on a single set of weights, so it averages away anything it cannot decide between. Multi-head attention runs several passes side by side, each with its own projections, so one head can follow grammatical agreement while another tracks the subject of the sentence. The results are concatenated and mixed.",
+    "engineer": "Split d_model into h heads of dimension d_k = d_model/h, run attention in each, concatenate, and project back with W_O. Total parameter count is unchanged from a single head of full width, so heads buy diversity rather than capacity. Empirically many heads are prunable after training, which suggests the gain is in optimisation as much as expressiveness.",
+    "math": "MultiHead(X) = Concat(head_1,…,head_h)W_O where head_i = Attention(XW_Q^i, XW_K^i, XW_V^i) and W_O ∈ ℝ^{h·d_v×d_model}. With d_k = d_v = d_model/h the total cost matches single-head attention at full width, since the h smaller matmuls sum to the same work."
+  },
+  "emphasis": {
+    "intuition": "averages away anything it cannot decide between",
+    "engineer": "heads buy diversity rather than capacity"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "heads": 4
+    },
+    "param_controls": [
+      {
+        "name": "heads",
+        "min": 1,
+        "max": 8,
+        "step": 1
+      }
+    ],
+    "caption": "One head's attention pattern at a time. Drag the head count to see the same budget split into more, narrower views of the sequence."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "self-attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "rmsnorm",
+  "title": "RMSNorm",
+  "domain": [
+    "Architecture",
+    "Normalization"
+  ],
+  "bodies": {
+    "intuition": "RMSNorm is layer normalization with a step removed. It rescales activations by their root-mean-square without first subtracting the mean, on the observation that the recentring was doing less work than the rescaling. Fewer operations, one fewer statistic to compute, and in practice no loss in quality.",
+    "engineer": "Divide by the root mean square of the features and multiply by a learned gain. There is no mean subtraction and usually no bias, which removes a reduction pass and a parameter vector per layer. The saving is small per call and large in aggregate, which is why it appears in most models trained after 2022.",
+    "math": "RMSNorm(x) = γ ⊙ x / RMS(x) with RMS(x) = √((1/d)Σ_i x_i²). Compared with LayerNorm the μ term is gone, so the transform is scale-invariant but not shift-invariant. β is typically dropped as well."
+  },
+  "emphasis": {
+    "intuition": "the recentring was doing less work than the rescaling",
+    "engineer": "small per call and large in aggregate"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "spread": 1.0,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "spread",
+        "min": 0,
+        "max": 3,
+        "step": 0.1
+      }
+    ],
+    "caption": "Feature magnitudes before and after rescaling by their root mean square. Drag the spread to watch inputs of very different scale arrive at the same normalized one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "layer-normalization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1910.07467",
+      "title": "Root Mean Square Layer Normalization",
+      "url": "https://arxiv.org/abs/1910.07467"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

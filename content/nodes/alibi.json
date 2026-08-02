@@ -1,0 +1,53 @@
+{
+  "id": "alibi",
+  "title": "ALiBi",
+  "domain": [
+    "Attention",
+    "Position"
+  ],
+  "bodies": {
+    "intuition": "ALiBi drops positional encoding entirely and instead penalises attention for reaching far. Each head subtracts a fixed amount from every score in proportion to the distance between the two positions, with different heads penalised at different rates. Near tokens are preferred by construction rather than by anything learned.",
+    "engineer": "Add a static, non-learned bias of −m·|i−j| to the scores before the softmax, with a per-head slope m from a geometric sequence. No parameters, no embedding, and the model trained at one length runs at a longer one without retraining, which is the property it was built for.",
+    "math": "S_ij + m_h·(j − i) for head h, with slopes m_h taken as a geometric sequence such as 2^{−8h/H}. Heads with steep slopes attend locally; shallow ones reach further. The bias is added before the softmax so it scales the resulting weights multiplicatively."
+  },
+  "emphasis": {
+    "intuition": "Near tokens are preferred by construction",
+    "engineer": "runs at a longer one without retraining"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "heads": 4
+    },
+    "param_controls": [
+      {
+        "name": "heads",
+        "min": 1,
+        "max": 8,
+        "step": 1
+      }
+    ],
+    "caption": "Attention weights after a distance penalty is added to the scores. Drag the head count to see slopes from steeply local to nearly flat."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "positional-encoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2108.12409",
+      "title": "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation",
+      "url": "https://arxiv.org/abs/2108.12409"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

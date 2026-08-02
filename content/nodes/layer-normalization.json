@@ -1,0 +1,53 @@
+{
+  "id": "layer-normalization",
+  "title": "Layer Normalization",
+  "domain": [
+    "Architecture",
+    "Normalization"
+  ],
+  "bodies": {
+    "intuition": "Deep networks drift. As signals pass through many layers their scale creeps up or down, and training becomes a fight against the drift rather than against the problem. Layer normalization rescales each position's activations to a fixed mean and spread, so every layer receives input in the range it was tuned for.",
+    "engineer": "Normalize across the feature dimension per position — not across the batch, which is what makes it work with variable-length sequences and batch size one. Placement matters more than it looks: post-norm, as originally published, needs learning-rate warmup to train at depth, while pre-norm trains stably without it and is what nearly every modern transformer uses.",
+    "math": "LN(x) = γ ⊙ (x − μ)/√(σ² + ε) + β with μ and σ² computed over the d_model features of a single position. γ and β are learned per-feature. Pre-norm places LN inside the residual branch, x + F(LN(x)); post-norm places it after, LN(x + F(x))."
+  },
+  "emphasis": {
+    "intuition": "a fight against the drift rather than against the problem",
+    "engineer": "Placement matters more than it looks"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "spread": 1.0,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "spread",
+        "min": 0,
+        "max": 3,
+        "step": 0.1
+      }
+    ],
+    "caption": "Activations across features before and after normalization. Drag the spread to see how far the raw signal can drift and still arrive at the same normalized scale."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1607.06450",
+      "title": "Layer Normalization",
+      "url": "https://arxiv.org/abs/1607.06450"
+    },
+    {
+      "ref": "arXiv:2002.04745",
+      "title": "On Layer Normalization in the Transformer Architecture",
+      "url": "https://arxiv.org/abs/2002.04745"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

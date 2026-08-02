@@ -61,7 +61,16 @@ const bars = Array.from({ length: 8 }, (_, i) => 30 + ((i * 37) % 70));
           ))
         }
       </div>
-      <p class="mt-2.5 max-w-[58ch] text-[12.5px] text-dust">{viz.caption}</p>
+      {/*
+        Says what it is. The caption below describes the picture this primitive
+        WILL draw, and until it is built the shape above is not that picture —
+        so without this line the page reads as a caption describing marks that
+        are not on screen, which is the defect #97 and #94 were opened for.
+      */}
+      <p class="mt-2.5 font-mono text-[10px] uppercase tracking-[.12em] text-dust">
+        Placeholder — the {viz.primitive} primitive is not built yet
+      </p>
+      <p class="mt-2 max-w-[58ch] text-[12.5px] text-dust">{viz.caption}</p>
       {
         shared.control && (
           <p class="mt-2 font-mono text-[10px] uppercase tracking-[.14em] text-dust">

@@ -1,0 +1,57 @@
+{
+  "id": "multi-query-attention",
+  "title": "Multi-Query Attention",
+  "domain": [
+    "Attention",
+    "Efficiency"
+  ],
+  "bodies": {
+    "intuition": "Attention heads each keep their own keys and values, and at generation time all of them sit in memory. Multi-query attention keeps the separate queries but shares one set of keys and values across every head, shrinking the cache by the number of heads at a small cost in quality.",
+    "engineer": "Project queries per head as usual; project a single K and V shared by all heads. The cache shrinks by a factor of h, which is what makes long contexts affordable at generation time. Training from scratch with it loses a little quality, and models converted after the fact need a short adaptation phase.",
+    "math": "head_i = Attention(XW_Q^i, XW_K, XW_V) with W_K and W_V shared. Cache size falls from 2·h·d_head·n to 2·d_head·n per layer. Arithmetic intensity rises correspondingly, which is why the gain at generation time is larger than the parameter saving suggests."
+  },
+  "emphasis": {
+    "intuition": "shrinking the cache by the number of heads",
+    "engineer": "models converted after the fact need a short adaptation phase"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "heads": 32,
+      "share_rest": 32
+    },
+    "param_controls": [
+      {
+        "name": "heads",
+        "min": 1,
+        "max": 64,
+        "step": 1
+      }
+    ],
+    "caption": "Cache held by the key and value projections against everything else in memory. Drag the head count to watch sharing flatten what would otherwise grow with it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "multi-head-attention",
+        "reviewed": false
+      },
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1911.02150",
+      "title": "Fast Transformer Decoding: One Write-Head is All You Need",
+      "url": "https://arxiv.org/abs/1911.02150"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "byte-pair-encoding",
+  "title": "Byte-Pair Encoding",
+  "domain": [
+    "Foundations",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "Byte-pair encoding builds a vocabulary by repetition. Start with single characters, count which adjacent pair occurs most often, merge it into one new symbol, and repeat. Common words fuse into single tokens; rare ones stay in pieces. The vocabulary is discovered from the corpus rather than chosen by anyone.",
+    "engineer": "Run the merge loop until the vocabulary reaches its target size, then store the ordered merge list — applying it in the same order is what makes encoding deterministic. Operating on bytes rather than characters removes the unknown-token case entirely, since every input is representable. The frequency statistics come from the training corpus, so its composition is baked into the tokenizer.",
+    "math": "Given a corpus of symbol sequences, repeatedly select the pair (a,b) maximising its count and replace all occurrences with a new symbol ab, for k iterations. The result is a vocabulary of size |Σ| + k and an ordered merge table applied greedily at encode time."
+  },
+  "emphasis": {
+    "intuition": "discovered from the corpus rather than chosen by anyone",
+    "engineer": "removes the unknown-token case entirely"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "merges": 8,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "merges",
+        "min": 1,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Token frequencies before merging and after, ordered most common first. Drag the merge count to watch frequent pairs fuse and the distribution redistribute."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tokenization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1508.07909",
+      "title": "Neural Machine Translation of Rare Words with Subword Units",
+      "url": "https://arxiv.org/abs/1508.07909"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-02"
+  },
+  "updated_at": "2026-08-02"
+}
