@@ -1,0 +1,657 @@
+openapi: 3.1.0
+
+info:
+  title: theinfinity.ai API
+  version: 1.0.0
+  description: |
+    The v1 surface for the concept graph.
+
+    **The rule that shapes this whole contract:** a concept page's first paint must be
+    complete without calling anything here. Concept records are read at build time and
+    pre-rendered; only the mini-map and post-hydration navigation call the API, and both
+    degrade to nothing visible breaking. See ADR-0003.
+
+    **Paths are `/api/v1/…`, not `/v1/…`.** Firebase Hosting rewrites preserve the full
+    request path, so `/api/**` reaches the service with its prefix intact. The design
+    handoff's `API.md` says `Base: /v1`; taken literally, every request 404s in production
+    while working fine against the Cloud Run URL directly. See ADR-0001.
+
+    **`GET /healthz` is not here.** It is an operational endpoint on the container, served
+    at the service root and reachable only on the Cloud Run URL — Hosting rewrites `/api/**`
+    and nothing else, so it is not part of this surface. It is documented in
+    [`/api/README.md`](../api/README.md).
+
+    **`GET /api/v1/search` is deliberately absent.** Search ships as a static index matched
+    client-side until the graph passes roughly 5–10k nodes — faster, free per query, and it
+    works while the API is down. Recorded here so nobody implements it from `API.md`. See
+    ADR-0003.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+servers:
+  - url: https://theinfinity.ai
+    description: Production. Firebase Hosting rewrites /api/** to Cloud Run.
+  - url: 'http://{host}:{port}'
+    description: |
+      The service directly, bypassing Hosting. Host and port are genuinely variable —
+      Cloud Run injects PORT, and the container binds whatever it is given.
+    variables:
+      host:
+        default: localhost
+      port:
+        default: '8080'
+
+# Declared empty on purpose, not omitted. There is no authentication in v1: the
+# graph is a public read API, and anonymous contribution is the point of the two
+# queue endpoints. Cloud Run is deployed --allow-unauthenticated (ADR-0001).
+# What bounds abuse is rate limiting and a global write cap, not identity — see
+# issue #5.
+security: []
+
+tags:
+  - name: concepts
+    description: The graph. Read-only — concepts are authored in git and published on merge.
+  - name: trails
+    description: A reader's path through the graph, recorded and shared.
+  - name: queues
+    description: Append-only submissions. Neither endpoint mutates the graph.
+
+paths:
+  /api/v1/concepts/{id}:
+    get:
+      tags: [concepts]
+      summary: Full concept record
+      description: |
+        Used server-side to pre-render, and client-side when navigating between concept
+        pages after hydration.
+
+        `tier` is derived at publish time from whether the node carries a reviewer, and
+        `edges.unlocks` is inverted from other nodes' `requires` — neither is authored.
+        See ADR-0002.
+      operationId: getConcept
+      parameters:
+        - $ref: '#/components/parameters/ConceptId'
+      responses:
+        '200':
+          description: The concept.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Concept' }
+              example:
+                id: mixture-of-experts
+                title: Mixture-of-Experts
+                domain: Architecture / Sparsity
+                tier: verified
+                bodies:
+                  intuition: A dense model pushes every token through every parameter it owns…
+                  engineer: Replace the feed-forward block with N expert FFNs and a learned router…
+                  math: For token x, the router computes g = softmax(W_r · x) over N experts…
+                emphasis:
+                  intuition: you pay for the experts you wake up, not the ones you own
+                viz:
+                  primitive: router-dispatch
+                  params: { experts: 8, top_k: 2, capacity_factor: 1.25 }
+                  param_controls:
+                    - { name: top_k, min: 1, max: 4, step: 1 }
+                  caption: Solid cells are each token's first-choice expert…
+                edges:
+                  requires:
+                    - { id: feed-forward-network, title: Feed-Forward Network, tier: verified, reviewed: true }
+                  unlocks:
+                    - { id: expert-parallelism, title: Expert Parallelism, tier: frontier, reviewed: false }
+                  adjacent: []
+                citations:
+                  - ref: arXiv:1701.06538
+                    title: 'Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer'
+                    url: https://arxiv.org/abs/1701.06538
+                review: { reviewed_by: opendroid, reviewed_at: '2026-08-01' }
+                provenance: null
+                updated_at: '2026-08-01'
+        '404':
+          description: |
+            No such concept. The body carries `nearest` so the 404 page can offer somewhere
+            to go — the graph never dead-ends.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ConceptNotFound' }
+              example:
+                error: not_found
+                message: No concept with id "liquid-neural-nets".
+                id: liquid-neural-nets
+                nearest:
+                  - { id: neural-odes, title: Neural ODEs, tier: verified }
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/concepts/{id}/neighborhood:
+    get:
+      tags: [concepts]
+      summary: One-hop neighbourhood for the mini-map
+      description: |
+        The only call a concept page makes after hydration, and the reason it exists: a page
+        built last week and cached at the CDN shows last week's tier colours, while its
+        mini-map shows today's. This is the freshness escape hatch for the whole static
+        surface.
+
+        Coordinates are computed at publish time in a 240×132 viewBox — deterministic
+        placement by edge type, no client-side layout, so the map never jitters. Unreviewed
+        links are drawn dashed.
+
+        On failure the mini-map hides and the page is otherwise untouched.
+      operationId: getNeighborhood
+      parameters:
+        - $ref: '#/components/parameters/ConceptId'
+      responses:
+        '200':
+          description: The one-hop neighbourhood, laid out.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Neighborhood' }
+              example:
+                center: { id: mixture-of-experts, title: Mixture-of-Experts, tier: verified, x: 120, y: 66 }
+                nodes:
+                  - { id: feed-forward-network, title: Feed-Forward Network, tier: verified, x: 40, y: 44 }
+                  - { id: expert-parallelism, title: Expert Parallelism, tier: frontier, x: 200, y: 66 }
+                links:
+                  - { from: feed-forward-network, to: mixture-of-experts, type: requires, reviewed: true }
+                  - { from: mixture-of-experts, to: expert-parallelism, type: unlocks, reviewed: false }
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/stats:
+    get:
+      tags: [concepts]
+      summary: Counts for the landing pulse line
+      description: |
+        The landing page ships with build-time values inlined, so this never gates a render —
+        it refreshes the number after hydration.
+      operationId: getStats
+      responses:
+        '200':
+          description: Current counts.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Stats' }
+              example: { concepts: 1847, grew_this_week: 12 }
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/trails:
+    post:
+      tags: [trails]
+      summary: Share a trail
+      description: |
+        Persists the reader's localStorage trail and returns a slug to share.
+
+        Idempotent on an identical stop sequence from the same client: re-posting the same
+        walk returns the existing slug rather than minting a second one.
+
+        Offline, the client queues and retries; the button shows a queued state rather than
+        failing.
+      operationId: createTrail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TrailCreate' }
+            example:
+              stops:
+                - { id: feed-forward-network, depth_read_at: intuition }
+                - { id: conditional-computation, depth_read_at: engineer }
+                - { id: mixture-of-experts, depth_read_at: engineer }
+              duration_s: 1860
+      responses:
+        '201':
+          description: Created, or the existing trail for an identical walk.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrailCreated' }
+              example:
+                slug: dense-to-sparse-9k2f
+                url: /t/dense-to-sparse-9k2f
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/trails/{slug}:
+    get:
+      tags: [trails]
+      summary: A shared trail
+      description: |
+        `title` is generated from the first and last stop; the page appends
+        "— one pull of the thread". Bead positions along the thread are computed
+        client-side from the number of stops.
+
+        Durations are seconds in and seconds out — the handoff's `API.md` accepts
+        `duration_s` and returns `duration_min`, which is a unit error waiting to happen.
+      operationId: getTrail
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema: { type: string, pattern: '^[a-z0-9]+(-[a-z0-9]+)*$' }
+          example: dense-to-sparse-9k2f
+      responses:
+        '200':
+          description: The trail.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Trail' }
+              example:
+                slug: dense-to-sparse-9k2f
+                title: From dense layers to sparse experts
+                created_at: '2026-08-01'
+                duration_s: 1860
+                stops:
+                  - { n: 1, id: feed-forward-network, title: Feed-Forward Network, tier: verified, depth_read_at: intuition }
+                  - { n: 2, id: mixture-of-experts, title: Mixture-of-Experts, tier: verified, depth_read_at: engineer }
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/requests:
+    post:
+      tags: [queues]
+      summary: Request a concept that does not exist
+      description: |
+        The 404 page's form. Appends to a queue; a human works it, and a published request
+        becomes a frontier concept via a pull request.
+
+        Returns `202` rather than `201`: nothing has been created yet, and saying otherwise
+        would promise a page that may never exist.
+      operationId: createRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RequestCreate' }
+            example:
+              name: Liquid Neural Networks
+              referrer: /c/liquid-neural-nets
+      responses:
+        '202':
+          description: Queued.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Accepted' }
+              example: { status: queued }
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/reviews:
+    post:
+      tags: [queues]
+      summary: Flag an error, or volunteer to review a frontier node
+      description: |
+        The two actions on a frontier node's provenance block.
+
+        **This does not change a concept's tier.** Promotion happens by editing the node's
+        JSON in a pull request and merging it — the merge is the act of verification. A
+        runtime write to `tier` would make Firestore diverge from git, and git is the only
+        writer of concept state. See ADR-0002.
+
+        The handoff's `DATA-MODEL.md` says accepted reviews flip a concept to verified; that
+        describes the end of a human workflow, not what this endpoint does.
+      operationId: createReview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReviewCreate' }
+            example:
+              concept_id: muon-optimizer
+              kind: flag
+              note: The Newton–Schulz coefficient description does not match the cited paper.
+      responses:
+        '202':
+          description: Queued for a human.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Accepted' }
+              example: { status: queued }
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: No such concept to review.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+              example: { error: not_found, message: 'No concept with id "nope".' }
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+
+components:
+  parameters:
+    ConceptId:
+      name: id
+      in: path
+      required: true
+      description: The concept's kebab-case slug, which is also its URL segment.
+      schema: { type: string, pattern: '^[a-z0-9]+(-[a-z0-9]+)*$' }
+      example: mixture-of-experts
+
+  responses:
+    BadRequest:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example:
+            error: invalid_request
+            message: '"stops" must contain at least one entry.'
+            details: { field: stops }
+    NotFound:
+      description: No such resource.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: not_found, message: 'No concept with id "liquid-neural-nets".' }
+    PayloadTooLarge:
+      description: The body exceeded the accepted size.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: payload_too_large, message: Request body exceeds 16 KiB. }
+    RateLimited:
+      description: |
+        Too many requests. Nothing here is authenticated, so limits are per client with a
+        global daily cap — see issue #5. This applies to the write queues and to
+        `/api/v1/stats`, which is called on every landing-page view and is therefore the
+        highest-volume path in the surface.
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema: { type: integer, minimum: 1 }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: rate_limited, message: Too many requests. Try again shortly. }
+    InternalError:
+      description: Something failed on our side.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: internal, message: Unexpected error. }
+
+  schemas:
+    Error:
+      type: object
+      description: |
+        Every error response is this shape. Handlers never return a bare string — `error` is
+        a stable machine code, `message` is for humans, `details` is optional context.
+      required: [error, message]
+      properties:
+        error:
+          type: string
+          description: Stable, snake_case, safe to branch on.
+          enum: [invalid_request, not_found, payload_too_large, rate_limited, internal]
+        message: { type: string }
+        details:
+          type: object
+          additionalProperties: true
+
+    Tier:
+      type: string
+      description: |
+        Derived, never stored: a concept is `verified` if and only if its authored node
+        carries a reviewer. This single field drives the badge, every dot fill, the pulse,
+        and whether the provenance block renders.
+      enum: [verified, frontier]
+
+    Depth:
+      type: string
+      enum: [intuition, engineer, math]
+
+    EdgeType:
+      type: string
+      enum: [requires, unlocks, adjacent]
+
+    ResolvedEdge:
+      type: object
+      description: |
+        Denormalized so an edge row renders without extra reads. This is a response shape
+        only — node JSON stores ids alone, or renaming a concept would edit every file that
+        references it.
+      required: [id, title, tier, reviewed]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        tier: { $ref: '#/components/schemas/Tier' }
+        reviewed:
+          type: boolean
+          description: |
+            Has a human confirmed this relationship? Authored per edge, not derived from the
+            target's tier — the case that matters is an unchecked claim between two verified
+            concepts, which deriving would erase. Drawn dashed in the mini-map when false.
+
+    Concept:
+      type: object
+      required: [id, title, domain, tier, bodies, viz, edges, citations, updated_at]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        domain:
+          type: string
+          description: The two-level authored path, joined for the eyebrow — "Architecture / Sparsity".
+        tier: { $ref: '#/components/schemas/Tier' }
+        bodies:
+          type: object
+          required: [intuition, engineer, math]
+          properties:
+            intuition: { type: string }
+            engineer: { type: string }
+            math: { type: string }
+        emphasis:
+          type: object
+          description: Per depth, the phrase lifted to violet. A verbatim substring of the matching body.
+          properties:
+            intuition: { type: string }
+            engineer: { type: string }
+            math: { type: string }
+        viz:
+          type: object
+          required: [primitive, params, param_controls, caption]
+          properties:
+            primitive: { type: string }
+            params:
+              type: object
+              additionalProperties: { type: number }
+            param_controls:
+              type: array
+              maxItems: 1
+              items:
+                type: object
+                required: [name, min, max, step]
+                properties:
+                  name: { type: string }
+                  min: { type: number }
+                  max: { type: number }
+                  step: { type: number }
+            caption: { type: string }
+        edges:
+          type: object
+          required: [requires, unlocks, adjacent]
+          properties:
+            requires:
+              type: array
+              items: { $ref: '#/components/schemas/ResolvedEdge' }
+            unlocks:
+              type: array
+              description: Derived by inverting other concepts' `requires`. Never authored.
+              items: { $ref: '#/components/schemas/ResolvedEdge' }
+            adjacent:
+              type: array
+              description: Symmetrized at publish, so it can be declared from either side.
+              items: { $ref: '#/components/schemas/ResolvedEdge' }
+        citations:
+          type: array
+          description: Top-level and tier-independent — a concept keeps its sources when it is verified.
+          minItems: 1
+          items:
+            type: object
+            required: [ref, title, url]
+            properties:
+              ref: { type: string }
+              title: { type: string }
+              url: { type: string, format: uri }
+        review:
+          description: Present on verified concepts, null on frontier ones.
+          oneOf:
+            - type: 'null'
+            - type: object
+              required: [reviewed_by, reviewed_at]
+              properties:
+                reviewed_by: { type: string }
+                reviewed_at: { type: string, format: date }
+        provenance:
+          description: Present on frontier concepts, null on verified ones. Drafting metadata only — sources live in `citations`.
+          oneOf:
+            - type: 'null'
+            - type: object
+              required: [drafted_at]
+              properties:
+                drafted_at: { type: string, format: date }
+        updated_at: { type: string, format: date }
+
+    ConceptNotFound:
+      allOf:
+        - $ref: '#/components/schemas/Error'
+        - type: object
+          required: [id, nearest]
+          properties:
+            id: { type: string }
+            nearest:
+              type: array
+              description: What the 404 page's "Nearest nodes" list renders.
+              items:
+                type: object
+                required: [id, title, tier]
+                properties:
+                  id: { type: string }
+                  title: { type: string }
+                  tier: { $ref: '#/components/schemas/Tier' }
+
+    Neighborhood:
+      type: object
+      required: [center, nodes, links]
+      properties:
+        center: { $ref: '#/components/schemas/MiniMapNode' }
+        nodes:
+          type: array
+          items: { $ref: '#/components/schemas/MiniMapNode' }
+        links:
+          type: array
+          items:
+            type: object
+            required: [from, to, type, reviewed]
+            properties:
+              from: { type: string }
+              to: { type: string }
+              type: { $ref: '#/components/schemas/EdgeType' }
+              reviewed: { type: boolean }
+
+    MiniMapNode:
+      type: object
+      required: [id, title, tier, x, y]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        tier: { $ref: '#/components/schemas/Tier' }
+        x: { type: number, minimum: 0, maximum: 240 }
+        y: { type: number, minimum: 0, maximum: 132 }
+
+    Stats:
+      type: object
+      required: [concepts, grew_this_week]
+      properties:
+        concepts: { type: integer, minimum: 0 }
+        grew_this_week: { type: integer, minimum: 0 }
+
+    TrailCreate:
+      type: object
+      required: [stops]
+      properties:
+        stops:
+          type: array
+          minItems: 1
+          maxItems: 200
+          items:
+            type: object
+            required: [id, depth_read_at]
+            properties:
+              id: { type: string }
+              depth_read_at: { $ref: '#/components/schemas/Depth' }
+        duration_s: { type: integer, minimum: 0 }
+
+    TrailCreated:
+      type: object
+      required: [slug, url]
+      properties:
+        slug: { type: string }
+        url: { type: string }
+
+    Trail:
+      type: object
+      required: [slug, title, created_at, stops]
+      properties:
+        slug: { type: string }
+        title: { type: string, description: Generated from the first and last stop. }
+        created_at: { type: string, format: date }
+        duration_s: { type: integer, minimum: 0 }
+        stops:
+          type: array
+          description: Ordered. The order is the content — the one place numbering is used.
+          items:
+            type: object
+            required: [n, id, title, tier, depth_read_at]
+            properties:
+              n: { type: integer, minimum: 1 }
+              id: { type: string }
+              title: { type: string }
+              tier: { $ref: '#/components/schemas/Tier' }
+              depth_read_at: { $ref: '#/components/schemas/Depth' }
+
+    RequestCreate:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string, minLength: 2, maxLength: 120 }
+        referrer: { type: string, maxLength: 200 }
+
+    ReviewCreate:
+      type: object
+      required: [concept_id, kind]
+      properties:
+        concept_id: { type: string }
+        kind:
+          type: string
+          enum: [flag, volunteer]
+        note: { type: string, maxLength: 2000 }
+
+    Accepted:
+      type: object
+      required: [status]
+      properties:
+        status: { type: string, enum: [queued] }
