@@ -1,0 +1,16 @@
+# PRE-LAUNCH. This file blocks everything on purpose.
+#
+# The site is live at https://the-infinity-ai.web.app while the real domain is
+# still parked. Letting that URL be indexed would put the same content on two
+# domains, index a graph at its thinnest, and leave the history attached to the
+# address we are about to abandon — none of which is quick to undo.
+#
+# Removed at the DNS cutover (#65), together with the X-Robots-Tag header in
+# firebase.json. Both, or neither: robots.txt asks a crawler not to CRAWL, the
+# header tells it not to INDEX, and a page linked from elsewhere can be indexed
+# without ever being crawled.
+#
+# See #84. The launch-time version of this file lives in #62.
+
+User-agent: *
+Disallow: /
