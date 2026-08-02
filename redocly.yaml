@@ -1,0 +1,16 @@
+# Lint configuration for docs/openapi.yaml.
+#
+# Committed rather than passed as flags, so the rules the spec is held to are
+# reviewable and CI and a laptop check the same thing.
+#
+# No rule exceptions. The two warnings this file was originally written to
+# suppress were both fixed in the spec instead: the local server URL is
+# templated, and GET /api/v1/stats gained a real 429 because it genuinely can be
+# rate limited. GET /healthz was removed from the surface rather than given a
+# 4XX it will never return.
+extends:
+  - recommended
+
+apis:
+  v1:
+    root: docs/openapi.yaml

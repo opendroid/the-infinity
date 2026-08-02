@@ -223,6 +223,7 @@ exist yet.*
 | `cd web && npm run lint` | ESLint, zero warnings tolerated |
 | `cd web && npm test` | Vitest — graph derivation, node-shape invariants, schema rejection cases |
 | `cd web && npm run validate:content` | Nodes against `node.schema.json`, plus the cross-field invariants |
+| `cd web && npm run validate:openapi` | `redocly lint` on `/docs/openapi.yaml` — zero warnings tolerated |
 | `cd api && go run ./cmd/server` | Run the API locally on `:8080` |
 | `cd api && go test ./...` | Table-driven tests |
 | `cd web && firebase deploy --only hosting` | Deploy the built site |

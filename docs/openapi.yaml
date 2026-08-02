@@ -16,6 +16,11 @@ info:
     handoff's `API.md` says `Base: /v1`; taken literally, every request 404s in production
     while working fine against the Cloud Run URL directly. See ADR-0001.
 
+    **`GET /healthz` is not here.** It is an operational endpoint on the container, served
+    at the service root and reachable only on the Cloud Run URL — Hosting rewrites `/api/**`
+    and nothing else, so it is not part of this surface. It is documented in
+    [`/api/README.md`](../api/README.md).
+
     **`GET /api/v1/search` is deliberately absent.** Search ships as a static index matched
     client-side until the graph passes roughly 5–10k nodes — faster, free per query, and it
     works while the API is down. Recorded here so nobody implements it from `API.md`. See
@@ -27,8 +32,15 @@ info:
 servers:
   - url: https://theinfinity.ai
     description: Production. Firebase Hosting rewrites /api/** to Cloud Run.
-  - url: http://localhost:8080
-    description: The service directly, in local development.
+  - url: 'http://{host}:{port}'
+    description: |
+      The service directly, bypassing Hosting. Host and port are genuinely variable —
+      Cloud Run injects PORT, and the container binds whatever it is given.
+    variables:
+      host:
+        default: localhost
+      port:
+        default: '8080'
 
 # Declared empty on purpose, not omitted. There is no authentication in v1: the
 # graph is a public read API, and anonymous contribution is the point of the two
@@ -44,8 +56,6 @@ tags:
     description: A reader's path through the graph, recorded and shared.
   - name: queues
     description: Append-only submissions. Neither endpoint mutates the graph.
-  - name: ops
-    description: Operational endpoints, not part of the public surface.
 
 paths:
   /api/v1/concepts/{id}:
@@ -166,6 +176,8 @@ paths:
             application/json:
               schema: { $ref: '#/components/schemas/Stats' }
               example: { concepts: 1847, grew_this_week: 12 }
+        '429':
+          $ref: '#/components/responses/RateLimited'
         '500':
           $ref: '#/components/responses/InternalError'
 
@@ -329,29 +341,6 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 
-  /healthz:
-    get:
-      tags: [ops]
-      summary: Liveness
-      description: |
-        Deliberately **not** under `/api`. Firebase Hosting only rewrites `/api/**`, so this
-        is reachable on the Cloud Run URL but not through the public domain — the right
-        exposure for an operational endpoint.
-
-        Answers "is the process up", not "is the whole system well": it does not touch
-        Firestore, so a database outage does not take instances out of rotation.
-      operationId: healthz
-      responses:
-        '200':
-          description: The process is serving.
-          content:
-            application/json:
-              schema:
-                type: object
-                required: [status]
-                properties:
-                  status: { type: string, enum: [ok] }
-              example: { status: ok }
 
 components:
   parameters:
@@ -387,8 +376,10 @@ components:
           example: { error: payload_too_large, message: Request body exceeds 16 KiB. }
     RateLimited:
       description: |
-        Too many writes. Both queue endpoints are unauthenticated, so they are rate limited
-        per client and bounded by a global daily cap — see issue #5.
+        Too many requests. Nothing here is authenticated, so limits are per client with a
+        global daily cap — see issue #5. This applies to the write queues and to
+        `/api/v1/stats`, which is called on every landing-page view and is therefore the
+        highest-volume path in the surface.
       headers:
         Retry-After:
           description: Seconds to wait before retrying.
