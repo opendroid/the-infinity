@@ -98,9 +98,12 @@ jobs:
           go vet ./...
           test -z "$(gofmt -l .)" || { echo "gofmt needed:"; gofmt -l .; exit 1; }
 
+      # Track a recent release rather than freezing. A pin far behind what a
+      # developer machine installs makes `make check` fail locally on code CI
+      # calls clean, and the gap only widens — see #67.
       - uses: golangci/golangci-lint-action@v8
         with:
-          version: v2.5.0
+          version: v2.12.2
           working-directory: api
 
       # The jar is fetched directly rather than through `gcloud components

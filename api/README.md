@@ -30,6 +30,14 @@ internal/
   store/          interface, Fake, Firestore
 ```
 
+**`make check` is meant to be exactly what CI runs**, which means the `golangci-lint`
+version in [`ci.yml`](../.github/workflows/ci.yml) tracks a recent release rather than
+freezing. A pin far behind what `brew install golangci-lint` gives you today makes `make
+check` fail locally on code CI calls clean, and the gap only widens with each release.
+Bumping it is routine: run the new version, fix what it finds, move the pin.
+
+## Layout notes
+
 `router` is a separate package from `apihttp` so the dependency arrow points one way:
 handlers import `apihttp` for the error helpers, and `router` imports both. Putting the
 router inside `apihttp` would make it import the handlers that import it.

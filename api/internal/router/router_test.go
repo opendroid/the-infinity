@@ -50,11 +50,13 @@ func newServer(t *testing.T, f *store.Fake, opts router.Options) http.Handler {
 
 func do(t *testing.T, h http.Handler, method, path, body string) *httptest.ResponseRecorder {
 	t.Helper()
+	// The request carries the test's context, so one that outlives its test is
+	// cancelled rather than left running against a handler nothing is reading.
 	var r *http.Request
 	if body == "" {
-		r = httptest.NewRequest(method, path, nil)
+		r = httptest.NewRequestWithContext(t.Context(), method, path, nil)
 	} else {
-		r = httptest.NewRequest(method, path, strings.NewReader(body))
+		r = httptest.NewRequestWithContext(t.Context(), method, path, strings.NewReader(body))
 		r.Header.Set("Content-Type", "application/json")
 	}
 	// Cloud Run sets this; the limiter keys on it rather than RemoteAddr.
