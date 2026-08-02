@@ -37,7 +37,7 @@ Three principles, in priority order:
 |---|---|
 | `/web` | Astro + TypeScript, React islands (viz primitives, depth toggle, trail, mini-map), Tailwind |
 | `/api` | Go on Cloud Run — `net/http` + [chi](https://github.com/go-chi/chi), distroless container, scale-to-zero |
-| Data | Firestore (Native mode): `concepts`, `trails`, `concept_requests` |
+| Data | Firestore (Native mode): `concepts` (published from git) · `trails`, `concept_requests`, `concept_reviews`, `counters` (runtime — [ADR-0004](docs/adr/0004-runtime-collections.md)) |
 | Hosting | Firebase Hosting (Blaze) — CDN + TLS. `/api/**` rewrite → Cloud Run service `api` (no GCLB) |
 | Region | `us-west1` for Cloud Run and Firestore |
 | Domain | Registered at GoDaddy; DNS A records point at Firebase at launch (M3), not before |
