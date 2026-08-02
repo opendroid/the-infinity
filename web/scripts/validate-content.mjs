@@ -59,10 +59,33 @@ export function validateContent() {
 
     // Edges may only reference nodes that exist, or are added in the same PR —
     // which, since this runs over the whole directory, is the same check.
+    //
+    // A pair of concepts is related in exactly one way. Naming a target twice —
+    // in both authored groups here, or as a mutual `requires` across two files —
+    // has no coherent reading, and it breaks the mini-map: one circle per edge
+    // per group means two circles for one concept at two coordinates. Caught
+    // here so it names the file; the two derivations also reject it, but only
+    // once a build is already running.
+    const relationship = new Map();
     for (const type of ['requires', 'adjacent']) {
       for (const edge of node.edges?.[type] ?? []) {
         if (!ids.has(edge.id)) errors.push(`edges.${type} points at "${edge.id}", which does not exist`);
         if (edge.id === node.id) errors.push(`edges.${type} points at itself`);
+
+        const first = relationship.get(edge.id);
+        if (first) {
+          errors.push(`edges names "${edge.id}" in both ${first} and ${type} — a pair of concepts has exactly one relationship`);
+        }
+        relationship.set(edge.id, type);
+      }
+    }
+    // The derived inverse: if this node requires X, X unlocks it, so X may not
+    // also require this node. Checked across files because neither one alone
+    // looks wrong.
+    for (const edge of node.edges?.requires ?? []) {
+      const other = nodes.find(({ node: n }) => n.id === edge.id)?.node;
+      if (other?.edges?.requires?.some((e) => e.id === node.id)) {
+        errors.push(`requires "${edge.id}", which requires it back — a circular prerequisite has no first concept`);
       }
     }
 

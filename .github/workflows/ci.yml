@@ -5,7 +5,13 @@
 name: ci
 
 on:
+  # `edited` is here for the title check. Without it a bad title cannot be
+  # fixed: editing does not retrigger, and re-running replays the stored event
+  # payload with the old title, so the only way out is an unrelated commit. The
+  # cost is that editing a description re-runs the other three jobs, which the
+  # concurrency group below keeps to one run.
   pull_request:
+    types: [opened, synchronize, reopened, edited]
   # Also on main, so a required check has a green baseline to compare against
   # and a squash-merge that breaks the build says so within the minute.
   push:

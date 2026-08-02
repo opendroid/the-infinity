@@ -1,6 +1,7 @@
 package publish_test
 
 import (
+	"fmt"
 	"os"
 	"reflect"
 	"sort"
@@ -213,7 +214,12 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 	tests := []struct {
 		name string
 		doc  *firestore.DocumentRef
-		at   string // dotted path to the map whose keys are checked; "" for the root
+		// Dotted path to the map whose keys are checked; "" for the root. A
+		// segment of "[]" takes the first element of an array — without it the
+		// structs that only ever appear inside a slice, Edge and MiniMapLink,
+		// would have no field-name assertion at all, which is exactly the gap
+		// this test exists to close.
+		at   string
 		want []string
 	}{
 		{
@@ -228,6 +234,12 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 			want: []string{"caption", "param_controls", "params", "primitive"}},
 		{name: "concept.edges", doc: concepts.Doc(id), at: "edges",
 			want: []string{"adjacent", "requires", "unlocks"}},
+		{name: "concept.edges.unlocks[]", doc: concepts.Doc(id), at: "edges.unlocks.[]",
+			want: []string{"id", "reviewed", "tier", "title"}},
+		{name: "concept.citations[]", doc: concepts.Doc(id), at: "citations.[]",
+			want: []string{"ref", "title", "url"}},
+		{name: "concept.review", doc: concepts.Doc(id), at: "review",
+			want: []string{"reviewed_at", "reviewed_by"}},
 		{
 			name: "neighborhood",
 			doc:  concepts.Doc(id).Collection(store.SubNeighborhood).Doc(store.DocNeighborhood),
@@ -238,6 +250,20 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 			doc:  concepts.Doc(id).Collection(store.SubNeighborhood).Doc(store.DocNeighborhood),
 			at:   "center",
 			want: []string{"id", "tier", "title", "x", "y"},
+		},
+		{
+			name: "neighborhood.nodes[]",
+			doc:  concepts.Doc(id).Collection(store.SubNeighborhood).Doc(store.DocNeighborhood),
+			at:   "nodes.[]",
+			want: []string{"id", "tier", "title", "x", "y"},
+		},
+		{
+			// The struct this change reshaped. `type` is new, and it is the one
+			// field no other assertion in the suite would notice losing its tag.
+			name: "neighborhood.links[]",
+			doc:  concepts.Doc(id).Collection(store.SubNeighborhood).Doc(store.DocNeighborhood),
+			at:   "links.[]",
+			want: []string{"from", "reviewed", "to", "type"},
 		},
 		{
 			name: "stats",
@@ -254,11 +280,10 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 			}
 			data := snap.Data()
 			if tt.at != "" {
-				nested, ok := data[tt.at].(map[string]any)
-				if !ok {
-					t.Fatalf("%s is %T, want a map", tt.at, data[tt.at])
+				var err error
+				if data, err = descend(snap.Data(), tt.at); err != nil {
+					t.Fatal(err)
 				}
-				data = nested
 			}
 
 			got := make([]string, 0, len(data))
@@ -273,6 +298,36 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 			}
 		})
 	}
+}
+
+// descend walks a dotted path into a decoded document. A "[]" segment takes the
+// first element of an array, which is how the structs that only exist inside a
+// slice become reachable.
+func descend(data map[string]any, path string) (map[string]any, error) {
+	current := any(data)
+	for _, seg := range strings.Split(path, ".") {
+		if seg == "[]" {
+			list, ok := current.([]any)
+			if !ok {
+				return nil, fmt.Errorf("%s: %T is not an array", path, current)
+			}
+			if len(list) == 0 {
+				return nil, fmt.Errorf("%s: the array is empty, so nothing is asserted", path)
+			}
+			current = list[0]
+			continue
+		}
+		m, ok := current.(map[string]any)
+		if !ok {
+			return nil, fmt.Errorf("%s: %T is not a map", path, current)
+		}
+		current = m[seg]
+	}
+	out, ok := current.(map[string]any)
+	if !ok {
+		return nil, fmt.Errorf("%s resolves to %T, want a map", path, current)
+	}
+	return out, nil
 }
 
 func TestPublishedStatsRoundTrip(t *testing.T) {

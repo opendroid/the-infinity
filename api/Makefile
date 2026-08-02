@@ -29,8 +29,13 @@ test: ## Table-driven tests, with the race detector
 test-emulator: ## Tests including the Firestore round-trip suite
 	@command -v gcloud >/dev/null || { echo "gcloud not found — CI downloads the emulator jar directly; see .github/workflows/ci.yml"; exit 1; }
 	gcloud emulators firestore start --host-port=127.0.0.1:8081 & \
-	  trap 'kill %1' EXIT; \
-	  until curl -sf -o /dev/null http://127.0.0.1:8081; do sleep 1; done; \
+	  trap 'kill %1 2>/dev/null' EXIT; \
+	  for i in $$(seq 1 60); do \
+	    curl -sf -o /dev/null http://127.0.0.1:8081 && break; \
+	    sleep 1; \
+	  done; \
+	  curl -sf -o /dev/null http://127.0.0.1:8081 || \
+	    { echo "the emulator did not come up — is the cloud-firestore-emulator component installed, and is :8081 free?"; exit 1; }; \
 	  FIRESTORE_EMULATOR_HOST=127.0.0.1:8081 go test -race -count=1 ./...
 
 # -coverpkg=./... so packages with no tests count as 0% rather than dropping out

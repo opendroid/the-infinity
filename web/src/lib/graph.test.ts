@@ -70,6 +70,49 @@ describe('resolveGraph', () => {
     expect(g.get('a')?.edges.requires[0]).toMatchObject({ title: 'Bee', tier: 'frontier' });
   });
 
+  it('resolves contradictory two-sided adjacency to unreviewed', () => {
+    // Keeping the first arrival would resolve this on slug order, and half the
+    // time render an explicitly unchecked claim as a solid, verified edge.
+    const g = resolveGraph([
+      node('a', { edges: { requires: [], adjacent: [{ id: 'b', reviewed: true }] } }),
+      node('b', { edges: { requires: [], adjacent: [{ id: 'a', reviewed: false }] } }),
+    ]);
+    expect(g.get('a')?.edges.adjacent[0]?.reviewed).toBe(false);
+    expect(g.get('b')?.edges.adjacent[0]?.reviewed).toBe(false);
+  });
+
+  const twoWays = [
+    {
+      name: 'one target in two authored groups',
+      nodes: [
+        node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [{ id: 'b', reviewed: true }] } }),
+        node('b'),
+      ],
+    },
+    {
+      name: 'a mutual requires, which is a circular prerequisite',
+      nodes: [
+        node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [] } }),
+        node('b', { edges: { requires: [{ id: 'a', reviewed: true }], adjacent: [] } }),
+      ],
+    },
+    {
+      name: 'a prerequisite that the other side calls adjacent',
+      nodes: [
+        node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [] } }),
+        node('b', { edges: { requires: [], adjacent: [{ id: 'a', reviewed: true }] } }),
+      ],
+    },
+  ] as const;
+
+  for (const c of twoWays) {
+    // Each of these would place one concept twice in the mini-map, at two
+    // coordinates, leaving a line on the wrong circle and a circle orphaned.
+    it(`throws on ${c.name}`, () => {
+      expect(() => resolveGraph([...c.nodes])).toThrow(/related in two ways at once/);
+    });
+  }
+
   it('throws on an edge to a node that does not exist', () => {
     expect(() => resolveGraph([node('a', { edges: { requires: [{ id: 'ghost', reviewed: true }], adjacent: [] } })])).toThrow(
       /"ghost", which does not exist/,

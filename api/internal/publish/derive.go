@@ -92,16 +92,24 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 		order = append(order, n.ID)
 	}
 
-	// push adds an edge unless the group already names that target, so
+	// push adds an edge, or merges it into the one already naming that target so
 	// adjacency declared from both sides lands once.
+	//
+	// The merge takes the AND of `reviewed`, not the first arrival. When the two
+	// sides disagree — `a → b` checked, `b → a` unchecked — first-wins would
+	// resolve on slug order, and half the time it would publish an explicitly
+	// unchecked claim as a verified one: solid line, no dashed legend, nothing
+	// to tell a reader the relationship was never confirmed. An unreviewed
+	// assertion from either side has to survive.
 	push := func(nodeID string, group func(*store.Edges) *store.List[store.Edge], edge store.Edge) {
 		c, ok := out[nodeID]
 		if !ok {
 			return
 		}
 		g := group(&c.Edges)
-		for _, existing := range *g {
-			if existing.ID == edge.ID {
+		for i := range *g {
+			if (*g)[i].ID == edge.ID {
+				(*g)[i].Reviewed = (*g)[i].Reviewed && edge.Reviewed
 				return
 			}
 		}
@@ -159,6 +167,9 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 		for _, g := range []*store.List[store.Edge]{&c.Edges.Requires, &c.Edges.Unlocks, &c.Edges.Adjacent} {
 			sortEdges(*g)
 		}
+		if err := checkOneRelationship(*c); err != nil {
+			return nil, err
+		}
 		concepts = append(concepts, *c)
 	}
 	sort.Slice(concepts, func(i, j int) bool { return concepts[i].ID < concepts[j].ID })
@@ -167,6 +178,44 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 
 func sortEdges(edges store.List[store.Edge]) {
 	sort.Slice(edges, func(i, j int) bool { return edges[i].ID < edges[j].ID })
+}
+
+// checkOneRelationship enforces that a pair of concepts is related in exactly
+// one way.
+//
+// Two concepts in two groups at once is a content error with no coherent
+// reading — "B is a prerequisite for A" and "B is merely adjacent to A" cannot
+// both hold — and mutual `requires` lands here too, which is a circular
+// prerequisite: neither concept can be the one you learn first.
+//
+// It is also the condition that breaks the mini-map. The layout places one
+// circle per edge per group, so a target in two groups gets two circles at two
+// coordinates, and the renderer — which resolves a link's endpoints by id —
+// draws one line to the wrong circle and orphans the other. Rejecting the graph
+// is better than laying it out defensively: the defensive version renders
+// something plausible for content that means nothing.
+func checkOneRelationship(c store.Concept) error {
+	groups := []struct {
+		name  store.EdgeType
+		edges store.List[store.Edge]
+	}{
+		{store.EdgeRequires, c.Edges.Requires},
+		{store.EdgeUnlocks, c.Edges.Unlocks},
+		{store.EdgeAdjacent, c.Edges.Adjacent},
+	}
+
+	seen := make(map[string]store.EdgeType, len(groups))
+	for _, g := range groups {
+		for _, e := range g.edges {
+			if first, dup := seen[e.ID]; dup {
+				return fmt.Errorf(
+					"concepts %q and %q are related in two ways at once (%s and %s): a pair of concepts has exactly one relationship",
+					c.ID, e.ID, first, g.name)
+			}
+			seen[e.ID] = g.name
+		}
+	}
+	return nil
 }
 
 // neighborhood lays out one concept's immediate graph, deterministically.

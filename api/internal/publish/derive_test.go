@@ -200,6 +200,51 @@ func TestDeriveCarriesReviewedOntoTheInverse(t *testing.T) {
 	}
 }
 
+// Adjacency is one relationship written from two places, so the two sides can
+// disagree about whether a human checked it. Keeping the first arrival would
+// resolve that on slug order — and half the time publish an explicitly
+// unchecked claim as a verified one, which is the one thing the flag exists to
+// prevent.
+func TestDeriveResolvesContradictoryAdjacencyToUnreviewed(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name       string
+		first      publish.AuthoredNode
+		second     publish.AuthoredNode
+		wantSorted string // which side sorts first, to show the answer does not depend on it
+	}{
+		{
+			name:       "the reviewed side is written first",
+			first:      node("a", adjacent(publish.AuthoredEdge{ID: "b", Reviewed: true})),
+			second:     node("b", adjacent(publish.AuthoredEdge{ID: "a", Reviewed: false})),
+			wantSorted: "a",
+		},
+		{
+			name:       "the unreviewed side is written first",
+			first:      node("a", adjacent(publish.AuthoredEdge{ID: "b", Reviewed: false})),
+			second:     node("b", adjacent(publish.AuthoredEdge{ID: "a", Reviewed: true})),
+			wantSorted: "a",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			g := deriveOrFatal(t, tt.first, tt.second)
+			for _, id := range []string{"a", "b"} {
+				edges := conceptOrFatal(t, g, id).Edges.Adjacent
+				if len(edges) != 1 {
+					t.Fatalf("%s has %d adjacent edges, want 1", id, len(edges))
+				}
+				if edges[0].Reviewed {
+					t.Errorf("%s's adjacency reports reviewed=true, but one side declared it unchecked", id)
+				}
+			}
+		})
+	}
+}
+
 func TestDeriveDenormalisesTheTarget(t *testing.T) {
 	t.Parallel()
 
@@ -251,6 +296,34 @@ func TestDeriveRejects(t *testing.T) {
 			name:  "two nodes claiming one id",
 			nodes: []publish.AuthoredNode{node("a"), node("a")},
 			want:  "claim the id",
+		},
+		{
+			// Two circles for one concept at two coordinates, and a link drawn
+			// to whichever the renderer resolved last.
+			name: "one target in two authored groups",
+			nodes: []publish.AuthoredNode{
+				node("a", requires(publish.AuthoredEdge{ID: "b"}), adjacent(publish.AuthoredEdge{ID: "b"})),
+				node("b"),
+			},
+			want: "related in two ways at once",
+		},
+		{
+			// The same fault via the derived inverse, which neither file looks
+			// wrong on its own: a circular prerequisite has no first concept.
+			name: "a mutual requires",
+			nodes: []publish.AuthoredNode{
+				node("a", requires(publish.AuthoredEdge{ID: "b"})),
+				node("b", requires(publish.AuthoredEdge{ID: "a"})),
+			},
+			want: "related in two ways at once",
+		},
+		{
+			name: "adjacency that is also a prerequisite, declared from opposite sides",
+			nodes: []publish.AuthoredNode{
+				node("a", requires(publish.AuthoredEdge{ID: "b"})),
+				node("b", adjacent(publish.AuthoredEdge{ID: "a"})),
+			},
+			want: "related in two ways at once",
 		},
 	}
 

@@ -1,8 +1,16 @@
 # Merge to main. Publish the graph, ship the API, ship the site.
 #
 # Three steps in that order for a reason: the pre-rendered pages read the content
-# out of git at build time, so publishing first means the API and the CDN never
-# describe different graphs for longer than one deploy takes.
+# out of git at build time, so on a clean run the API and the CDN converge within
+# one deploy.
+#
+# There is no rollback. If publish succeeds and a later step fails, Firestore
+# holds the new graph while the CDN still serves the last build — which is the
+# skew ADR-0003 already designs for, since a page cached last week shows last
+# week's tiers while its mini-map shows today's. What is different is that the
+# skew persists until someone acts. Every step is idempotent, so the fix is to
+# re-run the workflow; the failure that needs a human is a concept deleted from
+# git, whose page stays on the CDN with a mini-map that now 404s.
 #
 # Authentication is workload identity federation. There is no JSON key anywhere
 # in this repository and no long-lived credential in its settings — GitHub mints

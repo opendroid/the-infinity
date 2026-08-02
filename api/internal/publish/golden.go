@@ -68,9 +68,18 @@ func Golden(g *Graph) ([]byte, error) {
 	sort.Slice(file.Neighborhoods, func(i, j int) bool { return file.Neighborhoods[i].ID < file.Neighborhoods[j].ID })
 
 	// An encoder rather than MarshalIndent, with HTML escaping off: the default
-	// rewrites & < > as & < >, which turns any concept title
+	// rewrites & < > as & < >, which would turn a concept title
 	// containing an ampersand into an unreadable diff for no benefit — this file
 	// is never embedded in a page. The encoder terminates with a newline itself.
+	//
+	// It reaches the top level only. Anything inside a store.List — every edge,
+	// mini-map node, and link — is encoded by List.MarshalJSON, which calls
+	// json.Marshal with escaping on, and the outer encoder compacts the result
+	// without undoing it. Left as is: turning escaping off in List would change
+	// every API response to fix a fixture's readability, which is the wrong
+	// trade. A title with an ampersand renders escaped in the nested entries and
+	// plain at the top; both compare correctly, since the web side parses this
+	// file rather than diffing its bytes.
 	var buf bytes.Buffer
 	enc := json.NewEncoder(&buf)
 	enc.SetEscapeHTML(false)
