@@ -1,0 +1,109 @@
+---
+// The index. Every published concept, grouped by its authored domain path.
+//
+// This exists because the graph never dead-ends is a rule about not getting
+// STUCK, and it was well served — every concept page has typed edges and a
+// mini-map. The opposite problem was not: with 57 concepts and no listing, a
+// reader could not START unless they already knew a name to type (#107).
+//
+// Entirely static. No island, no API call, no JavaScript — a list of links is
+// the one thing the platform has always been good at, and CLAUDE.md §4 asks for
+// the smallest island that does the job. Here that is none.
+import Base from '../layouts/Base.astro';
+import Topbar from '../components/Topbar.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import TierDot from '../components/TierDot.astro';
+import { allNodes } from '../lib/content';
+import { directory, tally } from '../lib/directory';
+
+const groups = directory(allNodes);
+const totals = tally(groups);
+---
+
+<Base
+  title="Every concept · theinfinity.ai"
+  description={`All ${totals.concepts} concepts in the graph, grouped by domain — attention, architecture, optimization, systems, inference.`}
+>
+  <Topbar />
+
+  <main class="mx-auto max-w-[860px] px-[26px] py-12">
+    <Eyebrow>The whole graph</Eyebrow>
+    <h1 class="mt-1.5 font-display text-[30px] font-semibold leading-[1.16] text-starlight max-md:text-[23px]">
+      Every concept
+    </h1>
+
+    <p class="mt-2.5 max-w-[62ch] text-[15px] leading-[1.65] text-dust">
+      {totals.concepts} concepts across {groups.length} domains. {totals.verified} reviewed and
+      merged, {totals.frontier} awaiting that review — pick anywhere and follow the thread.
+    </p>
+
+    {/*
+      A jump list rather than a table of contents nobody reads: with six
+      domains it fits on one line, and at 300 nodes it is the only thing that
+      keeps this page navigable.
+    */}
+    <nav aria-label="Domains" class="mt-6 flex flex-wrap gap-2">
+      {
+        groups.map((g) => (
+          <a
+            href={`#${g.name.toLowerCase()}`}
+            class="rounded-row border border-line bg-nebula px-3 py-1.5 font-mono text-[11px] uppercase tracking-[.12em] text-dust no-underline hover:border-thread hover:text-starlight"
+          >
+            {g.name} <span class="text-thread">{g.count}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    {
+      groups.map((group) => (
+        <section class="mt-11">
+          <h2
+            id={group.name.toLowerCase()}
+            class="scroll-mt-6 border-b border-line pb-2 font-display text-[19px] font-semibold text-starlight"
+          >
+            {group.name}
+            <span class="ml-2 font-mono text-[11px] font-normal tracking-[.12em] text-dust">
+              {group.count}
+            </span>
+          </h2>
+
+          {group.sections.map((section) => (
+            <div class="mt-6">
+              <h3 class="mb-2.5 font-mono text-[10px] uppercase tracking-[.18em] text-dust">
+                {section.name}
+              </h3>
+              <ul class="m-0 list-none space-y-[7px] p-0">
+                {section.entries.map((entry) => (
+                  <li>
+                    <a
+                      href={`/c/${entry.id}`}
+                      class="flex min-h-11 items-start justify-between gap-4 rounded-row border border-line bg-nebula px-[13px] py-[11px] no-underline hover:border-thread"
+                    >
+                      <span class="min-w-0">
+                        <span class="block text-[14px] text-starlight">{entry.title}</span>
+                        <span class="mt-1 block max-w-[62ch] text-[12.5px] leading-[1.55] text-dust">
+                          {entry.blurb}
+                        </span>
+                      </span>
+                      {/*
+                        Tier carries text, not only colour — the dot alone would
+                        make the single most important semantic in the product
+                        invisible to a third of the reasons someone might not
+                        see it (CLAUDE.md §5).
+                      */}
+                      <span class="flex shrink-0 items-center gap-1.5 pt-0.5 font-mono text-[10px] uppercase tracking-[.14em] text-dust">
+                        <span class="max-md:hidden">{entry.tier}</span>
+                        <TierDot tier={entry.tier} />
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      ))
+    }
+  </main>
+</Base>

@@ -43,10 +43,17 @@ const chips = allNodes.slice(0, 6);
         Every AI concept, connected. Start anywhere — the map never ends.
       </p>
 
-      <!-- The one glow on this screen. Nothing else here carries a shadow. -->
+      <!--
+        The one glow on this screen. Nothing else here carries a shadow.
+
+        `action` points at /concepts, not /search: /search does not exist yet
+        (#106) and this form was submitting readers into a 404. The index is a
+        real answer to "show me what is here" even though it ignores the query,
+        and #45 will intercept the submit before it ever navigates.
+      -->
       <form
         role="search"
-        action="/search"
+        action="/concepts"
         method="get"
         class="mx-auto flex max-w-[540px] overflow-hidden rounded-island border border-thread bg-void shadow-thread"
       >
@@ -79,8 +86,17 @@ const chips = allNodes.slice(0, 6);
         }
       </div>
 
+      {/*
+        The count was already here; it is now the way in. This route has no nav
+        bar by design — "no CTA beyond search" — and adding one would be a
+        second competing invitation next to the single glowing field. Making a
+        sentence that already exists clickable is not a nav bar, and without it
+        the only path to the index from here is submitting the form (#107).
+      */}
       <p class="font-mono text-[12px] text-dust">
-        {concepts.toLocaleString()} concepts &middot;{' '}
+        <a href="/concepts" class="text-dust underline decoration-line underline-offset-4 hover:text-starlight hover:decoration-thread">
+          {concepts.toLocaleString()} concepts
+        </a> &middot;{' '}
         <b class="font-semibold text-frontier">{grewThisWeek} grew on the frontier this week</b>
       </p>
     </div>
