@@ -1,0 +1,43 @@
+# Matches the Go standards in CLAUDE.md §4.
+version: "2"
+
+run:
+  timeout: 3m
+
+linters:
+  enable:
+    - errcheck      # never discard an error with _
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - bodyclose     # a leaked response body leaks a connection
+    - errorlint     # %w and errors.Is/As, not == and %v
+    - contextcheck  # context must be threaded, not re-created
+    - noctx         # no I/O without a context
+    - gosec
+    - revive
+    - misspell
+    - unconvert
+    - wastedassign
+
+  settings:
+    errcheck:
+      check-type-assertions: true
+    revive:
+      rules:
+        - name: exported
+          disabled: true   # doc comments are reviewed, not linted
+    gosec:
+      excludes:
+        - G104           # duplicate of errcheck
+
+  exclusions:
+    rules:
+      # Tests may assert loosely on cleanup and use fixed inputs.
+      - path: _test\.go
+        linters: [errcheck, gosec]
+
+formatters:
+  enable:
+    - gofmt

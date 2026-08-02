@@ -36,3 +36,6 @@ Thumbs.db
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Go coverage output
+api/coverage.out

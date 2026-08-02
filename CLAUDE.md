@@ -224,15 +224,17 @@ exist yet.*
 | `cd web && npm test` | Vitest — graph derivation, node-shape invariants, schema rejection cases |
 | `cd web && npm run validate:content` | Nodes against `node.schema.json`, plus the cross-field invariants |
 | `cd web && npm run validate:openapi` | `redocly lint` on `/docs/openapi.yaml` — zero warnings tolerated |
-| `cd api && go run ./cmd/server` | Run the API locally on `:8080` |
-| `cd api && go test ./...` | Table-driven tests |
+| `cd api && make run` | Run the API locally on `:8080` (needs `GOOGLE_CLOUD_PROJECT`) |
+| `cd api && make test` | Table-driven tests, with the race detector |
+| `cd api && make lint` | `go vet`, `gofmt` check, `golangci-lint` |
+| `cd api && make check` | Both — what CI will run |
+| `cd api && make docker-build` | Multi-stage distroless nonroot image |
 | `cd web && firebase deploy --only hosting` | Deploy the built site |
 
 Not yet:
 
 | Command | Arrives |
 |---|---|
-| `make run` / `test` / `lint` / `docker-build` in `/api` | Phase 3 |
 | CI workflows | Phase 4 |
 
 **The Tailwind theme is generated, not written.** `web/scripts/generate-tokens.mjs` reads

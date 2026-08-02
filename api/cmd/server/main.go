@@ -1,9 +1,8 @@
-// Command server is the theinfinity.ai API service.
+// Command server is the theinfinity.ai API.
 //
-// This is a Phase 0 stub: it serves /healthz and nothing else, so the Cloud Run
-// deployment path can be proven end-to-end before any real handler exists. The
-// v1 surface (concepts, neighborhood, search, trails, requests) lands in Phase 3
-// on a chi router generated from /docs/openapi.yaml.
+// It serves /api/v1/** and /healthz. Routes mount at /api/v1 because Firebase
+// Hosting rewrites /api/** to Cloud Run preserving the full path — see ADR-0001
+// and internal/router.
 package main
 
 import (
@@ -14,16 +13,24 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
+
+	"cloud.google.com/go/firestore"
+	"github.com/opendroid/the-infinity/api/internal/apihttp"
+	"github.com/opendroid/the-infinity/api/internal/ratelimit"
+	"github.com/opendroid/the-infinity/api/internal/router"
+	"github.com/opendroid/the-infinity/api/internal/store"
 )
 
 const (
 	defaultPort     = "8080"
 	readTimeout     = 5 * time.Second
-	writeTimeout    = 10 * time.Second
+	writeTimeout    = 15 * time.Second
 	idleTimeout     = 60 * time.Second
 	shutdownTimeout = 10 * time.Second
+	dialTimeout     = 15 * time.Second
 )
 
 func main() {
@@ -39,29 +46,55 @@ func main() {
 	}
 }
 
-// run wires up and serves the HTTP server, blocking until the process receives
-// SIGINT or SIGTERM (Cloud Run sends SIGTERM before reclaiming an instance).
 func run(logger *slog.Logger) error {
-	// Cloud Run injects PORT; default for local runs.
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = defaultPort
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
+	port := envOr("PORT", defaultPort)
+
+	// A missing project id would otherwise surface as a 500 on the first
+	// request rather than a failure to start, which is much harder to notice.
+	projectID := envOr("GOOGLE_CLOUD_PROJECT", "")
+	if projectID == "" {
+		return errors.New("GOOGLE_CLOUD_PROJECT is not set")
 	}
+
+	dialCtx, cancelDial := context.WithTimeout(ctx, dialTimeout)
+	defer cancelDial()
+
+	client, err := firestore.NewClient(dialCtx, projectID)
+	if err != nil {
+		return fmt.Errorf("connecting to firestore in %s: %w", projectID, err)
+	}
+	defer func() {
+		if err := client.Close(); err != nil {
+			logger.Error("closing firestore client", slog.Any("error", err))
+		}
+	}()
+
+	dailyCap := int64OrDefault("DAILY_WRITE_CAP", apihttp.DefaultDailyWriteCap)
+	rl := ratelimit.DefaultConfig()
+	rl.PerMinute = floatOrDefault("RATE_LIMIT_PER_MINUTE", rl.PerMinute)
+
+	handler := router.New(store.NewFirestore(client), router.Options{
+		RateLimit: rl,
+		DailyCap:  dailyCap,
+	})
 
 	srv := &http.Server{
 		Addr:         ":" + port,
-		Handler:      newMux(),
+		Handler:      handler,
 		ReadTimeout:  readTimeout,
 		WriteTimeout: writeTimeout,
 		IdleTimeout:  idleTimeout,
 	}
 
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
-	defer stop()
-
 	errCh := make(chan error, 1)
 	go func() {
-		logger.Info("listening", slog.String("addr", srv.Addr))
+		logger.Info("listening",
+			slog.String("addr", srv.Addr),
+			slog.String("project", projectID),
+			slog.Int64("daily_write_cap", dailyCap))
 		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			errCh <- fmt.Errorf("listening on %s: %w", srv.Addr, err)
 			return
@@ -82,26 +115,38 @@ func run(logger *slog.Logger) error {
 	if err := srv.Shutdown(shutdownCtx); err != nil {
 		return fmt.Errorf("shutting down server: %w", err)
 	}
-
 	return nil
 }
 
-// newMux returns the service's routing table. It is separate from run so tests
-// exercise the routes themselves, not just the handler functions behind them.
-func newMux() *http.ServeMux {
-	mux := http.NewServeMux()
-	mux.HandleFunc("GET /healthz", healthz)
-
-	return mux
+func envOr(key, fallback string) string {
+	if v := os.Getenv(key); v != "" {
+		return v
+	}
+	return fallback
 }
 
-// healthz reports liveness. It intentionally does not check Firestore: this
-// endpoint answers "is the process up", not "is the whole system well".
-func healthz(w http.ResponseWriter, _ *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-
-	if _, err := w.Write([]byte(`{"status":"ok"}`)); err != nil {
-		slog.Error("writing healthz response", slog.Any("error", err))
+func int64OrDefault(key string, fallback int64) int64 {
+	v := os.Getenv(key)
+	if v == "" {
+		return fallback
 	}
+	n, err := strconv.ParseInt(v, 10, 64)
+	if err != nil || n <= 0 {
+		slog.Warn("ignoring invalid value", slog.String("key", key), slog.String("value", v))
+		return fallback
+	}
+	return n
+}
+
+func floatOrDefault(key string, fallback float64) float64 {
+	v := os.Getenv(key)
+	if v == "" {
+		return fallback
+	}
+	n, err := strconv.ParseFloat(v, 64)
+	if err != nil || n <= 0 {
+		slog.Warn("ignoring invalid value", slog.String("key", key), slog.String("value", v))
+		return fallback
+	}
+	return n
 }
