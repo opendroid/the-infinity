@@ -89,6 +89,7 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	trail, err := h.store.CreateTrail(r.Context(), store.NewTrail{Stops: stops, DurationS: body.DurationS})
 	switch {
 	case err == nil:
+		apihttp.NoStore(w)
 		apihttp.WriteJSON(w, http.StatusCreated, createResponse{
 			Slug: trail.Slug,
 			URL:  "/t/" + trail.Slug,
@@ -109,6 +110,7 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	trail, err := h.store.Trail(r.Context(), slug)
 	switch {
 	case err == nil:
+		apihttp.CacheFor(w, apihttp.TrailBrowserTTL, apihttp.TrailEdgeTTL)
 		apihttp.WriteJSON(w, http.StatusOK, trail)
 	case errors.Is(err, store.ErrNotFound):
 		apihttp.WriteError(w, http.StatusNotFound, apihttp.CodeNotFound,

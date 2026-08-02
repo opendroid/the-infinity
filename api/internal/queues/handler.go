@@ -85,6 +85,7 @@ func (h *Handler) CreateRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	apihttp.NoStore(w)
 	apihttp.WriteJSON(w, http.StatusAccepted, accepted{Status: "queued"})
 }
 
@@ -128,6 +129,7 @@ func (h *Handler) CreateReview(w http.ResponseWriter, r *http.Request) {
 	})
 	switch {
 	case err == nil:
+		apihttp.NoStore(w)
 		apihttp.WriteJSON(w, http.StatusAccepted, accepted{Status: "queued"})
 	case errors.Is(err, store.ErrNotFound):
 		apihttp.WriteError(w, http.StatusNotFound, apihttp.CodeNotFound,

@@ -55,13 +55,20 @@ func WriteJSON(w http.ResponseWriter, status int, v any) {
 }
 
 // WriteError sends a structured error.
+//
+// Every error path runs through here or through a writer below, and every one
+// of them marks the response uncacheable. That is deliberate rather than
+// defensive: a cached 429 or a cached transient 500 turns a momentary failure
+// into one that outlives its cause.
 func WriteError(w http.ResponseWriter, status int, code Code, msg string) {
+	NoStore(w)
 	WriteJSON(w, status, Error{Code: code, Message: msg})
 }
 
 // WriteFieldError sends a 400 naming the offending field, so a client can point
 // at the right input rather than re-reading the whole body.
 func WriteFieldError(w http.ResponseWriter, field, msg string) {
+	NoStore(w)
 	WriteJSON(w, http.StatusBadRequest, Error{
 		Code:    CodeInvalidRequest,
 		Message: msg,
