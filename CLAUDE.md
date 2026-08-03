@@ -40,7 +40,7 @@ Three principles, in priority order:
 | Data | Firestore (Native mode): `concepts` (published from git) · `trails`, `concept_requests`, `concept_reviews`, `counters` (runtime — [ADR-0004](docs/adr/0004-runtime-collections.md)) |
 | Hosting | Firebase Hosting (Blaze) — CDN + TLS. `/api/**` rewrite → Cloud Run service `api` (no GCLB) |
 | Region | `us-west1` for Cloud Run and Firestore |
-| Domain | Registered at GoDaddy; DNS A records point at Firebase at launch (M3), not before |
+| Domain | `theinfinity.ai` — registered at GoDaddy, A records pointing at Firebase since the cutover ([#65](https://github.com/opendroid/the-infinity/issues/65)). `the-infinity-ai.web.app` still serves the same site and canonicals to it |
 
 React is for **islands only** — interactive primitives. Everything static stays Astro.
 Do not reach for a client-side router, a global store, or SSR; if you think you need one,

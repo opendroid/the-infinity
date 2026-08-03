@@ -8,10 +8,9 @@
  * committed layout there was none of. So there is one traversal, here, and both
  * endpoints consume it.
  *
- * NEITHER IS CORRECT UNTIL THE DNS CUTOVER. `astro.config.ts` points `site` at
- * the Firebase host while the real domain is parked, and `public/robots.txt` is
- * `Disallow: /` on purpose. Both move at #65; until then these files are built,
- * served, and asking to be ignored — which is coherent, because the site is.
+ * Both are live as of the DNS cutover (#65). They were built and served for a
+ * while before that, on the pre-launch host and behind `Disallow: /` — asking
+ * to be ignored, which was coherent because the site was.
  */
 import type { ResolvedNode, Tier } from './graph';
 
