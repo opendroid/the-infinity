@@ -90,6 +90,9 @@ In order:
    `-.015em`. "the" + "infinity" in violet + ".ai".
 3. **Tagline** — 15px `--dust`, max-width 44ch: "Every AI concept, connected.
    Start anywhere — the map never ends."
+   > Amended 2026-08-03 (#128): the shipped line is "AI concepts, connected at
+   > three depths." The graph is one subfield, so "every AI concept" claimed
+   > coverage it does not have. The styling above is unchanged.
 4. **Search field** — 1px violet border, radius 12, `background: var(--void)`,
    `box-shadow: 0 0 44px rgba(143,123,255,.16)` (the one glow). Input padding
    `16px 18px`, 15px. Attached button: solid violet fill, void text, weight
@@ -100,6 +103,10 @@ In order:
    999, padding `7px 15px`, 13px. Border becomes violet on hover. Each is a
    plain `<a href="/c/[id]">`. Content: Attention · RLHF · Diffusion ·
    KV Cache · Mixture-of-Experts · Agents.
+   > Amended 2026-08-03 (#128): RLHF, Diffusion and Agents are not in the graph,
+   > so half this slate is unbuildable. The shipped chips are chosen in
+   > [`content/layout/lemniscate.json`](../../../content/layout/lemniscate.json)
+   > from concepts that exist, and change as the graph grows.
 6. **Frontier pulse line** — JetBrains Mono 12px: "1,847 concepts · " then the
    frontier clause in teal: "12 grew on the frontier this week". Reads
    `GET /v1/stats`; ships with build-time values so it never renders empty.

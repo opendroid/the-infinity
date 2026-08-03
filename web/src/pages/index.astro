@@ -31,8 +31,8 @@ const chips = layout.chips;
 ---
 
 <Base
-  title="theinfinity.ai — every AI concept, connected"
-  description="An infinitely explorable concept graph for AI/ML. Start anywhere — the map never ends."
+  title="theinfinity.ai — an explorable concept graph for AI"
+  description="An explorable concept graph for AI/ML. Each concept has a 30-second intuition, an engineer's view, and the maths, with typed edges to what comes next."
 >
   <main class="hero-lift overflow-hidden px-10 pb-[52px] pt-14 text-center max-md:px-[22px] max-md:pb-10 max-md:pt-9">
     <div class="mx-auto max-w-[620px]">
@@ -43,7 +43,15 @@ const chips = layout.chips;
       </h1>
 
       <p class="mx-auto mb-[30px] mt-2.5 max-w-[44ch] text-[15px] text-dust">
-        Every AI concept, connected. Start anywhere — the map never ends.
+        {/*
+          Not "every AI concept" any more. The graph is 57 nodes of attention,
+          architecture and optimization — a real subfield, and nowhere near
+          every concept in AI (#128). The old line sold BREADTH, which is the
+          one thing it could not deliver; depth and connectedness are what it
+          actually has, so that is what it now says. It should stay true as the
+          graph grows rather than needing a rewrite per seed batch.
+        */}
+        AI concepts, connected at three depths. Start anywhere — the map never ends.
       </p>
 
       <!--
