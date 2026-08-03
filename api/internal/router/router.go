@@ -74,7 +74,13 @@ func New(s store.Store, opts Options) http.Handler {
 	r := chi.NewRouter()
 	r.Use(apihttp.Recoverer, apihttp.Timeout)
 
+	// GET and HEAD. chi answers 405 for a method it has no route for, and `curl
+	// -I` — the first thing anyone types at a health endpoint, and what most
+	// probes send — is a HEAD. Answering the obvious question with "not allowed"
+	// on the one endpoint whose whole job is to be asked is a poor showing.
+	// net/http discards the body for a HEAD, so one handler serves both.
 	r.Get("/-/health", health)
+	r.Head("/-/health", health)
 
 	r.Route("/api/v1", func(v1 chi.Router) {
 		// Every read is an unauthenticated Firestore read and a Cloud Run
