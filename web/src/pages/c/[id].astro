@@ -11,6 +11,7 @@ import MiniMap from '../../components/MiniMap';
 import VizIsland from '../../components/VizIsland.astro';
 import TrailRibbon from '../../components/TrailRibbon.astro';
 import DepthToggle from '../../components/DepthToggle';
+import ReviewActions from '../../components/ReviewActions';
 import { allNodes, graph, nodeOrThrow } from '../../lib/content';
 import { neighborhood, splitEmphasis, type Depth } from '../../lib/graph';
 
@@ -75,14 +76,13 @@ const trail = [node];
                 </li>
               ))}
             </ul>
-            <div class="mt-4 flex flex-wrap gap-2.5">
-              <button type="button" class="cursor-pointer rounded-row border border-thread bg-transparent px-[18px] py-[9px] text-[13px] text-thread">
-                Flag an error
-              </button>
-              <button type="button" class="cursor-pointer rounded-row border border-line bg-transparent px-[18px] py-[9px] text-[13px] text-starlight">
-                Volunteer to review
-              </button>
-            </div>
+            {/*
+              client:idle, not client:visible. The island renders null until it
+              mounts (no JS, no buttons), so a visible-gated island has zero
+              height, never becomes visible, and never hydrates — the controls
+              simply never appear. Found by clicking them in a browser.
+            */}
+            <ReviewActions client:idle conceptId={node.id} />
           </section>
         )
       }
