@@ -1,0 +1,66 @@
+{
+  "$comment": [
+    "The performance budget, in GZIPPED BYTES of JavaScript per route (#60).",
+    "Enforced by `npm run perf`, which CI runs. See scripts/perf-budget.mjs for what is measured.",
+    "",
+    "WHY THESE NUMBERS. Each is the measured cost on 2026-08-03 plus about 5% headroom —",
+    "enough that a minifier or Vite update does not turn CI red, tight enough that a new",
+    "dependency or a second island on a route does not slip in unnoticed. A new island is",
+    "roughly 1-3 KB gzipped; a new dependency is usually ten times that. The budget is set to",
+    "catch the second without nagging about the first.",
+    "",
+    "THE FLOOR IS REACT. `client.js` is 57 KB gzipped on its own and every route with an",
+    "island pays it, so the interesting number is not the total but the distance above ~60 KB.",
+    "A concept page is the heaviest at 72 KB because it mounts the most islands: depth toggle,",
+    "viz, mini-map, trail ribbon, trail count, search, and review actions.",
+    "",
+    "`/` IS BUDGETED AT ZERO, AND THAT IS THE POINT. The landing page ships no JavaScript at",
+    "all. It is the page a stranger meets first and the clearest evidence for static-first, so",
+    "any island there should have to argue for itself in a pull request rather than arrive.",
+    "",
+    "HTML IS RECORDED, NOT ENFORCED (`html_gzip: null`). It grows with the graph — /concepts",
+    "lists every node — and failing a build for publishing content would be the budget",
+    "fighting the product. The numbers are here so a jump is visible.",
+    "",
+    "RAISING A BUDGET IS A DECISION. `npm run perf -- --update` rewrites these, and the commit",
+    "message has to say what the extra weight bought."
+  ],
+  "measured_on": "2026-08-03",
+  "routes": {
+    "/": {
+      "js_gzip": 0,
+      "html_gzip": null,
+      "note": "No islands. Zero is the budget; adding one is a decision."
+    },
+    "/concepts": {
+      "js_gzip": 67000,
+      "html_gzip": null,
+      "note": "Search overlay and trail count only. HTML grows with the graph."
+    },
+    "/search": {
+      "js_gzip": 67000,
+      "html_gzip": null,
+      "note": "The panel itself. The index is fetched on open, not bundled."
+    },
+    "/request": {
+      "js_gzip": 69000,
+      "html_gzip": null,
+      "note": "One form."
+    },
+    "/404": {
+      "js_gzip": 69500,
+      "html_gzip": null,
+      "note": "Nearest concepts plus the request form."
+    },
+    "/c/*": {
+      "js_gzip": 76000,
+      "html_gzip": null,
+      "note": "The heaviest route, and the worst concept page is the one measured. Depth toggle, viz primitive, mini-map, trail ribbon, trail count, search, review actions."
+    },
+    "/t/*": {
+      "js_gzip": 70500,
+      "html_gzip": null,
+      "note": "The whole page is one island (ADR-0008)."
+    }
+  }
+}

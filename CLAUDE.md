@@ -104,7 +104,9 @@ Scopes: `web` · `api` · `content` · `infra` · `docs`.
 
 - **`strict: true`**, plus `noUncheckedIndexedAccess`. No `any`; use `unknown` and narrow.
   `@ts-expect-error` needs a reason on the same line.
-- **ESLint + Prettier** are the arbiters of style — don't hand-format, don't argue with them.
+- **ESLint is the arbiter** — `npm run lint` runs at `--max-warnings 0`, so a warning is an
+  error, and it is a required check. There is deliberately no formatter: match the file
+  you are in rather than reformatting it.
 - Ship the smallest island that does the job. Prefer CSS over JS, and static over island.
 - Accessibility is not optional: semantic landmarks, real focus states
   (`outline: 2px solid var(--thread)`, offset 2 — teal only when the focused element is
@@ -234,6 +236,7 @@ exist yet.*
 | `cd web && npm run typecheck` | `astro check` |
 | `cd web && npm run lint` | ESLint, zero warnings tolerated |
 | `cd web && npm test` | Vitest — graph derivation, node-shape invariants, schema rejection cases |
+| `cd web && npm run perf` | Gzipped JavaScript per route against [`perf-budget.json`](web/perf-budget.json). Needs a build first; `-- --update` rewrites the budget |
 | `cd web && npm run validate:content` | Nodes against `node.schema.json`, plus the cross-field invariants |
 | `cd web && npm run check:citations` | Every citation resolves. `-- --offline` skips the network and says so — it exits 2 rather than passing when nothing could be reached |
 | `cd web && npm run validate:openapi` | `redocly lint` on `/docs/openapi.yaml` — zero warnings tolerated |

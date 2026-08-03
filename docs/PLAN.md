@@ -66,7 +66,7 @@ Node schema (`/content/schema/node.schema.json`): `id`, `title`, `domain[]`, `ti
 
 ### Phase 4 — Standards + CI (~2 hrs · weeks 3–4)
 - [ ] Go: golangci-lint, table-driven tests, wrapped errors, context propagation
-- [ ] TS: strict mode, ESLint + Prettier
+- [ ] TS: strict mode, ESLint (no formatter — see CLAUDE.md §4)
 - [ ] GitHub Actions on PR: lint, test, schema-validate, build both surfaces
 - [ ] Conventional commits, PR template, branch protection on `main`
 - [ ] All summarized in `CLAUDE.md`

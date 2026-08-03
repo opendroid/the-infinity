@@ -29,7 +29,7 @@ Then write the root CLAUDE.md. It must capture:
 - Product: infinitely explorable AI/ML concept graph; static-first; portfolio quality bar
 - Stack: Astro+TS+React islands+Tailwind in /web; Go (chi, net/http) in /api for Cloud Run; Firestore; Firebase Hosting with /api/** rewrite to Cloud Run
 - Content-as-code: nodes are JSON in /content/nodes, schema-validated; merged-to-main = "verified" tier; never call paid LLM APIs from code
-- Standards: golangci-lint + table-driven tests + wrapped errors + context propagation (Go); strict TS + ESLint + Prettier (web); conventional commits; every change via PR with CI green
+- Standards: golangci-lint + table-driven tests + wrapped errors + context propagation (Go); strict TS + ESLint (web); conventional commits; every change via PR with CI green
 - Design tokens from /docs/design/mockups.html (list the hex palette and the three fonts)
 - Commands section (fill in as tooling lands)
 

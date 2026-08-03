@@ -72,6 +72,13 @@ jobs:
       - name: Build
         run: npm run build
 
+      # After the build, because it measures what the build produced. Static-
+      # first is the project's central claim and this is the only thing that
+      # checks it — see web/perf-budget.json for the numbers and why they are
+      # those numbers. Raising one is a decision, made in a pull request.
+      - name: Performance budget
+        run: npm run perf
+
   api:
     name: api
     runs-on: ubuntu-latest
