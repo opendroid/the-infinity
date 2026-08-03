@@ -10,6 +10,11 @@
 # header tells it not to INDEX, and a page linked from elsewhere can be indexed
 # without ever being crawled.
 #
+# THIS ALSO SUPPRESSES UNFURL CARDS. Slack, X, LinkedIn and Discord all read
+# robots.txt before fetching a page to preview it, so the og: tags added in #127
+# do nothing until this file goes. They shipped early so launch day needs no
+# second pass — but until then a pasted link stays a bare URL, by choice.
+#
 # See #84. The launch-time version of this file lives in #62.
 
 User-agent: *
