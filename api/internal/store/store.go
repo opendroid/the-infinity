@@ -13,6 +13,7 @@ import (
 	"errors"
 	"regexp"
 	"strings"
+	"time"
 )
 
 // ErrNotFound is returned when a lookup finds nothing. Handlers match it with
@@ -251,6 +252,35 @@ type ReviewSubmission struct {
 	ConceptID string
 	Kind      ReviewKind
 	Note      string
+}
+
+// PendingReview and PendingRequest are queued submissions read back for a
+// maintainer (#115). They are NOT on the Store interface: nothing in the
+// request path reads these collections, and a method a handler can reach is a
+// Firestore read someone will eventually put on a page view.
+//
+// The field tags must match the literal keys the Enqueue methods write. A typo
+// here decodes as a zero value and prints a blank row rather than failing, so
+// the round trip is covered against the emulator.
+type PendingReview struct {
+	// ID is the Firestore document id — what you would name to ack one.
+	ID        string     `firestore:"-"`
+	ConceptID string     `firestore:"concept_id"`
+	Kind      ReviewKind `firestore:"kind"`
+	Note      string     `firestore:"note"`
+	CreatedAt time.Time  `firestore:"created_at"`
+}
+
+type PendingRequest struct {
+	ID string `firestore:"-"`
+	// Name is free text from a stranger. Print it quoted; never interpolate it
+	// into a path.
+	Name     string `firestore:"name"`
+	Referrer string `firestore:"referrer"`
+	// Status is written as "queued" and nothing has ever transitioned it. Read
+	// back so the day it means something, this already shows it.
+	Status    string    `firestore:"status"`
+	CreatedAt time.Time `firestore:"created_at"`
 }
 
 // Store is the whole data surface. Everything takes a context so a request

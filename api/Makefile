@@ -6,7 +6,9 @@ TAG   ?= $(shell git rev-parse --short HEAD 2>/dev/null || echo dev)
 NODES  ?= ../content/nodes
 GOLDEN ?= ../content/derived.golden.json
 
-.PHONY: help run publish golden test test-emulator cover lint fmt tidy docker-build check
+QUEUE_LIMIT ?= 100
+
+.PHONY: help run publish queues golden test test-emulator cover lint fmt tidy docker-build check
 .DEFAULT_GOAL := help
 
 help: ## List targets
@@ -17,6 +19,11 @@ run: ## Run locally on :8080 (needs GOOGLE_CLOUD_PROJECT and application-default
 
 publish: ## Sync /content/nodes to Firestore (needs GOOGLE_CLOUD_PROJECT and credentials)
 	go run ./cmd/publish -nodes $(NODES)
+
+# Read-only. Nothing else reads these two collections, so without this the
+# provenance buttons queue submissions no one ever sees (#115).
+queues: ## Print pending flags and concept requests (needs GOOGLE_CLOUD_PROJECT and credentials)
+	go run ./cmd/queues -limit $(QUEUE_LIMIT)
 
 golden: ## Regenerate the derivation fixture both /api and /web are checked against
 	go run ./cmd/publish -nodes $(NODES) -out $(GOLDEN)
