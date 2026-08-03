@@ -131,7 +131,10 @@ enables it on a database that already exists.
 
 ## What it does not do
 
-- **DNS.** Cutover is a launch task (M3). The domain stays at GoDaddy, unpointed.
+- **DNS.** The registrar is GoDaddy and the A records point at Firebase Hosting, changed
+  by hand at the cutover (#65) — `setup.sh` does not touch them, and neither does CI. The
+  site is reachable at both `theinfinity.ai` and `the-infinity-ai.web.app`; every page
+  names the first as canonical.
 - **Deploy anything.** There is nothing to deploy until Astro exists (Phase 1) and the API
   image is pushed (Phase 3).
 - **CI credentials.** Workload identity federation is Phase 4. No JSON service-account

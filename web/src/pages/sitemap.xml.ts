@@ -3,12 +3,13 @@
  * (#62). It shares its walk with `llms.txt` through `lib/siteindex` — two
  * traversals would be two descriptions of the graph free to disagree.
  *
- * INERT UNTIL #65. `public/robots.txt` is `Disallow: /` and `firebase.json`
- * sets `X-Robots-Tag: noindex, nofollow` on `**`, so no crawler that respects
- * either will read this file. Both come off at the DNS cutover, together with
- * the `site` in `astro.config.ts` — and the `Sitemap:` line in `robots.txt`
- * goes in at the same moment, because pointing a crawler at an index of a site
- * we are asking it not to crawl is a contradiction, not a head start.
+ * LIVE SINCE #65. `robots.txt` now points at this file by name, the blanket
+ * `X-Robots-Tag: noindex` is gone, and `site` names the real domain — one
+ * commit, because a sitemap on a `noindex` site is a contradiction and a
+ * `Sitemap:` line pointing at a parked domain is worse than none.
+ *
+ * `/t/**` keeps its own noindex header (ADR-0008) and is excluded here, so the
+ * two statements agree: this file never lists a URL the header suppresses.
  *
  * No `Response` headers: a static build writes the body to `dist/sitemap.xml`
  * and discards everything else. Caching and content type are Hosting's.

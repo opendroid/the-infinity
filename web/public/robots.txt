@@ -1,29 +1,25 @@
-# PRE-LAUNCH. This file blocks everything on purpose.
+# theinfinity.ai — an infinitely explorable concept graph for AI/ML.
 #
-# The site is live at https://the-infinity-ai.web.app while the real domain is
-# still parked. Letting that URL be indexed would put the same content on two
-# domains, index a graph at its thinnest, and leave the history attached to the
-# address we are about to abandon — none of which is quick to undo.
+# The graph is meant to be found. This file blocked everything until the DNS
+# cutover (#65, #84) so the pre-launch `web.app` URL would not be indexed and
+# leave the history attached to an address we were about to abandon. The domain
+# now points at Firebase, so the block is gone.
 #
-# Removed at the DNS cutover (#65), together with the X-Robots-Tag header in
-# firebase.json. Both, or neither: robots.txt asks a crawler not to CRAWL, the
-# header tells it not to INDEX, and a page linked from elsewhere can be indexed
-# without ever being crawled.
+# NOTHING IS DISALLOWED HERE, AND /t/ IS THE INTERESTING CASE. Shared trails are
+# reader-created, unbounded, and duplicate the concepts in a different order, so
+# they should not be indexed — ADR-0008 says so. They are kept out with
+# `X-Robots-Tag: noindex` in firebase.json rather than a `Disallow` line here,
+# and the difference is the whole reason this file has a comment:
 #
-# THIS ALSO SUPPRESSES UNFURL CARDS. Slack, X, LinkedIn and Discord all read
-# robots.txt before fetching a page to preview it, so the og: tags added in #127
-# do nothing until this file goes. They shipped early so launch day needs no
-# second pass — but until then a pasted link stays a bare URL, by choice.
+#   robots.txt asks a crawler not to CRAWL. The header tells it not to INDEX.
+#   A page linked from elsewhere can be indexed without ever being crawled — so
+#   disallowing /t/ would stop the crawler from ever SEEING the noindex, which
+#   is the opposite of what it is for.
 #
-# THE INDEXES EXIST ALREADY. /sitemap.xml (#62) and /llms.txt (#85) are
-# generated at build and served today — machine-readable descriptions of a site
-# nobody is allowed to read. They shipped early for the same reason the og:
-# tags did. It is also why there is no `Sitemap:` line below: pointing a crawler
-# at an index of a site we are asking it not to crawl is a contradiction, not a
-# head start. That line goes in at the cutover, on the real domain, in the same
-# edit that removes the disallow.
-#
-# See #84. The launch-time version of this file lives in #62.
+# /search and /request are crawlable and simply absent from the sitemap: one is
+# a tool and the other is a form, and neither is worth a rule.
 
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://theinfinity.ai/sitemap.xml

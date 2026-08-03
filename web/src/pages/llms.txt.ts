@@ -7,9 +7,9 @@
  * its walk with `sitemap.xml` through `lib/siteindex`. Hand-writing it would
  * guarantee drift the first time a concept was renamed.
  *
- * INERT UNTIL #65, for the same reason as the sitemap: `robots.txt` is
- * `Disallow: /` and `X-Robots-Tag: noindex, nofollow` is set on `**` while the
- * real domain is parked. The URLs below are on the Firebase host until then.
+ * LIVE SINCE #65, for the same reason as the sitemap: the crawler block came
+ * off and `site` moved to the real domain in one commit. The URLs below name
+ * theinfinity.ai.
  *
  * Two of #85's three open questions are answered here rather than in a comment
  * nobody reads: tier is included, and trails are not. See below.

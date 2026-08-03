@@ -14,8 +14,9 @@ interface Props {
 }
 const { title, description, type = 'website', canonical: wantCanonical = true } = Astro.props;
 
-// Absolute, because an unfurler does not resolve a relative URL. `site` is set
-// in astro.config.ts and moves to the real domain at the DNS cutover (#65).
+// Absolute, because an unfurler does not resolve a relative URL. `site` is the
+// real domain since the DNS cutover (#65), which is also what makes every page
+// served from the-infinity-ai.web.app point at theinfinity.ai as canonical.
 //
 // The trailing slash is stripped to match `trailingSlash: false` in
 // firebase.json. Astro's pathname for c/attention/index.html is
@@ -40,10 +41,10 @@ const card = new URL('/og.png', Astro.site).href;
       description, so these are per-page and say the right thing; the image is
       one committed card for the whole site.
 
-      THEY DO NOTHING UNTIL THE DNS CUTOVER. `public/robots.txt` is
-      `Disallow: /` on purpose until then, and Slack, X, LinkedIn and Discord
-      all honour it before fetching a page to unfurl. This ships now so launch
-      day needs no second pass — see #65, which removes the block.
+      Live since the cutover (#65). They shipped ahead of it deliberately: Slack,
+      X, LinkedIn and Discord all read robots.txt before fetching a page to
+      preview it, so while it said `Disallow: /` these did nothing at all — and
+      being already correct meant launch day needed no second pass.
 
       One shared image rather than one per concept: a per-node card means a
       rendering toolchain in the build (satori + resvg) and a new dependency,

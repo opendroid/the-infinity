@@ -106,6 +106,21 @@ Worth revisiting if shared trails turn out to be how people actually find the
 site — that is the growth loop this ADR is about, and a nameless card is a
 weaker link than a named one.
 
+### Resolved at the cutover (#65): `/t/**` kept its header
+
+The blanket `X-Robots-Tag: noindex, nofollow` on `**` came off when the domain went
+live, and this route's own copy went on at the same moment — `firebase.json` now
+carries it under the existing `/t/**` block, beside that route's `Cache-Control`.
+
+Deliberately a header and not a `Disallow` line in `robots.txt`. Disallowing would
+stop a crawler from fetching the page, which means it never sees the `noindex`, and a
+URL linked from elsewhere can be indexed without ever being crawled. The header needs
+the crawl to happen in order to work.
+
+`web/src/lib/robots.test.ts` asserts both halves, because "the one route that should
+keep the header" is exactly the kind of decision a later edit to `firebase.json`
+removes without noticing.
+
 ## Alternatives rejected
 
 **Server-render just this route.** An adapter and a second deployable, behind a Hosting
