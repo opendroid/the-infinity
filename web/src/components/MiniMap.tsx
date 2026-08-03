@@ -114,9 +114,9 @@ export default function MiniMap({ id, initial }: Props) {
 
   return (
     <div>
-      <h4 className="mb-2.5 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-dust">
+      <h2 className="mb-2.5 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-dust">
         You are here
-      </h4>
+      </h2>
       <svg
         viewBox="0 0 240 132"
         className="w-full rounded-control border border-line bg-void"
