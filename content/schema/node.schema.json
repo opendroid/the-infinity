@@ -159,7 +159,12 @@
   ],
 
   "$defs": {
-    "body": { "type": "string", "minLength": 40, "maxLength": 1400 },
+    "body": {
+      "description": "Prose. `_` marks a subscript and `^` a superscript, each taking either a run of letters and digits (x_t, d_model, S_ij) or a braced group, which may nest (m_{t−1}, ℝ^{|V|×d_model}). A `{` that does not follow a marker is an ordinary character, so `∈ {0,1}` is safe. Write \\_ \\^ \\{ \\} for a literal one. Prefer a Unicode glyph where one exists for the whole construct (β₁, ᵀ, √, ∂) and markup where it does not. Checked by src/lib/notation.test.ts. See ADR-0009.",
+      "type": "string",
+      "minLength": 40,
+      "maxLength": 1400
+    },
 
     "date": {
       "type": "string",

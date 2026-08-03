@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Depth } from '../lib/graph';
+import Notation from './Notation';
 
 interface Body {
   depth: Depth;
@@ -78,9 +79,19 @@ export default function DepthToggle({ bodies, initial = 'intuition' }: Props) {
           hidden={body.depth !== depth}
           className="max-w-[62ch] text-[15.5px] leading-[1.65] text-pretty"
         >
-          {body.before}
-          {body.emphasis && <em className="font-medium not-italic text-thread">{body.emphasis}</em>}
-          {body.after}
+          {/*
+            Each segment is parsed separately because emphasis is a substring
+            of the raw body and is split off before this point. A phrase that
+            cut a notation group in half would leave both halves literal —
+            `validate:content` rejects that rather than letting it render.
+          */}
+          <Notation text={body.before} />
+          {body.emphasis && (
+            <em className="font-medium not-italic text-thread">
+              <Notation text={body.emphasis} />
+            </em>
+          )}
+          <Notation text={body.after} />
         </p>
       ))}
     </>
