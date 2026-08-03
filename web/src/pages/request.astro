@@ -1,0 +1,55 @@
+---
+// The destination the empty edge group already pointed at.
+//
+// `EdgeGroup.astro` has rendered a violet "Suggest an edge" since the concept
+// page was built — the handoff asks for it — and it linked to /request, which
+// did not exist. This is that page (#53).
+//
+// Everything except the form is static, so the page still says what it is with
+// JavaScript off. The form does not render then, because it posts JSON: the
+// paragraph below is what a reader without it gets instead, and it is true.
+import Base from '../layouts/Base.astro';
+import Topbar from '../components/Topbar.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import RequestForm from '../components/RequestForm';
+
+const REPO = 'https://github.com/opendroid/the-infinity';
+---
+
+<Base
+  title="Suggest something — theinfinity.ai"
+  description="Name a concept the graph is missing, or an edge it should draw."
+>
+  <Topbar />
+
+  <main class="px-[34px] pb-9 pt-10 max-md:px-[22px]">
+    <Eyebrow>Gap in the graph</Eyebrow>
+
+    <h1 class="mt-2 max-w-[34ch] font-display text-[28px] font-semibold leading-[1.2] max-md:text-[23px]">
+      Something missing? Pull the <span class="text-thread">thread</span> anyway
+    </h1>
+
+    <p class="mb-2 mt-3 max-w-[62ch] text-[15px] leading-[1.65] text-dust">
+      A concept nobody has written, or an edge between two that nobody has drawn — both are the same
+      kind of gap, and both go in the same queue. Name it in a line.
+    </p>
+
+    <RequestForm client:load />
+
+    <p class="mt-8 max-w-[62ch] text-[14px] leading-[1.65] text-dust">
+      Nothing here changes the graph on its own. Concepts and their edges live as JSON in the
+      repository, and they change when a human edits that JSON and merges a pull request — the merge
+      is the act of verification. If you would rather do it directly, that is the front door:
+      <a href={REPO} class="text-thread no-underline hover:underline" rel="noopener">the repository</a>.
+    </p>
+
+    <p class="mt-6">
+      <a
+        href="/concepts"
+        class="font-mono text-[11px] uppercase tracking-[.14em] text-thread no-underline hover:underline"
+      >
+        Browse every concept
+      </a>
+    </p>
+  </main>
+</Base>
