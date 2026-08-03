@@ -1,0 +1,124 @@
+# 0010 — Notation carries a spoken separator
+
+- **Status:** proposed — the code exists and is held; see *What would change this* below
+- **Date:** 2026-08-03
+- **Amends:** [ADR-0009](0009-notation-in-bodies.md)
+
+## Context
+
+ADR-0009 chose `<sub>` and `<sup>` over KaTeX and Unicode normalisation, and one of its
+stated reasons was that they "carry the meaning into the accessibility tree".
+
+They carry. What they carry is the flattened string, and the flattening has no separator
+in it ([#144](https://github.com/opendroid/the-infinity/issues/144)):
+
+```
+d_model   → "dmodel"
+n_target  → "ntarget"
+W_Q       → "WQ"
+```
+
+`multi-head-attention` at Math depth reaches a screen reader as:
+
+> …Concat(head1,…,headh)WO where headi = Attention(XWQi, XWKi, XWVi) and WO ∈ ℝh·dv×dmodel…
+
+That is not degraded notation. It is a different sentence, and it is what 43 of 57 nodes
+hand to anyone reading by ear — 181 groups, 168 of them in `bodies.math`.
+
+The ADR-0009 rationale was half right in a way worth naming: `<sub>` genuinely is the
+element that *means* subscript, and it genuinely does reach the accessibility tree. The
+error was assuming that reaching the tree implies being *understood* in it. Presence and
+intelligibility are different properties, and only the first was checked.
+
+## Decision
+
+**Emit a visually-hidden spoken separator around every subscript and superscript,
+derived from the same parse tree that produces the visual form.**
+
+```tsx
+<span className="sr-only"> sub </span><sub>model</sub><span className="sr-only"> </span>
+```
+
+`d_model` becomes `"d sub model "` in the accessibility tree and is unchanged on screen.
+
+One parse, two renderings — the visual and the spoken — from the same `Token[]`. This is
+the same rule the rest of the repo runs on: `api/internal/publish` and `web/src/lib/graph`
+derive one graph two ways from one source, and are pinned to one fixture because two
+descriptions free to disagree eventually do.
+
+### Why words rather than a space
+
+A bare space is cheaper and reads more naturally — `"d model"` — but it erases the
+distinction it exists to carry. `x_2` and `x^2` both flatten to `"x 2"`, and
+`2^{−8h/H}` becomes `"2 −8h/H"`, which does not merely lose the exponent, it states a
+subtraction. At Math depth, where precision is the entire point of the depth, ambiguity
+is the one thing not worth buying with brevity.
+
+`sub` and `super` rather than `subscript` and `superscript`: shorter, and "d sub model"
+is how the notation is actually read aloud. `sup` was rejected because a speech engine
+says it — rhyming with *cup* — rather than expanding it.
+
+### The cost, stated plainly
+
+**Verbosity.** `_i` appears 21 times, `_t` 19, `_model` 15. A math body with fifteen
+subscripts gains fifteen spoken "sub"s, and that is genuinely more tiring to listen to
+than the visual form is to read. It buys unambiguity, and this ADR asserts that trade is
+right *at Math depth specifically*. Intuition bodies contain zero notation, so the
+30-second read — the product's front door — is untouched either way.
+
+**Selection copies the separator.** Selecting `d_model` on screen now yields
+`"d sub model"` rather than `"dmodel"`. That is a real change, and it is not a
+regression: `"dmodel"` was already not the source text, so copy was lossy before and is
+lossy differently now. If copy fidelity ever matters, the fix is a `copy` handler that
+reconstructs the source, not the removal of this.
+
+## Alternatives rejected
+
+**`aria-label` on the `<sub>`.** One label per expression, no verbosity, nothing in the
+copy buffer. Rejected twice over: `<sub>` has no ARIA role, so a label on it is not
+reliably exposed — and more importantly, the label would have to be *authored*, which
+makes the spoken form a second description of the notation, free to disagree with the
+first. That is the exact shape this repo has been bitten by repeatedly, and the reason
+the decision above derives both renderings from one parse.
+
+**MathML.** The right answer for mathematics, and what math-aware screen readers want.
+Rejected as a mismatch: this content is English prose with inline identifiers, not
+equations. `d_model` inside a sentence about attention head width is a *name*, not an
+expression to be evaluated, and MathML would require authors to produce semantic maths for
+material that is not maths. It would also be a new rendering path and a schema change,
+against ADR-0009's finding that the corpus is "entirely inline sub- and superscripts".
+
+**Accept and document.** Defensible only if a real screen reader handles the run-together
+string better than it looks. That is precisely what has not been checked, and it is the
+one alternative this ADR cannot rule out from the armchair — see below.
+
+**A space for subscripts, words for superscripts.** Tempting: 158 subscripts are mostly
+identifiers where `"d model"` reads fine, and only the 23 superscripts carry the
+exponent-versus-index ambiguity. Rejected for inconsistency — a reader would learn that
+some raised text is announced and some is not, which is worse than one rule applied
+everywhere.
+
+## What would change this
+
+**Nobody has heard it yet.** This ADR is `proposed`, not `accepted`, and the pull request
+carrying it is held, because the decision rests on one unverified claim: that a speech
+engine handed `"dmodel"` produces something a listener cannot parse.
+
+The listen is three nodes at Math depth — `multi-head-attention`, `mixture-of-experts`,
+`attention` — comparing what ships today against what this produces. Two outcomes change
+the decision:
+
+- If readers already announce sub/sup usefully in some modes, "accept and document"
+  becomes live and this should not ship.
+- If "d sub model" fifteen times a paragraph proves worse to listen to than the ambiguity
+  it fixes, the space variant becomes live — a one-constant change, deliberately.
+
+## Consequences
+
+- Notation is now three things: a source convention, a visual rendering, and a spoken
+  rendering. A change to the grammar must be reflected in all three, and `notation.test.ts`
+  asserts the spoken form on the same fixtures as the visual one.
+- The `sr-only` spans are inside body copy, so anything counting DOM nodes in a math body
+  gets more of them. Nothing does today.
+- `content/schema` and the 57 node files are untouched. This is a rendering decision, and
+  the source convention ADR-0009 established is unchanged.
