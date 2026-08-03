@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import LiveRegion from './LiveRegion';
 import { apiUrl } from '../lib/api';
 import type { Depth, Tier } from '../lib/graph';
 import { replace, type Stop } from '../lib/trail';
@@ -80,9 +81,32 @@ export function slugFromPath(pathname: string): string | null {
   return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(last) ? last : null;
 }
 
+/**
+ * What a reader who cannot see the page is told when the fetch resolves (#140).
+ *
+ * Empty while loading: the page has only just arrived, and a live region
+ * populated at mount announces nothing anyway. Every other state is a change to
+ * that region, which is the mutation a screen reader is listening for.
+ *
+ * The ready message deliberately does not repeat the trail's title — the `<h1>`
+ * two lines below already carries it. It says the thing that is otherwise
+ * invisible: it arrived, and how far it goes.
+ */
+export function arrival(state: State): string {
+  switch (state.name) {
+    case 'loading':
+      return '';
+    case 'ready':
+      return `Trail loaded — ${state.trail.stops.length} ${state.trail.stops.length === 1 ? 'concept' : 'concepts'}.`;
+    case 'missing':
+      return 'No such trail.';
+    case 'unreachable':
+      return 'The live graph is offline.';
+  }
+}
+
 export default function SharedTrail() {
   const [state, setState] = useState<State>({ name: 'loading' });
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const slug = slugFromPath(window.location.pathname);
@@ -118,11 +142,41 @@ export default function SharedTrail() {
     };
   }, []);
 
-  if (state.name === 'loading') return <Skeleton />;
-  if (state.name === 'missing') return <Missing />;
-  if (state.name === 'unreachable') return <Unreachable />;
+  // ONE REGION ACROSS ALL FOUR STATES. Each state is a whole-page swap, so a
+  // region living inside a branch is unmounted by the next one — which is how
+  // this route came to announce nothing at all when its content arrived. As the
+  // first child of the same fragment every time, React keeps the same DOM node
+  // and only its text changes.
+  return (
+    <>
+      <LiveRegion message={arrival(state)} />
+      {state.name === 'loading' ? (
+        <Skeleton />
+      ) : state.name === 'missing' ? (
+        <Missing />
+      ) : state.name === 'unreachable' ? (
+        <Unreachable />
+      ) : (
+        <Ready trail={state.trail} />
+      )}
+    </>
+  );
+}
 
-  const { trail } = state;
+/**
+ * The trail itself, extracted so the region above can be its sibling.
+ *
+ * `copied` lives here rather than a level up, which is the reason this route
+ * keeps TWO live regions rather than merging them into one. They belong to
+ * different lifetimes: the arrival fires once when the fetch resolves, and
+ * "Link copied" only on demand, long after and only in this state. Merging
+ * them would lift copy state out of the component that owns it to buy nothing —
+ * the two can never speak at the same moment, because the button announcing
+ * one does not exist until the other has already fired.
+ */
+function Ready({ trail }: { trail: Trail }) {
+  const [copied, setCopied] = useState(false);
+
   const last = trail.stops[trail.stops.length - 1];
   const minutes = Math.round((trail.duration_s ?? 0) / 60);
   const url = `${window.location.origin}/t/${trail.slug}`;
@@ -228,9 +282,13 @@ function Skeleton() {
   return (
     <Frame>
       <p className="font-mono text-[10px] uppercase tracking-[.16em] text-dust">Shared thread</p>
-      <p className="mt-4 text-[15px] text-dust" role="status">
-        Pulling the thread…
-      </p>
+      {/*
+        No role here. This text is on the page at mount, and a live region
+        populated at mount announces nothing — the role was a claim the browser
+        could not honour. The route-level region above owns every announcement
+        on this route now, including the one that says the pulling finished.
+      */}
+      <p className="mt-4 text-[15px] text-dust">Pulling the thread…</p>
     </Frame>
   );
 }
