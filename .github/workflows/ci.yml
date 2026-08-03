@@ -108,7 +108,17 @@ jobs:
       # Track a recent release rather than freezing. A pin far behind what a
       # developer machine installs makes `make check` fail locally on code CI
       # calls clean, and the gap only widens — see #67.
-      - uses: golangci/golangci-lint-action@v8
+      #
+      # v9 only to move the action's own runtime from node20 to node24, which
+      # GitHub is removing (#102). Both inputs below still exist in v9, and the
+      # pin stays in the v2.12 series the action's own README uses.
+      #
+      # `working-directory` is the load-bearing one: if a major bump ever
+      # silently ignored it, the linter would run at the repo root, find no Go
+      # module, and pass while linting nothing. Verified on this PR by planting
+      # a misspelling in /api and watching this step fail — not by observing a
+      # green run.
+      - uses: golangci/golangci-lint-action@v9
         with:
           version: v2.12.2
           working-directory: api

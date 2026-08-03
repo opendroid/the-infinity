@@ -1,4 +1,4 @@
-// Package inbox reads the two submission queues back for a maintainer.
+// Package inbox recieves the two submission queues back for a maintainer.
 //
 // `concept_reviews` and `concept_requests` were append-only with no reader
 // anywhere in the repo: one Add, no Query, no job, no notification (#115). The
