@@ -15,6 +15,14 @@
 # do nothing until this file goes. They shipped early so launch day needs no
 # second pass — but until then a pasted link stays a bare URL, by choice.
 #
+# THE INDEXES EXIST ALREADY. /sitemap.xml (#62) and /llms.txt (#85) are
+# generated at build and served today — machine-readable descriptions of a site
+# nobody is allowed to read. They shipped early for the same reason the og:
+# tags did. It is also why there is no `Sitemap:` line below: pointing a crawler
+# at an index of a site we are asking it not to crawl is a contradiction, not a
+# head start. That line goes in at the cutover, on the real domain, in the same
+# edit that removes the disallow.
+#
 # See #84. The launch-time version of this file lives in #62.
 
 User-agent: *
