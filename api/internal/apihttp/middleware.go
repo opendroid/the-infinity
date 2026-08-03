@@ -21,12 +21,39 @@ const MaxBodyBytes int64 = 16 << 10 // 16 KiB
 // cold start and does not coordinate across instances.
 const DefaultDailyWriteCap int64 = 500
 
+// started wraps a ResponseWriter to record whether anything has reached the
+// client yet. Recoverer is the only user: once a status line is out, a 500 is
+// no longer available, and writing one anyway appends a second JSON object to a
+// body that already has one.
+//
+// Unwrap is what http.ResponseController uses to reach the real writer, so
+// wrapping here does not cost a handler its flush or deadline controls.
+type started struct {
+	http.ResponseWriter
+	wrote bool
+}
+
+func (s *started) WriteHeader(code int) {
+	s.wrote = true
+	s.ResponseWriter.WriteHeader(code)
+}
+
+func (s *started) Write(b []byte) (int, error) {
+	s.wrote = true
+	return s.ResponseWriter.Write(b)
+}
+
+func (s *started) Unwrap() http.ResponseWriter { return s.ResponseWriter }
+
 // Recoverer turns a panic into a 500 rather than a dropped connection.
 //
 // CLAUDE.md forbids panicking in a handler; this exists for the ones we did not
 // write — a nil map deep in a dependency should not take the instance down.
 func Recoverer(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		sw := &started{ResponseWriter: w}
+		w = sw
+
 		defer func() {
 			rec := recover()
 			if rec == nil {
@@ -43,7 +70,20 @@ func Recoverer(next http.Handler) http.Handler {
 
 			slog.Error("panic in handler",
 				slog.Any("recovered", rec),
-				slog.String("path", r.URL.Path))
+				slog.String("path", r.URL.Path),
+				slog.Bool("response_started", sw.wrote))
+
+			// A response already on the wire cannot be turned into a 500. The
+			// status is spent, and WriteError would append a second JSON object
+			// to a body that already has one — handing the client `{...}{...}`,
+			// which parses as neither. net/http logs the duplicate WriteHeader
+			// and drops it, so the corruption is in the body alone and looks
+			// like a serialisation bug rather than a panic. Truncated is worse
+			// for the reader than complete and better than wrong: the transport
+			// reports a short read, which is the truth.
+			if sw.wrote {
+				return
+			}
 			WriteError(w, http.StatusInternalServerError, CodeInternal, "Unexpected error.")
 		}()
 		next.ServeHTTP(w, r)

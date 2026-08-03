@@ -262,6 +262,56 @@ func TestRecovererTurnsAPanicIntoA500(t *testing.T) {
 	}
 }
 
+// A panic AFTER the response has started is the case the 500 path cannot serve.
+// The status line is already spent — net/http logs the duplicate WriteHeader and
+// drops it — so writing the error anyway lands the error object in the body
+// beside the one already there, and the client receives `{...}{...}`, which
+// parses as neither. Truncated is the only honest ending.
+func TestRecovererDoesNotAppendToAResponseAlreadyStarted(t *testing.T) {
+	t.Parallel()
+
+	quiet(t)
+	h := apihttp.Recoverer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		apihttp.WriteJSON(w, http.StatusOK, map[string]string{"id": "attention"})
+		panic("a nil map, one line after the write")
+	}))
+
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/", nil))
+
+	// httptest.ResponseRecorder keeps the first status and ignores the second,
+	// exactly as net/http does, so the status alone cannot tell these apart.
+	// The body can: it must still be one JSON document.
+	body := rec.Body.String()
+	if got := strings.Count(body, "{"); got != 1 {
+		t.Errorf("body contains %d JSON objects, want 1: %s", got, body)
+	}
+	if strings.Contains(body, string(apihttp.CodeInternal)) {
+		t.Errorf("an error object was appended to a response already sent: %s", body)
+	}
+	if rec.Code != http.StatusOK {
+		t.Errorf("status = %d, want the 200 the handler already sent", rec.Code)
+	}
+}
+
+// The wrapper Recoverer puts around the ResponseWriter must not cost a handler
+// the controls net/http gives it. http.ResponseController reaches through
+// Unwrap; without that method it fails with ErrNotSupported on a writer that
+// supports flushing perfectly well.
+func TestRecovererLeavesTheResponseControllerReachable(t *testing.T) {
+	t.Parallel()
+
+	var flushErr error
+	h := apihttp.Recoverer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		flushErr = http.NewResponseController(w).Flush()
+	}))
+	h.ServeHTTP(httptest.NewRecorder(), httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/", nil))
+
+	if flushErr != nil {
+		t.Errorf("Flush through the wrapper: %v", flushErr)
+	}
+}
+
 // http.ErrAbortHandler is Go's documented way for a handler to abandon a
 // response deliberately. Swallowing it would convert an intentional abort into
 // a logged crash and a second write onto a response already in flight.
