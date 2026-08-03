@@ -3,6 +3,8 @@ package store
 import (
 	"context"
 	"fmt"
+	"maps"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -54,7 +56,7 @@ func (f *Fake) Concept(_ context.Context, id string) (*Concept, error) {
 	if !ok {
 		return nil, fmt.Errorf("concept %s: %w", id, ErrNotFound)
 	}
-	return c, nil
+	return cloneConcept(c), nil
 }
 
 func (f *Fake) Nearest(_ context.Context, id string, limit int) ([]NearestConcept, error) {
@@ -92,7 +94,7 @@ func (f *Fake) Neighborhood(_ context.Context, id string) (*Neighborhood, error)
 	if !ok {
 		return nil, fmt.Errorf("neighborhood %s: %w", id, ErrNotFound)
 	}
-	return n, nil
+	return cloneNeighborhood(n), nil
 }
 
 func (f *Fake) Stats(_ context.Context) (*Stats, error) {
@@ -115,7 +117,7 @@ func (f *Fake) Trail(_ context.Context, slug string) (*Trail, error) {
 	if !ok {
 		return nil, fmt.Errorf("trail %s: %w", slug, ErrNotFound)
 	}
-	return t, nil
+	return cloneTrail(t), nil
 }
 
 func (f *Fake) CreateTrail(_ context.Context, nt NewTrail) (*Trail, error) {
@@ -128,7 +130,7 @@ func (f *Fake) CreateTrail(_ context.Context, nt NewTrail) (*Trail, error) {
 	// Idempotent on an identical stop sequence. The key comes from the shared
 	// TrailKey so this cannot drift from the Firestore implementation.
 	if existing, ok := f.Trails[TrailSlug(nt.Stops)]; ok {
-		return existing, nil
+		return cloneTrail(existing), nil
 	}
 
 	stops := make([]TrailStop, 0, len(nt.Stops))
@@ -150,7 +152,7 @@ func (f *Fake) CreateTrail(_ context.Context, nt NewTrail) (*Trail, error) {
 		Stops:     stops,
 	}
 	f.Trails[t.Slug] = t
-	return t, nil
+	return cloneTrail(t), nil
 }
 
 func (f *Fake) EnqueueConceptRequest(_ context.Context, r ConceptRequest) error {
@@ -187,6 +189,70 @@ func (f *Fake) ReserveWrite(_ context.Context, day string, limit int64) (bool, e
 	}
 	f.Writes[day]++
 	return true, nil
+}
+
+// Every read returns a copy, because Firestore does.
+//
+// Handing back the pointer in the map made the fixture writable by anything
+// that read it: a handler test that sorted a returned edge list, or a
+// serialisation test that blanked a field to check an omitempty, silently
+// reordered or emptied the fixture for every test that ran afterwards. The
+// symptom is a test that passes alone and fails in a suite, or worse, the
+// reverse — and the cause is nowhere near the failure.
+//
+// A store backed by a database cannot alias its caller's memory. A fake that
+// does is not a simpler store, it is a store with a behaviour production does
+// not have, which is the one thing a fake must never be.
+//
+// The element types below are all flat, so cloning the containers is enough.
+// TestTheFakeSharesNoMemoryWithItsCaller checks that structurally rather than
+// on trust: it fills the struct through reflection and walks both copies, so a
+// field added here and forgotten in the clone fails rather than aliases.
+func cloneConcept(c *Concept) *Concept {
+	if c == nil {
+		return nil
+	}
+	out := *c
+	out.Emphasis = clonePtr(c.Emphasis)
+	out.Review = clonePtr(c.Review)
+	out.Prov = clonePtr(c.Prov)
+	out.Viz.Params = maps.Clone(c.Viz.Params)
+	out.Viz.ParamControls = slices.Clone(c.Viz.ParamControls)
+	out.Edges.Requires = slices.Clone(c.Edges.Requires)
+	out.Edges.Unlocks = slices.Clone(c.Edges.Unlocks)
+	out.Edges.Adjacent = slices.Clone(c.Edges.Adjacent)
+	out.Citations = slices.Clone(c.Citations)
+	return &out
+}
+
+func cloneNeighborhood(n *Neighborhood) *Neighborhood {
+	if n == nil {
+		return nil
+	}
+	out := *n
+	out.Nodes = slices.Clone(n.Nodes)
+	out.Links = slices.Clone(n.Links)
+	return &out
+}
+
+func cloneTrail(t *Trail) *Trail {
+	if t == nil {
+		return nil
+	}
+	out := *t
+	out.Stops = slices.Clone(t.Stops)
+	return &out
+}
+
+// clonePtr copies the pointee, preserving nil. maps.Clone and slices.Clone
+// already do this for the other two shapes; the standard library has no
+// equivalent for a pointer field.
+func clonePtr[T any](p *T) *T {
+	if p == nil {
+		return nil
+	}
+	v := *p
+	return &v
 }
 
 // trailTitle is generated from the first and last stop; the page appends

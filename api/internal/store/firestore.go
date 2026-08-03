@@ -170,14 +170,37 @@ func (f *Firestore) CreateTrail(ctx context.Context, nt NewTrail) (*Trail, error
 		return nil, fmt.Errorf("checking for existing trail %s: %w", slug, err)
 	}
 
-	stops := make([]TrailStop, 0, len(nt.Stops))
+	// One BatchGetDocuments for the whole walk, not one per stop. A trail can
+	// carry up to 200 stops (see internal/trails), so the loop this replaced
+	// meant up to 200 sequential round trips inside a single request — against
+	// a 10-second handler timeout, on a Cloud Run instance that may be cold.
+	//
+	// GetAll returns one snapshot per input ref, in order, including duplicates:
+	// a reader who doubles back to a concept is the ordinary case, not an edge
+	// one, and the ordering is what lets the index below name the right stop.
+	refs := make([]*firestore.DocumentRef, len(nt.Stops))
 	for i, s := range nt.Stops {
-		c, err := f.Concept(ctx, s.ID)
-		if err != nil {
-			return nil, err // already wrapped; ErrNotFound survives
+		refs[i] = f.client.Collection(CollConcepts).Doc(s.ID)
+	}
+	snaps, err := f.client.GetAll(ctx, refs)
+	if err != nil {
+		return nil, fmt.Errorf("fetching %d trail stops: %w", len(refs), err)
+	}
+
+	stops := make([]TrailStop, 0, len(snaps))
+	for i, snap := range snaps {
+		// A missing document is not an error from GetAll — it comes back as a
+		// snapshot that does not exist. Reading it without checking would decode
+		// into a zero Concept and put a nameless stop on a shared page.
+		if !snap.Exists() {
+			return nil, fmt.Errorf("trail stop %s: %w", nt.Stops[i].ID, ErrNotFound)
+		}
+		var c Concept
+		if err := snap.DataTo(&c); err != nil {
+			return nil, fmt.Errorf("decoding concept %s: %w", nt.Stops[i].ID, err)
 		}
 		stops = append(stops, TrailStop{
-			N: i + 1, ID: c.ID, Title: c.Title, Tier: c.Tier, DepthReadAt: s.DepthReadAt,
+			N: i + 1, ID: c.ID, Title: c.Title, Tier: c.Tier, DepthReadAt: nt.Stops[i].DepthReadAt,
 		})
 	}
 
