@@ -213,8 +213,25 @@ describe('failure text is honest, specific, and not carried by colour', () => {
     for (const file of surfaces) {
       const source = read(file);
       if (!/message|could not|offline|No such/i.test(source)) continue;
-      expect(source, `${file} shows a failure with no role`).toMatch(/role="(alert|status)"/);
+      // Either the role is here, or the surface delegates to LiveRegion, which
+      // carries it — and which is checked below so this cannot become a way of
+      // passing by importing something that no longer announces anything.
+      expect(source, `${file} shows a failure with no role`).toMatch(
+        /role="(alert|status)"|<LiveRegion/,
+      );
     }
+  });
+
+  it('LiveRegion is what the delegating surfaces are delegating to', () => {
+    // #137: a region created together with its message is not announced, so the
+    // rule is now one component. If it stops carrying a live role, every
+    // surface that delegates to it goes silent at once — which is exactly why
+    // the check above accepts the delegation.
+    const source = read('src/components/LiveRegion.tsx');
+    expect(source).toMatch(/role=\{assertive \? 'alert' : 'status'\}/);
+    // Rendered unconditionally: no early return can stand between the props and
+    // the element, or the region would arrive with its text again.
+    expect(source).not.toMatch(/if \(message === ''\) return null/);
   });
 
   it('never says only "something went wrong"', () => {
