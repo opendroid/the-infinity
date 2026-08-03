@@ -21,11 +21,11 @@ const EMPTY: Record<EdgeType, string> = {
 const leading = type === 'requires';
 ---
 <div class="mb-6">
-  <h4 class="mb-2.5 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-dust">
+  <h2 class="mb-2.5 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-dust">
     {leading && <span class="mr-1.5 text-thread">{ARROW[type]}</span>}
     {LABEL[type]}
     {!leading && <span class="ml-1.5 text-thread">{ARROW[type]}</span>}
-  </h4>
+  </h2>
   {
     edges.length > 0 ? (
       edges.map((edge) => <EdgeRow edge={edge} />)

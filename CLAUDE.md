@@ -107,8 +107,9 @@ Scopes: `web` · `api` · `content` · `infra` · `docs`.
 - **ESLint + Prettier** are the arbiters of style — don't hand-format, don't argue with them.
 - Ship the smallest island that does the job. Prefer CSS over JS, and static over island.
 - Accessibility is not optional: semantic landmarks, real focus states
-  (`outline: 2px solid var(--frontier)`), `prefers-reduced-motion` respected on every
-  animation, and color never the sole carrier of meaning — tier badges carry text too.
+  (`outline: 2px solid var(--thread)`, offset 2 — teal only when the focused element is
+  itself violet), `prefers-reduced-motion` respected on every animation, and color never
+  the sole carrier of meaning — tier badges carry text too.
 
 ### Shell (`/infra`)
 

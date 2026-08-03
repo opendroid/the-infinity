@@ -40,6 +40,15 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
   const [cursor, setCursor] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  /** What had focus before the overlay opened, so it can be handed back. */
+  const opener = useRef<HTMLElement | null>(null);
+
+  /** Open, remembering what had focus so Escape can hand it back. */
+  const openPanel = useCallback(() => {
+    opener.current = document.activeElement as HTMLElement | null;
+    setOpen(true);
+  }, []);
 
   const load = useCallback(() => {
     setIndex((current) => {
@@ -81,17 +90,60 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
       const typing = target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA';
       if (e.key === '/' && !typing) {
         e.preventDefault();
-        setOpen(true);
+        openPanel();
         load();
       }
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
-  }, [mode, load]);
+  }, [mode, load, openPanel]);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
   }, [open]);
+
+  /**
+   * Trap Tab inside the dialog, and hand focus back when it closes.
+   *
+   * The handoff asks for this in one line — "the search overlay traps focus and
+   * closes on ESC" — and without it Tab walks straight out of an open modal
+   * onto the page behind, which a sighted mouse user never notices and a
+   * keyboard user cannot recover from: the dialog is still covering what they
+   * are now focused on.
+   *
+   * Measured before it was written: focus left the dialog after two tabs.
+   */
+  useEffect(() => {
+    if (mode !== 'overlay') return;
+    if (!open) {
+      // Returning focus is the other half. Dropping the reader at the top of
+      // the document instead of where they opened search from loses their place
+      // entirely. The opener was captured when the panel opened, not here —
+      // by now the input has already taken focus.
+      opener.current?.focus();
+      opener.current = null;
+      return;
+    }
+
+    const onTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab' || !dialogRef.current) return;
+      const stops = dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button, input, [tabindex]:not([tabindex="-1"])',
+      );
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      if (!first || !last) return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', onTab);
+    return () => document.removeEventListener('keydown', onTab);
+  }, [mode, open]);
 
   const hits: Hit[] = index.state === 'ready' ? search(index.entries, query) : [];
 
@@ -223,7 +275,7 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
       <button
         type="button"
         onClick={() => {
-          setOpen(true);
+          openPanel();
           load();
         }}
         className="cursor-pointer rounded-row border border-line bg-transparent px-3 py-1.5 font-mono text-[11px] uppercase tracking-[.12em] text-dust hover:border-thread hover:text-starlight"
@@ -240,6 +292,7 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
           role="dialog"
           aria-modal="true"
           aria-label="Search concepts"
+          ref={dialogRef}
         >
           {panel}
         </div>
