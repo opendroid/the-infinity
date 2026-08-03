@@ -10,6 +10,7 @@
     "typecheck": "node scripts/generate-tokens.mjs && astro check",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
+    "perf": "node scripts/perf-budget.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "check:citations": "node scripts/check-citations.mjs",
     "validate:openapi": "npx --yes @redocly/cli lint ../docs/openapi.yaml"
