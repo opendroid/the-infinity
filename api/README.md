@@ -11,15 +11,30 @@ make lint         # go vet, gofmt, golangci-lint
 make check        # both — what CI runs
 make docker-build # multi-stage distroless nonroot image
 make publish      # sync /content/nodes → Firestore
+make queues       # print pending flags and concept requests — read-only
 make golden       # regenerate content/derived.golden.json
 ```
+
+`run`, `publish`, and `queues` all reach Firestore, so each needs
+`GOOGLE_CLOUD_PROJECT` and application-default credentials. Cloud Run does **not** set
+that variable — unlike App Engine and Cloud Functions, its runtime contract provides
+only `PORT` and the `K_*` vars — which is why [`deploy.yml`](../.github/workflows/deploy.yml)
+passes `--set-env-vars=GOOGLE_CLOUD_PROJECT=…` explicitly. Both CLIs also take
+`-project`, so neither is blocked on a shell export.
+
+Deliberately not `firestore.DetectProjectID`: it reads whatever `gcloud config` has
+selected, so a maintainer pointed at another project would silently read the wrong
+database. For a tool whose whole job is telling you a queue is empty, an explicit
+variable that fails loudly beats detection that succeeds wrongly.
 
 ## Layout
 
 ```
 cmd/server/       wiring, graceful SIGTERM shutdown
 cmd/publish/      git → Firestore, on merge to main
+cmd/queues/       print the submission queues for a maintainer
 internal/
+  inbox/          reads the two queues back — no write method, by construction
   router/         the surface — mounts everything, owns nothing
   apihttp/        structured errors, body cap, recoverer, write limiter
   concepts/       GET concept · neighborhood · stats
@@ -57,6 +72,18 @@ router inside `apihttp` would make it import the handlers that import it.
 
 `requests` and `reviews` share the `queues` package because they are the same shape —
 validate, append, return `202`, touch nothing else.
+
+`inbox` is the other end of that: `queues` writes and nothing in the request path ever
+reads, so without `make queues` the provenance buttons file submissions no one sees. Its
+reads are on `*Firestore` but **not on the `store.Store` interface** — a method a handler
+can reach is a Firestore read that eventually lands on a page view. `inbox.Reader` has two
+reads and no write, so writing to `concepts` is unrepresentable here rather than merely
+untested, which is the guarantee [ADR-0002](../docs/adr/0002-content-as-code-and-trust-tiers.md) wants:
+git is the only writer of concept state.
+
+There is no acknowledge flag. A flag names a concept and a problem; the fix is a pull
+request editing `content/nodes/<id>.json`, and merging it is the acknowledgement. `--ack`
+would put queue state somewhere other than git and make the CLI the only interface to it.
 
 ## The `/api/v1` prefix is load-bearing
 
