@@ -15,6 +15,11 @@ normaliseOrigin(process.env.PUBLIC_API_ORIGIN);
 // Static-first (ADR-0003): every route pre-renders at build time. No adapter,
 // no SSR. Islands call the API after hydration; first paint never waits on it.
 export default defineConfig({
+  // The canonical origin, used for canonical links and unfurl cards (#127) —
+  // an unfurler does not resolve a relative URL. This is the Firebase host
+  // because the real domain is still parked; it moves at the DNS cutover (#65),
+  // together with robots.txt and the X-Robots-Tag header.
+  site: 'https://the-infinity-ai.web.app',
   output: 'static',
   integrations: [react()],
   vite: { plugins: [tailwindcss()] },

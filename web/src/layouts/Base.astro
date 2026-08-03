@@ -4,8 +4,26 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  /** `article` for a concept, `website` for everything else. */
+  type?: 'website' | 'article';
+  /**
+   * Set false where one file serves many URLs, so no canonical is claimed.
+   * `/t/**` is the case: the shell is built once and served for every slug.
+   */
+  canonical?: boolean;
 }
-const { title, description } = Astro.props;
+const { title, description, type = 'website', canonical: wantCanonical = true } = Astro.props;
+
+// Absolute, because an unfurler does not resolve a relative URL. `site` is set
+// in astro.config.ts and moves to the real domain at the DNS cutover (#65).
+//
+// The trailing slash is stripped to match `trailingSlash: false` in
+// firebase.json. Astro's pathname for c/attention/index.html is
+// `/c/attention/`, and Hosting serves `/c/attention` — a canonical naming a URL
+// the site does not serve is worse than none.
+const path = Astro.url.pathname.replace(/(.)\/$/, '$1');
+const canonical = wantCanonical ? new URL(path, Astro.site).href : null;
+const card = new URL('/og.png', Astro.site).href;
 ---
 
 <!doctype html>
@@ -15,6 +33,37 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    {/*
+      Unfurl cards (#127). Every route already passes a real title and
+      description, so these are per-page and say the right thing; the image is
+      one committed card for the whole site.
+
+      THEY DO NOTHING UNTIL THE DNS CUTOVER. `public/robots.txt` is
+      `Disallow: /` on purpose until then, and Slack, X, LinkedIn and Discord
+      all honour it before fetching a page to unfurl. This ships now so launch
+      day needs no second pass — see #65, which removes the block.
+
+      One shared image rather than one per concept: a per-node card means a
+      rendering toolchain in the build (satori + resvg) and a new dependency,
+      for a picture beside a title and description that are already correct.
+      The trade is recorded in ADR-0008 along with why /t/** could not have a
+      per-trail card at all.
+    */}
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="theinfinity.ai" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={card} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="theinfinity.ai — a concept graph for AI and ML" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={card} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

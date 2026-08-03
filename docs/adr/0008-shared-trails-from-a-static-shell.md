@@ -89,6 +89,23 @@ fixture modelled the *create* payload — stops of `{id, depth_read_at}` — not
 API returns, so it could not have been reused by the island that replaced it. Keeping an
 unused file because it was once load-bearing is how a repository accumulates furniture.
 
+### Resolved 2026-08-03 (#127): a shared card, not a per-trail one
+
+The consequence above came due when OG tags shipped. `/t/**` gets the same
+static 1200×630 card as every other route — the issue's first option — so a
+shared trail unfurls with the product's name, the thread, and the shell's
+generic title rather than the trail's own.
+
+That is the honest reading of what this ADR decided. The alternatives were an
+image endpoint on the Go API (`GET /trails/{slug}/card.png`), which puts a
+cold Cloud Run start in front of an unfurler that will not wait for it, and
+reversing this ADR to server-render the route, which is a large change to buy
+one picture. Neither is worth it while the site is `noindex` and pre-launch.
+
+Worth revisiting if shared trails turn out to be how people actually find the
+site — that is the growth loop this ADR is about, and a nameless card is a
+weaker link than a named one.
+
 ## Alternatives rejected
 
 **Server-render just this route.** An adapter and a second deployable, behind a Hosting
