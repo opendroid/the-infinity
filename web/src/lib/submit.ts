@@ -16,9 +16,21 @@ import { apiUrl } from './api';
 
 export type Outcome = { ok: true } | { ok: false; message: string };
 
-/** The message for a status, given what a 400 means for this particular form. */
-export function outcomeFor(status: number, retryAfter: number | null, badRequest: string): Outcome {
-  if (status === 202) return { ok: true };
+/**
+ * The message for a status, given what a 400 means for this particular form.
+ *
+ * `okStatus` because the two write shapes disagree about success: the queue
+ * endpoints answer 202 (accepted, nothing created), and `POST /trails` answers
+ * 201 with a slug. Defaulting to 202 keeps every existing call site reading the
+ * same.
+ */
+export function outcomeFor(
+  status: number,
+  retryAfter: number | null,
+  badRequest: string,
+  okStatus = 202,
+): Outcome {
+  if (status === okStatus) return { ok: true };
   if (status === 429) {
     return {
       ok: false,
@@ -53,5 +65,47 @@ export async function postQueue(
     // Offline, aborted, or the service is cold. Distinct from a rejection,
     // because "we did not send it" and "they refused it" are different facts.
     return { ok: false, message: 'No connection. Nothing was sent.' };
+  }
+}
+
+/** A create that hands something back — currently only `POST /trails`. */
+export type Created<T> = { ok: true; value: T } | { ok: false; message: string };
+
+/**
+ * POSTs and reads the created resource out of the response.
+ *
+ * `narrow` rather than a cast: the one caller navigates the reader to whatever
+ * comes back, so a response that is not the shape we expect must fail as a
+ * failure and not as a trip to `/t/undefined`.
+ */
+export async function postCreate<T>(
+  path: string,
+  body: unknown,
+  badRequest: string,
+  narrow: (value: unknown) => T | null,
+): Promise<Created<T>> {
+  let res: Response;
+  try {
+    res = await fetch(apiUrl(path), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+  } catch {
+    return { ok: false, message: 'No connection. Nothing was sent.' };
+  }
+
+  const retry = Number(res.headers.get('Retry-After') ?? '');
+  const outcome = outcomeFor(res.status, Number.isFinite(retry) ? retry : null, badRequest, 201);
+  if (!outcome.ok) return outcome;
+
+  try {
+    const value = narrow(await res.json());
+    if (value === null) throw new Error('unexpected shape');
+    return { ok: true, value };
+  } catch {
+    // A 201 we cannot read is our problem, not the reader's, and it is not a
+    // success: acting on it would send them somewhere that does not exist.
+    return { ok: false, message: 'It was saved, but the link came back unreadable.' };
   }
 }

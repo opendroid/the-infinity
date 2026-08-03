@@ -1,0 +1,46 @@
+---
+// Route 3 — Shared trail.
+//
+// ONE FILE SERVES EVERY TRAIL. A slug is minted at runtime from a walk nobody
+// could enumerate at build time, so there is nothing to pre-render per trail.
+// `firebase.json` rewrites `/t/**` here and the island reads the slug from the
+// pathname. See ADR-0008 for why this rather than server-rendering the route.
+//
+// Hosting matches static files before rewrites, so adding any real page under
+// /t would silently shadow this one. There are none.
+import Base from '../../layouts/Base.astro';
+import Topbar from '../../components/Topbar.astro';
+import SharedTrail from '../../components/SharedTrail';
+---
+
+<Base
+  title="A shared thread — theinfinity.ai"
+  description="A path someone walked through the concept graph."
+>
+  <Topbar />
+
+  {/*
+    client:load, not idle or visible: this island IS the page. Every other
+    island decorates content that is already there, so deferring them costs
+    nothing. Deferring this one would defer the content itself.
+  */}
+  <SharedTrail client:load />
+
+  <noscript>
+    <div class="px-[34px] pb-9 pt-10 max-md:px-[22px]">
+      <h1 class="max-w-[34ch] font-display text-[28px] font-semibold leading-[1.2]">
+        A shared thread needs JavaScript
+      </h1>
+      <p class="mt-3 max-w-[62ch] text-[15px] text-dust">
+        This is the one page here that does — a trail is read from the live graph rather than built
+        into the site. Every concept page works without it.
+      </p>
+      <a
+        href="/concepts"
+        class="mt-6 inline-block rounded-row bg-thread px-[18px] py-[9px] text-[14px] font-bold text-void no-underline"
+      >
+        Browse the concepts
+      </a>
+    </div>
+  </noscript>
+</Base>

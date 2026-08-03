@@ -9,7 +9,7 @@ import TierBadge from '../../components/TierBadge.astro';
 import EdgeGroup from '../../components/EdgeGroup.astro';
 import MiniMap from '../../components/MiniMap';
 import VizIsland from '../../components/VizIsland.astro';
-import TrailRibbon from '../../components/TrailRibbon.astro';
+import TrailRibbon from '../../components/TrailRibbon';
 import DepthToggle from '../../components/DepthToggle';
 import ReviewActions from '../../components/ReviewActions';
 import { allNodes, graph, nodeOrThrow } from '../../lib/content';
@@ -29,14 +29,10 @@ const bodies = DEPTHS.map((depth) => {
   return { depth, before, emphasis, after };
 });
 
-// A trail the reader hasn't walked yet is just this node. The real trail comes
-// from localStorage after hydration (ADR-0002: interaction state is never
-// authored), so the server renders the honest single-stop version.
-const trail = [node];
 ---
 
 <Base title={`${node.title} — theinfinity.ai`} description={node.bodies.intuition.slice(0, 155)}>
-  <Topbar trailCount={trail.length} />
+  <Topbar />
 
   {/*
     The depth scope (ADR-0005). `DepthToggle` writes `data-depth` here and the
@@ -113,5 +109,12 @@ const trail = [node];
     </aside>
   </div>
 
-  <TrailRibbon stops={trail} currentId={node.id} />
+  {/*
+    client:load, not idle. This island renders the ribbon itself, so deferring
+    it defers content — and it is what records the visit, which must happen on
+    arrival rather than whenever the browser gets round to it. Astro renders it
+    to HTML at build time, so the no-JavaScript reader still gets a ribbon
+    showing this node: the true trail for a browser that cannot remember one.
+  */}
+  <TrailRibbon client:load id={node.id} title={node.title} tier={node.tier} />
 </Base>
