@@ -10,7 +10,7 @@ import { join, resolve } from 'node:path';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { describe, expect, it } from 'vitest';
-import { validateContent } from '../../scripts/validate-content.mjs';
+import { validateContent, validateLayout } from '../../scripts/validate-content.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
 const schema = JSON.parse(readFileSync(join(ROOT, 'content/schema/node.schema.json'), 'utf8'));
@@ -141,5 +141,13 @@ describe('node.schema.json rejects', () => {
 describe('validate-content over the real /content/nodes', () => {
   it('reports no failures', () => {
     expect(validateContent()).toEqual([]);
+  });
+
+  it('the committed lemniscate layout still resolves', () => {
+    // The landing figure names concepts by id (#52). Rename or unpublish one
+    // and the front page would render a bead for a node that is gone — the
+    // failure nobody sees, because nobody reloads the landing page while
+    // editing content. Same checks the CLI runs, not a second copy.
+    expect(validateLayout()).toEqual([]);
   });
 });

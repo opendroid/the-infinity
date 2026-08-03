@@ -1,0 +1,78 @@
+{
+  "$comment": [
+    "The landing lemniscate: which concepts sit on the thread, and where (#52).",
+    "",
+    "ADR-0003 asks for a committed layout rather than a force simulation, so the figure is",
+    "byte-identical across builds and a node's position is a decision someone made rather than",
+    "an accident of a solver. Before this file, the landing page picked `allNodes.filter(tier)",
+    ".slice(0, 3)` — alphabetically first — while a comment above it claimed the layout was",
+    "already committed. The right lobe read Adam / AdamW / ALiBi.",
+    "",
+    "POSITION IS `t`, NOT x/y. Each node names a fraction along its lobe, and the renderer",
+    "resolves it through `pointAt` in src/lib/curve.ts — the same function that draws the",
+    "stroke. Raw coordinates would let a bead drift off the path the moment the curve was",
+    "nudged; a `t` cannot. The decision stays committed, the geometry stays derived.",
+    "",
+    "HOW A NODE EARNS A PLACE. The left lobe is gold and holds verified concepts; the right is",
+    "teal and holds frontier ones. That is the figure's whole argument — reviewed core flowing",
+    "into new growth — so tier decides the lobe and nothing else may.",
+    "",
+    "Within a lobe the bar is RECOGNITION, not centrality. This page has ten seconds to get a",
+    "stranger onto a node, so a name someone arriving cold already half-knows is worth more",
+    "than the node with the most edges. `causal-masking` outranks `attention` on connectivity",
+    "and would be a worse invitation.",
+    "",
+    "Three beads per lobe, because the handoff staggers the frontier pulse over three delays.",
+    "Labels go on the beads at t=0.2 and t=0.8 and never the one at t=0.5: mid-lobe is the",
+    "figure's widest point, and the stroke runs straight through the text there. That is four",
+    "labels, which is what the handoff asks for and as many as a 620px figure holds.",
+    "",
+    "Every id here is checked against /content/nodes by `validate:content`, which also rejects a",
+    "bead whose tier belongs to the other lobe, a t outside 0-1, and a duplicate.",
+    "",
+    "The left lobe is currently every verified concept there is. When the fourth is verified,",
+    "this file is where someone decides whether it displaces one."
+  ],
+  "left": [
+    {
+      "id": "feed-forward-network",
+      "t": 0.2,
+      "label": true
+    },
+    {
+      "id": "mixture-of-experts",
+      "t": 0.5,
+      "label": false
+    },
+    {
+      "id": "conditional-computation",
+      "t": 0.8,
+      "label": true
+    }
+  ],
+  "right": [
+    {
+      "id": "attention",
+      "t": 0.2,
+      "label": true
+    },
+    {
+      "id": "transformer-block",
+      "t": 0.5,
+      "label": false
+    },
+    {
+      "id": "kv-cache",
+      "t": 0.8,
+      "label": true
+    }
+  ],
+  "chips": [
+    "attention",
+    "transformer-block",
+    "kv-cache",
+    "mixture-of-experts",
+    "backpropagation",
+    "positional-encoding"
+  ]
+}

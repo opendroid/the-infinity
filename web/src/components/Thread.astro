@@ -5,12 +5,14 @@
 // (src/lib/curve.ts) rather than authored alongside it — the first version kept
 // two hand-written lists in sync by hope, and they drifted by up to 7px.
 import type { Tier } from '../lib/graph';
+import type { Curve } from '../lib/curve';
 import {
   LEMNISCATE,
   LEMNISCATE_CENTRE,
   LEMNISCATE_LEFT,
   LEMNISCATE_RIGHT,
   TRAIL,
+  pointAt,
   spread,
   toPathD,
 } from '../lib/curve';
@@ -18,6 +20,8 @@ import {
 interface Labelled {
   tier: Tier;
   label?: string;
+  /** Where on the lobe, 0–1. From the committed layout (#52). */
+  at?: number;
 }
 
 interface Props {
@@ -39,12 +43,20 @@ const stroke = toPathD(isLemniscate ? LEMNISCATE : TRAIL);
 // depth without introducing a second colour.
 const depthPass = isLemniscate ? toPathD(LEMNISCATE_LEFT) : null;
 
+// A node that names its own `at` is placed there; one that does not is spread
+// evenly. Both go through the curve module, so a bead cannot leave the stroke
+// however it was positioned — which is why the layout file commits a fraction
+// of the lobe rather than an x and a y (ADR-0003).
+const place = (curve: Curve, nodes: Labelled[]) =>
+  nodes.map((node, i) =>
+    node.at === undefined
+      ? { ...spread(curve, nodes.length)[i]!, ...node }
+      : { ...pointAt(curve, node.at), ...node },
+  );
+
 const placed = isLemniscate
-  ? [
-      ...spread(LEMNISCATE_LEFT, primary.length).map((pt, i) => ({ ...pt, ...primary[i]! })),
-      ...spread(LEMNISCATE_RIGHT, secondary.length).map((pt, i) => ({ ...pt, ...secondary[i]! })),
-    ]
-  : spread(TRAIL, primary.length).map((pt, i) => ({ ...pt, ...primary[i]! }));
+  ? [...place(LEMNISCATE_LEFT, primary), ...place(LEMNISCATE_RIGHT, secondary)]
+  : place(TRAIL, primary);
 
 const fill = (tier: Tier) => (tier === 'verified' ? '#E5B54A' : '#5FD4C4');
 
