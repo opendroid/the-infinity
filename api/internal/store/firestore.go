@@ -225,6 +225,51 @@ func (f *Firestore) EnqueueReview(ctx context.Context, r ReviewSubmission) error
 	return nil
 }
 
+// PendingReviews and PendingRequests read the two submission queues back for a
+// maintainer (#115). They live here, beside the Enqueue methods, so the keys
+// written and the tags read stay one edit apart.
+//
+// Oldest first: the queue is a backlog, and the flag that has been waiting
+// longest is the one worth seeing at the top. Ordering on a single field needs
+// no composite index, so this works against a fresh project with no setup.
+//
+// Neither is on the Store interface, and neither writes anything.
+func (f *Firestore) PendingReviews(ctx context.Context, limit int) ([]PendingReview, error) {
+	docs, err := f.client.Collection(CollReviews).
+		OrderBy("created_at", firestore.Asc).Limit(limit).Documents(ctx).GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("reading the review queue: %w", err)
+	}
+	out := make([]PendingReview, 0, len(docs))
+	for _, doc := range docs {
+		var r PendingReview
+		if err := doc.DataTo(&r); err != nil {
+			return nil, fmt.Errorf("decoding review %s: %w", doc.Ref.ID, err)
+		}
+		r.ID = doc.Ref.ID
+		out = append(out, r)
+	}
+	return out, nil
+}
+
+func (f *Firestore) PendingRequests(ctx context.Context, limit int) ([]PendingRequest, error) {
+	docs, err := f.client.Collection(CollRequests).
+		OrderBy("created_at", firestore.Asc).Limit(limit).Documents(ctx).GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("reading the concept-request queue: %w", err)
+	}
+	out := make([]PendingRequest, 0, len(docs))
+	for _, doc := range docs {
+		var r PendingRequest
+		if err := doc.DataTo(&r); err != nil {
+			return nil, fmt.Errorf("decoding concept request %s: %w", doc.Ref.ID, err)
+		}
+		r.ID = doc.Ref.ID
+		out = append(out, r)
+	}
+	return out, nil
+}
+
 // ReserveWrite increments the day's counter inside a transaction, so two
 // instances racing cannot both slip past the cap.
 func (f *Firestore) ReserveWrite(ctx context.Context, day string, limit int64) (bool, error) {

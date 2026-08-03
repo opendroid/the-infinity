@@ -244,6 +244,7 @@ exist yet.*
 | `cd api && make check` | Both — what CI runs |
 | `cd api && make docker-build` | Multi-stage distroless nonroot image |
 | `cd api && make publish` | Sync `/content/nodes` → Firestore (needs `GOOGLE_CLOUD_PROJECT`) |
+| `cd api && make queues` | Print pending flags and concept requests, oldest first. Read-only |
 | `cd api && make golden` | Regenerate `content/derived.golden.json` after a content change |
 | `cd web && firebase deploy --only hosting` | Deploy the built site |
 
