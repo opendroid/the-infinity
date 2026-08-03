@@ -1,8 +1,9 @@
 ---
 import SearchPanel from './SearchPanel';
-
-interface Props { trailCount?: number }
-const { trailCount = 0 } = Astro.props;
+import TrailCount from './TrailCount';
+// The count is read from localStorage after hydration, so it is no longer
+// something a page can be asked to know. It was a prop, and every page passed
+// either nothing or the length of a hardcoded one-element array (#114).
 ---
 <header class="flex items-center justify-between gap-3 border-b border-line px-[26px] py-3.5">
   <a href="/" class="font-display text-[14px] font-semibold text-starlight no-underline">
@@ -13,8 +14,6 @@ const { trailCount = 0 } = Astro.props;
     <a href="/concepts" class="font-mono text-[11px] uppercase tracking-[.12em] text-dust no-underline hover:text-starlight">
       Concepts
     </a>
-    <span class="font-mono text-[11px] text-dust">
-      trail · <b class:list={[trailCount > 0 ? 'text-thread' : 'text-dust']}>{trailCount} {trailCount === 1 ? 'node' : 'nodes'}</b>
-    </span>
+    <TrailCount client:idle />
   </nav>
 </header>
