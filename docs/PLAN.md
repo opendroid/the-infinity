@@ -36,7 +36,7 @@ GET  /v1/concepts/{id}/neighborhood     # 1-hop edges for mini-map
 GET  /v1/search?q=
 POST /v1/trails        GET /v1/trails/{slug}
 POST /v1/requests                        # missing-concept queue
-GET  /healthz
+GET  /-/health
 ```
 
 Node schema (`/content/schema/node.schema.json`): `id`, `title`, `domain[]`, `tier`, `bodies{intuition,engineer,math}`, `edges{requires[],unlocks[],adjacent[]}`, `viz{primitive,config}`, `citations[]`, `updated`.

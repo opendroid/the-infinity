@@ -92,16 +92,19 @@ Routes mount at **`/api/v1`**, not `/v1`. Firebase Hosting rewrites `/api/**` to
 work perfectly against the Cloud Run URL and 404 through the domain — a failure that only
 appears after the first Hosting deploy. See [ADR-0001](../docs/adr/0001-infrastructure.md).
 
-`GET /healthz` sits at the service root, outside the mount. Since only `/api/**` is
+`GET /-/health` sits at the service root, outside the mount. Since only `/api/**` is
 rewritten it is unreachable through the public domain — the right exposure for an
 operational endpoint, and why it is absent from the OpenAPI spec. It answers "is the
 process up", not "is the whole system well": it deliberately does not touch Firestore, so
 a database outage does not pull instances out of rotation.
 
-**It does not currently work.** On the Cloud Run URL it returns Google's 404 page, and the
-Cloud Run request log has no entry for it — the request never reaches the container, while
-`/nope` from the same session does and returns this service's structured 404. Tracked in
-#75.
+**It is not spelled `/healthz`, and that is the whole point.** Google Frontend answered
+`/healthz` itself and never forwarded it — Google's branded 404, and no entry in the Cloud
+Run request log, while `/nope` on the same router seconds later returned this service's
+structured `not_found` (#75). The `/-/` prefix is the Prometheus convention for exactly
+this: a namespace chosen to collide with nothing. `/livez` was rejected as too close to
+`/healthz` — if the interception matches well-known health paths, it would be caught by
+the same rule.
 
 ## Rate limiting
 
@@ -238,10 +241,20 @@ the check ADR-0001 exists for.
 
 Two things the first deploy turned up:
 
-- **`GET /healthz` returns Google's 404 page on the Cloud Run URL**, while an unmatched
-  path like `/nope` correctly returns this service's structured `not_found`. So the request
-  is not reaching the process — `/healthz` is registered on the same router whose
-  `NotFound` handler answers `/nope`. Under investigation; it does not affect the API.
+- **`GET /healthz` returned Google's 404 page on the Cloud Run URL**, while an unmatched
+  path like `/nope` correctly returned this service's structured `not_found` — so the
+  request was not reaching the process at all. Renamed to `/-/health` (#75). **Confirm
+  against the deployed service after a deploy**, because the interception happens at
+  Google Frontend and cannot be reproduced locally:
+
+  ```zsh
+  curl -s "$URL/-/health"   # want {"status":"ok"}
+  curl -s "$URL/healthz"    # want Google's 404 — proof the interception is real
+  ```
+
+  A path that reaches the container returns JSON either way; a path Google answers returns
+  HTML. That difference is the whole test, and it works before the deploy too — any
+  unmatched path that reaches us gives our `not_found`.
 - **The `X-Forwarded-For` chain was measured and the rate limiter was wrong.** It keyed on
   Google's edge, so every visitor shared one bucket. Fixed and confirmed live — see #29 and
   the rate-limiting section above.

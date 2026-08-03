@@ -1,6 +1,6 @@
 // Command server is the theinfinity.ai API.
 //
-// It serves /api/v1/** and /healthz. Routes mount at /api/v1 because Firebase
+// It serves /api/v1/** and /-/health. Routes mount at /api/v1 because Firebase
 // Hosting rewrites /api/** to Cloud Run preserving the full path — see ADR-0001
 // and internal/router.
 package main

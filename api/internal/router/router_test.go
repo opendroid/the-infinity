@@ -89,7 +89,11 @@ func TestRoutes(t *testing.T) {
 		wantStatus int
 		wantCode   string // expected structured error code, empty for success
 	}{
-		{name: "healthz", method: http.MethodGet, path: "/healthz", wantStatus: http.StatusOK},
+		{name: "health", method: http.MethodGet, path: "/-/health", wantStatus: http.StatusOK},
+		// The old path must NOT answer. It was renamed because Google Frontend
+		// intercepted it (#75), and leaving it registered would keep a route
+		// alive that passes here and never runs in production.
+		{name: "the old healthz is gone", method: http.MethodGet, path: "/healthz", wantStatus: http.StatusNotFound, wantCode: "not_found"},
 
 		{name: "concept found", method: http.MethodGet, path: "/api/v1/concepts/mixture-of-experts", wantStatus: http.StatusOK},
 		{name: "concept missing", method: http.MethodGet, path: "/api/v1/concepts/nope", wantStatus: http.StatusNotFound, wantCode: "not_found"},

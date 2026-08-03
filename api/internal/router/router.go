@@ -39,9 +39,18 @@ type Options struct {
 // Serving /v1 would work against the Cloud Run URL and 404 through the domain —
 // a failure that appears only after the first Hosting deploy. See ADR-0001.
 //
-// /healthz stays at the root, outside the mount. Only /api/** is rewritten, so
-// it is reachable on the Cloud Run URL but not through the public domain, which
-// is the right exposure for an operational endpoint.
+// The health endpoint stays at the root, outside the mount. Only /api/** is
+// rewritten, so it is reachable on the Cloud Run URL but not through the public
+// domain, which is the right exposure for an operational endpoint.
+//
+// It is `/-/health` and not `/healthz` because Google Frontend answered
+// /healthz itself and never forwarded it: the request returned Google's branded
+// 404 and appeared nowhere in the Cloud Run request log, while /nope — an
+// unmatched path on this same router, seconds later — returned our structured
+// not_found (#75). The `/-/` prefix is the Prometheus convention for exactly
+// this: a namespace chosen to collide with nothing. /livez was the other
+// candidate and was rejected as too close to /healthz — if the interception
+// matches well-known health paths, it would be caught by the same rule.
 func New(s store.Store, opts Options) http.Handler {
 	if opts.ReadLimit.PerMinute == 0 {
 		opts.ReadLimit = ratelimit.DefaultReadConfig()
@@ -65,7 +74,7 @@ func New(s store.Store, opts Options) http.Handler {
 	r := chi.NewRouter()
 	r.Use(apihttp.Recoverer, apihttp.Timeout)
 
-	r.Get("/healthz", healthz)
+	r.Get("/-/health", health)
 
 	r.Route("/api/v1", func(v1 chi.Router) {
 		// Every read is an unauthenticated Firestore read and a Cloud Run
@@ -102,9 +111,9 @@ func New(s store.Store, opts Options) http.Handler {
 	return r
 }
 
-// healthz answers "is the process up", not "is the whole system well" — it
+// health answers "is the process up", not "is the whole system well" — it
 // deliberately does not touch Firestore, so a database outage does not pull
 // instances out of rotation.
-func healthz(w http.ResponseWriter, _ *http.Request) {
+func health(w http.ResponseWriter, _ *http.Request) {
 	apihttp.WriteJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }

@@ -6,7 +6,7 @@
 # No rule exceptions. The two warnings this file was originally written to
 # suppress were both fixed in the spec instead: the local server URL is
 # templated, and GET /api/v1/stats gained a real 429 because it genuinely can be
-# rate limited. GET /healthz was removed from the surface rather than given a
+# rate limited. The health endpoint was removed from the surface rather than given a
 # 4XX it will never return.
 extends:
   - recommended
