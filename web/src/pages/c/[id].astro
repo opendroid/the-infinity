@@ -102,9 +102,9 @@ const bodies = DEPTHS.map((depth) => {
     </main>
 
     <aside class="border-l border-line bg-panel-wash px-6 py-[30px] max-[760px]:border-l-0 max-[760px]:border-t">
-      <EdgeGroup type="requires" edges={node.edges.requires} />
-      <EdgeGroup type="unlocks" edges={node.edges.unlocks} />
-      <EdgeGroup type="adjacent" edges={node.edges.adjacent} />
+      <EdgeGroup type="requires" edges={node.edges.requires} from={`/c/${node.id}`} />
+      <EdgeGroup type="unlocks" edges={node.edges.unlocks} from={`/c/${node.id}`} />
+      <EdgeGroup type="adjacent" edges={node.edges.adjacent} from={`/c/${node.id}`} />
       <MiniMap id={node.id} initial={map} client:idle />
     </aside>
   </div>

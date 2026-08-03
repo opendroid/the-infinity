@@ -3,8 +3,8 @@
 // "the graph never dead-ends" means saying so when it does.
 import type { EdgeType, ResolvedEdge } from '../lib/graph';
 import EdgeRow from './EdgeRow.astro';
-interface Props { type: EdgeType; edges: ResolvedEdge[] }
-const { type, edges } = Astro.props;
+interface Props { type: EdgeType; edges: ResolvedEdge[]; from?: string }
+const { type, edges, from } = Astro.props;
 const ARROW: Record<EdgeType, string> = { requires: '◂', unlocks: '▸', adjacent: '↔' };
 const LABEL: Record<EdgeType, string> = { requires: 'Requires', unlocks: 'Unlocks', adjacent: 'Adjacent' };
 
@@ -32,7 +32,16 @@ const leading = type === 'requires';
     ) : (
       <div class="rounded-row border border-dashed border-line px-[11px] py-2.5">
         <p class="text-[13px] text-dust">{EMPTY[type]}</p>
-        <a href="/request" class="mt-1.5 inline-block font-mono text-[10px] uppercase tracking-[.14em] text-thread">
+        {/*
+          `?from` so the queued suggestion says which page it came from —
+          `make queues` prints the referrer, and "an adjacent gap" is only
+          actionable if you know where. Until #53 this pointed at a route that
+          did not exist, on nearly every concept page.
+        */}
+        <a
+          href={from ? `/request?from=${encodeURIComponent(from)}` : '/request'}
+          class="mt-1.5 inline-block font-mono text-[10px] uppercase tracking-[.14em] text-thread"
+        >
           Suggest an edge
         </a>
       </div>

@@ -1,4 +1,18 @@
 ---
+// THERE IS DELIBERATELY NO "LIVE GRAPH OFFLINE" STRIP HERE.
+//
+// The handoff specifies one above this bar, with two dashed cards explaining
+// that the mini-map is "hidden, not broken" and that search "falls back to a
+// plain form post to /search". Neither is true of what shipped: the mini-map
+// keeps its build-time neighbourhood and stays correct, and search reads a
+// static index from the CDN and never touches the API at all (ADR-0003).
+//
+// So the strip would announce a degradation the reader does not have, and its
+// explanations would describe behaviour the site does not exhibit — the exact
+// defect #111, #114 and #53 exist to remove, in the surface meant to reassure.
+// Every write that genuinely fails says so where it failed instead, and /t is
+// the one route with real offline copy because it is the one route that
+// actually needs the API. Revisit this if a surface ever degrades silently.
 import SearchPanel from './SearchPanel';
 import TrailCount from './TrailCount';
 // The count is read from localStorage after hydration, so it is no longer
