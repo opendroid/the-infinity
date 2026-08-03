@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { postQueue } from '../lib/submit';
+import LiveRegion from './LiveRegion';
 
 /**
  * The form behind `/request` — the destination the empty edge group has been
@@ -42,6 +43,9 @@ export function contextFrom(search: string, referrer: string): string {
   }
 }
 
+const QUEUED =
+  'Noted. It joins the queue for a human to read — nothing has been added to the graph yet, and it grows by someone deciding it should.';
+
 export default function RequestForm() {
   const [mounted, setMounted] = useState(false);
   const [name, setName] = useState('');
@@ -70,55 +74,54 @@ export default function RequestForm() {
 
   if (!mounted) return null;
 
-  if (state.name === 'queued') {
-    return (
-      <p
-        className="mt-5 rounded-control border border-line bg-nebula px-3.5 py-3 text-[14px] text-starlight"
-        role="status"
-      >
-        Noted. It joins the queue for a human to read — nothing has been added to the graph yet, and it
-        grows by someone deciding it should.
-      </p>
-    );
-  }
+  const queued = state.name === 'queued' ? QUEUED : '';
 
   return (
     <>
-      {context !== '' && (
+      {/* Present before it has anything to say, so the change is announced (#137). */}
+      <LiveRegion
+        message={queued}
+        takeFocus
+        className="mt-5 rounded-control border border-line bg-nebula px-3.5 py-3 text-[14px] text-starlight"
+      />
+
+      {queued === '' && context !== '' && (
         <p className="mt-4 font-mono text-[11px] uppercase tracking-[.14em] text-dust">
           From <span className="text-starlight">{context}</span>
         </p>
       )}
 
-      <form className="mt-4 flex flex-wrap gap-2.5" onSubmit={(e) => void submit(e)}>
-        <label className="sr-only" htmlFor="request-name">
-          What is missing?
-        </label>
-        <input
-          id="request-name"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="A concept, or an edge — “speculative decoding ↔ kv-cache”"
-          maxLength={MAX_NAME}
-          required
-          className="min-w-0 flex-1 rounded-control border border-line bg-void px-3 py-2.5 text-[14px] text-starlight placeholder:text-dust"
-        />
-        <button
-          type="submit"
-          disabled={state.name === 'sending'}
-          className="rounded-control bg-thread px-4 py-2.5 text-[14px] font-medium text-void disabled:opacity-60"
-        >
-          {state.name === 'sending' ? 'Sending…' : 'Send it'}
-        </button>
-      </form>
-
-      {state.name === 'error' && (
-        // Not carried by colour: the text says what happened and what to do.
-        <p className="mt-2.5 text-[13.5px] text-starlight" role="alert">
-          {state.message}
-        </p>
+      {queued === '' && (
+        <form className="mt-4 flex flex-wrap gap-2.5" onSubmit={(e) => void submit(e)}>
+          <label className="sr-only" htmlFor="request-name">
+            What is missing?
+          </label>
+          <input
+            id="request-name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.currentTarget.value)}
+            placeholder="A concept, or an edge — “speculative decoding ↔ kv-cache”"
+            maxLength={MAX_NAME}
+            required
+            className="min-w-0 flex-1 rounded-control border border-line bg-void px-3 py-2.5 text-[14px] text-starlight placeholder:text-dust"
+          />
+          <button
+            type="submit"
+            disabled={state.name === 'sending'}
+            className="rounded-control bg-thread px-4 py-2.5 text-[14px] font-medium text-void disabled:opacity-60"
+          >
+            {state.name === 'sending' ? 'Sending…' : 'Send it'}
+          </button>
+        </form>
       )}
+
+      {/* Not carried by colour: the text says what happened and what to do. */}
+      <LiveRegion
+        assertive
+        message={state.name === 'error' ? state.message : ''}
+        className="mt-2.5 text-[13.5px] text-starlight"
+      />
     </>
   );
 }

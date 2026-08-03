@@ -1,6 +1,10 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { apiUrl } from '../lib/api';
 import { postQueue } from '../lib/submit';
+import LiveRegion from './LiveRegion';
+
+const REQUESTED =
+  'Requested. It joins the queue for review — the graph grows by someone deciding it should.';
 
 /**
  * The 404's interactive half: the slug that was asked for, the concepts nearest
@@ -110,14 +114,16 @@ export default function RequestConcept() {
         )}
       </p>
 
-      {!mounted ? null : submission.state === 'queued' ? (
-        <p
+      {/* Present before it has anything to say, so the change is announced (#137). */}
+      {mounted && (
+        <LiveRegion
+          message={submission.state === 'queued' ? REQUESTED : ''}
+          takeFocus
           className="mt-5 rounded-control border border-line bg-nebula px-3.5 py-3 text-[14px] text-starlight"
-          role="status"
-        >
-          Requested. It joins the queue for review — the graph grows by someone deciding it should.
-        </p>
-      ) : (
+        />
+      )}
+
+      {!mounted || submission.state === 'queued' ? null : (
         <form className="mt-5 flex flex-wrap gap-2.5" onSubmit={submit}>
           <label className="sr-only" htmlFor="concept-name">
             Name the concept you were looking for
@@ -142,11 +148,13 @@ export default function RequestConcept() {
         </form>
       )}
 
-      {submission.state === 'error' && (
-        // Not carried by colour alone: the text says what happened.
-        <p className="mt-2.5 text-[13.5px] text-starlight" role="alert">
-          {submission.message}
-        </p>
+      {/* Not carried by colour alone: the text says what happened. */}
+      {mounted && (
+        <LiveRegion
+          assertive
+          message={submission.state === 'error' ? submission.message : ''}
+          className="mt-2.5 text-[13.5px] text-starlight"
+        />
       )}
 
       {nearest.length > 0 && (

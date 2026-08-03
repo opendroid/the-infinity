@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { postQueue } from '../lib/submit';
+import LiveRegion from './LiveRegion';
 
 /**
  * The two actions on a frontier node's provenance block.
@@ -61,20 +62,20 @@ export default function ReviewActions({ conceptId }: Props) {
 
   if (!mounted) return null;
 
-  if (state.name === 'queued') {
-    return (
-      <p
-        className="mt-4 rounded-control border border-line bg-nebula px-3.5 py-3 text-[14px] text-starlight"
-        role="status"
-      >
-        {confirmation(state.kind)}
-      </p>
-    );
-  }
+  // The confirmation is a change of text inside a region that was already
+  // there, never a region that arrives with its text (#137) — and it takes
+  // focus, because the button the reader pressed is about to be unmounted.
+  const confirmed = state.name === 'queued' ? confirmation(state.kind) : '';
 
   return (
     <div className="mt-4">
-      {state.name === 'flagging' || state.name === 'sending' ? (
+      <LiveRegion
+        message={confirmed}
+        takeFocus
+        className="rounded-control border border-line bg-nebula px-3.5 py-3 text-[14px] text-starlight"
+      />
+
+      {confirmed !== '' ? null : state.name === 'flagging' || state.name === 'sending' ? (
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -134,12 +135,12 @@ export default function ReviewActions({ conceptId }: Props) {
         </div>
       )}
 
-      {state.name === 'error' && (
-        // Not carried by colour: the text says what happened and what to do.
-        <p className="mt-2.5 text-[13.5px] text-starlight" role="alert">
-          {state.message}
-        </p>
-      )}
+      {/* Not carried by colour: the text says what happened and what to do. */}
+      <LiveRegion
+        assertive
+        message={state.name === 'error' ? state.message : ''}
+        className="mt-2.5 text-[13.5px] text-starlight"
+      />
     </div>
   );
 }
