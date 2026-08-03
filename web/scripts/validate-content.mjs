@@ -22,6 +22,7 @@ import addFormats from 'ajv-formats';
 
 const ROOT = resolve(process.cwd(), '..');
 const NODES_DIR = join(ROOT, 'content/nodes');
+const LAYOUT_PATH = join(ROOT, 'content/layout/lemniscate.json');
 const SCHEMA_PATH = join(ROOT, 'content/schema/node.schema.json');
 
 /** @returns {{file: string, errors: string[]}[]} one entry per file with problems */
@@ -109,6 +110,68 @@ export function validateContent() {
   return failures;
 }
 
+/**
+ * The committed lemniscate layout against the concepts it names (#52).
+ *
+ * Lives here rather than beside the renderer in src/lib/layout.ts because it is
+ * content validation — /content/layout against /content/nodes — and because a
+ * second copy of the rules is what this file exists to prevent. The renderer
+ * throws on a missing id; this says which line to change.
+ *
+ * @returns {string[]} one sentence per problem; empty means the layout is fine
+ */
+export function validateLayout() {
+  let layout;
+  try {
+    layout = JSON.parse(readFileSync(LAYOUT_PATH, 'utf8'));
+  } catch (err) {
+    return [`cannot read content/layout/lemniscate.json: ${err.message}`];
+  }
+
+  const tierOf = (node) => (node.review ? 'verified' : 'frontier');
+  const nodes = new Map(
+    readdirSync(NODES_DIR)
+      .filter((f) => f.endsWith('.json'))
+      .map((f) => JSON.parse(readFileSync(join(NODES_DIR, f), 'utf8')))
+      .map((n) => [n.id, n]),
+  );
+
+  const errors = [];
+  for (const [lobe, tier] of [
+    ['left', 'verified'],
+    ['right', 'frontier'],
+  ]) {
+    const seen = new Set();
+    for (const bead of layout[lobe] ?? []) {
+      const node = nodes.get(bead.id);
+      if (!node) {
+        errors.push(`${lobe}: "${bead.id}" is not a concept in /content/nodes`);
+        continue;
+      }
+      // Tier decides the lobe and nothing else may: the figure's argument is
+      // reviewed core flowing into new growth, so a teal bead on the gold lobe
+      // would break the colour rule on the front page.
+      if (tierOf(node) !== tier) {
+        errors.push(`${lobe}: "${bead.id}" is ${tierOf(node)}, but this lobe is ${tier}`);
+      }
+      if (typeof bead.t !== 'number' || bead.t < 0 || bead.t > 1) {
+        errors.push(`${lobe}: "${bead.id}" has t=${bead.t}; it must be a fraction of the lobe, 0 to 1`);
+      }
+      if (seen.has(bead.id)) errors.push(`${lobe}: "${bead.id}" appears twice`);
+      seen.add(bead.id);
+    }
+  }
+
+  const chips = new Set();
+  for (const id of layout.chips ?? []) {
+    if (!nodes.has(id)) errors.push(`chips: "${id}" is not a concept in /content/nodes`);
+    if (chips.has(id)) errors.push(`chips: "${id}" appears twice`);
+    chips.add(id);
+  }
+
+  return errors;
+}
+
 export function countNodes() {
   return readdirSync(NODES_DIR).filter((f) => f.endsWith('.json')).length;
 }
@@ -116,8 +179,16 @@ export function countNodes() {
 // CLI entry — only when run directly, so importing this stays side-effect free.
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const failures = validateContent();
-  if (failures.length === 0) {
-    console.log(`✓ ${countNodes()} node(s) valid`);
+  const layoutErrors = validateLayout();
+  if (layoutErrors.length > 0) {
+    console.error('\n✗ content/layout/lemniscate.json');
+    for (const e of layoutErrors) console.error(`    ${e}`);
+  }
+  if (failures.length === 0 && layoutErrors.length === 0) {
+    console.log(`✓ ${countNodes()} node(s) valid, lemniscate layout resolves`);
+  } else if (failures.length === 0) {
+    console.error('\nthe lemniscate layout is stale');
+    process.exit(1);
   } else {
     for (const { file, errors } of failures) {
       console.error(`\n✗ ${file}`);

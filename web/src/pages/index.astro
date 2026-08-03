@@ -5,26 +5,29 @@
 import Base from '../layouts/Base.astro';
 import Thread from '../components/Thread.astro';
 import { allNodes, stats } from '../lib/content';
-import type { Tier } from '../lib/graph';
+import { placeLayout, readLayout } from '../lib/layout';
 
 const { concepts, grewThisWeek } = stats();
 
-// Bead positions come from the curve itself (src/lib/curve.ts), so they cannot
-// drift off the stroke. Verified nodes take the left lobe and frontier the
-// right, so the figure reads as "reviewed core → new growth".
+// WHICH concepts sit on the thread is a committed decision, not a slice of the
+// alphabet: /content/layout/lemniscate.json, per ADR-0003. That file also says
+// how a node earns a place. WHERE each one sits comes from the curve module, so
+// a bead cannot drift off the stroke (#52).
 //
-// Which concepts appear is a committed static layout (ADR-0003) — deterministic
-// from the content, never a force simulation at load.
-const lobe = (tier: Tier) =>
-  allNodes
-    .filter((n) => n.tier === tier)
-    .slice(0, 3)
-    .map((n) => ({ tier, label: n.title }));
+// Verified takes the left lobe and frontier the right, so the figure reads as
+// "reviewed core → new growth". `validate:content` fails the PR if a bead names
+// a concept that does not exist, or one whose tier belongs to the other lobe.
+const layout = placeLayout(readLayout(), allNodes);
 
-const verified = lobe('verified');
-const frontier = lobe('frontier');
+const bead = (b: (typeof layout.left)[number]) => ({
+  tier: b.tier,
+  at: b.t,
+  ...(b.label ? { label: b.title } : {}),
+});
 
-const chips = allNodes.slice(0, 6);
+const verified = layout.left.map(bead);
+const frontier = layout.right.map(bead);
+const chips = layout.chips;
 ---
 
 <Base
