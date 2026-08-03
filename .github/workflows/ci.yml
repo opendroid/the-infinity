@@ -145,6 +145,23 @@ jobs:
       - name: Docker build
         run: docker build --platform linux/amd64 -t the-infinity-api:ci .
 
+      # A build proves the image assembles, not that it runs. distroless/static
+      # has no shell and no libc, so a change that quietly turned CGO back on
+      # would produce an image that cannot exec — and the build above would
+      # still be green. Starting it is the cheapest proof that the binary is
+      # still static and the entrypoint still resolves.
+      #
+      # It is expected to exit non-zero: with no GOOGLE_CLOUD_PROJECT the server
+      # refuses to start, by design, so that a missing project id is a failure
+      # to start rather than a 500 on the first request. That refusal is the
+      # success condition here — reaching it means the binary ran.
+      - name: The image runs
+        run: |
+          set -euo pipefail
+          out="$(docker run --rm the-infinity-api:ci 2>&1 || true)"
+          printf '%s\n' "$out"
+          grep -q 'GOOGLE_CLOUD_PROJECT is not set' <<<"$out"
+
   contracts:
     name: contracts
     runs-on: ubuntu-latest
