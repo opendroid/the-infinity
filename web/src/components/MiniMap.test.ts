@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { drawableLinks, isNeighborhood } from './MiniMap';
+import { drawableLinks, hitRadius, isNeighborhood } from './MiniMap';
 import type { Neighborhood } from '../lib/graph';
 
 const valid: Neighborhood = {
@@ -88,5 +88,43 @@ describe('drawableLinks', () => {
       links: [{ from: 'ffn', to: 'moe', type: 'requires', reviewed: false }],
     };
     expect(drawableLinks(unreviewed)[0]?.reviewed).toBe(false);
+  });
+});
+
+describe('hitRadius keeps the boundary between targets at the midpoint', () => {
+  // The API spaces a column as 132 * (i+1)/(n+1). The node count is whatever
+  // the concept has — three neighbours on mixture-of-experts, six on
+  // self-attention — so the spacing is not a constant to design against.
+  const column = (n: number) =>
+    Array.from({ length: n }, (_, i) => ({ x: 40, y: Math.round((132 * (i + 1)) / (n + 1)) }));
+
+  it('uses the full radius when nodes are far apart', () => {
+    // Today's densest column is four (causal-masking), 26px apart.
+    expect(hitRadius(column(4))).toBe(11);
+  });
+
+  it('shrinks rather than overlap once a column gets dense', () => {
+    // Six in a column sit ~19px apart, so r=11 overlaps. Verified in a browser
+    // that this does NOT mislabel the dots themselves — it decides the region
+    // between them by draw order instead of by proximity.
+    const r = hitRadius(column(6));
+    expect(r).toBeLessThan(11);
+    expect(r * 2).toBeLessThanOrEqual(132 / 7 + 0.01);
+  });
+
+  it('never lets two targets overlap, at any count', () => {
+    for (let n = 1; n <= 12; n++) {
+      const points = column(n);
+      const r = hitRadius(points);
+      for (let i = 1; i < points.length; i++) {
+        const gap = points[i]!.y - points[i - 1]!.y;
+        expect(2 * r).toBeLessThanOrEqual(gap + 0.01);
+      }
+    }
+  });
+
+  it('handles a lone node, where there is nothing to collide with', () => {
+    expect(hitRadius([{ x: 120, y: 66 }])).toBe(11);
+    expect(hitRadius([])).toBe(11);
   });
 });
