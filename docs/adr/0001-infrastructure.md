@@ -70,9 +70,14 @@ against the raw Cloud Run URL, and in local development. The alternative —
 `http.StripPrefix` — gives the service two different paths for the same route depending on
 how it is reached, which is worse to debug for no gain.
 
-`/healthz` stays at the service root. Since only `/api/**` is rewritten, it is reachable
-on the Cloud Run URL but **not** through the public domain, which is the right exposure for
-an operational endpoint.
+The health endpoint stays at the service root. Since only `/api/**` is rewritten, it is
+reachable on the Cloud Run URL but **not** through the public domain, which is the right
+exposure for an operational endpoint.
+
+> Amended after the first deploy: the path is `/-/health`, not `/healthz` as originally
+> written. Google Frontend answered `/healthz` before it reached the container (#75). The
+> decision — an operational endpoint at the service root, outside the mount — is unchanged;
+> only its spelling is.
 
 ### Cloud Run is publicly invokable
 

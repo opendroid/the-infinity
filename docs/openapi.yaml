@@ -16,10 +16,10 @@ info:
     handoff's `API.md` says `Base: /v1`; taken literally, every request 404s in production
     while working fine against the Cloud Run URL directly. See ADR-0001.
 
-    **`GET /healthz` is not here.** It is an operational endpoint on the container, served
+    **`GET /-/health` is not here.** It is an operational endpoint on the container, served
     at the service root and reachable only on the Cloud Run URL — Hosting rewrites `/api/**`
     and nothing else, so it is not part of this surface. It is documented in
-    [`/api/README.md`](../api/README.md).
+    [`/api/README.md`](../api/README.md), including why it is not spelled `/healthz`.
 
     **`GET /api/v1/search` is deliberately absent.** Search ships as a static index matched
     client-side until the graph passes roughly 5–10k nodes — faster, free per query, and it

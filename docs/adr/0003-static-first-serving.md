@@ -93,7 +93,7 @@ After the above, the v1 surface that a page depends on at runtime is small:
 | `GET /v1/stats` | Landing pulse line refresh | Build-time values stand |
 | `POST /v1/trails`, `GET /v1/trails/{slug}` | Share and view trails | Share queues in localStorage |
 | `POST /v1/requests`, `POST /v1/reviews` | 404 form, provenance actions | Queue and retry |
-| `GET /healthz` | Cloud Run | — |
+| `GET /-/health` | Cloud Run | — |
 
 Every read path degrades to something that still works. No page has a hard dependency on
 a warm instance.

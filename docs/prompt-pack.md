@@ -79,7 +79,7 @@ Read CLAUDE.md, /docs/PLAN.md, and the fake nodes in /content/nodes/.
    Make the 5 fake nodes validate; fix them if needed.
 2. Write /docs/openapi.yaml for v1:
    GET /v1/concepts/{id}, GET /v1/concepts/{id}/neighborhood, GET /v1/search,
-   POST+GET /v1/trails, POST /v1/requests, GET /healthz.
+   POST+GET /v1/trails, POST /v1/requests, GET /-/health.
    Structured error object, versioned paths, examples for every operation.
 3. Add a schema-validation script (node, no deps beyond ajv) wired into package.json.
 4. ADRs 0002 (content-as-code + trust tiers) and 0003 (static-first serving).

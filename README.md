@@ -18,7 +18,7 @@ path you took through the graph, and turn it into something you can share.
 | Path | What |
 |---|---|
 | [`/web`](web) | Astro + TypeScript frontend, React islands, Tailwind — *stub* |
-| [`/api`](api) | Go service for Cloud Run — *stub, serves `/healthz`* |
+| [`/api`](api) | Go service for Cloud Run — *stub, serves `/-/health`* |
 | [`/content/nodes`](content/nodes) | Concept nodes as JSON — the canonical graph |
 | [`/content/schema`](content/schema) | JSON Schema the nodes are validated against |
 | [`/docs`](docs) | [Build plan](docs/PLAN.md), [prompt pack](docs/prompt-pack.md), [design](docs/design), [ADRs](docs/adr) |
