@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { apiUrl } from '../lib/api';
+import { postQueue } from '../lib/submit';
 
 /**
  * The 404's interactive half: the slug that was asked for, the concepts nearest
@@ -87,38 +88,14 @@ export default function RequestConcept() {
     }
 
     setSubmission({ state: 'sending' });
-    try {
-      const res = await fetch(apiUrl('/requests'), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), referrer: window.location.pathname }),
-      });
-
-      if (res.status === 202) {
-        setSubmission({ state: 'queued' });
-        return;
-      }
-      // Each rejection means something different to a reader, and a single
-      // "something went wrong" would hide the one they can act on.
-      if (res.status === 429) {
-        const retry = Number(res.headers.get('Retry-After') ?? '0');
-        setSubmission({
-          state: 'error',
-          message:
-            retry > 0
-              ? `Too many requests just now. Try again in ${retry} seconds.`
-              : 'Too many requests just now. Try again shortly.',
-        });
-        return;
-      }
-      if (res.status === 400) {
-        setSubmission({ state: 'error', message: 'That name was not accepted. Try a shorter one.' });
-        return;
-      }
-      setSubmission({ state: 'error', message: 'The request could not be sent. The graph is still here.' });
-    } catch {
-      setSubmission({ state: 'error', message: 'No connection. The request was not sent.' });
-    }
+    // Same mapping as the review actions: the reason-per-status lives in one
+    // place so the two public writes cannot drift on what they tell a reader.
+    const result = await postQueue(
+      '/requests',
+      { name: name.trim(), referrer: window.location.pathname },
+      'That name was not accepted. Try a shorter one.',
+    );
+    setSubmission(result.ok ? { state: 'queued' } : { state: 'error', message: result.message });
   }
 
   return (
