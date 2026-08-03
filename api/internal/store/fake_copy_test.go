@@ -155,7 +155,7 @@ func fill(v reflect.Value) {
 		v.SetFloat(1)
 	case reflect.Bool:
 		v.SetBool(true)
-	case reflect.Ptr:
+	case reflect.Pointer:
 		v.Set(reflect.New(v.Type().Elem()))
 		fill(v.Elem())
 	case reflect.Slice:
@@ -185,7 +185,7 @@ func assertDistinct(t *testing.T, a, b reflect.Value, path string) {
 	t.Helper()
 
 	switch a.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		if a.IsNil() || b.IsNil() {
 			return
 		}
