@@ -142,7 +142,17 @@ Every file must satisfy the schema exactly:
   intuition reads cold in 30 seconds. engineer says what implementing it costs, including
   the part that surprises people. math gives the formulation with its symbols defined.
   The three are the SAME concept at three depths, not three different topics.
+- **Notation: `_` is a subscript and `^` a superscript, in every body.** Each takes a run
+  of letters and digits — `x_t`, `d_model`, `S_ij` is one subscript — or a braced group,
+  which may nest: `m_{t−1}`, `x_{<t}`, `ℝ^{|V|×d_model}`. Use the braces whenever the
+  subscript is not a plain run, and a Unicode glyph where one exists for the whole
+  construct: `β₁ ᵀ √ ∂ Σ Π ∈ ℝ ≈ ∝ −∞ ⁻⁸`. Do not mix the two inside one symbol. A `{`
+  that does not follow a marker is an ordinary character, so `∈ {0,1}` is fine; write
+  `\_ \^ \{ \}` for a literal marker. It renders to real `<sub>`/`<sup>` (ADR-0009), so
+  `x_t` on screen is *x* with a subscript *t* — not the three characters you typed.
 - `emphasis` values must be VERBATIM substrings of the matching body. Copy, do not retype.
+  It is sliced out of the body before notation is parsed, so a phrase must not begin or
+  end inside a `_{…}` group.
 - `viz.primitive` must be a name in the schema's enum. Read /content/schema/README.md for
   what each draws AND WHICH DIRECTION ITS CONTROL RUNS. Do not invent a name, and do not
   pick a primitive whose picture would contradict your caption — if the concept runs

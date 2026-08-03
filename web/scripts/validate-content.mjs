@@ -7,6 +7,12 @@
  * run exactly these checks rather than a second copy that drifts.
  *
  *   node scripts/validate-content.mjs      # CLI, exits 1 on any failure
+ *
+ * Notation (`_`/`^`, ADR-0009) is NOT checked here. Its validator lives beside
+ * its parser in src/lib/notation.ts, which this file cannot import — and a
+ * second copy of the grammar is precisely the drift this file exists to avoid.
+ * `src/lib/notation.test.ts` runs it over every body, so a malformed marker
+ * fails `npm test` and the same CI job.
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { basename, join, resolve } from 'node:path';
