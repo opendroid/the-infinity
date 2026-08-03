@@ -90,6 +90,9 @@ func TestRoutes(t *testing.T) {
 		wantCode   string // expected structured error code, empty for success
 	}{
 		{name: "health", method: http.MethodGet, path: "/-/health", wantStatus: http.StatusOK},
+		// `curl -I` sends HEAD, and it was the first probe run against the
+		// deployed service — it got a 405 (#75).
+		{name: "health answers HEAD", method: http.MethodHead, path: "/-/health", wantStatus: http.StatusOK},
 		// The old path must NOT answer. It was renamed because Google Frontend
 		// intercepted it (#75), and leaving it registered would keep a route
 		// alive that passes here and never runs in production.
