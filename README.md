@@ -18,7 +18,7 @@ path you took through the graph and turn it into something you can share.
 **This is a learning project and a portfolio piece.** It has no users to answer to and no
 revenue to chase, which is the point: it is built the way I would want to build something
 at work if the schedule ever allowed it. Where craft and velocity disagree here, craft
-wins. Fifty-seven concepts today, fifty-four of them read by a human.
+wins. Eighty-nine concepts today, eighty-six of them read by a human.
 
 ## Try it
 
