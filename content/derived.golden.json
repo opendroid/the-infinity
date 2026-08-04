@@ -166,37 +166,37 @@
           {
             "id": "beam-search",
             "title": "Beam Search",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "continuous-batching",
             "title": "Continuous Batching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "nucleus-sampling",
             "title": "Nucleus Sampling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "prefill-and-decode",
             "title": "Prefill and Decode",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "speculative-decoding",
             "title": "Speculative Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "top-k-sampling",
             "title": "Top-k Sampling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -266,7 +266,7 @@
           {
             "id": "continuous-batching",
             "title": "Continuous Batching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -276,7 +276,7 @@
       "id": "beam-search",
       "title": "Beam Search",
       "domain": "Inference / Decoding",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -429,7 +429,7 @@
       "id": "continuous-batching",
       "title": "Continuous Batching",
       "domain": "Inference / Serving",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -450,7 +450,7 @@
           {
             "id": "paged-attention",
             "title": "Paged Attention",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -863,13 +863,13 @@
           {
             "id": "paged-attention",
             "title": "Paged Attention",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "prefill-and-decode",
             "title": "Prefill and Decode",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1035,7 +1035,7 @@
           {
             "id": "quantization",
             "title": "Quantization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1195,7 +1195,7 @@
       "id": "nucleus-sampling",
       "title": "Nucleus Sampling",
       "domain": "Inference / Decoding",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1216,7 +1216,7 @@
           {
             "id": "top-k-sampling",
             "title": "Top-k Sampling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1269,7 +1269,7 @@
       "id": "paged-attention",
       "title": "Paged Attention",
       "domain": "Inference / Memory",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1284,7 +1284,7 @@
           {
             "id": "continuous-batching",
             "title": "Continuous Batching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1331,7 +1331,7 @@
       "id": "prefill-and-decode",
       "title": "Prefill and Decode",
       "domain": "Inference / Serving",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1386,7 +1386,7 @@
       "id": "quantization",
       "title": "Quantization",
       "domain": "Inference / Efficiency",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1590,13 +1590,13 @@
           {
             "id": "nucleus-sampling",
             "title": "Nucleus Sampling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "top-k-sampling",
             "title": "Top-k Sampling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1614,7 +1614,7 @@
       "id": "speculative-decoding",
       "title": "Speculative Decoding",
       "domain": "Inference / Decoding",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1718,7 +1718,7 @@
       "id": "top-k-sampling",
       "title": "Top-k Sampling",
       "domain": "Inference / Decoding",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1739,7 +1739,7 @@
           {
             "id": "nucleus-sampling",
             "title": "Nucleus Sampling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2143,42 +2143,42 @@
         {
           "id": "beam-search",
           "title": "Beam Search",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 19
         },
         {
           "id": "continuous-batching",
           "title": "Continuous Batching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 38
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 57
         },
         {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 75
         },
         {
           "id": "speculative-decoding",
           "title": "Speculative Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 94
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 113
         }
@@ -2327,7 +2327,7 @@
         {
           "id": "continuous-batching",
           "title": "Continuous Batching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -2358,7 +2358,7 @@
       "center": {
         "id": "beam-search",
         "title": "Beam Search",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2611,7 +2611,7 @@
       "center": {
         "id": "continuous-batching",
         "title": "Continuous Batching",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2633,7 +2633,7 @@
         {
           "id": "paged-attention",
           "title": "Paged Attention",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -3306,14 +3306,14 @@
         {
           "id": "paged-attention",
           "title": "Paged Attention",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 110
         }
@@ -3622,7 +3622,7 @@
         {
           "id": "quantization",
           "title": "Quantization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -3899,7 +3899,7 @@
       "center": {
         "id": "nucleus-sampling",
         "title": "Nucleus Sampling",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3921,7 +3921,7 @@
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -4019,7 +4019,7 @@
       "center": {
         "id": "paged-attention",
         "title": "Paged Attention",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4034,7 +4034,7 @@
         {
           "id": "continuous-batching",
           "title": "Continuous Batching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -4125,7 +4125,7 @@
       "center": {
         "id": "prefill-and-decode",
         "title": "Prefill and Decode",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4218,7 +4218,7 @@
       "center": {
         "id": "quantization",
         "title": "Quantization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4546,14 +4546,14 @@
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -4603,7 +4603,7 @@
       "center": {
         "id": "speculative-decoding",
         "title": "Speculative Decoding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4776,7 +4776,7 @@
       "center": {
         "id": "top-k-sampling",
         "title": "Top-k Sampling",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4798,7 +4798,7 @@
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }

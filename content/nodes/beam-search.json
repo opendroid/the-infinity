@@ -41,13 +41,19 @@
   },
   "citations": [
     {
+      "ref": "arXiv:1908.10090",
+      "title": "On NMT Search Errors and Model Errors: Cat Got Your Tongue?",
+      "url": "https://arxiv.org/abs/1908.10090"
+    },
+    {
       "ref": "arXiv:2010.02650",
       "title": "If beam search is the answer, what was the question?",
       "url": "https://arxiv.org/abs/2010.02650"
     }
   ],
   "updated_at": "2026-08-04",
-  "provenance": {
-    "drafted_at": "2026-08-04"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
   }
 }
