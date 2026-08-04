@@ -123,13 +123,32 @@ func Recoverer(next http.Handler) http.Handler {
 //
 // It waits for a request that HAS the header, so the line is never a health
 // probe that arrived with nothing to say.
+//
+// MOUNTED INSIDE /api/v1, BEHIND Trace, and that placement is the whole reason
+// #2 was verifiable at all. Every other line this service writes needs
+// something to go wrong first — a panic or a 500 — so on a healthy revision
+// nothing correlated ever reached Cloud Logging and the feature could not be
+// observed in production without breaking it. Confirmed against the deployed
+// service: `forwarding chain`, `listening` and `shutdown signal received` were
+// the only entries, and none carried a trace field.
+//
+// This costs nothing to move. It already fires once per process, so it is one
+// correlated line per instance rather than a new stream — and it is the first
+// real request after a cold start, which is exactly the one worth having a
+// trace for.
 func LogForwarded(hops int) func(http.Handler) http.Handler {
 	var once sync.Once
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
+				// The logger is resolved OUTSIDE the closure and passed in.
+				// contextcheck asks for that, and it is the same shape as the
+				// deferred closure in Recoverer above.
+				log := Logger(r.Context())
 				once.Do(func() {
-					slog.Info("forwarding chain",
+					// The request's logger, so this lands under the trace of the
+					// request being described.
+					log.Info("forwarding chain",
 						slog.String("x_forwarded_for", xff),
 						slog.Int("entries", len(strings.Split(xff, ","))),
 						slog.Int("trusted_hops", hops),
