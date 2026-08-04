@@ -207,7 +207,7 @@
       "id": "batch-size",
       "title": "Batch Size",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -293,13 +293,13 @@
       "id": "compute-optimal-training",
       "title": "Compute-Optimal Training",
       "domain": "Optimization / Generalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "scaling-laws",
             "title": "Scaling Laws",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -411,7 +411,7 @@
           {
             "id": "pretraining",
             "title": "Pretraining",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -474,7 +474,7 @@
           {
             "id": "pretraining",
             "title": "Pretraining",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -492,7 +492,7 @@
       "id": "dropout",
       "title": "Dropout",
       "domain": "Optimization / Regularization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [],
@@ -598,13 +598,13 @@
       "id": "fine-tuning",
       "title": "Fine-Tuning",
       "domain": "Optimization / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "pretraining",
             "title": "Pretraining",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -612,7 +612,7 @@
           {
             "id": "lora",
             "title": "LoRA",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -647,7 +647,7 @@
           {
             "id": "batch-size",
             "title": "Batch Size",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -691,7 +691,7 @@
           {
             "id": "learning-rate",
             "title": "Learning Rate",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -802,7 +802,7 @@
           {
             "id": "warmup",
             "title": "Warmup",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -812,7 +812,7 @@
       "id": "learning-rate",
       "title": "Learning Rate",
       "domain": "Optimization / Schedules",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -826,7 +826,7 @@
           {
             "id": "learning-rate-schedule",
             "title": "Learning-Rate Schedule",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -837,13 +837,13 @@
       "id": "learning-rate-schedule",
       "title": "Learning-Rate Schedule",
       "domain": "Optimization / Schedules",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "learning-rate",
             "title": "Learning Rate",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -851,7 +851,7 @@
           {
             "id": "warmup",
             "title": "Warmup",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -862,13 +862,13 @@
       "id": "lora",
       "title": "LoRA",
       "domain": "Optimization / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "fine-tuning",
             "title": "Fine-Tuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -899,13 +899,13 @@
           {
             "id": "overfitting",
             "title": "Overfitting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "scaling-laws",
             "title": "Scaling Laws",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1108,7 +1108,7 @@
       "id": "overfitting",
       "title": "Overfitting",
       "domain": "Optimization / Generalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1163,7 +1163,7 @@
       "id": "pretraining",
       "title": "Pretraining",
       "domain": "Optimization / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1183,7 +1183,7 @@
           {
             "id": "fine-tuning",
             "title": "Fine-Tuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1287,7 +1287,7 @@
       "id": "scaling-laws",
       "title": "Scaling Laws",
       "domain": "Optimization / Generalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1301,7 +1301,7 @@
           {
             "id": "compute-optimal-training",
             "title": "Compute-Optimal Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1406,7 +1406,7 @@
           {
             "id": "batch-size",
             "title": "Batch Size",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1527,13 +1527,13 @@
       "id": "warmup",
       "title": "Warmup",
       "domain": "Optimization / Schedules",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "learning-rate-schedule",
             "title": "Learning-Rate Schedule",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1574,7 +1574,7 @@
           {
             "id": "dropout",
             "title": "Dropout",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1956,7 +1956,7 @@
       "center": {
         "id": "batch-size",
         "title": "Batch Size",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2102,7 +2102,7 @@
       "center": {
         "id": "compute-optimal-training",
         "title": "Compute-Optimal Training",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2110,7 +2110,7 @@
         {
           "id": "scaling-laws",
           "title": "Scaling Laws",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -2284,7 +2284,7 @@
         {
           "id": "pretraining",
           "title": "Pretraining",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -2390,7 +2390,7 @@
         {
           "id": "pretraining",
           "title": "Pretraining",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -2434,7 +2434,7 @@
       "center": {
         "id": "dropout",
         "title": "Dropout",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2607,7 +2607,7 @@
       "center": {
         "id": "fine-tuning",
         "title": "Fine-Tuning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2615,14 +2615,14 @@
         {
           "id": "pretraining",
           "title": "Pretraining",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "lora",
           "title": "LoRA",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -2682,7 +2682,7 @@
         {
           "id": "batch-size",
           "title": "Batch Size",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -2743,7 +2743,7 @@
         {
           "id": "learning-rate",
           "title": "Learning Rate",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -2929,7 +2929,7 @@
         {
           "id": "warmup",
           "title": "Warmup",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -2966,7 +2966,7 @@
       "center": {
         "id": "learning-rate",
         "title": "Learning Rate",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2981,7 +2981,7 @@
         {
           "id": "learning-rate-schedule",
           "title": "Learning-Rate Schedule",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -3006,7 +3006,7 @@
       "center": {
         "id": "learning-rate-schedule",
         "title": "Learning-Rate Schedule",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3014,14 +3014,14 @@
         {
           "id": "learning-rate",
           "title": "Learning Rate",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "warmup",
           "title": "Warmup",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -3046,7 +3046,7 @@
       "center": {
         "id": "lora",
         "title": "LoRA",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3054,7 +3054,7 @@
         {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -3095,14 +3095,14 @@
         {
           "id": "overfitting",
           "title": "Overfitting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
         {
           "id": "scaling-laws",
           "title": "Scaling Laws",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         }
@@ -3458,7 +3458,7 @@
       "center": {
         "id": "overfitting",
         "title": "Overfitting",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3551,7 +3551,7 @@
       "center": {
         "id": "pretraining",
         "title": "Pretraining",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3573,7 +3573,7 @@
         {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -3751,7 +3751,7 @@
       "center": {
         "id": "scaling-laws",
         "title": "Scaling Laws",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3766,7 +3766,7 @@
         {
           "id": "compute-optimal-training",
           "title": "Compute-Optimal Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -3951,7 +3951,7 @@
         {
           "id": "batch-size",
           "title": "Batch Size",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -4174,7 +4174,7 @@
       "center": {
         "id": "warmup",
         "title": "Warmup",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4182,7 +4182,7 @@
         {
           "id": "learning-rate-schedule",
           "title": "Learning-Rate Schedule",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -4236,7 +4236,7 @@
         {
           "id": "dropout",
           "title": "Dropout",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }

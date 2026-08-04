@@ -52,7 +52,7 @@
   ],
   "right": [
     {
-      "id": "fine-tuning",
+      "id": "tokenization",
       "t": 0.2,
       "label": true
     },

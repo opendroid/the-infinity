@@ -7,7 +7,7 @@
   ],
   "bodies": {
     "intuition": "Batch size is how many examples the model looks at before each update. Larger batches give a cleaner estimate of the right direction and use hardware better, but past a point the extra examples stop buying accuracy and simply cost more. The useful range is set by that ceiling, not by memory.",
-    "engineer": "Doubling the batch roughly halves the number of steps but only reduces gradient noise by √2, so throughput gains outrun quality gains and then stop. There is a critical batch size beyond which additional examples are close to wasted. Learning rate must scale with batch, or a larger batch simply trains slower per epoch.",
+    "engineer": "Doubling the batch roughly halves the number of steps but only reduces gradient noise by √2, so throughput gains outrun quality gains and then stop. There is a critical batch size beyond which additional examples are close to wasted. The generalisation gap once reported for very large batches — sharper minima, worse held-out loss — largely closed once the learning rate was scaled and warmed up, so that ceiling is a tuning failure rather than a property of the batch; the diminishing return on noise is the real one. Learning rate must scale with batch, or a larger batch simply trains slower per epoch.",
     "math": "Gradient variance falls as 1/|B|, so noise falls as 1/√|B| while cost rises linearly. Linear scaling η ∝ |B| holds until the critical batch size, past which the step count stops falling proportionally."
   },
   "emphasis": {
@@ -46,13 +46,19 @@
       "url": "https://arxiv.org/abs/1706.02677"
     },
     {
+      "ref": "arXiv:1812.06162",
+      "title": "An Empirical Model of Large-Batch Training",
+      "url": "https://arxiv.org/abs/1812.06162"
+    },
+    {
       "ref": "arXiv:1609.04836",
       "title": "On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima",
       "url": "https://arxiv.org/abs/1609.04836"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
