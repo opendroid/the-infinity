@@ -57,7 +57,7 @@
       "label": true
     },
     {
-      "id": "transformer-block",
+      "id": "mixed-precision-training",
       "t": 0.5,
       "label": false
     },
