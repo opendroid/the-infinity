@@ -60,7 +60,11 @@ func Recoverer(next http.Handler) http.Handler {
 		// why the context alone cannot carry it upward.
 		r = WithLoggerHolder(r)
 
-		defer func() {
+		// The context is a PARAMETER of the deferred closure, not something it
+		// reaches for. contextcheck asks for that and it reads better anyway:
+		// the holder is a pointer, so capturing the context at registration
+		// time still sees whatever Trace deposits later.
+		defer func(ctx context.Context) {
 			rec := recover()
 			if rec == nil {
 				return
@@ -77,7 +81,7 @@ func Recoverer(next http.Handler) http.Handler {
 			// The request's logger, not the package one: a panic is the line
 			// someone is most likely to be hunting from a trace, and it was the
 			// only per-request log the service emitted before #2.
-			HeldLogger(r.Context()).Error("panic in handler",
+			HeldLogger(ctx).Error("panic in handler",
 				slog.Any("recovered", rec),
 				slog.String("path", r.URL.Path),
 				slog.Bool("response_started", sw.wrote))
@@ -94,7 +98,7 @@ func Recoverer(next http.Handler) http.Handler {
 				return
 			}
 			WriteError(w, http.StatusInternalServerError, CodeInternal, "Unexpected error.")
-		}()
+		}(r.Context())
 		next.ServeHTTP(w, r)
 	})
 }

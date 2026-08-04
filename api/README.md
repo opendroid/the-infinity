@@ -62,7 +62,17 @@ is lower than the targeted Go version (1.26.0)
 `go.mod`** — not merely able to run, built with. Official release binaries and Homebrew
 both track the current Go closely, so this is invisible until you install golangci-lint
 with `go install` on an older toolchain, which builds it with whatever you have. If you
-see that error, reinstall from a release rather than downgrading `go.mod`.
+see that error, reinstall from a release rather than downgrading `go.mod`. The version CI
+pins, fetched directly:
+
+```sh
+V=$(grep -o 'version: v[0-9.]*' ../.github/workflows/ci.yml | head -1 | sed 's/.*v//')
+curl -sSL "https://github.com/golangci/golangci-lint/releases/download/v$V/golangci-lint-$V-linux-amd64.tar.gz" \
+  | tar xz -C /tmp && /tmp/golangci-lint-$V-linux-amd64/golangci-lint run
+```
+
+Worth the two minutes: `contextcheck` and `noctx` are both enabled and neither `go vet` nor
+`gofmt` sees them, so a stale local binary means CI is the first thing that tells you.
 
 ## Layout notes
 

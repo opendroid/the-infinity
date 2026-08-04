@@ -146,7 +146,7 @@ func TestTraceMiddlewareAddsTheCloudLoggingFields(t *testing.T) {
 	buf := capture(t)
 	const id = "105445aa7843bc8bf206b12000100000"
 
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/stats", nil)
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/api/v1/stats", nil)
 	req.Header.Set("X-Cloud-Trace-Context", id+"/7;o=1")
 	apihttp.Trace("the-infinity-ai")(logging("served")).ServeHTTP(httptest.NewRecorder(), req)
 
@@ -165,7 +165,7 @@ func TestTraceMiddlewareAddsTheCloudLoggingFields(t *testing.T) {
 
 func TestTraceMiddlewareSampledFalse(t *testing.T) {
 	buf := capture(t)
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/stats", nil)
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/api/v1/stats", nil)
 	req.Header.Set("X-Cloud-Trace-Context", "105445aa7843bc8bf206b12000100000/7;o=0")
 	apihttp.Trace("p")(logging("served")).ServeHTTP(httptest.NewRecorder(), req)
 
@@ -177,7 +177,7 @@ func TestTraceMiddlewareSampledFalse(t *testing.T) {
 func TestTraceMiddlewareWithoutTheHeader(t *testing.T) {
 	buf := capture(t)
 
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/stats", nil)
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/api/v1/stats", nil)
 	rec := httptest.NewRecorder()
 	apihttp.Trace("the-infinity-ai")(logging("served")).ServeHTTP(rec, req)
 
@@ -201,7 +201,7 @@ func TestTraceMiddlewareWithoutTheHeader(t *testing.T) {
 func TestTraceMiddlewareWithoutAProjectID(t *testing.T) {
 	buf := capture(t)
 
-	req := httptest.NewRequest(http.MethodGet, "/api/v1/stats", nil)
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/api/v1/stats", nil)
 	req.Header.Set("X-Cloud-Trace-Context", "105445aa7843bc8bf206b12000100000/7;o=1")
 	apihttp.Trace("")(logging("served")).ServeHTTP(httptest.NewRecorder(), req)
 
@@ -219,7 +219,7 @@ func TestTraceMiddlewareMalformedHeaderIsIgnoredNotFatal(t *testing.T) {
 	for _, header := range []string{"garbage", "/1;o=1", "not-hex/1", "", ";"} {
 		t.Run(header, func(t *testing.T) {
 			buf := capture(t)
-			req := httptest.NewRequest(http.MethodGet, "/api/v1/stats", nil)
+			req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/api/v1/stats", nil)
 			req.Header.Set("X-Cloud-Trace-Context", header)
 			rec := httptest.NewRecorder()
 

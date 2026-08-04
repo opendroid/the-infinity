@@ -887,7 +887,7 @@ func TestTraceCorrelationIsMountedOnV1(t *testing.T) {
 		h := newServer(t, f, router.Options{ProjectID: "the-infinity-ai"})
 		f.Err = errors.New("connection refused")
 
-		req := httptest.NewRequest(http.MethodGet, path, nil)
+		req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, path, nil)
 		if withHeader {
 			req.Header.Set("X-Cloud-Trace-Context", id+"/7;o=1")
 		}
@@ -941,7 +941,7 @@ func TestOnlyV1PanicsCarryTheTraceField(t *testing.T) {
 		r.Use(apihttp.Recoverer)
 		mount(r)
 
-		req := httptest.NewRequest(http.MethodGet, "/boom", nil)
+		req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/boom", nil)
 		req.Header.Set("X-Cloud-Trace-Context", id+"/7;o=1")
 		r.ServeHTTP(httptest.NewRecorder(), req)
 		return buf.String()
