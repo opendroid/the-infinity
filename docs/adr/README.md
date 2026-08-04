@@ -37,6 +37,10 @@ point.
 | [0005](0005-depth-coupled-viz.md) | The depth toggle publishes depth; the viz reads it | **accepted** |
 | [0006](0006-per-depth-captions.md) | Per-depth divergence in content is an optional override | **accepted** |
 | [0007](0007-budget-split-primitive.md) | A fourth shape: one whole divided in two | **accepted** |
+| [0008](0008-shared-trails-from-a-static-shell.md) | A shared trail is a static shell that fetches its own trail | **accepted** |
+| [0009](0009-notation-in-bodies.md) | Notation in bodies — `_` and `^`, not KaTeX | **accepted** |
+| [0010](0010-speaking-the-notation.md) | Notation carries a spoken separator | **accepted** |
+| [0011](0011-analytics-from-request-logs.md) | Analytics is read from request logs, not from a script in the page | proposed |
 
 ## Planned
 
