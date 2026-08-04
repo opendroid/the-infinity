@@ -1,6 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { Depth } from '../lib/graph';
+import { fromSearch, read, resolve, searchFor, write } from '../lib/depth';
 import Notation from './Notation';
+
+/**
+ * Before paint on the client, after-paint never on the server.
+ *
+ * The resolved depth has to be applied BEFORE the browser paints, or a reader
+ * whose stored depth is Engineer sees a frame of Intuition and a layout jump on
+ * every concept page — which is the "no layout shift" criterion in #42 failing
+ * on the one path that matters. `useLayoutEffect` runs after the DOM is written
+ * and before paint, so the swap is never seen.
+ *
+ * It is also the hook React warns about during server rendering, and Astro does
+ * render this component to HTML at build time. Hence the switch: there is no
+ * layout to read on the server, and nothing to shift.
+ */
+const useBeforePaint = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 interface Body {
   depth: Depth;
@@ -32,6 +48,38 @@ export default function DepthToggle({ bodies, initial = 'intuition' }: Props) {
   const root = useRef<HTMLDivElement>(null);
   // Arrowing has to move focus, not only selection, so the buttons are reachable.
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  // ON ARRIVAL: the URL, then storage, then what the server rendered (#42).
+  // Runs once, before paint. `initial` is the fallback rather than the start,
+  // so a page built with a different default still resolves the same way.
+  useBeforePaint(() => {
+    setDepth(resolve(fromSearch(window.location.search), read()));
+  }, []);
+
+  // ON CHANGE: remember it, and put it in the address bar.
+  //
+  // THE FIRST RUN IS SKIPPED, and the reason is an ordering trap. This effect
+  // is passive, so on mount it fires with the depth of the render it belongs
+  // to — the pre-resolution one — no matter that the layout effect above has
+  // already scheduled the resolved value. Writing on that pass would store
+  // `intuition` over the reader's saved Engineer and strip `?depth=math` out
+  // of the very URL that had just supplied it. Resolution is not a choice; only
+  // what happens after it is.
+  //
+  // `replaceState`, NOT `pushState`. Changing depth is a reading control, not a
+  // navigation — with pushState the Back button would walk a reader back
+  // through their own depth changes instead of leaving the page, and on a
+  // concept where they toggled four times it would take five presses to get
+  // out. `replaceState` keeps the URL shareable and the history honest.
+  const settled = useRef(false);
+  useEffect(() => {
+    if (!settled.current) {
+      settled.current = true;
+      return;
+    }
+    write(depth);
+    const search = searchFor(window.location.search, depth);
+    window.history.replaceState(null, '', `${window.location.pathname}${search}${window.location.hash}`);
+  }, [depth]);
 
   // Publishes depth to the DOM so the viz island can follow it without the two
   // components knowing about each other (ADR-0005). This writes; nothing here
