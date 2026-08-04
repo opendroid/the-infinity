@@ -1,0 +1,63 @@
+{
+  "id": "activation-checkpointing",
+  "title": "Activation Checkpointing",
+  "domain": [
+    "Systems",
+    "Memory"
+  ],
+  "bodies": {
+    "intuition": "Backpropagation needs the activations the forward pass produced, so the obvious implementation stores all of them — which for a deep model is far more memory than the weights themselves. Checkpointing keeps only a few and recomputes the rest on the way back. It buys memory with time, at a rate good enough that almost every large training run takes the deal.",
+    "engineer": "Store the input to every k-th layer and rerun the segment between checkpoints during the backward pass. At k near the square root of the depth, activation memory falls to about the square root of what it was, for one extra forward pass per step. The alternative is not training without recomputation: it is a smaller model or a smaller batch.",
+    "math": "For n layers, storing everything costs O(n) memory and no recomputation; storing every k-th costs O(n/k + k), minimised at k = √n for O(√n). The extra compute is one forward pass per step, so a constant factor of time buys an asymptotic factor of memory — which is why the trade is nearly always worth taking."
+  },
+  "emphasis": {
+    "intuition": "It buys memory with time",
+    "engineer": "it is a smaller model or a smaller batch"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "checkpointed_layers": 6,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "checkpointed_layers",
+        "min": 1,
+        "max": 36,
+        "step": 1
+      }
+    ],
+    "caption": "Layers whose activations are kept against those recomputed in the backward pass. Drag the number of checkpoints to spend memory and buy back compute."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "backpropagation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "gradient-accumulation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1604.06174",
+      "title": "Training Deep Nets with Sublinear Memory Cost",
+      "url": "https://arxiv.org/abs/1604.06174"
+    },
+    {
+      "ref": "arXiv:2205.05198",
+      "title": "Reducing Activation Recomputation in Large Transformer Models",
+      "url": "https://arxiv.org/abs/2205.05198"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

@@ -1,0 +1,63 @@
+{
+  "id": "pipeline-parallelism",
+  "title": "Pipeline Parallelism",
+  "domain": [
+    "Systems",
+    "Distributed"
+  ],
+  "bodies": {
+    "intuition": "Give each device a consecutive group of layers and pass activations along the chain. The problem is obvious the moment you draw the schedule: while the first stage works, every other stage has nothing to do. Splitting the batch into micro-batches keeps them all busy, and the more micro-batches are in flight the smaller the idle fraction — the part that remains is called the bubble.",
+    "engineer": "Only the activations at stage boundaries cross the wire, which is far less than tensor parallelism moves, so this is the strategy that crosses machines. The costs are the bubble and the memory: every stage must hold activations for each micro-batch still in flight. Interleaved schedules shrink the bubble further and pay for it in communication.",
+    "math": "With p stages and m micro-batches the bubble is (p−1)/(m+p−1) of the time: about 27% at p = 4 and m = 8, and under 5% at m = 64. It shrinks with m rather than with anything about the model, so the fix is always more micro-batches — bounded by the activation memory each one in flight demands."
+  },
+  "emphasis": {
+    "intuition": "while the first stage works, every other stage has nothing to do",
+    "engineer": "this is the strategy that crosses machines"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "bubble_steps": 3,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "bubble_steps",
+        "min": 0,
+        "max": 31,
+        "step": 1
+      }
+    ],
+    "caption": "The pipeline bubble against the micro-batch steps that fill it, both as slots in the schedule. Drag the number of idle stages to watch the bubble take the run over."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "transformer-block",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "tensor-parallelism",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1811.06965",
+      "title": "GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism",
+      "url": "https://arxiv.org/abs/1811.06965"
+    },
+    {
+      "ref": "arXiv:1806.03377",
+      "title": "PipeDream: Fast and Efficient Pipeline Parallel DNN Training",
+      "url": "https://arxiv.org/abs/1806.03377"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

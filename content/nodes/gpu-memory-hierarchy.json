@@ -1,0 +1,53 @@
+{
+  "id": "gpu-memory-hierarchy",
+  "title": "GPU Memory Hierarchy",
+  "domain": [
+    "Systems",
+    "Hardware"
+  ],
+  "bodies": {
+    "intuition": "The memory closest to the arithmetic is tiny and enormously fast; the memory large enough to hold a model is far away and comparatively slow. On an A100 that is roughly 20 MB of on-chip SRAM at 19 TB/s against 40 GB of HBM at 1.5 TB/s. Most performance questions on this hardware turn out to be a question about which of those two a piece of data is sitting in.",
+    "engineer": "Registers and shared memory per streaming multiprocessor, then L2, then HBM off-die. Capacity and bandwidth run in opposite directions at every step, so a kernel's cost is often predicted better by how many bytes it moves across that boundary than by how many operations it performs. That is the observation FlashAttention is built on, and the reason a rewrite with identical arithmetic can be several times faster.",
+    "math": "The two levels differ by about three orders of magnitude in capacity and one in bandwidth, in opposite directions: 20 MB at 19 TB/s against 40 GB at 1.5 TB/s, a ratio of roughly thirteen to one per byte. A kernel that must read b bytes from HBM cannot finish faster than b/1.5·10¹² seconds however few operations it performs — a floor no amount of arithmetic optimisation moves."
+  },
+  "emphasis": {
+    "intuition": "which of those two a piece of data is sitting in",
+    "engineer": "a rewrite with identical arithmetic can be several times faster"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "hbm_mb": 8,
+      "share_rest": 16
+    },
+    "param_controls": [
+      {
+        "name": "hbm_mb",
+        "min": 0,
+        "max": 64,
+        "step": 1
+      }
+    ],
+    "caption": "Bytes one kernel reads from HBM against bytes it reads on chip, both in megabytes. Drag the HBM traffic to watch the share that costs thirteen times as much per byte take over."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "flash-attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2205.14135",
+      "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+      "url": "https://arxiv.org/abs/2205.14135"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

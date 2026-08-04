@@ -1,0 +1,63 @@
+{
+  "id": "kernel-fusion",
+  "title": "Kernel Fusion",
+  "domain": [
+    "Systems",
+    "Hardware"
+  ],
+  "bodies": {
+    "intuition": "A chain of simple operations — add a bias, apply an activation, scale the result — each reads its input from main memory and writes its output back, even though the next step wants exactly what was just written. Fusing them into one kernel keeps the intermediate on chip and crosses the boundary once instead of three times. The arithmetic is unchanged; the traffic is not.",
+    "engineer": "The gain is proportional to how memory-bound the operations were, so it is large for elementwise and normalization work and negligible for a big matrix multiply. Compilers fuse simple chains automatically; the cases worth writing by hand are the ones where fusion changes the algorithm rather than only the schedule — FlashAttention fuses the whole of attention and rewrites the softmax to make that legal.",
+    "math": "k elementwise operations over n elements move 2kn values across the memory boundary unfused and 2n fused, so the traffic falls by a factor of k. The speedup approaches k only for work that was entirely bandwidth-bound and 1 for work that was not: the ceiling is the fraction of the original time that was traffic, which is Amdahl's law applied to bytes rather than to instructions."
+  },
+  "emphasis": {
+    "intuition": "The arithmetic is unchanged; the traffic is not",
+    "engineer": "the ones where fusion changes the algorithm rather than only the schedule"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "fused_ops": 3,
+      "share_rest": 5
+    },
+    "param_controls": [
+      {
+        "name": "fused_ops",
+        "min": 1,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Operations a single kernel keeps on chip against those that still round-trip through main memory. Drag the fusion width to watch the traffic collapse into one pass."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "arithmetic-intensity",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "flash-attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2007.00072",
+      "title": "Data Movement Is All You Need: A Case Study on Optimizing Transformers",
+      "url": "https://arxiv.org/abs/2007.00072"
+    },
+    {
+      "ref": "arXiv:2205.14135",
+      "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+      "url": "https://arxiv.org/abs/2205.14135"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

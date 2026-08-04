@@ -1,0 +1,57 @@
+{
+  "id": "tensor-parallelism",
+  "title": "Tensor Parallelism",
+  "domain": [
+    "Systems",
+    "Distributed"
+  ],
+  "bodies": {
+    "intuition": "When a single layer is too large for one device, split the layer. Each device holds a slice of the weight matrix, computes a slice of the answer, and the pieces are combined before the result is needed. Unlike data parallelism, every device is working on the same example at the same moment — which is why this wants a very fast interconnect and rarely crosses a machine boundary.",
+    "engineer": "Megatron partitions the feed-forward network column-wise and then row-wise, so the two matrix multiplies compose without an exchange between them and one all-reduce per block suffices. Attention splits by head, which partitions with no trick at all. The result is two all-reduces per layer in the forward pass: cheap in arithmetic, expensive in bandwidth, and the reason tensor parallelism stays inside a machine while pipeline parallelism spans them.",
+    "math": "Splitting A column-wise into [A₁ A₂] gives XA = [XA₁ XA₂] with nothing to exchange; feeding that into a row-wise split of B gives XAB = XA₁B₁ + XA₂B₂, a single sum. Communication is Θ(b·s·d) per all-reduce for batch b, sequence s and width d — independent of how many devices the layer is split across, and paid twice per layer each way."
+  },
+  "emphasis": {
+    "intuition": "every device is working on the same example at the same moment",
+    "engineer": "cheap in arithmetic, expensive in bandwidth"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "comm_time": 20,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "comm_time",
+        "min": 0,
+        "max": 300,
+        "step": 5
+      }
+    ],
+    "caption": "Time a transformer block spends on the all-reduce tensor parallelism needs, against time spent computing, both in microseconds. Drag the communication cost to watch it overtake the work it makes possible."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "feed-forward-network",
+        "reviewed": false
+      },
+      {
+        "id": "collective-communication",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1909.08053",
+      "title": "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism",
+      "url": "https://arxiv.org/abs/1909.08053"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
