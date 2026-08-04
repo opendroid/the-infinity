@@ -119,6 +119,30 @@
       }
     },
     {
+      "id": "attention-sink",
+      "title": "Attention Sink",
+      "domain": "Attention / Behaviour",
+      "tier": "verified",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-masking",
+            "title": "Causal Masking",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
       "id": "autoregressive-decoding",
       "title": "Autoregressive Decoding",
       "domain": "Inference / Decoding",
@@ -237,6 +261,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "attention-sink",
+            "title": "Attention Sink",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
@@ -719,6 +749,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "attention-sink",
+            "title": "Attention Sink",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "context-window",
             "title": "Context Window",
@@ -1770,6 +1806,46 @@
       ]
     },
     {
+      "id": "attention-sink",
+      "center": {
+        "id": "attention-sink",
+        "title": "Attention Sink",
+        "tier": "verified",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-masking",
+          "title": "Causal Masking",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-masking",
+          "to": "attention-sink",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "attention-sink",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "autoregressive-decoding",
       "center": {
         "id": "autoregressive-decoding",
@@ -1960,25 +2036,32 @@
           "y": 66
         },
         {
+          "id": "attention-sink",
+          "title": "Attention Sink",
+          "tier": "verified",
+          "x": 200,
+          "y": 26
+        },
+        {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
           "tier": "frontier",
           "x": 200,
-          "y": 33
+          "y": 53
         },
         {
           "id": "decoder-only-transformer",
           "title": "Decoder-Only Transformer",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 79
         },
         {
           "id": "kv-cache",
           "title": "KV Cache",
           "tier": "frontier",
           "x": 200,
-          "y": 99
+          "y": 106
         }
       ],
       "links": [
@@ -1986,6 +2069,12 @@
           "from": "self-attention",
           "to": "causal-masking",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "causal-masking",
+          "to": "attention-sink",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -2752,18 +2841,25 @@
           "y": 88
         },
         {
+          "id": "attention-sink",
+          "title": "Attention Sink",
+          "tier": "verified",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "context-window",
           "title": "Context Window",
           "tier": "frontier",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "multi-query-attention",
           "title": "Multi-Query Attention",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         }
       ],
       "links": [
@@ -2777,6 +2873,12 @@
           "from": "self-attention",
           "to": "kv-cache",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "attention-sink",
+          "type": "unlocks",
           "reviewed": false
         },
         {
