@@ -967,3 +967,77 @@ func TestOnlyV1PanicsCarryTheTraceField(t *testing.T) {
 		t.Errorf("the untraced panic was not logged at all:\n%s", without)
 	}
 }
+
+// The one correlated line a HEALTHY service produces.
+//
+// Every other log this service writes needs something to go wrong first — a
+// panic or a 500 — so while LogForwarded sat ahead of Trace in the global
+// chain, a healthy revision emitted nothing correlated at all and the whole of
+// #2 could not be observed in production without breaking it. Confirmed
+// against the deployed service before this moved: `forwarding chain`,
+// `listening` and `shutdown signal received` were the only entries, and none
+// carried a trace field.
+//
+// Not parallel — slog.SetDefault is process-wide.
+func TestForwardingChainCarriesTheTrace(t *testing.T) {
+	const id = "105445aa7843bc8bf206b12000100000"
+
+	buf := &bytes.Buffer{}
+	prev := slog.Default()
+	slog.SetDefault(slog.New(slog.NewJSONHandler(buf, nil)))
+	defer slog.SetDefault(prev)
+
+	// Hops set explicitly: the default is 0, which means "trust the last entry"
+	// and is correct when nothing fronts the service. Production sits behind
+	// Firebase Hosting and runs with 1, and the resolved client_ip is the whole
+	// reason this line exists — so the test states the shape it is describing
+	// rather than inheriting a value that makes the assertion say something
+	// else.
+	reads := generous()
+	reads.TrustedProxyHops = 1
+	h := newServer(t, seeded(), router.Options{ProjectID: "the-infinity-ai", ReadLimit: reads})
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/api/v1/stats", nil)
+	req.Header.Set("X-Cloud-Trace-Context", id+"/74;o=1")
+	// Two entries, as Firebase Hosting sends: the visitor, then Hosting's edge.
+	// This is the real chain from the deployed service.
+	req.Header.Set("X-Forwarded-For", "104.2.150.233, 66.249.84.172")
+	h.ServeHTTP(httptest.NewRecorder(), req)
+
+	got := buf.String()
+	if !strings.Contains(got, `"msg":"forwarding chain"`) {
+		t.Fatalf("the once-per-process line did not fire, so this proves nothing:\n%s", got)
+	}
+	if !strings.Contains(got, "projects/the-infinity-ai/traces/"+id) {
+		t.Errorf("forwarding chain logged without its trace — the only correlated line a healthy service writes:\n%s", got)
+	}
+	if !strings.Contains(got, `"logging.googleapis.com/spanId":"000000000000004a"`) {
+		t.Errorf("span missing or not hex-encoded:\n%s", got)
+	}
+	// And it still says the thing it exists to say.
+	if !strings.Contains(got, `"client_ip":"104.2.150.233"`) {
+		t.Errorf("client_ip lost in the move:\n%s", got)
+	}
+}
+
+// /-/health stays out of it. The endpoint is probed continuously, and it is
+// also the request least likely to carry a forwarding chain worth describing.
+func TestHealthIsNotTraced(t *testing.T) {
+	buf := &bytes.Buffer{}
+	prev := slog.Default()
+	slog.SetDefault(slog.New(slog.NewJSONHandler(buf, nil)))
+	defer slog.SetDefault(prev)
+
+	h := newServer(t, seeded(), router.Options{ProjectID: "the-infinity-ai"})
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/-/health", nil)
+	req.Header.Set("X-Cloud-Trace-Context", "105445aa7843bc8bf206b12000100000/74;o=1")
+	req.Header.Set("X-Forwarded-For", "104.2.150.233, 66.249.84.172")
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("health = %d, want 200", rec.Code)
+	}
+	if strings.Contains(buf.String(), "logging.googleapis.com/") {
+		t.Errorf("a health probe produced a trace-tagged line:\n%s", buf.String())
+	}
+}

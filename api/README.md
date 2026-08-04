@@ -196,6 +196,16 @@ half-built, because `projects//traces/ID` looks populated and resolves to nothin
 after `;o=` is the one exception: the flag defaults to false and the usable trace survives,
 since discarding a real trace id over an optional flag would throw away the correlation.
 
+**`LogForwarded` is the only correlated line a healthy revision writes.** Every other log
+this service produces needs something to go wrong first — a panic, a 500, a body that fails
+to encode — so while `LogForwarded` sat ahead of `Trace` in the global chain, a healthy
+deploy emitted nothing correlated at all and the feature could not be observed in production
+without breaking it. Checked against the deployed service: `forwarding chain`, `listening`
+and `shutdown signal received` were the only entries, and none carried a trace field. It now
+mounts inside `/api/v1` behind `Trace`, which costs nothing — it already fired once per
+process — and buys one correlated line per instance, on the first real request after a cold
+start.
+
 **`Recoverer` seeds a holder that `Trace` fills in.** Recoverer is global and therefore
 mounts *outside* Trace, so the request it holds in its deferred closure predates
 `r.WithContext` and its context cannot see the logger. A pointer passed inward and populated

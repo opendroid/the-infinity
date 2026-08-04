@@ -76,11 +76,7 @@ func New(s store.Store, opts Options) http.Handler {
 	writeShaping := apihttp.NewPerIPLimiter(opts.WriteLimit)
 
 	r := chi.NewRouter()
-	// LogForwarded is global rather than per-route-group so the line lands on
-	// whatever request happens to arrive first, and it takes the read limiter's
-	// hop count because both limiters share it — a divergence there would be a
-	// different bug, and NewPerIPLimiter normalises from the same default.
-	r.Use(apihttp.Recoverer, apihttp.Timeout, apihttp.LogForwarded(opts.ReadLimit.TrustedProxyHops))
+	r.Use(apihttp.Recoverer, apihttp.Timeout)
 
 	// GET and HEAD. chi answers 405 for a method it has no route for, and `curl
 	// -I` — the first thing anyone types at a health endpoint, and what most
@@ -95,7 +91,19 @@ func New(s store.Store, opts Options) http.Handler {
 		// /-/health exemption the issue asks for. Cloud Run probes that endpoint
 		// continuously; giving each probe a trace-tagged logger would generate
 		// log volume and trace noise proportional to uptime rather than to use.
-		v1.Use(apihttp.Trace(opts.ProjectID))
+		// Trace first, then LogForwarded, and the order is load-bearing:
+		// LogForwarded now logs through the request's logger, which Trace is
+		// what puts there.
+		//
+		// LogForwarded moved here from the global chain. It fires once per
+		// process, and while it was mounted ahead of Trace that one line could
+		// never carry a trace field — leaving a healthy revision with nothing
+		// correlated in Cloud Logging at all, since every other line this
+		// service writes needs a panic or a 500 first. It takes the read
+		// limiter's hop count because both limiters share it; a divergence
+		// there would be a different bug, and NewPerIPLimiter normalises from
+		// the same default.
+		v1.Use(apihttp.Trace(opts.ProjectID), apihttp.LogForwarded(opts.ReadLimit.TrustedProxyHops))
 
 		// Every read is an unauthenticated Firestore read and a Cloud Run
 		// invocation, so shaping applies to the group rather than to whichever
