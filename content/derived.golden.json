@@ -25,7 +25,7 @@
           {
             "id": "optimizer-state",
             "title": "Optimizer State",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -196,7 +196,7 @@
           {
             "id": "mixed-precision-training",
             "title": "Mixed-Precision Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -221,7 +221,7 @@
           {
             "id": "gradient-accumulation",
             "title": "Gradient Accumulation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -422,7 +422,7 @@
       "id": "data-parallelism",
       "title": "Data Parallelism",
       "domain": "Systems / Distributed",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -436,7 +436,7 @@
           {
             "id": "zero-redundancy-optimizer",
             "title": "ZeRO",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -444,7 +444,7 @@
           {
             "id": "expert-parallelism",
             "title": "Expert Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -542,7 +542,7 @@
       "id": "expert-parallelism",
       "title": "Expert Parallelism",
       "domain": "Systems / Distributed",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -557,7 +557,7 @@
           {
             "id": "data-parallelism",
             "title": "Data Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -641,7 +641,7 @@
       "id": "gradient-accumulation",
       "title": "Gradient Accumulation",
       "domain": "Systems / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -916,7 +916,7 @@
       "id": "mixed-precision-training",
       "title": "Mixed-Precision Training",
       "domain": "Systems / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -954,7 +954,7 @@
           {
             "id": "expert-parallelism",
             "title": "Expert Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1083,7 +1083,7 @@
       "id": "optimizer-state",
       "title": "Optimizer State",
       "domain": "Systems / Memory",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1097,7 +1097,7 @@
           {
             "id": "zero-redundancy-optimizer",
             "title": "ZeRO",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1412,7 +1412,7 @@
           {
             "id": "data-parallelism",
             "title": "Data Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1584,19 +1584,19 @@
       "id": "zero-redundancy-optimizer",
       "title": "ZeRO",
       "domain": "Systems / Distributed",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "data-parallelism",
             "title": "Data Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "optimizer-state",
             "title": "Optimizer State",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1633,7 +1633,7 @@
         {
           "id": "optimizer-state",
           "title": "Optimizer State",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }
@@ -1919,7 +1919,7 @@
         {
           "id": "mixed-precision-training",
           "title": "Mixed-Precision Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         }
@@ -1971,7 +1971,7 @@
         {
           "id": "gradient-accumulation",
           "title": "Gradient Accumulation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -2315,7 +2315,7 @@
       "center": {
         "id": "data-parallelism",
         "title": "Data Parallelism",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2330,14 +2330,14 @@
         {
           "id": "zero-redundancy-optimizer",
           "title": "ZeRO",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "expert-parallelism",
           "title": "Expert Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -2514,7 +2514,7 @@
       "center": {
         "id": "expert-parallelism",
         "title": "Expert Parallelism",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2529,7 +2529,7 @@
         {
           "id": "data-parallelism",
           "title": "Data Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -2674,7 +2674,7 @@
       "center": {
         "id": "gradient-accumulation",
         "title": "Gradient Accumulation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3139,7 +3139,7 @@
       "center": {
         "id": "mixed-precision-training",
         "title": "Mixed-Precision Training",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3188,7 +3188,7 @@
         {
           "id": "expert-parallelism",
           "title": "Expert Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -3418,7 +3418,7 @@
       "center": {
         "id": "optimizer-state",
         "title": "Optimizer State",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3433,7 +3433,7 @@
         {
           "id": "zero-redundancy-optimizer",
           "title": "ZeRO",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -3958,7 +3958,7 @@
         {
           "id": "data-parallelism",
           "title": "Data Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -4267,7 +4267,7 @@
       "center": {
         "id": "zero-redundancy-optimizer",
         "title": "ZeRO",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4275,14 +4275,14 @@
         {
           "id": "data-parallelism",
           "title": "Data Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "optimizer-state",
           "title": "Optimizer State",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         }
