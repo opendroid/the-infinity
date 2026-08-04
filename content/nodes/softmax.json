@@ -36,13 +36,14 @@
   },
   "citations": [
     {
-      "ref": "arXiv:1706.03762",
-      "title": "Attention Is All You Need",
-      "url": "https://arxiv.org/abs/1706.03762"
+      "ref": "arXiv:1503.02531",
+      "title": "Distilling the Knowledge in a Neural Network",
+      "url": "https://arxiv.org/abs/1503.02531"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

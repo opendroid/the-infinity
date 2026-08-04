@@ -52,7 +52,7 @@
   ],
   "right": [
     {
-      "id": "tokenization",
+      "id": "context-window",
       "t": 0.2,
       "label": true
     },
