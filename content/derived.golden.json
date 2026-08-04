@@ -276,7 +276,7 @@
           {
             "id": "decoder-only-transformer",
             "title": "Decoder-Only Transformer",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -379,7 +379,7 @@
           {
             "id": "encoder-decoder",
             "title": "Encoder-Decoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -454,7 +454,7 @@
       "id": "decoder-only-transformer",
       "title": "Decoder-Only Transformer",
       "domain": "Architecture / Blocks",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -466,7 +466,7 @@
           {
             "id": "transformer-block",
             "title": "Transformer Block",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -482,7 +482,7 @@
           {
             "id": "encoder-decoder",
             "title": "Encoder-Decoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -510,13 +510,13 @@
       "id": "encoder-decoder",
       "title": "Encoder-Decoder",
       "domain": "Architecture / Blocks",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "transformer-block",
             "title": "Transformer Block",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -532,7 +532,7 @@
           {
             "id": "decoder-only-transformer",
             "title": "Decoder-Only Transformer",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -580,7 +580,7 @@
           {
             "id": "transformer-block",
             "title": "Transformer Block",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -775,20 +775,20 @@
       "id": "layer-normalization",
       "title": "Layer Normalization",
       "domain": "Architecture / Normalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "rmsnorm",
             "title": "RMSNorm",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "transformer-block",
             "title": "Transformer Block",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -796,7 +796,7 @@
           {
             "id": "residual-connection",
             "title": "Residual Connection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1016,7 +1016,7 @@
           {
             "id": "transformer-block",
             "title": "Transformer Block",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1175,7 +1175,7 @@
           {
             "id": "decoder-only-transformer",
             "title": "Decoder-Only Transformer",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1219,14 +1219,14 @@
       "id": "residual-connection",
       "title": "Residual Connection",
       "domain": "Architecture / Blocks",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "transformer-block",
             "title": "Transformer Block",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1234,7 +1234,7 @@
           {
             "id": "layer-normalization",
             "title": "Layer Normalization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1244,13 +1244,13 @@
       "id": "rmsnorm",
       "title": "RMSNorm",
       "domain": "Architecture / Normalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "layer-normalization",
             "title": "Layer Normalization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1478,7 +1478,7 @@
       "id": "transformer-block",
       "title": "Transformer Block",
       "domain": "Architecture / Blocks",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1490,7 +1490,7 @@
           {
             "id": "layer-normalization",
             "title": "Layer Normalization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1502,7 +1502,7 @@
           {
             "id": "residual-connection",
             "title": "Residual Connection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1510,13 +1510,13 @@
           {
             "id": "decoder-only-transformer",
             "title": "Decoder-Only Transformer",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "encoder-decoder",
             "title": "Encoder-Decoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1542,7 +1542,7 @@
           {
             "id": "layer-normalization",
             "title": "Layer Normalization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2052,7 +2052,7 @@
         {
           "id": "decoder-only-transformer",
           "title": "Decoder-Only Transformer",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -2237,7 +2237,7 @@
         {
           "id": "encoder-decoder",
           "title": "Encoder-Decoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         }
@@ -2368,7 +2368,7 @@
       "center": {
         "id": "decoder-only-transformer",
         "title": "Decoder-Only Transformer",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2383,7 +2383,7 @@
         {
           "id": "transformer-block",
           "title": "Transformer Block",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -2397,7 +2397,7 @@
         {
           "id": "encoder-decoder",
           "title": "Encoder-Decoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -2461,7 +2461,7 @@
       "center": {
         "id": "encoder-decoder",
         "title": "Encoder-Decoder",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2469,7 +2469,7 @@
         {
           "id": "transformer-block",
           "title": "Transformer Block",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -2483,7 +2483,7 @@
         {
           "id": "decoder-only-transformer",
           "title": "Decoder-Only Transformer",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -2569,7 +2569,7 @@
         {
           "id": "transformer-block",
           "title": "Transformer Block",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -2900,7 +2900,7 @@
       "center": {
         "id": "layer-normalization",
         "title": "Layer Normalization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2908,21 +2908,21 @@
         {
           "id": "rmsnorm",
           "title": "RMSNorm",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "transformer-block",
           "title": "Transformer Block",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "residual-connection",
           "title": "Residual Connection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -3294,7 +3294,7 @@
         {
           "id": "transformer-block",
           "title": "Transformer Block",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }
@@ -3566,7 +3566,7 @@
         {
           "id": "decoder-only-transformer",
           "title": "Decoder-Only Transformer",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -3644,7 +3644,7 @@
       "center": {
         "id": "residual-connection",
         "title": "Residual Connection",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3652,14 +3652,14 @@
         {
           "id": "transformer-block",
           "title": "Transformer Block",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "layer-normalization",
           "title": "Layer Normalization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -3684,7 +3684,7 @@
       "center": {
         "id": "rmsnorm",
         "title": "RMSNorm",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3692,7 +3692,7 @@
         {
           "id": "layer-normalization",
           "title": "Layer Normalization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -4082,7 +4082,7 @@
       "center": {
         "id": "transformer-block",
         "title": "Transformer Block",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4097,7 +4097,7 @@
         {
           "id": "layer-normalization",
           "title": "Layer Normalization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 53
         },
@@ -4111,21 +4111,21 @@
         {
           "id": "residual-connection",
           "title": "Residual Connection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 106
         },
         {
           "id": "decoder-only-transformer",
           "title": "Decoder-Only Transformer",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "encoder-decoder",
           "title": "Encoder-Decoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }
@@ -4189,7 +4189,7 @@
         {
           "id": "layer-normalization",
           "title": "Layer Normalization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }

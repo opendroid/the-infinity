@@ -56,13 +56,14 @@
       "url": "https://arxiv.org/abs/1409.3215"
     },
     {
-      "ref": "arXiv:1810.04805",
-      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
-      "url": "https://arxiv.org/abs/1810.04805"
+      "ref": "arXiv:1910.10683",
+      "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+      "url": "https://arxiv.org/abs/1910.10683"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
