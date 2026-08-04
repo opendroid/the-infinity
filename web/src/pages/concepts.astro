@@ -93,8 +93,8 @@ const totals = tally(groups);
                         see it (CLAUDE.md §5).
                       */}
                       <span class="flex shrink-0 items-center gap-1.5 pt-0.5 font-mono text-[10px] uppercase tracking-[.14em] text-dust">
-                        <span class="max-md:hidden">{entry.tier}</span>
-                        <TierDot tier={entry.tier} />
+                        <span class="sr-only md:not-sr-only">{entry.tier}</span>
+                        <TierDot tier={entry.tier} decorative />
                       </span>
                     </a>
                   </li>

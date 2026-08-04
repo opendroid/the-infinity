@@ -1,9 +1,27 @@
 ---
 // The atom. Used in edge rows, trail stops, search results, mini-maps.
 // Colour comes from the tier it is handed — never from where it is rendered.
+//
+// `decorative` IS REQUIRED, and that is the point of this interface. The dot
+// used to be `aria-hidden` unconditionally — right in a TierBadge, where the
+// word sits beside it, and wrong everywhere the dot is alone. Edge rows and
+// trail stops were the second case, so verified-versus-frontier, the single
+// most important semantic in the product, was carried by colour and nothing
+// else. CLAUDE.md §5 says that must never happen and names those exact
+// surfaces (#147).
+//
+// A default would have let the next caller inherit the bug in silence. With
+// none, every use states which it is, and getting it wrong the other way costs
+// a duplicated word rather than a missing one.
 import type { Tier } from '../lib/graph';
-interface Props { tier: Tier; size?: number; class?: string }
-const { tier, size = 7, class: cls = '' } = Astro.props;
+interface Props {
+  tier: Tier;
+  /** True only when a label that reaches the accessibility tree sits beside it. */
+  decorative: boolean;
+  size?: number;
+  class?: string;
+}
+const { tier, decorative, size = 7, class: cls = '' } = Astro.props;
 const fill = tier === 'verified' ? 'bg-verified' : 'bg-frontier';
 // Handoff: frontier pulses, verified does not.
 const pulse = tier === 'frontier' ? 'pulse' : '';
@@ -11,5 +29,4 @@ const pulse = tier === 'frontier' ? 'pulse' : '';
 <span
   class:list={['inline-block shrink-0 rounded-pill', fill, pulse, cls]}
   style={`width:${size}px;height:${size}px`}
-  aria-hidden="true"
-></span>
+  aria-hidden="true"></span>{!decorative && <span class="sr-only">{tier}</span>}

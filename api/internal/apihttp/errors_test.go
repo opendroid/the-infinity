@@ -16,6 +16,16 @@ import (
 
 // quiet silences the package logger for tests that deliberately trigger an
 // error path, so a passing run does not look like a failing one.
+// NOT SAFE ALONGSIDE t.Parallel(), and every caller here is sequential for
+// that reason. This swaps the PROCESS-WIDE default logger and hands back a
+// bytes.Buffer that is not safe for concurrent writes, so two parallel tests
+// holding it at once race on both — one test's line lands in another's buffer,
+// and the two writes collide. It was latent for as long as more than one
+// parallel test used this, and surfaced under -race in CI rather than locally,
+// which is what an intermittent race does.
+//
+// A test that replaces a global cannot be parallel. These are microseconds
+// each; the parallelism bought nothing.
 func quiet(t *testing.T) *bytes.Buffer {
 	t.Helper()
 	var buf bytes.Buffer
@@ -112,8 +122,6 @@ func TestWriteFieldErrorNamesTheField(t *testing.T) {
 // query shapes, none of which a caller needs and some of which help an attacker.
 // It must still reach the log, or a 500 becomes unattributable.
 func TestWriteInternalHidesTheCauseButLogsIt(t *testing.T) {
-	t.Parallel()
-
 	logs := quiet(t)
 	rec := httptest.NewRecorder()
 	secret := "firestore: collection concepts doc mixture-of-experts permission denied"
@@ -244,8 +252,6 @@ func TestCacheHeaders(t *testing.T) {
 // CLAUDE.md forbids panicking in a handler; this exists for the code we did not
 // write. A panic must become a 500, not a dropped connection.
 func TestRecovererTurnsAPanicIntoA500(t *testing.T) {
-	t.Parallel()
-
 	quiet(t)
 	h := apihttp.Recoverer(http.HandlerFunc(func(http.ResponseWriter, *http.Request) {
 		panic("a nil map deep in a dependency")
@@ -268,8 +274,6 @@ func TestRecovererTurnsAPanicIntoA500(t *testing.T) {
 // beside the one already there, and the client receives `{...}{...}`, which
 // parses as neither. Truncated is the only honest ending.
 func TestRecovererDoesNotAppendToAResponseAlreadyStarted(t *testing.T) {
-	t.Parallel()
-
 	quiet(t)
 	h := apihttp.Recoverer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		apihttp.WriteJSON(w, http.StatusOK, map[string]string{"id": "attention"})
@@ -316,8 +320,6 @@ func TestRecovererLeavesTheResponseControllerReachable(t *testing.T) {
 // response deliberately. Swallowing it would convert an intentional abort into
 // a logged crash and a second write onto a response already in flight.
 func TestRecovererLetsErrAbortHandlerThrough(t *testing.T) {
-	t.Parallel()
-
 	quiet(t)
 	h := apihttp.Recoverer(http.HandlerFunc(func(http.ResponseWriter, *http.Request) {
 		panic(http.ErrAbortHandler)

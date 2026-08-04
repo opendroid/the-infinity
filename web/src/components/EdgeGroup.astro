@@ -22,13 +22,18 @@ const leading = type === 'requires';
 ---
 <div class="mb-6">
   <h2 class="mb-2.5 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-dust">
-    {leading && <span class="mr-1.5 text-thread">{ARROW[type]}</span>}
+    {/*
+      aria-hidden: the glyph is decoration and the word beside it already says
+      the relationship. Unhidden it announced as "◂REQUIRES" — whatever a
+      speech engine calls ◂, with no separator before the word (#147).
+    */}
+    {leading && <span class="mr-1.5 text-thread" aria-hidden="true">{ARROW[type]}</span>}
     {LABEL[type]}
-    {!leading && <span class="ml-1.5 text-thread">{ARROW[type]}</span>}
+    {!leading && <span class="ml-1.5 text-thread" aria-hidden="true">{ARROW[type]}</span>}
   </h2>
   {
     edges.length > 0 ? (
-      edges.map((edge) => <EdgeRow edge={edge} />)
+      edges.map((edge) => <EdgeRow edge={edge} type={type} />)
     ) : (
       <div class="rounded-row border border-dashed border-line px-[11px] py-2.5">
         <p class="text-[13px] text-dust">{EMPTY[type]}</p>

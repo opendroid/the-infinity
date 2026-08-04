@@ -240,7 +240,7 @@ function Ready({ trail }: { trail: Trail }) {
             <span className="w-[22px] shrink-0 font-mono text-[11px] text-dust">
               {String(stop.n).padStart(2, '0')}
             </span>
-            <TierDot tier={stop.tier} size={8} />
+            <TierDot tier={stop.tier} size={8} decorative={false} />
             <a href={`/c/${stop.id}`} className="min-w-0 flex-1 text-[15px] text-starlight no-underline hover:text-thread">
               {stop.title}
             </a>
