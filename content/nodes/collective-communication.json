@@ -1,0 +1,53 @@
+{
+  "id": "collective-communication",
+  "title": "Collective Communication",
+  "domain": [
+    "Systems",
+    "Distributed"
+  ],
+  "bodies": {
+    "intuition": "Parallel training is mostly agreement: every worker computes something, and then they all have to end up holding the same numbers. That agreement is a small set of named patterns — all-reduce, all-gather, reduce-scatter — implemented once in a library and used by every parallelism strategy above them. How fast they run is usually what decides whether adding workers helps at all.",
+    "engineer": "A ring all-reduce splits the buffer into as many chunks as there are workers and passes them around the ring twice: a reduce-scatter, then an all-gather. Each worker sends the same volume however many workers there are, which is why data parallelism's communication cost does not grow with the worker count — the trip simply takes more hops. Latency grows with the ring; volume does not.",
+    "math": "Ring all-reduce moves 2(N−1)/N·D bytes per worker for a buffer of D bytes, approaching 2D from below and never exceeding it; the reduce-scatter and the all-gather contribute (N−1)/N·D each. The step count is 2(N−1), so latency is linear in N while volume is essentially constant — which is the whole argument for hierarchical rings once a cluster is large."
+  },
+  "emphasis": {
+    "intuition": "How fast they run is usually what decides whether adding workers helps at all",
+    "engineer": "Each worker sends the same volume however many workers there are"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "peers": 7,
+      "share_rest": 1
+    },
+    "param_controls": [
+      {
+        "name": "peers",
+        "min": 1,
+        "max": 63,
+        "step": 1
+      }
+    ],
+    "caption": "The share of a full buffer each worker sends in one reduce-scatter, against the chunk it keeps. Drag the ring size to watch it saturate just below the whole — the reason all-reduce cost stops growing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-parallelism",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1802.05799",
+      "title": "Horovod: fast and easy distributed deep learning in TensorFlow",
+      "url": "https://arxiv.org/abs/1802.05799"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

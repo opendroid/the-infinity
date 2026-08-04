@@ -1,0 +1,58 @@
+{
+  "id": "sequence-parallelism",
+  "title": "Sequence Parallelism",
+  "domain": [
+    "Systems",
+    "Distributed"
+  ],
+  "bodies": {
+    "intuition": "Tensor parallelism splits the large matrix multiplies but leaves the normalization and dropout between them replicated, so every device still holds a complete copy of those activations. Sequence parallelism splits those regions along the sequence instead, and no device ever holds the whole thing. It costs no extra bandwidth: the all-reduce that was already happening is simply split into two cheaper collectives.",
+    "engineer": "The regions between tensor-parallel blocks are elementwise, so they are independent across positions and can be partitioned by token with no change to the result. Replacing each all-reduce with a reduce-scatter and an all-gather moves the same volume, which is why this is close to free. It removes much of the activation memory that made recomputation necessary in the first place.",
+    "math": "Under tensor parallelism of degree t, the norm and dropout activations cost Θ(b·s·d) per device rather than Θ(b·s·d/t), because those regions are replicated rather than split. Partitioning them by sequence restores the divisor. Communication is unchanged: an all-reduce is a reduce-scatter followed by an all-gather, and the pair moves exactly what the whole did."
+  },
+  "emphasis": {
+    "intuition": "no device ever holds the whole thing",
+    "engineer": "which is why this is close to free"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "replicated": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "replicated",
+        "min": 0,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Activation memory still replicated on every device against what tensor parallelism already shards, both as slices of one layer. Drag the replicated part to watch what sequence parallelism is there to remove."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tensor-parallelism",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "activation-checkpointing",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2205.05198",
+      "title": "Reducing Activation Recomputation in Large Transformer Models",
+      "url": "https://arxiv.org/abs/2205.05198"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
