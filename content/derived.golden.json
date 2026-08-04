@@ -5,7 +5,7 @@
       "id": "activation-checkpointing",
       "title": "Activation Checkpointing",
       "domain": "Systems / Memory",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -26,7 +26,7 @@
           {
             "id": "sequence-parallelism",
             "title": "Sequence Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -116,13 +116,13 @@
       "id": "arithmetic-intensity",
       "title": "Arithmetic Intensity",
       "domain": "Systems / Hardware",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "gpu-memory-hierarchy",
             "title": "GPU Memory Hierarchy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -130,7 +130,7 @@
           {
             "id": "kernel-fusion",
             "title": "Kernel Fusion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -138,6 +138,12 @@
           {
             "id": "prefill-and-decode",
             "title": "Prefill and Decode",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "quantization",
+            "title": "Quantization",
             "tier": "verified",
             "reviewed": false
           }
@@ -290,7 +296,7 @@
           {
             "id": "activation-checkpointing",
             "title": "Activation Checkpointing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -553,7 +559,7 @@
       "id": "collective-communication",
       "title": "Collective Communication",
       "domain": "Systems / Distributed",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -567,7 +573,7 @@
           {
             "id": "tensor-parallelism",
             "title": "Tensor Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -845,7 +851,7 @@
           {
             "id": "collective-communication",
             "title": "Collective Communication",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1075,7 +1081,7 @@
           {
             "id": "tensor-parallelism",
             "title": "Tensor Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1157,13 +1163,13 @@
           {
             "id": "gpu-memory-hierarchy",
             "title": "GPU Memory Hierarchy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "kernel-fusion",
             "title": "Kernel Fusion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1173,14 +1179,14 @@
       "id": "gpu-memory-hierarchy",
       "title": "GPU Memory Hierarchy",
       "domain": "Systems / Hardware",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "arithmetic-intensity",
             "title": "Arithmetic Intensity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1213,7 +1219,7 @@
           {
             "id": "activation-checkpointing",
             "title": "Activation Checkpointing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1370,13 +1376,13 @@
       "id": "kernel-fusion",
       "title": "Kernel Fusion",
       "domain": "Systems / Hardware",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "arithmetic-intensity",
             "title": "Arithmetic Intensity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2013,7 +2019,7 @@
       "id": "pipeline-parallelism",
       "title": "Pipeline Parallelism",
       "domain": "Systems / Distributed",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2028,7 +2034,7 @@
           {
             "id": "tensor-parallelism",
             "title": "Tensor Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2102,7 +2108,7 @@
           {
             "id": "arithmetic-intensity",
             "title": "Arithmetic Intensity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2253,7 +2259,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "arithmetic-intensity",
+            "title": "Arithmetic Intensity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2527,13 +2540,13 @@
       "id": "sequence-parallelism",
       "title": "Sequence Parallelism",
       "domain": "Systems / Distributed",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "tensor-parallelism",
             "title": "Tensor Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2542,7 +2555,7 @@
           {
             "id": "activation-checkpointing",
             "title": "Activation Checkpointing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2662,13 +2675,13 @@
       "id": "tensor-parallelism",
       "title": "Tensor Parallelism",
       "domain": "Systems / Distributed",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "collective-communication",
             "title": "Collective Communication",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2682,7 +2695,7 @@
           {
             "id": "sequence-parallelism",
             "title": "Sequence Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2690,7 +2703,7 @@
           {
             "id": "pipeline-parallelism",
             "title": "Pipeline Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2842,7 +2855,7 @@
           {
             "id": "pipeline-parallelism",
             "title": "Pipeline Parallelism",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2998,7 +3011,7 @@
       "center": {
         "id": "activation-checkpointing",
         "title": "Activation Checkpointing",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3020,7 +3033,7 @@
         {
           "id": "sequence-parallelism",
           "title": "Sequence Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -3184,7 +3197,7 @@
       "center": {
         "id": "arithmetic-intensity",
         "title": "Arithmetic Intensity",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3192,14 +3205,14 @@
         {
           "id": "gpu-memory-hierarchy",
           "title": "GPU Memory Hierarchy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "kernel-fusion",
           "title": "Kernel Fusion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -3207,8 +3220,15 @@
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -3227,6 +3247,12 @@
         {
           "from": "arithmetic-intensity",
           "to": "prefill-and-decode",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "arithmetic-intensity",
+          "to": "quantization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -3489,7 +3515,7 @@
         {
           "id": "activation-checkpointing",
           "title": "Activation Checkpointing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
@@ -3939,7 +3965,7 @@
       "center": {
         "id": "collective-communication",
         "title": "Collective Communication",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3954,7 +3980,7 @@
         {
           "id": "tensor-parallelism",
           "title": "Tensor Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -4431,7 +4457,7 @@
         {
           "id": "collective-communication",
           "title": "Collective Communication",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -4816,7 +4842,7 @@
         {
           "id": "tensor-parallelism",
           "title": "Tensor Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -4961,14 +4987,14 @@
         {
           "id": "gpu-memory-hierarchy",
           "title": "GPU Memory Hierarchy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "kernel-fusion",
           "title": "Kernel Fusion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -4999,7 +5025,7 @@
       "center": {
         "id": "gpu-memory-hierarchy",
         "title": "GPU Memory Hierarchy",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5007,7 +5033,7 @@
         {
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -5054,7 +5080,7 @@
         {
           "id": "activation-checkpointing",
           "title": "Activation Checkpointing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -5331,7 +5357,7 @@
       "center": {
         "id": "kernel-fusion",
         "title": "Kernel Fusion",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5339,7 +5365,7 @@
         {
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -6419,7 +6445,7 @@
       "center": {
         "id": "pipeline-parallelism",
         "title": "Pipeline Parallelism",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -6434,7 +6460,7 @@
         {
           "id": "tensor-parallelism",
           "title": "Tensor Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -6560,7 +6586,7 @@
         {
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -6821,6 +6847,13 @@
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "arithmetic-intensity",
+          "title": "Arithmetic Intensity",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -6834,6 +6867,12 @@
           "from": "quantization",
           "to": "qlora",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "arithmetic-intensity",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -7306,7 +7345,7 @@
       "center": {
         "id": "sequence-parallelism",
         "title": "Sequence Parallelism",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7314,14 +7353,14 @@
         {
           "id": "tensor-parallelism",
           "title": "Tensor Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "activation-checkpointing",
           "title": "Activation Checkpointing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -7544,7 +7583,7 @@
       "center": {
         "id": "tensor-parallelism",
         "title": "Tensor Parallelism",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7552,7 +7591,7 @@
         {
           "id": "collective-communication",
           "title": "Collective Communication",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -7566,14 +7605,14 @@
         {
           "id": "sequence-parallelism",
           "title": "Sequence Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "pipeline-parallelism",
           "title": "Pipeline Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -7832,7 +7871,7 @@
         {
           "id": "pipeline-parallelism",
           "title": "Pipeline Parallelism",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
