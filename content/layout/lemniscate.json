@@ -35,7 +35,7 @@
   ],
   "left": [
     {
-      "id": "feed-forward-network",
+      "id": "attention",
       "t": 0.2,
       "label": true
     },
@@ -45,14 +45,14 @@
       "label": false
     },
     {
-      "id": "conditional-computation",
+      "id": "feed-forward-network",
       "t": 0.8,
       "label": true
     }
   ],
   "right": [
     {
-      "id": "attention",
+      "id": "backpropagation",
       "t": 0.2,
       "label": true
     },
