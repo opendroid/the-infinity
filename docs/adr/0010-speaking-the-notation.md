@@ -1,6 +1,6 @@
 # 0010 — Notation carries a spoken separator
 
-- **Status:** proposed — the code exists and is held; see *What would change this* below
+- **Status:** accepted — shipped ahead of the listen that would confirm it; see *What would change this*
 - **Date:** 2026-08-03
 - **Amends:** [ADR-0009](0009-notation-in-bodies.md)
 
@@ -100,9 +100,16 @@ everywhere.
 
 ## What would change this
 
-**Nobody has heard it yet.** This ADR is `proposed`, not `accepted`, and the pull request
-carrying it is held, because the decision rests on one unverified claim: that a speech
-engine handed `"dmodel"` produces something a listener cannot parse.
+**Nobody has heard it.** This shipped on reasoning and on the accessibility tree, not on a
+listen, and that is worth stating rather than leaving to be discovered. The decision rests
+on one unverified claim: that a speech engine handed `"dmodel"` produces something a
+listener cannot parse.
+
+Shipping first was a judgement that a run-together nonword is very unlikely to be *better*
+than a separated one, so the downside of being wrong is verbosity rather than damage — and
+verbosity is a one-constant change. That is a weaker footing than this repo usually
+insists on, and it is recorded here so the next person knows which parts were measured and
+which were reasoned.
 
 The listen is three nodes at Math depth — `multi-head-attention`, `mixture-of-experts`,
 `attention` — comparing what ships today against what this produces. Two outcomes change
