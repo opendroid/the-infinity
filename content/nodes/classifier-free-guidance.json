@@ -1,0 +1,53 @@
+{
+  "id": "classifier-free-guidance",
+  "title": "Classifier-Free Guidance",
+  "domain": [
+    "Multimodal",
+    "Generation"
+  ],
+  "bodies": {
+    "intuition": "A conditioned diffusion model follows its prompt loosely. Guidance sharpens it: run the model twice, once with the prompt and once without, and step further in the direction the prompt added. Turn it up and the image matches the words more closely while losing variety — the knob everyone actually turns.",
+    "engineer": "Train one network with the condition randomly dropped, so it learns conditional and unconditional prediction at once — no separate classifier, which is what the name refers to. Sampling costs two forward passes per step instead of one. Push the scale too high and outputs saturate and lose detail, so it trades diversity for prompt adherence rather than improving both.",
+    "math": "ε̂ = ε_θ(x_t, ∅) + w·(ε_θ(x_t, c) − ε_θ(x_t, ∅)). At w = 1 this is the plain conditional model; above it the sample is pushed away from the unconditional prediction. It is an extrapolation, not an interpolation, which is why large w leaves the region the model was trained on."
+  },
+  "emphasis": {
+    "intuition": "the knob everyone actually turns",
+    "engineer": "it trades diversity for prompt adherence rather than improving both"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "guidance": 7.5,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "guidance",
+        "min": 1.0,
+        "max": 20.0,
+        "step": 0.5
+      }
+    ],
+    "caption": "Conditional and unconditional predictions with the guided result beside them. Drag the scale to watch the extrapolation grow past both."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "diffusion-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2207.12598",
+      "title": "Classifier-Free Diffusion Guidance",
+      "url": "https://arxiv.org/abs/2207.12598"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

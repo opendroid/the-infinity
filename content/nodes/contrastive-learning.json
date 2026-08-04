@@ -1,0 +1,61 @@
+{
+  "id": "contrastive-learning",
+  "title": "Contrastive Learning",
+  "domain": [
+    "Multimodal",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "Instead of predicting a label, learn by telling matched pairs apart from mismatched ones. Pull the representations of things that belong together closer, push everything else away. No annotation is needed — the pairing itself is the supervision, and it can come from a caption, a crop, or the next second of audio.",
+    "engineer": "Score every pair in a batch and treat the diagonal as correct, so a batch of size B gives B positives and B²−B negatives for free. Batch size is therefore not a tuning knob but part of the objective: more negatives sharpen the task, which is why these methods are trained at batch sizes that need distributed accumulation.",
+    "math": "InfoNCE: ℓ = −log[exp(s(x,y⁺)/τ) / Σ_j exp(s(x,y_j)/τ)], a softmax cross-entropy over one positive and the batch's negatives. It lower-bounds the mutual information between the paired views, and the bound is capped by log B — so a small batch limits what the objective can express regardless of the model."
+  },
+  "emphasis": {
+    "intuition": "the pairing itself is the supervision",
+    "engineer": "Batch size is therefore not a tuning knob but part of the objective"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "temperature": 0.07,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "temperature",
+        "min": 0.01,
+        "max": 1.0,
+        "step": 0.01
+      }
+    ],
+    "caption": "Similarity scores across a batch, positives against negatives. Drag the temperature to watch the objective sharpen or flatten."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      },
+      {
+        "id": "softmax",
+        "reviewed": false
+      },
+      {
+        "id": "batch-size",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1807.03748",
+      "title": "Representation Learning with Contrastive Predictive Coding",
+      "url": "https://arxiv.org/abs/1807.03748"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

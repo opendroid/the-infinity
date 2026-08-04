@@ -1,0 +1,58 @@
+{
+  "id": "clip",
+  "title": "CLIP",
+  "domain": [
+    "Multimodal",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "CLIP trains an image encoder and a text encoder together so that a picture and its caption land in the same place. Once they share a space, classification needs no classifier: encode the candidate labels as sentences and pick whichever sits closest. It learns from captions scraped at scale rather than from anyone labelling images by hand.",
+    "engineer": "Two encoders, a contrastive objective over a batch of image-text pairs, and a shared embedding space. The result transfers to tasks it was never trained on, because the supervision was language rather than a fixed label set. It is also the component most multimodal systems build on — the image side becomes the eyes of a language model.",
+    "math": "Maximise cosine similarity for matched pairs and minimise it for the B²−B mismatched ones, symmetrically over both directions. Zero-shot classification is argmax_c cos(f_img(x), f_txt(prompt(c))) — the label set is a runtime argument rather than a trained output layer, which is what makes it open-vocabulary."
+  },
+  "emphasis": {
+    "intuition": "classification needs no classifier",
+    "engineer": "the image side becomes the eyes of a language model"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "keys": 8,
+      "heads": 1
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 4,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Image-text similarity across a batch, with matched pairs on the diagonal. Drag the batch size to watch the negatives multiply."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      },
+      {
+        "id": "vision-transformer",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2103.00020",
+      "title": "Learning Transferable Visual Models From Natural Language Supervision",
+      "url": "https://arxiv.org/abs/2103.00020"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
