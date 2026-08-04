@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Serving a language model is two different jobs wearing one name. Reading the prompt processes every token at once and saturates the accelerator's arithmetic. Generating the reply produces one token at a time and spends nearly all of it waiting on memory. The same hardware is compute-bound in the first phase and memory-bound in the second.",
     "engineer": "Prefill is a single forward pass over n prompt tokens, parallel across positions, filling the KV cache. Decode is n sequential passes of one token each, reading that cache back every step. Batching helps decode enormously and prefill barely at all, which is why the two phases are increasingly scheduled — and sometimes physically served — apart.",
-    "math": "Prefill costs Θ(n²d) attention plus Θ(nd²) projections for a prompt of length n, in one pass. Decode costs Θ(nd) attention and Θ(d²) projections per token, over n passes. The arithmetic intensity differs by roughly the batch size, so the two phases sit on opposite sides of the roofline and no single configuration is right for both."
+    "math": "Prefill costs Θ(n²d) attention plus Θ(nd²) projections for a prompt of length n, in one pass. Decode costs Θ(nd) attention and Θ(d²) projections per token, over n passes. Arithmetic intensity is set by the prompt length in prefill and by the batch size in decode, so the two differ by a factor of about n/B and sit on opposite sides of the roofline. No single configuration is right for both."
   },
   "emphasis": {
     "intuition": "two different jobs wearing one name",
@@ -51,7 +51,8 @@
     }
   ],
   "updated_at": "2026-08-04",
-  "provenance": {
-    "drafted_at": "2026-08-04"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
   }
 }
