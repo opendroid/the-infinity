@@ -44,10 +44,16 @@
       "ref": "arXiv:1706.03762",
       "title": "Attention Is All You Need",
       "url": "https://arxiv.org/abs/1706.03762"
+    },
+    {
+      "ref": "arXiv:1905.10650",
+      "title": "Are Sixteen Heads Really Better than One?",
+      "url": "https://arxiv.org/abs/1905.10650"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

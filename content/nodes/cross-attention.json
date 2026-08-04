@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Cross-attention is attention between two different sequences. The queries come from the sequence being written, the keys and values from the one being read. It is how a decoder consults an encoded input, and how a model conditions on an image, an audio clip, or a retrieved document.",
     "engineer": "Identical arithmetic to self-attention with K and V projected from the other sequence. No causal mask is needed on the source, since the whole of it is available. Because the source encoding does not change while decoding, its keys and values are computed once and cached for every step.",
-    "math": "CrossAttn(Y, H) = softmax(YW_Q(HW_K)ᵀ / √d_k)·HW_V, with Y the target sequence and H the source encoding. The score matrix is n_target × n_source, so cost is linear in each rather than quadratic in their sum."
+    "math": "CrossAttn(Y, H) = softmax(YW_Q(HW_K)ᵀ / √d_k)·HW_V, with Y the target sequence and H the source encoding. The score matrix is n_target × n_source, so scoring costs Θ(n_target·n_source) against the Θ((n_target + n_source)²) of self-attention over the two sequences concatenated."
   },
   "emphasis": {
     "intuition": "how a model conditions on an image, an audio clip, or a retrieved document",
@@ -51,8 +51,9 @@
       "url": "https://arxiv.org/abs/1706.03762"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
