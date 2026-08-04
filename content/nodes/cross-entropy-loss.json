@@ -45,13 +45,14 @@
   },
   "citations": [
     {
-      "ref": "arXiv:1706.03762",
-      "title": "Attention Is All You Need",
-      "url": "https://arxiv.org/abs/1706.03762"
+      "ref": "arXiv:1312.3005",
+      "title": "One Billion Word Benchmark for Measuring Progress in Statistical Language Modeling",
+      "url": "https://arxiv.org/abs/1312.3005"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

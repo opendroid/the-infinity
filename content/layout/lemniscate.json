@@ -30,7 +30,7 @@
     "Every id here is checked against /content/nodes by `validate:content`, which also rejects a",
     "bead whose tier belongs to the other lobe, a t outside 0-1, and a duplicate.",
     "",
-    "The left lobe is currently every verified concept there is. When the fourth is verified,",
+    "Written when the left lobe was every verified concept there is. It no longer is — 27 of 57 are verified as of the Optimization batch — so the lobes are now a CHOICE among many rather than a listing, and recognition is the whole of the bar. A bead also cannot simply stay: verifying a node moves it off the teal lobe by force, because validate:content rejects a bead whose tier belongs to the other one. That is how backpropagation left this file, and it is the mechanism that will keep bringing someone back here.",
     "this file is where someone decides whether it displaces one."
   ],
   "left": [
@@ -52,7 +52,7 @@
   ],
   "right": [
     {
-      "id": "backpropagation",
+      "id": "fine-tuning",
       "t": 0.2,
       "label": true
     },

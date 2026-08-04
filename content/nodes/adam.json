@@ -44,10 +44,16 @@
       "ref": "arXiv:1412.6980",
       "title": "Adam: A Method for Stochastic Optimization",
       "url": "https://arxiv.org/abs/1412.6980"
+    },
+    {
+      "ref": "arXiv:1904.09237",
+      "title": "On the Convergence of Adam and Beyond",
+      "url": "https://arxiv.org/abs/1904.09237"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

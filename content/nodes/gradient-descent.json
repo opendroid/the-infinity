@@ -7,7 +7,7 @@
   ],
   "bodies": {
     "intuition": "The gradient points in the direction the loss increases fastest, so stepping the other way makes it smaller. Repeat a few hundred thousand times. That is the whole algorithm — the sophistication in modern training is entirely in how big the step is and how much of the previous steps it remembers.",
-    "engineer": "Subtract the gradient scaled by a learning rate. On a non-convex surface there is no guarantee of reaching a global minimum and in practice nobody needs one: the minima found by these methods generalise about equally well. Step size is the parameter that decides whether it converges, oscillates, or diverges.",
+    "engineer": "Subtract the gradient scaled by a learning rate. On a non-convex surface there is no guarantee of reaching a global minimum and in practice nobody needs one: in a large network the local minima reached sit close together in training loss. How well they generalise is a separate question, and one the batch size turns out to affect. Step size is the parameter that decides whether it converges, oscillates, or diverges.",
     "math": "θ_{t+1} = θ_t − η∇L(θ_t). For L with L-Lipschitz gradients, convergence to a stationary point requires η < 2/L; above that the iterates diverge. The bound is unknowable in practice, which is why the learning rate is tuned rather than derived."
   },
   "emphasis": {
@@ -41,13 +41,19 @@
   },
   "citations": [
     {
-      "ref": "arXiv:1502.05767",
-      "title": "Automatic differentiation in machine learning: a survey",
-      "url": "https://arxiv.org/abs/1502.05767"
+      "ref": "arXiv:1609.04747",
+      "title": "An overview of gradient descent optimization algorithms",
+      "url": "https://arxiv.org/abs/1609.04747"
+    },
+    {
+      "ref": "arXiv:1412.0233",
+      "title": "The Loss Surfaces of Multilayer Networks",
+      "url": "https://arxiv.org/abs/1412.0233"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
