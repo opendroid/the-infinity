@@ -33,7 +33,7 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	case errors.Is(err, store.ErrNotFound):
 		h.writeNotFound(w, r, id)
 	default:
-		apihttp.WriteInternal(w, err, "fetching concept")
+		apihttp.WriteInternal(r.Context(), w, err, "fetching concept")
 	}
 }
 
@@ -80,7 +80,7 @@ func (h *Handler) Neighborhood(w http.ResponseWriter, r *http.Request) {
 		apihttp.WriteError(w, http.StatusNotFound, apihttp.CodeNotFound,
 			"No concept with id \""+id+"\".")
 	default:
-		apihttp.WriteInternal(w, err, "fetching neighborhood")
+		apihttp.WriteInternal(r.Context(), w, err, "fetching neighborhood")
 	}
 }
 
@@ -92,7 +92,7 @@ func (h *Handler) Neighborhood(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) Stats(w http.ResponseWriter, r *http.Request) {
 	s, err := h.store.Stats(r.Context())
 	if err != nil {
-		apihttp.WriteInternal(w, err, "fetching stats")
+		apihttp.WriteInternal(r.Context(), w, err, "fetching stats")
 		return
 	}
 	apihttp.CacheFor(w, apihttp.StatsBrowserTTL, apihttp.StatsEdgeTTL)

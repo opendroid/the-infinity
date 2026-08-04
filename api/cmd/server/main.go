@@ -98,6 +98,9 @@ func run(logger *slog.Logger) error {
 		ReadLimit:  readLimit,
 		WriteLimit: writeLimit,
 		DailyCap:   dailyCap,
+		// Already validated non-empty above, so correlation is on in production
+		// and off in any test that does not ask for it.
+		ProjectID: projectID,
 	})
 
 	srv := &http.Server{

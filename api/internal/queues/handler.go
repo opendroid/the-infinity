@@ -81,7 +81,7 @@ func (h *Handler) CreateRequest(w http.ResponseWriter, r *http.Request) {
 		Name:     name,
 		Referrer: body.Referrer,
 	}); err != nil {
-		apihttp.WriteInternal(w, err, "queueing concept request")
+		apihttp.WriteInternal(r.Context(), w, err, "queueing concept request")
 		return
 	}
 
@@ -135,6 +135,6 @@ func (h *Handler) CreateReview(w http.ResponseWriter, r *http.Request) {
 		apihttp.WriteError(w, http.StatusNotFound, apihttp.CodeNotFound,
 			"No concept with id \""+body.ConceptID+"\".")
 	default:
-		apihttp.WriteInternal(w, err, "queueing review")
+		apihttp.WriteInternal(r.Context(), w, err, "queueing review")
 	}
 }

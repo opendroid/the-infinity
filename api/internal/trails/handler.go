@@ -99,7 +99,7 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 		// not ours — it means a stale localStorage trail, so say which.
 		apihttp.WriteFieldError(w, "stops", "A stop names a concept that does not exist.")
 	default:
-		apihttp.WriteInternal(w, err, "creating trail")
+		apihttp.WriteInternal(r.Context(), w, err, "creating trail")
 	}
 }
 
@@ -116,6 +116,6 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 		apihttp.WriteError(w, http.StatusNotFound, apihttp.CodeNotFound,
 			"No trail with slug \""+slug+"\".")
 	default:
-		apihttp.WriteInternal(w, err, "fetching trail")
+		apihttp.WriteInternal(r.Context(), w, err, "fetching trail")
 	}
 }

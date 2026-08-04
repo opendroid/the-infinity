@@ -55,6 +55,10 @@ func Recoverer(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		sw := &started{ResponseWriter: w}
 		w = sw
+		// Seeded here because Recoverer is the outermost middleware. Trace fills
+		// it in further down the chain; see the note on `holder` in trace.go for
+		// why the context alone cannot carry it upward.
+		r = WithLoggerHolder(r)
 
 		defer func() {
 			rec := recover()
@@ -70,7 +74,10 @@ func Recoverer(next http.Handler) http.Handler {
 				panic(rec)
 			}
 
-			slog.Error("panic in handler",
+			// The request's logger, not the package one: a panic is the line
+			// someone is most likely to be hunting from a trace, and it was the
+			// only per-request log the service emitted before #2.
+			HeldLogger(r.Context()).Error("panic in handler",
 				slog.Any("recovered", rec),
 				slog.String("path", r.URL.Path),
 				slog.Bool("response_started", sw.wrote))
@@ -206,7 +213,7 @@ func NewWriteLimiter(s store.Store, dailyCap int64, now func() time.Time) *Write
 func (l *WriteLimiter) Reserve(w http.ResponseWriter, r *http.Request) (handled bool) {
 	allowed, err := l.store.ReserveWrite(r.Context(), ratelimit.Day(l.now()), l.dailyCap)
 	if err != nil {
-		WriteInternal(w, err, "reserving daily write budget")
+		WriteInternal(r.Context(), w, err, "reserving daily write budget")
 		return true
 	}
 	if !allowed {
