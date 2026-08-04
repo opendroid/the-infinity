@@ -1,0 +1,57 @@
+{
+  "id": "perplexity",
+  "title": "Perplexity",
+  "domain": [
+    "Evaluation",
+    "Metrics"
+  ],
+  "bodies": {
+    "intuition": "Perplexity asks how surprised a model is by text it has not seen. If it were choosing uniformly among 20 words at every step, its perplexity would be 20. Lower means less surprised, which usually means better — but only on the corpus it was measured against, and two perplexities computed on different text or different tokenizers are not comparable at all.",
+    "engineer": "The exponential of the mean cross-entropy per token. It is the metric pretraining actually optimises, which makes it the honest one for that stage and a poor one for anything after — an instruction-tuned model can get worse perplexity while becoming far more useful. Changing the tokenizer changes it even on identical text, so it travels badly between papers.",
+    "math": "PPL = exp(−(1/N) Σ_t log p(x_t | x_{<t})), the exponentiated cross-entropy. Since it is per token, a vocabulary that splits words into more pieces lowers it without the model improving — the denominator N is a property of the tokenizer rather than of the text."
+  },
+  "emphasis": {
+    "intuition": "two perplexities computed on different text or different tokenizers are not comparable at all",
+    "engineer": "an instruction-tuned model can get worse perplexity while becoming far more useful"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "vocab": 32000
+    },
+    "param_controls": [
+      {
+        "name": "vocab",
+        "min": 1000,
+        "max": 128000,
+        "step": 1000
+      }
+    ],
+    "caption": "Perplexity over training. Drag the vocabulary size to watch the number move without the model changing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      },
+      {
+        "id": "tokenization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1312.3005",
+      "title": "One Billion Word Benchmark for Measuring Progress in Statistical Language Modeling",
+      "url": "https://arxiv.org/abs/1312.3005"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

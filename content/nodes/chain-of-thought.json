@@ -1,0 +1,53 @@
+{
+  "id": "chain-of-thought",
+  "title": "Chain of Thought",
+  "domain": [
+    "Evaluation",
+    "Capabilities"
+  ],
+  "bodies": {
+    "intuition": "Asked for the answer to a multi-step problem, a model that must produce it immediately often gets it wrong. Asked to work through the steps first, it does much better. The reasoning is written into the output because that is the only place the model has to put it — there is no scratchpad, so the tokens are the scratchpad.",
+    "engineer": "Prompt for intermediate steps, either with worked examples or a bare instruction to think step by step. It helps on arithmetic and multi-step reasoning and barely at all on tasks a single step already solves. The gain grows with model scale, and the written chain is not necessarily the computation that produced the answer — it is a plausible one.",
+    "math": "Generating m reasoning tokens before the answer costs m extra sequential passes, so accuracy is bought with latency at roughly the rate the chain is long. Autoregressive generation gives Θ(1) compute per token and no state between them, so a longer chain is literally more compute applied to the problem."
+  },
+  "emphasis": {
+    "intuition": "there is no scratchpad, so the tokens are the scratchpad",
+    "engineer": "the written chain is not necessarily the computation that produced the answer"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "chain": 8
+    },
+    "param_controls": [
+      {
+        "name": "chain",
+        "min": 1,
+        "max": 32,
+        "step": 1
+      }
+    ],
+    "caption": "Accuracy against the number of reasoning tokens generated before answering. Drag the chain length to watch accuracy and latency rise together."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "in-context-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2201.11903",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "url": "https://arxiv.org/abs/2201.11903"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

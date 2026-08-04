@@ -1,0 +1,53 @@
+{
+  "id": "pass-at-k",
+  "title": "pass@k",
+  "domain": [
+    "Evaluation",
+    "Metrics"
+  ],
+  "bodies": {
+    "intuition": "For code, whether a single answer is right is the wrong question — a developer can generate several attempts and run the tests. pass@k asks whether at least one of k samples passes, which measures something closer to how the model is actually used. It also rises with k for free, so the k has to be reported or the number means nothing.",
+    "engineer": "Sample n ≥ k completions, count how many pass the tests, and estimate the probability that a random subset of size k contains one. Estimating from n > k rather than literally drawing k is not a detail: the naive estimator is badly biased at small n, and the correction is the reason the metric is trustworthy at all.",
+    "math": "With c of n samples correct, pass@k = 1 − C(n−c, k)/C(n, k), the probability that a random k-subset misses every correct sample. It increases monotonically in k, so pass@1 and pass@100 are different metrics rather than the same one measured twice."
+  },
+  "emphasis": {
+    "intuition": "the k has to be reported or the number means nothing",
+    "engineer": "the naive estimator is badly biased at small n"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "k": 10,
+      "share_rest": 90
+    },
+    "param_controls": [
+      {
+        "name": "k",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "caption": "Share of problems solved by at least one of k samples against those still unsolved. Drag k to watch the metric climb without the model changing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2107.03374",
+      "title": "Evaluating Large Language Models Trained on Code",
+      "url": "https://arxiv.org/abs/2107.03374"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

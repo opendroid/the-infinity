@@ -1,0 +1,58 @@
+{
+  "id": "llm-as-judge",
+  "title": "LLM as Judge",
+  "domain": [
+    "Evaluation",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Grading open-ended answers needs a human, and humans are slow and expensive. Using a strong model as the grader is fast enough to run on every change, and agrees with human raters about as often as two humans agree with each other. It is also biased in ways a human is not, and the biases are systematic rather than noisy.",
+    "engineer": "Prompt a strong model to score or compare responses, usually pairwise. The known failure modes are documented and largely correctable: position bias, verbosity bias, and self-preference — a judge rates its own family's outputs higher. Swapping the order and averaging removes most of the first, which is a cheap fix nobody should skip.",
+    "math": "Agreement with human preference is reported as the rate on pairs where humans themselves agree, which puts the ceiling at inter-annotator agreement rather than at 100%. Systematic bias does not average out with more samples the way annotator noise does — a thousand judgements from a biased judge is a precise wrong answer."
+  },
+  "emphasis": {
+    "intuition": "the biases are systematic rather than noisy",
+    "engineer": "a judge rates its own family's outputs higher"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "swaps": 1,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "swaps",
+        "min": 0,
+        "max": 2,
+        "step": 1
+      }
+    ],
+    "caption": "Scores a judge gives the same pair in each presentation order. Drag to average over swapped orders and watch position bias cancel."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "instruction-tuning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "reward-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2306.05685",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "url": "https://arxiv.org/abs/2306.05685"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
