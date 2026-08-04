@@ -1,0 +1,57 @@
+{
+  "id": "prefill-and-decode",
+  "title": "Prefill and Decode",
+  "domain": [
+    "Inference",
+    "Serving"
+  ],
+  "bodies": {
+    "intuition": "Serving a language model is two different jobs wearing one name. Reading the prompt processes every token at once and saturates the accelerator's arithmetic. Generating the reply produces one token at a time and spends nearly all of it waiting on memory. The same hardware is compute-bound in the first phase and memory-bound in the second.",
+    "engineer": "Prefill is a single forward pass over n prompt tokens, parallel across positions, filling the KV cache. Decode is n sequential passes of one token each, reading that cache back every step. Batching helps decode enormously and prefill barely at all, which is why the two phases are increasingly scheduled — and sometimes physically served — apart.",
+    "math": "Prefill costs Θ(n²d) attention plus Θ(nd²) projections for a prompt of length n, in one pass. Decode costs Θ(nd) attention and Θ(d²) projections per token, over n passes. The arithmetic intensity differs by roughly the batch size, so the two phases sit on opposite sides of the roofline and no single configuration is right for both."
+  },
+  "emphasis": {
+    "intuition": "two different jobs wearing one name",
+    "engineer": "scheduled — and sometimes physically served — apart"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "prompt": 512,
+      "share_rest": 128
+    },
+    "param_controls": [
+      {
+        "name": "prompt",
+        "min": 64,
+        "max": 2048,
+        "step": 64
+      }
+    ],
+    "caption": "Share of a request's compute spent reading the prompt against writing the reply. Drag the prompt length to watch prefill take over."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      },
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2308.16369",
+      "title": "SARATHI: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills",
+      "url": "https://arxiv.org/abs/2308.16369"
+    }
+  ],
+  "updated_at": "2026-08-04",
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  }
+}

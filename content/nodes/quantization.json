@@ -1,0 +1,58 @@
+{
+  "id": "quantization",
+  "title": "Quantization",
+  "domain": [
+    "Inference",
+    "Efficiency"
+  ],
+  "bodies": {
+    "intuition": "A trained weight does not need sixteen bits to be useful. Quantization stores weights in four or eight, which shrinks the model enough to fit on smaller hardware and — because decoding is bottlenecked on reading weights, not on arithmetic — usually makes it faster too. The loss in quality is far smaller than the loss in precision suggests.",
+    "engineer": "Map each weight group to a low-bit integer with a scale, and dequantise on the fly. Post-training quantization needs no retraining and is what most deployments use. The difficulty is outliers: a few activation channels are orders of magnitude larger than the rest, and a naive scale spends its whole range on them and flattens everything else to zero.",
+    "math": "For a group with scale s = max|w|/(2^{b−1} − 1), store round(w/s) and reconstruct as s·round(w/s). Error per weight is bounded by s/2, so it falls with the group size and rises with the group's largest magnitude — which is why outlier handling, not bit width alone, decides whether a scheme survives."
+  },
+  "emphasis": {
+    "intuition": "far smaller than the loss in precision suggests",
+    "engineer": "spends its whole range on them and flattens everything else to zero"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "bits": 8,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "bits",
+        "min": 2,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Weight magnitudes at full precision and after quantization to the chosen width. Drag the bit width down to watch the levels coarsen and the outliers dominate the scale."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "mixed-precision-training",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2208.07339",
+      "title": "LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale",
+      "url": "https://arxiv.org/abs/2208.07339"
+    },
+    {
+      "ref": "arXiv:2210.17323",
+      "title": "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers",
+      "url": "https://arxiv.org/abs/2210.17323"
+    }
+  ],
+  "updated_at": "2026-08-04",
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  }
+}
