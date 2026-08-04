@@ -72,7 +72,11 @@ func New(s store.Store, opts Options) http.Handler {
 	writeShaping := apihttp.NewPerIPLimiter(opts.WriteLimit)
 
 	r := chi.NewRouter()
-	r.Use(apihttp.Recoverer, apihttp.Timeout)
+	// LogForwarded is global rather than per-route-group so the line lands on
+	// whatever request happens to arrive first, and it takes the read limiter's
+	// hop count because both limiters share it — a divergence there would be a
+	// different bug, and NewPerIPLimiter normalises from the same default.
+	r.Use(apihttp.Recoverer, apihttp.Timeout, apihttp.LogForwarded(opts.ReadLimit.TrustedProxyHops))
 
 	// GET and HEAD. chi answers 405 for a method it has no route for, and `curl
 	// -I` — the first thing anyone types at a health endpoint, and what most
