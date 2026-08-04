@@ -44,35 +44,35 @@ Node schema (`/content/schema/node.schema.json`): `id`, `title`, `domain[]`, `ti
 ## 4. Phases
 
 ### Phase 0 — Foundations (~3 hrs · week 1)
-- [ ] `gh` CLI auth; create monorepo with directory skeleton + root `CLAUDE.md`
-- [ ] GCP project; billing alerts at $10 and $25; enable Cloud Run, Firestore, Artifact Registry, Secret Manager
-- [ ] Firebase project on same GCP project; Blaze; `firebase init hosting`
-- [ ] Commit mockups to `/docs/design/mockups.html`
+- [x] `gh` CLI auth; create monorepo with directory skeleton + root `CLAUDE.md`
+- [x] GCP project; billing alerts at $10 and $25; enable Cloud Run, Firestore, Artifact Registry, Secret Manager
+- [x] Firebase project on same GCP project; Blaze; `firebase init hosting`
+- [x] Commit mockups to `/docs/design/mockups.html`
 
 ### Phase 1 — Web design iteration (~5–6 hrs · weeks 1–2)
-- [ ] Astro scaffold in `/web`; Tailwind config generated from design tokens
-- [ ] Three templates with 5 hand-written fake nodes: universe (landing), concept page, trail
-- [ ] Iterate in browser until layout converges; extract tokens to `/docs/design/tokens.md`
+- [x] Astro scaffold in `/web`; Tailwind config generated from design tokens
+- [x] Three templates with 5 hand-written fake nodes: universe (landing), concept page, trail
+- [x] Iterate in browser until layout converges; extract tokens to `/docs/design/tokens.md`
 
 ### Phase 2 — API design (~2–3 hrs · weeks 2–3)
-- [ ] `node.schema.json` written and CI-validated
-- [ ] `/docs/openapi.yaml` for the v1 surface above
-- [ ] ADRs: monorepo, content-as-code, static-first, Astro, Firestore
+- [x] `node.schema.json` written and CI-validated
+- [x] `/docs/openapi.yaml` for the v1 surface above
+- [x] ADRs: monorepo, content-as-code, static-first, Astro, Firestore
 
 ### Phase 3 — Service design (~2–3 hrs · week 3)
-- [ ] Go layout: `cmd/server`, `internal/{concepts,trails,requests,store}`
-- [ ] Firestore data model doc; least-privilege service account
-- [ ] Dockerfile (distroless); Cloud Run config (scale-to-zero)
+- [x] Go layout: `cmd/server`, `internal/{concepts,trails,requests,store}`
+- [x] Firestore data model doc; least-privilege service account
+- [x] Dockerfile (distroless); Cloud Run config (scale-to-zero)
 
 ### Phase 4 — Standards + CI (~2 hrs · weeks 3–4)
-- [ ] Go: golangci-lint, table-driven tests, wrapped errors, context propagation
-- [ ] TS: strict mode, ESLint (no formatter — see CLAUDE.md §4)
-- [ ] GitHub Actions on PR: lint, test, schema-validate, build both surfaces
-- [ ] Conventional commits, PR template, branch protection on `main`
-- [ ] All summarized in `CLAUDE.md`
+- [x] Go: golangci-lint, table-driven tests, wrapped errors, context propagation
+- [x] TS: strict mode, ESLint (no formatter — see CLAUDE.md §4)
+- [x] GitHub Actions on PR: lint, test, schema-validate, build both surfaces
+- [x] Conventional commits, PR template, branch protection on `main`
+- [x] All summarized in `CLAUDE.md`
 
 ### Phase 5 — Backlog (~1–2 hrs · week 4)
-- [ ] Generate ~35 issues via `gh` with labels (`web`, `api`, `content`, `infra`) and milestones M1/M2/M3; review once
+- [x] Generate ~35 issues via `gh` with labels (`web`, `api`, `content`, `infra`) and milestones M1/M2/M3; review once
 
 ### Phase 6 — Issue loop (~28–38 hrs · weeks 4–11)
 Per issue: `branch → plan → implement → unit tests → review subagent on diff → PR → CI green → merge`.
@@ -81,8 +81,8 @@ Per issue: `branch → plan → implement → unit tests → review subagent on 
 - Seed content (~300 nodes) runs here as a workflow: 50–75 nodes/run → schema-validate → PR → your review = verification (~4–6 hrs supervised, weeks 8–11)
 
 ### Phase 7 — Launch (~3–4 hrs · weeks 11–13)
-- [ ] Sitemap, OG cards for trails, analytics (Plausible or GA4), 404/empty states
-- [ ] DNS cutover at GoDaddy (TXT verify → A records → cert auto-provisions)
+- [x] Sitemap, OG cards for trails, analytics (Plausible or GA4), 404/empty states
+- [x] DNS cutover at GoDaddy (TXT verify → A records → cert auto-provisions)
 - [ ] Ship to HN / X
 
 ## 5. Milestones
@@ -104,3 +104,77 @@ Per issue: `branch → plan → implement → unit tests → review subagent on 
 - Billing alerts $10/$25 from day one
 
 **Total effort: ~55–65 hrs ≈ 11–13 weeks at 1 hr/day (5–6 weeks at 2 hrs/day).**
+
+---
+
+## 8. What actually happened
+
+Written at 54 of 57 nodes verified, with the site live on the real domain. The plan above
+is left as it was predicted; this is the reconciliation, because the gap between the two is
+the interesting part.
+
+### The phases held; the estimates did not
+
+Phases 0–5 and 7 are done. Phase 6 is the one still running, and it absorbed far more than
+its share — not through the issue loop being slow, but because each issue kept turning up a
+second issue underneath it. The backlog grew while being worked.
+
+### Design iteration never happened, and did not need to
+
+Phase 1 budgeted 5–6 hours of in-browser convergence. It cost close to zero: the design
+handoff in [`/docs/design/handoff-v1/`](design/handoff-v1) arrived specifying all five
+routes at implementation fidelity, so Phase 1 became *build to spec* rather than *discover
+the spec* (#3). `mockups.html` is superseded and the plan's §2 above still points at it.
+
+### The data model moved in three ways
+
+| Planned | Shipped | Why |
+|---|---|---|
+| `concepts`, `trails`, `concept_requests` | plus `concept_reviews`, `counters` | [ADR-0004](adr/0004-runtime-collections.md) — two collections existed in production that no document mentioned |
+| `tier` stored on the node | **derived** from the `review` block | [ADR-0002](adr/0002-content-as-code-and-trust-tiers.md) — makes "claims verified without a review" unrepresentable rather than merely detectable |
+| `edges{requires,unlocks,adjacent}` all authored | `requires` and `adjacent` authored, `unlocks` inverted at publish | the same fact in two files is free to contradict itself |
+
+`updated` became `updated_at`, and `citations[]` moved to the top level so verifying a node
+no longer deletes its sources.
+
+### The API surface moved too
+
+It serves under **`/api/v1`, not `/v1`** — Firebase Hosting preserves the full path through
+a rewrite, so `/v1` would have worked against the Cloud Run URL and 404'd through the
+domain ([ADR-0001](adr/0001-infrastructure.md)). `GET /v1/search` was **not built**: a
+~30 KB static index shipped instead, which is what makes the API-offline state a real
+fallback rather than an aspiration. `POST /v1/reviews` and `GET /v1/stats` were added.
+`/-/health` is at `/-/health` and not `/healthz` because Google Frontend answers `/healthz`
+itself and never forwards it (#75).
+
+### Analytics went the other way entirely
+
+Phase 7 said "Plausible or GA4". [ADR-0011](adr/0011-analytics-from-request-logs.md) chose
+**neither**, and reads analytics from request logs the project already has. The
+disqualifying number was the landing page's zero-JavaScript budget, and the sharper finding
+was that the perf budget could not have caught any of the three options — it counts modules
+under `/_astro/`, so a third-party script tag is invisible to it. Verified by putting one
+there and watching CI stay green.
+
+### Milestones
+
+- **M1 — met.** Walking skeleton live end to end, CI/CD green.
+- **M2 — met.** Three templates, **five** viz primitives against the "2+" asked for,
+  trails, mini-map, search, and 54 verified nodes against "~50".
+- **M3 — partial.** Domain live and analytics decided; the corpus is 57 nodes against
+  "~300", which is the one substantial thing outstanding (#61).
+
+### What the plan did not anticipate at all
+
+**Verification is the expensive half of content, not generation.** The plan treated review
+as a step at the end of a batch. Five verification passes over 57 nodes found one recurring
+defect ten times — a citation that resolves and sources nothing on its page — plus five
+unsourced empirical claims, an arithmetic contradiction between two nodes, and a caveat
+that applied to nothing in the graph. The prose and the mathematics were nearly always
+right. Nothing but reading caught any of it.
+
+**Tests passing is not the same as the feature working.** Three separate defects shipped
+green this way, each caught by looking at the deployed system: a trace field in the wrong
+encoding, a correlation feature that emitted nothing on a healthy service, and a perf
+budget reporting an empty page with a third-party script in its head. That pattern is why
+[`LAUNCH.md`](LAUNCH.md) exists and why it ends with a section on reading the site cold.
