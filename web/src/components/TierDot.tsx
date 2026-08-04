@@ -10,27 +10,35 @@ import type { Tier } from '../lib/graph';
  * design violation rather than a cosmetic one. Change one, change the other.
  *
  * Colour comes from the tier it is handed — never from where it is rendered.
+ *
+ * `decorative` is required for the reason given in TierDot.astro: the dot alone
+ * is colour carrying meaning, and a default let that spread in silence (#147).
  */
 interface Props {
   tier: Tier;
+  /** True only when a label that reaches the accessibility tree sits beside it. */
+  decorative: boolean;
   size?: number;
   className?: string;
 }
 
-export default function TierDot({ tier, size = 7, className = '' }: Props) {
+export default function TierDot({ tier, decorative, size = 7, className = '' }: Props) {
   return (
-    <span
-      // Handoff: frontier pulses, verified does not.
-      className={[
-        'inline-block shrink-0 rounded-pill',
-        tier === 'verified' ? 'bg-verified' : 'bg-frontier',
-        tier === 'frontier' ? 'pulse' : '',
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
-      style={{ width: `${size}px`, height: `${size}px` }}
-      aria-hidden="true"
-    />
+    <>
+      <span
+        // Handoff: frontier pulses, verified does not.
+        className={[
+          'inline-block shrink-0 rounded-pill',
+          tier === 'verified' ? 'bg-verified' : 'bg-frontier',
+          tier === 'frontier' ? 'pulse' : '',
+          className,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        style={{ width: `${size}px`, height: `${size}px` }}
+        aria-hidden="true"
+      />
+      {!decorative && <span className="sr-only">{tier}</span>}
+    </>
   );
 }

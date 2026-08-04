@@ -1,13 +1,20 @@
 ---
-import type { ResolvedEdge } from '../lib/graph';
+import type { EdgeType, ResolvedEdge } from '../lib/graph';
 import TierDot from './TierDot.astro';
-interface Props { edge: ResolvedEdge }
-const { edge } = Astro.props;
+import { edgeAside } from '../lib/labels';
+interface Props { edge: ResolvedEdge; type: EdgeType }
+const { edge, type } = Astro.props;
 ---
 <a
   href={`/c/${edge.id}`}
   class="mb-[7px] flex min-h-11 items-center justify-between gap-2 rounded-row border border-line bg-nebula px-[11px] py-[9px] text-[13.5px] text-starlight no-underline hover:border-thread md:min-h-0"
 >
   <span>{edge.title}</span>
-  <TierDot tier={edge.tier} />
+  {/*
+    The relationship and the tier, for a reader who arrives by links list
+    rather than by reading the group heading above (#147). Visually the row is
+    unchanged: the heading says which group this is and the dot says the tier.
+  */}
+  <span class="sr-only">, {edgeAside(type, edge.tier)}</span>
+  <TierDot tier={edge.tier} decorative />
 </a>

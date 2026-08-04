@@ -118,7 +118,7 @@ export default function TrailRibbon({ id, title, tier, depth = 'intuition' }: Pr
             {stop.title}
           </a>
           <span className="md:hidden">
-            <TierDot tier={stop.tier} size={9} />
+            <TierDot tier={stop.tier} size={9} decorative={false} />
           </span>
           {i < stops.length - 1 && <span className="mx-2 h-px w-[26px] bg-thread opacity-50" />}
         </span>
