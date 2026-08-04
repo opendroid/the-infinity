@@ -1,0 +1,62 @@
+{
+  "id": "reward-model",
+  "title": "Reward Model",
+  "domain": [
+    "Alignment",
+    "Preference"
+  ],
+  "bodies": {
+    "intuition": "Nobody can write down a loss function for 'a helpful answer'. But people can reliably say which of two answers is better, and that comparison is cheap. A reward model is trained on those comparisons until it can score a response on its own — turning a judgement nobody can specify into a number an optimiser can use.",
+    "engineer": "Usually the policy model with the language head replaced by a scalar output, trained on pairs labelled by which response a human preferred. It is the component that decides what gets optimised, and every flaw in it becomes a flaw in the final model — a reward model that likes long answers produces a model that writes long answers.",
+    "math": "Under the Bradley–Terry model, P(y_w ≻ y_l | x) = σ(r(x, y_w) − r(x, y_l)), so the loss is −log σ(r(x, y_w) − r(x, y_l)) over preference pairs. Only differences are identified: adding a constant to r changes nothing, which is why the absolute score is not meaningful and only comparisons are."
+  },
+  "emphasis": {
+    "intuition": "turning a judgement nobody can specify into a number an optimiser can use",
+    "engineer": "every flaw in it becomes a flaw in the final model"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "pairs": 8,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "pairs",
+        "min": 2,
+        "max": 16,
+        "step": 2
+      }
+    ],
+    "caption": "Scores the model assigns to preferred and rejected responses beside each other. Drag the number of pairs to watch the margin separate."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      },
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.03741",
+      "title": "Deep reinforcement learning from human preferences",
+      "url": "https://arxiv.org/abs/1706.03741"
+    },
+    {
+      "ref": "arXiv:2009.01325",
+      "title": "Learning to summarize from human feedback",
+      "url": "https://arxiv.org/abs/2009.01325"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

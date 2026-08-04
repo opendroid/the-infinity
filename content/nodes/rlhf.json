@@ -1,0 +1,66 @@
+{
+  "id": "rlhf",
+  "title": "RLHF",
+  "domain": [
+    "Alignment",
+    "Preference"
+  ],
+  "bodies": {
+    "intuition": "Instruction tuning teaches a model to imitate good answers. RLHF goes further: it trains the model against a score for how good an answer is, so it can be pushed toward responses better than anything in the demonstration data. Humans rank outputs, a reward model learns to predict those rankings, and the policy is optimised against it.",
+    "engineer": "Three stages — supervised fine-tuning, reward model, then policy optimisation, classically with PPO. A KL penalty against the frozen reference model is not optional: without it the policy drifts into text that scores well and reads like nothing a person would write. It is the stage that made assistants usable, and it is expensive and finicky enough that simpler replacements are actively sought.",
+    "math": "Maximise E[r_φ(x, y)] − β·KL(π_θ(y|x) ‖ π_ref(y|x)). The KL term is the whole design: β sets how far the policy may move from the model that produced coherent text, and the reward is only trustworthy near the distribution the reward model was trained on."
+  },
+  "emphasis": {
+    "intuition": "better than anything in the demonstration data",
+    "engineer": "A KL penalty against the frozen reference model is not optional"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "beta": 0.1
+    },
+    "param_controls": [
+      {
+        "name": "beta",
+        "min": 0.01,
+        "max": 1.0,
+        "step": 0.01
+      }
+    ],
+    "caption": "Reward against KL divergence from the reference model over a run. Drag beta to trade how far the policy may drift against how much reward it can collect."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "instruction-tuning",
+        "reviewed": false
+      },
+      {
+        "id": "reward-model",
+        "reviewed": false
+      },
+      {
+        "id": "proximal-policy-optimization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2203.02155",
+      "title": "Training language models to follow instructions with human feedback",
+      "url": "https://arxiv.org/abs/2203.02155"
+    },
+    {
+      "ref": "arXiv:1706.03741",
+      "title": "Deep reinforcement learning from human preferences",
+      "url": "https://arxiv.org/abs/1706.03741"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

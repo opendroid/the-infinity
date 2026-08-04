@@ -1,0 +1,57 @@
+{
+  "id": "qlora",
+  "title": "QLoRA",
+  "domain": [
+    "Optimization",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "LoRA makes the trainable parameters small, but the frozen base model still has to sit in memory at full precision, and that is what actually decides whether you can fine-tune on the hardware you have. QLoRA quantizes the frozen base to four bits and trains the adapters on top of it, which is what puts fine-tuning a large model on a single accelerator.",
+    "engineer": "Freeze the base in 4-bit, keep the LoRA adapters in bf16, and dequantise each weight block only as it is used. Gradients flow through the quantized weights to the adapters, which stay full precision, so the loss in quality is much smaller than four bits suggests. Paged optimizer state handles the memory spikes that would otherwise abort a long run.",
+    "math": "Memory goes from 2Ψ for a bf16 base to roughly 0.5Ψ at 4 bits, plus r(d+k) trainable parameters and their optimizer state. The base dominates either way, so the quantization rather than the adapter is what moves the total — LoRA shrinks the gradient side of the ledger and this shrinks the side that was already larger."
+  },
+  "emphasis": {
+    "intuition": "what puts fine-tuning a large model on a single accelerator",
+    "engineer": "the loss in quality is much smaller than four bits suggests"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "bits": 4,
+      "share_rest": 16
+    },
+    "param_controls": [
+      {
+        "name": "bits",
+        "min": 2,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Memory held by the frozen base against the trainable adapters beside it. Drag the base precision to watch the dominant side of the budget collapse."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "lora",
+        "reviewed": false
+      },
+      {
+        "id": "quantization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.14314",
+      "title": "QLoRA: Efficient Finetuning of Quantized LLMs",
+      "url": "https://arxiv.org/abs/2305.14314"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
