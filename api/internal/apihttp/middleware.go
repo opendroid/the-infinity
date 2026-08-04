@@ -5,6 +5,8 @@ import (
 	"errors"
 	"log/slog"
 	"net/http"
+	"strings"
+	"sync"
 	"time"
 
 	"github.com/opendroid/the-infinity/api/internal/ratelimit"
@@ -88,6 +90,48 @@ func Recoverer(next http.Handler) http.Handler {
 		}()
 		next.ServeHTTP(w, r)
 	})
+}
+
+// LogForwarded records the forwarding chain ONCE PER PROCESS, the first time a
+// request arrives carrying one.
+//
+// `ratelimit.DefaultTrustedProxyHops` is a measurement — one trailing entry
+// belongs to Google's edge — and measurements go stale. #29 asked whether the
+// chain through a custom domain differs from the `web.app` one, and the answer
+// was not visible anywhere: Cloud Run's request log carries no headers, and
+// nothing here logged what `ClientIP` resolved. The constant could have been
+// wrong for a week without a single symptom, because both failure modes are
+// silent — too few hops keys every visitor onto the proxy and throttles the
+// world as one, too many keys onto an entry the caller controls and shapes
+// nobody.
+//
+// Once per process, not per request. Cloud Run already logs every request, a
+// second copy would be waste, and this is a visitor's address — the smallest
+// number of times that answers the question is the right number. Instances
+// recycle often enough that a change in the path shows up within a deploy.
+//
+// It waits for a request that HAS the header, so the line is never a health
+// probe that arrived with nothing to say.
+func LogForwarded(hops int) func(http.Handler) http.Handler {
+	var once sync.Once
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
+				once.Do(func() {
+					slog.Info("forwarding chain",
+						slog.String("x_forwarded_for", xff),
+						slog.Int("entries", len(strings.Split(xff, ","))),
+						slog.Int("trusted_hops", hops),
+						slog.String("client_ip", ratelimit.ClientIP(r, hops)),
+						// Which door the request came in by: Hosting proxies to
+						// the run.app host, so this says whether the chain being
+						// described is the rewritten path or a direct hit.
+						slog.String("host", r.Host))
+				})
+			}
+			next.ServeHTTP(w, r)
+		})
+	}
 }
 
 // LimitBody caps the body and converts an overrun into a structured 413.
