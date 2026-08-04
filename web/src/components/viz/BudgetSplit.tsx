@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { describeSplit, percent, split } from './share';
+import VizBoundary from './VizBoundary';
 
 /**
  * `budget-split` — one whole divided in two, with the control moving the split.
@@ -31,7 +32,16 @@ interface Props {
 const show = (n: number): string => (Number.isInteger(n) ? String(n) : String(Number(n.toFixed(2))));
 const label = (name: string): string => name.replace(/_/g, '-');
 
-export default function BudgetSplit({ seed, params, control, caption, captionEngineer }: Props) {
+/** #47: the primitive renders inside the boundary, never instead of it. */
+export default function BudgetSplit(props: Props) {
+  return (
+    <VizBoundary primitive="budget-split" caption={props.caption}>
+      <Body {...props} />
+    </VizBoundary>
+  );
+}
+
+function Body({ seed, params, control, caption, captionEngineer }: Props) {
   const [value, setValue] = useState<number>(control ? (params[control.name] ?? control.min) : 0);
 
   const live = control ? { ...params, [control.name]: value } : params;
