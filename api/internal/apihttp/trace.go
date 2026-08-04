@@ -2,8 +2,10 @@ package apihttp
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -124,6 +126,33 @@ func ParseTraceContext(header string) (TraceContext, bool) {
 	return tc, true
 }
 
+// SpanIDHex re-encodes the header's span for Cloud Logging.
+//
+// THE TWO FORMATS DISAGREE, which is the whole of #163. X-Cloud-Trace-Context
+// carries SPAN_ID as a 64-bit DECIMAL; `logging.googleapis.com/spanId` wants a
+// 16-character HEXADECIMAL encoding of the same number. Google's example is
+// span 74 written as `000000000000004a`.
+//
+// Passing the decimal through produced a field that looks populated, passes
+// every test that checks it is non-empty, and matches no span that exists. It
+// survived review, a table test over fourteen header shapes, and a deployed
+// check — because Cloud Run's own request log sits in the same trace and
+// carries a correct spanId, so the tab looked right.
+//
+// An unparseable span omits the field rather than guessing. The trace field is
+// independent and still correlates, so the entry lands under the right request
+// and loses only the finer-grained span attachment.
+func SpanIDHex(decimal string) (string, bool) {
+	n, err := strconv.ParseUint(decimal, 10, 64)
+	if err != nil {
+		return "", false
+	}
+	// ZERO-PADDED TO 16. FormatUint alone gives "4a" for 74, and the field is
+	// specified as a 16-character encoding of an 8-byte array — an unpadded
+	// value is the same class of wrong as the decimal it replaces.
+	return fmt.Sprintf("%016x", n), true
+}
+
 func isHex(s string) bool {
 	for _, r := range s {
 		switch {
@@ -157,11 +186,15 @@ func Trace(projectID string) func(http.Handler) http.Handler {
 				return
 			}
 
-			logger := slog.Default().With(
+			attrs := []any{
 				slog.String(fieldTrace, "projects/"+projectID+"/traces/"+tc.TraceID),
-				slog.String(fieldSpanID, tc.SpanID),
 				slog.Bool(fieldSampled, tc.Sampled),
-			)
+			}
+			// Omitted rather than malformed when the span will not re-encode.
+			if span, ok := SpanIDHex(tc.SpanID); ok {
+				attrs = append(attrs, slog.String(fieldSpanID, span))
+			}
+			logger := slog.Default().With(attrs...)
 			// Outward, for Recoverer and anything else mounted above this.
 			if h, ok := r.Context().Value(holderKey{}).(*holder); ok {
 				h.logger = logger
