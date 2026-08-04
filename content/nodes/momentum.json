@@ -41,13 +41,14 @@
   },
   "citations": [
     {
-      "ref": "arXiv:1706.02677",
-      "title": "Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour",
-      "url": "https://arxiv.org/abs/1706.02677"
+      "ref": "arXiv:1609.04747",
+      "title": "An overview of gradient descent optimization algorithms",
+      "url": "https://arxiv.org/abs/1609.04747"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

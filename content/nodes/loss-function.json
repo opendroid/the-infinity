@@ -36,13 +36,14 @@
   },
   "citations": [
     {
-      "ref": "arXiv:1502.05767",
-      "title": "Automatic differentiation in machine learning: a survey",
-      "url": "https://arxiv.org/abs/1502.05767"
+      "ref": "arXiv:1611.03530",
+      "title": "Understanding deep learning requires rethinking generalization",
+      "url": "https://arxiv.org/abs/1611.03530"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

@@ -5,13 +5,13 @@
       "id": "adam",
       "title": "Adam",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "momentum",
             "title": "Momentum",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -19,7 +19,7 @@
           {
             "id": "adamw",
             "title": "AdamW",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -36,19 +36,19 @@
       "id": "adamw",
       "title": "AdamW",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "adam",
             "title": "Adam",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "weight-decay",
             "title": "Weight Decay",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -57,7 +57,7 @@
           {
             "id": "muon-optimizer",
             "title": "Muon",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -170,13 +170,13 @@
       "id": "backpropagation",
       "title": "Backpropagation",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "loss-function",
             "title": "Loss Function",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -184,13 +184,13 @@
           {
             "id": "gradient-clipping",
             "title": "Gradient Clipping",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "gradient-descent",
             "title": "Gradient Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -213,7 +213,7 @@
           {
             "id": "stochastic-gradient-descent",
             "title": "Stochastic Gradient Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -391,13 +391,13 @@
       "id": "cross-entropy-loss",
       "title": "Cross-Entropy Loss",
       "domain": "Optimization / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "loss-function",
             "title": "Loss Function",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -428,7 +428,7 @@
           {
             "id": "stochastic-gradient-descent",
             "title": "Stochastic Gradient Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -500,7 +500,7 @@
           {
             "id": "weight-decay",
             "title": "Weight Decay",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -659,13 +659,13 @@
       "id": "gradient-clipping",
       "title": "Gradient Clipping",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "backpropagation",
             "title": "Backpropagation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -677,13 +677,13 @@
       "id": "gradient-descent",
       "title": "Gradient Descent",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "backpropagation",
             "title": "Backpropagation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -697,13 +697,13 @@
           {
             "id": "stochastic-gradient-descent",
             "title": "Stochastic Gradient Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "weight-decay",
             "title": "Weight Decay",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -818,7 +818,7 @@
           {
             "id": "gradient-descent",
             "title": "Gradient Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -880,20 +880,20 @@
       "id": "loss-function",
       "title": "Loss Function",
       "domain": "Optimization / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "backpropagation",
             "title": "Backpropagation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "cross-entropy-loss",
             "title": "Cross-Entropy Loss",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -922,7 +922,7 @@
           {
             "id": "backpropagation",
             "title": "Backpropagation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -965,13 +965,13 @@
       "id": "momentum",
       "title": "Momentum",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "stochastic-gradient-descent",
             "title": "Stochastic Gradient Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -979,13 +979,13 @@
           {
             "id": "adam",
             "title": "Adam",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "muon-optimizer",
             "title": "Muon",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1058,13 +1058,13 @@
       "id": "muon-optimizer",
       "title": "Muon",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "momentum",
             "title": "Momentum",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1073,7 +1073,7 @@
           {
             "id": "adamw",
             "title": "AdamW",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1089,7 +1089,7 @@
           {
             "id": "adam",
             "title": "Adam",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1114,7 +1114,7 @@
           {
             "id": "loss-function",
             "title": "Loss Function",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1169,7 +1169,7 @@
           {
             "id": "cross-entropy-loss",
             "title": "Cross-Entropy Loss",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1293,7 +1293,7 @@
           {
             "id": "loss-function",
             "title": "Loss Function",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1374,7 +1374,7 @@
           {
             "id": "cross-entropy-loss",
             "title": "Cross-Entropy Loss",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1392,13 +1392,13 @@
       "id": "stochastic-gradient-descent",
       "title": "Stochastic Gradient Descent",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "gradient-descent",
             "title": "Gradient Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1418,7 +1418,7 @@
           {
             "id": "momentum",
             "title": "Momentum",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1552,13 +1552,13 @@
       "id": "weight-decay",
       "title": "Weight Decay",
       "domain": "Optimization / Regularization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "gradient-descent",
             "title": "Gradient Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1566,7 +1566,7 @@
           {
             "id": "adamw",
             "title": "AdamW",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1611,7 +1611,7 @@
       "center": {
         "id": "adam",
         "title": "Adam",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -1619,14 +1619,14 @@
         {
           "id": "momentum",
           "title": "Momentum",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "adamw",
           "title": "AdamW",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -1664,7 +1664,7 @@
       "center": {
         "id": "adamw",
         "title": "AdamW",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -1672,21 +1672,21 @@
         {
           "id": "adam",
           "title": "Adam",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
         {
           "id": "muon-optimizer",
           "title": "Muon",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -1890,7 +1890,7 @@
       "center": {
         "id": "backpropagation",
         "title": "Backpropagation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -1898,21 +1898,21 @@
         {
           "id": "loss-function",
           "title": "Loss Function",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "gradient-clipping",
           "title": "Gradient Clipping",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "gradient-descent",
           "title": "Gradient Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -1964,7 +1964,7 @@
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -2262,7 +2262,7 @@
       "center": {
         "id": "cross-entropy-loss",
         "title": "Cross-Entropy Loss",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2270,7 +2270,7 @@
         {
           "id": "loss-function",
           "title": "Loss Function",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -2323,7 +2323,7 @@
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -2442,7 +2442,7 @@
         {
           "id": "weight-decay",
           "title": "Weight Decay",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -2701,7 +2701,7 @@
       "center": {
         "id": "gradient-clipping",
         "title": "Gradient Clipping",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2709,7 +2709,7 @@
         {
           "id": "backpropagation",
           "title": "Backpropagation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -2728,7 +2728,7 @@
       "center": {
         "id": "gradient-descent",
         "title": "Gradient Descent",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2736,7 +2736,7 @@
         {
           "id": "backpropagation",
           "title": "Backpropagation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -2750,14 +2750,14 @@
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         }
@@ -2974,7 +2974,7 @@
         {
           "id": "gradient-descent",
           "title": "Gradient Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -3073,7 +3073,7 @@
       "center": {
         "id": "loss-function",
         "title": "Loss Function",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3081,14 +3081,14 @@
         {
           "id": "backpropagation",
           "title": "Backpropagation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
@@ -3147,7 +3147,7 @@
         {
           "id": "backpropagation",
           "title": "Backpropagation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -3219,7 +3219,7 @@
       "center": {
         "id": "momentum",
         "title": "Momentum",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3227,21 +3227,21 @@
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "adam",
           "title": "Adam",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "muon-optimizer",
           "title": "Muon",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }
@@ -3378,7 +3378,7 @@
       "center": {
         "id": "muon-optimizer",
         "title": "Muon",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3386,14 +3386,14 @@
         {
           "id": "momentum",
           "title": "Momentum",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "adamw",
           "title": "AdamW",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -3426,7 +3426,7 @@
         {
           "id": "adam",
           "title": "Adam",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -3466,7 +3466,7 @@
         {
           "id": "loss-function",
           "title": "Loss Function",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -3559,7 +3559,7 @@
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -3759,7 +3759,7 @@
         {
           "id": "loss-function",
           "title": "Loss Function",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -3898,7 +3898,7 @@
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -3936,7 +3936,7 @@
       "center": {
         "id": "stochastic-gradient-descent",
         "title": "Stochastic Gradient Descent",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3944,7 +3944,7 @@
         {
           "id": "gradient-descent",
           "title": "Gradient Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -3965,7 +3965,7 @@
         {
           "id": "momentum",
           "title": "Momentum",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         }
@@ -4214,7 +4214,7 @@
       "center": {
         "id": "weight-decay",
         "title": "Weight Decay",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4222,14 +4222,14 @@
         {
           "id": "gradient-descent",
           "title": "Gradient Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "adamw",
           "title": "AdamW",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
