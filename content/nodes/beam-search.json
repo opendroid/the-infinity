@@ -1,0 +1,53 @@
+{
+  "id": "beam-search",
+  "title": "Beam Search",
+  "domain": [
+    "Inference",
+    "Decoding"
+  ],
+  "bodies": {
+    "intuition": "Greedy decoding takes the most likely next token every step and can walk into a corner, because a mediocre token now sometimes opens a much better continuation. Beam search keeps several candidate sequences alive at once and extends them all, discarding the weakest each step. It searches a little rather than committing immediately.",
+    "engineer": "Maintain b partial sequences, extend each by every token, keep the b best by cumulative log probability. Cost and memory scale with the beam width. It dominates machine translation and summarisation, and is largely absent from open-ended generation — where higher-probability text turns out to be repetitive and dull rather than better.",
+    "math": "Score a sequence by Σ_t log p(y_t | y_{<t}), usually divided by length to stop the search preferring short outputs. The objective is a proxy: exact search over this score produces worse text than approximate search does, which is the empirical result that made beam search interesting to explain rather than merely to use."
+  },
+  "emphasis": {
+    "intuition": "It searches a little rather than committing immediately",
+    "engineer": "repetitive and dull rather than better"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "beam": 4,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "beam",
+        "min": 1,
+        "max": 8,
+        "step": 1
+      }
+    ],
+    "caption": "Cumulative scores of the surviving candidates against the ones pruned beside them. Drag the beam width to watch the search keep more of the field alive."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2010.02650",
+      "title": "If beam search is the answer, what was the question?",
+      "url": "https://arxiv.org/abs/2010.02650"
+    }
+  ],
+  "updated_at": "2026-08-04",
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "paged-attention",
+  "title": "Paged Attention",
+  "domain": [
+    "Inference",
+    "Memory"
+  ],
+  "bodies": {
+    "intuition": "A KV cache has to be contiguous, and nobody knows how long a sequence will get, so servers reserve the maximum up front. Most of that is never used. Paged attention borrows virtual memory: the cache lives in fixed-size blocks that need not be adjacent, allocated as the sequence actually grows.",
+    "engineer": "Split the KV cache into blocks of a fixed number of tokens and keep a per-sequence block table, the way an operating system keeps page tables. Internal fragmentation falls to at most one block per sequence, and blocks can be shared outright — two requests with the same prompt prefix point at the same physical blocks rather than each holding a copy.",
+    "math": "Reserving for a maximum length L wastes L − n per sequence at length n. With block size B the waste is bounded by B − 1 tokens regardless of L, so utilisation stops depending on how badly the maximum was guessed. Copy-on-write on shared blocks makes prefix reuse cost one block rather than the whole prefix."
+  },
+  "emphasis": {
+    "intuition": "allocated as the sequence actually grows",
+    "engineer": "point at the same physical blocks rather than each holding a copy"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "block": 16,
+      "share_rest": 16
+    },
+    "param_controls": [
+      {
+        "name": "block",
+        "min": 4,
+        "max": 64,
+        "step": 4
+      }
+    ],
+    "caption": "Share of reserved cache actually holding tokens against the slack beside it. Drag the block size to trade fragmentation against bookkeeping."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2309.06180",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "url": "https://arxiv.org/abs/2309.06180"
+    }
+  ],
+  "updated_at": "2026-08-04",
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  }
+}

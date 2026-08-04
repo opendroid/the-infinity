@@ -1,0 +1,62 @@
+{
+  "id": "nucleus-sampling",
+  "title": "Nucleus Sampling",
+  "domain": [
+    "Inference",
+    "Decoding"
+  ],
+  "bodies": {
+    "intuition": "Top-k always keeps the same number of tokens, whatever the model thinks. Nucleus sampling keeps the same amount of probability instead: take tokens in order until their total reaches p, then sample from those. Where the model is confident that is one or two tokens; where it is unsure it may be hundreds.",
+    "engineer": "Also called top-p, and the default for open-ended generation. It adapts the cutoff to the distribution rather than fixing it, which is the whole argument against top-k. Typically p ≈ 0.9 to 0.95, and it composes with temperature — though applying both hard makes the interaction difficult to reason about.",
+    "math": "Take the smallest set V_p with Σ_{x∈V_p} p(x) ≥ p, then renormalise over it. |V_p| varies per step by construction, which is the property being bought. Setting p = 1 recovers pure sampling; p → 0 recovers greedy decoding, so the parameter sweeps the whole range between them."
+  },
+  "emphasis": {
+    "intuition": "keeps the same amount of probability instead",
+    "engineer": "It adapts the cutoff to the distribution rather than fixing it"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "p": 0.9,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "p",
+        "min": 0.1,
+        "max": 1.0,
+        "step": 0.05
+      }
+    ],
+    "caption": "The distribution with the nucleus highlighted against the tail it excludes. Drag p to watch the kept set grow and shrink with the model's confidence."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      },
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "top-k-sampling",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1904.09751",
+      "title": "The Curious Case of Neural Text Degeneration",
+      "url": "https://arxiv.org/abs/1904.09751"
+    }
+  ],
+  "updated_at": "2026-08-04",
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  }
+}

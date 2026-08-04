@@ -1,0 +1,58 @@
+{
+  "id": "speculative-decoding",
+  "title": "Speculative Decoding",
+  "domain": [
+    "Inference",
+    "Decoding"
+  ],
+  "bodies": {
+    "intuition": "Generating one token at a time wastes most of an accelerator: the model is enormous, the work per token is tiny, and the hardware sits idle waiting on memory. Speculative decoding has a small fast model guess several tokens ahead, then checks all the guesses in a single pass of the big one. Right guesses are kept, the first wrong one is corrected, and the run moves several tokens for the price of one.",
+    "engineer": "A draft model proposes k tokens; the target model scores all k+1 positions in one forward pass, which costs about what one token cost before because decoding is memory-bound rather than compute-bound. Accepted tokens are exactly what the target would have produced — the output distribution is unchanged, which is what separates this from every other speed-up that trades quality for latency.",
+    "math": "For draft distribution q and target p, accept a proposed token x with probability min(1, p(x)/q(x)); on rejection sample from the normalised residual max(0, p − q). The result is distributed exactly as p. Expected tokens per pass rises with the acceptance rate α as (1 − α^{k+1})/(1 − α), so a weak draft still helps and a good one helps a great deal."
+  },
+  "emphasis": {
+    "intuition": "several tokens for the price of one",
+    "engineer": "the output distribution is unchanged"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "draft_tokens": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "draft_tokens",
+        "min": 1,
+        "max": 8,
+        "step": 1
+      }
+    ],
+    "caption": "Share of a step spent drafting against verifying. Drag the draft length to watch verification amortise over more tokens until the acceptance rate stops keeping up."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2211.17192",
+      "title": "Fast Inference from Transformers via Speculative Decoding",
+      "url": "https://arxiv.org/abs/2211.17192"
+    },
+    {
+      "ref": "arXiv:2302.01318",
+      "title": "Accelerating Large Language Model Decoding with Speculative Sampling",
+      "url": "https://arxiv.org/abs/2302.01318"
+    }
+  ],
+  "updated_at": "2026-08-04",
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  }
+}

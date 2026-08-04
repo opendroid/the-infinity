@@ -1,0 +1,62 @@
+{
+  "id": "continuous-batching",
+  "title": "Continuous Batching",
+  "domain": [
+    "Inference",
+    "Serving"
+  ],
+  "bodies": {
+    "intuition": "Batching requests together uses the hardware well, but sequences finish at different times, and a batch that waits for its slowest member leaves most of the accelerator idle. Continuous batching lets a finished sequence leave and a waiting one take its place at the next step, so the batch is refilled constantly rather than assembled once.",
+    "engineer": "Schedule at the granularity of an iteration rather than a request. A completed sequence frees its slot immediately and a queued one joins mid-flight, which raises throughput several times over static batching at the same latency. It needs a KV cache that can be allocated and released per sequence, which is what makes paged attention its natural partner.",
+    "math": "With static batching of size B and lengths n_i, the batch occupies max_i n_i steps while doing Σ_i n_i tokens of useful work, so utilisation is Σn_i/(B·max n_i) — poor whenever lengths vary. Iteration-level scheduling removes the max from the denominator, and utilisation stops depending on the spread of output lengths."
+  },
+  "emphasis": {
+    "intuition": "refilled constantly rather than assembled once",
+    "engineer": "which is what makes paged attention its natural partner"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "batch": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "batch",
+        "min": 1,
+        "max": 32,
+        "step": 1
+      }
+    ],
+    "caption": "Share of the batch doing useful work against the slots idling for stragglers. Drag the batch size to watch static batching lose ground as lengths spread."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "batch-size",
+        "reviewed": false
+      },
+      {
+        "id": "paged-attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2309.06180",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "url": "https://arxiv.org/abs/2309.06180"
+    }
+  ],
+  "updated_at": "2026-08-04",
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  }
+}

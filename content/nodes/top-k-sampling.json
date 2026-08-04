@@ -1,0 +1,57 @@
+{
+  "id": "top-k-sampling",
+  "title": "Top-k Sampling",
+  "domain": [
+    "Inference",
+    "Decoding"
+  ],
+  "bodies": {
+    "intuition": "Sampling from the full distribution occasionally picks something absurd, because the tail holds thousands of tokens that are each unlikely but collectively probable. Top-k keeps only the k most likely tokens, renormalises, and samples from those. The tail is cut off rather than merely made improbable.",
+    "engineer": "Sort the logits, keep the top k, set the rest to negative infinity, softmax, sample. One parameter, no tuning per prompt, and it composes with temperature. Its weakness is that k is fixed while the shape of the distribution is not — the same k is far too permissive where the model is confident and far too strict where it is genuinely uncertain.",
+    "math": "Let V_k be the k highest-probability tokens. Sample from p'(x) = p(x)/Σ_{y∈V_k} p(y) for x ∈ V_k and 0 otherwise. The truncated mass Σ_{y∈V_k} p(y) varies enormously across steps, which is exactly the quantity nucleus sampling fixes instead of k."
+  },
+  "emphasis": {
+    "intuition": "The tail is cut off rather than merely made improbable",
+    "engineer": "k is fixed while the shape of the distribution is not"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "k": 8,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "k",
+        "min": 1,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "The token distribution before truncation and after, renormalised. Drag k to watch the tail disappear and the remaining mass redistribute."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      },
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1805.04833",
+      "title": "Hierarchical Neural Story Generation",
+      "url": "https://arxiv.org/abs/1805.04833"
+    }
+  ],
+  "updated_at": "2026-08-04",
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  }
+}
