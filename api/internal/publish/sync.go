@@ -4,6 +4,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
+	"slices"
+	"strings"
 
 	"cloud.google.com/go/firestore"
 	"github.com/opendroid/the-infinity/api/internal/store"
@@ -13,7 +16,10 @@ import (
 // Report is what a publish did, for the log line and for tests.
 type Report struct {
 	Concepts int
-	Deleted  int
+	// DeletedIDs names them, sorted. Deleted is len(DeletedIDs) and is kept
+	// because callers were already logging the count.
+	DeletedIDs []string
+	Deleted    int
 }
 
 // Sync writes the whole graph and removes concepts git no longer has.
@@ -63,6 +69,26 @@ func Sync(ctx context.Context, client *firestore.Client, g *Graph) (Report, erro
 		return Report{}, fmt.Errorf("queueing stats: %w", err)
 	}
 
+	// NAMED BEFORE THEY GO, not counted afterwards (#56). A count tells you
+	// something was deleted and not what, and this is the one thing publish does
+	// that is not additive — every other write is an upsert that can be redone by
+	// running it again. It is also the operation that strands trail stops
+	// (ADR-0012), so the ids are what someone would need to go looking.
+	//
+	// Sorted, because a map range is not stable and a deploy log that lists the
+	// same two deletions in a different order every time is harder to diff than
+	// one that does not.
+	deleted := make([]string, 0, len(existing))
+	for id := range existing {
+		deleted = append(deleted, id)
+	}
+	slices.Sort(deleted)
+	if len(deleted) > 0 {
+		slog.Warn("deleting concepts absent from git",
+			slog.Int("count", len(deleted)),
+			slog.String("ids", strings.Join(deleted, ", ")))
+	}
+
 	// Deleting a document does not delete its subcollections, so the mini-map
 	// goes explicitly. Left behind it would be an orphan nothing can reach and
 	// nothing will clean up.
@@ -90,7 +116,7 @@ func Sync(ctx context.Context, client *firestore.Client, g *Graph) (Report, erro
 		return Report{}, fmt.Errorf("%d write(s) failed: %w", len(failures), errors.Join(failures...))
 	}
 
-	return Report{Concepts: len(g.Concepts), Deleted: len(existing)}, nil
+	return Report{Concepts: len(g.Concepts), Deleted: len(existing), DeletedIDs: deleted}, nil
 }
 
 // existingConceptIDs lists what is in Firestore now.

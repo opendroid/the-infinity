@@ -41,6 +41,7 @@ point.
 | [0009](0009-notation-in-bodies.md) | Notation in bodies — `_` and `^`, not KaTeX | **accepted** |
 | [0010](0010-speaking-the-notation.md) | Notation carries a spoken separator | **accepted** |
 | [0011](0011-analytics-from-request-logs.md) | Analytics is read from request logs, not from a script in the page | proposed |
+| [0012](0012-stranded-trail-stops.md) | A deleted concept leaves a tombstone in the trails that visited it | proposed |
 
 ## Planned
 

@@ -214,3 +214,88 @@ func TestATrailNamingAMissingConceptIsNotFound(t *testing.T) {
 		t.Errorf("a rejected trail left %d documents behind", len(docs))
 	}
 }
+
+// Publish deletes a concept a live trail visited, and the trail still reads
+// (#56, ADR-0012).
+//
+// The round trip is the point: create a trail while every stop resolves, delete
+// one concept the way publish does, then read the trail back. A unit test cannot
+// reach this — the fake is where the behaviour is mirrored, and mirroring is
+// exactly the thing that needs checking against the real store.
+func TestATrailSurvivesTheDeletionOfAStop(t *testing.T) {
+	var reads atomic.Int64
+	client := trailClient(t, &reads)
+	f := store.NewFirestore(client)
+
+	seedConcepts(t, client, "attention", "softmax", "kv-cache")
+	created, err := f.CreateTrail(t.Context(), store.NewTrail{Stops: []store.NewTrailStop{
+		{ID: "attention", DepthReadAt: store.DepthIntuition},
+		{ID: "softmax", DepthReadAt: store.DepthEngineer},
+		{ID: "kv-cache", DepthReadAt: store.DepthMath},
+	}})
+	if err != nil {
+		t.Fatalf("creating the trail: %v", err)
+	}
+
+	// What publish does to a concept git no longer has.
+	if _, err := client.Collection(store.CollConcepts).Doc("softmax").Delete(t.Context()); err != nil {
+		t.Fatalf("deleting softmax: %v", err)
+	}
+
+	got, err := f.Trail(t.Context(), created.Slug)
+	if err != nil {
+		t.Fatalf("reading the trail after a stop was deleted: %v — a deleted concept must not take the page with it", err)
+	}
+	if len(got.Stops) != 3 {
+		t.Fatalf("got %d stops, want 3 — the walk is a record and does not shrink", len(got.Stops))
+	}
+
+	for _, s := range got.Stops {
+		wantMissing := s.ID == "softmax"
+		if s.Missing != wantMissing {
+			t.Errorf("stop %s: missing = %v, want %v", s.ID, s.Missing, wantMissing)
+		}
+		// The title and tier are what the reader saw when they walked it, and
+		// survive the concept that carried them.
+		if s.Title == "" {
+			t.Errorf("stop %s lost its title", s.ID)
+		}
+	}
+	// Numbering is untouched: renumbering would make the trail claim to be a
+	// walk that did not happen.
+	for i, s := range got.Stops {
+		if s.N != i+1 {
+			t.Errorf("stop %d has n = %d — the walk was renumbered around the gap", i, s.N)
+		}
+	}
+}
+
+// Resolution costs ONE batched read, not one per stop. Same reasoning as
+// CreateTrail: the assertion has to be the count, because a loop and a batch
+// return identical trails.
+func TestReadingATrailResolvesEveryStopInOneRead(t *testing.T) {
+	var reads atomic.Int64
+	client := trailClient(t, &reads)
+	f := store.NewFirestore(client)
+
+	seedConcepts(t, client, "a", "b", "c", "d", "e")
+	created, err := f.CreateTrail(t.Context(), store.NewTrail{Stops: []store.NewTrailStop{
+		{ID: "a", DepthReadAt: store.DepthIntuition},
+		{ID: "b", DepthReadAt: store.DepthIntuition},
+		{ID: "c", DepthReadAt: store.DepthIntuition},
+		{ID: "d", DepthReadAt: store.DepthIntuition},
+		{ID: "e", DepthReadAt: store.DepthIntuition},
+	}})
+	if err != nil {
+		t.Fatalf("creating the trail: %v", err)
+	}
+
+	reads.Store(0)
+	if _, err := f.Trail(t.Context(), created.Slug); err != nil {
+		t.Fatalf("reading the trail: %v", err)
+	}
+	// One for the trail document, one for the five stops together.
+	if got := reads.Load(); got != 2 {
+		t.Errorf("reading a 5-stop trail took %d batched reads, want 2 — a loop would take 6", got)
+	}
+}

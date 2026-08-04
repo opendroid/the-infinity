@@ -170,6 +170,37 @@ the rate limiter the memory exhaustion it exists to prevent.
 Tunable by environment variable: `DAILY_WRITE_CAP`, `RATE_LIMIT_PER_MINUTE`,
 `READ_RATE_LIMIT_PER_MINUTE`, `TRUSTED_PROXY_HOPS`.
 
+## Publishing deletes, and what that does to trails
+
+Publish upserts every concept in git and deletes every concept Firestore has that git does
+not. Deletion is the one thing it does that is not additive — every other write can be
+redone by running it again — so it **names the ids it is about to delete before the writes
+go out**, at `WARN`, sorted. A count tells you something happened and not what (#56).
+
+A trail denormalises its stops at creation, so deleting a concept leaves every trail that
+visited it holding a stop pointing at a document that is gone.
+[ADR-0012](../docs/adr/0012-stranded-trail-stops.md) decides what happens then, and the
+answer is **a tombstone**:
+
+- `Trail` resolves stop existence on read — **one `GetAll` for the whole walk**, the same
+  batched call `CreateTrail` uses and for the same reason. Stops whose concept is gone come
+  back with `missing: true`.
+- The shared-trail page renders a tombstoned stop with its number, title and tier, and
+  **not as a link** — the only thing behind it is a 404 the reader would find by clicking.
+- Nothing is renumbered, backfilled, or hidden. The trail is a record of a walk, and
+  editing it to match the current graph would falsify it.
+
+**A failure to resolve is not a failure to read.** If the batch errors, the trail is
+returned unmarked rather than not at all: `/t/**` is the one route that says nothing useful
+without the API, and trading the whole page for an enrichment would be the wrong way round.
+
+**`CreateTrail` still refuses** a walk whose stop does not resolve, so new trails cannot be
+created broken. Only trails made before a deletion are ever affected.
+
+The round trip is covered in `internal/store/trails_emulator_test.go` — create, delete a
+concept the way publish does, read back — because the fake mirrors this behaviour and
+mirroring is exactly the thing that needs checking against the real store.
+
 ## Trace correlation
 
 Cloud Run samples requests into Cloud Trace with no instrumentation and does not bill the

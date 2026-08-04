@@ -142,3 +142,57 @@ describe('slugFromPath', () => {
     expect(slugFromPath('/t/')).toBe('t');
   });
 });
+
+/**
+ * A stop whose concept was deleted from git (#56, ADR-0012).
+ *
+ * The trail is a record of a walk. When the graph moves underneath it the walk
+ * did not change, so the stop stays, keeps its number and its title, and stops
+ * being a link — because the only thing behind it now is a 404 the reader would
+ * find by clicking.
+ */
+describe('a trail whose concept was deleted', () => {
+  const WITH_MISSING = {
+    slug: 'dense-to-sparse-9k2f',
+    title: 'Dense to sparse',
+    created_at: '2026-08-01',
+    stops: [
+      { n: 1, id: 'attention', title: 'Attention', tier: 'verified', depth_read_at: 'intuition' },
+      { n: 2, id: 'gone', title: 'A Removed Concept', tier: 'frontier', depth_read_at: 'engineer', missing: true },
+      { n: 3, id: 'kv-cache', title: 'KV Cache', tier: 'frontier', depth_read_at: 'math' },
+    ],
+  };
+
+  function mount() {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(() => respond(WITH_MISSING));
+    render(<SharedTrail />);
+  }
+
+  it('still renders every stop — the walk is a record and does not shrink', async () => {
+    mount();
+    await screen.findByText('A Removed Concept');
+    expect(screen.getByText('Attention')).toBeTruthy();
+    expect(screen.getByText('KV Cache')).toBeTruthy();
+  });
+
+  it('does not link the tombstoned stop, so nobody discovers it by clicking', async () => {
+    mount();
+    await screen.findByText('A Removed Concept');
+    expect(screen.queryByRole('link', { name: /A Removed Concept/ })).toBeNull();
+    // The living stops are still links.
+    expect(screen.getByRole('link', { name: /Attention/ })).toBeTruthy();
+  });
+
+  it('says so in words, not by colour alone', async () => {
+    mount();
+    expect(await screen.findByText(/no longer in the graph/)).toBeTruthy();
+  });
+
+  it('keeps the numbering, because renumbering would falsify the walk', async () => {
+    mount();
+    await screen.findByText('A Removed Concept');
+    for (const n of ['01', '02', '03']) {
+      expect(screen.getByText(n)).toBeTruthy();
+    }
+  });
+});

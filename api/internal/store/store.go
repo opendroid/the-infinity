@@ -208,6 +208,12 @@ type TrailStop struct {
 	Title       string `firestore:"title" json:"title"`
 	Tier        Tier   `firestore:"tier" json:"tier"`
 	DepthReadAt Depth  `firestore:"depth_read_at" json:"depth_read_at"`
+	// Missing marks a stop whose concept has since been deleted from git
+	// (ADR-0012). NOT PERSISTED — `firestore:"-"` — because it is a fact about
+	// the graph now, not about the walk then, and writing it into the trail
+	// document would make a record of what someone did into a cache of what is
+	// currently true. Resolved on read.
+	Missing bool `firestore:"-" json:"missing,omitempty"`
 }
 
 type Trail struct {

@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"time"
 
 	"cloud.google.com/go/firestore"
@@ -148,7 +149,48 @@ func (f *Firestore) Trail(ctx context.Context, slug string) (*Trail, error) {
 	if err := doc.DataTo(&t); err != nil {
 		return nil, fmt.Errorf("decoding trail %s: %w", slug, err)
 	}
+	if err := f.markMissing(ctx, &t); err != nil {
+		return nil, err
+	}
 	return &t, nil
+}
+
+// markMissing flags stops whose concept is no longer published (ADR-0012).
+//
+// The stops are denormalised, so the trail renders without this — with a link
+// to a concept page that 404s, which the reader discovers by clicking. One
+// batched read turns that into something the page can say up front.
+//
+// ONE GetAll for the whole walk, the same call CreateTrail uses and for the same
+// reason: a trail carries up to 200 stops, and a loop here would be up to 200
+// sequential round trips inside a 10-second handler timeout. GetAll returns one
+// snapshot per ref in order, including duplicates, so a reader who doubled back
+// still lines up with the right stop.
+//
+// A FAILURE HERE IS NOT A FAILURE OF THE READ. If the batch errors, the trail is
+// returned unmarked rather than not at all — the shared page is the one route
+// that says nothing useful without the API, and degrading it to an error because
+// an enrichment failed would trade the whole page for a detail.
+func (f *Firestore) markMissing(ctx context.Context, t *Trail) error {
+	if len(t.Stops) == 0 {
+		return nil
+	}
+	refs := make([]*firestore.DocumentRef, len(t.Stops))
+	for i, s := range t.Stops {
+		refs[i] = f.client.Collection(CollConcepts).Doc(s.ID)
+	}
+	snaps, err := f.client.GetAll(ctx, refs)
+	if err != nil {
+		slog.Warn("could not resolve trail stops; returning the trail unmarked",
+			slog.String("slug", t.Slug), slog.Any("error", err))
+		return nil
+	}
+	for i, snap := range snaps {
+		if !snap.Exists() {
+			t.Stops[i].Missing = true
+		}
+	}
+	return nil
 }
 
 func (f *Firestore) CreateTrail(ctx context.Context, nt NewTrail) (*Trail, error) {
