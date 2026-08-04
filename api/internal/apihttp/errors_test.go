@@ -2,6 +2,7 @@ package apihttp_test
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"log/slog"
@@ -125,7 +126,7 @@ func TestWriteInternalHidesTheCauseButLogsIt(t *testing.T) {
 	logs := quiet(t)
 	rec := httptest.NewRecorder()
 	secret := "firestore: collection concepts doc mixture-of-experts permission denied"
-	apihttp.WriteInternal(rec, errors.New(secret), "fetching concept")
+	apihttp.WriteInternal(context.Background(), rec, errors.New(secret), "fetching concept")
 
 	if rec.Code != http.StatusInternalServerError {
 		t.Errorf("status = %d, want 500", rec.Code)

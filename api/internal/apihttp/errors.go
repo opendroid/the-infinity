@@ -4,6 +4,7 @@
 package apihttp
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -91,8 +92,14 @@ func WriteRateLimited(w http.ResponseWriter, retryAfter int) {
 //
 // The error itself never reaches the client: it can name collections, ids, and
 // query shapes, none of which a caller needs and some of which help an attacker.
-func WriteInternal(w http.ResponseWriter, err error, op string) {
-	slog.Error("request failed", slog.String("op", op), slog.Any("error", err))
+//
+// TAKES A CONTEXT so the line goes through the request's logger and lands under
+// that request's trace (#2). This is the only log a handler produces, so it is
+// the whole of "handlers pull the logger off the context rather than reaching
+// for the package-level slog" — and a 500 is the line most worth finding from a
+// trace. ctx leads, per CLAUDE.md.
+func WriteInternal(ctx context.Context, w http.ResponseWriter, err error, op string) {
+	Logger(ctx).Error("request failed", slog.String("op", op), slog.Any("error", err))
 	WriteError(w, http.StatusInternalServerError, CodeInternal, "Unexpected error.")
 }
 

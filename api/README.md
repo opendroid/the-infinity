@@ -62,7 +62,17 @@ is lower than the targeted Go version (1.26.0)
 `go.mod`** — not merely able to run, built with. Official release binaries and Homebrew
 both track the current Go closely, so this is invisible until you install golangci-lint
 with `go install` on an older toolchain, which builds it with whatever you have. If you
-see that error, reinstall from a release rather than downgrading `go.mod`.
+see that error, reinstall from a release rather than downgrading `go.mod`. The version CI
+pins, fetched directly:
+
+```sh
+V=$(grep -o 'version: v[0-9.]*' ../.github/workflows/ci.yml | head -1 | sed 's/.*v//')
+curl -sSL "https://github.com/golangci/golangci-lint/releases/download/v$V/golangci-lint-$V-linux-amd64.tar.gz" \
+  | tar xz -C /tmp && /tmp/golangci-lint-$V-linux-amd64/golangci-lint run
+```
+
+Worth the two minutes: `contextcheck` and `noctx` are both enabled and neither `go vet` nor
+`gofmt` sees them, so a stale local binary means CI is the first thing that tells you.
 
 ## Layout notes
 
@@ -159,6 +169,46 @@ the rate limiter the memory exhaustion it exists to prevent.
 
 Tunable by environment variable: `DAILY_WRITE_CAP`, `RATE_LIMIT_PER_MINUTE`,
 `READ_RATE_LIMIT_PER_MINUTE`, `TRUSTED_PROXY_HOPS`.
+
+## Trace correlation
+
+Cloud Run samples requests into Cloud Trace with no instrumentation and does not bill the
+auto-generated traces, so the traces already exist. What did not exist was the link: you
+could find a slow request in the console and not pivot from it to what the service logged
+while serving *that* request (#2).
+
+`apihttp.Trace` parses `X-Cloud-Trace-Context` — `TRACE_ID/SPAN_ID;o=TRACE_TRUE` — and puts
+a `*slog.Logger` on the request context carrying the three fields Cloud Logging groups on:
+
+```
+logging.googleapis.com/trace          projects/PROJECT_ID/traces/TRACE_ID
+logging.googleapis.com/spanId         SPAN_ID
+logging.googleapis.com/trace_sampled  the o=1 flag
+```
+
+**Mounted on `/api/v1`, not globally.** `/-/health` is exempt on purpose: Cloud Run probes it
+continuously, and tagging each probe would generate log volume and trace noise proportional
+to uptime rather than to use.
+
+**A missing or malformed header is not an error.** No header, no `/`, an empty or non-hex
+trace id — each falls back to the unadorned default logger. The field is omitted rather than
+half-built, because `projects//traces/ID` looks populated and resolves to nothing. Garbage
+after `;o=` is the one exception: the flag defaults to false and the usable trace survives,
+since discarding a real trace id over an optional flag would throw away the correlation.
+
+**`Recoverer` seeds a holder that `Trace` fills in.** Recoverer is global and therefore
+mounts *outside* Trace, so the request it holds in its deferred closure predates
+`r.WithContext` and its context cannot see the logger. A pointer passed inward and populated
+on the way past is what lets the panic line — the log most worth finding from a trace —
+carry the trace field while keeping the mount-based health exemption.
+
+**No OpenTelemetry.** Cloud Run covers logs, request metrics and sampled traces natively;
+the OTel collector runs as a sidecar billing CPU and memory on every warm instance, which
+cuts against scale-to-zero, and custom spans move traces off the free auto-generated tier
+into billed ingestion. If it ever goes in it needs an ADR first (CLAUDE.md §8).
+
+Project id comes from `GOOGLE_CLOUD_PROJECT`, read once at startup. Empty disables
+correlation rather than emitting an unqualified field, which is why tests need not set it.
 
 ## Caching
 

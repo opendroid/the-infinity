@@ -1,14 +1,18 @@
 package router_test
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
+	"log/slog"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 	"time"
 
+	"github.com/go-chi/chi/v5"
+	"github.com/opendroid/the-infinity/api/internal/apihttp"
 	"github.com/opendroid/the-infinity/api/internal/ratelimit"
 	"github.com/opendroid/the-infinity/api/internal/router"
 	"github.com/opendroid/the-infinity/api/internal/store"
@@ -855,5 +859,111 @@ func TestInternalErrorsAreNotCached(t *testing.T) {
 	}
 	if got := rec.Header().Get("Cache-Control"); got != "no-store" {
 		t.Errorf("Cache-Control on a 500 = %q, want no-store", got)
+	}
+}
+
+// Trace correlation is mounted on /api/v1 and not globally, so Cloud Run's
+// health probes stay untagged (#2).
+//
+// THROUGH router.New, not a hand-built chain, because the thing under test is
+// the mount point. An earlier version of this asserted only that the endpoints
+// returned 200 — which they do whether or not the middleware is mounted at all,
+// so deleting the v1.Use line left it green. The 500 path is used because
+// WriteInternal is the one log line a handler produces, which makes it the only
+// way to observe the request logger from outside.
+//
+// Not parallel — slog.SetDefault is process-wide.
+func TestTraceCorrelationIsMountedOnV1(t *testing.T) {
+	const id = "105445aa7843bc8bf206b12000100000"
+
+	logs := func(t *testing.T, path string, withHeader bool) string {
+		t.Helper()
+		buf := &bytes.Buffer{}
+		prev := slog.Default()
+		slog.SetDefault(slog.New(slog.NewJSONHandler(buf, nil)))
+		defer slog.SetDefault(prev)
+
+		f := seeded()
+		h := newServer(t, f, router.Options{ProjectID: "the-infinity-ai"})
+		f.Err = errors.New("connection refused")
+
+		req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, path, nil)
+		if withHeader {
+			req.Header.Set("X-Cloud-Trace-Context", id+"/7;o=1")
+		}
+		h.ServeHTTP(httptest.NewRecorder(), req)
+		return buf.String()
+	}
+
+	want := "projects/the-infinity-ai/traces/" + id
+
+	got := logs(t, "/api/v1/concepts/mixture-of-experts", true)
+	if !strings.Contains(got, `"msg":"request failed"`) {
+		t.Fatalf("the 500 path logged nothing, so this test proves nothing:\n%s", got)
+	}
+	if !strings.Contains(got, want) {
+		t.Errorf("a v1 request with a trace header logged without correlation:\n%s", got)
+	}
+	if !strings.Contains(got, `"logging.googleapis.com/spanId":"7"`) {
+		t.Errorf("spanId missing:\n%s", got)
+	}
+	if !strings.Contains(got, `"logging.googleapis.com/trace_sampled":true`) {
+		t.Errorf("trace_sampled missing:\n%s", got)
+	}
+
+	// Same route, no header: the line survives and carries no half-built field.
+	bare := logs(t, "/api/v1/concepts/mixture-of-experts", false)
+	if !strings.Contains(bare, `"msg":"request failed"`) {
+		t.Errorf("a request without the header lost its log line entirely:\n%s", bare)
+	}
+	if strings.Contains(bare, "logging.googleapis.com/") {
+		t.Errorf("no header, yet a trace field appeared:\n%s", bare)
+	}
+	if strings.Contains(bare, "projects//traces/") {
+		t.Errorf("emitted the empty-project form:\n%s", bare)
+	}
+}
+
+// The exemption, asserted directly: a panic on a v1 route logs a correlated
+// line, and the same panic outside v1 does not. Recoverer is the only
+// per-request logger in the service, which makes it the only lever for this.
+func TestOnlyV1PanicsCarryTheTraceField(t *testing.T) {
+	const id = "105445aa7843bc8bf206b12000100000"
+
+	run := func(t *testing.T, mount func(chi.Router)) string {
+		t.Helper()
+		buf := &bytes.Buffer{}
+		prev := slog.Default()
+		slog.SetDefault(slog.New(slog.NewJSONHandler(buf, nil)))
+		defer slog.SetDefault(prev)
+
+		r := chi.NewRouter()
+		r.Use(apihttp.Recoverer)
+		mount(r)
+
+		req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/boom", nil)
+		req.Header.Set("X-Cloud-Trace-Context", id+"/7;o=1")
+		r.ServeHTTP(httptest.NewRecorder(), req)
+		return buf.String()
+	}
+
+	boom := func(http.ResponseWriter, *http.Request) { panic("kaboom") }
+
+	withTrace := run(t, func(r chi.Router) {
+		r.Group(func(g chi.Router) {
+			g.Use(apihttp.Trace("the-infinity-ai"))
+			g.Get("/boom", boom)
+		})
+	})
+	if !strings.Contains(withTrace, "projects/the-infinity-ai/traces/"+id) {
+		t.Errorf("a traced route's panic lost its correlation:\n%s", withTrace)
+	}
+
+	without := run(t, func(r chi.Router) { r.Get("/boom", boom) })
+	if strings.Contains(without, "logging.googleapis.com/trace") {
+		t.Errorf("an untraced route's panic carried a trace field:\n%s", without)
+	}
+	if !strings.Contains(without, "panic in handler") {
+		t.Errorf("the untraced panic was not logged at all:\n%s", without)
 	}
 }

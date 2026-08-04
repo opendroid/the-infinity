@@ -30,6 +30,10 @@ type Options struct {
 	WriteLimit ratelimit.Config
 	DailyCap   int64
 	Now        func() time.Time
+	// ProjectID qualifies the Cloud Logging trace field (#2). Empty disables
+	// correlation rather than emitting `projects//traces/ID`, so tests and local
+	// runs need not set it.
+	ProjectID string
 }
 
 // New builds the whole surface.
@@ -87,6 +91,12 @@ func New(s store.Store, opts Options) http.Handler {
 	r.Head("/-/health", health)
 
 	r.Route("/api/v1", func(v1 chi.Router) {
+		// Trace correlation is mounted HERE and not globally, which is the
+		// /-/health exemption the issue asks for. Cloud Run probes that endpoint
+		// continuously; giving each probe a trace-tagged logger would generate
+		// log volume and trace noise proportional to uptime rather than to use.
+		v1.Use(apihttp.Trace(opts.ProjectID))
+
 		// Every read is an unauthenticated Firestore read and a Cloud Run
 		// invocation, so shaping applies to the group rather than to whichever
 		// route someone remembered. /neighborhood in particular fires on every
