@@ -7,8 +7,8 @@
   ],
   "bodies": {
     "intuition": "A model being trained takes far more memory than the same model being used. Adam keeps two extra numbers per parameter, and a full-precision master copy adds a third — so the weights are often less than a third of what training actually holds.",
-    "engineer": "For Adam in mixed precision the standard accounting is 16 bytes per parameter: 4 for the fp32 master weight, 4 and 4 for the two moments, 4 for the fp32 gradient. That is why a model that infers comfortably on one accelerator needs several to train, and why sharding the state was the first thing distributed training attacked.",
-    "math": "Per parameter: 2 bytes bf16 weight + 4 master + 4 momentum + 4 variance + 4 gradient ≈ 18. A 7B model therefore needs roughly 120 GB of state before activations, against 14 GB to serve it in bf16."
+    "engineer": "For Adam in mixed precision the standard accounting is 16 bytes per parameter: 2 for the bf16 weight and 2 for its gradient, then 4 for the fp32 master copy and 4 each for the two moments. That is why a model that infers comfortably on one accelerator needs several to train, and why sharding the state was the first thing distributed training attacked.",
+    "math": "Per parameter: 2 bytes bf16 weight + 2 bf16 gradient + 4 fp32 master + 4 momentum + 4 variance = 16, the 2Ψ + 2Ψ + KΨ of the ZeRO accounting at K = 12. A 7B model therefore needs roughly 112 GB of state before activations, against 14 GB to serve it in bf16."
   },
   "emphasis": {
     "intuition": "often less than a third of what training actually holds",
@@ -49,10 +49,16 @@
       "ref": "arXiv:1804.04235",
       "title": "Adafactor: Adaptive Learning Rates with Sublinear Memory Cost",
       "url": "https://arxiv.org/abs/1804.04235"
+    },
+    {
+      "ref": "arXiv:1910.02054",
+      "title": "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models",
+      "url": "https://arxiv.org/abs/1910.02054"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

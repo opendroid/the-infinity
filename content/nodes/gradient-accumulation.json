@@ -7,12 +7,12 @@
   ],
   "bodies": {
     "intuition": "Sometimes the batch size a run needs does not fit in memory. Gradient accumulation runs several smaller batches, adds their gradients together, and only then takes a step — the same update as one large batch, spread over several forward passes.",
-    "engineer": "Skip the optimizer step for k micro-batches and divide the accumulated gradient by k. It buys effective batch size at the cost of wall-clock, and is not free with normalization layers whose statistics are computed per micro-batch rather than over the whole effective batch.",
-    "math": "g = (1/k)Σ_{i=1..k} ∇L_{B_i}, then one step. Mathematically identical to a batch of size k|B| for the gradient, but not for anything computing batch statistics inside the forward pass."
+    "engineer": "Skip the optimizer step for k micro-batches and divide the accumulated gradient by k. It buys effective batch size at the cost of wall-clock. The usual caveat — that a normalization layer computing statistics per micro-batch sees a smaller batch than intended — is about batch normalization, and does not apply to a transformer: layer norm and RMSNorm normalize across features within one position, so they never look at the batch at all.",
+    "math": "g = (1/k)Σ_{i=1..k} ∇L_{B_i}, then one step. Mathematically identical to a batch of size k|B| for the gradient, and for a transformer identical outright, since nothing in the forward pass computes a statistic over the batch."
   },
   "emphasis": {
     "intuition": "the same update as one large batch",
-    "engineer": "is not free with normalization layers"
+    "engineer": "does not apply to a transformer"
   },
   "viz": {
     "primitive": "budget-split",
@@ -46,8 +46,9 @@
       "url": "https://arxiv.org/abs/1706.02677"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
