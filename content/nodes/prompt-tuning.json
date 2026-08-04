@@ -1,0 +1,67 @@
+{
+  "id": "prompt-tuning",
+  "title": "Prompt Tuning",
+  "domain": [
+    "Optimization",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Instead of changing a model to fit a task, prompt tuning changes what you put in front of it — but learns those tokens by gradient descent rather than writing them. A handful of trained vectors are prepended to the input and everything else stays frozen. One base model serves every task, each carrying a few thousand parameters of its own.",
+    "engineer": "Learn continuous embeddings prepended to the input sequence; the vectors live in embedding space and correspond to no real token. It closes on full fine-tuning as the base model grows, which is the result the paper is named for — cheap adaptation gets better, not worse, with scale. Prefix tuning is the more general form, prepending to every layer rather than the input alone.",
+    "math": "Optimise P ∈ ℝ^{k×d_model} for k soft tokens with all model weights frozen, so trainable parameters are k·d_model against the full N. At k = 20 on a 4096-wide model that is 82k parameters, independent of depth — the saving grows with the model rather than shrinking."
+  },
+  "emphasis": {
+    "intuition": "learns those tokens by gradient descent rather than writing them",
+    "engineer": "cheap adaptation gets better, not worse, with scale"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "tokens": 20,
+      "share_rest": 4096
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "caption": "Trainable soft-prompt parameters against the frozen model beside them. Drag the prompt length to watch the trainable slice stay negligible."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      },
+      {
+        "id": "token-embedding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "lora",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2104.08691",
+      "title": "The Power of Scale for Parameter-Efficient Prompt Tuning",
+      "url": "https://arxiv.org/abs/2104.08691"
+    },
+    {
+      "ref": "arXiv:2101.00190",
+      "title": "Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+      "url": "https://arxiv.org/abs/2101.00190"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

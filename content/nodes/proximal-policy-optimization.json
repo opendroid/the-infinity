@@ -1,0 +1,53 @@
+{
+  "id": "proximal-policy-optimization",
+  "title": "PPO",
+  "domain": [
+    "Alignment",
+    "Preference"
+  ],
+  "bodies": {
+    "intuition": "Policy gradient methods improve a policy by pushing up the probability of actions that scored well. Push too far on one batch and the policy moves somewhere its own estimates no longer describe, and the run collapses. PPO clips each update so the new policy cannot stray far from the old one, which buys stability at the cost of taking smaller steps.",
+    "engineer": "Optimise a surrogate objective in which the probability ratio between new and old policy is clipped to a narrow band, so an update that would move a token's probability drastically gets no additional credit for doing so. It is the workhorse of RLHF despite being general-purpose RL, and its memory cost is real — policy, reference, reward and value models resident at once.",
+    "math": "Maximise E[min(r_t Â_t, clip(r_t, 1−ε, 1+ε) Â_t)] with r_t = π_θ(a_t|s_t)/π_{old}(a_t|s_t) and ε typically 0.2. The min makes the bound pessimistic: clipping only removes incentive to move further, it never rewards it, so the objective is a lower bound on the unclipped one."
+  },
+  "emphasis": {
+    "intuition": "buys stability at the cost of taking smaller steps",
+    "engineer": "policy, reference, reward and value models resident at once"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "epsilon": 0.2,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "epsilon",
+        "min": 0.05,
+        "max": 0.5,
+        "step": 0.05
+      }
+    ],
+    "caption": "Per-token update magnitudes before clipping and after. Drag epsilon to watch the largest moves flattened while the rest pass through."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1707.06347",
+      "title": "Proximal Policy Optimization Algorithms",
+      "url": "https://arxiv.org/abs/1707.06347"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

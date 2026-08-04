@@ -395,6 +395,24 @@
       }
     },
     {
+      "id": "constitutional-ai",
+      "title": "Constitutional AI",
+      "domain": "Alignment / Safety",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
       "id": "context-window",
       "title": "Context Window",
       "domain": "Inference / Memory",
@@ -506,6 +524,12 @@
             "title": "Pretraining",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "reward-model",
+            "title": "Reward Model",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": []
@@ -576,6 +600,31 @@
             "id": "encoder-decoder",
             "title": "Encoder-Decoder",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "direct-preference-optimization",
+      "title": "DPO",
+      "domain": "Alignment / Preference",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "reward-model",
+            "title": "Reward Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -703,9 +752,27 @@
         ],
         "unlocks": [
           {
+            "id": "instruction-tuning",
+            "title": "Instruction Tuning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "lora",
             "title": "LoRA",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prompt-tuning",
+            "title": "Prompt Tuning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "reward-model",
+            "title": "Reward Model",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -788,6 +855,12 @@
             "reviewed": false
           },
           {
+            "id": "proximal-policy-optimization",
+            "title": "PPO",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "stochastic-gradient-descent",
             "title": "Stochastic Gradient Descent",
             "tier": "verified",
@@ -818,6 +891,31 @@
           }
         ],
         "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "instruction-tuning",
+      "title": "Instruction Tuning",
+      "domain": "Alignment / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": []
       }
     },
@@ -977,8 +1075,22 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
-        "adjacent": []
+        "unlocks": [
+          {
+            "id": "qlora",
+            "title": "QLoRA",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "prompt-tuning",
+            "title": "Prompt Tuning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1383,6 +1495,86 @@
       }
     },
     {
+      "id": "prompt-tuning",
+      "title": "Prompt Tuning",
+      "domain": "Optimization / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "token-embedding",
+            "title": "Token Embedding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "lora",
+            "title": "LoRA",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "proximal-policy-optimization",
+      "title": "PPO",
+      "domain": "Alignment / Preference",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "qlora",
+      "title": "QLoRA",
+      "domain": "Optimization / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "lora",
+            "title": "LoRA",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "quantization",
+            "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
       "id": "quantization",
       "title": "Quantization",
       "domain": "Inference / Efficiency",
@@ -1396,7 +1588,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "qlora",
+            "title": "QLoRA",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": []
       }
     },
@@ -1445,6 +1644,87 @@
             "id": "layer-normalization",
             "title": "Layer Normalization",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "reward-model",
+      "title": "Reward Model",
+      "domain": "Alignment / Preference",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "direct-preference-optimization",
+            "title": "DPO",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "rlhf",
+      "title": "RLHF",
+      "domain": "Alignment / Preference",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "instruction-tuning",
+            "title": "Instruction Tuning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "proximal-policy-optimization",
+            "title": "PPO",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "reward-model",
+            "title": "Reward Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "constitutional-ai",
+            "title": "Constitutional AI",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "direct-preference-optimization",
+            "title": "DPO",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -1684,6 +1964,12 @@
             "id": "positional-encoding",
             "title": "Positional Encoding",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prompt-tuning",
+            "title": "Prompt Tuning",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -2554,6 +2840,33 @@
       ]
     },
     {
+      "id": "constitutional-ai",
+      "center": {
+        "id": "constitutional-ai",
+        "title": "Constitutional AI",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "rlhf",
+          "to": "constitutional-ai",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "context-window",
       "center": {
         "id": "context-window",
@@ -2728,7 +3041,14 @@
           "title": "Pretraining",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "reward-model",
+          "title": "Reward Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         }
       ],
       "links": [
@@ -2747,6 +3067,12 @@
         {
           "from": "cross-entropy-loss",
           "to": "pretraining",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "reward-model",
           "type": "unlocks",
           "reviewed": false
         }
@@ -2866,6 +3192,46 @@
         {
           "from": "decoder-only-transformer",
           "to": "encoder-decoder",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "direct-preference-optimization",
+      "center": {
+        "id": "direct-preference-optimization",
+        "title": "DPO",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "reward-model",
+          "title": "Reward Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "reward-model",
+          "to": "direct-preference-optimization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "direct-preference-optimization",
+          "to": "rlhf",
           "type": "adjacent",
           "reviewed": false
         }
@@ -3062,11 +3428,32 @@
           "y": 66
         },
         {
+          "id": "instruction-tuning",
+          "title": "Instruction Tuning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
           "id": "lora",
           "title": "LoRA",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
+        },
+        {
+          "id": "prompt-tuning",
+          "title": "Prompt Tuning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "reward-model",
+          "title": "Reward Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
         }
       ],
       "links": [
@@ -3078,7 +3465,25 @@
         },
         {
           "from": "fine-tuning",
+          "to": "instruction-tuning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
           "to": "lora",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "prompt-tuning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "reward-model",
           "type": "unlocks",
           "reviewed": false
         }
@@ -3187,21 +3592,28 @@
           "title": "Learning Rate",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
+        },
+        {
+          "id": "proximal-policy-optimization",
+          "title": "PPO",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
         },
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 79
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         }
       ],
       "links": [
@@ -3214,6 +3626,12 @@
         {
           "from": "gradient-descent",
           "to": "learning-rate",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "proximal-policy-optimization",
           "type": "unlocks",
           "reviewed": false
         },
@@ -3254,6 +3672,46 @@
           "from": "multi-query-attention",
           "to": "grouped-query-attention",
           "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "instruction-tuning",
+      "center": {
+        "id": "instruction-tuning",
+        "title": "Instruction Tuning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "fine-tuning",
+          "to": "instruction-tuning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "instruction-tuning",
+          "to": "rlhf",
+          "type": "unlocks",
           "reviewed": false
         }
       ]
@@ -3525,6 +3983,20 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "qlora",
+          "title": "QLoRA",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "prompt-tuning",
+          "title": "Prompt Tuning",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -3532,6 +4004,18 @@
           "from": "fine-tuning",
           "to": "lora",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "lora",
+          "to": "qlora",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "lora",
+          "to": "prompt-tuning",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -4214,6 +4698,139 @@
       ]
     },
     {
+      "id": "prompt-tuning",
+      "center": {
+        "id": "prompt-tuning",
+        "title": "Prompt Tuning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "token-embedding",
+          "title": "Token Embedding",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "lora",
+          "title": "LoRA",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "fine-tuning",
+          "to": "prompt-tuning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "token-embedding",
+          "to": "prompt-tuning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "prompt-tuning",
+          "to": "lora",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "proximal-policy-optimization",
+      "center": {
+        "id": "proximal-policy-optimization",
+        "title": "PPO",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-descent",
+          "to": "proximal-policy-optimization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "proximal-policy-optimization",
+          "to": "rlhf",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "qlora",
+      "center": {
+        "id": "qlora",
+        "title": "QLoRA",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "lora",
+          "title": "LoRA",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "lora",
+          "to": "qlora",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "qlora",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "quantization",
       "center": {
         "id": "quantization",
@@ -4229,6 +4846,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "qlora",
+          "title": "QLoRA",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         }
       ],
       "links": [
@@ -4236,6 +4860,12 @@
           "from": "mixed-precision-training",
           "to": "quantization",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "qlora",
+          "type": "unlocks",
           "reviewed": false
         }
       ]
@@ -4315,6 +4945,151 @@
         {
           "from": "residual-connection",
           "to": "layer-normalization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "reward-model",
+      "center": {
+        "id": "reward-model",
+        "title": "Reward Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "direct-preference-optimization",
+          "title": "DPO",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-entropy-loss",
+          "to": "reward-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "reward-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reward-model",
+          "to": "direct-preference-optimization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "reward-model",
+          "to": "rlhf",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "rlhf",
+      "center": {
+        "id": "rlhf",
+        "title": "RLHF",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "instruction-tuning",
+          "title": "Instruction Tuning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 33
+        },
+        {
+          "id": "proximal-policy-optimization",
+          "title": "PPO",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "reward-model",
+          "title": "Reward Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 99
+        },
+        {
+          "id": "constitutional-ai",
+          "title": "Constitutional AI",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "direct-preference-optimization",
+          "title": "DPO",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "instruction-tuning",
+          "to": "rlhf",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "proximal-policy-optimization",
+          "to": "rlhf",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reward-model",
+          "to": "rlhf",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "constitutional-ai",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "direct-preference-optimization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -4713,7 +5488,14 @@
           "title": "Positional Encoding",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "prompt-tuning",
+          "title": "Prompt Tuning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         }
       ],
       "links": [
@@ -4726,6 +5508,12 @@
         {
           "from": "token-embedding",
           "to": "positional-encoding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "token-embedding",
+          "to": "prompt-tuning",
           "type": "unlocks",
           "reviewed": false
         }

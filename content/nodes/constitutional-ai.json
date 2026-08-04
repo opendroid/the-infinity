@@ -1,0 +1,53 @@
+{
+  "id": "constitutional-ai",
+  "title": "Constitutional AI",
+  "domain": [
+    "Alignment",
+    "Safety"
+  ],
+  "bodies": {
+    "intuition": "Collecting human labels for harmful outputs is slow, expensive, and unpleasant work for the people doing it. Constitutional AI replaces most of it with the model itself: given a written set of principles, the model critiques and revises its own responses, and those revisions become the training data. The human contribution moves from labelling instances to writing the rules.",
+    "engineer": "Two phases — supervised, where the model revises its own harmful responses against the principles, then reinforcement learning where the model rather than a human picks the preferred response. The constitution is a short document in plain language, which makes the objective legible and auditable in a way a pile of preference labels is not.",
+    "math": "Identical machinery to RLHF with the preference labels supplied by a model conditioned on the principles: P(y_w ≻ y_l) comes from the critic rather than an annotator. The failure mode is correlated error — a human labelling pool disagrees with itself, while a model critic is wrong the same way every time."
+  },
+  "emphasis": {
+    "intuition": "from labelling instances to writing the rules",
+    "engineer": "legible and auditable in a way a pile of preference labels is not"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "ai_labels": 9,
+      "share_rest": 1
+    },
+    "param_controls": [
+      {
+        "name": "ai_labels",
+        "min": 1,
+        "max": 10,
+        "step": 1
+      }
+    ],
+    "caption": "Share of preference labels produced by the model against those produced by people. Drag the split to see how much human effort the constitution replaces."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "rlhf",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2212.08073",
+      "title": "Constitutional AI: Harmlessness from AI Feedback",
+      "url": "https://arxiv.org/abs/2212.08073"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "direct-preference-optimization",
+  "title": "DPO",
+  "domain": [
+    "Alignment",
+    "Preference"
+  ],
+  "bodies": {
+    "intuition": "RLHF trains a reward model and then optimises against it with reinforcement learning — two models, two stages, and a great deal that can go wrong. DPO shows the reward model was never needed: the same optimum can be reached by a supervised loss on the preference pairs themselves. One stage, no sampling, no value network.",
+    "engineer": "Train directly on preference pairs with a classification-style loss, keeping a frozen reference model for the ratio. Far simpler and cheaper than PPO and widely adopted for that reason. It is not free: it optimises the preferences it was given rather than exploring, so it cannot discover a response better than the ones it was shown.",
+    "math": "The RLHF optimum is π*(y|x) ∝ π_ref(y|x)·exp(r(x,y)/β), which inverts to r(x,y) = β·log(π*(y|x)/π_ref(y|x)) + const. Substituting into the Bradley–Terry loss removes r entirely, leaving −log σ(β·log(π_θ(y_w)/π_ref(y_w)) − β·log(π_θ(y_l)/π_ref(y_l))) — the reward model was implicit in the policy all along."
+  },
+  "emphasis": {
+    "intuition": "the reward model was never needed",
+    "engineer": "it cannot discover a response better than the ones it was shown"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "beta": 0.1
+    },
+    "param_controls": [
+      {
+        "name": "beta",
+        "min": 0.01,
+        "max": 1.0,
+        "step": 0.01
+      }
+    ],
+    "caption": "Preference loss over training at one beta. Drag beta to trade how hard the policy is pulled from the reference against how sharply it separates the pairs."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "reward-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "rlhf",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.18290",
+      "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+      "url": "https://arxiv.org/abs/2305.18290"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

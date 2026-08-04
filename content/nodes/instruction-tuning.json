@@ -1,0 +1,58 @@
+{
+  "id": "instruction-tuning",
+  "title": "Instruction Tuning",
+  "domain": [
+    "Alignment",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "A pretrained model continues text. Asked a question it may produce more questions, because that is what the training data often did next. Instruction tuning trains on pairs of instruction and good response until the model treats a prompt as something to answer rather than something to extend. The knowledge does not change; the default behaviour does.",
+    "engineer": "Supervised fine-tuning on curated instruction-response pairs, sometimes called SFT. Tiny compared with pretraining — thousands to millions of examples against trillions of tokens — and it generalises to instruction types absent from the set, which is the surprising part. It is the first stage of every post-training pipeline and usually the base a preference method starts from.",
+    "math": "Maximise Σ log p_θ(y | x) over instruction-response pairs (x, y), the same cross-entropy objective as pretraining with a different distribution and a much lower learning rate. Nothing in the objective preserves anything outside that distribution, which is why the mixture matters more than the count."
+  },
+  "emphasis": {
+    "intuition": "The knowledge does not change; the default behaviour does",
+    "engineer": "generalises to instruction types absent from the set"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "sft": 1,
+      "share_rest": 1000
+    },
+    "param_controls": [
+      {
+        "name": "sft",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "caption": "Share of total training compute spent on instruction tuning against pretraining. Drag the size to see how small it stays even as it decides how the model behaves."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2109.01652",
+      "title": "Finetuned Language Models Are Zero-Shot Learners",
+      "url": "https://arxiv.org/abs/2109.01652"
+    },
+    {
+      "ref": "arXiv:2203.02155",
+      "title": "Training language models to follow instructions with human feedback",
+      "url": "https://arxiv.org/abs/2203.02155"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
