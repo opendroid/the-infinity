@@ -357,7 +357,7 @@
           {
             "id": "rlhf",
             "title": "RLHF",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -520,13 +520,13 @@
       "id": "constitutional-ai",
       "title": "Constitutional AI",
       "domain": "Alignment / Safety",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "rlhf",
             "title": "RLHF",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -719,7 +719,7 @@
           {
             "id": "reward-model",
             "title": "Reward Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -837,13 +837,13 @@
       "id": "direct-preference-optimization",
       "title": "DPO",
       "domain": "Alignment / Preference",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "reward-model",
             "title": "Reward Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -852,7 +852,7 @@
           {
             "id": "rlhf",
             "title": "RLHF",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1000,7 +1000,7 @@
           {
             "id": "instruction-tuning",
             "title": "Instruction Tuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1012,13 +1012,13 @@
           {
             "id": "prompt-tuning",
             "title": "Prompt Tuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "reward-model",
             "title": "Reward Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1109,7 +1109,7 @@
           {
             "id": "proximal-policy-optimization",
             "title": "PPO",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1181,7 +1181,7 @@
       "id": "instruction-tuning",
       "title": "Instruction Tuning",
       "domain": "Alignment / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1201,7 +1201,7 @@
           {
             "id": "rlhf",
             "title": "RLHF",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1384,7 +1384,7 @@
           {
             "id": "instruction-tuning",
             "title": "Instruction Tuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1393,7 +1393,7 @@
           {
             "id": "reward-model",
             "title": "Reward Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1417,7 +1417,7 @@
           {
             "id": "qlora",
             "title": "QLoRA",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1425,7 +1425,7 @@
           {
             "id": "prompt-tuning",
             "title": "Prompt Tuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1933,7 +1933,7 @@
       "id": "prompt-tuning",
       "title": "Prompt Tuning",
       "domain": "Optimization / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1964,7 +1964,7 @@
       "id": "proximal-policy-optimization",
       "title": "PPO",
       "domain": "Alignment / Preference",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1978,7 +1978,7 @@
           {
             "id": "rlhf",
             "title": "RLHF",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1989,7 +1989,7 @@
       "id": "qlora",
       "title": "QLoRA",
       "domain": "Optimization / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2027,7 +2027,7 @@
           {
             "id": "qlora",
             "title": "QLoRA",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2088,7 +2088,7 @@
       "id": "reward-model",
       "title": "Reward Model",
       "domain": "Alignment / Preference",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2108,13 +2108,13 @@
           {
             "id": "direct-preference-optimization",
             "title": "DPO",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "rlhf",
             "title": "RLHF",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2132,25 +2132,25 @@
       "id": "rlhf",
       "title": "RLHF",
       "domain": "Alignment / Preference",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "instruction-tuning",
             "title": "Instruction Tuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "proximal-policy-optimization",
             "title": "PPO",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "reward-model",
             "title": "Reward Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2158,7 +2158,7 @@
           {
             "id": "constitutional-ai",
             "title": "Constitutional AI",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2172,7 +2172,7 @@
           {
             "id": "direct-preference-optimization",
             "title": "DPO",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2441,7 +2441,7 @@
           {
             "id": "prompt-tuning",
             "title": "Prompt Tuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3305,7 +3305,7 @@
         {
           "id": "rlhf",
           "title": "RLHF",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -3583,7 +3583,7 @@
       "center": {
         "id": "constitutional-ai",
         "title": "Constitutional AI",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3591,7 +3591,7 @@
         {
           "id": "rlhf",
           "title": "RLHF",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -3904,7 +3904,7 @@
         {
           "id": "reward-model",
           "title": "Reward Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         }
@@ -4138,7 +4138,7 @@
       "center": {
         "id": "direct-preference-optimization",
         "title": "DPO",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4146,14 +4146,14 @@
         {
           "id": "reward-model",
           "title": "Reward Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "rlhf",
           "title": "RLHF",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -4393,7 +4393,7 @@
         {
           "id": "instruction-tuning",
           "title": "Instruction Tuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
@@ -4407,14 +4407,14 @@
         {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         }
@@ -4567,7 +4567,7 @@
         {
           "id": "proximal-policy-optimization",
           "title": "PPO",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -4710,7 +4710,7 @@
       "center": {
         "id": "instruction-tuning",
         "title": "Instruction Tuning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4732,7 +4732,7 @@
         {
           "id": "rlhf",
           "title": "RLHF",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }
@@ -5062,14 +5062,14 @@
         {
           "id": "instruction-tuning",
           "title": "Instruction Tuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -5109,14 +5109,14 @@
         {
           "id": "qlora",
           "title": "QLoRA",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -5996,7 +5996,7 @@
       "center": {
         "id": "prompt-tuning",
         "title": "Prompt Tuning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -6049,7 +6049,7 @@
       "center": {
         "id": "proximal-policy-optimization",
         "title": "PPO",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -6064,7 +6064,7 @@
         {
           "id": "rlhf",
           "title": "RLHF",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -6089,7 +6089,7 @@
       "center": {
         "id": "qlora",
         "title": "QLoRA",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -6144,7 +6144,7 @@
         {
           "id": "qlora",
           "title": "QLoRA",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -6249,7 +6249,7 @@
       "center": {
         "id": "reward-model",
         "title": "Reward Model",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -6271,14 +6271,14 @@
         {
           "id": "direct-preference-optimization",
           "title": "DPO",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "rlhf",
           "title": "RLHF",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -6328,7 +6328,7 @@
       "center": {
         "id": "rlhf",
         "title": "RLHF",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -6336,28 +6336,28 @@
         {
           "id": "instruction-tuning",
           "title": "Instruction Tuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 33
         },
         {
           "id": "proximal-policy-optimization",
           "title": "PPO",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 99
         },
         {
           "id": "constitutional-ai",
           "title": "Constitutional AI",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -6371,7 +6371,7 @@
         {
           "id": "direct-preference-optimization",
           "title": "DPO",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -6859,7 +6859,7 @@
         {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         }
