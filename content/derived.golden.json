@@ -182,6 +182,12 @@
             "reviewed": false
           },
           {
+            "id": "pass-at-k",
+            "title": "pass@k",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "prefill-and-decode",
             "title": "Prefill and Decode",
             "tier": "verified",
@@ -291,6 +297,24 @@
       }
     },
     {
+      "id": "benchmark-contamination",
+      "title": "Benchmark Contamination",
+      "domain": "Evaluation / Validity",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
       "id": "byte-pair-encoding",
       "title": "Byte-Pair Encoding",
       "domain": "Foundations / Representation",
@@ -306,6 +330,31 @@
         ],
         "unlocks": [],
         "adjacent": []
+      }
+    },
+    {
+      "id": "calibration",
+      "title": "Calibration",
+      "domain": "Evaluation / Metrics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -348,6 +397,24 @@
             "reviewed": false
           }
         ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "chain-of-thought",
+      "title": "Chain of Thought",
+      "domain": "Evaluation / Capabilities",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "in-context-learning",
+            "title": "In-Context Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
         "adjacent": []
       }
     },
@@ -432,7 +499,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "in-context-learning",
+            "title": "In-Context Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "rotary-position-embedding",
@@ -519,6 +593,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "perplexity",
+            "title": "Perplexity",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "pretraining",
             "title": "Pretraining",
@@ -646,6 +726,24 @@
             "reviewed": false
           }
         ]
+      }
+    },
+    {
+      "id": "emergent-abilities",
+      "title": "Emergent Abilities",
+      "domain": "Evaluation / Validity",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "scaling-laws",
+            "title": "Scaling Laws",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
       }
     },
     {
@@ -895,6 +993,37 @@
       }
     },
     {
+      "id": "in-context-learning",
+      "title": "In-Context Learning",
+      "domain": "Evaluation / Capabilities",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "chain-of-thought",
+            "title": "Chain of Thought",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "instruction-tuning",
       "title": "Instruction Tuning",
       "domain": "Alignment / Regimes",
@@ -909,6 +1038,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "rlhf",
             "title": "RLHF",
@@ -1059,6 +1194,31 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "llm-as-judge",
+      "title": "LLM as Judge",
+      "domain": "Evaluation / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "instruction-tuning",
+            "title": "Instruction Tuning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "reward-model",
+            "title": "Reward Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1403,6 +1563,48 @@
       }
     },
     {
+      "id": "pass-at-k",
+      "title": "pass@k",
+      "domain": "Evaluation / Metrics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "autoregressive-decoding",
+            "title": "Autoregressive Decoding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "perplexity",
+      "title": "Perplexity",
+      "domain": "Evaluation / Metrics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tokenization",
+            "title": "Tokenization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
       "id": "positional-encoding",
       "title": "Positional Encoding",
       "domain": "Attention / Position",
@@ -1485,9 +1687,21 @@
         ],
         "unlocks": [
           {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "fine-tuning",
             "title": "Fine-Tuning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "in-context-learning",
+            "title": "In-Context Learning",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -1683,7 +1897,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1721,6 +1942,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "direct-preference-optimization",
             "title": "DPO",
@@ -1793,6 +2020,12 @@
             "title": "Compute-Optimal Training",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "emergent-abilities",
+            "title": "Emergent Abilities",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": []
@@ -1858,6 +2091,12 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "calibration",
+            "title": "Calibration",
             "tier": "frontier",
             "reviewed": false
           },
@@ -1988,6 +2227,12 @@
             "id": "byte-pair-encoding",
             "title": "Byte-Pair Encoding",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "perplexity",
+            "title": "Perplexity",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -2431,42 +2676,49 @@
           "title": "Beam Search",
           "tier": "verified",
           "x": 200,
-          "y": 19
+          "y": 17
         },
         {
           "id": "continuous-batching",
           "title": "Continuous Batching",
           "tier": "verified",
           "x": 200,
-          "y": 38
+          "y": 33
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 57
+          "y": 50
+        },
+        {
+          "id": "pass-at-k",
+          "title": "pass@k",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
           "tier": "verified",
           "x": 200,
-          "y": 75
+          "y": 83
         },
         {
           "id": "speculative-decoding",
           "title": "Speculative Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 94
+          "y": 99
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 113
+          "y": 116
         }
       ],
       "links": [
@@ -2497,6 +2749,12 @@
         {
           "from": "autoregressive-decoding",
           "to": "nucleus-sampling",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autoregressive-decoding",
+          "to": "pass-at-k",
           "type": "unlocks",
           "reviewed": false
         },
@@ -2667,6 +2925,33 @@
       ]
     },
     {
+      "id": "benchmark-contamination",
+      "center": {
+        "id": "benchmark-contamination",
+        "title": "Benchmark Contamination",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "pretraining",
+          "to": "benchmark-contamination",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "byte-pair-encoding",
       "center": {
         "id": "byte-pair-encoding",
@@ -2689,6 +2974,46 @@
           "from": "tokenization",
           "to": "byte-pair-encoding",
           "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "calibration",
+      "center": {
+        "id": "calibration",
+        "title": "Calibration",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "softmax",
+          "to": "calibration",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "rlhf",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -2768,6 +3093,33 @@
           "from": "causal-masking",
           "to": "kv-cache",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "chain-of-thought",
+      "center": {
+        "id": "chain-of-thought",
+        "title": "Chain of Thought",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "in-context-learning",
+          "title": "In-Context Learning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "in-context-learning",
+          "to": "chain-of-thought",
+          "type": "requires",
           "reviewed": false
         }
       ]
@@ -2891,6 +3243,13 @@
           "y": 88
         },
         {
+          "id": "in-context-learning",
+          "title": "In-Context Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "rotary-position-embedding",
           "title": "Rotary Position Embedding",
           "tier": "verified",
@@ -2909,6 +3268,12 @@
           "from": "positional-encoding",
           "to": "context-window",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "in-context-learning",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -3037,18 +3402,25 @@
           "y": 88
         },
         {
+          "id": "perplexity",
+          "title": "Perplexity",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "pretraining",
           "title": "Pretraining",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "frontier",
           "x": 200,
-          "y": 88
+          "y": 99
         }
       ],
       "links": [
@@ -3062,6 +3434,12 @@
           "from": "softmax",
           "to": "cross-entropy-loss",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "perplexity",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -3260,6 +3638,33 @@
           "from": "dropout",
           "to": "weight-decay",
           "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "emergent-abilities",
+      "center": {
+        "id": "emergent-abilities",
+        "title": "Emergent Abilities",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "scaling-laws",
+          "title": "Scaling Laws",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "scaling-laws",
+          "to": "emergent-abilities",
+          "type": "requires",
           "reviewed": false
         }
       ]
@@ -3677,6 +4082,59 @@
       ]
     },
     {
+      "id": "in-context-learning",
+      "center": {
+        "id": "in-context-learning",
+        "title": "In-Context Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "chain-of-thought",
+          "title": "Chain of Thought",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "context-window",
+          "to": "in-context-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
+          "to": "in-context-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "in-context-learning",
+          "to": "chain-of-thought",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "instruction-tuning",
       "center": {
         "id": "instruction-tuning",
@@ -3694,11 +4152,18 @@
           "y": 66
         },
         {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "frontier",
           "x": 200,
-          "y": 66
+          "y": 88
         }
       ],
       "links": [
@@ -3706,6 +4171,12 @@
           "from": "fine-tuning",
           "to": "instruction-tuning",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "instruction-tuning",
+          "to": "llm-as-judge",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -3963,6 +4434,46 @@
           "from": "learning-rate-schedule",
           "to": "warmup",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "llm-as-judge",
+      "center": {
+        "id": "llm-as-judge",
+        "title": "LLM as Judge",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "instruction-tuning",
+          "title": "Instruction Tuning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "reward-model",
+          "title": "Reward Model",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "instruction-tuning",
+          "to": "llm-as-judge",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "reward-model",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -4539,6 +5050,73 @@
       ]
     },
     {
+      "id": "pass-at-k",
+      "center": {
+        "id": "pass-at-k",
+        "title": "pass@k",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autoregressive-decoding",
+          "title": "Autoregressive Decoding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "autoregressive-decoding",
+          "to": "pass-at-k",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "perplexity",
+      "center": {
+        "id": "perplexity",
+        "title": "Perplexity",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "tokenization",
+          "title": "Tokenization",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-entropy-loss",
+          "to": "perplexity",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "tokenization",
+          "to": "perplexity",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "positional-encoding",
       "center": {
         "id": "positional-encoding",
@@ -4669,11 +5247,25 @@
           "y": 88
         },
         {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "in-context-learning",
+          "title": "In-Context Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         }
       ],
       "links": [
@@ -4691,7 +5283,19 @@
         },
         {
           "from": "pretraining",
+          "to": "benchmark-contamination",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
           "to": "fine-tuning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
+          "to": "in-context-learning",
           "type": "unlocks",
           "reviewed": false
         }
@@ -4987,6 +5591,13 @@
           "tier": "frontier",
           "x": 200,
           "y": 88
+        },
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -5012,6 +5623,12 @@
           "from": "reward-model",
           "to": "rlhf",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "reward-model",
+          "to": "llm-as-judge",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -5055,11 +5672,18 @@
           "y": 66
         },
         {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "direct-preference-optimization",
           "title": "DPO",
           "tier": "frontier",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -5085,6 +5709,12 @@
           "from": "rlhf",
           "to": "constitutional-ai",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "calibration",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -5184,7 +5814,14 @@
           "title": "Compute-Optimal Training",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "emergent-abilities",
+          "title": "Emergent Abilities",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         }
       ],
       "links": [
@@ -5197,6 +5834,12 @@
         {
           "from": "scaling-laws",
           "to": "compute-optimal-training",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "scaling-laws",
+          "to": "emergent-abilities",
           "type": "unlocks",
           "reviewed": false
         }
@@ -5309,28 +5952,35 @@
           "title": "Autoregressive Decoding",
           "tier": "frontier",
           "x": 200,
-          "y": 26
+          "y": 22
+        },
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 66
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         },
         {
           "id": "attention",
@@ -5344,6 +5994,12 @@
         {
           "from": "softmax",
           "to": "autoregressive-decoding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "calibration",
           "type": "unlocks",
           "reviewed": false
         },
@@ -5534,20 +6190,33 @@
           "title": "Byte-Pair Encoding",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
+        },
+        {
+          "id": "perplexity",
+          "title": "Perplexity",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "token-embedding",
           "title": "Token Embedding",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         }
       ],
       "links": [
         {
           "from": "tokenization",
           "to": "byte-pair-encoding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tokenization",
+          "to": "perplexity",
           "type": "unlocks",
           "reviewed": false
         },

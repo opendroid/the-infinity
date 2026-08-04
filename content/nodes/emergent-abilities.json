@@ -1,0 +1,58 @@
+{
+  "id": "emergent-abilities",
+  "title": "Emergent Abilities",
+  "domain": [
+    "Evaluation",
+    "Validity"
+  ],
+  "bodies": {
+    "intuition": "Some capabilities appear to switch on abruptly with scale: flat at chance across several model sizes, then suddenly working. That claim shaped a great deal of thinking about what scaling buys. It is also disputed — the sharpness may be an artefact of grading answers as right or wrong rather than of anything happening inside the model.",
+    "engineer": "The original observation was that certain benchmarks stay at random until a threshold and then rise steeply. The rebuttal is that those benchmarks use discontinuous metrics — exact match, multiple choice — and that swapping to a continuous one turns the same runs into smooth curves. Both readings fit the same data, which is why this entry cites both.",
+    "math": "Under exact match, a task requiring L correct tokens scores p^L for per-token accuracy p, so smooth improvement in p looks like a threshold in p^L. The metric manufactures the discontinuity. Whether anything discontinuous also happens in the model is a separate question the metric cannot answer."
+  },
+  "emphasis": {
+    "intuition": "the sharpness may be an artefact of grading answers as right or wrong",
+    "engineer": "Both readings fit the same data, which is why this entry cites both"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "tokens": 5
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 1,
+        "max": 10,
+        "step": 1
+      }
+    ],
+    "caption": "The same smooth per-token improvement scored by exact match. Drag the number of tokens required to watch a gentle curve become a cliff."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "scaling-laws",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2206.07682",
+      "title": "Emergent Abilities of Large Language Models",
+      "url": "https://arxiv.org/abs/2206.07682"
+    },
+    {
+      "ref": "arXiv:2304.15004",
+      "title": "Are Emergent Abilities of Large Language Models a Mirage?",
+      "url": "https://arxiv.org/abs/2304.15004"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

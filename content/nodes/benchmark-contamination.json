@@ -1,0 +1,58 @@
+{
+  "id": "benchmark-contamination",
+  "title": "Benchmark Contamination",
+  "domain": [
+    "Evaluation",
+    "Validity"
+  ],
+  "bodies": {
+    "intuition": "A model trained on most of the public internet has probably seen the test set. When that happens a benchmark stops measuring ability and starts measuring memorisation, and the score goes up either way. The problem is not that anyone cheated — it is that the training corpus is too large for anyone to know what is in it.",
+    "engineer": "Exact-match decontamination is the usual defence and it is weak: a rephrased or translated test item survives n-gram filtering and still leaks the answer. Detection after the fact is harder than it sounds, since a model can score well on a contaminated set for legitimate reasons too. Held-out sets created after a model's cutoff are the only clean measurement, and they expire.",
+    "math": "If a fraction c of a benchmark is memorised, observed accuracy is roughly c + (1−c)·a for true ability a, so contamination inflates most where the model is weakest. That is the worst possible bias: it compresses the gap between models exactly where the benchmark was supposed to discriminate."
+  },
+  "emphasis": {
+    "intuition": "the training corpus is too large for anyone to know what is in it",
+    "engineer": "Held-out sets created after a model's cutoff are the only clean measurement, and they expire"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "contaminated": 10,
+      "share_rest": 90
+    },
+    "param_controls": [
+      {
+        "name": "contaminated",
+        "min": 0,
+        "max": 50,
+        "step": 5
+      }
+    ],
+    "caption": "Share of a benchmark score attributable to memorised items against genuine ability. Drag the contamination rate to watch a weak model close the gap."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2311.04850",
+      "title": "Rethinking Benchmark and Contamination for Language Models with Rephrased Samples",
+      "url": "https://arxiv.org/abs/2311.04850"
+    },
+    {
+      "ref": "arXiv:2009.03300",
+      "title": "Measuring Massive Multitask Language Understanding",
+      "url": "https://arxiv.org/abs/2009.03300"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

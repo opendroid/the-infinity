@@ -1,0 +1,58 @@
+{
+  "id": "calibration",
+  "title": "Calibration",
+  "domain": [
+    "Evaluation",
+    "Metrics"
+  ],
+  "bodies": {
+    "intuition": "A well-calibrated model is right about 80% of the time when it says it is 80% confident. That is a different question from whether it is accurate: a model can be right often and badly calibrated, or poorly performing and honest about it. Calibration is what makes a confidence score worth acting on.",
+    "engineer": "Measured by bucketing predictions by stated confidence and comparing each bucket's accuracy to its confidence. Base models are reasonably calibrated on multiple choice; RLHF tends to damage it, pushing outputs toward confident phrasing whether or not the underlying probability supports it. Temperature scaling recovers much of the loss without retraining.",
+    "math": "Expected calibration error is Σ_b (|B_b|/N)·|acc(B_b) − conf(B_b)| over confidence buckets. It is zero for a model that always says 50% and is right half the time, so it must be read beside accuracy rather than instead of it — perfect calibration is compatible with knowing nothing."
+  },
+  "emphasis": {
+    "intuition": "Calibration is what makes a confidence score worth acting on",
+    "engineer": "RLHF tends to damage it"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "buckets": 8,
+      "bars": 8
+    },
+    "param_controls": [
+      {
+        "name": "buckets",
+        "min": 2,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Stated confidence against measured accuracy in each bucket. Drag the bucket count to watch the gap that calibration error sums."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "rlhf",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2207.05221",
+      "title": "Language Models (Mostly) Know What They Know",
+      "url": "https://arxiv.org/abs/2207.05221"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

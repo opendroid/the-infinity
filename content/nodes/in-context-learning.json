@@ -1,0 +1,57 @@
+{
+  "id": "in-context-learning",
+  "title": "In-Context Learning",
+  "domain": [
+    "Evaluation",
+    "Capabilities"
+  ],
+  "bodies": {
+    "intuition": "A model can be shown a few examples in its prompt and then do the task, with no gradient step and no weight change. Nothing was trained; the examples simply condition what comes next. This is why one model serves a thousand tasks, and why prompt engineering became a job.",
+    "engineer": "Few-shot prompting: put k demonstrations in the context and the model continues the pattern. It improves sharply with scale and is sensitive to things that ought not to matter — example order, formatting, and label wording all move accuracy. That sensitivity is the standing argument against treating a single prompt's score as the model's ability.",
+    "math": "Conditioning rather than optimisation: p(y | x, D) with D the demonstrations, no update to θ. The cost is a longer context, so k demonstrations cost Θ(k) tokens and attention over them costs Θ((k·m)²) for examples of length m — which is why the technique meets its limit at the context window."
+  },
+  "emphasis": {
+    "intuition": "Nothing was trained; the examples simply condition what comes next",
+    "engineer": "example order, formatting, and label wording all move accuracy"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "shots": 8,
+      "share_rest": 256
+    },
+    "param_controls": [
+      {
+        "name": "shots",
+        "min": 0,
+        "max": 32,
+        "step": 1
+      }
+    ],
+    "caption": "Share of the context spent on demonstrations against the question itself. Drag the shot count to watch examples crowd out the task."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      },
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2005.14165",
+      "title": "Language Models are Few-Shot Learners",
+      "url": "https://arxiv.org/abs/2005.14165"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
