@@ -42,11 +42,23 @@ const params = Object.entries(viz.params)
 const bars = Array.from({ length: 8 }, (_, i) => 30 + ((i * 37) % 70));
 ---
 
-{viz.primitive === 'router-dispatch' && <RouterDispatch client:load {...shared} />}
-{viz.primitive === 'update-spectrum' && <UpdateSpectrum client:load {...shared} />}
-{viz.primitive === 'budget-split' && <BudgetSplit client:load {...shared} />}
-{viz.primitive === 'attention-heatmap' && <AttentionHeatmap client:load {...shared} />}
-{viz.primitive === 'loss-curve' && <LossCurve client:load {...shared} />}
+{/*
+  `client:visible`, not `client:load` (#47). The viz is the heaviest island on
+  the heaviest route and it is the one a reader may never scroll to — on a long
+  concept page at Math depth it can sit well below the fold. Hydrating it on
+  load spends the parse and the mount on every visit whether or not the figure
+  is ever seen. If it IS in view, IntersectionObserver fires immediately and
+  nothing is delayed, so this costs nothing in the case it does not help.
+
+  It does not change the perf budget, which counts bytes shipped rather than
+  work done — the chunk is the same size either way. What it changes is when
+  that work happens, which is the thing the reader experiences.
+*/}
+{viz.primitive === 'router-dispatch' && <RouterDispatch client:visible {...shared} />}
+{viz.primitive === 'update-spectrum' && <UpdateSpectrum client:visible {...shared} />}
+{viz.primitive === 'budget-split' && <BudgetSplit client:visible {...shared} />}
+{viz.primitive === 'attention-heatmap' && <AttentionHeatmap client:visible {...shared} />}
+{viz.primitive === 'loss-curve' && <LossCurve client:visible {...shared} />}
 
 {
   !IMPLEMENTED.has(viz.primitive) && (

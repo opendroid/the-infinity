@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { describeSpectrum, progress, spectrum } from './spectrum';
+import VizBoundary from './VizBoundary';
 
 /**
  * `update-spectrum` — one distribution against another.
@@ -33,7 +34,16 @@ interface Props {
 
 const show = (n: number): string => (Number.isInteger(n) ? String(n) : String(Number(n.toFixed(2))));
 
-export default function UpdateSpectrum({
+/** #47: the primitive renders inside the boundary, never instead of it. */
+export default function UpdateSpectrum(props: Props) {
+  return (
+    <VizBoundary primitive="update-spectrum" caption={props.caption}>
+      <Body {...props} />
+    </VizBoundary>
+  );
+}
+
+function Body({
   seed,
   params,
   control,

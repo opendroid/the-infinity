@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { attention, describeAttention, shapeFrom } from './attention';
+import VizBoundary from './VizBoundary';
 
 /**
  * `attention-heatmap` — a grid of query rows against key columns, brightness
@@ -40,7 +41,16 @@ const label = (name: string): string => name.replace(/_/g, '-');
 /** Bookkeeping the reader did not ask about. */
 const HIDDEN = new Set(['lookahead', 'keys', 'decay', 'sink']);
 
-export default function AttentionHeatmap({
+/** #47: the primitive renders inside the boundary, never instead of it. */
+export default function AttentionHeatmap(props: Props) {
+  return (
+    <VizBoundary primitive="attention-heatmap" caption={props.caption}>
+      <Body {...props} />
+    </VizBoundary>
+  );
+}
+
+function Body({
   seed,
   params,
   control,

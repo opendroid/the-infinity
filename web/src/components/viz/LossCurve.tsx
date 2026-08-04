@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ceiling, describeCurve, lossCurve, paramsFrom } from './losscurve';
+import VizBoundary from './VizBoundary';
 
 /**
  * `loss-curve` — loss against training step.
@@ -45,7 +46,16 @@ const HIDDEN = new Set(['holdout', 'decay']);
 const W = 320;
 const H = 130;
 
-export default function LossCurve({ seed, params, control, caption, captionEngineer }: Props) {
+/** #47: the primitive renders inside the boundary, never instead of it. */
+export default function LossCurve(props: Props) {
+  return (
+    <VizBoundary primitive="loss-curve" caption={props.caption}>
+      <Body {...props} />
+    </VizBoundary>
+  );
+}
+
+function Body({ seed, params, control, caption, captionEngineer }: Props) {
   const [value, setValue] = useState<number>(control ? (params[control.name] ?? control.min) : 0);
 
   const live = control ? { ...params, [control.name]: value } : params;

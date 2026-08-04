@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { describeFrame, frame, rankOpacity, type RouterParams } from './routing';
+import VizBoundary from './VizBoundary';
 
 /**
  * `router-dispatch` — a router scoring tokens against experts, and the top-k
@@ -54,7 +55,16 @@ function read(params: Record<string, number>): RouterParams {
   };
 }
 
-export default function RouterDispatch({
+/** #47: the primitive renders inside the boundary, never instead of it. */
+export default function RouterDispatch(props: Props) {
+  return (
+    <VizBoundary primitive="router-dispatch" caption={props.caption}>
+      <Body {...props} />
+    </VizBoundary>
+  );
+}
+
+function Body({
   seed,
   params,
   control,
