@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { notationError, parseNotation, plain, type Token } from './notation';
+import { notationError, parseNotation, plain, spoken, type Token } from './notation';
 import { allNodes } from './content';
 import { splitEmphasis } from './graph';
 
@@ -147,5 +147,102 @@ describe('every authored body', () => {
     const adam = allNodes.find((n) => n.id === 'adam');
     expect(adam).toBeDefined();
     expect(parse(adam!.bodies.math)).toContain('<sub>t−1</sub>');
+  });
+});
+
+/**
+ * ADR-0010. `plain` above answers "what is on screen"; this answers "what does
+ * a reader hear", and they are different strings. Asserting the first told us
+ * nothing about the second, which is how 43 nodes shipped speaking their
+ * identifiers as run-together nonwords (#144).
+ */
+describe('what a screen reader receives', () => {
+  it('separates a subscript from what it hangs off', () => {
+    // The defect verbatim: this was "dmodel".
+    expect(spoken('d_model')).toBe('d sub model ');
+    expect(spoken('W_Q')).toBe('W sub Q ');
+  });
+
+  it('distinguishes a superscript from a subscript', () => {
+    // A bare space would make these identical, which is the reason for words.
+    expect(spoken('x_2')).toBe('x sub 2 ');
+    expect(spoken('x^2')).toBe('x super 2 ');
+  });
+
+  it('does not let the following text join the subscript', () => {
+    expect(spoken('d_model/h')).toBe('d sub model /h');
+    expect(spoken('head_i = Attention')).toBe('head sub i = Attention');
+  });
+
+  it('speaks a braced group as one run', () => {
+    expect(spoken('x_{<t}')).toBe('x sub <t ');
+    expect(spoken('2^{\u22128h/H}')).toBe('2 super \u22128h/H ');
+  });
+
+  it('speaks nesting from the inside out', () => {
+    expect(spoken('\u211d^{n\u00d7d_k}')).toBe('\u211d super n\u00d7d sub k ');
+  });
+
+  it('leaves prose with no notation exactly as it was', () => {
+    const prose = 'Attention is that decision made numerically.';
+    expect(spoken(prose)).toBe(prose);
+  });
+
+  it('is not the same string as the visual flattening', () => {
+    // If these ever agree, the separator has been lost and #144 is back.
+    expect(spoken('d_model')).not.toBe(plain('d_model'));
+    expect(plain('d_model')).toBe('dmodel');
+  });
+});
+
+/**
+ * The corpus, not a fixture someone chose. #144 measured 181 groups across 43
+ * of 57 nodes; this is the check that none of them is still run-together, and
+ * it grows with the graph rather than needing to be remembered.
+ */
+describe('every node speaks its notation', () => {
+  const withNotation = allNodes.filter((n) =>
+    (['intuition', 'engineer', 'math'] as const).some(
+      (d) => parseNotation(n.bodies[d]).some((t) => t.kind !== 'text'),
+    ),
+  );
+
+  it('covers the corpus #144 measured', () => {
+    expect(withNotation.length).toBeGreaterThanOrEqual(40);
+  });
+
+  it('leaves no subscript touching what precedes it', () => {
+    for (const node of withNotation) {
+      for (const depth of ['intuition', 'engineer', 'math'] as const) {
+        const body = node.bodies[depth];
+        if (!parseNotation(body).some((t) => t.kind !== 'text')) continue;
+        const heard = spoken(body);
+        // The marker is the separator; its absence is the defect.
+        expect(heard, `${node.id}/${depth}`).toMatch(/ (sub|super) /);
+        expect(heard, `${node.id}/${depth}`).not.toBe(plain(body));
+      }
+    }
+  });
+
+  it('speaks the values that actually occur', () => {
+    // The alphabet from #144 — the raised and lowered runs the corpus really
+    // uses, most common first. Each must come back with its marker attached.
+    for (const [source, heard] of [
+      ['d_model', 'd sub model '],
+      ['x_i', 'x sub i '],
+      ['x_t', 'x sub t '],
+      ['W_K', 'W sub K '],
+      ['W_V', 'W sub V '],
+      ['W_Q', 'W sub Q '],
+      ['S_ij', 'S sub ij '],
+      ['d_ff', 'd sub ff '],
+      ['x_{t+1}', 'x sub t+1 '],
+      ['x_{<t}', 'x sub <t '],
+      ['d_head', 'd sub head '],
+      ['X^i', 'X super i '],
+      ['θ_max', 'θ sub max '],
+    ] as const) {
+      expect(spoken(source), source).toBe(heard);
+    }
   });
 });

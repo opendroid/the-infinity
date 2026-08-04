@@ -167,6 +167,31 @@ export function notationError(source: string): string | null {
 }
 
 /** The text a reader would hear or copy, with the markup removed. */
+/**
+ * What a reader hears — the flattened string with the separators ADR-0010 adds.
+ *
+ * `plain` below is the visual flattening and answers "what characters are on
+ * screen". This answers a different question: what does the accessibility tree
+ * contain, once `Notation` has put its `sr-only` markers in. They are not the
+ * same string and conflating them is how `d_model` came to be spoken as
+ * "dmodel" (#144).
+ *
+ * Exported so the tests assert on the thing a person actually receives, rather
+ * than on the markup that produces it. The markup was always right.
+ */
+export function spoken(source: string): string {
+  const say = (tokens: Token[]): string =>
+    tokens
+      .map((t) => {
+        if (t.kind === 'text') return t.text;
+        return `${t.kind === 'sub' ? ' sub ' : ' super '}${say(t.children)} `;
+      })
+      .join('');
+  // Collapsed because the markers butt against whitespace already in the prose:
+  // `d_model / h` would otherwise be "d sub model  / h".
+  return say(parseNotation(source)).replace(/ {2,}/g, ' ');
+}
+
 export function plain(source: string): string {
   const strip = (tokens: Token[]): string =>
     tokens.map((t) => (t.kind === 'text' ? t.text : strip(t.children))).join('');

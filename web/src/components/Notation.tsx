@@ -17,7 +17,24 @@ function render(tokens: Token[]): React.ReactNode {
   return tokens.map((token, i) => {
     if (token.kind === 'text') return <Fragment key={i}>{token.text}</Fragment>;
     const Tag = token.kind === 'sub' ? 'sub' : 'sup';
-    return <Tag key={i}>{render(token.children)}</Tag>;
+    return (
+      <Fragment key={i}>
+        {/*
+          ADR-0010. Without these the accessibility tree receives "dmodel" —
+          `<sub>` reaches the tree, which is what ADR-0009 checked, but what
+          arrives is the flattened string and the flattening has no separator
+          in it. The trailing space closes the run so the next character does
+          not join the subscript in turn.
+
+          sr-only hides with clip rather than display:none, so this stays in
+          the tree; and it sits in DOM order, which is the order the tree is
+          read in, not the visual order it is absolutely positioned out of.
+        */}
+        <span className="sr-only">{token.kind === 'sub' ? ' sub ' : ' super '}</span>
+        <Tag>{render(token.children)}</Tag>
+        <span className="sr-only"> </span>
+      </Fragment>
+    );
   });
 }
 
