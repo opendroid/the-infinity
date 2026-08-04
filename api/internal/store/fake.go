@@ -117,7 +117,17 @@ func (f *Fake) Trail(_ context.Context, slug string) (*Trail, error) {
 	if !ok {
 		return nil, fmt.Errorf("trail %s: %w", slug, ErrNotFound)
 	}
-	return cloneTrail(t), nil
+	// The same resolution Firestore does (ADR-0012). The fake exists so handlers
+	// can be tested without an emulator, which is only true while it behaves the
+	// same way — and "a stop whose concept was deleted" is precisely the case a
+	// handler test would otherwise never reach.
+	clone := cloneTrail(t)
+	for i, s := range clone.Stops {
+		if _, live := f.Concepts[s.ID]; !live {
+			clone.Stops[i].Missing = true
+		}
+	}
+	return clone, nil
 }
 
 func (f *Fake) CreateTrail(_ context.Context, nt NewTrail) (*Trail, error) {

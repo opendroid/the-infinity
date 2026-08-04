@@ -28,6 +28,8 @@ interface TrailStop {
   title: string;
   tier: Tier;
   depth_read_at: Depth;
+  /** The concept has since been deleted from git (ADR-0012). */
+  missing?: boolean;
 }
 
 interface Trail {
@@ -58,7 +60,16 @@ function narrowTrail(value: unknown): Trail | null {
     if (typeof s.n !== 'number' || typeof s.id !== 'string' || typeof s.title !== 'string') return null;
     if (s.tier !== 'verified' && s.tier !== 'frontier') return null;
     if (s.depth_read_at !== 'intuition' && s.depth_read_at !== 'engineer' && s.depth_read_at !== 'math') return null;
-    stops.push({ n: s.n, id: s.id, title: s.title, tier: s.tier, depth_read_at: s.depth_read_at });
+    stops.push({
+      n: s.n,
+      id: s.id,
+      title: s.title,
+      tier: s.tier,
+      depth_read_at: s.depth_read_at,
+      // Absent on every stop that still resolves, so its absence is the
+      // ordinary case rather than something to default.
+      missing: s.missing === true,
+    });
   }
   if (stops.length === 0) return null;
 
@@ -207,7 +218,11 @@ function Ready({ trail }: { trail: Trail }) {
       // Spaced so the walk keeps its order without inventing a duration.
       ts: now + i,
     }));
-    const first = trail.stops[0]!.id;
+    // Land on the first stop that still exists. Walking a trail whose opening
+    // concept was deleted would drop the reader straight onto a 404 — the one
+    // place the tombstone would be worse than useless, because they never see
+    // the trail page that explains it.
+    const first = (trail.stops.find((s) => !s.missing) ?? trail.stops[0]!).id;
     replace(stops, first);
     window.location.href = `/c/${first}`;
   }
@@ -241,9 +256,28 @@ function Ready({ trail }: { trail: Trail }) {
               {String(stop.n).padStart(2, '0')}
             </span>
             <TierDot tier={stop.tier} size={8} decorative={false} />
-            <a href={`/c/${stop.id}`} className="min-w-0 flex-1 text-[15px] text-starlight no-underline hover:text-thread">
-              {stop.title}
-            </a>
+            {/*
+              A TOMBSTONE, NOT A GAP (ADR-0012). The concept was deleted from git
+              after this walk happened. The stop keeps its number, its title and
+              the tier it had when it was read — that is what the reader saw —
+              and stops being a link, because the only thing behind it now is a
+              404 they would find by clicking.
+
+              Rendered rather than hidden: removing it would renumber the walk
+              and make the trail claim to be something it was not.
+            */}
+            {stop.missing ? (
+              <span className="min-w-0 flex-1 text-[15px] text-dust">
+                {stop.title}
+                <span className="ml-2 font-mono text-[10px] uppercase tracking-[.12em]">
+                  no longer in the graph
+                </span>
+              </span>
+            ) : (
+              <a href={`/c/${stop.id}`} className="min-w-0 flex-1 text-[15px] text-starlight no-underline hover:text-thread">
+                {stop.title}
+              </a>
+            )}
             <span className="font-mono text-[10px] uppercase tracking-[.12em] text-dust">{stop.depth_read_at}</span>
           </li>
         ))}

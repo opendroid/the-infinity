@@ -650,6 +650,14 @@ components:
               title: { type: string }
               tier: { $ref: '#/components/schemas/Tier' }
               depth_read_at: { $ref: '#/components/schemas/Depth' }
+              missing:
+                type: boolean
+                description: |
+                  True when this stop's concept has since been deleted from git
+                  (ADR-0012). Absent otherwise. The title and tier are what the
+                  reader saw when they walked it — a historical claim, which is
+                  what this flag marks as no longer checkable. Clients should
+                  render the stop rather than hide it, and not link it.
 
     RequestCreate:
       type: object
