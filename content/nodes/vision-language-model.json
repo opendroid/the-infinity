@@ -1,0 +1,57 @@
+{
+  "id": "vision-language-model",
+  "title": "Vision-Language Model",
+  "domain": [
+    "Multimodal",
+    "Models"
+  ],
+  "bodies": {
+    "intuition": "A language model that can see is mostly a language model. A vision encoder turns the image into vectors, a small bridge maps them into the language model's embedding space, and from there the image is just more tokens in the context. The heavy lifting stays where it already was.",
+    "engineer": "Freeze a pretrained vision encoder and a pretrained language model, train the connector between them, and optionally add cross-attention layers so text can attend to image features. Training the bridge alone is far cheaper than training either side, which is why capability arrives faster here than the compute would suggest.",
+    "math": "Project visual features V ∈ ℝ^{N×d_v} into ℝ^{N×d_model} and either prepend them to the token sequence or attend to them from interleaved cross-attention layers. Prepending costs Θ((N+n)²) attention over the joined sequence; cross-attention costs Θ(n·N) and keeps the two lengths independent."
+  },
+  "emphasis": {
+    "intuition": "the image is just more tokens in the context",
+    "engineer": "capability arrives faster here than the compute would suggest"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "trainable": 1,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "trainable",
+        "min": 1,
+        "max": 50,
+        "step": 1
+      }
+    ],
+    "caption": "Trainable connector parameters against the frozen encoders on either side. Drag the bridge size to see how little is being learned."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "clip",
+        "reviewed": false
+      },
+      {
+        "id": "cross-attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2204.14198",
+      "title": "Flamingo: a Visual Language Model for Few-Shot Learning",
+      "url": "https://arxiv.org/abs/2204.14198"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

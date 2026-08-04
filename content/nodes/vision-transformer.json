@@ -1,0 +1,57 @@
+{
+  "id": "vision-transformer",
+  "title": "Vision Transformer",
+  "domain": [
+    "Multimodal",
+    "Vision"
+  ],
+  "bodies": {
+    "intuition": "Convolutions were assumed necessary for images because they build in the right assumptions: nearby pixels relate, and a cat is a cat wherever it appears. The vision transformer drops those assumptions and applies an ordinary transformer to image patches. It loses to convolutions on small datasets and beats them on large ones, because with enough data the assumptions can be learned rather than built in.",
+    "engineer": "Patch embed, add positions, run a standard encoder stack, classify from a prepended token. Architecturally almost nothing is new — the contribution is the demonstration that nothing needed to be. That is what made one architecture serve text, images and audio, and it is the reason multimodal models are possible at all.",
+    "math": "Identical to a transformer encoder over N = HW/P² tokens, so cost is Θ(N²d) in attention and Θ(Nd²) in projections. The inductive bias a convolution supplies for free — locality and translation equivariance — must instead be paid for in data, which is why the crossover with convolutional models happens at scale rather than everywhere."
+  },
+  "emphasis": {
+    "intuition": "with enough data the assumptions can be learned rather than built in",
+    "engineer": "the contribution is the demonstration that nothing needed to be"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "data": 1
+    },
+    "param_controls": [
+      {
+        "name": "data",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "caption": "Accuracy against dataset size for a transformer and a convolutional model. Drag the data volume to find where the crossover sits."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "patch-embedding",
+        "reviewed": false
+      },
+      {
+        "id": "transformer-block",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2010.11929",
+      "title": "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",
+      "url": "https://arxiv.org/abs/2010.11929"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

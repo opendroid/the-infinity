@@ -1,0 +1,62 @@
+{
+  "id": "latent-diffusion",
+  "title": "Latent Diffusion",
+  "domain": [
+    "Multimodal",
+    "Generation"
+  ],
+  "bodies": {
+    "intuition": "Running diffusion on raw pixels is enormously expensive, and most pixels carry no information anyone would miss. Latent diffusion compresses the image first with an autoencoder, runs the whole noising and denoising process in that much smaller space, and decodes only at the end. The same model becomes affordable to train and fast enough to serve.",
+    "engineer": "An autoencoder trained once maps images to a latent grid perhaps eight times smaller per side; diffusion then operates entirely there. Text conditioning enters through cross-attention in the denoising network. This is the architecture behind the open image generators, and the compression factor is the single parameter that decides whether it runs on consumer hardware.",
+    "math": "A downsampling factor f reduces the spatial grid by f² and the per-step cost by roughly f² — at f = 8 that is sixty-four times less work per denoising step. The autoencoder is trained once and frozen, so the cost is paid once rather than per sample."
+  },
+  "emphasis": {
+    "intuition": "most pixels carry no information anyone would miss",
+    "engineer": "the compression factor is the single parameter that decides whether it runs on consumer hardware"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "factor": 8,
+      "share_rest": 1
+    },
+    "param_controls": [
+      {
+        "name": "factor",
+        "min": 1,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Compute per denoising step in latent space against pixel space. Drag the downsampling factor to watch the cost collapse."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "diffusion-model",
+        "reviewed": false
+      },
+      {
+        "id": "cross-attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2112.10752",
+      "title": "High-Resolution Image Synthesis with Latent Diffusion Models",
+      "url": "https://arxiv.org/abs/2112.10752"
+    },
+    {
+      "ref": "arXiv:1711.00937",
+      "title": "Neural Discrete Representation Learning",
+      "url": "https://arxiv.org/abs/1711.00937"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

@@ -262,6 +262,12 @@
         ],
         "unlocks": [
           {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "gradient-accumulation",
             "title": "Gradient Accumulation",
             "tier": "verified",
@@ -419,6 +425,55 @@
       }
     },
     {
+      "id": "classifier-free-guidance",
+      "title": "Classifier-Free Guidance",
+      "domain": "Multimodal / Generation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "diffusion-model",
+            "title": "Diffusion Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "clip",
+      "title": "CLIP",
+      "domain": "Multimodal / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vision-transformer",
+            "title": "Vision Transformer",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "vision-language-model",
+            "title": "Vision-Language Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "compute-optimal-training",
       "title": "Compute-Optimal Training",
       "domain": "Optimization / Generalization",
@@ -549,6 +604,43 @@
       }
     },
     {
+      "id": "contrastive-learning",
+      "title": "Contrastive Learning",
+      "domain": "Multimodal / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "batch-size",
+            "title": "Batch Size",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "clip",
+            "title": "CLIP",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "cross-attention",
       "title": "Cross-Attention",
       "domain": "Attention / Core",
@@ -568,7 +660,20 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "latent-diffusion",
+            "title": "Latent Diffusion",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vision-language-model",
+            "title": "Vision-Language Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": []
       }
     },
@@ -593,6 +698,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "perplexity",
             "title": "Perplexity",
@@ -683,6 +794,43 @@
             "reviewed": false
           }
         ]
+      }
+    },
+    {
+      "id": "diffusion-model",
+      "title": "Diffusion Model",
+      "domain": "Multimodal / Generation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "loss-function",
+            "title": "Loss Function",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "classifier-free-guidance",
+            "title": "Classifier-Free Guidance",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "latent-diffusion",
+            "title": "Latent Diffusion",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
       }
     },
     {
@@ -947,6 +1095,12 @@
         ],
         "unlocks": [
           {
+            "id": "diffusion-model",
+            "title": "Diffusion Model",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "learning-rate",
             "title": "Learning Rate",
             "tier": "verified",
@@ -1106,6 +1260,30 @@
             "reviewed": false
           }
         ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "latent-diffusion",
+      "title": "Latent Diffusion",
+      "domain": "Multimodal / Generation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-attention",
+            "title": "Cross-Attention",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "diffusion-model",
+            "title": "Diffusion Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
         "adjacent": []
       }
     },
@@ -1271,6 +1449,12 @@
             "id": "cross-entropy-loss",
             "title": "Cross-Entropy Loss",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "diffusion-model",
+            "title": "Diffusion Model",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -1581,6 +1765,37 @@
       }
     },
     {
+      "id": "patch-embedding",
+      "title": "Patch Embedding",
+      "domain": "Multimodal / Vision",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "positional-encoding",
+            "title": "Positional Encoding",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "token-embedding",
+            "title": "Token Embedding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "vision-transformer",
+            "title": "Vision Transformer",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "perplexity",
       "title": "Perplexity",
       "domain": "Evaluation / Metrics",
@@ -1628,6 +1843,12 @@
           {
             "id": "context-window",
             "title": "Context Window",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "patch-embedding",
+            "title": "Patch Embedding",
             "tier": "frontier",
             "reviewed": false
           },
@@ -2101,6 +2322,12 @@
             "reviewed": false
           },
           {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "cross-entropy-loss",
             "title": "Cross-Entropy Loss",
             "tier": "verified",
@@ -2199,6 +2426,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "patch-embedding",
+            "title": "Patch Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "positional-encoding",
             "title": "Positional Encoding",
@@ -2319,6 +2552,67 @@
             "id": "encoder-decoder",
             "title": "Encoder-Decoder",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vision-transformer",
+            "title": "Vision Transformer",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "vision-language-model",
+      "title": "Vision-Language Model",
+      "domain": "Multimodal / Models",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "clip",
+            "title": "CLIP",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "cross-attention",
+            "title": "Cross-Attention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "vision-transformer",
+      "title": "Vision Transformer",
+      "domain": "Multimodal / Vision",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "patch-embedding",
+            "title": "Patch Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "transformer-block",
+            "title": "Transformer Block",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "clip",
+            "title": "CLIP",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -2862,11 +3156,18 @@
           "y": 66
         },
         {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "gradient-accumulation",
           "title": "Gradient Accumulation",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "continuous-batching",
@@ -2881,6 +3182,12 @@
           "from": "stochastic-gradient-descent",
           "to": "batch-size",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "batch-size",
+          "to": "contrastive-learning",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -3125,6 +3432,86 @@
       ]
     },
     {
+      "id": "classifier-free-guidance",
+      "center": {
+        "id": "classifier-free-guidance",
+        "title": "Classifier-Free Guidance",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "diffusion-model",
+          "title": "Diffusion Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "diffusion-model",
+          "to": "classifier-free-guidance",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "clip",
+      "center": {
+        "id": "clip",
+        "title": "CLIP",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "vision-transformer",
+          "title": "Vision Transformer",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "vision-language-model",
+          "title": "Vision-Language Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "contrastive-learning",
+          "to": "clip",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vision-transformer",
+          "to": "clip",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "clip",
+          "to": "vision-language-model",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "compute-optimal-training",
       "center": {
         "id": "compute-optimal-training",
@@ -3338,6 +3725,72 @@
       ]
     },
     {
+      "id": "contrastive-learning",
+      "center": {
+        "id": "contrastive-learning",
+        "title": "Contrastive Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "batch-size",
+          "title": "Batch Size",
+          "tier": "verified",
+          "x": 40,
+          "y": 33
+        },
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "verified",
+          "x": 40,
+          "y": 99
+        },
+        {
+          "id": "clip",
+          "title": "CLIP",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "batch-size",
+          "to": "contrastive-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "contrastive-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "contrastive-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "contrastive-learning",
+          "to": "clip",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "cross-attention",
       "center": {
         "id": "cross-attention",
@@ -3360,6 +3813,20 @@
           "tier": "verified",
           "x": 40,
           "y": 88
+        },
+        {
+          "id": "latent-diffusion",
+          "title": "Latent Diffusion",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "vision-language-model",
+          "title": "Vision-Language Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         }
       ],
       "links": [
@@ -3373,6 +3840,18 @@
           "from": "encoder-decoder",
           "to": "cross-attention",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-attention",
+          "to": "latent-diffusion",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "cross-attention",
+          "to": "vision-language-model",
+          "type": "unlocks",
           "reviewed": false
         }
       ]
@@ -3402,25 +3881,32 @@
           "y": 88
         },
         {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "frontier",
           "x": 200,
-          "y": 33
+          "y": 53
         },
         {
           "id": "pretraining",
           "title": "Pretraining",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 79
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "frontier",
           "x": 200,
-          "y": 99
+          "y": 106
         }
       ],
       "links": [
@@ -3434,6 +3920,12 @@
           "from": "softmax",
           "to": "cross-entropy-loss",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "contrastive-learning",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -3571,6 +4063,72 @@
           "from": "decoder-only-transformer",
           "to": "encoder-decoder",
           "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "diffusion-model",
+      "center": {
+        "id": "diffusion-model",
+        "title": "Diffusion Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "loss-function",
+          "title": "Loss Function",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "classifier-free-guidance",
+          "title": "Classifier-Free Guidance",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "latent-diffusion",
+          "title": "Latent Diffusion",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-descent",
+          "to": "diffusion-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "loss-function",
+          "to": "diffusion-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "diffusion-model",
+          "to": "classifier-free-guidance",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "diffusion-model",
+          "to": "latent-diffusion",
+          "type": "unlocks",
           "reviewed": false
         }
       ]
@@ -3993,32 +4551,39 @@
           "y": 66
         },
         {
+          "id": "diffusion-model",
+          "title": "Diffusion Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 22
+        },
+        {
           "id": "learning-rate",
           "title": "Learning Rate",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 44
         },
         {
           "id": "proximal-policy-optimization",
           "title": "PPO",
           "tier": "frontier",
           "x": 200,
-          "y": 53
+          "y": 66
         },
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         }
       ],
       "links": [
@@ -4026,6 +4591,12 @@
           "from": "backpropagation",
           "to": "gradient-descent",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "diffusion-model",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -4293,6 +4864,46 @@
       ]
     },
     {
+      "id": "latent-diffusion",
+      "center": {
+        "id": "latent-diffusion",
+        "title": "Latent Diffusion",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-attention",
+          "title": "Cross-Attention",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "diffusion-model",
+          "title": "Diffusion Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-attention",
+          "to": "latent-diffusion",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "diffusion-model",
+          "to": "latent-diffusion",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "layer-normalization",
       "center": {
         "id": "layer-normalization",
@@ -4546,28 +5157,35 @@
           "title": "Backpropagation",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 22
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 44
+        },
+        {
+          "id": "diffusion-model",
+          "title": "Diffusion Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "overfitting",
           "title": "Overfitting",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "scaling-laws",
           "title": "Scaling Laws",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         }
       ],
       "links": [
@@ -4580,6 +5198,12 @@
         {
           "from": "loss-function",
           "to": "cross-entropy-loss",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-function",
+          "to": "diffusion-model",
           "type": "unlocks",
           "reviewed": false
         },
@@ -5077,6 +5701,59 @@
       ]
     },
     {
+      "id": "patch-embedding",
+      "center": {
+        "id": "patch-embedding",
+        "title": "Patch Embedding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "positional-encoding",
+          "title": "Positional Encoding",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "token-embedding",
+          "title": "Token Embedding",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "vision-transformer",
+          "title": "Vision Transformer",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "positional-encoding",
+          "to": "patch-embedding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "token-embedding",
+          "to": "patch-embedding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "patch-embedding",
+          "to": "vision-transformer",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "perplexity",
       "center": {
         "id": "perplexity",
@@ -5138,21 +5815,28 @@
           "title": "ALiBi",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "context-window",
           "title": "Context Window",
           "tier": "frontier",
           "x": 200,
-          "y": 66
+          "y": 53
+        },
+        {
+          "id": "patch-embedding",
+          "title": "Patch Embedding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
         },
         {
           "id": "rotary-position-embedding",
           "title": "Rotary Position Embedding",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         }
       ],
       "links": [
@@ -5171,6 +5855,12 @@
         {
           "from": "positional-encoding",
           "to": "context-window",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "positional-encoding",
+          "to": "patch-embedding",
           "type": "unlocks",
           "reviewed": false
         },
@@ -5952,35 +6642,42 @@
           "title": "Autoregressive Decoding",
           "tier": "frontier",
           "x": 200,
-          "y": 22
+          "y": 19
         },
         {
           "id": "calibration",
           "title": "Calibration",
           "tier": "frontier",
           "x": 200,
-          "y": 44
+          "y": 38
+        },
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 57
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 75
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 94
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 113
         },
         {
           "id": "attention",
@@ -6000,6 +6697,12 @@
         {
           "from": "softmax",
           "to": "calibration",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "contrastive-learning",
           "type": "unlocks",
           "reviewed": false
         },
@@ -6140,18 +6843,25 @@
           "y": 66
         },
         {
+          "id": "patch-embedding",
+          "title": "Patch Embedding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "positional-encoding",
           "title": "Positional Encoding",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
           "tier": "frontier",
           "x": 200,
-          "y": 88
+          "y": 99
         }
       ],
       "links": [
@@ -6159,6 +6869,12 @@
           "from": "tokenization",
           "to": "token-embedding",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "token-embedding",
+          "to": "patch-embedding",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -6324,14 +7040,21 @@
           "title": "Decoder-Only Transformer",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "encoder-decoder",
           "title": "Encoder-Decoder",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "vision-transformer",
+          "title": "Vision Transformer",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         }
       ],
       "links": [
@@ -6368,6 +7091,105 @@
         {
           "from": "transformer-block",
           "to": "encoder-decoder",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "transformer-block",
+          "to": "vision-transformer",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "vision-language-model",
+      "center": {
+        "id": "vision-language-model",
+        "title": "Vision-Language Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "clip",
+          "title": "CLIP",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "cross-attention",
+          "title": "Cross-Attention",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "clip",
+          "to": "vision-language-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-attention",
+          "to": "vision-language-model",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "vision-transformer",
+      "center": {
+        "id": "vision-transformer",
+        "title": "Vision Transformer",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "patch-embedding",
+          "title": "Patch Embedding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "transformer-block",
+          "title": "Transformer Block",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "clip",
+          "title": "CLIP",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "patch-embedding",
+          "to": "vision-transformer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "transformer-block",
+          "to": "vision-transformer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vision-transformer",
+          "to": "clip",
           "type": "unlocks",
           "reviewed": false
         }
