@@ -18,17 +18,18 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
-      "lr": 0.001
+      "lr": 0.001,
+      "params": 1
     },
     "param_controls": [
       {
-        "name": "steps",
-        "min": 100,
-        "max": 5000,
-        "step": 100
+        "name": "params",
+        "min": 1,
+        "max": 100,
+        "step": 1
       }
     ],
-    "caption": "Loss across a full pretraining run. Drag the run length to see how little of the improvement arrives in the final stretch."
+    "caption": "Loss across a full pretraining run, falling fast and then slowly. Drag model size to watch the floor fall — how little arrives in the final stretch does not."
   },
   "edges": {
     "requires": [

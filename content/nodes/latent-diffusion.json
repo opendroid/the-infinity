@@ -17,18 +17,18 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "factor": 8,
-      "share_rest": 1
+      "latent_cells": 8,
+      "share_rest": 56
     },
     "param_controls": [
       {
-        "name": "factor",
-        "min": 1,
-        "max": 16,
-        "step": 1
+        "name": "latent_cells",
+        "min": 4,
+        "max": 64,
+        "step": 4
       }
     ],
-    "caption": "Compute per denoising step in latent space against pixel space. Drag the downsampling factor to watch the cost collapse."
+    "caption": "The latent grid a denoising step works on, against the pixel grid compression removed — both as cells along a side. Drag the latent size to watch the saving shrink."
   },
   "edges": {
     "requires": [
@@ -55,8 +55,9 @@
       "url": "https://arxiv.org/abs/1711.00937"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

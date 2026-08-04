@@ -23,13 +23,13 @@
     },
     "param_controls": [
       {
-        "name": "steps",
-        "min": 100,
-        "max": 5000,
-        "step": 100
+        "name": "decay",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
       }
     ],
-    "caption": "Loss under a decaying schedule against a flat rate. Drag the run length to see the schedule stretch to fit it."
+    "caption": "Loss under a decaying schedule against a flat rate. Drag the decay to watch the schedule pull the run further down in its final stretch."
   },
   "edges": {
     "requires": [

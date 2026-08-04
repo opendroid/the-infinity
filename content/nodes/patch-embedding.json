@@ -7,28 +7,28 @@
   ],
   "bodies": {
     "intuition": "Attention needs a sequence, and an image is a grid. Patch embedding cuts the image into fixed squares, flattens each one, and projects it to a vector — so a picture becomes a short sequence of tokens the same machinery can read. A 224-pixel image at 16-pixel patches is 196 tokens, which is an ordinary sentence length.",
-    "engineer": "A single linear projection applied to each flattened patch, equivalent to a strided convolution with kernel and stride both equal to the patch size. Patch size is the whole trade: halving it quadruples the sequence and so quadruples attention cost, while giving the model finer detail to work with. Position information has to be added separately, because flattening throws away the grid.",
+    "engineer": "A single linear projection applied to each flattened patch, equivalent to a strided convolution with kernel and stride both equal to the patch size. Patch size is the whole trade: halving it quadruples the sequence, and attention costs the square of that — sixteen times the work for one halving — in exchange for finer detail. Position information has to be added separately, because flattening throws away the grid.",
     "math": "An H×W image at patch size P yields N = HW/P² tokens, each projected from ℝ^{P²·C} to ℝ^{d_model}. At 224×224 and P = 16 that is 196 tokens; at P = 8 it is 784, and attention cost rises as N² — sixteen times for one halving."
   },
   "emphasis": {
     "intuition": "a picture becomes a short sequence of tokens the same machinery can read",
-    "engineer": "halving it quadruples the sequence and so quadruples attention cost"
+    "engineer": "halving it quadruples the sequence, and attention costs the square of that"
   },
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "patch": 16,
-      "share_rest": 224
+      "tokens": 196,
+      "share_rest": 1852
     },
     "param_controls": [
       {
-        "name": "patch",
-        "min": 4,
-        "max": 32,
-        "step": 2
+        "name": "tokens",
+        "min": 49,
+        "max": 3136,
+        "step": 49
       }
     ],
-    "caption": "Sequence length produced by one image against the budget attention can afford. Drag the patch size to watch tokens multiply as detail improves."
+    "caption": "Sequence length one image produces, against the rest of an attention budget. Drag the token count to watch a smaller patch crowd out everything else."
   },
   "edges": {
     "requires": [
@@ -50,8 +50,9 @@
       "url": "https://arxiv.org/abs/2010.11929"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

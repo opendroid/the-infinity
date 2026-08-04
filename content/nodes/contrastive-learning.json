@@ -17,8 +17,7 @@
   "viz": {
     "primitive": "update-spectrum",
     "params": {
-      "temperature": 0.07,
-      "bars": 8
+      "temperature": 0.07
     },
     "param_controls": [
       {
@@ -52,10 +51,16 @@
       "ref": "arXiv:1807.03748",
       "title": "Representation Learning with Contrastive Predictive Coding",
       "url": "https://arxiv.org/abs/1807.03748"
+    },
+    {
+      "ref": "arXiv:2002.05709",
+      "title": "A Simple Framework for Contrastive Learning of Visual Representations",
+      "url": "https://arxiv.org/abs/2002.05709"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

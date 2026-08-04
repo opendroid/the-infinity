@@ -18,17 +18,17 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
-      "tokens": 5
+      "params": 1
     },
     "param_controls": [
       {
-        "name": "tokens",
+        "name": "params",
         "min": 1,
-        "max": 10,
+        "max": 100,
         "step": 1
       }
     ],
-    "caption": "The same smooth per-token improvement scored by exact match. Drag the number of tokens required to watch a gentle curve become a cliff."
+    "caption": "Loss against training step. Drag model size to watch the floor fall smoothly — the cliff the benchmarks show is made by the metric, and it is not in this curve."
   },
   "edges": {
     "requires": [
@@ -51,8 +51,9 @@
       "url": "https://arxiv.org/abs/2304.15004"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

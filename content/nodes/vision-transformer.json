@@ -18,17 +18,17 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
-      "data": 1
+      "params": 1
     },
     "param_controls": [
       {
-        "name": "data",
+        "name": "params",
         "min": 1,
         "max": 100,
         "step": 1
       }
     ],
-    "caption": "Accuracy against dataset size for a transformer and a convolutional model. Drag the data volume to find where the crossover sits."
+    "caption": "Loss across a training run. Drag model size to watch the floor fall — a transformer's advantage over convolution shows up at scale rather than at small size."
   },
   "edges": {
     "requires": [
@@ -50,8 +50,9 @@
       "url": "https://arxiv.org/abs/2010.11929"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

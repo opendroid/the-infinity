@@ -17,18 +17,17 @@
   "viz": {
     "primitive": "update-spectrum",
     "params": {
-      "buckets": 8,
-      "bars": 8
+      "temperature": 0.5
     },
     "param_controls": [
       {
-        "name": "buckets",
-        "min": 2,
-        "max": 16,
-        "step": 1
+        "name": "temperature",
+        "min": 0.5,
+        "max": 3,
+        "step": 0.1
       }
     ],
-    "caption": "Stated confidence against measured accuracy in each bucket. Drag the bucket count to watch the gap that calibration error sums."
+    "caption": "A model's confidence distribution before and after temperature scaling. Drag the temperature to watch overconfident mass spread out toward what the accuracy supports."
   },
   "edges": {
     "requires": [
@@ -49,10 +48,21 @@
       "ref": "arXiv:2207.05221",
       "title": "Language Models (Mostly) Know What They Know",
       "url": "https://arxiv.org/abs/2207.05221"
+    },
+    {
+      "ref": "arXiv:2303.08774",
+      "title": "GPT-4 Technical Report",
+      "url": "https://arxiv.org/abs/2303.08774"
+    },
+    {
+      "ref": "arXiv:1706.04599",
+      "title": "On Calibration of Modern Neural Networks",
+      "url": "https://arxiv.org/abs/1706.04599"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
