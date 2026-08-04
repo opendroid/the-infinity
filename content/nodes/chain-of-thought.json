@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Asked for the answer to a multi-step problem, a model that must produce it immediately often gets it wrong. Asked to work through the steps first, it does much better. The reasoning is written into the output because that is the only place the model has to put it — there is no scratchpad, so the tokens are the scratchpad.",
     "engineer": "Prompt for intermediate steps, either with worked examples or a bare instruction to think step by step. It helps on arithmetic and multi-step reasoning and barely at all on tasks a single step already solves. The gain grows with model scale, and the written chain is not necessarily the computation that produced the answer — it is a plausible one.",
-    "math": "Generating m reasoning tokens before the answer costs m extra sequential passes, so accuracy is bought with latency at roughly the rate the chain is long. Autoregressive generation gives Θ(1) compute per token and no state between them, so a longer chain is literally more compute applied to the problem."
+    "math": "Generating m reasoning tokens before the answer costs m extra sequential forward passes, so accuracy is bought with latency at roughly the rate the chain is long. The model carries nothing between passes but the tokens it has already emitted and the keys and values they produced — there is no hidden scratch state — so a longer chain is literally more forward passes spent on the problem. Those passes get dearer as they go: with a KV cache, attention over a context of n costs Θ(n·d) per token, so the trade is worse than linear in m."
   },
   "emphasis": {
     "intuition": "there is no scratchpad, so the tokens are the scratchpad",
@@ -37,17 +37,28 @@
         "reviewed": false
       }
     ],
-    "adjacent": []
+    "adjacent": [
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      }
+    ]
   },
   "citations": [
     {
       "ref": "arXiv:2201.11903",
       "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
       "url": "https://arxiv.org/abs/2201.11903"
+    },
+    {
+      "ref": "arXiv:2305.04388",
+      "title": "Language Models Don't Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting",
+      "url": "https://arxiv.org/abs/2305.04388"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

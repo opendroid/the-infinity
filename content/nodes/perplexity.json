@@ -48,10 +48,16 @@
       "ref": "arXiv:1312.3005",
       "title": "One Billion Word Benchmark for Measuring Progress in Statistical Language Modeling",
       "url": "https://arxiv.org/abs/1312.3005"
+    },
+    {
+      "ref": "arXiv:2101.00027",
+      "title": "The Pile: An 800GB Dataset of Diverse Text for Language Modeling",
+      "url": "https://arxiv.org/abs/2101.00027"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

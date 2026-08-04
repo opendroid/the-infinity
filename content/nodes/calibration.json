@@ -48,10 +48,21 @@
       "ref": "arXiv:2207.05221",
       "title": "Language Models (Mostly) Know What They Know",
       "url": "https://arxiv.org/abs/2207.05221"
+    },
+    {
+      "ref": "arXiv:2303.08774",
+      "title": "GPT-4 Technical Report",
+      "url": "https://arxiv.org/abs/2303.08774"
+    },
+    {
+      "ref": "arXiv:1706.04599",
+      "title": "On Calibration of Modern Neural Networks",
+      "url": "https://arxiv.org/abs/1706.04599"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

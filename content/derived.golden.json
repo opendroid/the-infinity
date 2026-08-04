@@ -184,7 +184,7 @@
           {
             "id": "pass-at-k",
             "title": "pass@k",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -306,7 +306,7 @@
       "id": "benchmark-contamination",
       "title": "Benchmark Contamination",
       "domain": "Evaluation / Validity",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -342,7 +342,7 @@
       "id": "calibration",
       "title": "Calibration",
       "domain": "Evaluation / Metrics",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -410,18 +410,25 @@
       "id": "chain-of-thought",
       "title": "Chain of Thought",
       "domain": "Evaluation / Capabilities",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "in-context-learning",
             "title": "In-Context Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -558,7 +565,7 @@
           {
             "id": "in-context-learning",
             "title": "In-Context Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -707,7 +714,7 @@
           {
             "id": "perplexity",
             "title": "Perplexity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -880,7 +887,7 @@
       "id": "emergent-abilities",
       "title": "Emergent Abilities",
       "domain": "Evaluation / Validity",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1150,7 +1157,7 @@
       "id": "in-context-learning",
       "title": "In-Context Learning",
       "domain": "Evaluation / Capabilities",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1170,7 +1177,7 @@
           {
             "id": "chain-of-thought",
             "title": "Chain of Thought",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1195,7 +1202,7 @@
           {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1260,7 +1267,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "chain-of-thought",
+            "title": "Chain of Thought",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1378,7 +1392,7 @@
       "id": "llm-as-judge",
       "title": "LLM as Judge",
       "domain": "Evaluation / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1750,7 +1764,7 @@
       "id": "pass-at-k",
       "title": "pass@k",
       "domain": "Evaluation / Metrics",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1799,7 +1813,7 @@
       "id": "perplexity",
       "title": "Perplexity",
       "domain": "Evaluation / Metrics",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1910,7 +1924,7 @@
           {
             "id": "benchmark-contamination",
             "title": "Benchmark Contamination",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1922,7 +1936,7 @@
           {
             "id": "in-context-learning",
             "title": "In-Context Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2122,7 +2136,7 @@
           {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2166,7 +2180,7 @@
           {
             "id": "calibration",
             "title": "Calibration",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2245,7 +2259,7 @@
           {
             "id": "emergent-abilities",
             "title": "Emergent Abilities",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2318,7 +2332,7 @@
           {
             "id": "calibration",
             "title": "Calibration",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2465,7 +2479,7 @@
           {
             "id": "perplexity",
             "title": "Perplexity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2989,7 +3003,7 @@
         {
           "id": "pass-at-k",
           "title": "pass@k",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -3236,7 +3250,7 @@
       "center": {
         "id": "benchmark-contamination",
         "title": "Benchmark Contamination",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3290,7 +3304,7 @@
       "center": {
         "id": "calibration",
         "title": "Calibration",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3409,7 +3423,7 @@
       "center": {
         "id": "chain-of-thought",
         "title": "Chain of Thought",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3417,9 +3431,16 @@
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -3427,6 +3448,12 @@
           "from": "in-context-learning",
           "to": "chain-of-thought",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "chain-of-thought",
+          "to": "kv-cache",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -3632,7 +3659,7 @@
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -3890,7 +3917,7 @@
         {
           "id": "perplexity",
           "title": "Perplexity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
@@ -4205,7 +4232,7 @@
       "center": {
         "id": "emergent-abilities",
         "title": "Emergent Abilities",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4657,7 +4684,7 @@
       "center": {
         "id": "in-context-learning",
         "title": "In-Context Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4679,7 +4706,7 @@
         {
           "id": "chain-of-thought",
           "title": "Chain of Thought",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -4725,7 +4752,7 @@
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -4816,6 +4843,13 @@
           "tier": "verified",
           "x": 200,
           "y": 110
+        },
+        {
+          "id": "chain-of-thought",
+          "title": "Chain of Thought",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -4859,6 +4893,12 @@
           "from": "kv-cache",
           "to": "prefill-and-decode",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "chain-of-thought",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -5054,7 +5094,7 @@
       "center": {
         "id": "llm-as-judge",
         "title": "LLM as Judge",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5678,7 +5718,7 @@
       "center": {
         "id": "pass-at-k",
         "title": "pass@k",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5758,7 +5798,7 @@
       "center": {
         "id": "perplexity",
         "title": "Perplexity",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5939,7 +5979,7 @@
         {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -5953,7 +5993,7 @@
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         }
@@ -6285,7 +6325,7 @@
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -6364,7 +6404,7 @@
         {
           "id": "calibration",
           "title": "Calibration",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -6509,7 +6549,7 @@
         {
           "id": "emergent-abilities",
           "title": "Emergent Abilities",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }
@@ -6647,7 +6687,7 @@
         {
           "id": "calibration",
           "title": "Calibration",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 38
         },
@@ -6911,7 +6951,7 @@
         {
           "id": "perplexity",
           "title": "Perplexity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },

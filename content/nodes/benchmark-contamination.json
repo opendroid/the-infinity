@@ -46,13 +46,14 @@
       "url": "https://arxiv.org/abs/2311.04850"
     },
     {
-      "ref": "arXiv:2009.03300",
-      "title": "Measuring Massive Multitask Language Understanding",
-      "url": "https://arxiv.org/abs/2009.03300"
+      "ref": "arXiv:2403.07974",
+      "title": "LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code",
+      "url": "https://arxiv.org/abs/2403.07974"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
