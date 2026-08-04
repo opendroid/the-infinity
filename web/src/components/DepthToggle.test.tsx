@@ -1,10 +1,22 @@
 // @vitest-environment jsdom
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import DepthToggle from './DepthToggle';
 import type { Depth } from '../lib/graph';
 
 afterEach(cleanup);
+
+/**
+ * The component now has state that outlives a render (#42), so tests leak into
+ * each other without this. The keyboard tests below predate the persistence and
+ * assume every mount starts at Intuition — which stopped being true the moment
+ * arrowing to Engineer started writing it down. Nothing about them was wrong;
+ * they were written against a component that could not remember.
+ */
+beforeEach(() => {
+  window.localStorage.clear();
+  window.history.replaceState(null, '', '/c/attention');
+});
 
 const BODIES = [
   { depth: 'intuition' as Depth, before: 'The intuition.', emphasis: '', after: '' },
@@ -150,5 +162,117 @@ describe('the depth toggle names', () => {
     expect(panel.hidden).toBe(false);
     // The other two are inert regardless of tabindex.
     expect(document.getElementById('body-math')!.hidden).toBe(true);
+  });
+});
+
+/**
+ * The state half of #42, driven through the real component.
+ *
+ * `depth.test.ts` covers the precedence as arithmetic. These cover the wiring:
+ * that the rule is consulted on arrival, that the address bar follows a choice,
+ * and — the one that would have shipped broken — that resolving on mount is not
+ * mistaken for the reader choosing.
+ */
+function at(search: string) {
+  window.history.replaceState(null, '', `/c/attention${search}`);
+}
+
+describe('the depth toggle on arrival', () => {
+  it('honours ?depth= in the URL it was loaded with', () => {
+    at('?depth=math');
+    mount();
+    expect(selected()).toBe('Math');
+  });
+
+  it('remembers the depth from the last concept when the URL says nothing', () => {
+    window.localStorage.setItem('depth', 'engineer');
+    mount();
+    expect(selected()).toBe('Engineer');
+  });
+
+  it('lets the URL beat storage, so a shared link means what it says', () => {
+    window.localStorage.setItem('depth', 'engineer');
+    at('?depth=math');
+    mount();
+    expect(selected()).toBe('Math');
+  });
+
+  it('falls back to what the server rendered when neither says anything', () => {
+    mount();
+    expect(selected()).toBe('Intuition');
+  });
+
+  it('does not strip the parameter that just supplied it', () => {
+    // The trap this guards: the persist effect is passive, so on mount it fires
+    // with the PRE-resolution depth. Unguarded it wrote `intuition` — deleting
+    // ?depth=math from the very URL that had been read a moment earlier, and
+    // clobbering the reader's stored Engineer on the way past.
+    window.localStorage.setItem('depth', 'engineer');
+    at('?depth=math');
+    mount();
+    expect(window.location.search).toBe('?depth=math');
+  });
+
+  it('adopts a linked depth as the ongoing preference, so the next concept follows', () => {
+    // Deliberate, not incidental. Someone opening a ?depth=math link is reading
+    // math now; snapping back to their stored Engineer on the next click would
+    // change depth under them mid-session. What you are reading carries forward.
+    window.localStorage.setItem('depth', 'engineer');
+    at('?depth=math');
+    mount();
+    expect(window.localStorage.getItem('depth')).toBe('math');
+  });
+
+  it('does not record a preference for a reader who never expressed one', () => {
+    // Visiting is not choosing. Without the mount guard, merely loading a page
+    // wrote `intuition` into storage for someone who had never touched the
+    // control.
+    mount();
+    expect(window.localStorage.getItem('depth')).toBeNull();
+  });
+});
+
+describe('the depth toggle after a choice', () => {
+  it('puts the chosen depth in the address bar', () => {
+    mount();
+    fireEvent.click(tab('Math'));
+    expect(window.location.search).toBe('?depth=math');
+  });
+
+  it('remembers it for the next concept', () => {
+    mount();
+    fireEvent.click(tab('Engineer'));
+    expect(window.localStorage.getItem('depth')).toBe('engineer');
+  });
+
+  it('clears the parameter when the reader returns to the default', () => {
+    at('?depth=math');
+    mount();
+    fireEvent.click(tab('Intuition'));
+    expect(window.location.search).toBe('');
+  });
+
+  it('keeps other parameters, so arriving from search survives a depth change', () => {
+    at('?from=search');
+    mount();
+    fireEvent.click(tab('Math'));
+    expect(window.location.search).toBe('?from=search&depth=math');
+  });
+
+  it('replaces history rather than pushing, so Back leaves the page', () => {
+    at('?depth=intuition');
+    const before = window.history.length;
+    mount();
+    fireEvent.click(tab('Math'));
+    fireEvent.click(tab('Engineer'));
+    fireEvent.click(tab('Math'));
+    // Three depth changes must not become three things to press Back through.
+    expect(window.history.length).toBe(before);
+  });
+
+  it('still publishes the depth to the scope, so the viz follows (ADR-0005)', () => {
+    const { scope } = mount();
+    fireEvent.click(tab('Math'));
+    expect(scope.dataset.depth).toBe('math');
   });
 });
