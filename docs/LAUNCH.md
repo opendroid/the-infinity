@@ -104,9 +104,14 @@ gcloud logging read 'resource.type=cloud_run_revision AND logName:"stdout"' \
 - [ ] **Every M1 and M2 issue closed.** Not deferred, not "basically done"
 - [x] Every node validates against the schema, and every citation resolves
 - [ ] **Citations checked for *identity*, not just resolvability.** `check:citations`
-      answers "does this URL load", which a real-but-wrong paper passes — and that was the
-      single most common defect across five verification batches, appearing ten times
-- [x] 54 of 57 nodes verified. The three that are not are the frontier, and the landing
+      answers "does this URL load", which a real-but-wrong paper passes — and that is by
+      far the most common defect across nine verification batches, sixteen times so far.
+      Twice it was the node's own `emphasis` that carried the unsourced claim
+- [ ] **Every figure read against its caption.** A separate class from the text and found
+      much later (#177): eleven nodes had a slider that moved nothing, and four had a
+      figure that showed something other than what its caption promised. A node is not
+      only its prose
+- [x] 86 of 89 nodes verified. The three that are not are the frontier, and the landing
       page says so
 
 ## 7. Read it cold
@@ -142,13 +147,19 @@ a nice-to-have.
 
 ## What this checklist is for
 
-Three things went wrong today that every test passed through, and all three were caught by
-looking at the running system rather than at the code:
+Four things went wrong that every test passed through:
 
 1. A trace field written in the wrong encoding — present, plausible, and matching nothing.
 2. A correlation feature that emitted nothing at all on a healthy service, because the
    only line that fires without an error was mounted in the wrong place.
 3. A perf budget that reports a page as empty while a third-party script sits in its head.
+4. Eleven concept pages with a slider that moved nothing, under a caption promising it
+   would — six of them on pages already marked `verified` (#177).
+
+The first three were caught by looking at the running system. The fourth was caught by
+reading a check and noticing it asserted less than its name claimed: it verified that a
+control names a key of `viz.params`, which was true, while nothing read that key.
 
 Each looked correct in review and in CI. The checks above exist because the deployed system
-is the only thing that can be asked whether it actually works.
+is the only thing that can be asked whether it actually works — and because a green check
+is a claim about coverage, not a proof of it.

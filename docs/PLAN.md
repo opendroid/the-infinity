@@ -109,7 +109,7 @@ Per issue: `branch → plan → implement → unit tests → review subagent on 
 
 ## 8. What actually happened
 
-Written at 54 of 57 nodes verified, with the site live on the real domain. The plan above
+Written at 86 of 89 nodes verified, with the site live on the real domain. The plan above
 is left as it was predicted; this is the reconciliation, because the gap between the two is
 the interesting part.
 
@@ -161,20 +161,57 @@ there and watching CI stay green.
 - **M1 — met.** Walking skeleton live end to end, CI/CD green.
 - **M2 — met.** Three templates, **five** viz primitives against the "2+" asked for,
   trails, mini-map, search, and 54 verified nodes against "~50".
-- **M3 — partial.** Domain live and analytics decided; the corpus is 57 nodes against
+- **M3 — partial.** Domain live and analytics decided; the corpus is 89 nodes against
   "~300", which is the one substantial thing outstanding (#61).
 
 ### What the plan did not anticipate at all
 
 **Verification is the expensive half of content, not generation.** The plan treated review
-as a step at the end of a batch. Five verification passes over 57 nodes found one recurring
-defect ten times — a citation that resolves and sources nothing on its page — plus five
-unsourced empirical claims, an arithmetic contradiction between two nodes, and a caveat
-that applied to nothing in the graph. The prose and the mathematics were nearly always
-right. Nothing but reading caught any of it.
+as a step at the end of a batch — a formality between writing and merging. It is the
+larger half, and it is the half that finds things.
 
-**Tests passing is not the same as the feature working.** Three separate defects shipped
-green this way, each caught by looking at the deployed system: a trace field in the wrong
-encoding, a correlation feature that emitted nothing on a healthy service, and a perf
-budget reporting an empty page with a third-party script in its head. That pattern is why
-[`LAUNCH.md`](LAUNCH.md) exists and why it ends with a section on reading the site cold.
+Nine verification passes over 89 nodes. The defects sort into three places, and only the
+first was expected:
+
+**In the citations.** The most common defect by a wide margin: a citation that resolves and
+sources nothing on its page, or a claim carrying no source at all. Ten instances across the
+first five passes; six more in the last two. Twice it was the node's own `emphasis` — the
+one sentence the page highlights — that was the unsourced claim. `check:citations` cannot
+see any of this, because it answers *does this URL load*, which a real-but-wrong paper
+passes. The rule that fixed it is cheap and boring: fetch every candidate and check its
+title and abstract against the claim, rather than recalling it.
+
+**In the prose.** Rarer, and always a contradiction rather than an invention. Two nodes
+disagreeing on an arithmetic fact; `chain-of-thought` claiming Θ(1) compute per token when
+`kv-cache` three pages away says Θ(n·d); `patch-embedding` saying "quadruples" in its
+engineer body and "sixteen times" in its math body — **one node contradicting itself
+between two depths of the same concept.** A graph makes this class both more likely and
+more findable: every node is a claim adjacent to other claims.
+
+**In the figures**, which nothing anticipated. Eleven nodes shipped a slider that did
+nothing — three of the five viz primitives filter `viz.params` through a typed reader that
+silently drops unrecognised keys, and six of the eleven were already `verified`. Four more
+had a figure that disagreed with its caption: two `budget-split` bars that grew while the
+caption said the quantity shrank, a primitive used in the direction its own documentation
+forbids, and a heatmap promising a diagonal while drawing uniform noise (#177). **A node is
+not only its text**, and reading the JSON is not the same as looking at the page.
+
+**Tests passing is not the same as the feature working.** Four defects have now shipped
+green: a trace field in the wrong encoding, a correlation feature that emitted nothing on a
+healthy service, a perf budget reporting an empty page with a third-party script in its
+head, and the inert sliders. Three were caught by looking at the deployed system; the
+fourth by reading a check and noticing it asserted less than its name claimed.
+
+That last one is the sharper pattern, and it has now appeared often enough to name: **a
+check that passes for the wrong reason.** The viz check asserted that a control names a key
+of `viz.params`. It did. Nothing read it. The replacement test — which runs each
+primitive's own arithmetic at both ends of a control's range — was written to close exactly
+that gap and *had the same defect on its first run*, passing seven nodes it should have
+failed because `loss-curve`'s frame echoes its params back and the comparison saw those
+change. Dropping the echo took the failures from 7 to 11.
+
+The lesson is not "write more tests". It is that a test's name is a claim about coverage,
+and the claim needs checking the same way a citation does — by breaking the thing on
+purpose and confirming the test notices. That is why every PR here carries a sabotage
+table, and why [`LAUNCH.md`](LAUNCH.md) ends with a section on reading the site cold rather
+than on running anything.
