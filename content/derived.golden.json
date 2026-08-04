@@ -264,7 +264,7 @@
           {
             "id": "contrastive-learning",
             "title": "Contrastive Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -435,13 +435,13 @@
       "id": "classifier-free-guidance",
       "title": "Classifier-Free Guidance",
       "domain": "Multimodal / Generation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "diffusion-model",
             "title": "Diffusion Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -453,19 +453,19 @@
       "id": "clip",
       "title": "CLIP",
       "domain": "Multimodal / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "contrastive-learning",
             "title": "Contrastive Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "vision-transformer",
             "title": "Vision Transformer",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -473,7 +473,7 @@
           {
             "id": "vision-language-model",
             "title": "Vision-Language Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -614,7 +614,7 @@
       "id": "contrastive-learning",
       "title": "Contrastive Learning",
       "domain": "Multimodal / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -640,7 +640,7 @@
           {
             "id": "clip",
             "title": "CLIP",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -671,13 +671,13 @@
           {
             "id": "latent-diffusion",
             "title": "Latent Diffusion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "vision-language-model",
             "title": "Vision-Language Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -708,7 +708,7 @@
           {
             "id": "contrastive-learning",
             "title": "Contrastive Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -807,7 +807,7 @@
       "id": "diffusion-model",
       "title": "Diffusion Model",
       "domain": "Multimodal / Generation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -827,13 +827,13 @@
           {
             "id": "classifier-free-guidance",
             "title": "Classifier-Free Guidance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "latent-diffusion",
             "title": "Latent Diffusion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1104,7 +1104,7 @@
           {
             "id": "diffusion-model",
             "title": "Diffusion Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1281,7 +1281,7 @@
       "id": "latent-diffusion",
       "title": "Latent Diffusion",
       "domain": "Multimodal / Generation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1293,7 +1293,7 @@
           {
             "id": "diffusion-model",
             "title": "Diffusion Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1468,7 +1468,7 @@
           {
             "id": "diffusion-model",
             "title": "Diffusion Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1782,7 +1782,7 @@
       "id": "patch-embedding",
       "title": "Patch Embedding",
       "domain": "Multimodal / Vision",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1802,7 +1802,7 @@
           {
             "id": "vision-transformer",
             "title": "Vision Transformer",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1863,7 +1863,7 @@
           {
             "id": "patch-embedding",
             "title": "Patch Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2338,7 +2338,7 @@
           {
             "id": "contrastive-learning",
             "title": "Contrastive Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2443,7 +2443,7 @@
           {
             "id": "patch-embedding",
             "title": "Patch Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2571,7 +2571,7 @@
           {
             "id": "vision-transformer",
             "title": "Vision Transformer",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2582,13 +2582,13 @@
       "id": "vision-language-model",
       "title": "Vision-Language Model",
       "domain": "Multimodal / Models",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "clip",
             "title": "CLIP",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2606,13 +2606,13 @@
       "id": "vision-transformer",
       "title": "Vision Transformer",
       "domain": "Multimodal / Vision",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "patch-embedding",
             "title": "Patch Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2626,7 +2626,7 @@
           {
             "id": "clip",
             "title": "CLIP",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3172,7 +3172,7 @@
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -3463,7 +3463,7 @@
       "center": {
         "id": "classifier-free-guidance",
         "title": "Classifier-Free Guidance",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3471,7 +3471,7 @@
         {
           "id": "diffusion-model",
           "title": "Diffusion Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -3490,7 +3490,7 @@
       "center": {
         "id": "clip",
         "title": "CLIP",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3498,21 +3498,21 @@
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "vision-transformer",
           "title": "Vision Transformer",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
         {
           "id": "vision-language-model",
           "title": "Vision-Language Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -3756,7 +3756,7 @@
       "center": {
         "id": "contrastive-learning",
         "title": "Contrastive Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3785,7 +3785,7 @@
         {
           "id": "clip",
           "title": "CLIP",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -3844,14 +3844,14 @@
         {
           "id": "latent-diffusion",
           "title": "Latent Diffusion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "vision-language-model",
           "title": "Vision-Language Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }
@@ -3910,7 +3910,7 @@
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
@@ -4099,7 +4099,7 @@
       "center": {
         "id": "diffusion-model",
         "title": "Diffusion Model",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4121,14 +4121,14 @@
         {
           "id": "classifier-free-guidance",
           "title": "Classifier-Free Guidance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "latent-diffusion",
           "title": "Latent Diffusion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }
@@ -4580,7 +4580,7 @@
         {
           "id": "diffusion-model",
           "title": "Diffusion Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 22
         },
@@ -4908,7 +4908,7 @@
       "center": {
         "id": "latent-diffusion",
         "title": "Latent Diffusion",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4923,7 +4923,7 @@
         {
           "id": "diffusion-model",
           "title": "Diffusion Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         }
@@ -5209,7 +5209,7 @@
         {
           "id": "diffusion-model",
           "title": "Diffusion Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -5745,7 +5745,7 @@
       "center": {
         "id": "patch-embedding",
         "title": "Patch Embedding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5767,7 +5767,7 @@
         {
           "id": "vision-transformer",
           "title": "Vision Transformer",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -5867,7 +5867,7 @@
         {
           "id": "patch-embedding",
           "title": "Patch Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -6694,7 +6694,7 @@
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 57
         },
@@ -6885,7 +6885,7 @@
         {
           "id": "patch-embedding",
           "title": "Patch Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -7092,7 +7092,7 @@
         {
           "id": "vision-transformer",
           "title": "Vision Transformer",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         }
@@ -7147,7 +7147,7 @@
       "center": {
         "id": "vision-language-model",
         "title": "Vision-Language Model",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7155,7 +7155,7 @@
         {
           "id": "clip",
           "title": "CLIP",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -7187,7 +7187,7 @@
       "center": {
         "id": "vision-transformer",
         "title": "Vision Transformer",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7195,7 +7195,7 @@
         {
           "id": "patch-embedding",
           "title": "Patch Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -7209,7 +7209,7 @@
         {
           "id": "clip",
           "title": "CLIP",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }

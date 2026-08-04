@@ -15,20 +15,20 @@
     "engineer": "it trades diversity for prompt adherence rather than improving both"
   },
   "viz": {
-    "primitive": "update-spectrum",
+    "primitive": "budget-split",
     "params": {
-      "guidance": 7.5,
-      "bars": 8
+      "beyond_conditional": 6.5,
+      "share_rest": 1
     },
     "param_controls": [
       {
-        "name": "guidance",
-        "min": 1.0,
-        "max": 20.0,
+        "name": "beyond_conditional",
+        "min": 0,
+        "max": 19,
         "step": 0.5
       }
     ],
-    "caption": "Conditional and unconditional predictions with the guided result beside them. Drag the scale to watch the extrapolation grow past both."
+    "caption": "The move a guided sample makes, split between the plain conditional step and the extrapolation past it. Drag the guidance scale to watch the extrapolation become most of it."
   },
   "edges": {
     "requires": [
@@ -46,8 +46,9 @@
       "url": "https://arxiv.org/abs/2207.12598"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

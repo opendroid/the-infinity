@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Take an image and add noise until nothing is left. That destruction is easy and needs no learning. Now train a model to undo one step of it. Run that model repeatedly from pure noise and an image appears — generation as the reverse of a process simple enough to write down.",
     "engineer": "The forward process is fixed and noise-only; the network predicts the noise added at a given step. Sampling is the expensive part, taking tens to hundreds of sequential passes, which puts diffusion on the opposite side of the latency trade from a single-pass generator. Conditioning on text is what turns it into an image generator people use.",
-    "math": "Forward: q(x_t | x_{t−1}) = N(√(1−β_t)·x_{t−1}, β_t I), which composes so x_t = √ᾱ_t·x_0 + √(1−ᾱ_t)·ε in one step. The model predicts ε and the loss reduces to ‖ε − ε_θ(x_t, t)‖², a plain regression — the variational bound simplifies to something with no sampling in it at all."
+    "math": "Forward: q(x_t | x_{t−1}) = N(√(1−β_t)·x_{t−1}, β_t I), which composes so x_t = √ᾱ_t·x_0 + √(1−ᾱ_t)·ε in one step. The model predicts ε and the loss reduces to ‖ε − ε_θ(x_t, t)‖², a plain regression — the variational bound's KL terms are Gaussian and have closed forms, so what is left to optimise is a regression rather than a high-variance estimate of a divergence."
   },
   "emphasis": {
     "intuition": "generation as the reverse of a process simple enough to write down",
@@ -50,8 +50,9 @@
       "url": "https://arxiv.org/abs/2006.11239"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

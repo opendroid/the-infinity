@@ -18,8 +18,8 @@
     "primitive": "attention-heatmap",
     "params": {
       "tokens": 8,
-      "keys": 8,
-      "heads": 1
+      "lookahead": 0,
+      "decay": 3
     },
     "param_controls": [
       {
@@ -51,8 +51,9 @@
       "url": "https://arxiv.org/abs/2103.00020"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
