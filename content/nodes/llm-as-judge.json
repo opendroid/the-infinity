@@ -17,8 +17,7 @@
   "viz": {
     "primitive": "update-spectrum",
     "params": {
-      "swaps": 1,
-      "bars": 8
+      "swaps": 1
     },
     "param_controls": [
       {

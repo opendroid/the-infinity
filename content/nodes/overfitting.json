@@ -23,13 +23,13 @@
     },
     "param_controls": [
       {
-        "name": "steps",
-        "min": 100,
-        "max": 5000,
-        "step": 100
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
       }
     ],
-    "caption": "Training loss against held-out loss over a run. Drag the length to find where the two curves stop agreeing."
+    "caption": "Training loss against held-out loss over a run. Drag to open the gap and watch where the two curves stop agreeing."
   },
   "edges": {
     "requires": [

@@ -18,17 +18,17 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
-      "vocab": 32000
+      "params": 1
     },
     "param_controls": [
       {
-        "name": "vocab",
-        "min": 1000,
-        "max": 128000,
-        "step": 1000
+        "name": "params",
+        "min": 1,
+        "max": 100,
+        "step": 1
       }
     ],
-    "caption": "Perplexity over training. Drag the vocabulary size to watch the number move without the model changing."
+    "caption": "Cross-entropy over a training run — perplexity is its exponential, so this curve is that number on a log scale. Drag model size to watch the floor fall."
   },
   "edges": {
     "requires": [

@@ -18,17 +18,17 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
-      "beta": 0.1
+      "holdout": 0.4
     },
     "param_controls": [
       {
-        "name": "beta",
-        "min": 0.01,
-        "max": 1.0,
-        "step": 0.01
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
       }
     ],
-    "caption": "Reward against KL divergence from the reference model over a run. Drag beta to trade how far the policy may drift against how much reward it can collect."
+    "caption": "Reward-model loss over a policy run, against the same policy measured on held-out preferences. Drag to open the gap — it is the policy fitting the reward model rather than the preference."
   },
   "edges": {
     "requires": [

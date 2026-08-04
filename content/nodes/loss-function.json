@@ -20,15 +20,8 @@
       "steps": 1000,
       "lr": 0.001
     },
-    "param_controls": [
-      {
-        "name": "steps",
-        "min": 100,
-        "max": 5000,
-        "step": 100
-      }
-    ],
-    "caption": "Loss against training step, falling fast and then slowly. Drag the step count to see how much of the total improvement arrives in the first fraction of the run."
+    "param_controls": [],
+    "caption": "Loss against training step, falling fast and then slowly — most of the total improvement arrives in the first fraction of the run."
   },
   "edges": {
     "requires": [],

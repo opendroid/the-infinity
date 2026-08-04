@@ -18,17 +18,17 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
-      "timesteps": 50
+      "params": 1
     },
     "param_controls": [
       {
-        "name": "timesteps",
-        "min": 10,
-        "max": 1000,
-        "step": 10
+        "name": "params",
+        "min": 1,
+        "max": 100,
+        "step": 1
       }
     ],
-    "caption": "Sample quality against the number of denoising steps. Drag the step count to trade latency for fidelity."
+    "caption": "Denoising-objective loss over a training run. Drag model size to watch where the run bottoms out."
   },
   "edges": {
     "requires": [

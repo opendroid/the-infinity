@@ -17,18 +17,18 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "shots": 8,
-      "share_rest": 256
+      "demo_tokens": 320,
+      "share_rest": 80
     },
     "param_controls": [
       {
-        "name": "shots",
+        "name": "demo_tokens",
         "min": 0,
-        "max": 32,
-        "step": 1
+        "max": 3600,
+        "step": 40
       }
     ],
-    "caption": "Share of the context spent on demonstrations against the question itself. Drag the shot count to watch examples crowd out the task."
+    "caption": "Share of the context spent on demonstrations against the question itself, both in tokens. Drag the demonstration budget to watch the examples crowd out the task."
   },
   "edges": {
     "requires": [

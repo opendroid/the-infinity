@@ -17,18 +17,17 @@
   "viz": {
     "primitive": "update-spectrum",
     "params": {
-      "buckets": 8,
-      "bars": 8
+      "temperature": 0.5
     },
     "param_controls": [
       {
-        "name": "buckets",
-        "min": 2,
-        "max": 16,
-        "step": 1
+        "name": "temperature",
+        "min": 0.5,
+        "max": 3,
+        "step": 0.1
       }
     ],
-    "caption": "Stated confidence against measured accuracy in each bucket. Drag the bucket count to watch the gap that calibration error sums."
+    "caption": "A model's confidence distribution before and after temperature scaling. Drag the temperature to watch overconfident mass spread out toward what the accuracy supports."
   },
   "edges": {
     "requires": [

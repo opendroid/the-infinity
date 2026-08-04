@@ -18,17 +18,17 @@
     "primitive": "loss-curve",
     "params": {
       "steps": 1000,
-      "beta": 0.1
+      "params": 1
     },
     "param_controls": [
       {
-        "name": "beta",
-        "min": 0.01,
-        "max": 1.0,
-        "step": 0.01
+        "name": "params",
+        "min": 1,
+        "max": 100,
+        "step": 1
       }
     ],
-    "caption": "Preference loss over training at one beta. Drag beta to trade how hard the policy is pulled from the reference against how sharply it separates the pairs."
+    "caption": "Preference loss over a training run. Drag model size to watch where the run bottoms out."
   },
   "edges": {
     "requires": [

@@ -46,8 +46,11 @@ const show = (n: number): string => (Number.isInteger(n) ? String(n) : String(Nu
  * that rendered nothing in that case would take a valid node off the page.
  * Two is the canonical MoE choice, and it is what makes capacity pressure —
  * the thing that node's caption is about — visible at all.
+ *
+ * Exported so `viz-controls.test.ts` can ask the real reader whether a node's
+ * slider reaches the primitive, rather than a copy of it that is free to drift.
  */
-function read(params: Record<string, number>): RouterParams {
+export function read(params: Record<string, number>): RouterParams {
   return {
     experts: params.experts ?? 8,
     topK: params.top_k ?? 2,
