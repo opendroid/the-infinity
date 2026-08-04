@@ -904,7 +904,7 @@ func TestTraceCorrelationIsMountedOnV1(t *testing.T) {
 	if !strings.Contains(got, want) {
 		t.Errorf("a v1 request with a trace header logged without correlation:\n%s", got)
 	}
-	if !strings.Contains(got, `"logging.googleapis.com/spanId":"7"`) {
+	if !strings.Contains(got, `"logging.googleapis.com/spanId":"0000000000000007"`) {
 		t.Errorf("spanId missing:\n%s", got)
 	}
 	if !strings.Contains(got, `"logging.googleapis.com/trace_sampled":true`) {
