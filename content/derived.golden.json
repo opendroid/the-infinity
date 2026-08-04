@@ -112,7 +112,7 @@
           {
             "id": "softmax",
             "title": "Softmax",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -158,7 +158,7 @@
           {
             "id": "softmax",
             "title": "Softmax",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -232,13 +232,13 @@
       "id": "byte-pair-encoding",
       "title": "Byte-Pair Encoding",
       "domain": "Foundations / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "tokenization",
             "title": "Tokenization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -403,7 +403,7 @@
           {
             "id": "softmax",
             "title": "Softmax",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1132,7 +1132,7 @@
           {
             "id": "token-embedding",
             "title": "Token Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1361,7 +1361,7 @@
       "id": "softmax",
       "title": "Softmax",
       "domain": "Foundations / Functions",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
@@ -1429,13 +1429,13 @@
       "id": "token-embedding",
       "title": "Token Embedding",
       "domain": "Foundations / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "tokenization",
             "title": "Tokenization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1454,20 +1454,20 @@
       "id": "tokenization",
       "title": "Tokenization",
       "domain": "Foundations / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "byte-pair-encoding",
             "title": "Byte-Pair Encoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "token-embedding",
             "title": "Token Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1773,7 +1773,7 @@
         {
           "id": "softmax",
           "title": "Softmax",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -1865,7 +1865,7 @@
         {
           "id": "softmax",
           "title": "Softmax",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         }
@@ -1996,7 +1996,7 @@
       "center": {
         "id": "byte-pair-encoding",
         "title": "Byte-Pair Encoding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -2004,7 +2004,7 @@
         {
           "id": "tokenization",
           "title": "Tokenization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -2277,7 +2277,7 @@
         {
           "id": "softmax",
           "title": "Softmax",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -3493,7 +3493,7 @@
         {
           "id": "token-embedding",
           "title": "Token Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -3883,7 +3883,7 @@
       "center": {
         "id": "softmax",
         "title": "Softmax",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4002,7 +4002,7 @@
       "center": {
         "id": "token-embedding",
         "title": "Token Embedding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4010,7 +4010,7 @@
         {
           "id": "tokenization",
           "title": "Tokenization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -4042,7 +4042,7 @@
       "center": {
         "id": "tokenization",
         "title": "Tokenization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4050,14 +4050,14 @@
         {
           "id": "byte-pair-encoding",
           "title": "Byte-Pair Encoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "token-embedding",
           "title": "Token Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }

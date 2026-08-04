@@ -44,10 +44,16 @@
       "ref": "arXiv:1508.07909",
       "title": "Neural Machine Translation of Rare Words with Subword Units",
       "url": "https://arxiv.org/abs/1508.07909"
+    },
+    {
+      "ref": "arXiv:1909.03341",
+      "title": "Neural Machine Translation with Byte-Level Subwords",
+      "url": "https://arxiv.org/abs/1909.03341"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
