@@ -44,10 +44,16 @@
       "ref": "arXiv:1603.09320",
       "title": "Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs",
       "url": "https://arxiv.org/abs/1603.09320"
+    },
+    {
+      "ref": "arXiv:1702.08734",
+      "title": "Billion-scale similarity search with GPUs",
+      "url": "https://arxiv.org/abs/1702.08734"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
