@@ -17,18 +17,18 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "batch": 8,
+      "idle_slots": 8,
       "share_rest": 8
     },
     "param_controls": [
       {
-        "name": "batch",
-        "min": 1,
-        "max": 32,
+        "name": "idle_slots",
+        "min": 0,
+        "max": 64,
         "step": 1
       }
     ],
-    "caption": "Share of the batch doing useful work against the slots idling for stragglers. Drag the batch size to watch static batching lose ground as lengths spread."
+    "caption": "Batch slots idling for the longest sequence against those doing useful work. Drag the idle count to watch a wider spread in output lengths waste the accelerator."
   },
   "edges": {
     "requires": [

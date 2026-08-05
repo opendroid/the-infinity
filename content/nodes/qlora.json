@@ -17,18 +17,18 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "bits": 4,
-      "share_rest": 16
+      "base_bits": 4,
+      "share_rest": 1
     },
     "param_controls": [
       {
-        "name": "bits",
+        "name": "base_bits",
         "min": 2,
         "max": 16,
         "step": 1
       }
     ],
-    "caption": "Memory held by the frozen base against the trainable adapters beside it. Drag the base precision to watch the dominant side of the budget collapse."
+    "caption": "Memory held by the frozen base against the trainable adapters beside it, in equal units. Drag the base precision to watch it dominate at any width — which is why quantizing the base, not shrinking the adapter, is what moves the total."
   },
   "edges": {
     "requires": [
