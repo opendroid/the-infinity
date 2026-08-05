@@ -52,6 +52,9 @@ from the real `spoken()` in `web/src/lib/notation.ts` rather than guessed:
 > **multi-head-attention**
 > MultiHead(X) = Concat(head sub 1 ,…,head sub h )W sub O where head sub i = Attention(XW sub Q super i , XW sub K super i , XW sub V super i ) and W sub O ∈ ℝ super h·d sub v ×d sub model . With d sub k = d sub v = d sub model /h …
 
+*(Every space shown inside a group is U+00A0, not an ordinary space. That distinction is
+invisible here and is the whole reason the first attempt failed.)*
+
 > **attention**
 > Attention(Q,K,V) = softmax(QKᵀ / √d sub k ) · V, with Q ∈ ℝ super n×d sub k , K ∈ ℝ super m×d sub k , V ∈ ℝ super m×d sub v .
 
@@ -60,8 +63,13 @@ from the real `spoken()` in `web/src/lib/notation.ts` rather than guessed:
 
 ### The four questions
 
-1. **Is the separator actually spoken?** If you hear "dmodel" rather than "d sub model",
-   the fix is not reaching the tree and everything below is moot. Report that and stop.
+1. **Is the separator actually spoken?** ~~If you hear "dmodel"…~~ **Run once, 2026-08-05,
+   and it failed** — VoiceOver said "headsub1", "WsubO", "XWsubQsuperi". The words reached
+   the tree and the spaces around them did not, because `sr-only` is absolutely positioned
+   and CSS strips collapsible whitespace at the edges of a block container. Fixed by making
+   the separator U+00A0; see [ADR-0010](adr/0010-speaking-the-notation.md), *What the listen
+   found*. **Re-confirm this first** — you should now hear "head sub 1", "W sub O",
+   "XW sub Q super i". If any of them is still run together, stop; everything below is moot.
 2. **Does `sub` say "sub" or "s-u-b"?** ADR-0010 chose `super` over `sup` specifically
    because engines say *sup* rhyming with *cup*. Confirm `sub` did not land in the same trap.
 3. **Is `multi-head-attention` now too long to follow?** This is the real question. Nine
