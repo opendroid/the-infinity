@@ -1,0 +1,53 @@
+{
+  "id": "approximate-nearest-neighbor",
+  "title": "Approximate Nearest Neighbor",
+  "domain": [
+    "Retrieval",
+    "Indexing"
+  ],
+  "bodies": {
+    "intuition": "Comparing a query against every stored vector is exact and, past a few million documents, too slow. Approximate search arranges the vectors so most can be ruled out without ever being examined, accepting that it will occasionally miss the true nearest neighbour in exchange for looking at a small fraction of them.",
+    "engineer": "HNSW builds a layered graph and walks it greedily from a sparse top layer downward; IVF clusters the space and probes only the nearest few cells. Both expose a knob that trades recall for latency, so a single recall number means nothing without the latency it was measured at. Index build time and memory are real costs that benchmarks routinely leave out.",
+    "math": "Exact search is Θ(Nd) per query. HNSW's greedy descent is Θ(d·log N) under its idealised analysis, with the constant hidden in how many neighbours each node keeps — the same parameter that sets the index's memory. Recall is not a property of the index alone but of the index and the search effort together, which is why it has to be reported as a curve rather than a number."
+  },
+  "emphasis": {
+    "intuition": "it will occasionally miss the true nearest neighbour",
+    "engineer": "a single recall number means nothing without the latency it was measured at"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "examined": 200,
+      "share_rest": 9800
+    },
+    "param_controls": [
+      {
+        "name": "examined",
+        "min": 0,
+        "max": 10000,
+        "step": 100
+      }
+    ],
+    "caption": "Vectors an approximate search actually compares against those it never looks at. Drag the search effort to watch the examined fraction grow — recall is bought one comparison at a time."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1603.09320",
+      "title": "Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs",
+      "url": "https://arxiv.org/abs/1603.09320"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

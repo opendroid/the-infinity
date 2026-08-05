@@ -1,0 +1,54 @@
+{
+  "id": "dense-retrieval",
+  "title": "Dense Retrieval",
+  "domain": [
+    "Retrieval",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "Keyword search fails when the question and the answer use different words. Dense retrieval encodes both into vectors and compares meanings rather than strings, so a question about how to stop a car can find a passage about brakes. The price is that closeness is something the encoder had to learn, and it only learned it for the languages and domains it was trained on.",
+    "engineer": "Two encoders, often sharing weights, map queries and passages into one space; retrieval is nearest-neighbour search over passage vectors computed ahead of time. Because a passage is encoded before any query exists, the encoder cannot model interaction between the two — a structural ceiling, and the one reranking exists to lift. Training uses the other passages in the batch as negatives, so batch size is part of the objective rather than a tuning knob.",
+    "math": "score(q,p) = E_q(q)·E_p(p), a single dot product, so N passages are scored with one matrix multiply against a precomputed matrix. Training is softmax cross-entropy over one positive and the batch's other passages — the same InfoNCE objective contrastive learning uses, which is why the score matrix comes out diagonal-dominant."
+  },
+  "emphasis": {
+    "intuition": "closeness is something the encoder had to learn",
+    "engineer": "a structural ceiling, and the one reranking exists to lift"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "lookahead": 0,
+      "decay": 3
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 4,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Query-passage scores across a batch, with the true pair on the diagonal. Drag the batch size to watch the in-batch negatives multiply."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2004.04906",
+      "title": "Dense Passage Retrieval for Open-Domain Question Answering",
+      "url": "https://arxiv.org/abs/2004.04906"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

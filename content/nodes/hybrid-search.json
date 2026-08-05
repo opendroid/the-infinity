@@ -1,0 +1,67 @@
+{
+  "id": "hybrid-search",
+  "title": "Hybrid Search",
+  "domain": [
+    "Retrieval",
+    "Ranking"
+  ],
+  "bodies": {
+    "intuition": "Dense and sparse retrieval fail on different queries. A dense retriever misses an exact product code it has never seen; a lexical one misses a paraphrase. Running both and combining the two rankings recovers most of each one's failures, which is why almost every production system does that rather than picking a side.",
+    "engineer": "Either fuse the scores, which requires them to be on a comparable scale and therefore normalised, or fuse the ranks, which does not. Reciprocal rank fusion is the common choice for exactly that reason — it needs no calibration between two systems whose scores mean different things. A convex combination can beat it when the scores are well calibrated, and that is the condition worth checking before assuming either.",
+    "math": "Reciprocal rank fusion scores a document as Σ_s 1/(k + rank_s(d)) across systems s, with a damping constant k — 60 by convention — that limits how much the single top position dominates. Because it reads only ranks, a system whose scores are wildly miscalibrated still contributes on equal terms, which is the property score fusion has to be made to have and this one gets for free."
+  },
+  "emphasis": {
+    "intuition": "Dense and sparse retrieval fail on different queries",
+    "engineer": "that is the condition worth checking before assuming either"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "dense_weight": 50,
+      "share_rest": 50
+    },
+    "param_controls": [
+      {
+        "name": "dense_weight",
+        "min": 0,
+        "max": 100,
+        "step": 5
+      }
+    ],
+    "caption": "Weight given to the dense score against the lexical one in a fused ranking, on one scale. Drag the dense weight to slide the ranking between the two."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      },
+      {
+        "id": "sparse-retrieval",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "reranking",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2210.11934",
+      "title": "An Analysis of Fusion Functions for Hybrid Retrieval",
+      "url": "https://arxiv.org/abs/2210.11934"
+    },
+    {
+      "ref": "arXiv:2104.08663",
+      "title": "BEIR: A Heterogenous Benchmark for Zero-shot Evaluation of Information Retrieval Models",
+      "url": "https://arxiv.org/abs/2104.08663"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

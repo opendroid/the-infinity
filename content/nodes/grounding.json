@@ -1,0 +1,63 @@
+{
+  "id": "grounding",
+  "title": "Grounding",
+  "domain": [
+    "Retrieval",
+    "Validity"
+  ],
+  "bodies": {
+    "intuition": "Retrieval is not only about finding the right passage; it is about the answer actually resting on it. A model handed a correct passage can still answer from memory, contradict what it was given, or cite it for something it does not say. Grounding is the property that each claim traces to something retrieved, and it has to be checked rather than assumed.",
+    "engineer": "Two failure modes needing different fixes: the passage is missing, which is a retrieval problem, or the passage is present and unused, which is not. Long contexts make the second worse — a relevant passage in the middle of a long context is used measurably less than the same passage at either end. Asking for per-claim citations makes the failure visible rather than preventing it.",
+    "math": "Retrieval quality bounds answer quality without determining it. With recall r of the supporting passage and probability g that the model uses it when present, end-to-end accuracy is at most r·g — so a system reporting recall alone has reported the first factor and said nothing about the second."
+  },
+  "emphasis": {
+    "intuition": "it has to be checked rather than assumed",
+    "engineer": "the passage is present and unused, which is not"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "grounded_claims": 6,
+      "share_rest": 2
+    },
+    "param_controls": [
+      {
+        "name": "grounded_claims",
+        "min": 0,
+        "max": 20,
+        "step": 1
+      }
+    ],
+    "caption": "Claims in an answer that trace to a retrieved passage against those that do not. Drag the grounded count to watch the unsupported share shrink."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "retrieval-augmented-generation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2005.11401",
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "url": "https://arxiv.org/abs/2005.11401"
+    },
+    {
+      "ref": "arXiv:2307.03172",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
