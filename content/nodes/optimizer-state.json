@@ -17,18 +17,18 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "params": 7,
-      "share_rest": 11
+      "state_bytes": 14,
+      "share_rest": 2
     },
     "param_controls": [
       {
-        "name": "params",
-        "min": 1,
-        "max": 70,
+        "name": "state_bytes",
+        "min": 0,
+        "max": 14,
         "step": 1
       }
     ],
-    "caption": "Share of training memory held by the weights against the optimizer state around them. Drag the parameter count to see the weights stay a minority of the total."
+    "caption": "Bytes per parameter held by the state around a weight against the weight itself. Drag the state up to the fourteen this node counts and the weight is an eighth of the total."
   },
   "edges": {
     "requires": [

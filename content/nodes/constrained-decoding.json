@@ -28,7 +28,7 @@
         "step": 100
       }
     ],
-    "caption": "Tokens a grammar still permits at one position against those it has masked, out of the vocabulary. Drag the number of legal continuations to watch the constraint loosen."
+    "caption": "Tokens a grammar still permits at one position against those it has masked out. Drag the number of legal continuations to watch the constraint loosen."
   },
   "edges": {
     "requires": [
@@ -50,8 +50,9 @@
       "url": "https://arxiv.org/abs/2307.09702"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

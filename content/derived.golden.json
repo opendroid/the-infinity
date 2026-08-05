@@ -98,7 +98,7 @@
       "id": "agent-memory",
       "title": "Agent Memory",
       "domain": "Agents / State",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -291,7 +291,7 @@
           {
             "id": "constrained-decoding",
             "title": "Constrained Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -555,13 +555,13 @@
           {
             "id": "react",
             "title": "ReAct",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "task-decomposition",
             "title": "Task Decomposition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -739,7 +739,7 @@
       "id": "constrained-decoding",
       "title": "Constrained Decoding",
       "domain": "Agents / Interface",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -760,7 +760,7 @@
           {
             "id": "function-calling",
             "title": "Function Calling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -790,7 +790,7 @@
           {
             "id": "agent-memory",
             "title": "Agent Memory",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1366,7 +1366,7 @@
       "id": "function-calling",
       "title": "Function Calling",
       "domain": "Agents / Interface",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1380,13 +1380,13 @@
           {
             "id": "prompt-injection",
             "title": "Prompt Injection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "react",
             "title": "ReAct",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1394,7 +1394,7 @@
           {
             "id": "constrained-decoding",
             "title": "Constrained Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1542,7 +1542,7 @@
           {
             "id": "prompt-injection",
             "title": "Prompt Injection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1653,7 +1653,7 @@
           {
             "id": "function-calling",
             "title": "Function Calling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1895,7 +1895,7 @@
           {
             "id": "self-reflection",
             "title": "Self-Reflection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2066,13 +2066,13 @@
       "id": "multi-agent-systems",
       "title": "Multi-Agent Systems",
       "domain": "Agents / Composition",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "react",
             "title": "ReAct",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2081,7 +2081,7 @@
           {
             "id": "task-decomposition",
             "title": "Task Decomposition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2492,13 +2492,13 @@
       "id": "prompt-injection",
       "title": "Prompt Injection",
       "domain": "Agents / Safety",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "function-calling",
             "title": "Function Calling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2654,7 +2654,7 @@
       "id": "react",
       "title": "ReAct",
       "domain": "Agents / Control",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2666,7 +2666,7 @@
           {
             "id": "function-calling",
             "title": "Function Calling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2674,13 +2674,13 @@
           {
             "id": "multi-agent-systems",
             "title": "Multi-Agent Systems",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "self-reflection",
             "title": "Self-Reflection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2688,7 +2688,7 @@
           {
             "id": "task-decomposition",
             "title": "Task Decomposition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2782,7 +2782,7 @@
           {
             "id": "agent-memory",
             "title": "Agent Memory",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3015,13 +3015,13 @@
       "id": "self-reflection",
       "title": "Self-Reflection",
       "domain": "Agents / Control",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "react",
             "title": "ReAct",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3084,7 +3084,7 @@
           {
             "id": "constrained-decoding",
             "title": "Constrained Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3206,7 +3206,7 @@
       "id": "task-decomposition",
       "title": "Task Decomposition",
       "domain": "Agents / Control",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3221,13 +3221,13 @@
           {
             "id": "multi-agent-systems",
             "title": "Multi-Agent Systems",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "react",
             "title": "ReAct",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3744,7 +3744,7 @@
       "center": {
         "id": "agent-memory",
         "title": "Agent Memory",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4052,7 +4052,7 @@
         {
           "id": "constrained-decoding",
           "title": "Constrained Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 29
         },
@@ -4527,14 +4527,14 @@
         {
           "id": "react",
           "title": "ReAct",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "task-decomposition",
           "title": "Task Decomposition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -4832,7 +4832,7 @@
       "center": {
         "id": "constrained-decoding",
         "title": "Constrained Decoding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4854,7 +4854,7 @@
         {
           "id": "function-calling",
           "title": "Function Calling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -4907,7 +4907,7 @@
         {
           "id": "agent-memory",
           "title": "Agent Memory",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -5929,7 +5929,7 @@
       "center": {
         "id": "function-calling",
         "title": "Function Calling",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5944,21 +5944,21 @@
         {
           "id": "prompt-injection",
           "title": "Prompt Injection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "react",
           "title": "ReAct",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "constrained-decoding",
           "title": "Constrained Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -6216,7 +6216,7 @@
         {
           "id": "prompt-injection",
           "title": "Prompt Injection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -6408,7 +6408,7 @@
         {
           "id": "function-calling",
           "title": "Function Calling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -6825,7 +6825,7 @@
         {
           "id": "self-reflection",
           "title": "Self-Reflection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -7134,7 +7134,7 @@
       "center": {
         "id": "multi-agent-systems",
         "title": "Multi-Agent Systems",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7142,14 +7142,14 @@
         {
           "id": "react",
           "title": "ReAct",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "task-decomposition",
           "title": "Task Decomposition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -7851,7 +7851,7 @@
       "center": {
         "id": "prompt-injection",
         "title": "Prompt Injection",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7859,7 +7859,7 @@
         {
           "id": "function-calling",
           "title": "Function Calling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -8117,7 +8117,7 @@
       "center": {
         "id": "react",
         "title": "ReAct",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8132,28 +8132,28 @@
         {
           "id": "function-calling",
           "title": "Function Calling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
         {
           "id": "multi-agent-systems",
           "title": "Multi-Agent Systems",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "self-reflection",
           "title": "Self-Reflection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "task-decomposition",
           "title": "Task Decomposition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -8318,7 +8318,7 @@
         {
           "id": "agent-memory",
           "title": "Agent Memory",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -8751,7 +8751,7 @@
       "center": {
         "id": "self-reflection",
         "title": "Self-Reflection",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8759,7 +8759,7 @@
         {
           "id": "react",
           "title": "ReAct",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -8853,7 +8853,7 @@
         {
           "id": "constrained-decoding",
           "title": "Constrained Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 50
         },
@@ -9082,7 +9082,7 @@
       "center": {
         "id": "task-decomposition",
         "title": "Task Decomposition",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -9097,14 +9097,14 @@
         {
           "id": "multi-agent-systems",
           "title": "Multi-Agent Systems",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "react",
           "title": "ReAct",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }

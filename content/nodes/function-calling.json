@@ -49,10 +49,16 @@
       "ref": "arXiv:2302.04761",
       "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
       "url": "https://arxiv.org/abs/2302.04761"
+    },
+    {
+      "ref": "arXiv:2305.15334",
+      "title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "url": "https://arxiv.org/abs/2305.15334"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

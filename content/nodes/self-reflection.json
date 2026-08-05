@@ -49,10 +49,16 @@
       "ref": "arXiv:2303.11366",
       "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
       "url": "https://arxiv.org/abs/2303.11366"
+    },
+    {
+      "ref": "arXiv:2306.05685",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "url": "https://arxiv.org/abs/2306.05685"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
