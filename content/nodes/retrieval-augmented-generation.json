@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "A model's weights are a lossy compression of its training data, fixed when training stopped and impossible to update or inspect. RAG puts the documents back: fetch the relevant ones when the question is asked and place them in the context. The knowledge becomes something you can change, audit and point at, without touching the model at all.",
     "engineer": "Retrieve, assemble a prompt, generate. It is the cheapest way to give a model information it was never trained on, and its failure modes belong to retrieval rather than to the model — a wrong passage produces a confident wrong answer, and no amount of prompting recovers a document that was never fetched. Every retrieved token is context the question now has to share.",
-    "math": "Context is the budget: k passages of c tokens cost k·c of a window that must also hold the question, the instructions and the answer. Attention over the assembled prompt is Θ((k·c)²), so doubling the passages quadruples the attention cost — which is why reranking down to fewer, better passages beats retrieving more of them."
+    "math": "Context is the budget: k passages of c tokens cost k·c of a window that must also hold the question, the instructions and the answer. Concatenating them makes attention Θ((k·c)²), so doubling the passages quadruples the cost — which is why a stack that concatenates does better to rerank down to fewer, better passages than to fetch more. Encoding each passage separately and fusing only in the decoder costs Θ(k·c²) instead, and that is the architecture in which more passages keeps helping."
   },
   "emphasis": {
     "intuition": "without touching the model at all",
@@ -60,8 +60,9 @@
       "url": "https://arxiv.org/abs/2007.01282"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

@@ -116,13 +116,13 @@
       "id": "approximate-nearest-neighbor",
       "title": "Approximate Nearest Neighbor",
       "domain": "Retrieval / Indexing",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -130,7 +130,7 @@
           {
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -535,7 +535,7 @@
       "id": "chunking",
       "title": "Chunking",
       "domain": "Retrieval / Indexing",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -549,7 +549,7 @@
           {
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -723,7 +723,7 @@
           {
             "id": "grounding",
             "title": "Grounding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -802,7 +802,7 @@
           {
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -975,7 +975,7 @@
       "id": "dense-retrieval",
       "title": "Dense Retrieval",
       "domain": "Retrieval / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -989,19 +989,19 @@
           {
             "id": "approximate-nearest-neighbor",
             "title": "Approximate Nearest Neighbor",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "hybrid-search",
             "title": "Hybrid Search",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "reranking",
             "title": "Reranking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1009,7 +1009,7 @@
           {
             "id": "sparse-retrieval",
             "title": "Sparse Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1402,13 +1402,13 @@
       "id": "grounding",
       "title": "Grounding",
       "domain": "Retrieval / Validity",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1445,19 +1445,19 @@
       "id": "hybrid-search",
       "title": "Hybrid Search",
       "domain": "Retrieval / Ranking",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "sparse-retrieval",
             "title": "Sparse Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1466,7 +1466,7 @@
           {
             "id": "reranking",
             "title": "Reranking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1504,7 +1504,7 @@
           {
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2467,13 +2467,13 @@
       "id": "reranking",
       "title": "Reranking",
       "domain": "Retrieval / Ranking",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2488,7 +2488,7 @@
           {
             "id": "hybrid-search",
             "title": "Hybrid Search",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2523,19 +2523,19 @@
       "id": "retrieval-augmented-generation",
       "title": "Retrieval-Augmented Generation",
       "domain": "Retrieval / Generation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "approximate-nearest-neighbor",
             "title": "Approximate Nearest Neighbor",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "chunking",
             "title": "Chunking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2543,7 +2543,7 @@
           {
             "id": "grounding",
             "title": "Grounding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2858,14 +2858,14 @@
       "id": "sparse-retrieval",
       "title": "Sparse Retrieval",
       "domain": "Retrieval / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "hybrid-search",
             "title": "Hybrid Search",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2873,7 +2873,7 @@
           {
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3026,7 +3026,7 @@
           {
             "id": "chunking",
             "title": "Chunking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3130,7 +3130,7 @@
           {
             "id": "reranking",
             "title": "Reranking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3472,7 +3472,7 @@
       "center": {
         "id": "approximate-nearest-neighbor",
         "title": "Approximate Nearest Neighbor",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -3480,14 +3480,14 @@
         {
           "id": "dense-retrieval",
           "title": "Dense Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -4200,7 +4200,7 @@
       "center": {
         "id": "chunking",
         "title": "Chunking",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4215,7 +4215,7 @@
         {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         }
@@ -4483,7 +4483,7 @@
         {
           "id": "grounding",
           "title": "Grounding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -4622,7 +4622,7 @@
         {
           "id": "dense-retrieval",
           "title": "Dense Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }
@@ -4955,7 +4955,7 @@
       "center": {
         "id": "dense-retrieval",
         "title": "Dense Retrieval",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4970,28 +4970,28 @@
         {
           "id": "approximate-nearest-neighbor",
           "title": "Approximate Nearest Neighbor",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "hybrid-search",
           "title": "Hybrid Search",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "reranking",
           "title": "Reranking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
         {
           "id": "sparse-retrieval",
           "title": "Sparse Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -5684,7 +5684,7 @@
       "center": {
         "id": "grounding",
         "title": "Grounding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5692,7 +5692,7 @@
         {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -5751,7 +5751,7 @@
       "center": {
         "id": "hybrid-search",
         "title": "Hybrid Search",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5759,21 +5759,21 @@
         {
           "id": "dense-retrieval",
           "title": "Dense Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "sparse-retrieval",
           "title": "Sparse Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
         {
           "id": "reranking",
           "title": "Reranking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -5833,7 +5833,7 @@
         {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -7488,7 +7488,7 @@
       "center": {
         "id": "reranking",
         "title": "Reranking",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7496,7 +7496,7 @@
         {
           "id": "dense-retrieval",
           "title": "Dense Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -7510,7 +7510,7 @@
         {
           "id": "hybrid-search",
           "title": "Hybrid Search",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -7581,7 +7581,7 @@
       "center": {
         "id": "retrieval-augmented-generation",
         "title": "Retrieval-Augmented Generation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7589,21 +7589,21 @@
         {
           "id": "approximate-nearest-neighbor",
           "title": "Approximate Nearest Neighbor",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "chunking",
           "title": "Chunking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
         {
           "id": "grounding",
           "title": "Grounding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -8175,7 +8175,7 @@
       "center": {
         "id": "sparse-retrieval",
         "title": "Sparse Retrieval",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8183,14 +8183,14 @@
         {
           "id": "hybrid-search",
           "title": "Hybrid Search",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "dense-retrieval",
           "title": "Dense Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -8455,7 +8455,7 @@
         {
           "id": "chunking",
           "title": "Chunking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
@@ -8616,7 +8616,7 @@
         {
           "id": "reranking",
           "title": "Reranking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
