@@ -166,7 +166,9 @@ export function notationError(source: string): string | null {
   return null;
 }
 
-/** The text a reader would hear or copy, with the markup removed. */
+/** U+00A0 — see `spoken`. Not collapsible, which is the entire point. */
+const NBSP = '\u00A0';
+
 /**
  * What a reader hears — the flattened string with the separators ADR-0010 adds.
  *
@@ -178,20 +180,36 @@ export function notationError(source: string): string | null {
  *
  * Exported so the tests assert on the thing a person actually receives, rather
  * than on the markup that produces it. The markup was always right.
+ *
+ * THE SEPARATOR IS U+00A0 AND THIS FUNCTION WAS ONCE WRONG ABOUT THAT. It
+ * returned ordinary spaces, every test agreed with it, and VoiceOver said
+ * "headsub1". `sr-only` is absolutely positioned, which makes each marker span
+ * a block container, and CSS strips collapsible whitespace at the edges of one
+ * — so the spaces this function promised never reached anybody.
+ *
+ * The lesson is not that the model was imprecise. It is that this function is a
+ * SECOND DESCRIPTION of what a browser does, and ADR-0010 argued in its own text
+ * that two descriptions free to disagree eventually do. It then shipped one.
+ * A no-break space is what makes the two agree by construction rather than by
+ * intention: it is not collapsible, so what is written here is what survives.
  */
 export function spoken(source: string): string {
   const say = (tokens: Token[]): string =>
     tokens
       .map((t) => {
         if (t.kind === 'text') return t.text;
-        return `${t.kind === 'sub' ? ' sub ' : ' super '}${say(t.children)} `;
+        return `${t.kind === 'sub' ? `${NBSP}sub${NBSP}` : `${NBSP}super${NBSP}`}${say(t.children)}${NBSP}`;
       })
       .join('');
-  // Collapsed because the markers butt against whitespace already in the prose:
-  // `d_model / h` would otherwise be "d sub model  / h".
-  return say(parseNotation(source)).replace(/ {2,}/g, ' ');
+  // The markers butt against whitespace already in the prose — `d_model / h`
+  // would otherwise carry a separator and a space. Collapse to the no-break
+  // one, since that is the character that decides whether a break is heard.
+  return say(parseNotation(source)).replace(/[\u0020\u00A0]{2,}/g, (run) =>
+    run.includes(NBSP) ? NBSP : ' ',
+  );
 }
 
+/** The text a reader would see or copy, with the markup removed. */
 export function plain(source: string): string {
   const strip = (tokens: Token[]): string =>
     tokens.map((t) => (t.kind === 'text' ? t.text : strip(t.children))).join('');

@@ -1,6 +1,6 @@
 # 0010 — Notation carries a spoken separator
 
-- **Status:** accepted — shipped ahead of the listen that would confirm it; see *What would change this*
+- **Status:** accepted — listened to 2026-08-05, and corrected; see *What the listen found*
 - **Date:** 2026-08-03
 - **Amends:** [ADR-0009](0009-notation-in-bodies.md)
 
@@ -129,3 +129,55 @@ the decision:
   gets more of them. Nothing does today.
 - `content/schema` and the 57 node files are untouched. This is a rendering decision, and
   the source convention ADR-0009 established is unchanged.
+
+---
+
+## What the listen found — 2026-08-05
+
+*Added after the fact. Nothing above this line has been edited: the record of what was
+believed, and on what basis, is the point (CLAUDE.md §8).*
+
+VoiceOver on macOS, `multi-head-attention` at Math depth. It said:
+
+> MultiHead(X) = Concat(headsub1,…,headsubh)WsubO where headsubi = Attention(XWsubQsuperi,
+> XWsubKsuperi, XWsubVsuperi) and WsubO ∈
+
+**The words arrived. The spaces did not.** `d_model` went from "dmodel" to "dsubmodel" —
+a longer run-together nonword than the one this ADR existed to remove, and the fix was
+therefore worse than the defect for three days.
+
+### Why
+
+`sr-only` sets `position: absolute`. That makes each marker span a block container, and
+CSS strips leading and trailing **collapsible** whitespace inside one before the
+accessibility tree is built. `" sub "` became `"sub"`, and the lone trailing
+`<span class="sr-only"> </span>` collapsed to nothing at all.
+
+### The correction
+
+The separator is now **U+00A0**, which is not collapsible whitespace and survives that
+processing while still being spoken as a word break. `NBSP` is declared as an escape in
+both `Notation.tsx` and `notation.ts` because the entire fix is *which space this is*, and
+a literal one is indistinguishable on screen from the ordinary one that failed.
+
+### What this says about the reasoning above
+
+The two outcomes this ADR named as decision-changing were both about *taste* — whether
+verbosity is worse than ambiguity. Neither happened. The outcome that did happen was not
+in the list: **the mechanism did not work at all**, and no amount of further reasoning
+about verbosity would have found that.
+
+Worse, `spoken()` was written specifically to prevent this class — a function whose
+docstring says it exists because "the markup was always right". It was a second
+description of what a browser does, it disagreed with the browser, and every test agreed
+with *it* rather than with the browser. This ADR's own text argues that two descriptions
+free to disagree eventually do. It then shipped one and did not notice.
+
+`notation.test.ts` now asserts the property that makes the string survive — that the
+separator is a character CSS cannot strip — rather than the string it hoped for. That is
+assertable without a browser. What is *not* assertable is whether the result sounds
+right, which is still a listen, and is still outstanding for the three verbosity
+questions in [`screen-reader-test.md`](../screen-reader-test.md) §1.
+
+**The decision is unchanged.** One parse, two renderings, a visually-hidden separator
+derived from the same tokens. Only the character was wrong.

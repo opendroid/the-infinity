@@ -159,28 +159,28 @@ describe('every authored body', () => {
 describe('what a screen reader receives', () => {
   it('separates a subscript from what it hangs off', () => {
     // The defect verbatim: this was "dmodel".
-    expect(spoken('d_model')).toBe('d sub model ');
-    expect(spoken('W_Q')).toBe('W sub Q ');
+    expect(spoken('d_model')).toBe(`d\u00A0sub\u00A0model\u00A0`);
+    expect(spoken('W_Q')).toBe(`W\u00A0sub\u00A0Q\u00A0`);
   });
 
   it('distinguishes a superscript from a subscript', () => {
     // A bare space would make these identical, which is the reason for words.
-    expect(spoken('x_2')).toBe('x sub 2 ');
-    expect(spoken('x^2')).toBe('x super 2 ');
+    expect(spoken('x_2')).toBe(`x\u00A0sub\u00A02\u00A0`);
+    expect(spoken('x^2')).toBe(`x\u00A0super\u00A02\u00A0`);
   });
 
   it('does not let the following text join the subscript', () => {
-    expect(spoken('d_model/h')).toBe('d sub model /h');
-    expect(spoken('head_i = Attention')).toBe('head sub i = Attention');
+    expect(spoken('d_model/h')).toBe(`d\u00A0sub\u00A0model\u00A0/h`);
+    expect(spoken('head_i = Attention')).toBe(`head\u00A0sub\u00A0i\u00A0= Attention`);
   });
 
   it('speaks a braced group as one run', () => {
-    expect(spoken('x_{<t}')).toBe('x sub <t ');
-    expect(spoken('2^{\u22128h/H}')).toBe('2 super \u22128h/H ');
+    expect(spoken('x_{<t}')).toBe(`x\u00A0sub\u00A0<t\u00A0`);
+    expect(spoken('2^{\u22128h/H}')).toBe(`2\u00A0super\u00A0\u22128h/H\u00A0`);
   });
 
   it('speaks nesting from the inside out', () => {
-    expect(spoken('\u211d^{n\u00d7d_k}')).toBe('\u211d super n\u00d7d sub k ');
+    expect(spoken('\u211d^{n\u00d7d_k}')).toBe(`\u211d\u00A0super\u00A0n\u00d7d\u00A0sub\u00A0k\u00A0`);
   });
 
   it('leaves prose with no notation exactly as it was', () => {
@@ -217,10 +217,36 @@ describe('every node speaks its notation', () => {
         const body = node.bodies[depth];
         if (!parseNotation(body).some((t) => t.kind !== 'text')) continue;
         const heard = spoken(body);
-        // The marker is the separator; its absence is the defect.
-        expect(heard, `${node.id}/${depth}`).toMatch(/ (sub|super) /);
+        // The marker is the separator; its absence is the defect. It has to be
+        // the NO-BREAK space: an ordinary one is stripped out of an absolutely
+        // positioned box before anybody hears it, which is what shipped once.
+        expect(heard, `${node.id}/${depth}`).toMatch(/\u00A0(sub|super)\u00A0/);
         expect(heard, `${node.id}/${depth}`).not.toBe(plain(body));
       }
+    }
+  });
+
+  /**
+   * THE TEST THAT WAS MISSING. Everything above passed while VoiceOver read
+   * "headsub1", because every assertion was about the DOM and the defect was
+   * in CSS: `sr-only` is absolutely positioned, and a block container has its
+   * leading and trailing collapsible whitespace stripped before the
+   * accessibility tree ever sees it.
+   *
+   * No DOM assertion can observe that — jsdom has no layout and would report
+   * the spaces present, which is exactly what happened. What IS assertable is
+   * the property that makes the string survive: the separator must be a
+   * character CSS cannot collapse. That is checkable here, and it is the thing
+   * a future tidy-up would break.
+   */
+  it('separates with a character CSS cannot strip', () => {
+    for (const source of ['d_model', 'x^2', '\u211d^{n\u00d7d_k}', 'head_i']) {
+      const heard = spoken(source);
+      expect(heard, source).toContain('\u00A0');
+      // An ordinary space beside the marker word means someone replaced the
+      // no-break one. On screen the two are identical; in the tree they are
+      // not, and only one of them is heard.
+      expect(heard, source).not.toMatch(/\u0020(sub|super)|(sub|super)\u0020/);
     }
   });
 
@@ -228,19 +254,19 @@ describe('every node speaks its notation', () => {
     // The alphabet from #144 — the raised and lowered runs the corpus really
     // uses, most common first. Each must come back with its marker attached.
     for (const [source, heard] of [
-      ['d_model', 'd sub model '],
-      ['x_i', 'x sub i '],
-      ['x_t', 'x sub t '],
-      ['W_K', 'W sub K '],
-      ['W_V', 'W sub V '],
-      ['W_Q', 'W sub Q '],
-      ['S_ij', 'S sub ij '],
-      ['d_ff', 'd sub ff '],
-      ['x_{t+1}', 'x sub t+1 '],
-      ['x_{<t}', 'x sub <t '],
-      ['d_head', 'd sub head '],
-      ['X^i', 'X super i '],
-      ['θ_max', 'θ sub max '],
+      ['d_model', `d\u00A0sub\u00A0model\u00A0`],
+      ['x_i', `x\u00A0sub\u00A0i\u00A0`],
+      ['x_t', `x\u00A0sub\u00A0t\u00A0`],
+      ['W_K', `W\u00A0sub\u00A0K\u00A0`],
+      ['W_V', `W\u00A0sub\u00A0V\u00A0`],
+      ['W_Q', `W\u00A0sub\u00A0Q\u00A0`],
+      ['S_ij', `S\u00A0sub\u00A0ij\u00A0`],
+      ['d_ff', `d\u00A0sub\u00A0ff\u00A0`],
+      ['x_{t+1}', `x\u00A0sub\u00A0t+1\u00A0`],
+      ['x_{<t}', `x\u00A0sub\u00A0<t\u00A0`],
+      ['d_head', `d\u00A0sub\u00A0head\u00A0`],
+      ['X^i', `X\u00A0super\u00A0i\u00A0`],
+      ['θ_max', `θ\u00A0sub\u00A0max\u00A0`],
     ] as const) {
       expect(spoken(source), source).toBe(heard);
     }
