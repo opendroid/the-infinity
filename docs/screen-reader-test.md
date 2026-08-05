@@ -75,8 +75,41 @@ invisible here and is the whole reason the first attempt failed.)*
    separators in one sentence is what the ADR bought precision with, and it defended the
    cost without hearing it. If the sentence has become unfollowable, that is a finding and
    the ADR needs revising a second time.
-4. **Does `Σ sub i∈T` survive?** The set-membership superscript is the worst case in the
-   corpus. If it is unintelligible, MathML (option 3) comes back on the table.
+4. **Do the symbols inside a group survive?** `Σ_{i∈T}` is one instance of a wider class,
+   and it is not the worst one. See below.
+
+### Question 4 in full — what is actually at risk
+
+The separator you confirmed brackets a group. **Nothing separates the characters inside
+one.** Twelve distinct symbols appear in there across 31 group forms, measured over the
+corpus with the real parser:
+
+`×` (8 nodes) · `−` (6) · `<` (6) · `+` (4) · `/` (3) · `∈` (3) · `·` (2) · `>` `=` `.` `²` `|`
+
+**Set VoiceOver's punctuation verbosity to its default before testing**, not to "All".
+VoiceOver Utility → Verbosity → Text → Punctuation. A reader has the default, so that is
+what the corpus has to survive; if something only works at "All", that is a finding about
+defaults rather than a pass.
+
+Listen in this order — highest risk first, one fragment each:
+
+| # | page (`?depth=math`) | source | should be heard as | silently wrong if |
+|---|---|---|---|---|
+| 1 | `adam` | `m_{t−1}` | "m sub t minus 1" | **"m sub t 1"** |
+| 2 | `attention` | `ℝ^{n×d_k}` | "R super n times d sub k" | "R super n d sub k" |
+| 3 | `autoregressive-decoding` | `x_{<t}` | "x sub less than t" | "x sub t" |
+| 4 | `mixture-of-experts` | `Σ_{i∈T}` | "sigma sub i element of T" | "sigma sub i T" |
+| 5 | `token-embedding` | `ℝ^{\|V\|×d_model}` | "R super bar V bar times d sub model" | "R super V d sub model" |
+
+**Row 1 is the one that matters most**, and it is why this question is worth the ten
+minutes. `−` here is U+2212, a true minus, not an ASCII hyphen — engines handle the two
+differently. If it is dropped, `m_{t−1}` is heard as "m sub t 1", which **sounds like a
+real subscript**. A listener has no way to know a character went missing. Rows 2 to 5 fail
+loudly into nonsense; row 1 fails quietly into a different equation.
+
+If symbols are dropped at default verbosity, the fix is not another separator — it is
+either MathML, or spelling the operators the way `sub` and `super` are already spelled.
+Both are ADR-sized, which is why this is a question rather than a commit.
 
 **Questions 3 and 4 are the ones still open, and they are the whole of #144 now.** The
 mechanism is settled; what is not is whether the trade was worth making. Both need
