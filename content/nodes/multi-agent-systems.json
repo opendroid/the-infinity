@@ -1,0 +1,58 @@
+{
+  "id": "multi-agent-systems",
+  "title": "Multi-Agent Systems",
+  "domain": [
+    "Agents",
+    "Composition"
+  ],
+  "bodies": {
+    "intuition": "Rather than one model doing everything, give several a role each and let them talk: a writer and a critic, a planner and an executor. The appeal is that specialisation and disagreement catch what one pass does not. The cost is that every message is tokens, and agents can agree with each other confidently and wrongly.",
+    "engineer": "Conversation is the interface: agents exchange messages under a protocol deciding who speaks when and when it stops. Much of the benefit is available from one model with different prompts, so the question worth asking is whether the roles are genuinely different or the same model agreeing with itself in two voices. Termination is the hard part, as it always is with loops.",
+    "math": "n agents sharing one transcript each read what all the others wrote, so cost is Θ(n²) per round in the worst case and the transcript grows without bound. Restricting who hears whom is what makes that tractable — and it is the same decision as deciding what each agent is allowed to know."
+  },
+  "emphasis": {
+    "intuition": "agents can agree with each other confidently and wrongly",
+    "engineer": "the same model agreeing with itself in two voices"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "coordination_tokens": 1200,
+      "share_rest": 800
+    },
+    "param_controls": [
+      {
+        "name": "coordination_tokens",
+        "min": 0,
+        "max": 12000,
+        "step": 200
+      }
+    ],
+    "caption": "Tokens spent on agents talking to each other against tokens spent on the task, in one run. Drag the coordination volume to watch the conversation become the work."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "react",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "task-decomposition",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2308.08155",
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "url": "https://arxiv.org/abs/2308.08155"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

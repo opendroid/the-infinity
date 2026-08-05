@@ -1,0 +1,57 @@
+{
+  "id": "react",
+  "title": "ReAct",
+  "domain": [
+    "Agents",
+    "Control"
+  ],
+  "bodies": {
+    "intuition": "A model asked to reason produces a plausible chain and no way to check it. A model asked only to act has no plan. ReAct alternates: a thought, then an action, then the result of that action, which the next thought gets to read. The world's answer, rather than the model's confidence, is what corrects it.",
+    "engineer": "Thought, action, observation, repeated until the model emits an answer or a step limit stops it. The value is that an observation is evidence the model did not generate, so a wrong assumption gets contradicted by a real result instead of compounding quietly. The failure mode is the loop that never converges, which is why the step limit is not optional.",
+    "math": "Step n is conditioned on every thought, action and observation before it, so the prompt is Θ(n) tokens by step n and attention over it is Θ(n²). A long run is quadratically expensive in its own history — which is why trimming or summarising the trajectory becomes necessary rather than merely tidy."
+  },
+  "emphasis": {
+    "intuition": "The world's answer, rather than the model's confidence, is what corrects it",
+    "engineer": "an observation is evidence the model did not generate"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "observation_tokens": 600,
+      "share_rest": 400
+    },
+    "param_controls": [
+      {
+        "name": "observation_tokens",
+        "min": 0,
+        "max": 10000,
+        "step": 100
+      }
+    ],
+    "caption": "Trajectory tokens that are observations returned by tools against those the model wrote itself. Drag the observation volume to watch the history fill with results."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "chain-of-thought",
+        "reviewed": false
+      },
+      {
+        "id": "function-calling",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "url": "https://arxiv.org/abs/2210.03629"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
