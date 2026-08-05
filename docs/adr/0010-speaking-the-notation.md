@@ -1,6 +1,6 @@
 # 0010 — Notation carries a spoken separator
 
-- **Status:** accepted — listened to 2026-08-05, and corrected; see *What the listen found*
+- **Status:** accepted — listened to 2026-08-05, corrected, and the correction confirmed by ear; two verbosity questions remain open (#144)
 - **Date:** 2026-08-03
 - **Amends:** [ADR-0009](0009-notation-in-bodies.md)
 
@@ -181,3 +181,22 @@ questions in [`screen-reader-test.md`](../screen-reader-test.md) §1.
 
 **The decision is unchanged.** One parse, two renderings, a visually-hidden separator
 derived from the same tokens. Only the character was wrong.
+
+### Confirmed — 2026-08-05
+
+Re-listened after the correction. VoiceOver now reads `d_model` as **"d sub model"**.
+
+That settles the two mechanical questions and neither can be reopened by taste:
+
+- **The separator reaches a listener.** U+00A0 survives the whitespace processing that
+  stripped U+0020, which was the entire failure above.
+- **`sub` is spoken as a word, not spelled.** It does not land in the trap that ruled out
+  `sup` — the reason `super` was chosen over it — so the word choice holds.
+
+What is still unmeasured is the question this ADR was always least sure of, and it is
+about taste rather than mechanism: whether `multi-head-attention` at nine separators in
+one sentence is *followable*, and whether `Σ_{i∈T}` survives being read aloud. Those are
+the two outcomes the *What would change this* section named, and they are why
+[#144](https://github.com/opendroid/the-infinity/issues/144) is still open.
+
+**The mechanism is no longer in doubt. Only the trade is.**

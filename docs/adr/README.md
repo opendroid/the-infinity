@@ -39,7 +39,7 @@ point.
 | [0007](0007-budget-split-primitive.md) | A fourth shape: one whole divided in two | **accepted** |
 | [0008](0008-shared-trails-from-a-static-shell.md) | A shared trail is a static shell that fetches its own trail | **accepted** |
 | [0009](0009-notation-in-bodies.md) | Notation in bodies — `_` and `^`, not KaTeX | **accepted** |
-| [0010](0010-speaking-the-notation.md) | Notation carries a spoken separator | **accepted** — listened to, and corrected |
+| [0010](0010-speaking-the-notation.md) | Notation carries a spoken separator | **accepted** — corrected after a listen, and confirmed |
 | [0011](0011-analytics-from-request-logs.md) | Analytics is read from request logs, not from a script in the page | proposed |
 | [0012](0012-stranded-trail-stops.md) | A deleted concept leaves a tombstone in the trails that visited it | proposed |
 

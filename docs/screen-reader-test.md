@@ -63,15 +63,14 @@ invisible here and is the whole reason the first attempt failed.)*
 
 ### The four questions
 
-1. **Is the separator actually spoken?** ~~If you hear "dmodel"…~~ **Run once, 2026-08-05,
-   and it failed** — VoiceOver said "headsub1", "WsubO", "XWsubQsuperi". The words reached
-   the tree and the spaces around them did not, because `sr-only` is absolutely positioned
-   and CSS strips collapsible whitespace at the edges of a block container. Fixed by making
-   the separator U+00A0; see [ADR-0010](adr/0010-speaking-the-notation.md), *What the listen
-   found*. **Re-confirm this first** — you should now hear "head sub 1", "W sub O",
-   "XW sub Q super i". If any of them is still run together, stop; everything below is moot.
-2. **Does `sub` say "sub" or "s-u-b"?** ADR-0010 chose `super` over `sup` specifically
-   because engines say *sup* rhyming with *cup*. Confirm `sub` did not land in the same trap.
+1. ~~**Is the separator actually spoken?**~~ **ANSWERED — failed once, then fixed and
+   confirmed (2026-08-05).** It first read "headsub1", "WsubO", "XWsubQsuperi": the words
+   reached the tree and the spaces did not, because `sr-only` is absolutely positioned and
+   CSS strips collapsible whitespace at the edges of a block container. The separator is
+   U+00A0 now, and VoiceOver reads "d sub model". See
+   [ADR-0010](adr/0010-speaking-the-notation.md), *What the listen found*.
+2. ~~**Does `sub` say "sub" or "s-u-b"?**~~ **ANSWERED — it says the word.** It did not
+   land in the trap that ruled out `sup`, so the word choice holds.
 3. **Is `multi-head-attention` now too long to follow?** This is the real question. Nine
    separators in one sentence is what the ADR bought precision with, and it defended the
    cost without hearing it. If the sentence has become unfollowable, that is a finding and
@@ -79,8 +78,13 @@ invisible here and is the whole reason the first attempt failed.)*
 4. **Does `Σ sub i∈T` survive?** The set-membership superscript is the worst case in the
    corpus. If it is unintelligible, MathML (option 3) comes back on the table.
 
-**Record the actual words.** Not "it was fine" — the sentence as spoken, at least for
-`multi-head-attention`. That string is the fixture the next decision rests on.
+**Questions 3 and 4 are the ones still open, and they are the whole of #144 now.** The
+mechanism is settled; what is not is whether the trade was worth making. Both need
+`multi-head-attention` and `mixture-of-experts` read end to end at Math depth — about a
+minute each, with VoiceOver already running.
+
+**Record the actual words.** Not "it was fine" — the sentence as spoken. That string is the
+fixture the next decision rests on.
 
 ---
 
