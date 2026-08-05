@@ -1,0 +1,57 @@
+{
+  "id": "reranking",
+  "title": "Reranking",
+  "domain": [
+    "Retrieval",
+    "Ranking"
+  ],
+  "bodies": {
+    "intuition": "The fast retriever has to score millions of passages, so it can only afford to look at the query and the passage separately. A reranker looks at a few dozen and reads them together with the question, which catches the cases where the words line up and the meaning does not. Expensive per passage, cheap overall, because so few are left.",
+    "engineer": "A cross-encoder concatenates query and passage and runs a transformer over the pair, so every query token can attend to every passage token — the interaction a bi-encoder structurally cannot have. Nothing can be precomputed, so cost is linear in the number of candidates and it only makes sense on a shortlist. The gain over the retriever's own ordering is usually large, which is why nearly every serious stack has one.",
+    "math": "A bi-encoder scores N passages with N dot products against precomputed vectors; a cross-encoder scores k with k forward passes over the joined pair, at Θ(k·(n_q + n_p)²d). They are used together because the first is effectively constant per passage at query time and the second is not — the shortlist is the whole reason the second is affordable."
+  },
+  "emphasis": {
+    "intuition": "the words line up and the meaning does not",
+    "engineer": "the interaction a bi-encoder structurally cannot have"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "rerank_ms": 60,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "rerank_ms",
+        "min": 0,
+        "max": 400,
+        "step": 10
+      }
+    ],
+    "caption": "Time spent reranking a shortlist against time spent retrieving it, both in milliseconds. Drag the rerank cost to watch the cheap stage vanish into the expensive one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      },
+      {
+        "id": "transformer-block",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1901.04085",
+      "title": "Passage Re-ranking with BERT",
+      "url": "https://arxiv.org/abs/1901.04085"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

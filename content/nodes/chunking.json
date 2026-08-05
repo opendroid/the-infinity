@@ -1,0 +1,58 @@
+{
+  "id": "chunking",
+  "title": "Chunking",
+  "domain": [
+    "Retrieval",
+    "Indexing"
+  ],
+  "bodies": {
+    "intuition": "A retriever returns whatever unit you indexed, so choosing that unit decides what the model gets to read. Chunks too small lose the context that made a passage mean anything; too large and the sentence that answers the question arrives buried in text that does not. Nothing here is learned — it is a decision made before any model runs.",
+    "engineer": "Split on structure where the document has it — headings, paragraphs, code blocks — rather than on a fixed token count, which cuts sentences in half. Overlapping windows recover some of what a hard boundary destroys, at the cost of storing the overlap twice. The unit retrieved and the unit embedded need not be the same: indexing a summary and returning the whole section is a common and useful split.",
+    "math": "For a chunk of c tokens containing an answer span of a tokens, the share of retrieved context that is signal is a/c, and a mean-pooled embedding averages over all c — so a fixed span's contribution to the vector falls as 1/c. Larger chunks retrieve more reliably and represent less precisely, which is the entire trade written as one ratio."
+  },
+  "emphasis": {
+    "intuition": "it is a decision made before any model runs",
+    "engineer": "The unit retrieved and the unit embedded need not be the same"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "filler_tokens": 240,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "filler_tokens",
+        "min": 0,
+        "max": 2000,
+        "step": 20
+      }
+    ],
+    "caption": "The rest of a chunk against the span that actually answers the question, both in tokens. Drag the chunk size to watch the answer become a smaller part of what is retrieved."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tokenization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2004.04906",
+      "title": "Dense Passage Retrieval for Open-Domain Question Answering",
+      "url": "https://arxiv.org/abs/2004.04906"
+    },
+    {
+      "ref": "arXiv:2307.03172",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

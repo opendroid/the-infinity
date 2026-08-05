@@ -1,0 +1,52 @@
+{
+  "id": "sparse-retrieval",
+  "title": "Sparse Retrieval",
+  "domain": [
+    "Retrieval",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "The oldest thing that works: score a document by how many of the query's rare words it contains. Common words count for little, rare ones for a lot, and a word repeated ten times counts barely more than one repeated five. It has no idea what anything means, and it is still hard to beat.",
+    "engineer": "BM25 weights each term by inverse document frequency, saturates term frequency so repetition stops paying, and normalises by document length. It needs no training, no accelerator and no domain adaptation, which is why it stays the baseline every dense retriever is measured against — and why it can win outright on a domain the retriever never saw.",
+    "math": "BM25 sums IDF(t)·f(t,d)(k₁+1)/(f(t,d) + k₁(1 − b + b·|d|/avgdl)) over the query's terms. The k₁ term is what makes the tenth occurrence of a word worth almost nothing more than the ninth, and b interpolates between ignoring document length entirely and normalising by it fully."
+  },
+  "emphasis": {
+    "intuition": "it is still hard to beat",
+    "engineer": "it can win outright on a domain the retriever never saw"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "saturation": 0.2
+    },
+    "param_controls": [
+      {
+        "name": "saturation",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Term-frequency contributions to a score, before and after BM25's saturation. Drag the saturation up to watch a repeated term stop paying for itself."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2104.08663",
+      "title": "BEIR: A Heterogenous Benchmark for Zero-shot Evaluation of Information Retrieval Models",
+      "url": "https://arxiv.org/abs/2104.08663"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
