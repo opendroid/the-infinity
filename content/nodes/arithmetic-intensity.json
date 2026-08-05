@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Every kernel does some arithmetic and moves some bytes. Divide one by the other and you get a single number that says which of the two is the bottleneck. Below the machine's own ratio the kernel is waiting on memory and extra arithmetic is free; above it the arithmetic is the limit and saving bytes buys nothing.",
     "engineer": "Operations per byte moved, read against achievable throughput as the roofline. An A100 does about 312 TFLOP/s in bf16 against 1.5 TB/s of bandwidth, so the ridge sits near 200 operations per byte — and generation, one token at a time, runs far below it. That is why quantization speeds up decoding while adding work: it is buying bandwidth with arithmetic on the side of the ridge where arithmetic is free.",
-    "math": "I = F/B for F operations and B bytes moved. Attainable throughput is min(π, I·β) for peak compute π and bandwidth β, so the ridge is at I = π/β — about 312·10¹² / 1.5·10¹² ≈ 208 operations per byte. A matrix multiply of size n has I growing with n; an elementwise operation has I ≈ 1 whatever its size, which is why it can never be anything but memory-bound."
+    "math": "I = F/B for F operations and B bytes moved. Attainable throughput is min(π, I·β) for peak compute π and bandwidth β, so the ridge is at I = π/β — about 312·10¹² / 1.5·10¹² ≈ 208 operations per byte. A matrix multiply of size n has I growing with n; an elementwise operation moves more bytes than it does operations — a quarter of an operation per byte in bf16 — whatever its size, which is why it can never be anything but memory-bound."
   },
   "emphasis": {
     "intuition": "extra arithmetic is free",
@@ -41,10 +41,19 @@
       {
         "id": "prefill-and-decode",
         "reviewed": false
+      },
+      {
+        "id": "quantization",
+        "reviewed": false
       }
     ]
   },
   "citations": [
+    {
+      "ref": "arXiv:2205.14135",
+      "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+      "url": "https://arxiv.org/abs/2205.14135"
+    },
     {
       "ref": "arXiv:2007.00072",
       "title": "Data Movement Is All You Need: A Case Study on Optimizing Transformers",
@@ -56,8 +65,9 @@
       "url": "https://arxiv.org/abs/2211.05102"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }

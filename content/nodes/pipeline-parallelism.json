@@ -54,10 +54,16 @@
       "ref": "arXiv:1806.03377",
       "title": "PipeDream: Fast and Efficient Pipeline Parallel DNN Training",
       "url": "https://arxiv.org/abs/1806.03377"
+    },
+    {
+      "ref": "arXiv:2104.04473",
+      "title": "Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM",
+      "url": "https://arxiv.org/abs/2104.04473"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-04"
-  },
-  "updated_at": "2026-08-04"
+  "updated_at": "2026-08-04",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-04"
+  }
 }
