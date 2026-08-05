@@ -137,6 +137,10 @@ a nice-to-have.
 - [ ] **#144 — the spoken math.** `d_model` was reading as "dmodel"; ADR-0010 added a
       separator and it has still never been listened to
 
+**The script is written**: [`screen-reader-test.md`](screen-reader-test.md) — about forty
+minutes, ordered, with the exact strings to listen for taken from the real `spoken()`
+rather than guessed. §1 alone closes #144 and takes ten of those minutes.
+
 ## 9. Ship
 
 - [ ] Final pass on the deployed site, not on localhost
