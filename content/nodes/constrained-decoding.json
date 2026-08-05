@@ -1,0 +1,57 @@
+{
+  "id": "constrained-decoding",
+  "title": "Constrained Decoding",
+  "domain": [
+    "Agents",
+    "Interface"
+  ],
+  "bodies": {
+    "intuition": "Asking a model for JSON and hoping is a coin flip at scale. Constrained decoding removes the choice: at each step, tokens that could not continue a valid structure are masked before sampling, so a malformed result is not unlikely — it is unreachable.",
+    "engineer": "Compile the schema or grammar into a state machine and mask, at each position, the logits of every token no transition allows. The mask can be precomputed per state, so the overhead is closer to a lookup than to a parse. It constrains form and not content: a schema-valid answer can still be completely wrong, and it will now be confidently well-formatted about it.",
+    "math": "Masking sets disallowed logits to −∞ before the softmax, so their probability is exactly zero rather than merely small, and the distribution is renormalised over what is left. A constrained model is therefore not the unconstrained model filtered — it is a different distribution, and one that can be walked into a valid string the original would never have produced."
+  },
+  "emphasis": {
+    "intuition": "a malformed result is not unlikely — it is unreachable",
+    "engineer": "It constrains form and not content"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "legal_tokens": 400,
+      "share_rest": 31600
+    },
+    "param_controls": [
+      {
+        "name": "legal_tokens",
+        "min": 1,
+        "max": 32000,
+        "step": 100
+      }
+    ],
+    "caption": "Tokens a grammar still permits at one position against those it has masked, out of the vocabulary. Drag the number of legal continuations to watch the constraint loosen."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      },
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2307.09702",
+      "title": "Efficient Guided Generation for Large Language Models",
+      "url": "https://arxiv.org/abs/2307.09702"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

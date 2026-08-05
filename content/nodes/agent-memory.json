@@ -1,0 +1,63 @@
+{
+  "id": "agent-memory",
+  "title": "Agent Memory",
+  "domain": [
+    "Agents",
+    "State"
+  ],
+  "bodies": {
+    "intuition": "The context window is an agent's entire working memory, and it is small and expensive. Anything that has to survive past it must be written somewhere else and fetched back — which turns memory into a retrieval problem: deciding what is worth keeping, and recognising later that it is relevant.",
+    "engineer": "Two tiers. What is in context is immediate and costs tokens on every single request; what is in a store is unlimited and costs a retrieval plus the risk of not being found. Summarising the trajectory compresses the first into fewer tokens and loses exactly the detail nobody knew would matter. There is no correct policy here, only a chosen one.",
+    "math": "A trajectory of n steps costs Θ(n) tokens and Θ(n²) attention if kept whole; summarising every k steps holds it at Θ(k) and pays one summarisation call per k steps. The trade is not memory against compute but recall against both, because a lossy summary cannot be un-summarised."
+  },
+  "emphasis": {
+    "intuition": "turns memory into a retrieval problem",
+    "engineer": "There is no correct policy here, only a chosen one"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "history_tokens": 2000,
+      "share_rest": 2000
+    },
+    "param_controls": [
+      {
+        "name": "history_tokens",
+        "min": 0,
+        "max": 30000,
+        "step": 500
+      }
+    ],
+    "caption": "Context held by past steps against the room left for the current one, in tokens. Drag the history to watch the working space disappear."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "retrieval-augmented-generation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2310.08560",
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "url": "https://arxiv.org/abs/2310.08560"
+    },
+    {
+      "ref": "arXiv:2304.03442",
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+      "url": "https://arxiv.org/abs/2304.03442"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

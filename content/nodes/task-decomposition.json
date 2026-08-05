@@ -1,0 +1,58 @@
+{
+  "id": "task-decomposition",
+  "title": "Task Decomposition",
+  "domain": [
+    "Agents",
+    "Control"
+  ],
+  "bodies": {
+    "intuition": "Some problems are too big to answer in one step and easy once split. Decomposition asks the model to name the sub-problems first and solve them in order, each answer available to the next. It helps most where the final step depends on work the model would otherwise have to do silently and all at once.",
+    "engineer": "Either the model plans up front and then executes, or it decides the next step each time. Planning first is cheaper and brittle — a plan made before any observation cannot react to one. Deciding as it goes costs a call per step and survives surprise, which is why most agents plan coarsely and re-plan rather than committing to a sequence.",
+    "math": "A task split into s subtasks that must each be right succeeds with probability p^s: at p = 0.95 and s = 10 that is about 60%. Decomposition only pays when the split raises per-step accuracy by more than the compounding costs — and this is the arithmetic behind long agent runs failing with no single visible mistake in them."
+  },
+  "emphasis": {
+    "intuition": "work the model would otherwise have to do silently and all at once",
+    "engineer": "a plan made before any observation cannot react to one"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "added_steps": 9,
+      "share_rest": 1
+    },
+    "param_controls": [
+      {
+        "name": "added_steps",
+        "min": 0,
+        "max": 30,
+        "step": 1
+      }
+    ],
+    "caption": "Steps a decomposed task takes against the single step it replaced. Drag the number of subtasks to watch how many things now have to go right."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "chain-of-thought",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "react",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2205.10625",
+      "title": "Least-to-Most Prompting Enables Complex Reasoning in Large Language Models",
+      "url": "https://arxiv.org/abs/2205.10625"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

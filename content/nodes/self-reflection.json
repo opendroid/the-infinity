@@ -1,0 +1,58 @@
+{
+  "id": "self-reflection",
+  "title": "Self-Reflection",
+  "domain": [
+    "Agents",
+    "Control"
+  ],
+  "bodies": {
+    "intuition": "An agent that fails and retries the same way fails the same way. Reflection asks the model to look at what went wrong, write down why in words, and keep that note in context for the next attempt. The lesson is text rather than a weight update, so nothing is learned permanently and nothing needs training.",
+    "engineer": "It needs a signal to reflect on — a failed test, an error, a score — and it is worth roughly as much as that signal is honest. Reflecting on the model's own assessment tends to produce confident agreement with the original answer, the same self-preference that makes a model a poor judge of its own output. The note lives in the context, so it competes with everything else there.",
+    "math": "Verbal reinforcement rather than gradient: the policy is unchanged and the entire improvement lives in the prompt, so it disappears when the context is cleared. That makes it an episode-scoped adaptation with none of a weight update's permanence — and none of its cost, which is the reason to use it at all."
+  },
+  "emphasis": {
+    "intuition": "The lesson is text rather than a weight update",
+    "engineer": "worth roughly as much as that signal is honest"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "reflection_tokens": 300,
+      "share_rest": 900
+    },
+    "param_controls": [
+      {
+        "name": "reflection_tokens",
+        "min": 0,
+        "max": 6000,
+        "step": 100
+      }
+    ],
+    "caption": "Context held by reflections on past attempts against the task itself, in tokens. Drag the reflection budget to watch the notes crowd out the work."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "react",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2303.11366",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2303.11366"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

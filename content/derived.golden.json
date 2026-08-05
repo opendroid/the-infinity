@@ -95,6 +95,31 @@
       }
     },
     {
+      "id": "agent-memory",
+      "title": "Agent Memory",
+      "domain": "Agents / State",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "retrieval-augmented-generation",
+            "title": "Retrieval-Augmented Generation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "alibi",
       "title": "ALiBi",
       "domain": "Attention / Position",
@@ -261,6 +286,12 @@
             "id": "beam-search",
             "title": "Beam Search",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "constrained-decoding",
+            "title": "Constrained Decoding",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -520,7 +551,20 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "react",
+            "title": "ReAct",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "task-decomposition",
+            "title": "Task Decomposition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "kv-cache",
@@ -692,6 +736,37 @@
       }
     },
     {
+      "id": "constrained-decoding",
+      "title": "Constrained Decoding",
+      "domain": "Agents / Interface",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "autoregressive-decoding",
+            "title": "Autoregressive Decoding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "function-calling",
+            "title": "Function Calling",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "context-window",
       "title": "Context Window",
       "domain": "Inference / Memory",
@@ -712,6 +787,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "agent-memory",
+            "title": "Agent Memory",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "in-context-learning",
             "title": "In-Context Learning",
@@ -1282,6 +1363,44 @@
       }
     },
     {
+      "id": "function-calling",
+      "title": "Function Calling",
+      "domain": "Agents / Interface",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "instruction-tuning",
+            "title": "Instruction Tuning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "prompt-injection",
+            "title": "Prompt Injection",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "react",
+            "title": "ReAct",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "constrained-decoding",
+            "title": "Constrained Decoding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "gpu-memory-hierarchy",
       "title": "GPU Memory Hierarchy",
       "domain": "Systems / Hardware",
@@ -1419,6 +1538,12 @@
             "title": "Context Window",
             "tier": "frontier",
             "reviewed": false
+          },
+          {
+            "id": "prompt-injection",
+            "title": "Prompt Injection",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -1525,6 +1650,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "function-calling",
+            "title": "Function Calling",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
@@ -1760,6 +1891,12 @@
             "title": "Reward Model",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "self-reflection",
+            "title": "Self-Reflection",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -1923,6 +2060,31 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "multi-agent-systems",
+      "title": "Multi-Agent Systems",
+      "domain": "Agents / Composition",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "react",
+            "title": "ReAct",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "task-decomposition",
+            "title": "Task Decomposition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2327,6 +2489,31 @@
       }
     },
     {
+      "id": "prompt-injection",
+      "title": "Prompt Injection",
+      "domain": "Agents / Safety",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "function-calling",
+            "title": "Function Calling",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "grounding",
+            "title": "Grounding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "prompt-tuning",
       "title": "Prompt Tuning",
       "domain": "Optimization / Regimes",
@@ -2464,6 +2651,50 @@
       }
     },
     {
+      "id": "react",
+      "title": "ReAct",
+      "domain": "Agents / Control",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "chain-of-thought",
+            "title": "Chain of Thought",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "function-calling",
+            "title": "Function Calling",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "multi-agent-systems",
+            "title": "Multi-Agent Systems",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "self-reflection",
+            "title": "Self-Reflection",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "task-decomposition",
+            "title": "Task Decomposition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "reranking",
       "title": "Reranking",
       "domain": "Retrieval / Ranking",
@@ -2548,6 +2779,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "agent-memory",
+            "title": "Agent Memory",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "in-context-learning",
             "title": "In-Context Learning",
@@ -2775,6 +3012,31 @@
       }
     },
     {
+      "id": "self-reflection",
+      "title": "Self-Reflection",
+      "domain": "Agents / Control",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "react",
+            "title": "ReAct",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "sequence-parallelism",
       "title": "Sequence Parallelism",
       "domain": "Systems / Distributed",
@@ -2817,6 +3079,12 @@
             "id": "calibration",
             "title": "Calibration",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "constrained-decoding",
+            "title": "Constrained Decoding",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -2932,6 +3200,37 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "task-decomposition",
+      "title": "Task Decomposition",
+      "domain": "Agents / Control",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "chain-of-thought",
+            "title": "Chain of Thought",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "multi-agent-systems",
+            "title": "Multi-Agent Systems",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "react",
+            "title": "ReAct",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3441,6 +3740,46 @@
       ]
     },
     {
+      "id": "agent-memory",
+      "center": {
+        "id": "agent-memory",
+        "title": "Agent Memory",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "retrieval-augmented-generation",
+          "title": "Retrieval-Augmented Generation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "context-window",
+          "to": "agent-memory",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "agent-memory",
+          "to": "retrieval-augmented-generation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "alibi",
       "center": {
         "id": "alibi",
@@ -3708,49 +4047,56 @@
           "title": "Beam Search",
           "tier": "verified",
           "x": 200,
-          "y": 17
+          "y": 15
+        },
+        {
+          "id": "constrained-decoding",
+          "title": "Constrained Decoding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 29
         },
         {
           "id": "continuous-batching",
           "title": "Continuous Batching",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 44
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 59
         },
         {
           "id": "pass-at-k",
           "title": "pass@k",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 73
         },
         {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 88
         },
         {
           "id": "speculative-decoding",
           "title": "Speculative Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 103
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 117
         }
       ],
       "links": [
@@ -3769,6 +4115,12 @@
         {
           "from": "autoregressive-decoding",
           "to": "beam-search",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autoregressive-decoding",
+          "to": "constrained-decoding",
           "type": "unlocks",
           "reviewed": false
         },
@@ -4173,6 +4525,20 @@
           "y": 66
         },
         {
+          "id": "react",
+          "title": "ReAct",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "task-decomposition",
+          "title": "Task Decomposition",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
           "id": "kv-cache",
           "title": "KV Cache",
           "tier": "frontier",
@@ -4185,6 +4551,18 @@
           "from": "in-context-learning",
           "to": "chain-of-thought",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "chain-of-thought",
+          "to": "react",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "chain-of-thought",
+          "to": "task-decomposition",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -4450,6 +4828,59 @@
       ]
     },
     {
+      "id": "constrained-decoding",
+      "center": {
+        "id": "constrained-decoding",
+        "title": "Constrained Decoding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autoregressive-decoding",
+          "title": "Autoregressive Decoding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "function-calling",
+          "title": "Function Calling",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "autoregressive-decoding",
+          "to": "constrained-decoding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "constrained-decoding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "constrained-decoding",
+          "to": "function-calling",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "context-window",
       "center": {
         "id": "context-window",
@@ -4474,11 +4905,18 @@
           "y": 88
         },
         {
+          "id": "agent-memory",
+          "title": "Agent Memory",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "grounding",
@@ -4506,6 +4944,12 @@
           "from": "positional-encoding",
           "to": "context-window",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "agent-memory",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -5481,6 +5925,72 @@
       ]
     },
     {
+      "id": "function-calling",
+      "center": {
+        "id": "function-calling",
+        "title": "Function Calling",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "instruction-tuning",
+          "title": "Instruction Tuning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "prompt-injection",
+          "title": "Prompt Injection",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "react",
+          "title": "ReAct",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "constrained-decoding",
+          "title": "Constrained Decoding",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "instruction-tuning",
+          "to": "function-calling",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "function-calling",
+          "to": "prompt-injection",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "function-calling",
+          "to": "react",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "function-calling",
+          "to": "constrained-decoding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "gpu-memory-hierarchy",
       "center": {
         "id": "gpu-memory-hierarchy",
@@ -5700,8 +6210,15 @@
           "id": "context-window",
           "title": "Context Window",
           "tier": "frontier",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "prompt-injection",
+          "title": "Prompt Injection",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -5714,6 +6231,12 @@
         {
           "from": "grounding",
           "to": "context-window",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "grounding",
+          "to": "prompt-injection",
           "type": "adjacent",
           "reviewed": false
         }
@@ -5883,18 +6406,25 @@
           "y": 66
         },
         {
+          "id": "function-calling",
+          "title": "Function Calling",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         }
       ],
       "links": [
@@ -5902,6 +6432,12 @@
           "from": "fine-tuning",
           "to": "instruction-tuning",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "instruction-tuning",
+          "to": "function-calling",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -6283,8 +6819,15 @@
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "self-reflection",
+          "title": "Self-Reflection",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -6297,6 +6840,12 @@
         {
           "from": "llm-as-judge",
           "to": "reward-model",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "self-reflection",
           "type": "adjacent",
           "reviewed": false
         }
@@ -6576,6 +7125,46 @@
           "from": "momentum",
           "to": "muon-optimizer",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "multi-agent-systems",
+      "center": {
+        "id": "multi-agent-systems",
+        "title": "Multi-Agent Systems",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "react",
+          "title": "ReAct",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "task-decomposition",
+          "title": "Task Decomposition",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "react",
+          "to": "multi-agent-systems",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multi-agent-systems",
+          "to": "task-decomposition",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -7258,6 +7847,46 @@
       ]
     },
     {
+      "id": "prompt-injection",
+      "center": {
+        "id": "prompt-injection",
+        "title": "Prompt Injection",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "function-calling",
+          "title": "Function Calling",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "grounding",
+          "title": "Grounding",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "function-calling",
+          "to": "prompt-injection",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "prompt-injection",
+          "to": "grounding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "prompt-tuning",
       "center": {
         "id": "prompt-tuning",
@@ -7484,6 +8113,85 @@
       ]
     },
     {
+      "id": "react",
+      "center": {
+        "id": "react",
+        "title": "ReAct",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "chain-of-thought",
+          "title": "Chain of Thought",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "function-calling",
+          "title": "Function Calling",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "multi-agent-systems",
+          "title": "Multi-Agent Systems",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "self-reflection",
+          "title": "Self-Reflection",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "task-decomposition",
+          "title": "Task Decomposition",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "chain-of-thought",
+          "to": "react",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "function-calling",
+          "to": "react",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "react",
+          "to": "multi-agent-systems",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "react",
+          "to": "self-reflection",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "react",
+          "to": "task-decomposition",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "reranking",
       "center": {
         "id": "reranking",
@@ -7608,11 +8316,18 @@
           "y": 66
         },
         {
+          "id": "agent-memory",
+          "title": "Agent Memory",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -7632,6 +8347,12 @@
           "from": "retrieval-augmented-generation",
           "to": "grounding",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "retrieval-augmented-generation",
+          "to": "agent-memory",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -8026,6 +8747,46 @@
       ]
     },
     {
+      "id": "self-reflection",
+      "center": {
+        "id": "self-reflection",
+        "title": "Self-Reflection",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "react",
+          "title": "ReAct",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "react",
+          "to": "self-reflection",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "self-reflection",
+          "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "sequence-parallelism",
       "center": {
         "id": "sequence-parallelism",
@@ -8080,42 +8841,49 @@
           "title": "Autoregressive Decoding",
           "tier": "frontier",
           "x": 200,
-          "y": 19
+          "y": 17
         },
         {
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
           "x": 200,
-          "y": 38
+          "y": 33
+        },
+        {
+          "id": "constrained-decoding",
+          "title": "Constrained Decoding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 50
         },
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
           "x": 200,
-          "y": 57
+          "y": 66
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
           "tier": "verified",
           "x": 200,
-          "y": 75
+          "y": 83
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 94
+          "y": 99
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 113
+          "y": 116
         },
         {
           "id": "attention",
@@ -8135,6 +8903,12 @@
         {
           "from": "softmax",
           "to": "calibration",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "constrained-decoding",
           "type": "unlocks",
           "reviewed": false
         },
@@ -8299,6 +9073,59 @@
           "from": "stochastic-gradient-descent",
           "to": "momentum",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "task-decomposition",
+      "center": {
+        "id": "task-decomposition",
+        "title": "Task Decomposition",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "chain-of-thought",
+          "title": "Chain of Thought",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "multi-agent-systems",
+          "title": "Multi-Agent Systems",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "react",
+          "title": "ReAct",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "chain-of-thought",
+          "to": "task-decomposition",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "task-decomposition",
+          "to": "multi-agent-systems",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "task-decomposition",
+          "to": "react",
+          "type": "adjacent",
           "reviewed": false
         }
       ]

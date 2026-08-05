@@ -1,0 +1,58 @@
+{
+  "id": "function-calling",
+  "title": "Function Calling",
+  "domain": [
+    "Agents",
+    "Interface"
+  ],
+  "bodies": {
+    "intuition": "A model that can only produce text cannot check the weather. Function calling hands it a list of things it may do and lets it answer with a structured request instead of prose, which the surrounding program executes and hands back. The model never runs anything; it asks, and something else decides whether to comply.",
+    "engineer": "The tool list goes in the context, the model emits a name and arguments, and the runtime validates and dispatches. Everything the model knows about a tool is what its description says, so a bad description is a bug in the model's behaviour with no stack trace and no line number. The output has to be machine-parseable, which is why this pairs with constrained decoding rather than with hoping.",
+    "math": "With t tools whose schemas cost d tokens each, t·d is paid on every request whether or not a tool is used. The model chooses among them by description alone, so two tools whose descriptions overlap are exactly as hard to tell apart as their text is — the limit is distinguishability rather than context length."
+  },
+  "emphasis": {
+    "intuition": "The model never runs anything; it asks",
+    "engineer": "a bug in the model's behaviour with no stack trace and no line number"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "schema_tokens": 800,
+      "share_rest": 400
+    },
+    "param_controls": [
+      {
+        "name": "schema_tokens",
+        "min": 0,
+        "max": 8000,
+        "step": 100
+      }
+    ],
+    "caption": "Context spent describing the tools against everything else the request holds, in tokens. Drag the tool budget to watch the descriptions crowd out the conversation."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "instruction-tuning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "constrained-decoding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2302.04761",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "url": "https://arxiv.org/abs/2302.04761"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}

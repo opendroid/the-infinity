@@ -1,0 +1,58 @@
+{
+  "id": "prompt-injection",
+  "title": "Prompt Injection",
+  "domain": [
+    "Agents",
+    "Safety"
+  ],
+  "bodies": {
+    "intuition": "A model reads instructions and data through the same channel, because to a language model there is no difference between them. So text inside a fetched web page or a retrieved document can tell the model what to do, and it may comply. Giving that model tools turns a text problem into an action problem.",
+    "engineer": "Indirect injection is the dangerous shape: the attacker never speaks to the model, they write something the model will later read. There is no known complete defence, because the vulnerability is the architecture rather than a bug in it. What works is bounding the blast radius — least privilege on tools, confirmation before anything irreversible, and treating every retrieved token as untrusted.",
+    "math": "Instructions and data share one token sequence and one attention mechanism, and nothing in the architecture marks provenance. So a defence cannot be a filter on content — any string describing an instruction can be rephrased as data and back — and has to be a constraint on what the model's output is permitted to cause."
+  },
+  "emphasis": {
+    "intuition": "to a language model there is no difference between them",
+    "engineer": "the vulnerability is the architecture rather than a bug in it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "untrusted_tokens": 3000,
+      "share_rest": 1000
+    },
+    "param_controls": [
+      {
+        "name": "untrusted_tokens",
+        "min": 0,
+        "max": 20000,
+        "step": 500
+      }
+    ],
+    "caption": "Context that came from somewhere the user does not control against context that did, in tokens. Drag the untrusted volume to watch the trusted part become the minority."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "function-calling",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "grounding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2302.12173",
+      "title": "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection",
+      "url": "https://arxiv.org/abs/2302.12173"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-04"
+  },
+  "updated_at": "2026-08-04"
+}
