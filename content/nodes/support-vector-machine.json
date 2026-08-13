@@ -1,0 +1,63 @@
+{
+  "id": "support-vector-machine",
+  "title": "Support Vector Machine",
+  "domain": [
+    "Foundations",
+    "Supervised"
+  ],
+  "bodies": {
+    "intuition": "Of all the lines separating two classes, take the one with the widest empty corridor around it. Only the points touching the corridor's edge matter — the support vectors — so the model is decided by a handful of examples and completely unmoved by the rest. The kernel trick then lets the same idea work on data no straight line can separate.",
+    "engineer": "Maximise the margin subject to classifying correctly, with a slack term for data that is not separable. The kernel trick replaces every inner product with a kernel function, so the model works in a space it never explicitly builds — capacity without the parameter count, which is why these dominated before deep learning. They scale badly, because the solution depends on pairwise kernel evaluations rather than on passes over the data.",
+    "math": "Maximise 2/‖w‖ subject to y_i(wᵀx_i + b) ≥ 1. The dual depends on the data only through inner products ⟨x_i, x_j⟩, so replacing those with K(x_i, x_j) runs the same solver in the kernel's feature space. Training is between Θ(n²) and Θ(n³) in the number of examples, which is why the method did not follow data to the scale deep learning reached."
+  },
+  "emphasis": {
+    "intuition": "the model is decided by a handful of examples and completely unmoved by the rest",
+    "engineer": "capacity without the parameter count"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "support_vectors": 12,
+      "share_rest": 288
+    },
+    "param_controls": [
+      {
+        "name": "support_vectors",
+        "min": 1,
+        "max": 300,
+        "step": 1
+      }
+    ],
+    "caption": "Training points that decide the boundary against those that could be deleted without moving it, in examples. Drag the support-vector count to watch how little of the data the model actually uses."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-function",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "logistic-regression",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1710.10345",
+      "title": "The Implicit Bias of Gradient Descent on Separable Data",
+      "url": "https://arxiv.org/abs/1710.10345"
+    },
+    {
+      "ref": "arXiv:1806.07572",
+      "title": "Neural Tangent Kernel: Convergence and Generalization in Neural Networks",
+      "url": "https://arxiv.org/abs/1806.07572"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-05"
+  },
+  "updated_at": "2026-08-05"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "cross-validation",
+  "title": "Cross-Validation",
+  "domain": [
+    "Foundations",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "One held-out test set gives you one number, and that number has error bars nobody prints. Cross-validation splits the data several ways, trains on each split, and averages — a steadier estimate of how the model will do on data it has not seen, bought by training it k times instead of once.",
+    "engineer": "k-fold is the default and leave-one-out is the extreme. The failure that actually bites is leakage: any choice made using all the data — scaling, feature selection, hyperparameters — before the split makes every fold optimistic, and the resulting number is unearned. What it estimates is subtler than it looks, and is closer to the average error over datasets of that size than to the error of the one model you trained.",
+    "math": "k-fold averages k estimates, each trained on (1 − 1/k) of the data, so it estimates the error of a model trained on slightly less data than the one shipped. The folds share training data and their estimates are therefore correlated, which is why the naive standard error across folds understates the real uncertainty."
+  },
+  "emphasis": {
+    "intuition": "that number has error bars nobody prints",
+    "engineer": "the resulting number is unearned"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "holdout_examples": 200,
+      "share_rest": 800
+    },
+    "param_controls": [
+      {
+        "name": "holdout_examples",
+        "min": 0,
+        "max": 900,
+        "step": 50
+      }
+    ],
+    "caption": "Examples held out to score one fold against those trained on, in examples. Drag the held-out size to watch evaluation claim a larger share."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2104.00673",
+      "title": "Cross-validation: what does it estimate and how well does it do it?",
+      "url": "https://arxiv.org/abs/2104.00673"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-05"
+  },
+  "updated_at": "2026-08-05"
+}

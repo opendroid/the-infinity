@@ -1,0 +1,63 @@
+{
+  "id": "bias-variance-tradeoff",
+  "title": "Bias-Variance Tradeoff",
+  "domain": [
+    "Foundations",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "A model can be wrong because it is too simple to capture the pattern, or because it is so flexible it fits the noise as well. Classically these trade off: reduce one and the other rises, with a sweet spot between them. Modern practice broke that story — past a certain size the error falls again, and the sweet spot turned out not to be the end of the curve.",
+    "engineer": "Bias is error from the model class being too restrictive; variance is error from sensitivity to which training sample you happened to get. The classical U-curve is real and it is not the whole picture: at the interpolation threshold, where a model has just enough capacity to fit the training data exactly, test error peaks — and then falls again as capacity grows past it. Any intuition about \"too many parameters\" formed before that result is out of date.",
+    "math": "E[(y − f̂(x))²] = Bias[f̂]² + Var[f̂] + σ², an exact decomposition for squared error. What it does not say is how capacity maps onto the two terms — double descent shows variance peaking at the interpolation threshold and falling beyond it, so the classical monotone reading was an assumption about that mapping rather than a consequence of the identity."
+  },
+  "emphasis": {
+    "intuition": "the sweet spot turned out not to be the end of the curve",
+    "engineer": "Any intuition about \"too many parameters\" formed before that result is out of date"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "variance": 5,
+      "share_rest": 5
+    },
+    "param_controls": [
+      {
+        "name": "variance",
+        "min": 0,
+        "max": 20,
+        "step": 1
+      }
+    ],
+    "caption": "Variance against bias in the squared-error decomposition, in equal units. Drag the variance up to watch which term is carrying the error."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "cross-validation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1812.11118",
+      "title": "Reconciling modern machine learning practice and the bias-variance trade-off",
+      "url": "https://arxiv.org/abs/1812.11118"
+    },
+    {
+      "ref": "arXiv:1611.03530",
+      "title": "Understanding deep learning requires rethinking generalization",
+      "url": "https://arxiv.org/abs/1611.03530"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-05"
+  },
+  "updated_at": "2026-08-05"
+}

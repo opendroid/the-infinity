@@ -1,0 +1,57 @@
+{
+  "id": "linear-regression",
+  "title": "Linear Regression",
+  "domain": [
+    "Foundations",
+    "Supervised"
+  ],
+  "bodies": {
+    "intuition": "Fit a straight line through points, choosing the one whose distances to them are smallest overall. It is the simplest thing that counts as learning, and nearly everything since is a variation on the same three parts: a parameterised function, a loss saying how wrong it is, and a procedure for making that smaller.",
+    "engineer": "Least squares has a closed form, which is exactly what makes it the useful base case — the answer exists without any optimisation at all. Everything after it gives up that closed form for a reason: nonlinearity, scale, or a loss whose minimum is not a solvable equation. The vocabulary established here is the vocabulary used everywhere else.",
+    "math": "Minimise ‖Xw − y‖² over w, solved by w = (XᵀX)⁻¹Xᵀy whenever XᵀX is invertible. It stops being invertible once features outnumber examples, which is the overparameterised regime — and the regime where the classical story that more parameters means worse generalisation stops holding."
+  },
+  "emphasis": {
+    "intuition": "a parameterised function, a loss saying how wrong it is, and a procedure for making that smaller",
+    "engineer": "the answer exists without any optimisation at all"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "features": 20,
+      "share_rest": 80
+    },
+    "param_controls": [
+      {
+        "name": "features",
+        "min": 1,
+        "max": 500,
+        "step": 1
+      }
+    ],
+    "caption": "Features against training examples, both as counts. Drag the feature count past the example count to reach the regime where the closed form stops having one answer."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-function",
+        "reviewed": false
+      },
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1903.08560",
+      "title": "Surprises in High-Dimensional Ridgeless Least Squares Interpolation",
+      "url": "https://arxiv.org/abs/1903.08560"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-05"
+  },
+  "updated_at": "2026-08-05"
+}

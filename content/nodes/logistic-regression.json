@@ -1,0 +1,61 @@
+{
+  "id": "logistic-regression",
+  "title": "Logistic Regression",
+  "domain": [
+    "Foundations",
+    "Supervised"
+  ],
+  "bodies": {
+    "intuition": "The same idea as fitting a line, except the answer has to be a probability. Squash the linear score through a curve mapping any real number into zero-to-one, and train it to put high probability on the right class. This is the last layer of nearly every classifier ever built, including the one at the end of a transformer.",
+    "engineer": "A linear score followed by a sigmoid or a softmax, trained with cross-entropy. It is convex, so there is one optimum and nothing to worry about in the initialisation — the property almost everything after it gives up. On separable data the weights never converge to a finite point at all: they grow without bound, and it is the direction that converges.",
+    "math": "p(y=1|x) = σ(wᵀx + b) with σ(z) = 1/(1 + e^{−z}), fitted by minimising −Σ log p(y_i | x_i). On separable data gradient descent drives ‖w‖ to infinity while w/‖w‖ converges to the maximum-margin separator — which is why an unregularised logistic model and a hard-margin SVM agree in the limit despite being derived from different arguments."
+  },
+  "emphasis": {
+    "intuition": "This is the last layer of nearly every classifier ever built",
+    "engineer": "it is the direction that converges"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "penalty": 0.1
+    },
+    "param_controls": [
+      {
+        "name": "penalty",
+        "min": 0,
+        "max": 2,
+        "step": 0.05
+      }
+    ],
+    "caption": "Predicted class probabilities before and after a weight penalty. Drag the penalty up to watch confident predictions pull back toward uniform."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "softmax",
+        "reviewed": false
+      },
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "linear-regression",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1710.10345",
+      "title": "The Implicit Bias of Gradient Descent on Separable Data",
+      "url": "https://arxiv.org/abs/1710.10345"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-05"
+  },
+  "updated_at": "2026-08-05"
+}

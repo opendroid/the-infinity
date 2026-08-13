@@ -1,0 +1,53 @@
+{
+  "id": "decision-tree",
+  "title": "Decision Tree",
+  "domain": [
+    "Foundations",
+    "Supervised"
+  ],
+  "bodies": {
+    "intuition": "Ask a series of yes-or-no questions about a data point until you reach an answer. Each question splits the data, and the tree picks whichever split separates the classes best at that point. It is the one model family a person can simply read: the path to a prediction is the explanation for it.",
+    "engineer": "Choose splits greedily by an impurity measure — Gini or entropy — and stop on depth, leaf size or purity. Greedy means locally optimal and globally not: the tree that would have been better with a different first question is unreachable from here. Unpruned trees fit the training data perfectly and generalise badly, which is precisely what makes them useful as ensemble members.",
+    "math": "A split maximises the impurity drop I(parent) − Σ (n_child/n)·I(child), with Gini impurity I = 1 − Σ p_k². Finding the greedy split is Θ(features · examples · log examples) per level; finding the optimal tree is NP-hard, so every tree in practice is the greedy one and nobody has seen the alternative."
+  },
+  "emphasis": {
+    "intuition": "the path to a prediction is the explanation for it",
+    "engineer": "precisely what makes them useful as ensemble members"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "impurity_removed": 3,
+      "share_rest": 7
+    },
+    "param_controls": [
+      {
+        "name": "impurity_removed",
+        "min": 0,
+        "max": 20,
+        "step": 1
+      }
+    ],
+    "caption": "Impurity a tree has removed against what is left at its leaves, in equal units. Drag the depth to watch the training set become pure — and the tree become memorisation."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2207.08815",
+      "title": "Why do tree-based models still outperform deep learning on tabular data?",
+      "url": "https://arxiv.org/abs/2207.08815"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-05"
+  },
+  "updated_at": "2026-08-05"
+}
