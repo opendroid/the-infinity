@@ -163,7 +163,7 @@
           {
             "id": "k-means-clustering",
             "title": "k-Means Clustering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -278,7 +278,7 @@
       "id": "autoencoder",
       "title": "Autoencoder",
       "domain": "Unsupervised / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -292,13 +292,13 @@
           {
             "id": "variational-autoencoder",
             "title": "Variational Autoencoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "vector-quantization",
             "title": "Vector Quantization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -306,7 +306,7 @@
           {
             "id": "principal-component-analysis",
             "title": "Principal Component Analysis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -409,7 +409,7 @@
           {
             "id": "autoencoder",
             "title": "Autoencoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -980,7 +980,7 @@
           {
             "id": "self-supervised-learning",
             "title": "Self-Supervised Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1210,7 +1210,7 @@
           {
             "id": "masked-language-modeling",
             "title": "Masked Language Modeling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1304,7 +1304,7 @@
           {
             "id": "variational-autoencoder",
             "title": "Variational Autoencoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1889,7 +1889,7 @@
       "id": "k-means-clustering",
       "title": "k-Means Clustering",
       "domain": "Unsupervised / Clustering",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [],
@@ -1933,13 +1933,13 @@
           {
             "id": "k-means-clustering",
             "title": "k-Means Clustering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "manifold-hypothesis",
             "title": "Manifold Hypothesis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2057,7 +2057,7 @@
           {
             "id": "vector-quantization",
             "title": "Vector Quantization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2174,7 +2174,7 @@
           {
             "id": "principal-component-analysis",
             "title": "Principal Component Analysis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2346,7 +2346,7 @@
       "id": "manifold-hypothesis",
       "title": "Manifold Hypothesis",
       "domain": "Unsupervised / Geometry",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [],
@@ -2360,7 +2360,7 @@
           {
             "id": "principal-component-analysis",
             "title": "Principal Component Analysis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2370,13 +2370,13 @@
       "id": "masked-language-modeling",
       "title": "Masked Language Modeling",
       "domain": "Unsupervised / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "self-supervised-learning",
             "title": "Self-Supervised Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2923,7 +2923,7 @@
           {
             "id": "self-supervised-learning",
             "title": "Self-Supervised Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2934,7 +2934,7 @@
       "id": "principal-component-analysis",
       "title": "Principal Component Analysis",
       "domain": "Unsupervised / Dimensionality",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2949,13 +2949,13 @@
           {
             "id": "autoencoder",
             "title": "Autoencoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "manifold-hypothesis",
             "title": "Manifold Hypothesis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3513,7 +3513,7 @@
       "id": "self-supervised-learning",
       "title": "Self-Supervised Learning",
       "domain": "Unsupervised / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3527,7 +3527,7 @@
           {
             "id": "masked-language-modeling",
             "title": "Masked Language Modeling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3982,13 +3982,13 @@
       "id": "variational-autoencoder",
       "title": "Variational Autoencoder",
       "domain": "Unsupervised / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "autoencoder",
             "title": "Autoencoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4007,13 +4007,13 @@
       "id": "vector-quantization",
       "title": "Vector Quantization",
       "domain": "Unsupervised / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "autoencoder",
             "title": "Autoencoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4419,7 +4419,7 @@
         {
           "id": "k-means-clustering",
           "title": "k-Means Clustering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -4635,7 +4635,7 @@
       "center": {
         "id": "autoencoder",
         "title": "Autoencoder",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -4650,21 +4650,21 @@
         {
           "id": "variational-autoencoder",
           "title": "Variational Autoencoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "vector-quantization",
           "title": "Vector Quantization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "principal-component-analysis",
           "title": "Principal Component Analysis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -4867,7 +4867,7 @@
         {
           "id": "autoencoder",
           "title": "Autoencoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -5817,7 +5817,7 @@
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -6232,7 +6232,7 @@
         {
           "id": "masked-language-modeling",
           "title": "Masked Language Modeling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -6403,7 +6403,7 @@
         {
           "id": "variational-autoencoder",
           "title": "Variational Autoencoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -7427,7 +7427,7 @@
       "center": {
         "id": "k-means-clustering",
         "title": "k-Means Clustering",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7489,14 +7489,14 @@
         {
           "id": "k-means-clustering",
           "title": "k-Means Clustering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
         {
           "id": "manifold-hypothesis",
           "title": "Manifold Hypothesis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -7713,7 +7713,7 @@
         {
           "id": "vector-quantization",
           "title": "Vector Quantization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -7912,7 +7912,7 @@
         {
           "id": "principal-component-analysis",
           "title": "Principal Component Analysis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -8233,7 +8233,7 @@
       "center": {
         "id": "manifold-hypothesis",
         "title": "Manifold Hypothesis",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8248,7 +8248,7 @@
         {
           "id": "principal-component-analysis",
           "title": "Principal Component Analysis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -8273,7 +8273,7 @@
       "center": {
         "id": "masked-language-modeling",
         "title": "Masked Language Modeling",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8281,7 +8281,7 @@
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -9179,7 +9179,7 @@
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         }
@@ -9228,7 +9228,7 @@
       "center": {
         "id": "principal-component-analysis",
         "title": "Principal Component Analysis",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -9243,14 +9243,14 @@
         {
           "id": "autoencoder",
           "title": "Autoencoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "manifold-hypothesis",
           "title": "Manifold Hypothesis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -10221,7 +10221,7 @@
       "center": {
         "id": "self-supervised-learning",
         "title": "Self-Supervised Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10236,7 +10236,7 @@
         {
           "id": "masked-language-modeling",
           "title": "Masked Language Modeling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -11053,7 +11053,7 @@
       "center": {
         "id": "variational-autoencoder",
         "title": "Variational Autoencoder",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11061,7 +11061,7 @@
         {
           "id": "autoencoder",
           "title": "Autoencoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -11093,7 +11093,7 @@
       "center": {
         "id": "vector-quantization",
         "title": "Vector Quantization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11101,7 +11101,7 @@
         {
           "id": "autoencoder",
           "title": "Autoencoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },

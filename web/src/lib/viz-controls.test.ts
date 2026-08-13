@@ -70,8 +70,13 @@ function frameAt(node: Node, control: Control, value: number): string {
       const { params: _echo, ...drawn } = lossCurve(node.id, paramsFrom(live));
       return JSON.stringify(drawn);
     }
-    case 'attention-heatmap':
-      return JSON.stringify(attention(node.id, shapeFrom(live)));
+    case 'attention-heatmap': {
+      // Same echo as loss-curve's, missed when that one was fixed: `attention`
+      // returns its resolved `shape`, so comparing whole frames says "changed"
+      // for a control the drawing ignores. Found by a probe that had the bug too.
+      const { shape: _shape, ...drawn } = attention(node.id, shapeFrom(live));
+      return JSON.stringify(drawn);
+    }
     case 'router-dispatch':
       return JSON.stringify(routerFrame(node.id, routerRead(live)));
     case 'update-spectrum':
@@ -94,5 +99,26 @@ describe('viz controls reach the primitive', () => {
 
   it.each(draggable)('$id · $control.name moves the figure', ({ node, control }) => {
     expect(frameAt(node, control, control.min)).not.toEqual(frameAt(node, control, control.max));
+  });
+
+  /**
+   * A DEAD TAIL: the slider keeps travelling after the figure has stopped
+   * responding. The assertion above passes — the ends differ — while most of
+   * the drag does nothing, which is the same promise-versus-delivery gap as an
+   * inert control, just further along the track.
+   *
+   * Three shipped this way, and each had a different cause: `lookahead` past
+   * the token count masks nothing more, `warmup` past steps/2 hits a clamp
+   * inside the primitive, and `capacity_factor` moves an integer capacity that
+   * only changes every twentieth position. All three were verified nodes.
+   *
+   * Checking the LAST step specifically, rather than demanding every step move
+   * the figure: a quantised quantity legitimately repeats in the middle, and
+   * requiring otherwise would fail honest figures. What is never legitimate is
+   * a range whose end the figure cannot see.
+   */
+  it.each(draggable)('$id · $control.name still moves at the end of its range', ({ node, control }) => {
+    const lastStep = control.max - control.step;
+    expect(frameAt(node, control, lastStep)).not.toEqual(frameAt(node, control, control.max));
   });
 });

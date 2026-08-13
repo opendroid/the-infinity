@@ -25,7 +25,7 @@
       {
         "name": "lookahead",
         "min": 0,
-        "max": 24,
+        "max": 9,
         "step": 1
       }
     ],
@@ -52,8 +52,9 @@
       "url": "https://arxiv.org/abs/1810.04805"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-13"
-  },
-  "updated_at": "2026-08-13"
+  "updated_at": "2026-08-13",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-13"
+  }
 }
