@@ -1,0 +1,57 @@
+{
+  "id": "k-nearest-neighbors",
+  "title": "k-Nearest Neighbors",
+  "domain": [
+    "Foundations",
+    "Instance-Based"
+  ],
+  "bodies": {
+    "intuition": "To classify something, find the most similar examples already seen and let them vote. There is no training step at all — the data is the model. It is the baseline every other method ought to have to beat, and on small, low-dimensional problems it is embarrassingly hard to beat.",
+    "engineer": "All the cost moves to prediction time: every query is compared against every stored example. The choice of k trades sensitivity to noise against blurring the boundary, and the distance metric usually matters more than k does. In high dimensions the distances between all pairs concentrate, so \"nearest\" stops meaning very much — which is the problem every vector index is quietly fighting.",
+    "math": "Predict the majority label among the k smallest ‖x − x_i‖, at Θ(nd) per query and Θ(1) to train. As d grows, the ratio of the farthest to the nearest distance in a random sample tends toward 1, so a neighbourhood carries less and less information the more features it is measured over."
+  },
+  "emphasis": {
+    "intuition": "There is no training step at all — the data is the model",
+    "engineer": "which is the problem every vector index is quietly fighting"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "k": 5,
+      "share_rest": 995
+    },
+    "param_controls": [
+      {
+        "name": "k",
+        "min": 1,
+        "max": 200,
+        "step": 1
+      }
+    ],
+    "caption": "Stored examples one prediction consults against those it ignores. Drag k to watch the vote widen and the boundary blur."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "approximate-nearest-neighbor",
+        "reviewed": false
+      },
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1603.09320",
+      "title": "Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs",
+      "url": "https://arxiv.org/abs/1603.09320"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-05"
+  },
+  "updated_at": "2026-08-05"
+}

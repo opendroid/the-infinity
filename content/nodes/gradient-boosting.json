@@ -1,0 +1,62 @@
+{
+  "id": "gradient-boosting",
+  "title": "Gradient Boosting",
+  "domain": [
+    "Foundations",
+    "Ensembles"
+  ],
+  "bodies": {
+    "intuition": "Train a weak model, look at what it got wrong, and train the next one to fix those mistakes. Repeat a few hundred times and add the results together. Each model is deliberately too simple to be any good alone, and the sequence is what does the work — which is why this still wins on tabular data that deep learning has had a decade to take.",
+    "engineer": "Fit each new tree to the gradient of the loss with respect to the current prediction, which makes \"the errors so far\" precise rather than heuristic. Depth, shrinkage and tree count trade against one another, and regularisation matters more here than in most methods. It is sequential by construction, so it parallelises inside a tree and not across them.",
+    "math": "F_m(x) = F_{m−1}(x) + η·h_m(x), with h_m fitted to the negative gradient −∂L/∂F evaluated at F_{m−1} — gradient descent in function space rather than parameter space. The shrinkage η trades the number of trees against how much each is trusted, and small η with many trees is almost always better than the reverse."
+  },
+  "emphasis": {
+    "intuition": "the sequence is what does the work",
+    "engineer": "gradient of the loss with respect to the current prediction"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "lr": 0.001
+    },
+    "param_controls": [
+      {
+        "name": "lr",
+        "min": 0.0005,
+        "max": 0.02,
+        "step": 0.0005
+      }
+    ],
+    "caption": "Training loss over boosting rounds. Drag the shrinkage to watch small steps and many trees beat large steps and few."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "decision-tree",
+        "reviewed": false
+      },
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1603.02754",
+      "title": "XGBoost: A Scalable Tree Boosting System",
+      "url": "https://arxiv.org/abs/1603.02754"
+    },
+    {
+      "ref": "arXiv:2207.08815",
+      "title": "Why do tree-based models still outperform deep learning on tabular data?",
+      "url": "https://arxiv.org/abs/2207.08815"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-05"
+  },
+  "updated_at": "2026-08-05"
+}

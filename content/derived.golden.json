@@ -159,7 +159,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "k-nearest-neighbors",
+            "title": "k-Nearest Neighbors",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -448,7 +455,39 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "cross-validation",
+            "title": "Cross-Validation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "bias-variance-tradeoff",
+      "title": "Bias-Variance Tradeoff",
+      "domain": "Foundations / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "cross-validation",
+            "title": "Cross-Validation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -955,6 +994,12 @@
             "reviewed": false
           },
           {
+            "id": "logistic-regression",
+            "title": "Logistic Regression",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "perplexity",
             "title": "Perplexity",
             "tier": "verified",
@@ -974,6 +1019,37 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "cross-validation",
+      "title": "Cross-Validation",
+      "domain": "Foundations / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "bias-variance-tradeoff",
+            "title": "Bias-Variance Tradeoff",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1008,6 +1084,31 @@
           {
             "id": "expert-parallelism",
             "title": "Expert Parallelism",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "decision-tree",
+      "title": "Decision Tree",
+      "domain": "Foundations / Supervised",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "gradient-boosting",
+            "title": "Gradient Boosting",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
             "tier": "verified",
             "reviewed": false
           }
@@ -1087,6 +1188,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "k-nearest-neighbors",
+            "title": "k-Nearest Neighbors",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "sparse-retrieval",
             "title": "Sparse Retrieval",
@@ -1451,6 +1558,30 @@
       }
     },
     {
+      "id": "gradient-boosting",
+      "title": "Gradient Boosting",
+      "domain": "Foundations / Ensembles",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "decision-tree",
+            "title": "Decision Tree",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
+      }
+    },
+    {
       "id": "gradient-clipping",
       "title": "Gradient Clipping",
       "domain": "Optimization / Training",
@@ -1490,9 +1621,21 @@
             "reviewed": false
           },
           {
+            "id": "gradient-boosting",
+            "title": "Gradient Boosting",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "learning-rate",
             "title": "Learning Rate",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "linear-regression",
+            "title": "Linear Regression",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -1670,6 +1813,30 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "k-nearest-neighbors",
+      "title": "k-Nearest Neighbors",
+      "domain": "Foundations / Instance-Based",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "approximate-nearest-neighbor",
+            "title": "Approximate Nearest Neighbor",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "dense-retrieval",
+            "title": "Dense Retrieval",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1871,6 +2038,37 @@
       }
     },
     {
+      "id": "linear-regression",
+      "title": "Linear Regression",
+      "domain": "Foundations / Supervised",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "loss-function",
+            "title": "Loss Function",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "logistic-regression",
+            "title": "Logistic Regression",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "llm-as-judge",
       "title": "LLM as Judge",
       "domain": "Evaluation / Methods",
@@ -1896,6 +2094,43 @@
             "id": "self-reflection",
             "title": "Self-Reflection",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "logistic-regression",
+      "title": "Logistic Regression",
+      "domain": "Foundations / Supervised",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "linear-regression",
+            "title": "Linear Regression",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "support-vector-machine",
+            "title": "Support Vector Machine",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -1960,6 +2195,12 @@
             "reviewed": false
           },
           {
+            "id": "linear-regression",
+            "title": "Linear Regression",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "overfitting",
             "title": "Overfitting",
             "tier": "verified",
@@ -1969,6 +2210,12 @@
             "id": "scaling-laws",
             "title": "Scaling Laws",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "support-vector-machine",
+            "title": "Support Vector Machine",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -2244,8 +2491,28 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
-        "adjacent": []
+        "unlocks": [
+          {
+            "id": "bias-variance-tradeoff",
+            "title": "Bias-Variance Tradeoff",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "cross-validation",
+            "title": "Cross-Validation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "decision-tree",
+            "title": "Decision Tree",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3100,6 +3367,12 @@
             "reviewed": false
           },
           {
+            "id": "logistic-regression",
+            "title": "Logistic Regression",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "nucleus-sampling",
             "title": "Nucleus Sampling",
             "tier": "verified",
@@ -3200,6 +3473,31 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "support-vector-machine",
+      "title": "Support Vector Machine",
+      "domain": "Foundations / Supervised",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-function",
+            "title": "Loss Function",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "logistic-regression",
+            "title": "Logistic Regression",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3829,6 +4127,13 @@
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "k-nearest-neighbors",
+          "title": "k-Nearest Neighbors",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -3842,6 +4147,12 @@
           "from": "approximate-nearest-neighbor",
           "to": "retrieval-augmented-generation",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "approximate-nearest-neighbor",
+          "to": "k-nearest-neighbors",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -4350,6 +4661,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "cross-validation",
+          "title": "Cross-Validation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -4357,6 +4675,52 @@
           "from": "pretraining",
           "to": "benchmark-contamination",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "cross-validation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "bias-variance-tradeoff",
+      "center": {
+        "id": "bias-variance-tradeoff",
+        "title": "Bias-Variance Tradeoff",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "cross-validation",
+          "title": "Cross-Validation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "overfitting",
+          "to": "bias-variance-tradeoff",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "cross-validation",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -5199,28 +5563,35 @@
           "title": "Contrastive Learning",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 22
+        },
+        {
+          "id": "logistic-regression",
+          "title": "Logistic Regression",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
         },
         {
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 66
         },
         {
           "id": "pretraining",
           "title": "Pretraining",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         }
       ],
       "links": [
@@ -5244,6 +5615,12 @@
         },
         {
           "from": "cross-entropy-loss",
+          "to": "logistic-regression",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
           "to": "perplexity",
           "type": "unlocks",
           "reviewed": false
@@ -5258,6 +5635,59 @@
           "from": "cross-entropy-loss",
           "to": "reward-model",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "cross-validation",
+      "center": {
+        "id": "cross-validation",
+        "title": "Cross-Validation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "bias-variance-tradeoff",
+          "title": "Bias-Variance Tradeoff",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "overfitting",
+          "to": "cross-validation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-validation",
+          "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "cross-validation",
+          "to": "bias-variance-tradeoff",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -5323,6 +5753,46 @@
         {
           "from": "data-parallelism",
           "to": "expert-parallelism",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "decision-tree",
+      "center": {
+        "id": "decision-tree",
+        "title": "Decision Tree",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-boosting",
+          "title": "Gradient Boosting",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "decision-tree",
+          "to": "gradient-boosting",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "decision-tree",
+          "to": "overfitting",
           "type": "adjacent",
           "reviewed": false
         }
@@ -5433,11 +5903,18 @@
           "y": 99
         },
         {
+          "id": "k-nearest-neighbors",
+          "title": "k-Nearest Neighbors",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "sparse-retrieval",
           "title": "Sparse Retrieval",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -5463,6 +5940,12 @@
           "from": "dense-retrieval",
           "to": "reranking",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "dense-retrieval",
+          "to": "k-nearest-neighbors",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -6071,6 +6554,46 @@
       ]
     },
     {
+      "id": "gradient-boosting",
+      "center": {
+        "id": "gradient-boosting",
+        "title": "Gradient Boosting",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "decision-tree",
+          "title": "Decision Tree",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "decision-tree",
+          "to": "gradient-boosting",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "gradient-boosting",
+          "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "gradient-clipping",
       "center": {
         "id": "gradient-clipping",
@@ -6119,35 +6642,49 @@
           "title": "Diffusion Model",
           "tier": "verified",
           "x": 200,
-          "y": 22
+          "y": 17
+        },
+        {
+          "id": "gradient-boosting",
+          "title": "Gradient Boosting",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
         },
         {
           "id": "learning-rate",
           "title": "Learning Rate",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 50
+        },
+        {
+          "id": "linear-regression",
+          "title": "Linear Regression",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "proximal-policy-optimization",
           "title": "PPO",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 83
         },
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 116
         }
       ],
       "links": [
@@ -6165,7 +6702,19 @@
         },
         {
           "from": "gradient-descent",
+          "to": "gradient-boosting",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
           "to": "learning-rate",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "linear-regression",
           "type": "unlocks",
           "reviewed": false
         },
@@ -6450,6 +6999,46 @@
           "from": "instruction-tuning",
           "to": "rlhf",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "k-nearest-neighbors",
+      "center": {
+        "id": "k-nearest-neighbors",
+        "title": "k-Nearest Neighbors",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "approximate-nearest-neighbor",
+          "title": "Approximate Nearest Neighbor",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "dense-retrieval",
+          "title": "Dense Retrieval",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "k-nearest-neighbors",
+          "to": "approximate-nearest-neighbor",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "k-nearest-neighbors",
+          "to": "dense-retrieval",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -6799,6 +7388,59 @@
       ]
     },
     {
+      "id": "linear-regression",
+      "center": {
+        "id": "linear-regression",
+        "title": "Linear Regression",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "loss-function",
+          "title": "Loss Function",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "logistic-regression",
+          "title": "Logistic Regression",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-descent",
+          "to": "linear-regression",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "loss-function",
+          "to": "linear-regression",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "linear-regression",
+          "to": "logistic-regression",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "llm-as-judge",
       "center": {
         "id": "llm-as-judge",
@@ -6846,6 +7488,72 @@
         {
           "from": "llm-as-judge",
           "to": "self-reflection",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "logistic-regression",
+      "center": {
+        "id": "logistic-regression",
+        "title": "Logistic Regression",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "linear-regression",
+          "title": "Linear Regression",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "support-vector-machine",
+          "title": "Support Vector Machine",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-entropy-loss",
+          "to": "logistic-regression",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "logistic-regression",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "logistic-regression",
+          "to": "linear-regression",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "logistic-regression",
+          "to": "support-vector-machine",
           "type": "adjacent",
           "reviewed": false
         }
@@ -6919,19 +7627,26 @@
           "title": "Backpropagation",
           "tier": "verified",
           "x": 200,
-          "y": 22
+          "y": 17
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "diffusion-model",
           "title": "Diffusion Model",
           "tier": "verified",
+          "x": 200,
+          "y": 50
+        },
+        {
+          "id": "linear-regression",
+          "title": "Linear Regression",
+          "tier": "frontier",
           "x": 200,
           "y": 66
         },
@@ -6940,14 +7655,21 @@
           "title": "Overfitting",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 83
         },
         {
           "id": "scaling-laws",
           "title": "Scaling Laws",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 99
+        },
+        {
+          "id": "support-vector-machine",
+          "title": "Support Vector Machine",
+          "tier": "frontier",
+          "x": 200,
+          "y": 116
         }
       ],
       "links": [
@@ -6971,6 +7693,12 @@
         },
         {
           "from": "loss-function",
+          "to": "linear-regression",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-function",
           "to": "overfitting",
           "type": "unlocks",
           "reviewed": false
@@ -6978,6 +7706,12 @@
         {
           "from": "loss-function",
           "to": "scaling-laws",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-function",
+          "to": "support-vector-machine",
           "type": "unlocks",
           "reviewed": false
         }
@@ -7424,6 +8158,27 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "bias-variance-tradeoff",
+          "title": "Bias-Variance Tradeoff",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "cross-validation",
+          "title": "Cross-Validation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "decision-tree",
+          "title": "Decision Tree",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -7431,6 +8186,24 @@
           "from": "loss-function",
           "to": "overfitting",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "bias-variance-tradeoff",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "cross-validation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "decision-tree",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -8841,49 +9614,56 @@
           "title": "Autoregressive Decoding",
           "tier": "frontier",
           "x": 200,
-          "y": 17
+          "y": 15
         },
         {
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 29
         },
         {
           "id": "constrained-decoding",
           "title": "Constrained Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 44
         },
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 59
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 73
+        },
+        {
+          "id": "logistic-regression",
+          "title": "Logistic Regression",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 103
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 117
         },
         {
           "id": "attention",
@@ -8921,6 +9701,12 @@
         {
           "from": "softmax",
           "to": "cross-entropy-loss",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "logistic-regression",
           "type": "unlocks",
           "reviewed": false
         },
@@ -9073,6 +9859,46 @@
           "from": "stochastic-gradient-descent",
           "to": "momentum",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "support-vector-machine",
+      "center": {
+        "id": "support-vector-machine",
+        "title": "Support Vector Machine",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-function",
+          "title": "Loss Function",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "logistic-regression",
+          "title": "Logistic Regression",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-function",
+          "to": "support-vector-machine",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "support-vector-machine",
+          "to": "logistic-regression",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
