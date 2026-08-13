@@ -161,6 +161,12 @@
         ],
         "adjacent": [
           {
+            "id": "k-means-clustering",
+            "title": "k-Means Clustering",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "k-nearest-neighbors",
             "title": "k-Nearest Neighbors",
             "tier": "verified",
@@ -269,6 +275,44 @@
       }
     },
     {
+      "id": "autoencoder",
+      "title": "Autoencoder",
+      "domain": "Unsupervised / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "variational-autoencoder",
+            "title": "Variational Autoencoder",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vector-quantization",
+            "title": "Vector Quantization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "principal-component-analysis",
+            "title": "Principal Component Analysis",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "autoregressive-decoding",
       "title": "Autoregressive Decoding",
       "domain": "Inference / Decoding",
@@ -360,6 +404,12 @@
             "id": "activation-checkpointing",
             "title": "Activation Checkpointing",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "autoencoder",
+            "title": "Autoencoder",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -926,7 +976,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "self-supervised-learning",
+            "title": "Self-Supervised Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1149,6 +1206,12 @@
             "title": "Encoder-Decoder",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "masked-language-modeling",
+            "title": "Masked Language Modeling",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -1237,7 +1300,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "variational-autoencoder",
+            "title": "Variational Autoencoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1816,6 +1886,30 @@
       }
     },
     {
+      "id": "k-means-clustering",
+      "title": "k-Means Clustering",
+      "domain": "Unsupervised / Clustering",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "approximate-nearest-neighbor",
+            "title": "Approximate Nearest Neighbor",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "k-nearest-neighbors",
+            "title": "k-Nearest Neighbors",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "k-nearest-neighbors",
       "title": "k-Nearest Neighbors",
       "domain": "Foundations / Instance-Based",
@@ -1834,6 +1928,18 @@
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "k-means-clustering",
+            "title": "k-Means Clustering",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "manifold-hypothesis",
+            "title": "Manifold Hypothesis",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -1947,7 +2053,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "vector-quantization",
+            "title": "Vector Quantization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2057,7 +2170,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "principal-component-analysis",
+            "title": "Principal Component Analysis",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "logistic-regression",
@@ -2220,6 +2340,55 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "manifold-hypothesis",
+      "title": "Manifold Hypothesis",
+      "domain": "Unsupervised / Geometry",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "k-nearest-neighbors",
+            "title": "k-Nearest Neighbors",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "principal-component-analysis",
+            "title": "Principal Component Analysis",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "masked-language-modeling",
+      "title": "Masked Language Modeling",
+      "domain": "Unsupervised / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "self-supervised-learning",
+            "title": "Self-Supervised Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "decoder-only-transformer",
+            "title": "Decoder-Only Transformer",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2750,9 +2919,46 @@
             "title": "In-Context Learning",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "self-supervised-learning",
+            "title": "Self-Supervised Learning",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "principal-component-analysis",
+      "title": "Principal Component Analysis",
+      "domain": "Unsupervised / Dimensionality",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "linear-regression",
+            "title": "Linear Regression",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "autoencoder",
+            "title": "Autoencoder",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "manifold-hypothesis",
+            "title": "Manifold Hypothesis",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3304,6 +3510,38 @@
       }
     },
     {
+      "id": "self-supervised-learning",
+      "title": "Self-Supervised Learning",
+      "domain": "Unsupervised / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "masked-language-modeling",
+            "title": "Masked Language Modeling",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "sequence-parallelism",
       "title": "Sequence Parallelism",
       "domain": "Systems / Distributed",
@@ -3741,6 +3979,56 @@
       }
     },
     {
+      "id": "variational-autoencoder",
+      "title": "Variational Autoencoder",
+      "domain": "Unsupervised / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "autoencoder",
+            "title": "Autoencoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "diffusion-model",
+            "title": "Diffusion Model",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "vector-quantization",
+      "title": "Vector Quantization",
+      "domain": "Unsupervised / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "autoencoder",
+            "title": "Autoencoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "latent-diffusion",
+            "title": "Latent Diffusion",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "vision-language-model",
       "title": "Vision-Language Model",
       "domain": "Multimodal / Models",
@@ -4129,11 +4417,18 @@
           "y": 66
         },
         {
+          "id": "k-means-clustering",
+          "title": "k-Means Clustering",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "k-nearest-neighbors",
           "title": "k-Nearest Neighbors",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -4147,6 +4442,12 @@
           "from": "approximate-nearest-neighbor",
           "to": "retrieval-augmented-generation",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "approximate-nearest-neighbor",
+          "to": "k-means-clustering",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -4330,6 +4631,72 @@
       ]
     },
     {
+      "id": "autoencoder",
+      "center": {
+        "id": "autoencoder",
+        "title": "Autoencoder",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "variational-autoencoder",
+          "title": "Variational Autoencoder",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "vector-quantization",
+          "title": "Vector Quantization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "principal-component-analysis",
+          "title": "Principal Component Analysis",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "autoencoder",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "autoencoder",
+          "to": "variational-autoencoder",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autoencoder",
+          "to": "vector-quantization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autoencoder",
+          "to": "principal-component-analysis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "autoregressive-decoding",
       "center": {
         "id": "autoregressive-decoding",
@@ -4495,28 +4862,35 @@
           "title": "Activation Checkpointing",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 22
+        },
+        {
+          "id": "autoencoder",
+          "title": "Autoencoder",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
         },
         {
           "id": "gradient-clipping",
           "title": "Gradient Clipping",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 66
         },
         {
           "id": "gradient-descent",
           "title": "Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "mixed-precision-training",
           "title": "Mixed-Precision Training",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         }
       ],
       "links": [
@@ -4529,6 +4903,12 @@
         {
           "from": "backpropagation",
           "to": "activation-checkpointing",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "autoencoder",
           "type": "unlocks",
           "reviewed": false
         },
@@ -5433,6 +5813,13 @@
           "tier": "verified",
           "x": 200,
           "y": 88
+        },
+        {
+          "id": "self-supervised-learning",
+          "title": "Self-Supervised Learning",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -5464,6 +5851,12 @@
           "from": "contrastive-learning",
           "to": "dense-retrieval",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "contrastive-learning",
+          "to": "self-supervised-learning",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -5833,8 +6226,15 @@
           "id": "encoder-decoder",
           "title": "Encoder-Decoder",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "masked-language-modeling",
+          "title": "Masked Language Modeling",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -5859,6 +6259,12 @@
         {
           "from": "decoder-only-transformer",
           "to": "encoder-decoder",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "decoder-only-transformer",
+          "to": "masked-language-modeling",
           "type": "adjacent",
           "reviewed": false
         }
@@ -5993,6 +6399,13 @@
           "tier": "verified",
           "x": 200,
           "y": 88
+        },
+        {
+          "id": "variational-autoencoder",
+          "title": "Variational Autoencoder",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -6018,6 +6431,12 @@
           "from": "diffusion-model",
           "to": "latent-diffusion",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "diffusion-model",
+          "to": "variational-autoencoder",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -7004,6 +7423,46 @@
       ]
     },
     {
+      "id": "k-means-clustering",
+      "center": {
+        "id": "k-means-clustering",
+        "title": "k-Means Clustering",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "approximate-nearest-neighbor",
+          "title": "Approximate Nearest Neighbor",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "k-nearest-neighbors",
+          "title": "k-Nearest Neighbors",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "k-means-clustering",
+          "to": "approximate-nearest-neighbor",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "k-means-clustering",
+          "to": "k-nearest-neighbors",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "k-nearest-neighbors",
       "center": {
         "id": "k-nearest-neighbors",
@@ -7017,14 +7476,28 @@
           "id": "approximate-nearest-neighbor",
           "title": "Approximate Nearest Neighbor",
           "tier": "verified",
-          "x": 80,
+          "x": 48,
           "y": 22
         },
         {
           "id": "dense-retrieval",
           "title": "Dense Retrieval",
           "tier": "verified",
-          "x": 160,
+          "x": 96,
+          "y": 110
+        },
+        {
+          "id": "k-means-clustering",
+          "title": "k-Means Clustering",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "manifold-hypothesis",
+          "title": "Manifold Hypothesis",
+          "tier": "frontier",
+          "x": 192,
           "y": 110
         }
       ],
@@ -7038,6 +7511,18 @@
         {
           "from": "k-nearest-neighbors",
           "to": "dense-retrieval",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "k-nearest-neighbors",
+          "to": "k-means-clustering",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "k-nearest-neighbors",
+          "to": "manifold-hypothesis",
           "type": "adjacent",
           "reviewed": false
         }
@@ -7224,6 +7709,13 @@
           "tier": "verified",
           "x": 40,
           "y": 88
+        },
+        {
+          "id": "vector-quantization",
+          "title": "Vector Quantization",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -7237,6 +7729,12 @@
           "from": "diffusion-model",
           "to": "latent-diffusion",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "latent-diffusion",
+          "to": "vector-quantization",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -7412,6 +7910,13 @@
           "y": 88
         },
         {
+          "id": "principal-component-analysis",
+          "title": "Principal Component Analysis",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "logistic-regression",
           "title": "Logistic Regression",
           "tier": "verified",
@@ -7430,6 +7935,12 @@
           "from": "loss-function",
           "to": "linear-regression",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "linear-regression",
+          "to": "principal-component-analysis",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -7713,6 +8224,86 @@
           "from": "loss-function",
           "to": "support-vector-machine",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "manifold-hypothesis",
+      "center": {
+        "id": "manifold-hypothesis",
+        "title": "Manifold Hypothesis",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "k-nearest-neighbors",
+          "title": "k-Nearest Neighbors",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "principal-component-analysis",
+          "title": "Principal Component Analysis",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "manifold-hypothesis",
+          "to": "k-nearest-neighbors",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "manifold-hypothesis",
+          "to": "principal-component-analysis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "masked-language-modeling",
+      "center": {
+        "id": "masked-language-modeling",
+        "title": "Masked Language Modeling",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "self-supervised-learning",
+          "title": "Self-Supervised Learning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "decoder-only-transformer",
+          "title": "Decoder-Only Transformer",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "self-supervised-learning",
+          "to": "masked-language-modeling",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "masked-language-modeling",
+          "to": "decoder-only-transformer",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -8569,21 +9160,28 @@
           "title": "Benchmark Contamination",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 79
+        },
+        {
+          "id": "self-supervised-learning",
+          "title": "Self-Supervised Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
         }
       ],
       "links": [
@@ -8615,6 +9213,65 @@
           "from": "pretraining",
           "to": "in-context-learning",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
+          "to": "self-supervised-learning",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "principal-component-analysis",
+      "center": {
+        "id": "principal-component-analysis",
+        "title": "Principal Component Analysis",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "linear-regression",
+          "title": "Linear Regression",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "autoencoder",
+          "title": "Autoencoder",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "manifold-hypothesis",
+          "title": "Manifold Hypothesis",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "linear-regression",
+          "to": "principal-component-analysis",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "principal-component-analysis",
+          "to": "autoencoder",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "principal-component-analysis",
+          "to": "manifold-hypothesis",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -9560,6 +10217,59 @@
       ]
     },
     {
+      "id": "self-supervised-learning",
+      "center": {
+        "id": "self-supervised-learning",
+        "title": "Self-Supervised Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "masked-language-modeling",
+          "title": "Masked Language Modeling",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "pretraining",
+          "to": "self-supervised-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "self-supervised-learning",
+          "to": "masked-language-modeling",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "self-supervised-learning",
+          "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "sequence-parallelism",
       "center": {
         "id": "sequence-parallelism",
@@ -10334,6 +11044,86 @@
           "from": "transformer-block",
           "to": "vision-transformer",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "variational-autoencoder",
+      "center": {
+        "id": "variational-autoencoder",
+        "title": "Variational Autoencoder",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autoencoder",
+          "title": "Autoencoder",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "diffusion-model",
+          "title": "Diffusion Model",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "autoencoder",
+          "to": "variational-autoencoder",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "variational-autoencoder",
+          "to": "diffusion-model",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "vector-quantization",
+      "center": {
+        "id": "vector-quantization",
+        "title": "Vector Quantization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autoencoder",
+          "title": "Autoencoder",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "latent-diffusion",
+          "title": "Latent Diffusion",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "autoencoder",
+          "to": "vector-quantization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vector-quantization",
+          "to": "latent-diffusion",
+          "type": "adjacent",
           "reviewed": false
         }
       ]

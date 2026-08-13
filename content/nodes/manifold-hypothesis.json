@@ -1,0 +1,53 @@
+{
+  "id": "manifold-hypothesis",
+  "title": "Manifold Hypothesis",
+  "domain": [
+    "Unsupervised",
+    "Geometry"
+  ],
+  "bodies": {
+    "intuition": "A 224-pixel colour image lives in a space of roughly 150,000 dimensions, and almost every point in that space is static. Real images occupy a vanishingly thin sheet inside it. The hypothesis is that natural data lies on a low-dimensional surface curved through a high-dimensional space, and that most of learning is the business of finding that surface.",
+    "engineer": "It is why dimensionality reduction works at all, and why the curse of dimensionality is survivable in practice: the effective dimension is far below the ambient one. Measured intrinsic dimensions for image datasets come out in the tens against ambient dimensions in the tens of thousands — and models trained on data of lower intrinsic dimension generalise better, which makes it a prediction rather than a picture.",
+    "math": "A d-dimensional manifold embedded in ℝ^D with d ≪ D. Sample complexity scales with d rather than with D, which is what makes learning in high dimensions possible at all: the volume argument that makes ℝ^D hopeless does not apply to a surface of dimension d sitting inside it."
+  },
+  "emphasis": {
+    "intuition": "Real images occupy a vanishingly thin sheet inside it",
+    "engineer": "which makes it a prediction rather than a picture"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "intrinsic": 40,
+      "share_rest": 760
+    },
+    "param_controls": [
+      {
+        "name": "intrinsic",
+        "min": 1,
+        "max": 800,
+        "step": 1
+      }
+    ],
+    "caption": "The intrinsic dimension of a dataset against the ambient dimensions it is stored in, both as dimensions. Drag the intrinsic size to watch how little of the space the data actually occupies."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "k-nearest-neighbors",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2104.08894",
+      "title": "The Intrinsic Dimension of Images and Its Impact on Learning",
+      "url": "https://arxiv.org/abs/2104.08894"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-13"
+  },
+  "updated_at": "2026-08-13"
+}

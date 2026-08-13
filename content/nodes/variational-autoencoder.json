@@ -1,0 +1,58 @@
+{
+  "id": "variational-autoencoder",
+  "title": "Variational Autoencoder",
+  "domain": [
+    "Unsupervised",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "An ordinary autoencoder learns a latent it can decode, with no promise that the space between two latents decodes to anything sensible. A VAE trains the encoder to emit a distribution rather than a point and pushes those distributions toward a shared prior — so the latent space becomes something you can sample from, not just look up.",
+    "engineer": "The encoder outputs a mean and a variance, a sample is drawn, and the reparameterisation trick keeps that sample differentiable. Two terms compete: reconstruction wants an informative latent, the KL term wants it to look like the prior. Weight the KL too heavily and the decoder learns to ignore the latent altogether, which is posterior collapse and the failure everyone meets first.",
+    "math": "Maximise the ELBO, E_q[log p(x|z)] − KL(q(z|x) ‖ p(z)), a lower bound on log p(x). The reparameterisation z = μ + σ·ε with ε ~ N(0,I) moves the sampling off the gradient path so the encoder can be trained at all. Scaling the KL by β trades reconstruction against how closely the aggregate posterior matches the prior; at β = 0 it is an ordinary autoencoder."
+  },
+  "emphasis": {
+    "intuition": "something you can sample from, not just look up",
+    "engineer": "which is posterior collapse and the failure everyone meets first"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "kl_nats": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "kl_nats",
+        "min": 0,
+        "max": 200,
+        "step": 2
+      }
+    ],
+    "caption": "The KL term against the reconstruction term in the ELBO, both in nats. Drag the KL weight to watch the latent pulled toward the prior at the reconstruction's expense."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoencoder",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "diffusion-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1312.6114",
+      "title": "Auto-Encoding Variational Bayes",
+      "url": "https://arxiv.org/abs/1312.6114"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-13"
+  },
+  "updated_at": "2026-08-13"
+}

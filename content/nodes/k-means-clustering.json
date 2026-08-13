@@ -1,0 +1,57 @@
+{
+  "id": "k-means-clustering",
+  "title": "k-Means Clustering",
+  "domain": [
+    "Unsupervised",
+    "Clustering"
+  ],
+  "bodies": {
+    "intuition": "Pick k points to act as centres, assign every example to its nearest one, move each centre to the mean of what it caught, and repeat. It converges quickly, and it converges to something that depends on where the centres started. Despite the name it has nothing to do with k-nearest-neighbours: this groups unlabelled data, that one classifies using labels.",
+    "engineer": "Lloyd's algorithm alternates assignment and update, and each step lowers the objective, so it always converges — to a local minimum. Initialisation is therefore the whole ballgame, which is what spreading the initial centres is for. It also assumes clusters are roughly spherical and of similar size, and it fails quietly rather than loudly when they are not.",
+    "math": "Minimise Σ_i ‖x_i − μ_{c(i)}‖² over assignments c and centres μ. Each iteration costs Θ(nkd) and the objective decreases monotonically, but the problem itself is NP-hard — so what converges is a local optimum, and the iteration count is small in practice and unbounded in theory."
+  },
+  "emphasis": {
+    "intuition": "it has nothing to do with k-nearest-neighbours",
+    "engineer": "Initialisation is therefore the whole ballgame"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "variance_removed": 4,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "variance_removed",
+        "min": 1,
+        "max": 40,
+        "step": 1
+      }
+    ],
+    "caption": "Variance k-means has removed against what is still inside its clusters, in equal units. Drag k to watch each new cluster buy less than the one before it."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "approximate-nearest-neighbor",
+        "reviewed": false
+      },
+      {
+        "id": "k-nearest-neighbors",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1702.08734",
+      "title": "Billion-scale similarity search with GPUs",
+      "url": "https://arxiv.org/abs/1702.08734"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-13"
+  },
+  "updated_at": "2026-08-13"
+}

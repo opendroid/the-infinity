@@ -1,0 +1,63 @@
+{
+  "id": "self-supervised-learning",
+  "title": "Self-Supervised Learning",
+  "domain": [
+    "Unsupervised",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "Supervised learning needs labels, and labels are expensive. Self-supervised learning makes the labels out of the data itself: hide part of it and predict the hidden part. No annotation is involved anywhere, so the supply of training signal is bounded only by how much data exists.",
+    "engineer": "The pretext task is the whole design. Predict the next token, the masked patch, or which augmented view came from which image — each teaches something different, and a task that is too easy teaches nothing while one that is impossible teaches noise. It is the reason pretraining works, and the reason \"unsupervised\" is a slightly wrong name for what modern pretraining actually does.",
+    "math": "The objective is supervised in form and unsupervised only in provenance: the labels are a deterministic function of x rather than of an annotator, so the usual machinery applies unchanged. What differs is that the label distribution is chosen by whoever designed the pretext task, which makes the inductive bias an authored quantity rather than a property of the data."
+  },
+  "emphasis": {
+    "intuition": "the labels out of the data itself",
+    "engineer": "a task that is too easy teaches nothing while one that is impossible teaches noise"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "labelled": 5000,
+      "share_rest": 1000000
+    },
+    "param_controls": [
+      {
+        "name": "labelled",
+        "min": 0,
+        "max": 400000,
+        "step": 5000
+      }
+    ],
+    "caption": "Labelled examples against the unlabelled ones a pretext task can use, in examples. Drag the labelled count to see how small the supervised part of the pipeline is."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2111.06377",
+      "title": "Masked Autoencoders Are Scalable Vision Learners",
+      "url": "https://arxiv.org/abs/2111.06377"
+    },
+    {
+      "ref": "arXiv:1810.04805",
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+      "url": "https://arxiv.org/abs/1810.04805"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-13"
+  },
+  "updated_at": "2026-08-13"
+}

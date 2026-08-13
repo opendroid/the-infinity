@@ -1,0 +1,58 @@
+{
+  "id": "principal-component-analysis",
+  "title": "Principal Component Analysis",
+  "domain": [
+    "Unsupervised",
+    "Dimensionality"
+  ],
+  "bodies": {
+    "intuition": "Data with a thousand measurements is rarely a thousand independent things — the measurements move together. PCA finds the directions along which the data varies most and re-describes every point in terms of those, keeping only the few that matter. It is a change of basis, not a model: nothing is learned about any task, only about the shape of the data.",
+    "engineer": "The principal directions are the top eigenvectors of the covariance matrix, equivalently the top right singular vectors of the centred data. It is linear, and among linear methods it is optimal — no other rank-k linear projection reconstructs with lower squared error. That optimality is also the limit: structure that is not a linear subspace is invisible to it, which is what the nonlinear methods exist for.",
+    "math": "Centre X, take the SVD X = UΣVᵀ, project onto the first k columns of V. Variance captured is Σ_{i≤k} σ_i² / Σ_i σ_i², and the reconstruction is the best rank-k approximation in Frobenius norm — the Eckart-Young theorem, which is why PCA and truncated SVD are one operation with two names. Exact computation is Θ(nd·min(n,d)); randomised methods reach the top k in about Θ(nd·k)."
+  },
+  "emphasis": {
+    "intuition": "It is a change of basis, not a model",
+    "engineer": "structure that is not a linear subspace is invisible to it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "components": 10,
+      "share_rest": 90
+    },
+    "param_controls": [
+      {
+        "name": "components",
+        "min": 1,
+        "max": 200,
+        "step": 1
+      }
+    ],
+    "caption": "Variance captured by the components kept against the variance discarded, in equal units. Drag the component count to watch how few of them carry most of it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "linear-regression",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "manifold-hypothesis",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:0909.4061",
+      "title": "Finding structure with randomness: Probabilistic algorithms for constructing approximate matrix decompositions",
+      "url": "https://arxiv.org/abs/0909.4061"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-13"
+  },
+  "updated_at": "2026-08-13"
+}

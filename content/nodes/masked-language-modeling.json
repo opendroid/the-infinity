@@ -1,0 +1,59 @@
+{
+  "id": "masked-language-modeling",
+  "title": "Masked Language Modeling",
+  "domain": [
+    "Unsupervised",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "Hide some of the words in a sentence and train the model to fill them back in. Because it can see both sides of a gap, it learns representations that account for what comes after — which a model predicting strictly left to right cannot. That bidirectionality is the whole trade: better representations, and no way to generate text one token at a time.",
+    "engineer": "Mask around 15% of the tokens and predict them from the full bidirectional context. It produced the encoders that dominated classification and extraction for years, and it lost the generative frontier to causal models because the objective does not yield a sampler. The mask token also appears in training and never at inference, a mismatch the original work patched by replacing only some of the masks.",
+    "math": "Maximise Σ_{i∈M} log p(x_i | x_visible) over a mask set M, conditioning on both directions rather than on x_{<t} alone. The signal is a fraction of the tokens per sequence against every token for a causal objective, so a masked model sees fewer predictions per unit of data and needs more passes over it to match."
+  },
+  "emphasis": {
+    "intuition": "better representations, and no way to generate text one token at a time",
+    "engineer": "it lost the generative frontier to causal models because the objective does not yield a sampler"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 10,
+      "heads": 1,
+      "lookahead": 0
+    },
+    "param_controls": [
+      {
+        "name": "lookahead",
+        "min": 0,
+        "max": 24,
+        "step": 1
+      }
+    ],
+    "caption": "Which positions each token is allowed to attend to. Drag the lookahead up from zero to open a causal view into the bidirectional one masked language modelling trains on."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "self-supervised-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "decoder-only-transformer",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1810.04805",
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+      "url": "https://arxiv.org/abs/1810.04805"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-13"
+  },
+  "updated_at": "2026-08-13"
+}
