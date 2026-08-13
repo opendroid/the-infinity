@@ -1,0 +1,58 @@
+{
+  "id": "autoencoder",
+  "title": "Autoencoder",
+  "domain": [
+    "Unsupervised",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "Train a network to output its own input, but force everything through a narrow layer in the middle. Nothing can pass through unchanged, so the network has to decide what is worth keeping. The bottleneck is the entire idea: without it, copying the input is trivial and nothing has been learned.",
+    "engineer": "An encoder to a latent, a decoder back, and a reconstruction loss. A linear autoencoder under squared error recovers the PCA subspace, so the interesting cases are the nonlinear ones. The failure mode is a latent roomy enough to memorise — capacity has to be constrained by width, noise, sparsity or masking, and which constraint is chosen is what distinguishes the variants from one another.",
+    "math": "Minimise ‖x − g(f(x))‖² over encoder f and decoder g. With f and g linear the optimum spans the same subspace as the top principal components, so the nonlinearity is what buys anything at all beyond PCA. Masking a large fraction of the input and reconstructing it is the same objective with the constraint moved off the architecture and onto the data."
+  },
+  "emphasis": {
+    "intuition": "The bottleneck is the entire idea",
+    "engineer": "the interesting cases are the nonlinear ones"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "latent_dims": 32,
+      "share_rest": 784
+    },
+    "param_controls": [
+      {
+        "name": "latent_dims",
+        "min": 1,
+        "max": 784,
+        "step": 1
+      }
+    ],
+    "caption": "The bottleneck against the input it has to reconstruct, both in dimensions. Drag the latent size to watch the compression loosen toward copying."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "backpropagation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "principal-component-analysis",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2111.06377",
+      "title": "Masked Autoencoders Are Scalable Vision Learners",
+      "url": "https://arxiv.org/abs/2111.06377"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-13"
+  },
+  "updated_at": "2026-08-13"
+}

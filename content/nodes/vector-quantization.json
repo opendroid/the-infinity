@@ -1,0 +1,57 @@
+{
+  "id": "vector-quantization",
+  "title": "Vector Quantization",
+  "domain": [
+    "Unsupervised",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "Instead of a continuous latent, keep a fixed dictionary of vectors and replace each encoding with whichever entry is nearest. The representation becomes a list of integers — which is what lets an image be modelled the way a sentence is, by predicting the next index.",
+    "engineer": "A codebook of K entries, nearest-neighbour lookup in latent space, and a straight-through estimator because the lookup has no gradient of its own. The characteristic failure is codebook collapse: a few entries take all the traffic while the rest are never selected and therefore never updated, so the effective vocabulary is far smaller than K. Commitment losses, EMA updates and dead-entry restarts all exist for that one problem.",
+    "math": "z_q is the codebook entry minimising ‖z_e − e_k‖, with the gradient copied straight through from z_q back to z_e. The loss adds ‖sg[z_e] − e‖² to pull entries toward their assignments and β‖z_e − sg[e]‖² to stop the encoder outrunning them. The size that matters is the perplexity of the usage distribution rather than K itself."
+  },
+  "emphasis": {
+    "intuition": "the way a sentence is, by predicting the next index",
+    "engineer": "the effective vocabulary is far smaller than K"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "balancing": 0.2
+    },
+    "param_controls": [
+      {
+        "name": "balancing",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Codebook usage across entries, before and after balancing. Drag the balancing strength to watch a collapsed codebook spread back over its entries."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoencoder",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "latent-diffusion",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1711.00937",
+      "title": "Neural Discrete Representation Learning",
+      "url": "https://arxiv.org/abs/1711.00937"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-13"
+  },
+  "updated_at": "2026-08-13"
+}
