@@ -7,7 +7,7 @@
   ],
   "bodies": {
     "intuition": "Of all the lines separating two classes, take the one with the widest empty corridor around it. Only the points touching the corridor's edge matter — the support vectors — so the model is decided by a handful of examples and completely unmoved by the rest. The kernel trick then lets the same idea work on data no straight line can separate.",
-    "engineer": "Maximise the margin subject to classifying correctly, with a slack term for data that is not separable. The kernel trick replaces every inner product with a kernel function, so the model works in a space it never explicitly builds — capacity without the parameter count, which is why these dominated before deep learning. They scale badly, because the solution depends on pairwise kernel evaluations rather than on passes over the data.",
+    "engineer": "Maximise the margin subject to classifying correctly, with a slack term for data that is not separable. The kernel trick replaces every inner product with a kernel function, so the model works in a space it never explicitly builds — capacity without the parameter count, which is why these dominated before deep learning. They scale badly, because the solution depends on pairwise kernel evaluations rather than on passes over the data. Both ideas outlived the algorithm: an unregularised logistic model trained by gradient descent converges to this same maximum-margin solution, and a sufficiently wide network behaves like a kernel machine in a well-defined limit — the margin and the kernel were absorbed rather than discarded.",
     "math": "Maximise 2/‖w‖ subject to y_i(wᵀx_i + b) ≥ 1. The dual depends on the data only through inner products ⟨x_i, x_j⟩, so replacing those with K(x_i, x_j) runs the same solver in the kernel's feature space. Training is between Θ(n²) and Θ(n³) in the number of examples, which is why the method did not follow data to the scale deep learning reached."
   },
   "emphasis": {
@@ -56,8 +56,9 @@
       "url": "https://arxiv.org/abs/1806.07572"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-05"
-  },
-  "updated_at": "2026-08-05"
+  "updated_at": "2026-08-05",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-13"
+  }
 }
