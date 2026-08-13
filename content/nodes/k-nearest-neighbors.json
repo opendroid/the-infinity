@@ -50,8 +50,9 @@
       "url": "https://arxiv.org/abs/1603.09320"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-05"
-  },
-  "updated_at": "2026-08-05"
+  "updated_at": "2026-08-05",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-13"
+  }
 }

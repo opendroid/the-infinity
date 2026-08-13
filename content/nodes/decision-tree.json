@@ -7,7 +7,7 @@
   ],
   "bodies": {
     "intuition": "Ask a series of yes-or-no questions about a data point until you reach an answer. Each question splits the data, and the tree picks whichever split separates the classes best at that point. It is the one model family a person can simply read: the path to a prediction is the explanation for it.",
-    "engineer": "Choose splits greedily by an impurity measure — Gini or entropy — and stop on depth, leaf size or purity. Greedy means locally optimal and globally not: the tree that would have been better with a different first question is unreachable from here. Unpruned trees fit the training data perfectly and generalise badly, which is precisely what makes them useful as ensemble members.",
+    "engineer": "Choose splits greedily by an impurity measure — Gini or entropy — and stop on depth, leaf size or purity. Greedy means locally optimal and globally not: the tree that would have been better with a different first question is unreachable from here. Unpruned trees fit the training data perfectly and generalise badly, which is precisely what makes them useful as ensemble members. The bias that keeps them competitive on tabular data is the same axis-aligned one: they are untroubled by uninformative features and by targets that are not smooth, which is where a network on the same table still loses.",
     "math": "A split maximises the impurity drop I(parent) − Σ (n_child/n)·I(child), with Gini impurity I = 1 − Σ p_k². Finding the greedy split is Θ(features · examples · log examples) per level; finding the optimal tree is NP-hard, so every tree in practice is the greedy one and nobody has seen the alternative."
   },
   "emphasis": {
@@ -46,8 +46,9 @@
       "url": "https://arxiv.org/abs/2207.08815"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-05"
-  },
-  "updated_at": "2026-08-05"
+  "updated_at": "2026-08-05",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-13"
+  }
 }
