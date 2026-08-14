@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "state_bytes": 14,
+      "state_bytes": 4,
       "share_rest": 2
     },
     "param_controls": [

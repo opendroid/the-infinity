@@ -121,4 +121,21 @@ describe('viz controls reach the primitive', () => {
     const lastStep = control.max - control.step;
     expect(frameAt(node, control, lastStep)).not.toEqual(frameAt(node, control, control.max));
   });
+  /**
+   * A DEFAULT PARKED AT THE CEILING. Two nodes shipped with the control's
+   * authored value equal to its own max, under captions reading "drag the state
+   * UP to the fourteen this node counts" and "drag the decay to watch the
+   * schedule pull the run further down" — both already there, both draggable
+   * only backwards.
+   *
+   * Defaults at the MINIMUM are fine and thirteen nodes have one: starting at the
+   * small end and dragging up is how every caption in this corpus is phrased. It
+   * is the ceiling that makes the instruction impossible.
+   *
+   * A node that genuinely wants to open at the extreme needs a caption saying
+   * drag down, and this assertion is where that conversation starts.
+   */
+  it.each(draggable)('$id · $control.name does not open at the top of its range', ({ node, control }) => {
+    expect(node.viz.params[control.name]).not.toEqual(control.max);
+  });
 });

@@ -18,8 +18,7 @@
     "primitive": "budget-split",
     "params": {
       "layers": 32,
-      "d_model": 4096,
-      "share_rest": 4096
+      "share_rest": 2
     },
     "param_controls": [
       {
@@ -29,7 +28,7 @@
         "step": 4
       }
     ],
-    "caption": "Share of parameters in the repeated block stack against the embedding and head around it. Drag the depth to watch the stack dominate as the model grows."
+    "caption": "Parameters in the repeated block stack against the embedding and head around it, both in layers' worth. Drag the depth to watch the stack dominate as the model grows."
   },
   "edges": {
     "requires": [

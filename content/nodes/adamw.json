@@ -18,7 +18,7 @@
     "primitive": "budget-split",
     "params": {
       "decay": 0.1,
-      "share_rest": 0.1
+      "share_rest": 1
     },
     "param_controls": [
       {
