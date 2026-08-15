@@ -19,7 +19,7 @@
     "params": {
       "steps": 1000,
       "lr": 0.001,
-      "decay": 1
+      "decay": 0.3
     },
     "param_controls": [
       {

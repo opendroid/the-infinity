@@ -17,18 +17,18 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "heads": 32,
-      "share_rest": 32
+      "heads_shared_away": 31,
+      "share_rest": 1
     },
     "param_controls": [
       {
-        "name": "heads",
-        "min": 1,
-        "max": 64,
+        "name": "heads_shared_away",
+        "min": 0,
+        "max": 63,
         "step": 1
       }
     ],
-    "caption": "Cache held by the key and value projections against everything else in memory. Drag the head count to watch sharing flatten what would otherwise grow with it."
+    "caption": "Key-value cache that sharing removes against the single copy multi-query keeps, both as one head's cache. Drag the head count to watch the saving grow with every head added — which is the cache that never has to be stored."
   },
   "edges": {
     "requires": [
