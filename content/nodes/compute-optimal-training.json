@@ -29,7 +29,7 @@
         "step": 1
       }
     ],
-    "caption": "Loss over the tokens a fixed compute budget affords at this model size. Drag the parameter count: a bigger model learns more per token but runs out of budget sooner, so the best final loss sits somewhere in the middle."
+    "caption": "Loss over a run at this model size. Drag the parameter count to watch the floor fall — the budget a bigger model burns through faster is not in this curve, and it is what puts the optimum in the middle."
   },
   "edges": {
     "requires": [
