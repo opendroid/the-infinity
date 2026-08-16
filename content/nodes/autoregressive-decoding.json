@@ -28,7 +28,7 @@
         "step": 0.1
       }
     ],
-    "caption": "The distribution over candidate tokens at one step, before and after temperature. Drag it down to watch the choice collapse onto the most likely token."
+    "caption": "The distribution over candidate tokens at one step, before and after temperature. Drag it up to watch the choice spread out toward uniform — the collapse onto one token is the same knob turned the other way, past the left edge of this figure."
   },
   "edges": {
     "requires": [
