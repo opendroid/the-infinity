@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "context-window",
+      "id": "q-learning",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "autoregressive-decoding",
+      "id": "exploration-exploitation",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "kv-cache",
+      "id": "reward-hacking",
       "t": 0.8,
       "label": true
     }
