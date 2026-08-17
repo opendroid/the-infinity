@@ -17,18 +17,18 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "context": 4096,
-      "share_rest": 4096
+      "tokens_used": 3000,
+      "share_rest": 1096
     },
     "param_controls": [
       {
-        "name": "context",
-        "min": 512,
-        "max": 32768,
-        "step": 512
+        "name": "tokens_used",
+        "min": 0,
+        "max": 4096,
+        "step": 64
       }
     ],
-    "caption": "Share of the memory budget the context takes against the weights. Drag the window to watch the cost of length overtake the model itself."
+    "caption": "Tokens already in the window against the room left in it. Drag the usage to the wall — everything past it is not deprioritised, it is invisible."
   },
   "edges": {
     "requires": [
@@ -58,6 +58,11 @@
       "ref": "arXiv:2004.05150",
       "title": "Longformer: The Long-Document Transformer",
       "url": "https://arxiv.org/abs/2004.05150"
+    },
+    {
+      "ref": "arXiv:2306.15595",
+      "title": "Extending Context Window of Large Language Models via Positional Interpolation",
+      "url": "https://arxiv.org/abs/2306.15595"
     }
   ],
   "provenance": {

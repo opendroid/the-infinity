@@ -48,6 +48,11 @@
       "ref": "arXiv:2005.14165",
       "title": "Language Models are Few-Shot Learners",
       "url": "https://arxiv.org/abs/2005.14165"
+    },
+    {
+      "ref": "arXiv:2211.05102",
+      "title": "Efficiently Scaling Transformer Inference",
+      "url": "https://arxiv.org/abs/2211.05102"
     }
   ],
   "provenance": {
