@@ -1,0 +1,52 @@
+{
+  "id": "value-function",
+  "title": "Value Function",
+  "domain": [
+    "Reinforcement",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "How good is it to be here? A value function answers that with one number per state — the total reward you expect to collect from it under your current behaviour. Once you have it, choosing an action stops needing foresight: take whichever one leads somewhere worth more.",
+    "engineer": "V(s) values a state, Q(s,a) values a state-action pair, and the second is what you can act on directly without a model of the world. Both are defined relative to a policy, so improving the policy changes the values, which changes the best policy — the circularity that every method here is a way of resolving.",
+    "math": "V^π(s) = E[Σ_t γ^t r_t | s_0 = s], and the Bellman equation makes it recursive: V^π(s) = E[r + γV^π(s′)]. That one step of self-reference is what allows learning from a single transition instead of from a whole episode, and it is the reason a table of values can be improved before anything has finished."
+  },
+  "emphasis": {
+    "intuition": "choosing an action stops needing foresight",
+    "engineer": "the circularity that every method here is a way of resolving"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "bootstrapping": 0.3
+    },
+    "param_controls": [
+      {
+        "name": "bootstrapping",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Value estimates across states, before and after backing up from their neighbours. Drag the bootstrapping up to watch neighbouring states pull each other into agreement."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "markov-decision-process",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:cs/9605103",
+      "title": "Reinforcement Learning: A Survey",
+      "url": "https://arxiv.org/abs/cs/9605103"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  },
+  "updated_at": "2026-08-17"
+}

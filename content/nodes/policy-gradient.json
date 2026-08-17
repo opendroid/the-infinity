@@ -1,0 +1,62 @@
+{
+  "id": "policy-gradient",
+  "title": "Policy Gradient",
+  "domain": [
+    "Reinforcement",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Rather than learning what each state is worth and acting greedily, adjust the behaviour itself: make the actions that led to reward more likely and the others less. It works where the action space is continuous or enormous, and it optimises the thing you actually care about rather than a proxy for it.",
+    "engineer": "The estimator is high variance because a whole trajectory's reward is credited to every action in it, so nearly all the engineering is variance reduction — subtract a baseline, use an advantage rather than a raw return, and clip or constrain the step so one bad batch cannot destroy the policy. That last repair is what PPO is.",
+    "math": "∇J = E[∇log π(a|s)·A(s,a)], the score-function estimator. Any baseline b(s) subtracted from the return leaves the gradient unbiased while changing its variance, which is why the advantage A = Q − V is used rather than Q: it is the same gradient with much less noise in it."
+  },
+  "emphasis": {
+    "intuition": "it optimises the thing you actually care about rather than a proxy for it",
+    "engineer": "nearly all the engineering is variance reduction"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "variance_reduced": 6,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "variance_reduced",
+        "min": 0,
+        "max": 20,
+        "step": 1
+      }
+    ],
+    "caption": "Gradient variance a baseline removes against what is left in the estimator, in equal units. Drag the baseline quality to watch how much of the noise was never about the policy."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "markov-decision-process",
+        "reviewed": false
+      },
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1506.02438",
+      "title": "High-Dimensional Continuous Control Using Generalized Advantage Estimation",
+      "url": "https://arxiv.org/abs/1506.02438"
+    },
+    {
+      "ref": "arXiv:1707.06347",
+      "title": "Proximal Policy Optimization Algorithms",
+      "url": "https://arxiv.org/abs/1707.06347"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  },
+  "updated_at": "2026-08-17"
+}
