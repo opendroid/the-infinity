@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "layers": 32,
+      "layers": 8,
       "share_rest": 2
     },
     "param_controls": [

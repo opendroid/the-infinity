@@ -24,8 +24,8 @@ import { lossCurve, paramsFrom } from '../components/viz/losscurve';
 import { attention, shapeFrom } from '../components/viz/attention';
 import { frame as routerFrame } from '../components/viz/routing';
 import { read as routerRead } from '../components/viz/RouterDispatch';
-import { progress, spectrum } from '../components/viz/spectrum';
-import { split } from '../components/viz/share';
+import { progress, spectrum, spread } from '../components/viz/spectrum';
+import { split, percent } from '../components/viz/share';
 
 const NODES_DIR = resolve(process.cwd(), '../content/nodes');
 
@@ -39,6 +39,7 @@ interface Viz {
   primitive: string;
   params: Record<string, number>;
   param_controls: Control[];
+  caption: string;
 }
 interface Node {
   id: string;
@@ -137,5 +138,82 @@ describe('viz controls reach the primitive', () => {
    */
   it.each(draggable)('$id · $control.name does not open at the top of its range', ({ node, control }) => {
     expect(node.viz.params[control.name]).not.toEqual(control.max);
+  });
+
+  /**
+   * A FIGURE THAT CANNOT VISIBLY MOVE FROM WHERE IT OPENS.
+   *
+   * The three assertions above ask whether the numbers differ. This one asks
+   * whether a reader could SEE them differ, which is a different question and
+   * the one the reader is actually asking. Six nodes passed all three while
+   * moving the picture by a single percentage point across the whole drag the
+   * caption told them to make:
+   *
+   *   adam · beta2                        100% -> 100%   "watch the update even out"
+   *   momentum · beta                      99% -> 100%   "watch the noise average away"
+   *   nucleus-sampling · p                 99% -> 100%   "watch the kept set grow"
+   *   constitutional-ai · ai_labels        90% ->  91%   "see how much human effort it replaces"
+   *   multi-query-attention                97% ->  98%   "watch the saving grow with every head"
+   *   decoder-only-transformer · layers    94% ->  98%   "watch the stack dominate"
+   *
+   * Three of those had one cause. `progress` eases with `1 - (1 - x)²`, steep
+   * early, so an author using the GENUINE hyperparameter — β₂ = 0.999, β = 0.9,
+   * p = 0.9 — lands at an eased t of 0.99 or better and the spectrum is already
+   * flat at rest. Doing the honest thing produced a finished picture.
+   *
+   * WHY THIS IS NOT "THE BAR MUST MOVE".
+   *
+   * Five nodes move barely at all ON PURPOSE, and that immobility is the entire
+   * lesson: `lora`'s trainable slice "stays a rounding error", `prompt-tuning`'s
+   * "stays negligible", `collective-communication` "saturates just below the
+   * whole — the reason all-reduce cost stops growing". A flat travel threshold
+   * would fail all five and be wrong about every one.
+   *
+   * So the invariant is the PAIRING, not the movement: **either the figure moves,
+   * or the caption says it does not.** That is checkable, and it is the promise
+   * actually being made.
+   *
+   * Direction is read from the caption, defaulting to up — #195's note records
+   * that dragging up from the small end is how every caption in this corpus is
+   * phrased, so up is what a reader tries first. A caption that means down has
+   * to say down, which is the same conversation that assertion started.
+   *
+   * COVERAGE IS PARTIAL AND DELIBERATELY SO. Only `budget-split` and
+   * `update-spectrum` are checked — 113 of the corpus's figures — because only
+   * they have a single scalar that honestly means "how far along is the
+   * picture". A heatmap's peak and a loss curve's floor are not that, and
+   * asserting on them would measure something other than what a reader sees.
+   * The uncovered three are named here rather than skipped silently.
+   */
+  const MIN_TRAVEL = 5;
+  /** Captions whose point IS that the figure barely moves. */
+  const SAYS_IT_STAYS = /\b(stays?|negligible|rounding error|saturat\w*|barely|hardly|never quite)\b/i;
+  const SAYS_DOWN = /drag[^.]*?\b(down|lower)\b/i;
+
+  /**
+   * How far along the picture is, 0..100, or null when the primitive has no
+   * such number. Whole units on purpose: `percent` already rounds because the
+   * bar "is read, not measured", and a fractional threshold would pass figures
+   * that move by less than the bar can draw.
+   */
+  function visible(node: Node, control: Control, value: number): number | null {
+    const live = { ...node.viz.params, [control.name]: value };
+    if (node.viz.primitive === 'budget-split') {
+      return percent(split(value, live.share_rest ?? 0).share);
+    }
+    if (node.viz.primitive === 'update-spectrum') {
+      const f = spectrum(node.id, live.bars ?? 8, progress(value, control.min, control.max));
+      const base = spread(f.baseline);
+      return base === 0 ? 0 : Math.round((1 - spread(f.transformed) / base) * 100);
+    }
+    return null;
+  }
+
+  it.each(draggable)('$id · $control.name moves visibly, or says it does not', ({ node, control }) => {
+    const open = visible(node, control, node.viz.params[control.name]!);
+    if (open === null) return;
+    const end = visible(node, control, SAYS_DOWN.test(node.viz.caption) ? control.min : control.max)!;
+    if (SAYS_IT_STAYS.test(node.viz.caption)) return;
+    expect(Math.abs(end - open)).toBeGreaterThanOrEqual(MIN_TRAVEL);
   });
 });

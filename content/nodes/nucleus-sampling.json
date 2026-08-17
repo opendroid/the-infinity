@@ -28,7 +28,7 @@
         "step": 0.05
       }
     ],
-    "caption": "The distribution with the nucleus highlighted against the tail it excludes. Drag p to watch the kept set grow and shrink with the model's confidence."
+    "caption": "The distribution with the nucleus highlighted against the tail it excludes. Drag p down to watch the tail get cut away and the kept set close to the few tokens the model is confident about."
   },
   "edges": {
     "requires": [
