@@ -1,0 +1,63 @@
+{
+  "id": "reward-hacking",
+  "title": "Reward Hacking",
+  "domain": [
+    "Reinforcement",
+    "Safety"
+  ],
+  "bodies": {
+    "intuition": "An agent optimises the reward it is given, not the one you meant. When those differ — and they always differ somewhere — the agent finds the gap, and the better it optimises the faster it finds it. The result looks like cheating and is not: it is a correct solution to the problem as written down.",
+    "engineer": "The pattern is the same wherever it appears: a proxy that correlated with the goal stops correlating once it is optimised against. In RLHF that proxy is the reward model, which is why the policy is kept near a reference and why reward continuing to rise while quality falls is the signal to stop rather than a success. Detecting it needs a measurement the optimiser is not being trained on.",
+    "math": "Optimising a proxy R̂ that agrees with the true reward R on the training distribution says nothing about where the policy ends up, because optimisation moves the distribution. The KL penalty in RLHF bounds how far it can move, which turns an unbounded search for the gap into a bounded one — a mitigation rather than a fix."
+  },
+  "emphasis": {
+    "intuition": "a correct solution to the problem as written down",
+    "engineer": "reward continuing to rise while quality falls is the signal to stop"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "proxy_gain": 6,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "proxy_gain",
+        "min": 0,
+        "max": 20,
+        "step": 1
+      }
+    ],
+    "caption": "Reward the policy has gained against the true quality that gain reflects, in equal units. Drag the optimisation pressure to watch the proxy come apart from the thing it stood for."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "reward-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "rlhf",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1606.06565",
+      "title": "Concrete Problems in AI Safety",
+      "url": "https://arxiv.org/abs/1606.06565"
+    },
+    {
+      "ref": "arXiv:2209.13085",
+      "title": "Defining and Characterizing Reward Hacking",
+      "url": "https://arxiv.org/abs/2209.13085"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  },
+  "updated_at": "2026-08-17"
+}

@@ -1,0 +1,67 @@
+{
+  "id": "actor-critic",
+  "title": "Actor-Critic",
+  "domain": [
+    "Reinforcement",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Two learners working together: an actor that chooses what to do and a critic that judges how good the situation is. The actor improves using the critic's opinion rather than waiting for the final score, and the critic improves from what actually happens. It is the marriage of the two families — policy gradients and value functions — and most modern methods are in it.",
+    "engineer": "The critic supplies the baseline that policy gradients need, turning a whole-trajectory return into a per-step advantage. The cost is a second network to train and a second thing to go wrong: a critic that is wrong early sends the actor somewhere bad, and the actor's new behaviour then supplies the critic with data from that bad place.",
+    "math": "The actor follows ∇log π(a|s)·A(s,a) with A estimated by the critic, commonly as a generalised advantage — an exponentially weighted average over n-step errors, with λ trading the critic's bias against the return's variance exactly as TD(λ) does. PPO is this with a clipped ratio in place of the raw gradient step."
+  },
+  "emphasis": {
+    "intuition": "It is the marriage of the two families",
+    "engineer": "the actor's new behaviour then supplies the critic with data from that bad place"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "critic_share": 5,
+      "share_rest": 5
+    },
+    "param_controls": [
+      {
+        "name": "critic_share",
+        "min": 0,
+        "max": 20,
+        "step": 1
+      }
+    ],
+    "caption": "Update signal coming from the critic's estimate against the part coming from observed reward, in equal units. Drag the critic's weight to watch the actor stop waiting for the episode to end."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "policy-gradient",
+        "reviewed": false
+      },
+      {
+        "id": "value-function",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "proximal-policy-optimization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1602.01783",
+      "title": "Asynchronous Methods for Deep Reinforcement Learning",
+      "url": "https://arxiv.org/abs/1602.01783"
+    },
+    {
+      "ref": "arXiv:1506.02438",
+      "title": "High-Dimensional Continuous Control Using Generalized Advantage Estimation",
+      "url": "https://arxiv.org/abs/1506.02438"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  },
+  "updated_at": "2026-08-17"
+}

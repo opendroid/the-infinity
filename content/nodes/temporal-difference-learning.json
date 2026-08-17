@@ -1,0 +1,53 @@
+{
+  "id": "temporal-difference-learning",
+  "title": "Temporal Difference Learning",
+  "domain": [
+    "Reinforcement",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Wait until the end of the game to learn what your moves were worth and you learn slowly and rarely. Temporal difference learning updates on every step instead, by comparing what you predicted with what you predicted one step later — bootstrapping off your own estimate rather than waiting for the truth.",
+    "engineer": "The update is driven by the TD error: reward plus discounted next-state value, minus current value. It learns online and from incomplete episodes, and it is biased in exchange for far less variance than waiting for the full return. That bias-variance dial is the whole design space between one-step TD and Monte Carlo.",
+    "math": "δ_t = r_t + γV(s_{t+1}) − V(s_t), applied as V(s_t) ← V(s_t) + α·δ_t. TD(λ) interpolates: λ = 0 is one-step bootstrapping and λ = 1 is the full return, so the parameter is a direct handle on how much of the estimate is your own guess."
+  },
+  "emphasis": {
+    "intuition": "bootstrapping off your own estimate rather than waiting for the truth",
+    "engineer": "biased in exchange for far less variance"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "bootstrapped_steps": 1,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "bootstrapped_steps",
+        "min": 1,
+        "max": 40,
+        "step": 1
+      }
+    ],
+    "caption": "Steps whose value comes from the agent's own estimate against those backed by observed reward. Drag the lookahead to trade the bias of guessing against the variance of waiting."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "value-function",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:cs/9605103",
+      "title": "Reinforcement Learning: A Survey",
+      "url": "https://arxiv.org/abs/cs/9605103"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  },
+  "updated_at": "2026-08-17"
+}

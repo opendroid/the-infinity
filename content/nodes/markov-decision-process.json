@@ -1,0 +1,48 @@
+{
+  "id": "markov-decision-process",
+  "title": "Markov Decision Process",
+  "domain": [
+    "Reinforcement",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "An agent in a state picks an action, the world moves it to a new state and pays it a reward, and the loop repeats. The Markov part is the simplifying promise: the current state carries everything that matters, so the agent can forget how it got there. Almost every reinforcement learning result assumes this, and almost every real problem violates it a little.",
+    "engineer": "States, actions, a transition function and a reward function, plus a discount that decides how far ahead to care. Where the state is not really Markov — a partially observed world, a conversation with history — the usual repair is to stuff enough of the past into the state that it becomes so, which is what a context window does for a language model.",
+    "math": "Maximise E[Σ_t γ^t r_t] over policies π, with γ ∈ [0,1) making the sum finite and setting the horizon: the effective lookahead is about 1/(1−γ) steps. At γ = 0.99 that is a hundred, and the difference between 0.99 and 0.999 is the difference between a hundred-step horizon and a thousand-step one."
+  },
+  "emphasis": {
+    "intuition": "the current state carries everything that matters",
+    "engineer": "stuff enough of the past into the state that it becomes so"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "horizon": 100,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "horizon",
+        "min": 1,
+        "max": 1000,
+        "step": 10
+      }
+    ],
+    "caption": "The steps a discount actually looks ahead over against the ones beyond its reach, both in steps. Drag the horizon to watch how much of the future the agent is even trying to optimise."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:cs/9605103",
+      "title": "Reinforcement Learning: A Survey",
+      "url": "https://arxiv.org/abs/cs/9605103"
+    }
+  ],
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  },
+  "updated_at": "2026-08-17"
+}

@@ -33,6 +33,37 @@
       }
     },
     {
+      "id": "actor-critic",
+      "title": "Actor-Critic",
+      "domain": "Reinforcement / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "policy-gradient",
+            "title": "Policy Gradient",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "value-function",
+            "title": "Value Function",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "proximal-policy-optimization",
+            "title": "PPO",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "adam",
       "title": "Adam",
       "domain": "Optimization / Training",
@@ -1429,6 +1460,37 @@
       }
     },
     {
+      "id": "exploration-exploitation",
+      "title": "Exploration and Exploitation",
+      "domain": "Reinforcement / Control",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "markov-decision-process",
+            "title": "Markov Decision Process",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "nucleus-sampling",
+            "title": "Nucleus Sampling",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "q-learning",
+            "title": "Q-Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "feed-forward-network",
       "title": "Feed-Forward Network",
       "domain": "Architecture / Blocks",
@@ -1706,6 +1768,12 @@
             "id": "linear-regression",
             "title": "Linear Regression",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "policy-gradient",
+            "title": "Policy Gradient",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -2367,6 +2435,36 @@
       }
     },
     {
+      "id": "markov-decision-process",
+      "title": "Markov Decision Process",
+      "domain": "Reinforcement / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "exploration-exploitation",
+            "title": "Exploration and Exploitation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "policy-gradient",
+            "title": "Policy Gradient",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "value-function",
+            "title": "Value Function",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "masked-language-modeling",
       "title": "Masked Language Modeling",
       "domain": "Unsupervised / Objectives",
@@ -2613,6 +2711,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "exploration-exploitation",
+            "title": "Exploration and Exploitation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "top-k-sampling",
             "title": "Top-k Sampling",
             "tier": "verified",
@@ -2805,6 +2909,43 @@
             "reviewed": false
           }
         ]
+      }
+    },
+    {
+      "id": "policy-gradient",
+      "title": "Policy Gradient",
+      "domain": "Reinforcement / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "markov-decision-process",
+            "title": "Markov Decision Process",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "actor-critic",
+            "title": "Actor-Critic",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "proximal-policy-optimization",
+            "title": "PPO",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
       }
     },
     {
@@ -3029,6 +3170,12 @@
             "title": "Gradient Descent",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "policy-gradient",
+            "title": "Policy Gradient",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "unlocks": [
@@ -3039,7 +3186,39 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "actor-critic",
+            "title": "Actor-Critic",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "q-learning",
+      "title": "Q-Learning",
+      "domain": "Reinforcement / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "temporal-difference-learning",
+            "title": "Temporal Difference Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "exploration-exploitation",
+            "title": "Exploration and Exploitation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3268,6 +3447,31 @@
       }
     },
     {
+      "id": "reward-hacking",
+      "title": "Reward Hacking",
+      "domain": "Reinforcement / Safety",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "reward-model",
+            "title": "Reward Model",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "reward-model",
       "title": "Reward Model",
       "domain": "Alignment / Preference",
@@ -3292,6 +3496,12 @@
             "id": "direct-preference-optimization",
             "title": "DPO",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "reward-hacking",
+            "title": "Reward Hacking",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -3356,6 +3566,12 @@
             "id": "direct-preference-optimization",
             "title": "DPO",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "reward-hacking",
+            "title": "Reward Hacking",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -3770,6 +3986,31 @@
       }
     },
     {
+      "id": "temporal-difference-learning",
+      "title": "Temporal Difference Learning",
+      "domain": "Reinforcement / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "value-function",
+            "title": "Value Function",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "q-learning",
+            "title": "Q-Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
       "id": "tensor-parallelism",
       "title": "Tensor Parallelism",
       "domain": "Systems / Distributed",
@@ -3972,6 +4213,37 @@
             "id": "vision-transformer",
             "title": "Vision Transformer",
             "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "value-function",
+      "title": "Value Function",
+      "domain": "Reinforcement / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "markov-decision-process",
+            "title": "Markov Decision Process",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "actor-critic",
+            "title": "Actor-Critic",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "temporal-difference-learning",
+            "title": "Temporal Difference Learning",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -4214,6 +4486,59 @@
         {
           "from": "activation-checkpointing",
           "to": "sequence-parallelism",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "actor-critic",
+      "center": {
+        "id": "actor-critic",
+        "title": "Actor-Critic",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "policy-gradient",
+          "title": "Policy Gradient",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "value-function",
+          "title": "Value Function",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "proximal-policy-optimization",
+          "title": "PPO",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "policy-gradient",
+          "to": "actor-critic",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "value-function",
+          "to": "actor-critic",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "actor-critic",
+          "to": "proximal-policy-optimization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -6629,6 +6954,59 @@
       ]
     },
     {
+      "id": "exploration-exploitation",
+      "center": {
+        "id": "exploration-exploitation",
+        "title": "Exploration and Exploitation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "markov-decision-process",
+          "title": "Markov Decision Process",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "nucleus-sampling",
+          "title": "Nucleus Sampling",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "q-learning",
+          "title": "Q-Learning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "markov-decision-process",
+          "to": "exploration-exploitation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "exploration-exploitation",
+          "to": "nucleus-sampling",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "exploration-exploitation",
+          "to": "q-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "feed-forward-network",
       "center": {
         "id": "feed-forward-network",
@@ -7061,49 +7439,56 @@
           "title": "Diffusion Model",
           "tier": "verified",
           "x": 200,
-          "y": 17
+          "y": 15
         },
         {
           "id": "gradient-boosting",
           "title": "Gradient Boosting",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 29
         },
         {
           "id": "learning-rate",
           "title": "Learning Rate",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 44
         },
         {
           "id": "linear-regression",
           "title": "Linear Regression",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 59
+        },
+        {
+          "id": "policy-gradient",
+          "title": "Policy Gradient",
+          "tier": "frontier",
+          "x": 200,
+          "y": 73
         },
         {
           "id": "proximal-policy-optimization",
           "title": "PPO",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 88
         },
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 103
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 117
         }
       ],
       "links": [
@@ -7134,6 +7519,12 @@
         {
           "from": "gradient-descent",
           "to": "linear-regression",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "policy-gradient",
           "type": "unlocks",
           "reviewed": false
         },
@@ -8269,6 +8660,59 @@
       ]
     },
     {
+      "id": "markov-decision-process",
+      "center": {
+        "id": "markov-decision-process",
+        "title": "Markov Decision Process",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "exploration-exploitation",
+          "title": "Exploration and Exploitation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "policy-gradient",
+          "title": "Policy Gradient",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "value-function",
+          "title": "Value Function",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        }
+      ],
+      "links": [
+        {
+          "from": "markov-decision-process",
+          "to": "exploration-exploitation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "markov-decision-process",
+          "to": "policy-gradient",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "markov-decision-process",
+          "to": "value-function",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "masked-language-modeling",
       "center": {
         "id": "masked-language-modeling",
@@ -8665,11 +9109,18 @@
           "y": 88
         },
         {
+          "id": "exploration-exploitation",
+          "title": "Exploration and Exploitation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -8683,6 +9134,12 @@
           "from": "softmax",
           "to": "nucleus-sampling",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "nucleus-sampling",
+          "to": "exploration-exploitation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -8995,6 +9452,72 @@
           "from": "pipeline-parallelism",
           "to": "tensor-parallelism",
           "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "policy-gradient",
+      "center": {
+        "id": "policy-gradient",
+        "title": "Policy Gradient",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "markov-decision-process",
+          "title": "Markov Decision Process",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "actor-critic",
+          "title": "Actor-Critic",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "proximal-policy-optimization",
+          "title": "PPO",
+          "tier": "verified",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-descent",
+          "to": "policy-gradient",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "markov-decision-process",
+          "to": "policy-gradient",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "policy-gradient",
+          "to": "actor-critic",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "policy-gradient",
+          "to": "proximal-policy-optimization",
+          "type": "unlocks",
           "reviewed": false
         }
       ]
@@ -9384,7 +9907,14 @@
           "title": "Gradient Descent",
           "tier": "verified",
           "x": 40,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "policy-gradient",
+          "title": "Policy Gradient",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
         },
         {
           "id": "rlhf",
@@ -9392,6 +9922,13 @@
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "actor-critic",
+          "title": "Actor-Critic",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -9402,9 +9939,61 @@
           "reviewed": false
         },
         {
+          "from": "policy-gradient",
+          "to": "proximal-policy-optimization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
           "from": "proximal-policy-optimization",
           "to": "rlhf",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "proximal-policy-optimization",
+          "to": "actor-critic",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "q-learning",
+      "center": {
+        "id": "q-learning",
+        "title": "Q-Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "temporal-difference-learning",
+          "title": "Temporal Difference Learning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "exploration-exploitation",
+          "title": "Exploration and Exploitation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "temporal-difference-learning",
+          "to": "q-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "q-learning",
+          "to": "exploration-exploitation",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -9794,6 +10383,46 @@
       ]
     },
     {
+      "id": "reward-hacking",
+      "center": {
+        "id": "reward-hacking",
+        "title": "Reward Hacking",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "reward-model",
+          "title": "Reward Model",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "reward-model",
+          "to": "reward-hacking",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reward-hacking",
+          "to": "rlhf",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "reward-model",
       "center": {
         "id": "reward-model",
@@ -9822,14 +10451,21 @@
           "title": "DPO",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
+        },
+        {
+          "id": "reward-hacking",
+          "title": "Reward Hacking",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "llm-as-judge",
@@ -9855,6 +10491,12 @@
         {
           "from": "reward-model",
           "to": "direct-preference-optimization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "reward-model",
+          "to": "reward-hacking",
           "type": "unlocks",
           "reviewed": false
         },
@@ -9914,15 +10556,22 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "direct-preference-optimization",
           "title": "DPO",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "reward-hacking",
+          "title": "Reward Hacking",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -9959,6 +10608,12 @@
         {
           "from": "rlhf",
           "to": "direct-preference-optimization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "reward-hacking",
           "type": "adjacent",
           "reviewed": false
         }
@@ -10667,6 +11322,46 @@
       ]
     },
     {
+      "id": "temporal-difference-learning",
+      "center": {
+        "id": "temporal-difference-learning",
+        "title": "Temporal Difference Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "value-function",
+          "title": "Value Function",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "q-learning",
+          "title": "Q-Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "value-function",
+          "to": "temporal-difference-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "temporal-difference-learning",
+          "to": "q-learning",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "tensor-parallelism",
       "center": {
         "id": "tensor-parallelism",
@@ -11043,6 +11738,59 @@
         {
           "from": "transformer-block",
           "to": "vision-transformer",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "value-function",
+      "center": {
+        "id": "value-function",
+        "title": "Value Function",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "markov-decision-process",
+          "title": "Markov Decision Process",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "actor-critic",
+          "title": "Actor-Critic",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "temporal-difference-learning",
+          "title": "Temporal Difference Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "markov-decision-process",
+          "to": "value-function",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "value-function",
+          "to": "actor-critic",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "value-function",
+          "to": "temporal-difference-learning",
           "type": "unlocks",
           "reviewed": false
         }
