@@ -28,7 +28,7 @@
         "step": 1
       }
     ],
-    "caption": "Key-value cache that sharing removes against the single copy multi-query keeps, both as one head's cache. Drag the head count to watch the saving grow with every head added — which is the cache that never has to be stored."
+    "caption": "Key-value cache that sharing removes against the single copy multi-query keeps, both as one head's cache. Drag the head count down to watch the saving collapse — almost all of it is already won by the first few heads shared away."
   },
   "edges": {
     "requires": [

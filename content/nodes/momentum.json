@@ -28,7 +28,7 @@
         "step": 0.01
       }
     ],
-    "caption": "Raw gradient magnitudes against the momentum-smoothed ones. Drag beta up to watch the noise average away and the consistent direction survive."
+    "caption": "Raw gradient magnitudes against the momentum-smoothed ones. Drag beta down to watch the averaging fail and the raw noise come back through."
   },
   "edges": {
     "requires": [

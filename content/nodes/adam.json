@@ -28,7 +28,7 @@
         "step": 0.0001
       }
     ],
-    "caption": "Per-parameter step sizes before and after Adam's scaling. Drag the second moment decay to watch the update even out across parameters of very different gradient scale."
+    "caption": "Per-parameter step sizes before and after Adam's scaling. Drag the second moment decay down to watch the smoothing come apart, and the update go back to tracking whichever parameter happened to spike."
   },
   "edges": {
     "requires": [
