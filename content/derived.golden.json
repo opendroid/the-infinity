@@ -135,7 +135,7 @@
           {
             "id": "context-window",
             "title": "Context Window",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -297,7 +297,7 @@
           {
             "id": "kv-cache",
             "title": "KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -347,7 +347,7 @@
       "id": "autoregressive-decoding",
       "title": "Autoregressive Decoding",
       "domain": "Inference / Decoding",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -513,7 +513,7 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -638,7 +638,7 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -650,7 +650,7 @@
           {
             "id": "kv-cache",
             "title": "KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -689,7 +689,7 @@
           {
             "id": "kv-cache",
             "title": "KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -865,7 +865,7 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -890,13 +890,13 @@
       "id": "context-window",
       "title": "Context Window",
       "domain": "Inference / Memory",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "kv-cache",
             "title": "KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -946,7 +946,7 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1817,7 +1817,7 @@
           {
             "id": "context-window",
             "title": "Context Window",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1888,7 +1888,7 @@
           {
             "id": "context-window",
             "title": "Context Window",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2042,7 +2042,7 @@
       "id": "kv-cache",
       "title": "KV Cache",
       "domain": "Inference / Memory",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2068,7 +2068,7 @@
           {
             "id": "context-window",
             "title": "Context Window",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2642,7 +2642,7 @@
           {
             "id": "kv-cache",
             "title": "KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2698,7 +2698,7 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2798,7 +2798,7 @@
           {
             "id": "kv-cache",
             "title": "KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2823,7 +2823,7 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2972,7 +2972,7 @@
           {
             "id": "context-window",
             "title": "Context Window",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3001,13 +3001,13 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "kv-cache",
             "title": "KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3614,7 +3614,7 @@
           {
             "id": "context-window",
             "title": "Context Window",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3687,7 +3687,7 @@
           {
             "id": "kv-cache",
             "title": "KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3793,7 +3793,7 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3884,7 +3884,7 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4131,7 +4131,7 @@
           {
             "id": "autoregressive-decoding",
             "title": "Autoregressive Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4663,7 +4663,7 @@
         {
           "id": "context-window",
           "title": "Context Window",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -4935,7 +4935,7 @@
         {
           "id": "kv-cache",
           "title": "KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         }
@@ -5026,7 +5026,7 @@
       "center": {
         "id": "autoregressive-decoding",
         "title": "Autoregressive Decoding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5336,7 +5336,7 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -5524,7 +5524,7 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
@@ -5538,7 +5538,7 @@
         {
           "id": "kv-cache",
           "title": "KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         }
@@ -5610,7 +5610,7 @@
         {
           "id": "kv-cache",
           "title": "KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -5909,7 +5909,7 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -5954,7 +5954,7 @@
       "center": {
         "id": "context-window",
         "title": "Context Window",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5962,7 +5962,7 @@
         {
           "id": "kv-cache",
           "title": "KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -6054,7 +6054,7 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -7568,7 +7568,7 @@
         {
           "id": "context-window",
           "title": "Context Window",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -7694,7 +7694,7 @@
         {
           "id": "context-window",
           "title": "Context Window",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -7964,7 +7964,7 @@
       "center": {
         "id": "kv-cache",
         "title": "KV Cache",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7993,7 +7993,7 @@
         {
           "id": "context-window",
           "title": "Context Window",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -9004,7 +9004,7 @@
         {
           "id": "kv-cache",
           "title": "KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -9097,7 +9097,7 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -9269,7 +9269,7 @@
         {
           "id": "kv-cache",
           "title": "KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -9309,7 +9309,7 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -9549,7 +9549,7 @@
         {
           "id": "context-window",
           "title": "Context Window",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
@@ -9614,14 +9614,14 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "kv-cache",
           "title": "KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -10666,7 +10666,7 @@
         {
           "id": "context-window",
           "title": "Context Window",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -10780,7 +10780,7 @@
         {
           "id": "kv-cache",
           "title": "KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -10977,7 +10977,7 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 15
         },
@@ -11148,7 +11148,7 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         }
@@ -11572,7 +11572,7 @@
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },

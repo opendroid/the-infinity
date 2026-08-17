@@ -53,10 +53,16 @@
       "ref": "arXiv:2309.06180",
       "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
       "url": "https://arxiv.org/abs/2309.06180"
+    },
+    {
+      "ref": "arXiv:2305.13245",
+      "title": "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints",
+      "url": "https://arxiv.org/abs/2305.13245"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-02"
-  },
-  "updated_at": "2026-08-02"
+  "updated_at": "2026-08-02",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-17"
+  }
 }
