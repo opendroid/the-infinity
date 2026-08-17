@@ -17,18 +17,17 @@
   "viz": {
     "primitive": "update-spectrum",
     "params": {
-      "bits": 8,
-      "bars": 8
+      "coarseness": 0.4
     },
     "param_controls": [
       {
-        "name": "bits",
-        "min": 2,
-        "max": 16,
-        "step": 1
+        "name": "coarseness",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
       }
     ],
-    "caption": "Weight magnitudes at full precision and after quantization to the chosen width. Drag the bit width down to watch the levels coarsen and the outliers dominate the scale."
+    "caption": "Weight magnitudes at full precision and after quantization. Drag the coarseness up to watch distinct magnitudes collapse onto the same level — which is what fewer bits buys."
   },
   "edges": {
     "requires": [
