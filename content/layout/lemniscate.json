@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "q-learning",
+      "id": "text-to-speech",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "exploration-exploitation",
+      "id": "spectrogram",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "reward-hacking",
+      "id": "automatic-speech-recognition",
       "t": 0.8,
       "label": true
     }

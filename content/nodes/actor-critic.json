@@ -60,8 +60,9 @@
       "url": "https://arxiv.org/abs/1506.02438"
     }
   ],
-  "provenance": {
-    "drafted_at": "2026-08-17"
-  },
-  "updated_at": "2026-08-17"
+  "updated_at": "2026-08-17",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-17"
+  }
 }
