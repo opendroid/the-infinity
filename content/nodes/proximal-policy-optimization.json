@@ -17,18 +17,17 @@
   "viz": {
     "primitive": "update-spectrum",
     "params": {
-      "epsilon": 0.2,
-      "bars": 8
+      "clip_strength": 0.4
     },
     "param_controls": [
       {
-        "name": "epsilon",
-        "min": 0.05,
-        "max": 0.5,
+        "name": "clip_strength",
+        "min": 0,
+        "max": 1,
         "step": 0.05
       }
     ],
-    "caption": "Per-token update magnitudes before clipping and after. Drag epsilon to watch the largest moves flattened while the rest pass through."
+    "caption": "Per-token update magnitudes before clipping and after. Drag the clipping up to watch the largest moves pulled back to the band while the rest pass through."
   },
   "edges": {
     "requires": [

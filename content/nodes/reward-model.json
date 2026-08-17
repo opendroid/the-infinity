@@ -15,20 +15,20 @@
     "engineer": "every flaw in it becomes a flaw in the final model"
   },
   "viz": {
-    "primitive": "update-spectrum",
+    "primitive": "budget-split",
     "params": {
-      "pairs": 8,
-      "bars": 8
+      "agreed_pairs": 72,
+      "share_rest": 28
     },
     "param_controls": [
       {
-        "name": "pairs",
-        "min": 2,
-        "max": 16,
+        "name": "agreed_pairs",
+        "min": 0,
+        "max": 100,
         "step": 2
       }
     ],
-    "caption": "Scores the model assigns to preferred and rejected responses beside each other. Drag the number of pairs to watch the margin separate."
+    "caption": "Pairs the model ranks in the human's order against those it gets backwards, out of a hundred. Drag the agreement to watch the signal every later stage inherits get cleaner."
   },
   "edges": {
     "requires": [
