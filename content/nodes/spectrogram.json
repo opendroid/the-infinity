@@ -1,0 +1,58 @@
+{
+  "id": "spectrogram",
+  "title": "Spectrogram",
+  "domain": [
+    "Speech",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "A waveform is tens of thousands of numbers a second and almost none of them mean anything alone. Chop the signal into short overlapping windows, ask each window which frequencies it holds, and stack the answers left to right. Time runs across, pitch runs up, and speech becomes something you can look at. Nearly every speech system starts here rather than at the raw samples.",
+    "engineer": "The short-time Fourier transform: window the signal — 25 ms of Hann is the usual — take the FFT, keep the magnitudes, hop forward 10 ms and repeat. Window length is the one real decision and it is a trade nobody escapes: a long window resolves frequency and smears time, a short one does the reverse. Most pipelines then warp the frequency axis to the mel scale and take a log, which spends resolution where hearing is sharp and compresses the rest.",
+    "math": "A window of N samples at rate sr gives N/2 + 1 bins spaced Δf = sr/N apart, one frame every H samples. Frequency and time resolution are reciprocal — Δf · Δt = 1 — so halving one doubles the other, always. The magnitudes |X_{t,f}| are kept and the phase is thrown away, which is why turning a spectrogram back into audio needs Griffin–Lim or a learned vocoder rather than an inverse FFT."
+  },
+  "emphasis": {
+    "intuition": "speech becomes something you can look at",
+    "engineer": "a long window resolves frequency and smears time"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "time_resolution": 0.15,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "time_resolution",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "One frame's energy across frequency, at this node's analysis window and at a shorter one. Drag the time resolution up to watch the frequency detail smear toward its own average — sharpening one axis is exactly what blunts the other."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "patch-embedding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1512.02595",
+      "title": "Deep Speech 2: End-to-End Speech Recognition in English and Mandarin",
+      "url": "https://arxiv.org/abs/1512.02595"
+    },
+    {
+      "ref": "arXiv:1904.08779",
+      "title": "SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition",
+      "url": "https://arxiv.org/abs/1904.08779"
+    }
+  ],
+  "updated_at": "2026-08-17",
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  }
+}

@@ -321,6 +321,12 @@
         ],
         "unlocks": [
           {
+            "id": "neural-audio-codec",
+            "title": "Neural Audio Codec",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "variational-autoencoder",
             "title": "Variational Autoencoder",
             "tier": "verified",
@@ -337,6 +343,56 @@
           {
             "id": "principal-component-analysis",
             "title": "Principal Component Analysis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "automatic-speech-recognition",
+      "title": "Speech Recognition",
+      "domain": "Speech / Recognition",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "encoder-decoder",
+            "title": "Encoder-Decoder",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "spectrogram",
+            "title": "Spectrogram",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "streaming-asr",
+            "title": "Streaming ASR",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "word-error-rate",
+            "title": "Word Error Rate",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "connectionist-temporal-classification",
+            "title": "CTC",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "cross-attention",
+            "title": "Cross-Attention",
             "tier": "verified",
             "reviewed": false
           }
@@ -413,7 +469,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "text-to-speech",
+            "title": "Text to Speech",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -610,6 +673,12 @@
             "title": "RLHF",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "word-error-rate",
+            "title": "Word Error Rate",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -654,7 +723,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "streaming-asr",
+            "title": "Streaming ASR",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -838,6 +914,37 @@
       }
     },
     {
+      "id": "connectionist-temporal-classification",
+      "title": "CTC",
+      "domain": "Speech / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "spectrogram",
+            "title": "Spectrogram",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "automatic-speech-recognition",
+            "title": "Speech Recognition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "constitutional-ai",
       "title": "Constitutional AI",
       "domain": "Alignment / Safety",
@@ -1013,6 +1120,12 @@
             "title": "Self-Supervised Learning",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "speech-representation-learning",
+            "title": "Speech Representation Learning",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -1051,7 +1164,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "automatic-speech-recognition",
+            "title": "Speech Recognition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1075,6 +1195,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "connectionist-temporal-classification",
+            "title": "CTC",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "contrastive-learning",
             "title": "Contrastive Learning",
@@ -1333,6 +1459,12 @@
         ],
         "adjacent": [
           {
+            "id": "text-to-speech",
+            "title": "Text to Speech",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "variational-autoencoder",
             "title": "Variational Autoencoder",
             "tier": "verified",
@@ -1417,6 +1549,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "automatic-speech-recognition",
+            "title": "Speech Recognition",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "cross-attention",
             "title": "Cross-Attention",
@@ -2485,6 +2623,12 @@
             "title": "Decoder-Only Transformer",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "speech-representation-learning",
+            "title": "Speech Representation Learning",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -2689,6 +2833,43 @@
       }
     },
     {
+      "id": "neural-audio-codec",
+      "title": "Neural Audio Codec",
+      "domain": "Speech / Compression",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "autoencoder",
+            "title": "Autoencoder",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vector-quantization",
+            "title": "Vector Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "quantization",
+            "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "speech-representation-learning",
+            "title": "Speech Representation Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "nucleus-sampling",
       "title": "Nucleus Sampling",
       "domain": "Inference / Decoding",
@@ -2859,7 +3040,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "spectrogram",
+            "title": "Spectrogram",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2883,7 +3071,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "word-error-rate",
+            "title": "Word Error Rate",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3272,6 +3467,12 @@
             "id": "arithmetic-intensity",
             "title": "Arithmetic Intensity",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "neural-audio-codec",
+            "title": "Neural Audio Codec",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -3745,6 +3946,12 @@
             "title": "Masked Language Modeling",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "speech-representation-learning",
+            "title": "Speech Representation Learning",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -3875,6 +4082,49 @@
       }
     },
     {
+      "id": "spectrogram",
+      "title": "Spectrogram",
+      "domain": "Speech / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "automatic-speech-recognition",
+            "title": "Speech Recognition",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "connectionist-temporal-classification",
+            "title": "CTC",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "speech-representation-learning",
+            "title": "Speech Representation Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "text-to-speech",
+            "title": "Text to Speech",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "patch-embedding",
+            "title": "Patch Embedding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "speculative-decoding",
       "title": "Speculative Decoding",
       "domain": "Inference / Decoding",
@@ -3890,6 +4140,55 @@
         ],
         "unlocks": [],
         "adjacent": []
+      }
+    },
+    {
+      "id": "speech-representation-learning",
+      "title": "Speech Representation Learning",
+      "domain": "Speech / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "self-supervised-learning",
+            "title": "Self-Supervised Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "spectrogram",
+            "title": "Spectrogram",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "masked-language-modeling",
+            "title": "Masked Language Modeling",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "neural-audio-codec",
+            "title": "Neural Audio Codec",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vector-quantization",
+            "title": "Vector Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3927,6 +4226,31 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "streaming-asr",
+      "title": "Streaming ASR",
+      "domain": "Speech / Serving",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "automatic-speech-recognition",
+            "title": "Speech Recognition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "causal-masking",
+            "title": "Causal Masking",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -4042,6 +4366,37 @@
           {
             "id": "pipeline-parallelism",
             "title": "Pipeline Parallelism",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "text-to-speech",
+      "title": "Text to Speech",
+      "domain": "Speech / Synthesis",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "spectrogram",
+            "title": "Spectrogram",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "autoregressive-decoding",
+            "title": "Autoregressive Decoding",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "diffusion-model",
+            "title": "Diffusion Model",
             "tier": "verified",
             "reviewed": false
           }
@@ -4289,12 +4644,25 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "neural-audio-codec",
+            "title": "Neural Audio Codec",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "latent-diffusion",
             "title": "Latent Diffusion",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "speech-representation-learning",
+            "title": "Speech Representation Learning",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -4406,6 +4774,37 @@
           {
             "id": "dropout",
             "title": "Dropout",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "word-error-rate",
+      "title": "Word Error Rate",
+      "domain": "Speech / Metrics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "automatic-speech-recognition",
+            "title": "Speech Recognition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "perplexity",
+            "title": "Perplexity",
             "tier": "verified",
             "reviewed": false
           }
@@ -4973,18 +5372,25 @@
           "y": 66
         },
         {
+          "id": "neural-audio-codec",
+          "title": "Neural Audio Codec",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "variational-autoencoder",
           "title": "Variational Autoencoder",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "vector-quantization",
           "title": "Vector Quantization",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "principal-component-analysis",
@@ -5003,6 +5409,12 @@
         },
         {
           "from": "autoencoder",
+          "to": "neural-audio-codec",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autoencoder",
           "to": "variational-autoencoder",
           "type": "unlocks",
           "reviewed": false
@@ -5016,6 +5428,98 @@
         {
           "from": "autoencoder",
           "to": "principal-component-analysis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "automatic-speech-recognition",
+      "center": {
+        "id": "automatic-speech-recognition",
+        "title": "Speech Recognition",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "encoder-decoder",
+          "title": "Encoder-Decoder",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "spectrogram",
+          "title": "Spectrogram",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "streaming-asr",
+          "title": "Streaming ASR",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "word-error-rate",
+          "title": "Word Error Rate",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "connectionist-temporal-classification",
+          "title": "CTC",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "cross-attention",
+          "title": "Cross-Attention",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "encoder-decoder",
+          "to": "automatic-speech-recognition",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "spectrogram",
+          "to": "automatic-speech-recognition",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "automatic-speech-recognition",
+          "to": "streaming-asr",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "automatic-speech-recognition",
+          "to": "word-error-rate",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "automatic-speech-recognition",
+          "to": "connectionist-temporal-classification",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "automatic-speech-recognition",
+          "to": "cross-attention",
           "type": "adjacent",
           "reviewed": false
         }
@@ -5100,6 +5604,13 @@
           "tier": "verified",
           "x": 200,
           "y": 117
+        },
+        {
+          "id": "text-to-speech",
+          "title": "Text to Speech",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -5161,6 +5672,12 @@
           "from": "autoregressive-decoding",
           "to": "top-k-sampling",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autoregressive-decoding",
+          "to": "text-to-speech",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -5478,8 +5995,15 @@
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "word-error-rate",
+          "title": "Word Error Rate",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -5492,6 +6016,12 @@
         {
           "from": "calibration",
           "to": "rlhf",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "word-error-rate",
           "type": "adjacent",
           "reviewed": false
         }
@@ -5541,6 +6071,13 @@
           "tier": "verified",
           "x": 200,
           "y": 106
+        },
+        {
+          "id": "streaming-asr",
+          "title": "Streaming ASR",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -5572,6 +6109,12 @@
           "from": "causal-masking",
           "to": "kv-cache",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-masking",
+          "to": "streaming-asr",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -5870,6 +6413,59 @@
       ]
     },
     {
+      "id": "connectionist-temporal-classification",
+      "center": {
+        "id": "connectionist-temporal-classification",
+        "title": "CTC",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "spectrogram",
+          "title": "Spectrogram",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "automatic-speech-recognition",
+          "title": "Speech Recognition",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-entropy-loss",
+          "to": "connectionist-temporal-classification",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "spectrogram",
+          "to": "connectionist-temporal-classification",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "connectionist-temporal-classification",
+          "to": "automatic-speech-recognition",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "constitutional-ai",
       "center": {
         "id": "constitutional-ai",
@@ -6143,8 +6739,15 @@
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "speech-representation-learning",
+          "title": "Speech Representation Learning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -6181,6 +6784,12 @@
         {
           "from": "contrastive-learning",
           "to": "self-supervised-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "contrastive-learning",
+          "to": "speech-representation-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -6223,6 +6832,13 @@
           "tier": "verified",
           "x": 200,
           "y": 88
+        },
+        {
+          "id": "automatic-speech-recognition",
+          "title": "Speech Recognition",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -6248,6 +6864,12 @@
           "from": "cross-attention",
           "to": "vision-language-model",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "cross-attention",
+          "to": "automatic-speech-recognition",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -6277,39 +6899,46 @@
           "y": 88
         },
         {
+          "id": "connectionist-temporal-classification",
+          "title": "CTC",
+          "tier": "frontier",
+          "x": 200,
+          "y": 19
+        },
+        {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
           "x": 200,
-          "y": 22
+          "y": 38
         },
         {
           "id": "logistic-regression",
           "title": "Logistic Regression",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 57
         },
         {
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 75
         },
         {
           "id": "pretraining",
           "title": "Pretraining",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 94
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 113
         }
       ],
       "links": [
@@ -6323,6 +6952,12 @@
           "from": "softmax",
           "to": "cross-entropy-loss",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "connectionist-temporal-classification",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -6726,11 +7361,18 @@
           "y": 88
         },
         {
+          "id": "text-to-speech",
+          "title": "Text to Speech",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "variational-autoencoder",
           "title": "Variational Autoencoder",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -6756,6 +7398,12 @@
           "from": "diffusion-model",
           "to": "latent-diffusion",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "diffusion-model",
+          "to": "text-to-speech",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -6878,11 +7526,18 @@
           "y": 66
         },
         {
+          "id": "automatic-speech-recognition",
+          "title": "Speech Recognition",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "cross-attention",
           "title": "Cross-Attention",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "decoder-only-transformer",
@@ -6897,6 +7552,12 @@
           "from": "transformer-block",
           "to": "encoder-decoder",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "encoder-decoder",
+          "to": "automatic-speech-recognition",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -8733,8 +9394,15 @@
           "id": "decoder-only-transformer",
           "title": "Decoder-Only Transformer",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "speech-representation-learning",
+          "title": "Speech Representation Learning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -8747,6 +9415,12 @@
         {
           "from": "masked-language-modeling",
           "to": "decoder-only-transformer",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "masked-language-modeling",
+          "to": "speech-representation-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -9085,6 +9759,72 @@
       ]
     },
     {
+      "id": "neural-audio-codec",
+      "center": {
+        "id": "neural-audio-codec",
+        "title": "Neural Audio Codec",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autoencoder",
+          "title": "Autoencoder",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "vector-quantization",
+          "title": "Vector Quantization",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "speech-representation-learning",
+          "title": "Speech Representation Learning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "autoencoder",
+          "to": "neural-audio-codec",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vector-quantization",
+          "to": "neural-audio-codec",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "neural-audio-codec",
+          "to": "quantization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "neural-audio-codec",
+          "to": "speech-representation-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "nucleus-sampling",
       "center": {
         "id": "nucleus-sampling",
@@ -9353,6 +10093,13 @@
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "spectrogram",
+          "title": "Spectrogram",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -9372,6 +10119,12 @@
           "from": "patch-embedding",
           "to": "vision-transformer",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "patch-embedding",
+          "to": "spectrogram",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -9399,6 +10152,13 @@
           "tier": "verified",
           "x": 40,
           "y": 88
+        },
+        {
+          "id": "word-error-rate",
+          "title": "Word Error Rate",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -9412,6 +10172,12 @@
           "from": "tokenization",
           "to": "perplexity",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "perplexity",
+          "to": "word-error-rate",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -10066,8 +10832,15 @@
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "neural-audio-codec",
+          "title": "Neural Audio Codec",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -10086,6 +10859,12 @@
         {
           "from": "quantization",
           "to": "arithmetic-intensity",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "neural-audio-codec",
           "type": "adjacent",
           "reviewed": false
         }
@@ -10893,7 +11672,14 @@
           "title": "Masked Language Modeling",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "speech-representation-learning",
+          "title": "Speech Representation Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "contrastive-learning",
@@ -10913,6 +11699,12 @@
         {
           "from": "self-supervised-learning",
           "to": "masked-language-modeling",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "self-supervised-learning",
+          "to": "speech-representation-learning",
           "type": "unlocks",
           "reviewed": false
         },
@@ -11136,6 +11928,85 @@
       ]
     },
     {
+      "id": "spectrogram",
+      "center": {
+        "id": "spectrogram",
+        "title": "Spectrogram",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "automatic-speech-recognition",
+          "title": "Speech Recognition",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
+          "id": "connectionist-temporal-classification",
+          "title": "CTC",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "speech-representation-learning",
+          "title": "Speech Representation Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "text-to-speech",
+          "title": "Text to Speech",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        },
+        {
+          "id": "patch-embedding",
+          "title": "Patch Embedding",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "spectrogram",
+          "to": "automatic-speech-recognition",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "spectrogram",
+          "to": "connectionist-temporal-classification",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "spectrogram",
+          "to": "speech-representation-learning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "spectrogram",
+          "to": "text-to-speech",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "spectrogram",
+          "to": "patch-embedding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "speculative-decoding",
       "center": {
         "id": "speculative-decoding",
@@ -11158,6 +12029,98 @@
           "from": "autoregressive-decoding",
           "to": "speculative-decoding",
           "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "speech-representation-learning",
+      "center": {
+        "id": "speech-representation-learning",
+        "title": "Speech Representation Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "self-supervised-learning",
+          "title": "Self-Supervised Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "spectrogram",
+          "title": "Spectrogram",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "verified",
+          "x": 48,
+          "y": 22
+        },
+        {
+          "id": "masked-language-modeling",
+          "title": "Masked Language Modeling",
+          "tier": "verified",
+          "x": 96,
+          "y": 110
+        },
+        {
+          "id": "neural-audio-codec",
+          "title": "Neural Audio Codec",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "vector-quantization",
+          "title": "Vector Quantization",
+          "tier": "verified",
+          "x": 192,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "self-supervised-learning",
+          "to": "speech-representation-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "spectrogram",
+          "to": "speech-representation-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "speech-representation-learning",
+          "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "speech-representation-learning",
+          "to": "masked-language-modeling",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "speech-representation-learning",
+          "to": "neural-audio-codec",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "speech-representation-learning",
+          "to": "vector-quantization",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -11224,6 +12187,46 @@
           "from": "stochastic-gradient-descent",
           "to": "momentum",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "streaming-asr",
+      "center": {
+        "id": "streaming-asr",
+        "title": "Streaming ASR",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "automatic-speech-recognition",
+          "title": "Speech Recognition",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "causal-masking",
+          "title": "Causal Masking",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "automatic-speech-recognition",
+          "to": "streaming-asr",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "streaming-asr",
+          "to": "causal-masking",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -11422,6 +12425,59 @@
         {
           "from": "tensor-parallelism",
           "to": "pipeline-parallelism",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "text-to-speech",
+      "center": {
+        "id": "text-to-speech",
+        "title": "Text to Speech",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "spectrogram",
+          "title": "Spectrogram",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "autoregressive-decoding",
+          "title": "Autoregressive Decoding",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "diffusion-model",
+          "title": "Diffusion Model",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "spectrogram",
+          "to": "text-to-speech",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "text-to-speech",
+          "to": "autoregressive-decoding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "text-to-speech",
+          "to": "diffusion-model",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11854,11 +12910,25 @@
           "y": 66
         },
         {
+          "id": "neural-audio-codec",
+          "title": "Neural Audio Codec",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "latent-diffusion",
           "title": "Latent Diffusion",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "speech-representation-learning",
+          "title": "Speech Representation Learning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -11870,7 +12940,19 @@
         },
         {
           "from": "vector-quantization",
+          "to": "neural-audio-codec",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vector-quantization",
           "to": "latent-diffusion",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "vector-quantization",
+          "to": "speech-representation-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -12057,6 +13139,59 @@
         {
           "from": "weight-decay",
           "to": "dropout",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "word-error-rate",
+      "center": {
+        "id": "word-error-rate",
+        "title": "Word Error Rate",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "automatic-speech-recognition",
+          "title": "Speech Recognition",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "perplexity",
+          "title": "Perplexity",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "automatic-speech-recognition",
+          "to": "word-error-rate",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "word-error-rate",
+          "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "word-error-rate",
+          "to": "perplexity",
           "type": "adjacent",
           "reviewed": false
         }
