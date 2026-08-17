@@ -1,0 +1,72 @@
+{
+  "id": "automatic-speech-recognition",
+  "title": "Speech Recognition",
+  "domain": [
+    "Speech",
+    "Recognition"
+  ],
+  "bodies": {
+    "intuition": "Turning audio into text used to mean four separate models — acoustics, pronunciation, language, and a decoder to reconcile them. Now it is usually one network that reads a spectrogram and writes characters. What makes it hard is not the size of the vocabulary but the variation: the same sentence differs by speaker, room, microphone, and mood, and none of that is in the transcript you train against.",
+    "engineer": "Two families dominate. CTC-style models emit one distribution per frame and need no alignment; attention encoder-decoders read the whole encoded utterance and emit tokens autoregressively, buying an implicit language model at the cost of streaming. Whisper's result was that neither architecture was the bottleneck — supervision was, and 680k hours of weakly-labelled audio bought a robustness that careful in-domain training had never reached.",
+    "math": "Decode ŷ = argmax_y p(y|x) over token sequences given acoustic frames x. The two lengths are wildly unequal — |x| runs to a hundred frames per second of audio while |y| is a handful of tokens — so every architecture here is in some form a length reduction: striding convolutions, frame stacking, or attention that reads many frames per output step."
+  },
+  "emphasis": {
+    "intuition": "the same sentence differs by speaker, room, microphone, and mood",
+    "engineer": "neither architecture was the bottleneck"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "keys": 12,
+      "lookahead": 64
+    },
+    "param_controls": [
+      {
+        "name": "keys",
+        "min": 4,
+        "max": 24,
+        "step": 2
+      }
+    ],
+    "caption": "Output tokens against encoder frames, nothing masked — every token may read every frame. Drag the frames up to watch each token spread over more of the utterance: an utterance runs far longer than its transcript, and reconciling those two lengths is the problem the architecture exists to solve."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "spectrogram",
+        "reviewed": false
+      },
+      {
+        "id": "encoder-decoder",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "connectionist-temporal-classification",
+        "reviewed": false
+      },
+      {
+        "id": "cross-attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2212.04356",
+      "title": "Robust Speech Recognition via Large-Scale Weak Supervision",
+      "url": "https://arxiv.org/abs/2212.04356"
+    },
+    {
+      "ref": "arXiv:1508.01211",
+      "title": "Listen, Attend and Spell",
+      "url": "https://arxiv.org/abs/1508.01211"
+    }
+  ],
+  "updated_at": "2026-08-17",
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  }
+}

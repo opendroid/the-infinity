@@ -28,7 +28,7 @@
         "step": 1
       }
     ],
-    "caption": "Steps whose value comes from the agent's own estimate against those backed by observed reward. Drag the lookahead to trade the bias of guessing against the variance of waiting."
+    "caption": "Steps whose value comes from the agent's own estimate against those backed by observed reward. Drag the bootstrapping up to trade the variance of waiting for the bias of guessing."
   },
   "edges": {
     "requires": [

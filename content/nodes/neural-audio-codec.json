@@ -1,0 +1,71 @@
+{
+  "id": "neural-audio-codec",
+  "title": "Neural Audio Codec",
+  "domain": [
+    "Speech",
+    "Compression"
+  ],
+  "bodies": {
+    "intuition": "A codec turns a waveform into a small number of symbols and back again. A neural one learns the symbols instead of hand-designing them, and reaches speech quality at a few kilobits per second that classical codecs need several times the budget for. The side effect mattered more than the compression: once audio is a sequence of discrete tokens, a language model can generate it.",
+    "engineer": "An encoder downsamples the waveform, a residual vector quantiser turns each frame into a stack of codebook indices, and a decoder — usually adversarially trained — reconstructs. Residual is the trick: the first quantiser takes the signal and the second quantises what the first got wrong, and so on down the stack, so bitrate becomes a question of how many stages you keep at decode time rather than a separate model per rate.",
+    "math": "Stage n quantises the residual r_n = r_{n−1} − e_{n−1}(r_{n−1}) with r_1 = z, so N stages over a codebook of size C cost N·log_2(C) bits per frame and the reconstruction is Σ_n e_n(r_n). The residual energy falls roughly geometrically in N, which is why the first stage carries most of the intelligibility and the later ones carry timbre."
+  },
+  "emphasis": {
+    "intuition": "once audio is a sequence of discrete tokens, a language model can generate it",
+    "engineer": "the second quantises what the first got wrong"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "refinement_bits": 10,
+      "share_rest": 10
+    },
+    "param_controls": [
+      {
+        "name": "refinement_bits",
+        "min": 0,
+        "max": 150,
+        "step": 5
+      }
+    ],
+    "caption": "Bits spent on the refinement stages against the bits of the first, coarse stage, in bits per frame. Drag the refinement up to watch the fixed first stage fall to a minority of the bitrate while still carrying most of what makes the words legible."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "vector-quantization",
+        "reviewed": false
+      },
+      {
+        "id": "autoencoder",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "quantization",
+        "reviewed": false
+      },
+      {
+        "id": "speech-representation-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2107.03312",
+      "title": "SoundStream: An End-to-End Neural Audio Codec",
+      "url": "https://arxiv.org/abs/2107.03312"
+    },
+    {
+      "ref": "arXiv:2210.13438",
+      "title": "High Fidelity Neural Audio Compression",
+      "url": "https://arxiv.org/abs/2210.13438"
+    }
+  ],
+  "updated_at": "2026-08-17",
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  }
+}

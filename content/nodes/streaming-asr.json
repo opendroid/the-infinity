@@ -1,0 +1,63 @@
+{
+  "id": "streaming-asr",
+  "title": "Streaming ASR",
+  "domain": [
+    "Speech",
+    "Serving"
+  ],
+  "bodies": {
+    "intuition": "A transcript that arrives after you stop talking is a different product from one that appears as you speak. Streaming recognition emits words while the audio is still arriving, which means committing to a word before hearing what follows it. Every bit of future context that makes the guess better also makes the caption later, and past roughly 300 ms a listener stops reading and starts waiting.",
+    "engineer": "The constraint is architectural rather than an optimisation: an encoder that attends over the whole utterance cannot run until the utterance ends. Streaming models bound how far ahead each frame may see — chunked attention, a fixed right context, or none at all — and pay for it in accuracy. RNN-T is the common choice because its output depends on previous outputs without depending on future inputs, which is the one dependency streaming can afford.",
+    "math": "With right context R, frame i attends over frames j ≤ i + R, so the output at i waits for R further frames of audio: a latency of R·H/sr seconds at hop H. Chunked attention amortises that — a chunk of C frames shares one boundary, giving mean latency about (C/2 + R)·H/sr — which is why chunking beats per-frame lookahead at equal accuracy."
+  },
+  "emphasis": {
+    "intuition": "committing to a word before hearing what follows it",
+    "engineer": "cannot run until the utterance ends"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 16,
+      "lookahead": 2
+    },
+    "param_controls": [
+      {
+        "name": "lookahead",
+        "min": 0,
+        "max": 10,
+        "step": 1
+      }
+    ],
+    "caption": "Encoder frames attending to encoder frames, with everything past a fixed horizon masked. Drag the lookahead up to watch each frame gain context it has to wait for — every column of it is delay the listener sits through before the word appears."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "automatic-speech-recognition",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "causal-masking",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1811.06621",
+      "title": "Streaming End-to-end Speech Recognition For Mobile Devices",
+      "url": "https://arxiv.org/abs/1811.06621"
+    },
+    {
+      "ref": "arXiv:2010.10759",
+      "title": "Emformer: Efficient Memory Transformer Based Acoustic Model For Low Latency Streaming Speech Recognition",
+      "url": "https://arxiv.org/abs/2010.10759"
+    }
+  ],
+  "updated_at": "2026-08-17",
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  }
+}

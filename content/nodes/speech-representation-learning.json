@@ -1,0 +1,75 @@
+{
+  "id": "speech-representation-learning",
+  "title": "Speech Representation Learning",
+  "domain": [
+    "Speech",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "Transcribed speech is expensive and raw audio is nearly free. Self-supervised speech models learn from the audio alone — hide parts of it, learn to identify what was hidden — and the representations that fall out turn an hour of labelled data into a usable recogniser. The pretext task is throwaway; what is kept is the encoder underneath it.",
+    "engineer": "wav2vec 2.0 masks spans of latent frames and solves a contrastive problem against quantised targets from a learned codebook; HuBERT replaces the contrast with plain classification over cluster labels refined between rounds. Both need discrete targets because raw audio has no natural vocabulary, and the quantiser is what manufactures one. Masking spans rather than single frames is load-bearing: a one-frame gap is filled by interpolation, not understanding.",
+    "math": "Mask a proportion of latent frames in spans of length M, then maximise the log-likelihood of the true quantised target q_t against K distractors drawn from other masked positions: L = −log[ exp(sim(c_t, q_t)/κ) / Σ_{q̃} exp(sim(c_t, q̃)/κ) ]. With start indices sampled at p ≈ 0.065 and M = 10, spans overlap enough that roughly half of all frames end up masked."
+  },
+  "emphasis": {
+    "intuition": "The pretext task is throwaway; what is kept is the encoder underneath it.",
+    "engineer": "a one-frame gap is filled by interpolation, not understanding"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "masked_frames": 48,
+      "share_rest": 52
+    },
+    "param_controls": [
+      {
+        "name": "masked_frames",
+        "min": 0,
+        "max": 100,
+        "step": 4
+      }
+    ],
+    "caption": "Latent frames hidden from the model against frames left visible, in frames. Drag the masked frames up to watch the pretext task get harder — too few and the neighbouring audio gives the answer away, and past about half there is little context left to answer from."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "self-supervised-learning",
+        "reviewed": false
+      },
+      {
+        "id": "spectrogram",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "masked-language-modeling",
+        "reviewed": false
+      },
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      },
+      {
+        "id": "vector-quantization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2006.11477",
+      "title": "wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations",
+      "url": "https://arxiv.org/abs/2006.11477"
+    },
+    {
+      "ref": "arXiv:2106.07447",
+      "title": "HuBERT: Self-Supervised Speech Representation Learning by Masked Prediction of Hidden Units",
+      "url": "https://arxiv.org/abs/2106.07447"
+    }
+  ],
+  "updated_at": "2026-08-17",
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  }
+}

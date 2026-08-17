@@ -1,0 +1,67 @@
+{
+  "id": "text-to-speech",
+  "title": "Text to Speech",
+  "domain": [
+    "Speech",
+    "Synthesis"
+  ],
+  "bodies": {
+    "intuition": "Reading a sentence aloud is not one problem but two: deciding how it should sound, and producing a waveform that sounds that way. Neural vocoders largely settled the second. The first is harder than it looks, because a sentence has many correct readings, and a model trained to minimise error will average them into a reading nobody would give.",
+    "engineer": "The usual pipeline predicts a mel spectrogram from text and hands it to a vocoder that produces samples. The failure mode of the first stage is oversmoothing: trained under an L1 or L2 loss the model predicts the conditional mean over every plausible prosody, and the mean of many sharp spectra is a blurred one that sounds muffled. Adversarial losses, flows, diffusion, and explicit duration and pitch prediction are all ways of not being asked for the mean.",
+    "math": "Under squared error the optimal prediction is E[y|x], and prosody makes p(y|x) genuinely multimodal, so that expectation lands between the modes rather than on any of them. Adversarial and likelihood-based objectives instead reward samples lying on the data manifold, which is why they recover detail a regression loss provably cannot."
+  },
+  "emphasis": {
+    "intuition": "average them into a reading nobody would give",
+    "engineer": "ways of not being asked for the mean"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "regression_weight": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "regression_weight",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Harmonic detail in one frame, as recorded and as a mean-seeking loss predicts it. Drag the regression weight up to watch the peaks collapse toward their own average — the mean of every plausible reading is a reading that sounds muffled."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "spectrogram",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "diffusion-model",
+        "reviewed": false
+      },
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1712.05884",
+      "title": "Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions",
+      "url": "https://arxiv.org/abs/1712.05884"
+    },
+    {
+      "ref": "arXiv:2010.05646",
+      "title": "HiFi-GAN: Generative Adversarial Networks for Efficient and High Fidelity Speech Synthesis",
+      "url": "https://arxiv.org/abs/2010.05646"
+    }
+  ],
+  "updated_at": "2026-08-17",
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  }
+}

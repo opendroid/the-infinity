@@ -1,0 +1,67 @@
+{
+  "id": "connectionist-temporal-classification",
+  "title": "CTC",
+  "domain": [
+    "Speech",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "Speech recognition has an alignment problem: you have the audio and you have the transcript, but not which frames produced which letters, and hand-labelling that is hopeless. CTC removes the question. It adds a blank symbol meaning \"nothing new here\", then scores a transcript by summing over every frame-to-letter alignment that could have produced it. You never have to say where a letter starts.",
+    "engineer": "Per-frame outputs over the alphabet plus a blank, trained by maximising the total probability of every alignment that collapses to the target — collapse being merge repeats, then drop blanks. Frames are conditionally independent given the audio, which is what makes the dynamic program cheap and also what makes CTC a poor language model: it cannot express that one output depends on the last. Restoring that dependency without giving up streaming is exactly what RNN-T adds.",
+    "math": "p(y|x) = Σ_{a ∈ B^{-1}(y)} Π_t p(a_t | x), where B merges repeated labels and then removes blanks. The sum runs over a count of alignments exponential in T and is computed in O(T·|y|) by the same forward–backward recursion an HMM uses. The ordering inside B is load-bearing: merge-then-drop is why \"hello\" needs a blank between its two l's to survive the collapse."
+  },
+  "emphasis": {
+    "intuition": "You never have to say where a letter starts.",
+    "engineer": "it cannot express that one output depends on the last"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "blank_frames": 40,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "blank_frames",
+        "min": 0,
+        "max": 600,
+        "step": 10
+      }
+    ],
+    "caption": "Frames the alignment spends on the blank symbol against frames that emit a character, in frames. Drag the blank frames up to watch them take over: the transcript's characters are a fixed handful, and everything else is silence, breath, and the tail of a held vowel."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "spectrogram",
+        "reviewed": false
+      },
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "automatic-speech-recognition",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1412.5567",
+      "title": "Deep Speech: Scaling up end-to-end speech recognition",
+      "url": "https://arxiv.org/abs/1412.5567"
+    },
+    {
+      "ref": "arXiv:1211.3711",
+      "title": "Sequence Transduction with Recurrent Neural Networks",
+      "url": "https://arxiv.org/abs/1211.3711"
+    }
+  ],
+  "updated_at": "2026-08-17",
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "word-error-rate",
+  "title": "Word Error Rate",
+  "domain": [
+    "Speech",
+    "Metrics"
+  ],
+  "bodies": {
+    "intuition": "The standard score for a transcript: line the hypothesis up against the reference, count the words you had to substitute, delete, or insert to repair it, and divide by the length of the reference. It is blunt on purpose. It does not know that \"their\" for \"there\" is worse than \"a\" for \"the\", and it will count a correctly spoken number written the other way as a miss.",
+    "engineer": "Because the denominator is the reference length while insertions are unbounded, WER can exceed 100% — a model that hallucinates is not merely at chance, it is off the scale. Much of the disagreement between published numbers is text normalisation rather than acoustics: whether \"%\" is \"percent\", whether \"Mr.\" matches \"Mister\". Whisper's authors reported real effort on a normaliser precisely because it moved results more than model changes did.",
+    "math": "WER = (S + D + I)/N, with S, D and I the substitutions, deletions and insertions on the minimum-cost alignment and N the reference word count. That alignment is Levenshtein distance over words, computed in O(|ref|·|hyp|). Note the asymmetry: N counts the reference alone, so WER is not symmetric in its two arguments and is not one minus an accuracy."
+  },
+  "emphasis": {
+    "intuition": "It is blunt on purpose.",
+    "engineer": "WER can exceed 100%"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "errors": 12,
+      "share_rest": 88
+    },
+    "param_controls": [
+      {
+        "name": "errors",
+        "min": 0,
+        "max": 120,
+        "step": 4
+      }
+    ],
+    "caption": "Words scored wrong against words scored right, in words. Drag the errors up to watch their share climb — and note this bar is not WER itself, which divides by the reference alone and so can pass one hundred percent where a share never can."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "automatic-speech-recognition",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "perplexity",
+        "reviewed": false
+      },
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2212.04356",
+      "title": "Robust Speech Recognition via Large-Scale Weak Supervision",
+      "url": "https://arxiv.org/abs/2212.04356"
+    },
+    {
+      "ref": "arXiv:1512.02595",
+      "title": "Deep Speech 2: End-to-End Speech Recognition in English and Mandarin",
+      "url": "https://arxiv.org/abs/1512.02595"
+    }
+  ],
+  "updated_at": "2026-08-17",
+  "provenance": {
+    "drafted_at": "2026-08-17"
+  }
+}
