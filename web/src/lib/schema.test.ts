@@ -70,6 +70,7 @@ describe('node.schema.json accepts', () => {
     'attention-heatmap',
     'loss-curve',
     'budget-split',
+    'threshold-sweep',
   ];
 
   for (const primitive of PRIMITIVES) {

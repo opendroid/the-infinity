@@ -15,20 +15,21 @@
     "math": "a benchmark reporting only far-OOD numbers is measuring the easy half"
   },
   "viz": {
-    "primitive": "budget-split",
+    "primitive": "threshold-sweep",
     "params": {
-      "shift_distance": 3,
-      "share_rest": 30
+      "separation": 0.8,
+      "threshold": 1.2,
+      "base_rate": 0.2
     },
     "param_controls": [
       {
-        "name": "shift_distance",
+        "name": "separation",
         "min": 0,
-        "max": 105,
-        "step": 3
+        "max": 5,
+        "step": 0.25
       }
     ],
-    "caption": "Shifted inputs a detector catches, against a fixed population of near-shifted ones it never does, as the input moves further from what the model was trained on. Drag the distance up to watch the caught share saturate — the residue does not shrink, and the residue is what a deployment meets."
+    "caption": "Detector scores for in-distribution inputs against shifted ones, with one cut through both. Drag the distance from the training distribution up to watch them pull apart — far out, anything works; the cases a deployment meets are at the left, inside the overlap."
   },
   "edges": {
     "requires": [

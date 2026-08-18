@@ -15,20 +15,21 @@
     "engineer": "A model with worse accuracy can have a better risk–coverage curve, and then it is the better model."
   },
   "viz": {
-    "primitive": "budget-split",
+    "primitive": "threshold-sweep",
     "params": {
-      "answered": 10,
-      "share_rest": 40
+      "separation": 1.8,
+      "threshold": 0.2,
+      "base_rate": 0.15
     },
     "param_controls": [
       {
-        "name": "answered",
-        "min": 0,
-        "max": 160,
-        "step": 5
+        "name": "threshold",
+        "min": -2.5,
+        "max": 3.5,
+        "step": 0.25
       }
     ],
-    "caption": "Inputs the model answers itself, against a fixed human review capacity of forty. Drag the automated volume up to watch the reviewed share shrink toward nothing — every input added is one the model was less sure of than the last, so the accuracy lives at the left of this drag."
+    "caption": "Inputs the model gets wrong, against inputs it gets right, ranked by its own confidence; everything left of the cut goes to a person. Drag the cut right to send fewer — the false alarms fall and so does the share of real mistakes caught. No cut removes both."
   },
   "edges": {
     "requires": [

@@ -26,6 +26,7 @@ import { frame as routerFrame } from '../components/viz/routing';
 import { read as routerRead } from '../components/viz/RouterDispatch';
 import { progress, spectrum, spread } from '../components/viz/spectrum';
 import { split, percent } from '../components/viz/share';
+import { sweep, shapeFrom as sweepShapeFrom } from '../components/viz/threshold';
 
 const NODES_DIR = resolve(process.cwd(), '../content/nodes');
 
@@ -84,6 +85,11 @@ function frameAt(node: Node, control: Control, value: number): string {
       return JSON.stringify(spectrum(node.id, live.bars ?? 8, progress(value, control.min, control.max)));
     case 'budget-split':
       return JSON.stringify(split(value, live.share_rest ?? 0));
+    case 'threshold-sweep':
+      // No echo to strip: `sweep` returns only what is drawn. The four counts
+      // are the frame, and `shapeFrom` reads three named keys, so a control
+      // named anything else is dropped — the failure this file exists for.
+      return JSON.stringify(sweep(sweepShapeFrom(live)));
     default:
       throw new Error(`no arithmetic wired for primitive "${node.viz.primitive}"`);
   }
@@ -181,9 +187,10 @@ describe('viz controls reach the primitive', () => {
    * COVERAGE IS PARTIAL AND DELIBERATELY SO. Only `budget-split` and
    * `update-spectrum` are checked — 113 of the corpus's figures — because only
    * they have a single scalar that honestly means "how far along is the
-   * picture". A heatmap's peak and a loss curve's floor are not that, and
-   * asserting on them would measure something other than what a reader sees.
-   * The uncovered three are named here rather than skipped silently.
+   * picture". A heatmap's peak, a loss curve's floor and a threshold sweep's
+   * four counts are not that, and asserting on them would measure something
+   * other than what a reader sees. The uncovered four are named here rather
+   * than skipped silently.
    *
    * THE THRESHOLD IS 10 BECAUSE NOTHING HONEST SITS BELOW 14. It shipped at 5,
    * which was as far as the evidence went at the time — #203 held the nine
