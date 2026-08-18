@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "world-model",
+      "id": "differential-privacy",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "model-based-rl",
+      "id": "membership-inference",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "offline-rl",
+      "id": "federated-learning",
       "t": 0.8,
       "label": true
     }
