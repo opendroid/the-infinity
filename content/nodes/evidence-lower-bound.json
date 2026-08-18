@@ -1,0 +1,57 @@
+{
+  "id": "evidence-lower-bound",
+  "title": "ELBO",
+  "domain": [
+    "Information",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "The quantity you want — how likely your data is under the model — is an intractable integral. The ELBO is a lower bound on it that you can actually compute, and maximising the bound pushes up the thing beneath it. Every variational method in this graph is doing that trade: give up on the exact number, optimise something computable that cannot exceed it.",
+    "engineer": "The gap between the bound and the truth is exactly the KL divergence from your approximate posterior to the true one, so tightening the bound and improving the posterior are the same act. Written the usual way it splits into a reconstruction term and a KL term pulling the posterior toward the prior, and the balance between them is where posterior collapse comes from — weight the KL too heavily and the latent stops carrying information at all.",
+    "math": "log p(x) = ELBO + D_KL(q(z|x)‖p(z|x)) ≥ ELBO, with ELBO = E_q[log p(x|z)] − D_KL(q(z|x)‖p(z)). Because the KL on the right is non-negative and unknown, the bound is all you get; because it is exactly the posterior error, closing it is not a separate problem from fitting q."
+  },
+  "emphasis": {
+    "intuition": "optimise something computable that cannot exceed it",
+    "engineer": "weight the KL too heavily and the latent stops carrying information at all"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "kl_weight": 4,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "kl_weight",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Weight on the KL term against the weight on reconstruction, in equal units. Drag the KL up to watch it take over the objective — past a point the posterior matches the prior and the latent carries nothing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "kl-divergence",
+        "reviewed": false
+      },
+      {
+        "id": "variational-autoencoder",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1312.6114",
+      "title": "Auto-Encoding Variational Bayes",
+      "url": "https://arxiv.org/abs/1312.6114"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

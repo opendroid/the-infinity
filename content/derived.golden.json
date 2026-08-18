@@ -1191,6 +1191,18 @@
         ],
         "adjacent": [
           {
+            "id": "mutual-information",
+            "title": "Mutual Information",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "noise-contrastive-estimation",
+            "title": "Noise-Contrastive Estimation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "self-supervised-learning",
             "title": "Self-Supervised Learning",
             "tier": "verified",
@@ -1307,7 +1319,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "entropy",
+            "title": "Entropy",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1645,6 +1664,79 @@
             "reviewed": false
           }
         ]
+      }
+    },
+    {
+      "id": "entropy",
+      "title": "Entropy",
+      "domain": "Information / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "kl-divergence",
+            "title": "KL Divergence",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "minimum-description-length",
+            "title": "Minimum Description Length",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "mutual-information",
+            "title": "Mutual Information",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "rate-distortion",
+            "title": "Rate-Distortion",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "perplexity",
+            "title": "Perplexity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "evidence-lower-bound",
+      "title": "ELBO",
+      "domain": "Information / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "kl-divergence",
+            "title": "KL Divergence",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "variational-autoencoder",
+            "title": "Variational Autoencoder",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": []
       }
     },
     {
@@ -2192,6 +2284,31 @@
       }
     },
     {
+      "id": "information-bottleneck",
+      "title": "Information Bottleneck",
+      "domain": "Information / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "mutual-information",
+            "title": "Mutual Information",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "manifold-hypothesis",
+            "title": "Manifold Hypothesis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "instruction-tuning",
       "title": "Instruction Tuning",
       "domain": "Alignment / Regimes",
@@ -2307,6 +2424,44 @@
           {
             "id": "flash-attention",
             "title": "FlashAttention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "kl-divergence",
+      "title": "KL Divergence",
+      "domain": "Information / Divergence",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "entropy",
+            "title": "Entropy",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "evidence-lower-bound",
+            "title": "ELBO",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "variational-autoencoder",
+            "title": "Variational Autoencoder",
             "tier": "verified",
             "reviewed": false
           }
@@ -2702,6 +2857,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "information-bottleneck",
+            "title": "Information Bottleneck",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "k-nearest-neighbors",
             "title": "k-Nearest Neighbors",
             "tier": "verified",
@@ -2815,6 +2976,37 @@
             "id": "probing-classifier",
             "title": "Probing Classifier",
             "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "minimum-description-length",
+      "title": "Minimum Description Length",
+      "domain": "Information / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "entropy",
+            "title": "Entropy",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3026,6 +3218,44 @@
       }
     },
     {
+      "id": "mutual-information",
+      "title": "Mutual Information",
+      "domain": "Information / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "entropy",
+            "title": "Entropy",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "information-bottleneck",
+            "title": "Information Bottleneck",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "noise-contrastive-estimation",
+            "title": "Noise-Contrastive Estimation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "neural-audio-codec",
       "title": "Neural Audio Codec",
       "domain": "Speech / Compression",
@@ -3050,6 +3280,49 @@
           {
             "id": "quantization",
             "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "rate-distortion",
+            "title": "Rate-Distortion",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "speech-representation-learning",
+            "title": "Speech Representation Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "noise-contrastive-estimation",
+      "title": "Noise-Contrastive Estimation",
+      "domain": "Information / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "mutual-information",
+            "title": "Mutual Information",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
             "tier": "verified",
             "reviewed": false
           },
@@ -3158,6 +3431,12 @@
             "title": "Decision Tree",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "minimum-description-length",
+            "title": "Minimum Description Length",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3265,6 +3544,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "entropy",
+            "title": "Entropy",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "word-error-rate",
             "title": "Word Error Rate",
@@ -3692,6 +3977,12 @@
             "title": "Neural Audio Codec",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "rate-distortion",
+            "title": "Rate-Distortion",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3719,6 +4010,37 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "rate-distortion",
+      "title": "Rate-Distortion",
+      "domain": "Information / Compression",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "entropy",
+            "title": "Entropy",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "neural-audio-codec",
+            "title": "Neural Audio Codec",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "quantization",
+            "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3988,6 +4310,12 @@
             "reviewed": false
           },
           {
+            "id": "kl-divergence",
+            "title": "KL Divergence",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "reward-hacking",
             "title": "Reward Hacking",
             "tier": "verified",
@@ -4252,6 +4580,12 @@
             "reviewed": false
           },
           {
+            "id": "noise-contrastive-estimation",
+            "title": "Noise-Contrastive Estimation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "nucleus-sampling",
             "title": "Nucleus Sampling",
             "tier": "verified",
@@ -4429,6 +4763,12 @@
             "id": "neural-audio-codec",
             "title": "Neural Audio Codec",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "noise-contrastive-estimation",
+            "title": "Noise-Contrastive Estimation",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -4900,12 +5240,25 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "evidence-lower-bound",
+            "title": "ELBO",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "diffusion-model",
             "title": "Diffusion Model",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "kl-divergence",
+            "title": "KL Divergence",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -5062,6 +5415,12 @@
             "id": "dropout",
             "title": "Dropout",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "minimum-description-length",
+            "title": "Minimum Description Length",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -7155,17 +7514,31 @@
           "y": 88
         },
         {
+          "id": "mutual-information",
+          "title": "Mutual Information",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
+          "id": "noise-contrastive-estimation",
+          "title": "Noise-Contrastive Estimation",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
+        },
+        {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
-          "x": 80,
+          "x": 144,
           "y": 22
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
-          "x": 160,
+          "x": 192,
           "y": 110
         }
       ],
@@ -7198,6 +7571,18 @@
           "from": "contrastive-learning",
           "to": "dense-retrieval",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "contrastive-learning",
+          "to": "mutual-information",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "contrastive-learning",
+          "to": "noise-contrastive-estimation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -7358,6 +7743,13 @@
           "tier": "verified",
           "x": 200,
           "y": 113
+        },
+        {
+          "id": "entropy",
+          "title": "Entropy",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -7407,6 +7799,12 @@
           "from": "cross-entropy-loss",
           "to": "reward-model",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "entropy",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -7989,6 +8387,138 @@
           "from": "encoder-decoder",
           "to": "decoder-only-transformer",
           "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "entropy",
+      "center": {
+        "id": "entropy",
+        "title": "Entropy",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "kl-divergence",
+          "title": "KL Divergence",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
+          "id": "minimum-description-length",
+          "title": "Minimum Description Length",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "mutual-information",
+          "title": "Mutual Information",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "rate-distortion",
+          "title": "Rate-Distortion",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        },
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "perplexity",
+          "title": "Perplexity",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "entropy",
+          "to": "kl-divergence",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "entropy",
+          "to": "minimum-description-length",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "entropy",
+          "to": "mutual-information",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "entropy",
+          "to": "rate-distortion",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "entropy",
+          "to": "cross-entropy-loss",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "entropy",
+          "to": "perplexity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "evidence-lower-bound",
+      "center": {
+        "id": "evidence-lower-bound",
+        "title": "ELBO",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "kl-divergence",
+          "title": "KL Divergence",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "variational-autoencoder",
+          "title": "Variational Autoencoder",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "kl-divergence",
+          "to": "evidence-lower-bound",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "variational-autoencoder",
+          "to": "evidence-lower-bound",
+          "type": "requires",
           "reviewed": false
         }
       ]
@@ -8934,6 +9464,46 @@
       ]
     },
     {
+      "id": "information-bottleneck",
+      "center": {
+        "id": "information-bottleneck",
+        "title": "Information Bottleneck",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mutual-information",
+          "title": "Mutual Information",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "manifold-hypothesis",
+          "title": "Manifold Hypothesis",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "mutual-information",
+          "to": "information-bottleneck",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "information-bottleneck",
+          "to": "manifold-hypothesis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "instruction-tuning",
       "center": {
         "id": "instruction-tuning",
@@ -9140,6 +9710,72 @@
         {
           "from": "kernel-fusion",
           "to": "flash-attention",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "kl-divergence",
+      "center": {
+        "id": "kl-divergence",
+        "title": "KL Divergence",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "entropy",
+          "title": "Entropy",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "evidence-lower-bound",
+          "title": "ELBO",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "variational-autoencoder",
+          "title": "Variational Autoencoder",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "entropy",
+          "to": "kl-divergence",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "kl-divergence",
+          "to": "evidence-lower-bound",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "kl-divergence",
+          "to": "rlhf",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "kl-divergence",
+          "to": "variational-autoencoder",
           "type": "adjacent",
           "reviewed": false
         }
@@ -9829,21 +10465,34 @@
       },
       "nodes": [
         {
+          "id": "information-bottleneck",
+          "title": "Information Bottleneck",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "k-nearest-neighbors",
           "title": "k-Nearest Neighbors",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "principal-component-analysis",
           "title": "Principal Component Analysis",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
+        {
+          "from": "manifold-hypothesis",
+          "to": "information-bottleneck",
+          "type": "adjacent",
+          "reviewed": false
+        },
         {
           "from": "manifold-hypothesis",
           "to": "k-nearest-neighbors",
@@ -10038,6 +10687,59 @@
         {
           "from": "mechanistic-interpretability",
           "to": "probing-classifier",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "minimum-description-length",
+      "center": {
+        "id": "minimum-description-length",
+        "title": "Minimum Description Length",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "entropy",
+          "title": "Entropy",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "entropy",
+          "to": "minimum-description-length",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "minimum-description-length",
+          "to": "overfitting",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "minimum-description-length",
+          "to": "weight-decay",
           "type": "adjacent",
           "reviewed": false
         }
@@ -10389,6 +11091,72 @@
       ]
     },
     {
+      "id": "mutual-information",
+      "center": {
+        "id": "mutual-information",
+        "title": "Mutual Information",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "entropy",
+          "title": "Entropy",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "information-bottleneck",
+          "title": "Information Bottleneck",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "noise-contrastive-estimation",
+          "title": "Noise-Contrastive Estimation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "entropy",
+          "to": "mutual-information",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "mutual-information",
+          "to": "information-bottleneck",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "mutual-information",
+          "to": "noise-contrastive-estimation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "mutual-information",
+          "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "neural-audio-codec",
       "center": {
         "id": "neural-audio-codec",
@@ -10416,15 +11184,22 @@
           "id": "quantization",
           "title": "Quantization",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "rate-distortion",
+          "title": "Rate-Distortion",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -10448,6 +11223,78 @@
         },
         {
           "from": "neural-audio-codec",
+          "to": "rate-distortion",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "neural-audio-codec",
+          "to": "speech-representation-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "noise-contrastive-estimation",
+      "center": {
+        "id": "noise-contrastive-estimation",
+        "title": "Noise-Contrastive Estimation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mutual-information",
+          "title": "Mutual Information",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "speech-representation-learning",
+          "title": "Speech Representation Learning",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "mutual-information",
+          "to": "noise-contrastive-estimation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "noise-contrastive-estimation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "noise-contrastive-estimation",
+          "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "noise-contrastive-estimation",
           "to": "speech-representation-learning",
           "type": "adjacent",
           "reviewed": false
@@ -10595,8 +11442,15 @@
           "id": "decision-tree",
           "title": "Decision Tree",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "minimum-description-length",
+          "title": "Minimum Description Length",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -10621,6 +11475,12 @@
         {
           "from": "overfitting",
           "to": "decision-tree",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "minimum-description-length",
           "type": "adjacent",
           "reviewed": false
         }
@@ -10784,11 +11644,18 @@
           "y": 88
         },
         {
+          "id": "entropy",
+          "title": "Entropy",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -10802,6 +11669,12 @@
           "from": "tokenization",
           "to": "perplexity",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "perplexity",
+          "to": "entropy",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -11502,15 +12375,22 @@
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "rate-distortion",
+          "title": "Rate-Distortion",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -11535,6 +12415,12 @@
         {
           "from": "quantization",
           "to": "neural-audio-codec",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "rate-distortion",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11576,6 +12462,59 @@
           "from": "query-key-value",
           "to": "self-attention",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "rate-distortion",
+      "center": {
+        "id": "rate-distortion",
+        "title": "Rate-Distortion",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "entropy",
+          "title": "Entropy",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "neural-audio-codec",
+          "title": "Neural Audio Codec",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "entropy",
+          "to": "rate-distortion",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "rate-distortion",
+          "to": "neural-audio-codec",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "rate-distortion",
+          "to": "quantization",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -12005,22 +12944,29 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "direct-preference-optimization",
           "title": "DPO",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "kl-divergence",
+          "title": "KL Divergence",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "reward-hacking",
           "title": "Reward Hacking",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -12057,6 +13003,12 @@
         {
           "from": "rlhf",
           "to": "direct-preference-optimization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "kl-divergence",
           "type": "adjacent",
           "reviewed": false
         },
@@ -12441,56 +13393,63 @@
           "title": "Autoregressive Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 15
+          "y": 13
         },
         {
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
           "x": 200,
-          "y": 29
+          "y": 26
         },
         {
           "id": "constrained-decoding",
           "title": "Constrained Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 40
         },
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
           "x": 200,
-          "y": 59
+          "y": 53
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
           "tier": "verified",
           "x": 200,
-          "y": 73
+          "y": 66
         },
         {
           "id": "logistic-regression",
           "title": "Logistic Regression",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 79
+        },
+        {
+          "id": "noise-contrastive-estimation",
+          "title": "Noise-Contrastive Estimation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 92
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 103
+          "y": 106
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 117
+          "y": 119
         },
         {
           "id": "attention",
@@ -12534,6 +13493,12 @@
         {
           "from": "softmax",
           "to": "logistic-regression",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "noise-contrastive-estimation",
           "type": "unlocks",
           "reviewed": false
         },
@@ -12784,29 +13749,36 @@
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "masked-language-modeling",
           "title": "Masked Language Modeling",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
         },
         {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
           "tier": "verified",
-          "x": 144,
+          "x": 120,
           "y": 22
+        },
+        {
+          "id": "noise-contrastive-estimation",
+          "title": "Noise-Contrastive Estimation",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         },
         {
           "id": "vector-quantization",
           "title": "Vector Quantization",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -12837,6 +13809,12 @@
         {
           "from": "speech-representation-learning",
           "to": "neural-audio-codec",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "speech-representation-learning",
+          "to": "noise-contrastive-estimation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -13646,11 +14624,25 @@
           "y": 66
         },
         {
+          "id": "evidence-lower-bound",
+          "title": "ELBO",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "diffusion-model",
           "title": "Diffusion Model",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "kl-divergence",
+          "title": "KL Divergence",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -13662,7 +14654,19 @@
         },
         {
           "from": "variational-autoencoder",
+          "to": "evidence-lower-bound",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "variational-autoencoder",
           "to": "diffusion-model",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "variational-autoencoder",
+          "to": "kl-divergence",
           "type": "adjacent",
           "reviewed": false
         }
@@ -13908,8 +14912,15 @@
           "id": "dropout",
           "title": "Dropout",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "minimum-description-length",
+          "title": "Minimum Description Length",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -13928,6 +14939,12 @@
         {
           "from": "weight-decay",
           "to": "dropout",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
+          "to": "minimum-description-length",
           "type": "adjacent",
           "reviewed": false
         }

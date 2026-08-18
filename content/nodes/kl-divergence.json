@@ -1,0 +1,70 @@
+{
+  "id": "kl-divergence",
+  "title": "KL Divergence",
+  "domain": [
+    "Information",
+    "Divergence"
+  ],
+  "bodies": {
+    "intuition": "How much do you lose by believing the wrong distribution? KL divergence answers in bits: the extra length of every message when you encode reality's symbols using your model's code. It is zero only when the two agree, and it is not symmetric — being wrong about a rare event costs differently depending on which way round you are wrong.",
+    "engineer": "The asymmetry is a design decision, not a wart. Forward KL, averaging over the data, punishes a model that puts no mass where data is and so spreads out to cover everything; reverse KL, averaging over the model, punishes putting mass where data is not and so collapses onto one mode. Variational inference minimises the reverse, which is why a VAE's posterior is famously over-confident, and RLHF penalises the reverse to keep a policy near its reference.",
+    "math": "D_KL(p‖q) = Σ_x p(x)·log(p(x)/q(x)) = H(p,q) − H(p) ≥ 0, with equality only when p = q. It is not a metric: it fails symmetry and the triangle inequality both, which is why the symmetrised Jensen–Shannon divergence exists and why calling it a distance causes trouble."
+  },
+  "emphasis": {
+    "intuition": "It is zero only when the two agree, and it is not symmetric",
+    "engineer": "The asymmetry is a design decision, not a wart."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "excess_bits": 6,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "excess_bits",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Bits wasted by coding with the wrong distribution against the bits the right one would have cost, in bits. Drag the divergence up to watch the waste overtake the message it is carrying."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "entropy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "rlhf",
+        "reviewed": false
+      },
+      {
+        "id": "variational-autoencoder",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1312.6114",
+      "title": "Auto-Encoding Variational Bayes",
+      "url": "https://arxiv.org/abs/1312.6114"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Kullback & Leibler 1951",
+      "title": "On Information and Sufficiency",
+      "venue": "Annals of Mathematical Statistics 22(1)",
+      "doi": "10.1214/aoms/1177729694"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
