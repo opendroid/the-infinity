@@ -1,0 +1,67 @@
+{
+  "id": "vision-language-action",
+  "title": "Vision-Language-Action Model",
+  "domain": [
+    "Robotics",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "Take a model that already understands images and instructions, and give it a third output: what to do with a body. The bet is that most of what a robot needs to know about the world was learnable from the internet, and only the acting part has to come from robots — which are slow, expensive and scarce.",
+    "engineer": "Actions are usually emitted as tokens from the same vocabulary head, which is what lets web pretraining transfer at all rather than being discarded at the last layer. The evidence for transfer is semantic generalisation — instructions naming objects the robot never manipulated — rather than better control on familiar tasks. Inference latency is the binding constraint, because a large model at 3 Hz is not a controller.",
+    "math": "Discretise each action dimension into bins and predict them as tokens, so the policy is a language model conditioned on images and an instruction. Robot data is the scarce factor by several orders of magnitude, which is why the scaling that matters is not model size but how much of the model can be pretrained on data that is not robot data."
+  },
+  "emphasis": {
+    "intuition": "only the acting part has to come from robots — which are slow, expensive and scarce",
+    "engineer": "a large model at 3 Hz is not a controller"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "web_pretraining": 24,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "web_pretraining",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Knowledge coming from web pretraining against knowledge that must come from robot data, in equal units. Drag the pretraining up to watch the scarce half shrink — it is scarce by orders of magnitude, which is the whole design."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "vision-language-model",
+        "reviewed": false
+      },
+      {
+        "id": "imitation-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "sim-to-real",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2307.15818",
+      "title": "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control",
+      "url": "https://arxiv.org/abs/2307.15818"
+    },
+    {
+      "ref": "arXiv:2406.09246",
+      "title": "OpenVLA: An Open-Source Vision-Language-Action Model",
+      "url": "https://arxiv.org/abs/2406.09246"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

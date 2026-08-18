@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "catastrophic-forgetting",
+      "id": "tiling",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "experience-replay",
+      "id": "autotuning",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "few-shot-learning",
+      "id": "custom-kernel",
       "t": 0.8,
       "label": true
     }

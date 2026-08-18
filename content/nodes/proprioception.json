@@ -1,0 +1,62 @@
+{
+  "id": "proprioception",
+  "title": "Proprioception",
+  "domain": [
+    "Robotics",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "A robot knows where its own joints are, precisely and at high frequency, without looking. That sense is cheap, exact and available every millisecond — unlike vision, which is slow, occluded and expensive — and a policy that ignores it is throwing away its most reliable input.",
+    "engineer": "The practical difficulty is fusing signals at different rates: joint states at a kilohertz, cameras at thirty hertz, a language instruction once. Policies typically run a fast loop on proprioception with a slow loop on perception, which is the same hierarchy `hierarchical-rl` describes arriving from a different direction. Proprioception is also what survives when a camera is occluded, which is most of the time during contact.",
+    "math": "With joint states at f_p and images at f_v, a policy conditioned on both is limited to f_v unless the architecture splits them — which is why the fast loop exists. During contact the visual signal is frequently occluded by the manipulator itself, so the information rate available to a vision-only policy drops exactly when the task is hardest."
+  },
+  "emphasis": {
+    "intuition": "a policy that ignores it is throwing away its most reliable input",
+    "engineer": "Proprioception is also what survives when a camera is occluded, which is most of the time during contact."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "fast_loop_steps": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "fast_loop_steps",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Control steps driven by joint sensing against steps waiting on a camera frame, in steps. Drag the fast loop up to watch control decouple from perception — which is what lets a policy act during the moments vision cannot see."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "manipulation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "hierarchical-rl",
+        "reviewed": false
+      },
+      {
+        "id": "streaming-asr",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2212.06817",
+      "title": "RT-1: Robotics Transformer for Real-World Control at Scale",
+      "url": "https://arxiv.org/abs/2212.06817"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

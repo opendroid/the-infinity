@@ -1,0 +1,66 @@
+{
+  "id": "embodiment-gap",
+  "title": "Embodiment Gap",
+  "domain": [
+    "Robotics",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "A policy trained on one robot rarely works on another. Different arms have different kinematics, different grippers, different cameras in different places — so the same instruction requires different motion, and the data collected on one body does not straightforwardly describe the other.",
+    "engineer": "Cross-embodiment datasets attack this by pooling across bodies and letting the model learn what is shared, which works better than expected and is why pooled datasets exist at all. What transfers is the semantic layer — which object, which goal — while the low-level control stays body-specific, which suggests the split most architectures now make rather than being a limitation of them.",
+    "math": "Actions live in a body-specific space, so pooling requires either a shared action representation or per-body heads on a shared trunk. Positive transfer then depends on the shared part carrying most of the task information — which is exactly the claim vision-language-action models make, and the reason pooling across bodies helps rather than merely adding noise."
+  },
+  "emphasis": {
+    "intuition": "the same instruction requires different motion",
+    "engineer": "What transfers is the semantic layer — which object, which goal — while the low-level control stays body-specific"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "shared_layer": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "shared_layer",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Capacity shared across bodies against capacity kept per body, in equal units. Drag the sharing up to watch transfer grow — until the shared trunk is asked to emit motion for a body it does not have."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "vision-language-action",
+        "reviewed": false
+      },
+      {
+        "id": "teleoperation-data",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "task-interference",
+        "reviewed": false
+      },
+      {
+        "id": "sim-to-real",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2310.08864",
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+      "url": "https://arxiv.org/abs/2310.08864"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

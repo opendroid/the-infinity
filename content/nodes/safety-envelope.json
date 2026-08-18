@@ -1,0 +1,62 @@
+{
+  "id": "safety-envelope",
+  "title": "Safety Envelope",
+  "domain": [
+    "Robotics",
+    "Safety"
+  ],
+  "bodies": {
+    "intuition": "A learned policy on real hardware can hurt somebody, so it does not get the final say. A safety envelope is a separately-specified region the system may operate in, enforced by something simpler than the policy — a force limit, a workspace boundary, a velocity cap — that can veto any command.",
+    "engineer": "The point of keeping the monitor simple is that it must be verifiable by inspection, which a learned policy is not. This is the same argument `sandboxing` makes for agents, with the difference that the consequences are physical and the monitor has to run in the control loop rather than around it. A monitor that is itself learned inherits the failure modes it was meant to catch.",
+    "math": "Define a set of admissible states and a controller that keeps the system inside it from any state within; the learned policy proposes and the filter projects onto what is admissible. The guarantee is conditional on the dynamics model used to define the set, so the envelope is only as sound as the model — which is why the sets are conservative rather than tight."
+  },
+  "emphasis": {
+    "intuition": "it does not get the final say",
+    "engineer": "A monitor that is itself learned inherits the failure modes it was meant to catch."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "vetoed_commands": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "vetoed_commands",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Commands the filter rejects against commands it passes through, in commands. Drag the envelope tighter to watch the policy lose authority — a filter that never vetoes is not enforcing anything, and one that always does is the controller."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "manipulation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "sandboxing",
+        "reviewed": false
+      },
+      {
+        "id": "human-in-the-loop",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1808.00177",
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "url": "https://arxiv.org/abs/1808.00177"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
