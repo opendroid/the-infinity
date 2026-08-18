@@ -1,0 +1,75 @@
+{
+  "id": "expectation-maximization",
+  "title": "Expectation-Maximization",
+  "domain": [
+    "Foundations",
+    "Statistics"
+  ],
+  "bodies": {
+    "intuition": "Fitting a model when some of what you need is missing. If you knew which cluster each point belonged to, fitting the clusters would be easy; if you knew the clusters, assigning the points would be easy. EM breaks the circle by alternating: guess the assignments, fit, re-guess, refit, and repeat until it stops moving.",
+    "engineer": "`k-means-clustering` is the recognisable special case, with hard assignments instead of soft ones. The general version keeps a probability of each assignment, which is better behaved and slower. What matters in practice is that it finds a local optimum and which one depends entirely on where it started, so restarts are not optional — a single run of EM has not found the answer, it has found an answer.",
+    "math": "Each iteration constructs a lower bound on the log-likelihood that touches it at the current parameters, then maximises the bound. So the likelihood cannot decrease, which is the guarantee, and it says nothing about reaching the global optimum, which is the limitation. That construction is the same one behind the evidence lower bound in variational inference — EM is the case where the bound can be made tight at every step, and variational methods are what you do when it cannot."
+  },
+  "emphasis": {
+    "engineer": "a single run of EM has not found the answer, it has found an answer",
+    "math": "EM is the case where the bound can be made tight at every step"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "local_optima_missed": 6,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "local_optima_missed",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Restarts that land in a worse optimum, against the ones that find the good one, in restarts. Drag the missed count up to watch a single run become a coin flip — the likelihood never decreases within a run, and that guarantee says nothing about which run you are on."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "bayesian-inference",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "k-means-clustering",
+        "reviewed": false
+      },
+      {
+        "id": "evidence-lower-bound",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1312.6114",
+      "title": "Auto-Encoding Variational Bayes",
+      "url": "https://arxiv.org/abs/1312.6114"
+    },
+    {
+      "ref": "arXiv:1506.02142",
+      "title": "Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning",
+      "url": "https://arxiv.org/abs/1506.02142"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Dempster, Laird & Rubin 1977",
+      "title": "Maximum Likelihood from Incomplete Data via the EM Algorithm",
+      "venue": "Journal of the Royal Statistical Society B 39(1)",
+      "doi": "10.1111/j.2517-6161.1977.tb01600.x"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "recurrent-neural-network",
+      "id": "maximum-likelihood",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "vanishing-gradient",
+      "id": "word-embedding",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "activation-function",
+      "id": "bayesian-inference",
       "t": 0.8,
       "label": true
     }

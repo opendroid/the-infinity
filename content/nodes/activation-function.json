@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "The small nonlinear step between one layer and the next. It looks like a detail and it is the reason depth means anything: without it, a stack of a hundred layers computes exactly what one layer computes, because composing linear maps gives a linear map. Everything a deep network can express that a shallow one cannot passes through this function.",
     "engineer": "Which one matters less than people expect and not zero. Rectifiers won over the smooth saturating functions because they do not flatten for large inputs, which is what had been strangling the gradient in deep stacks. The transformer era moved to smooth approximations of a rectifier, and then to gated variants that split the input in two and let one half scale the other — a change that costs a third more parameters in the block and pays for itself, which is the kind of trade that only shows up at scale.",
-    "math": "The requirement is nonlinearity and nothing else — any nonlinear function makes the network a universal approximator, so the choice is decided by optimisation rather than by expressiveness. What separates them is the derivative: a function that saturates has a derivative near zero over most of its range, so the share of units passing gradient falls as the layer's inputs spread out, and in a deep stack those shares multiply. Rectifiers pass gradient unchanged wherever they are active, which is the whole of why they replaced what came before."
+    "math": "The requirement is nonlinearity and nothing else — any non-polynomial activation makes the network a universal approximator, so the choice is decided by optimisation rather than by expressiveness. What separates them is the derivative: a function that saturates has a derivative near zero over most of its range, so the share of units passing gradient falls as the layer's inputs spread out, and in a deep stack those shares multiply. Rectifiers pass gradient unchanged wherever they are active, which is the whole of why they replaced what came before."
   },
   "emphasis": {
     "intuition": "a stack of a hundred layers computes exactly what one layer computes",
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

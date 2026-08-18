@@ -1,0 +1,67 @@
+{
+  "id": "n-gram-model",
+  "title": "N-Gram Model",
+  "domain": [
+    "Foundations",
+    "Statistics"
+  ],
+  "bodies": {
+    "intuition": "Predict the next word by counting how often it followed the previous few in a large pile of text. No parameters to learn beyond the counts, no training in any modern sense. It was the language model for forty years, it is the baseline every neural model was argued against, and `perplexity` exists because of it.",
+    "engineer": "The whole engineering problem is what to do about the counts you did not see. A four-word sequence absent from the corpus gets probability zero and takes the whole sentence to zero with it, so every usable system backs off to shorter contexts and redistributes mass from what was seen to what was not. The smoothing scheme mattered enormously, and the best of them held up against early neural models for longer than the field likes to remember.",
+    "math": "The count table grows as the vocabulary to the power of n, so going from three words of context to five multiplies the space by the vocabulary squared while the corpus stays the same size — the fraction of possible n-grams ever observed collapses toward zero. That is the sparsity wall, and it is the reason context length was capped at four or five words by arithmetic rather than by choice. Learning a dense representation instead of counting is precisely what removed it."
+  },
+  "emphasis": {
+    "intuition": "`perplexity` exists because of it",
+    "math": "context length was capped at four or five words by arithmetic rather than by choice"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unseen_ngrams": 20,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "unseen_ngrams",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "N-grams the corpus never contained, against the ones it did, in equal units. Drag the unseen count up to watch the table become mostly holes — it grows as the vocabulary to the power of the context length, which is the wall dense representations were invented to get past."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "perplexity",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "word-embedding",
+        "reviewed": false
+      },
+      {
+        "id": "tokenization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1206.6426",
+      "title": "A fast and simple algorithm for training neural probabilistic language models",
+      "url": "https://arxiv.org/abs/1206.6426"
+    },
+    {
+      "ref": "arXiv:1301.3781",
+      "title": "Efficient Estimation of Word Representations in Vector Space",
+      "url": "https://arxiv.org/abs/1301.3781"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

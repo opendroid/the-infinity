@@ -1,0 +1,76 @@
+{
+  "id": "hidden-markov-model",
+  "title": "Hidden Markov Model",
+  "domain": [
+    "Foundations",
+    "Statistics"
+  ],
+  "bodies": {
+    "intuition": "A sequence of states you cannot see, each producing an observation you can. Speech is the canonical case: the phonemes are hidden, the audio is what arrives, and the task is to recover the first from the second. It was the backbone of speech recognition for decades and it is the ancestor of everything sequential in this corpus.",
+    "engineer": "The Markov assumption — the next state depends only on the current one — is what makes it tractable and what limits it. Dynamic programming then gives exact answers to all three questions you want: how likely is this observation sequence, what is the most likely state path, and what parameters best explain the data. Neural sequence models gave up the exactness and the interpretability in exchange for dropping the assumption, and that is the trade the whole lineage represents.",
+    "math": "The state path has exponentially many possibilities and the forward and Viterbi recursions evaluate them in time linear in the sequence and quadratic in the state count, by reusing shared prefixes. That is the same structural insight `connectionist-temporal-classification` uses to sum over alignments, arrived at forty years earlier — which is why CTC feels familiar to anyone who learned this first, and arbitrary to anyone who did not."
+  },
+  "emphasis": {
+    "intuition": "it is the ancestor of everything sequential in this corpus",
+    "math": "arrived at forty years earlier"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 10,
+      "keys": 10,
+      "lookahead": 1
+    },
+    "param_controls": [
+      {
+        "name": "lookahead",
+        "min": 0,
+        "max": 9,
+        "step": 1
+      }
+    ],
+    "caption": "States against the states they may follow from, under the Markov assumption. Drag the lookahead up to watch the model see further back — at one, the whole of history is the current state, which is the assumption that makes the recursions exact and the model limited."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "markov-decision-process",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "connectionist-temporal-classification",
+        "reviewed": false
+      },
+      {
+        "id": "recurrent-neural-network",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1206.6426",
+      "title": "A fast and simple algorithm for training neural probabilistic language models",
+      "url": "https://arxiv.org/abs/1206.6426"
+    },
+    {
+      "ref": "arXiv:1301.3781",
+      "title": "Efficient Estimation of Word Representations in Vector Space",
+      "url": "https://arxiv.org/abs/1301.3781"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Rabiner 1989",
+      "title": "A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition",
+      "venue": "Proceedings of the IEEE 77(2)",
+      "doi": "10.1109/5.18626"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -123,7 +123,7 @@
       "id": "activation-function",
       "title": "Activation Function",
       "domain": "Foundations / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -144,7 +144,7 @@
           {
             "id": "vanishing-gradient",
             "title": "Vanishing Gradient",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -195,6 +195,37 @@
             "id": "classifier-free-guidance",
             "title": "Classifier-Free Guidance",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "active-learning",
+      "title": "Active Learning",
+      "domain": "Foundations / Supervised",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "epistemic-uncertainty",
+            "title": "Epistemic Uncertainty",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "annotation-quality",
+            "title": "Annotation Quality",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "semi-supervised-learning",
+            "title": "Semi-Supervised Learning",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -583,6 +614,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "active-learning",
+            "title": "Active Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "aleatoric-uncertainty",
             "title": "Aleatoric Uncertainty",
@@ -1205,7 +1242,7 @@
           {
             "id": "activation-function",
             "title": "Activation Function",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1247,13 +1284,13 @@
           {
             "id": "recurrent-neural-network",
             "title": "Recurrent Neural Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "vanishing-gradient",
             "title": "Vanishing Gradient",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1264,7 +1301,7 @@
       "id": "batch-normalization",
       "title": "Batch Normalization",
       "domain": "Foundations / Optimization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1317,7 +1354,7 @@
           {
             "id": "batch-normalization",
             "title": "Batch Normalization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1348,6 +1385,50 @@
       }
     },
     {
+      "id": "bayesian-inference",
+      "title": "Bayesian Inference",
+      "domain": "Foundations / Statistics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "maximum-likelihood",
+            "title": "Maximum Likelihood",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "bayesian-neural-network",
+            "title": "Bayesian Neural Network",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "epistemic-uncertainty",
+            "title": "Epistemic Uncertainty",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "expectation-maximization",
+            "title": "Expectation-Maximization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "variational-autoencoder",
+            "title": "Variational Autoencoder",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "bayesian-neural-network",
       "title": "Bayesian Neural Network",
       "domain": "Uncertainty / Methods",
@@ -1355,9 +1436,9 @@
       "edges": {
         "requires": [
           {
-            "id": "evidence-lower-bound",
-            "title": "ELBO",
-            "tier": "verified",
+            "id": "bayesian-inference",
+            "title": "Bayesian Inference",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -2821,6 +2902,12 @@
             "title": "Speech Recognition",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "hidden-markov-model",
+            "title": "Hidden Markov Model",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3215,7 +3302,7 @@
           {
             "id": "data-augmentation",
             "title": "Data Augmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3252,6 +3339,12 @@
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "word-embedding",
+            "title": "Word Embedding",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -3452,6 +3545,12 @@
             "reviewed": false
           },
           {
+            "id": "maximum-likelihood",
+            "title": "Maximum Likelihood",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "perplexity",
             "title": "Perplexity",
             "tier": "verified",
@@ -3585,7 +3684,7 @@
           {
             "id": "early-stopping",
             "title": "Early Stopping",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3700,7 +3799,7 @@
       "id": "data-augmentation",
       "title": "Data Augmentation",
       "domain": "Foundations / Supervised",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3716,6 +3815,12 @@
             "id": "contrastive-learning",
             "title": "Contrastive Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "semi-supervised-learning",
+            "title": "Semi-Supervised Learning",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -4817,7 +4922,7 @@
       "id": "early-stopping",
       "title": "Early Stopping",
       "domain": "Foundations / Supervised",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5203,12 +5308,6 @@
         "requires": [],
         "unlocks": [
           {
-            "id": "epistemic-uncertainty",
-            "title": "Epistemic Uncertainty",
-            "tier": "verified",
-            "reviewed": false
-          },
-          {
             "id": "kl-divergence",
             "title": "KL Divergence",
             "tier": "verified",
@@ -5263,13 +5362,20 @@
       "edges": {
         "requires": [
           {
-            "id": "entropy",
-            "title": "Entropy",
-            "tier": "verified",
+            "id": "bayesian-inference",
+            "title": "Bayesian Inference",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "active-learning",
+            "title": "Active Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "aleatoric-uncertainty",
@@ -5361,15 +5467,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [
-          {
-            "id": "bayesian-neural-network",
-            "title": "Bayesian Neural Network",
-            "tier": "verified",
-            "reviewed": false
-          }
-        ],
+        "unlocks": [],
         "adjacent": [
+          {
+            "id": "expectation-maximization",
+            "title": "Expectation-Maximization",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "normalizing-flow",
             "title": "Normalizing Flow",
@@ -5479,6 +5584,37 @@
           {
             "id": "sandboxing",
             "title": "Sandboxing",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "expectation-maximization",
+      "title": "Expectation-Maximization",
+      "domain": "Foundations / Statistics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "bayesian-inference",
+            "title": "Bayesian Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "evidence-lower-bound",
+            "title": "ELBO",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "k-means-clustering",
+            "title": "k-Means Clustering",
             "tier": "verified",
             "reviewed": false
           }
@@ -5803,7 +5939,7 @@
           {
             "id": "activation-function",
             "title": "Activation Function",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6423,7 +6559,7 @@
           {
             "id": "vanishing-gradient",
             "title": "Vanishing Gradient",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6977,6 +7113,37 @@
           {
             "id": "knowledge-conflict",
             "title": "Knowledge Conflict",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "hidden-markov-model",
+      "title": "Hidden Markov Model",
+      "domain": "Foundations / Statistics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "markov-decision-process",
+            "title": "Markov Decision Process",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "connectionist-temporal-classification",
+            "title": "CTC",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "recurrent-neural-network",
+            "title": "Recurrent Neural Network",
             "tier": "verified",
             "reviewed": false
           }
@@ -7770,6 +7937,12 @@
             "reviewed": false
           },
           {
+            "id": "expectation-maximization",
+            "title": "Expectation-Maximization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "k-nearest-neighbors",
             "title": "k-Nearest Neighbors",
             "tier": "verified",
@@ -8274,7 +8447,7 @@
           {
             "id": "batch-normalization",
             "title": "Batch Normalization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8772,13 +8945,13 @@
       "id": "long-short-term-memory",
       "title": "Long Short-Term Memory",
       "domain": "Foundations / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "recurrent-neural-network",
             "title": "Recurrent Neural Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9298,6 +9471,12 @@
             "reviewed": false
           },
           {
+            "id": "hidden-markov-model",
+            "title": "Hidden Markov Model",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "hierarchical-rl",
             "title": "Hierarchical RL",
             "tier": "verified",
@@ -9381,6 +9560,38 @@
           {
             "id": "principal-component-analysis",
             "title": "Principal Component Analysis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "maximum-likelihood",
+      "title": "Maximum Likelihood",
+      "domain": "Foundations / Statistics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "bayesian-inference",
+            "title": "Bayesian Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "minimum-description-length",
+            "title": "Minimum Description Length",
             "tier": "verified",
             "reviewed": false
           }
@@ -9777,6 +9988,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "maximum-likelihood",
+            "title": "Maximum Likelihood",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "overfitting",
             "title": "Overfitting",
@@ -10595,6 +10812,37 @@
       }
     },
     {
+      "id": "n-gram-model",
+      "title": "N-Gram Model",
+      "domain": "Foundations / Statistics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "perplexity",
+            "title": "Perplexity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "tokenization",
+            "title": "Tokenization",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "word-embedding",
+            "title": "Word Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "needle-in-a-haystack",
       "title": "Needle in a Haystack",
       "domain": "Context / Evaluation",
@@ -11272,7 +11520,7 @@
           {
             "id": "data-augmentation",
             "title": "Data Augmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11284,7 +11532,7 @@
           {
             "id": "early-stopping",
             "title": "Early Stopping",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11586,7 +11834,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "n-gram-model",
+            "title": "N-Gram Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "compression-quality-tradeoff",
@@ -12877,7 +13132,7 @@
       "id": "recurrent-neural-network",
       "title": "Recurrent Neural Network",
       "domain": "Foundations / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -12891,11 +13146,17 @@
           {
             "id": "long-short-term-memory",
             "title": "Long Short-Term Memory",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
         "adjacent": [
+          {
+            "id": "hidden-markov-model",
+            "title": "Hidden Markov Model",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "state-space-model",
             "title": "State Space Model",
@@ -13158,7 +13419,7 @@
           {
             "id": "long-short-term-memory",
             "title": "Long Short-Term Memory",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13176,13 +13437,13 @@
           {
             "id": "vanishing-gradient",
             "title": "Vanishing Gradient",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "weight-initialization",
             "title": "Weight Initialization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -14277,6 +14538,12 @@
             "reviewed": false
           },
           {
+            "id": "semi-supervised-learning",
+            "title": "Semi-Supervised Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
             "tier": "verified",
@@ -14325,6 +14592,37 @@
           {
             "id": "instance-segmentation",
             "title": "Instance Segmentation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "semi-supervised-learning",
+      "title": "Semi-Supervised Learning",
+      "domain": "Foundations / Supervised",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "self-supervised-learning",
+            "title": "Self-Supervised Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "active-learning",
+            "title": "Active Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "data-augmentation",
+            "title": "Data Augmentation",
             "tier": "verified",
             "reviewed": false
           }
@@ -15152,7 +15450,7 @@
           {
             "id": "recurrent-neural-network",
             "title": "Recurrent Neural Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -15568,7 +15866,7 @@
           {
             "id": "data-augmentation",
             "title": "Data Augmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -16172,6 +16470,12 @@
             "title": "Prompt Tuning",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "word-embedding",
+            "title": "Word Embedding",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -16241,7 +16545,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "n-gram-model",
+            "title": "N-Gram Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -16732,7 +17043,7 @@
       "id": "vanishing-gradient",
       "title": "Vanishing Gradient",
       "domain": "Foundations / Optimization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -16746,7 +17057,7 @@
           {
             "id": "weight-initialization",
             "title": "Weight Initialization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -16754,7 +17065,7 @@
           {
             "id": "activation-function",
             "title": "Activation Function",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -16807,6 +17118,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "bayesian-inference",
+            "title": "Bayesian Inference",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "diffusion-model",
             "title": "Diffusion Model",
@@ -17340,7 +17657,7 @@
           {
             "id": "early-stopping",
             "title": "Early Stopping",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -17380,13 +17697,13 @@
       "id": "weight-initialization",
       "title": "Weight Initialization",
       "domain": "Foundations / Optimization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "vanishing-gradient",
             "title": "Vanishing Gradient",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -17396,6 +17713,37 @@
             "id": "residual-connection",
             "title": "Residual Connection",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "word-embedding",
+      "title": "Word Embedding",
+      "domain": "Foundations / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "token-embedding",
+            "title": "Token Embedding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "n-gram-model",
+            "title": "N-Gram Model",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -17725,7 +18073,7 @@
       "center": {
         "id": "activation-function",
         "title": "Activation Function",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17747,7 +18095,7 @@
         {
           "id": "vanishing-gradient",
           "title": "Vanishing Gradient",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -17848,6 +18196,59 @@
         {
           "from": "activation-steering",
           "to": "classifier-free-guidance",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "active-learning",
+      "center": {
+        "id": "active-learning",
+        "title": "Active Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "epistemic-uncertainty",
+          "title": "Epistemic Uncertainty",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "annotation-quality",
+          "title": "Annotation Quality",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "semi-supervised-learning",
+          "title": "Semi-Supervised Learning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "epistemic-uncertainty",
+          "to": "active-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "active-learning",
+          "to": "annotation-quality",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "active-learning",
+          "to": "semi-supervised-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -18512,53 +18913,60 @@
           "y": 66
         },
         {
+          "id": "active-learning",
+          "title": "Active Learning",
+          "tier": "frontier",
+          "x": 27,
+          "y": 22
+        },
+        {
           "id": "aleatoric-uncertainty",
           "title": "Aleatoric Uncertainty",
           "tier": "verified",
-          "x": 30,
-          "y": 22
+          "x": 53,
+          "y": 110
         },
         {
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 60,
-          "y": 110
+          "x": 80,
+          "y": 22
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 90,
-          "y": 22
+          "x": 107,
+          "y": 110
         },
         {
           "id": "low-resource-language",
           "title": "Low-Resource Language",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 133,
+          "y": 22
         },
         {
           "id": "representation-bias",
           "title": "Representation Bias",
           "tier": "verified",
-          "x": 150,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "synthesis-evaluation",
           "title": "Synthesis Evaluation",
           "tier": "verified",
-          "x": 180,
-          "y": 110
+          "x": 187,
+          "y": 22
         },
         {
           "id": "teleoperation-data",
           "title": "Teleoperation Data",
           "tier": "verified",
-          "x": 210,
-          "y": 22
+          "x": 213,
+          "y": 110
         }
       ],
       "links": [
@@ -18572,6 +18980,12 @@
           "from": "annotation-quality",
           "to": "evaluation-disaggregation",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "annotation-quality",
+          "to": "active-learning",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -19658,7 +20072,7 @@
         {
           "id": "activation-function",
           "title": "Activation Function",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 24
         },
@@ -19707,14 +20121,14 @@
         {
           "id": "recurrent-neural-network",
           "title": "Recurrent Neural Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 108
         },
         {
           "id": "vanishing-gradient",
           "title": "Vanishing Gradient",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 120
         }
@@ -19793,7 +20207,7 @@
       "center": {
         "id": "batch-normalization",
         "title": "Batch Normalization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19862,7 +20276,7 @@
         {
           "id": "batch-normalization",
           "title": "Batch Normalization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 22
         },
@@ -19947,6 +20361,85 @@
       ]
     },
     {
+      "id": "bayesian-inference",
+      "center": {
+        "id": "bayesian-inference",
+        "title": "Bayesian Inference",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "maximum-likelihood",
+          "title": "Maximum Likelihood",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "bayesian-neural-network",
+          "title": "Bayesian Neural Network",
+          "tier": "verified",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "epistemic-uncertainty",
+          "title": "Epistemic Uncertainty",
+          "tier": "verified",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "expectation-maximization",
+          "title": "Expectation-Maximization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        },
+        {
+          "id": "variational-autoencoder",
+          "title": "Variational Autoencoder",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "maximum-likelihood",
+          "to": "bayesian-inference",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "bayesian-inference",
+          "to": "bayesian-neural-network",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "bayesian-inference",
+          "to": "epistemic-uncertainty",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "bayesian-inference",
+          "to": "expectation-maximization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "bayesian-inference",
+          "to": "variational-autoencoder",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "bayesian-neural-network",
       "center": {
         "id": "bayesian-neural-network",
@@ -19957,9 +20450,9 @@
       },
       "nodes": [
         {
-          "id": "evidence-lower-bound",
-          "title": "ELBO",
-          "tier": "verified",
+          "id": "bayesian-inference",
+          "title": "Bayesian Inference",
+          "tier": "frontier",
           "x": 40,
           "y": 66
         },
@@ -19980,7 +20473,7 @@
       ],
       "links": [
         {
-          "from": "evidence-lower-bound",
+          "from": "bayesian-inference",
           "to": "bayesian-neural-network",
           "type": "requires",
           "reviewed": false
@@ -22577,8 +23070,15 @@
           "id": "automatic-speech-recognition",
           "title": "Speech Recognition",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "hidden-markov-model",
+          "title": "Hidden Markov Model",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -22603,6 +23103,12 @@
         {
           "from": "connectionist-temporal-classification",
           "to": "automatic-speech-recognition",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "connectionist-temporal-classification",
+          "to": "hidden-markov-model",
           "type": "adjacent",
           "reviewed": false
         }
@@ -23282,57 +23788,64 @@
           "id": "audio-visual-learning",
           "title": "Audio-Visual Learning",
           "tier": "verified",
-          "x": 27,
+          "x": 24,
           "y": 22
         },
         {
           "id": "data-augmentation",
           "title": "Data Augmentation",
-          "tier": "frontier",
-          "x": 53,
+          "tier": "verified",
+          "x": 48,
           "y": 110
         },
         {
           "id": "few-shot-learning",
           "title": "Few-Shot Learning",
           "tier": "verified",
-          "x": 80,
+          "x": 72,
           "y": 22
         },
         {
           "id": "implicit-feedback",
           "title": "Implicit Feedback",
           "tier": "verified",
-          "x": 107,
+          "x": 96,
           "y": 110
         },
         {
           "id": "mutual-information",
           "title": "Mutual Information",
           "tier": "verified",
-          "x": 133,
+          "x": 120,
           "y": 22
         },
         {
           "id": "noise-contrastive-estimation",
           "title": "Noise-Contrastive Estimation",
           "tier": "verified",
-          "x": 160,
+          "x": 144,
           "y": 110
         },
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
-          "x": 187,
+          "x": 168,
           "y": 22
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
-          "x": 213,
+          "x": 192,
           "y": 110
+        },
+        {
+          "id": "word-embedding",
+          "title": "Word Embedding",
+          "tier": "frontier",
+          "x": 216,
+          "y": 22
         }
       ],
       "links": [
@@ -23417,6 +23930,12 @@
         {
           "from": "contrastive-learning",
           "to": "speech-representation-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "contrastive-learning",
+          "to": "word-embedding",
           "type": "adjacent",
           "reviewed": false
         }
@@ -23727,49 +24246,56 @@
           "title": "CTC",
           "tier": "verified",
           "x": 200,
-          "y": 17
+          "y": 15
         },
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 29
         },
         {
           "id": "knowledge-distillation",
           "title": "Knowledge Distillation",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 44
         },
         {
           "id": "logistic-regression",
           "title": "Logistic Regression",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 59
+        },
+        {
+          "id": "maximum-likelihood",
+          "title": "Maximum Likelihood",
+          "tier": "frontier",
+          "x": 200,
+          "y": 73
         },
         {
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 88
         },
         {
           "id": "pretraining",
           "title": "Pretraining",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 103
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 117
         },
         {
           "id": "entropy",
@@ -23813,6 +24339,12 @@
         {
           "from": "cross-entropy-loss",
           "to": "logistic-regression",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "maximum-likelihood",
           "type": "unlocks",
           "reviewed": false
         },
@@ -24002,7 +24534,7 @@
         {
           "id": "early-stopping",
           "title": "Early Stopping",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -24230,7 +24762,7 @@
       "center": {
         "id": "data-augmentation",
         "title": "Data Augmentation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -24246,15 +24778,22 @@
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "semi-supervised-learning",
+          "title": "Semi-Supervised Learning",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "synthetic-data",
           "title": "Synthetic Data",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -24267,6 +24806,12 @@
         {
           "from": "data-augmentation",
           "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-augmentation",
+          "to": "semi-supervised-learning",
           "type": "adjacent",
           "reviewed": false
         },
@@ -26258,7 +26803,7 @@
       "center": {
         "id": "early-stopping",
         "title": "Early Stopping",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -26925,39 +27470,32 @@
       },
       "nodes": [
         {
-          "id": "epistemic-uncertainty",
-          "title": "Epistemic Uncertainty",
-          "tier": "verified",
-          "x": 200,
-          "y": 22
-        },
-        {
           "id": "kl-divergence",
           "title": "KL Divergence",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 26
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
         },
         {
           "id": "mutual-information",
           "title": "Mutual Information",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 79
         },
         {
           "id": "rate-distortion",
           "title": "Rate-Distortion",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 106
         },
         {
           "id": "cross-entropy-loss",
@@ -26982,12 +27520,6 @@
         }
       ],
       "links": [
-        {
-          "from": "entropy",
-          "to": "epistemic-uncertainty",
-          "type": "unlocks",
-          "reviewed": false
-        },
         {
           "from": "entropy",
           "to": "kl-divergence",
@@ -27043,10 +27575,17 @@
       },
       "nodes": [
         {
-          "id": "entropy",
-          "title": "Entropy",
-          "tier": "verified",
+          "id": "bayesian-inference",
+          "title": "Bayesian Inference",
+          "tier": "frontier",
           "x": 40,
+          "y": 66
+        },
+        {
+          "id": "active-learning",
+          "title": "Active Learning",
+          "tier": "frontier",
+          "x": 200,
           "y": 66
         },
         {
@@ -27087,9 +27626,15 @@
       ],
       "links": [
         {
-          "from": "entropy",
+          "from": "bayesian-inference",
           "to": "epistemic-uncertainty",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "epistemic-uncertainty",
+          "to": "active-learning",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -27215,18 +27760,18 @@
           "y": 88
         },
         {
-          "id": "bayesian-neural-network",
-          "title": "Bayesian Neural Network",
-          "tier": "verified",
-          "x": 200,
-          "y": 66
+          "id": "expectation-maximization",
+          "title": "Expectation-Maximization",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
         },
         {
           "id": "normalizing-flow",
           "title": "Normalizing Flow",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -27244,8 +27789,8 @@
         },
         {
           "from": "evidence-lower-bound",
-          "to": "bayesian-neural-network",
-          "type": "unlocks",
+          "to": "expectation-maximization",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -27448,6 +27993,59 @@
         {
           "from": "execution-verification",
           "to": "sandboxing",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "expectation-maximization",
+      "center": {
+        "id": "expectation-maximization",
+        "title": "Expectation-Maximization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "bayesian-inference",
+          "title": "Bayesian Inference",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "evidence-lower-bound",
+          "title": "ELBO",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "k-means-clustering",
+          "title": "k-Means Clustering",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "bayesian-inference",
+          "to": "expectation-maximization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "expectation-maximization",
+          "to": "evidence-lower-bound",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "expectation-maximization",
+          "to": "k-means-clustering",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27989,7 +28587,7 @@
         {
           "id": "activation-function",
           "title": "Activation Function",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -29115,7 +29713,7 @@
         {
           "id": "vanishing-gradient",
           "title": "Vanishing Gradient",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -30125,6 +30723,59 @@
         {
           "from": "hallucination",
           "to": "knowledge-conflict",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "hidden-markov-model",
+      "center": {
+        "id": "hidden-markov-model",
+        "title": "Hidden Markov Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "markov-decision-process",
+          "title": "Markov Decision Process",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "connectionist-temporal-classification",
+          "title": "CTC",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "recurrent-neural-network",
+          "title": "Recurrent Neural Network",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "markov-decision-process",
+          "to": "hidden-markov-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "hidden-markov-model",
+          "to": "connectionist-temporal-classification",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "hidden-markov-model",
+          "to": "recurrent-neural-network",
           "type": "adjacent",
           "reviewed": false
         }
@@ -31504,28 +32155,41 @@
           "id": "approximate-nearest-neighbor",
           "title": "Approximate Nearest Neighbor",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "expectation-maximization",
+          "title": "Expectation-Maximization",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "k-nearest-neighbors",
           "title": "k-Nearest Neighbors",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "vector-quantization",
           "title": "Vector Quantization",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
         {
           "from": "k-means-clustering",
           "to": "approximate-nearest-neighbor",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "k-means-clustering",
+          "to": "expectation-maximization",
           "type": "adjacent",
           "reviewed": false
         },
@@ -32437,7 +33101,7 @@
         {
           "id": "batch-normalization",
           "title": "Batch Normalization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -33338,7 +34002,7 @@
       "center": {
         "id": "long-short-term-memory",
         "title": "Long Short-Term Memory",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -33346,7 +34010,7 @@
         {
           "id": "recurrent-neural-network",
           "title": "Recurrent Neural Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -34271,41 +34935,54 @@
           "title": "Exploration and Exploitation",
           "tier": "verified",
           "x": 200,
-          "y": 22
+          "y": 19
+        },
+        {
+          "id": "hidden-markov-model",
+          "title": "Hidden Markov Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 38
         },
         {
           "id": "hierarchical-rl",
           "title": "Hierarchical RL",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 57
         },
         {
           "id": "policy-gradient",
           "title": "Policy Gradient",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 75
         },
         {
           "id": "value-function",
           "title": "Value Function",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 94
         },
         {
           "id": "world-model",
           "title": "World Model",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 113
         }
       ],
       "links": [
         {
           "from": "markov-decision-process",
           "to": "exploration-exploitation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "markov-decision-process",
+          "to": "hidden-markov-model",
           "type": "unlocks",
           "reviewed": false
         },
@@ -34436,6 +35113,59 @@
         {
           "from": "matrix-factorization",
           "to": "principal-component-analysis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "maximum-likelihood",
+      "center": {
+        "id": "maximum-likelihood",
+        "title": "Maximum Likelihood",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "bayesian-inference",
+          "title": "Bayesian Inference",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "minimum-description-length",
+          "title": "Minimum Description Length",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-entropy-loss",
+          "to": "maximum-likelihood",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "maximum-likelihood",
+          "to": "bayesian-inference",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "maximum-likelihood",
+          "to": "minimum-description-length",
           "type": "adjacent",
           "reviewed": false
         }
@@ -35119,18 +35849,25 @@
           "y": 66
         },
         {
+          "id": "maximum-likelihood",
+          "title": "Maximum Likelihood",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "overfitting",
           "title": "Overfitting",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -35138,6 +35875,12 @@
           "from": "entropy",
           "to": "minimum-description-length",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "minimum-description-length",
+          "to": "maximum-likelihood",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -36555,6 +37298,59 @@
       ]
     },
     {
+      "id": "n-gram-model",
+      "center": {
+        "id": "n-gram-model",
+        "title": "N-Gram Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "perplexity",
+          "title": "Perplexity",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "tokenization",
+          "title": "Tokenization",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "word-embedding",
+          "title": "Word Embedding",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "perplexity",
+          "to": "n-gram-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "n-gram-model",
+          "to": "tokenization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "n-gram-model",
+          "to": "word-embedding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "needle-in-a-haystack",
       "center": {
         "id": "needle-in-a-haystack",
@@ -37712,7 +38508,7 @@
         {
           "id": "data-augmentation",
           "title": "Data Augmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 40
         },
@@ -37726,7 +38522,7 @@
         {
           "id": "early-stopping",
           "title": "Early Stopping",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -38283,6 +39079,13 @@
           "y": 88
         },
         {
+          "id": "n-gram-model",
+          "title": "N-Gram Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "compression-quality-tradeoff",
           "title": "Compression-Quality Tradeoff",
           "tier": "verified",
@@ -38336,6 +39139,12 @@
           "from": "tokenization",
           "to": "perplexity",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "perplexity",
+          "to": "n-gram-model",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -40610,7 +41419,7 @@
       "center": {
         "id": "recurrent-neural-network",
         "title": "Recurrent Neural Network",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -40625,16 +41434,23 @@
         {
           "id": "long-short-term-memory",
           "title": "Long Short-Term Memory",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "hidden-markov-model",
+          "title": "Hidden Markov Model",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
         },
         {
           "id": "state-space-model",
           "title": "State Space Model",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -40648,6 +41464,12 @@
           "from": "recurrent-neural-network",
           "to": "long-short-term-memory",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "recurrent-neural-network",
+          "to": "hidden-markov-model",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -41094,7 +41916,7 @@
         {
           "id": "long-short-term-memory",
           "title": "Long Short-Term Memory",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 69,
           "y": 110
         },
@@ -41115,14 +41937,14 @@
         {
           "id": "vanishing-gradient",
           "title": "Vanishing Gradient",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 171,
           "y": 22
         },
         {
           "id": "weight-initialization",
           "title": "Weight Initialization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 206,
           "y": 110
         }
@@ -43105,21 +43927,28 @@
           "title": "Audio-Visual Learning",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "masked-language-modeling",
           "title": "Masked Language Modeling",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
+        },
+        {
+          "id": "semi-supervised-learning",
+          "title": "Semi-Supervised Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         },
         {
           "id": "contrastive-learning",
@@ -43145,6 +43974,12 @@
         {
           "from": "self-supervised-learning",
           "to": "masked-language-modeling",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "self-supervised-learning",
+          "to": "semi-supervised-learning",
           "type": "unlocks",
           "reviewed": false
         },
@@ -43223,6 +44058,59 @@
         {
           "from": "semantic-segmentation",
           "to": "instance-segmentation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "semi-supervised-learning",
+      "center": {
+        "id": "semi-supervised-learning",
+        "title": "Semi-Supervised Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "self-supervised-learning",
+          "title": "Self-Supervised Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "active-learning",
+          "title": "Active Learning",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "data-augmentation",
+          "title": "Data Augmentation",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "self-supervised-learning",
+          "to": "semi-supervised-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "semi-supervised-learning",
+          "to": "active-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "semi-supervised-learning",
+          "to": "data-augmentation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -44673,7 +45561,7 @@
         {
           "id": "recurrent-neural-network",
           "title": "Recurrent Neural Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -45430,7 +46318,7 @@
         {
           "id": "data-augmentation",
           "title": "Data Augmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 22
         },
@@ -46505,21 +47393,28 @@
           "title": "Patch Embedding",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "positional-encoding",
           "title": "Positional Encoding",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
         },
         {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 79
+        },
+        {
+          "id": "word-embedding",
+          "title": "Word Embedding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
         },
         {
           "id": "knowledge-graph-embedding",
@@ -46558,6 +47453,12 @@
         {
           "from": "token-embedding",
           "to": "prompt-tuning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "token-embedding",
+          "to": "word-embedding",
           "type": "unlocks",
           "reviewed": false
         },
@@ -46633,6 +47534,13 @@
           "tier": "verified",
           "x": 200,
           "y": 116
+        },
+        {
+          "id": "n-gram-model",
+          "title": "N-Gram Model",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -46676,6 +47584,12 @@
           "from": "tokenization",
           "to": "tokenizer-fairness",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tokenization",
+          "to": "n-gram-model",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -47555,7 +48469,7 @@
       "center": {
         "id": "vanishing-gradient",
         "title": "Vanishing Gradient",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -47570,14 +48484,14 @@
         {
           "id": "weight-initialization",
           "title": "Weight Initialization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "activation-function",
           "title": "Activation Function",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -47668,32 +48582,39 @@
           "y": 99
         },
         {
+          "id": "bayesian-inference",
+          "title": "Bayesian Inference",
+          "tier": "frontier",
+          "x": 40,
+          "y": 22
+        },
+        {
           "id": "diffusion-model",
           "title": "Diffusion Model",
           "tier": "verified",
-          "x": 48,
-          "y": 22
+          "x": 80,
+          "y": 110
         },
         {
           "id": "kl-divergence",
           "title": "KL Divergence",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "voice-conversion",
           "title": "Voice Conversion",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "world-model",
           "title": "World Model",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -47719,6 +48640,12 @@
           "from": "variational-autoencoder",
           "to": "normalizing-flow",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "variational-autoencoder",
+          "to": "bayesian-inference",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -48619,7 +49546,7 @@
         {
           "id": "early-stopping",
           "title": "Early Stopping",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 110
         },
@@ -48727,7 +49654,7 @@
       "center": {
         "id": "weight-initialization",
         "title": "Weight Initialization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -48735,7 +49662,7 @@
         {
           "id": "vanishing-gradient",
           "title": "Vanishing Gradient",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -48757,6 +49684,59 @@
         {
           "from": "weight-initialization",
           "to": "residual-connection",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "word-embedding",
+      "center": {
+        "id": "word-embedding",
+        "title": "Word Embedding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "token-embedding",
+          "title": "Token Embedding",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "n-gram-model",
+          "title": "N-Gram Model",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "token-embedding",
+          "to": "word-embedding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "word-embedding",
+          "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "word-embedding",
+          "to": "n-gram-model",
           "type": "adjacent",
           "reviewed": false
         }
