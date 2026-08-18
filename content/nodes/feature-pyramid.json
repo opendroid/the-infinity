@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "The same object is a hundred pixels across in one photograph and eight in the next, and a detector with one fixed window will find one of those and miss the other. A feature pyramid gives the network a stack of resolutions to look at, so whatever the object's size, some level sees it at a comfortable scale.",
     "engineer": "The version that stuck builds the pyramid inside the network rather than by rescaling the image. A backbone already produces feature maps at halving resolutions on its way down; the pyramid adds a path back up that carries the deep layers' semantics into the shallow layers' resolution, so the fine levels are both detailed and meaningful. Before that, fine levels were detailed and semantically weak, which is why small-object detection was so much worse than large-object detection.",
-    "math": "It is close to free, and the geometric series is why. Each level has a quarter of the pixels of the one below, so every level above the finest sums to one third of the finest alone — however many you add. The bar for this figure therefore has a ceiling it approaches and cannot pass, and that ceiling is the argument: multi-scale processing costs about a quarter more than single-scale, not several times more."
+    "math": "It is close to free, and the geometric series is why. Each level has a quarter of the pixels of the one below, so every level above the finest sums to one third of the finest alone — however many you add. The bar for this figure therefore has a ceiling it approaches and cannot pass, and that ceiling is the argument: multi-scale processing costs a third more than single-scale, which is a quarter of the pyramid total, not several times either."
   },
   "emphasis": {
     "intuition": "some level sees it at a comfortable scale",
@@ -28,7 +28,7 @@
         "step": 1
       }
     ],
-    "caption": "Pixels in every level above the finest, against the finest level alone, in equal units. Drag the levels up and watch the bar stop — each level has a quarter of the one below, so the whole stack above sums to a third of the base, which is why a pyramid costs a quarter more rather than several times more."
+    "caption": "Pixels in every level above the finest, against the finest level alone, in equal units. Drag the levels up and watch the bar stop: each level has a quarter of the one below, so the stack above sums to a third of the base — a quarter of the pyramid's total cost."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

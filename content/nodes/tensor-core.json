@@ -1,0 +1,67 @@
+{
+  "id": "tensor-core",
+  "title": "Tensor Core",
+  "domain": [
+    "Hardware",
+    "Compute"
+  ],
+  "bodies": {
+    "intuition": "Most of the arithmetic in a neural network is one operation — multiply a small matrix by another and add the result — so accelerators grew dedicated units that do only that, hundreds of times faster than the general-purpose lanes beside them. Everything else the model does still runs on the slow lanes, and that division is what modern kernel engineering is organised around.",
+    "engineer": "The consequence is that a kernel's speed depends less on how many operations it does than on which units they land on. A softmax, a layer norm and an activation are all elementwise, all excluded from the fast path, and all cheap in FLOPs — so a naive implementation can spend most of its wall clock on the operations that account for a rounding error of the arithmetic. Fusing them into the matmul kernel, so the intermediate never leaves the chip, is the standard fix and the reason kernels are written by hand at all.",
+    "math": "Matmul FLOPs grow with the cube of the layer width while elementwise FLOPs grow with the square, so the fraction the fast units can take rises as models get wider — which is why the same accelerator delivers a much larger share of its peak on a large model than a small one. The remainder is the ceiling: if a tenth of the time is elementwise, no amount of matmul acceleration takes the kernel below that tenth, which is Amdahl's law wearing a hardware badge."
+  },
+  "emphasis": {
+    "engineer": "a rounding error of the arithmetic",
+    "math": "which is Amdahl's law wearing a hardware badge"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "matmul_flops": 12,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "matmul_flops",
+        "min": 0,
+        "max": 260,
+        "step": 20
+      }
+    ],
+    "caption": "Arithmetic the matrix units can take, against the elementwise work that must run on the general lanes, in equal units. Drag the layer width up to watch matmul dominate — but the remainder never reaches zero, and it is the remainder that caps the speedup."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "gpu-memory-hierarchy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "kernel-fusion",
+        "reviewed": false
+      },
+      {
+        "id": "flash-attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2007.00072",
+      "title": "Data Movement Is All You Need: A Case Study on Optimizing Transformers",
+      "url": "https://arxiv.org/abs/2007.00072"
+    },
+    {
+      "ref": "arXiv:1710.03740",
+      "title": "Mixed Precision Training",
+      "url": "https://arxiv.org/abs/1710.03740"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

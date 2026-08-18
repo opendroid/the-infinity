@@ -1,0 +1,67 @@
+{
+  "id": "interconnect-topology",
+  "title": "Interconnect Topology",
+  "domain": [
+    "Hardware",
+    "Fabric"
+  ],
+  "bodies": {
+    "intuition": "Accelerators in a large cluster are not equally close to each other. Eight in the same server share a fast dedicated fabric; two in different racks talk over a network an order of magnitude slower. Which accelerators hold which part of the model therefore decides how much of the traffic gets the fast path, and a placement that ignores this can leave most of the machine waiting.",
+    "engineer": "The standard arrangement follows the hierarchy rather than fighting it. Tensor parallelism, which exchanges activations at every layer and is the most communication-hungry, is kept inside a single node; pipeline parallelism, which sends one activation per stage boundary, is allowed to cross nodes; data parallelism's gradient all-reduce sits between them and is where topology-aware collectives earn their place. Getting the mapping backwards is one of the few configuration mistakes that costs a factor rather than a percentage.",
+    "math": "The cost of a placement is the share of traffic that has to cross the slow tier. Keeping the chattiest parallelism inside a node holds that share near zero; spreading it across nodes sends the same volume over links with a fraction of the bandwidth, and because the collective is synchronous, the slow tier sets the pace for everyone. The ratio between the tiers is what turns a placement decision into a throughput decision — the volume did not change, only which wire carried it."
+  },
+  "emphasis": {
+    "engineer": "costs a factor rather than a percentage",
+    "math": "the volume did not change, only which wire carried it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "cross_node_bytes": 20,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "cross_node_bytes",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Traffic crossing the slow inter-node network, against traffic staying on the fast fabric inside a server, in equal units. Drag the spread of the chattiest parallelism up to watch the slow tier take the traffic — and with a synchronous collective, the slow tier sets the pace for everyone."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "collective-communication",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "tensor-parallelism",
+        "reviewed": false
+      },
+      {
+        "id": "pipeline-parallelism",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2402.15627",
+      "title": "MegaScale: Scaling Large Language Model Training to More Than 10,000 GPUs",
+      "url": "https://arxiv.org/abs/2402.15627"
+    },
+    {
+      "ref": "arXiv:1909.08053",
+      "title": "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism",
+      "url": "https://arxiv.org/abs/1909.08053"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "numerical-stability",
+  "title": "Numerical Stability",
+  "domain": [
+    "Hardware",
+    "Numerics"
+  ],
+  "bodies": {
+    "intuition": "The same formula, evaluated two mathematically identical ways, can give a right answer and a useless one. Floating point has finite precision, and the arrangement of the arithmetic decides how much of that precision survives. A great deal of the standard machinery in deep learning — subtracting the max inside softmax, keeping accumulators in higher precision than the inputs — exists for this reason and no other.",
+    "engineer": "The two failure modes are overflow and cancellation. Softmax overflows because exp of a large logit exceeds the format's range, and subtracting the row maximum first changes nothing mathematically while bringing every exponent to at most zero. Cancellation is the quieter one: subtracting two nearly equal numbers destroys the leading digits they agreed on and promotes the rounding error underneath into the answer. Variance computed as the mean of squares minus the square of the mean is the classic case, and it is why nobody computes it that way.",
+    "math": "The damage is countable. Subtracting values that agree to k digits leaves a result whose leading k digits cancel, so the answer carries the format's remaining digits and no more — half-precision has about three decimal digits to begin with, so two digits of agreement leaves one. Accumulating in fp32 while multiplying in bf16 is exactly this arithmetic: the products may be coarse, but the running sum keeps the digits that a low-precision accumulator would have thrown away on every addition."
+  },
+  "emphasis": {
+    "engineer": "destroys the leading digits they agreed on",
+    "math": "half-precision has about three decimal digits to begin with, so two digits of agreement leaves one"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "cancelled_digits": 8,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "cancelled_digits",
+        "min": 0,
+        "max": 120,
+        "step": 8
+      }
+    ],
+    "caption": "Significant digits destroyed when nearly-equal values are subtracted, against the digits the format started with, in equal units. Drag the agreement between the operands up to watch the answer become mostly rounding error — the reason accumulators are kept wider than the multipliers feeding them."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "number-format",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1805.11046",
+      "title": "Scalable Methods for 8-bit Training of Neural Networks",
+      "url": "https://arxiv.org/abs/1805.11046"
+    },
+    {
+      "ref": "arXiv:2110.02861",
+      "title": "8-bit Optimizers via Block-wise Quantization",
+      "url": "https://arxiv.org/abs/2110.02861"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

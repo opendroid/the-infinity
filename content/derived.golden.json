@@ -2,6 +2,37 @@
   "_note": "DERIVED, NOT AUTHORED. Regenerate with `cd api && make golden`. Checked by api/internal/publish (Go) and web/src/lib/golden.test.ts (TypeScript) so the served graph and the pre-rendered graph cannot drift apart.",
   "concepts": [
     {
+      "id": "accelerator-utilization",
+      "title": "Accelerator Utilization",
+      "domain": "Hardware / Compute",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "arithmetic-intensity",
+            "title": "Arithmetic Intensity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "interconnect-topology",
+            "title": "Interconnect Topology",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "straggler",
+            "title": "Straggler",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "action-chunking",
       "title": "Action Chunking",
       "domain": "Robotics / Methods",
@@ -58,6 +89,12 @@
             "id": "gradient-accumulation",
             "title": "Gradient Accumulation",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "memory-bandwidth-wall",
+            "title": "Memory Bandwidth Wall",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -537,9 +574,21 @@
         ],
         "unlocks": [
           {
+            "id": "accelerator-utilization",
+            "title": "Accelerator Utilization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "kernel-fusion",
             "title": "Kernel Fusion",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "memory-bandwidth-wall",
+            "title": "Memory Bandwidth Wall",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -960,7 +1009,7 @@
           {
             "id": "convolutional-network",
             "title": "Convolutional Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1863,6 +1912,12 @@
         ],
         "unlocks": [
           {
+            "id": "interconnect-topology",
+            "title": "Interconnect Topology",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "straggler",
             "title": "Straggler",
             "tier": "verified",
@@ -2472,7 +2527,7 @@
       "id": "convolutional-network",
       "title": "Convolutional Network",
       "domain": "Vision / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2492,31 +2547,31 @@
           {
             "id": "feature-pyramid",
             "title": "Feature Pyramid",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "object-detection",
             "title": "Object Detection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "optical-flow",
             "title": "Optical Flow",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "semantic-segmentation",
             "title": "Semantic Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "video-understanding",
             "title": "Video Understanding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3459,7 +3514,7 @@
           {
             "id": "convolutional-network",
             "title": "Convolutional Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3480,7 +3535,7 @@
           {
             "id": "semantic-segmentation",
             "title": "Semantic Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4234,13 +4289,13 @@
       "id": "feature-pyramid",
       "title": "Feature Pyramid",
       "domain": "Vision / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "convolutional-network",
             "title": "Convolutional Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4249,7 +4304,7 @@
           {
             "id": "object-detection",
             "title": "Object Detection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4556,6 +4611,12 @@
             "reviewed": false
           },
           {
+            "id": "tensor-core",
+            "title": "Tensor Core",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "tiling",
             "title": "Tiling",
             "tier": "verified",
@@ -4689,6 +4750,12 @@
             "id": "memory-planning",
             "title": "Memory Planning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tensor-core",
+            "title": "Tensor Core",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -5547,6 +5614,37 @@
       }
     },
     {
+      "id": "inference-accelerator",
+      "title": "Inference Accelerator",
+      "domain": "Hardware / Serving",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "optimizer-state",
+            "title": "Optimizer State",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "quantization",
+            "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "information-bottleneck",
       "title": "Information Bottleneck",
       "domain": "Information / Representation",
@@ -5575,13 +5673,13 @@
       "id": "instance-segmentation",
       "title": "Instance Segmentation",
       "domain": "Vision / Dense Prediction",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "object-detection",
             "title": "Object Detection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5590,13 +5688,13 @@
           {
             "id": "promptable-segmentation",
             "title": "Promptable Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "semantic-segmentation",
             "title": "Semantic Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5665,6 +5763,43 @@
           {
             "id": "causal-inference",
             "title": "Causal Inference",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "interconnect-topology",
+      "title": "Interconnect Topology",
+      "domain": "Hardware / Fabric",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "collective-communication",
+            "title": "Collective Communication",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "accelerator-utilization",
+            "title": "Accelerator Utilization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "pipeline-parallelism",
+            "title": "Pipeline Parallelism",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tensor-parallelism",
+            "title": "Tensor Parallelism",
             "tier": "verified",
             "reviewed": false
           }
@@ -5918,9 +6053,21 @@
             "reviewed": false
           },
           {
+            "id": "memory-bandwidth-wall",
+            "title": "Memory Bandwidth Wall",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "structured-sparsity",
             "title": "Structured Sparsity",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tensor-core",
+            "title": "Tensor Core",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -6083,6 +6230,12 @@
             "id": "chain-of-thought",
             "title": "Chain of Thought",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "inference-accelerator",
+            "title": "Inference Accelerator",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -7168,6 +7321,37 @@
       }
     },
     {
+      "id": "memory-bandwidth-wall",
+      "title": "Memory Bandwidth Wall",
+      "domain": "Hardware / Compute",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "arithmetic-intensity",
+            "title": "Arithmetic Intensity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "activation-checkpointing",
+            "title": "Activation Checkpointing",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "kernel-fusion",
+            "title": "Kernel Fusion",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "memory-planning",
       "title": "Memory Planning",
       "domain": "Compilers / Systems",
@@ -7336,6 +7520,12 @@
             "id": "determinism-and-reproducibility",
             "title": "Determinism and Reproducibility",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "number-format",
+            "title": "Number Format",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -8024,16 +8214,73 @@
       }
     },
     {
+      "id": "number-format",
+      "title": "Number Format",
+      "domain": "Hardware / Numerics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "mixed-precision-training",
+            "title": "Mixed-Precision Training",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "numerical-stability",
+            "title": "Numerical Stability",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "quantization",
+            "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "numerical-stability",
+      "title": "Numerical Stability",
+      "domain": "Hardware / Numerics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "number-format",
+            "title": "Number Format",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "object-detection",
       "title": "Object Detection",
       "domain": "Vision / Recognition",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "convolutional-network",
             "title": "Convolutional Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8041,7 +8288,7 @@
           {
             "id": "instance-segmentation",
             "title": "Instance Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8049,7 +8296,7 @@
           {
             "id": "feature-pyramid",
             "title": "Feature Pyramid",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8158,13 +8405,13 @@
       "id": "optical-flow",
       "title": "Optical Flow",
       "domain": "Vision / Motion",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "convolutional-network",
             "title": "Convolutional Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8173,7 +8420,7 @@
           {
             "id": "video-understanding",
             "title": "Video Understanding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8198,6 +8445,12 @@
             "id": "checkpointing-strategy",
             "title": "Checkpointing Strategy",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "inference-accelerator",
+            "title": "Inference Accelerator",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -8523,6 +8776,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "interconnect-topology",
+            "title": "Interconnect Topology",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "straggler",
             "title": "Straggler",
@@ -8968,13 +9227,13 @@
       "id": "promptable-segmentation",
       "title": "Promptable Segmentation",
       "domain": "Vision / Dense Prediction",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "semantic-segmentation",
             "title": "Semantic Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8983,7 +9242,7 @@
           {
             "id": "instance-segmentation",
             "title": "Instance Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9118,6 +9377,12 @@
             "reviewed": false
           },
           {
+            "id": "sparsity-hardware",
+            "title": "Sparsity Hardware",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "weight-decay",
             "title": "Weight Decay",
             "tier": "verified",
@@ -9231,9 +9496,21 @@
             "reviewed": false
           },
           {
+            "id": "inference-accelerator",
+            "title": "Inference Accelerator",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "neural-audio-codec",
             "title": "Neural Audio Codec",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "number-format",
+            "title": "Number Format",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -10274,13 +10551,13 @@
       "id": "semantic-segmentation",
       "title": "Semantic Segmentation",
       "domain": "Vision / Dense Prediction",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "convolutional-network",
             "title": "Convolutional Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10288,7 +10565,7 @@
           {
             "id": "promptable-segmentation",
             "title": "Promptable Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10302,7 +10579,7 @@
           {
             "id": "instance-segmentation",
             "title": "Instance Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10590,6 +10867,12 @@
             "title": "Attention",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "numerical-stability",
+            "title": "Numerical Stability",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -10645,6 +10928,37 @@
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "sparsity-hardware",
+      "title": "Sparsity Hardware",
+      "domain": "Hardware / Compute",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "structured-sparsity",
+            "title": "Structured Sparsity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "pruning",
+            "title": "Pruning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tensor-core",
+            "title": "Tensor Core",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -11022,6 +11336,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "accelerator-utilization",
+            "title": "Accelerator Utilization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "job-scheduling",
             "title": "Job Scheduling",
             "tier": "verified",
@@ -11118,7 +11438,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "sparsity-hardware",
+            "title": "Sparsity Hardware",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "gpu-memory-hierarchy",
@@ -11423,6 +11750,43 @@
       }
     },
     {
+      "id": "tensor-core",
+      "title": "Tensor Core",
+      "domain": "Hardware / Compute",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gpu-memory-hierarchy",
+            "title": "GPU Memory Hierarchy",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "flash-attention",
+            "title": "FlashAttention",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "kernel-fusion",
+            "title": "Kernel Fusion",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sparsity-hardware",
+            "title": "Sparsity Hardware",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "tensor-parallelism",
       "title": "Tensor Parallelism",
       "domain": "Systems / Distributed",
@@ -11451,6 +11815,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "interconnect-topology",
+            "title": "Interconnect Topology",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "pipeline-parallelism",
             "title": "Pipeline Parallelism",
@@ -12263,13 +12633,13 @@
       "id": "video-understanding",
       "title": "Video Understanding",
       "domain": "Vision / Video",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "convolutional-network",
             "title": "Convolutional Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12278,7 +12648,7 @@
           {
             "id": "optical-flow",
             "title": "Optical Flow",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -12360,7 +12730,7 @@
           {
             "id": "promptable-segmentation",
             "title": "Promptable Segmentation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -12398,7 +12768,7 @@
           {
             "id": "convolutional-network",
             "title": "Convolutional Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -12699,6 +13069,59 @@
   ],
   "neighborhoods": [
     {
+      "id": "accelerator-utilization",
+      "center": {
+        "id": "accelerator-utilization",
+        "title": "Accelerator Utilization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "arithmetic-intensity",
+          "title": "Arithmetic Intensity",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "interconnect-topology",
+          "title": "Interconnect Topology",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "straggler",
+          "title": "Straggler",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "arithmetic-intensity",
+          "to": "accelerator-utilization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "accelerator-utilization",
+          "to": "interconnect-topology",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "accelerator-utilization",
+          "to": "straggler",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "action-chunking",
       "center": {
         "id": "action-chunking",
@@ -12772,29 +13195,36 @@
           "id": "checkpointing-strategy",
           "title": "Checkpointing Strategy",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "gradient-accumulation",
           "title": "Gradient Accumulation",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
+        },
+        {
+          "id": "memory-bandwidth-wall",
+          "title": "Memory Bandwidth Wall",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         },
         {
           "id": "memory-planning",
           "title": "Memory Planning",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "sequence-parallelism",
           "title": "Sequence Parallelism",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -12813,6 +13243,12 @@
         {
           "from": "activation-checkpointing",
           "to": "gradient-accumulation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "activation-checkpointing",
+          "to": "memory-bandwidth-wall",
           "type": "adjacent",
           "reviewed": false
         },
@@ -13628,11 +14064,25 @@
           "y": 66
         },
         {
+          "id": "accelerator-utilization",
+          "title": "Accelerator Utilization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "kernel-fusion",
           "title": "Kernel Fusion",
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "memory-bandwidth-wall",
+          "title": "Memory Bandwidth Wall",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "operator-fusion-pass",
@@ -13672,7 +14122,19 @@
         },
         {
           "from": "arithmetic-intensity",
+          "to": "accelerator-utilization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "arithmetic-intensity",
           "to": "kernel-fusion",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "arithmetic-intensity",
+          "to": "memory-bandwidth-wall",
           "type": "unlocks",
           "reviewed": false
         },
@@ -14394,7 +14856,7 @@
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 50
         },
@@ -16038,18 +16500,25 @@
           "y": 66
         },
         {
+          "id": "interconnect-topology",
+          "title": "Interconnect Topology",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "straggler",
           "title": "Straggler",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "tensor-parallelism",
           "title": "Tensor Parallelism",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "federated-learning",
@@ -16071,6 +16540,12 @@
           "from": "data-parallelism",
           "to": "collective-communication",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "collective-communication",
+          "to": "interconnect-topology",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -17133,7 +17608,7 @@
       "center": {
         "id": "convolutional-network",
         "title": "Convolutional Network",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17155,35 +17630,35 @@
         {
           "id": "feature-pyramid",
           "title": "Feature Pyramid",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 38
         },
         {
           "id": "object-detection",
           "title": "Object Detection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 57
         },
         {
           "id": "optical-flow",
           "title": "Optical Flow",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 75
         },
         {
           "id": "semantic-segmentation",
           "title": "Semantic Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 94
         },
         {
           "id": "video-understanding",
           "title": "Video Understanding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 113
         },
@@ -18931,7 +19406,7 @@
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -18952,7 +19427,7 @@
         {
           "id": "semantic-segmentation",
           "title": "Semantic Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -20309,7 +20784,7 @@
       "center": {
         "id": "feature-pyramid",
         "title": "Feature Pyramid",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -20317,14 +20792,14 @@
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "object-detection",
           "title": "Object Detection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -20838,43 +21313,50 @@
           "id": "custom-kernel",
           "title": "Custom Kernel",
           "tier": "verified",
-          "x": 34,
+          "x": 30,
           "y": 22
         },
         {
           "id": "gpu-memory-hierarchy",
           "title": "GPU Memory Hierarchy",
           "tier": "verified",
-          "x": 69,
+          "x": 60,
           "y": 110
         },
         {
           "id": "kernel-fusion",
           "title": "Kernel Fusion",
           "tier": "verified",
-          "x": 103,
+          "x": 90,
           "y": 22
         },
         {
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
           "tier": "verified",
-          "x": 137,
+          "x": 120,
           "y": 110
         },
         {
           "id": "selective-state-space",
           "title": "Selective State Space",
           "tier": "verified",
-          "x": 171,
+          "x": 150,
           "y": 22
+        },
+        {
+          "id": "tensor-core",
+          "title": "Tensor Core",
+          "tier": "frontier",
+          "x": 180,
+          "y": 110
         },
         {
           "id": "tiling",
           "title": "Tiling",
           "tier": "verified",
-          "x": 206,
-          "y": 110
+          "x": 210,
+          "y": 22
         }
       ],
       "links": [
@@ -20911,6 +21393,12 @@
         {
           "from": "flash-attention",
           "to": "selective-state-space",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "flash-attention",
+          "to": "tensor-core",
           "type": "adjacent",
           "reviewed": false
         },
@@ -21122,21 +21610,28 @@
           "title": "Arithmetic Intensity",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "memory-planning",
           "title": "Memory Planning",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
+        },
+        {
+          "id": "tensor-core",
+          "title": "Tensor Core",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
         },
         {
           "id": "tiling",
           "title": "Tiling",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         },
         {
           "id": "flash-attention",
@@ -21170,6 +21665,12 @@
         {
           "from": "gpu-memory-hierarchy",
           "to": "memory-planning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gpu-memory-hierarchy",
+          "to": "tensor-core",
           "type": "unlocks",
           "reviewed": false
         },
@@ -22665,6 +23166,59 @@
       ]
     },
     {
+      "id": "inference-accelerator",
+      "center": {
+        "id": "inference-accelerator",
+        "title": "Inference Accelerator",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "optimizer-state",
+          "title": "Optimizer State",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "optimizer-state",
+          "to": "inference-accelerator",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "inference-accelerator",
+          "to": "kv-cache",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "inference-accelerator",
+          "to": "quantization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "information-bottleneck",
       "center": {
         "id": "information-bottleneck",
@@ -22709,7 +23263,7 @@
       "center": {
         "id": "instance-segmentation",
         "title": "Instance Segmentation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -22717,21 +23271,21 @@
         {
           "id": "object-detection",
           "title": "Object Detection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "promptable-segmentation",
           "title": "Promptable Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "semantic-segmentation",
           "title": "Semantic Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -22871,6 +23425,72 @@
         {
           "from": "instrumental-variable",
           "to": "causal-inference",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "interconnect-topology",
+      "center": {
+        "id": "interconnect-topology",
+        "title": "Interconnect Topology",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "collective-communication",
+          "title": "Collective Communication",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "accelerator-utilization",
+          "title": "Accelerator Utilization",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "pipeline-parallelism",
+          "title": "Pipeline Parallelism",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "tensor-parallelism",
+          "title": "Tensor Parallelism",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "collective-communication",
+          "to": "interconnect-topology",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "interconnect-topology",
+          "to": "accelerator-utilization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "interconnect-topology",
+          "to": "pipeline-parallelism",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "interconnect-topology",
+          "to": "tensor-parallelism",
           "type": "adjacent",
           "reviewed": false
         }
@@ -23268,21 +23888,35 @@
           "id": "flash-attention",
           "title": "FlashAttention",
           "tier": "verified",
-          "x": 60,
+          "x": 40,
           "y": 22
         },
         {
           "id": "graph-capture",
           "title": "Graph Capture",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 110
+        },
+        {
+          "id": "memory-bandwidth-wall",
+          "title": "Memory Bandwidth Wall",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         },
         {
           "id": "structured-sparsity",
           "title": "Structured Sparsity",
           "tier": "verified",
-          "x": 180,
+          "x": 160,
+          "y": 110
+        },
+        {
+          "id": "tensor-core",
+          "title": "Tensor Core",
+          "tier": "frontier",
+          "x": 200,
           "y": 22
         }
       ],
@@ -23319,7 +23953,19 @@
         },
         {
           "from": "kernel-fusion",
+          "to": "memory-bandwidth-wall",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "kernel-fusion",
           "to": "structured-sparsity",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "kernel-fusion",
+          "to": "tensor-core",
           "type": "adjacent",
           "reviewed": false
         }
@@ -23572,15 +24218,22 @@
           "id": "chain-of-thought",
           "title": "Chain of Thought",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "inference-accelerator",
+          "title": "Inference Accelerator",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "state-space-model",
           "title": "State Space Model",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -23629,6 +24282,12 @@
         {
           "from": "kv-cache",
           "to": "chain-of-thought",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "inference-accelerator",
           "type": "adjacent",
           "reviewed": false
         },
@@ -25566,6 +26225,59 @@
       ]
     },
     {
+      "id": "memory-bandwidth-wall",
+      "center": {
+        "id": "memory-bandwidth-wall",
+        "title": "Memory Bandwidth Wall",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "arithmetic-intensity",
+          "title": "Arithmetic Intensity",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "activation-checkpointing",
+          "title": "Activation Checkpointing",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "kernel-fusion",
+          "title": "Kernel Fusion",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "arithmetic-intensity",
+          "to": "memory-bandwidth-wall",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "memory-bandwidth-wall",
+          "to": "activation-checkpointing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "memory-bandwidth-wall",
+          "to": "kernel-fusion",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "memory-planning",
       "center": {
         "id": "memory-planning",
@@ -25851,14 +26563,21 @@
           "title": "Determinism and Reproducibility",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
+        },
+        {
+          "id": "number-format",
+          "title": "Number Format",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "quantization",
           "title": "Quantization",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "quantization-aware-training",
@@ -25878,6 +26597,12 @@
         {
           "from": "mixed-precision-training",
           "to": "determinism-and-reproducibility",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "mixed-precision-training",
+          "to": "number-format",
           "type": "unlocks",
           "reviewed": false
         },
@@ -27071,11 +27796,104 @@
       ]
     },
     {
+      "id": "number-format",
+      "center": {
+        "id": "number-format",
+        "title": "Number Format",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mixed-precision-training",
+          "title": "Mixed-Precision Training",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "numerical-stability",
+          "title": "Numerical Stability",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "mixed-precision-training",
+          "to": "number-format",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "number-format",
+          "to": "numerical-stability",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "number-format",
+          "to": "quantization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "numerical-stability",
+      "center": {
+        "id": "numerical-stability",
+        "title": "Numerical Stability",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "number-format",
+          "title": "Number Format",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "number-format",
+          "to": "numerical-stability",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "numerical-stability",
+          "to": "softmax",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "object-detection",
       "center": {
         "id": "object-detection",
         "title": "Object Detection",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -27083,21 +27901,21 @@
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "instance-segmentation",
           "title": "Instance Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "feature-pyramid",
           "title": "Feature Pyramid",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -27300,7 +28118,7 @@
       "center": {
         "id": "optical-flow",
         "title": "Optical Flow",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -27308,14 +28126,14 @@
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "video-understanding",
           "title": "Video Understanding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -27357,14 +28175,21 @@
           "title": "Checkpointing Strategy",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
+        },
+        {
+          "id": "inference-accelerator",
+          "title": "Inference Accelerator",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "zero-redundancy-optimizer",
           "title": "ZeRO",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         }
       ],
       "links": [
@@ -27377,6 +28202,12 @@
         {
           "from": "optimizer-state",
           "to": "checkpointing-strategy",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "optimizer-state",
+          "to": "inference-accelerator",
           "type": "unlocks",
           "reviewed": false
         },
@@ -27946,18 +28777,25 @@
           "y": 66
         },
         {
+          "id": "interconnect-topology",
+          "title": "Interconnect Topology",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "straggler",
           "title": "Straggler",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "tensor-parallelism",
           "title": "Tensor Parallelism",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -27965,6 +28803,12 @@
           "from": "transformer-block",
           "to": "pipeline-parallelism",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "pipeline-parallelism",
+          "to": "interconnect-topology",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -28763,7 +29607,7 @@
       "center": {
         "id": "promptable-segmentation",
         "title": "Promptable Segmentation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -28771,14 +29615,14 @@
         {
           "id": "semantic-segmentation",
           "title": "Semantic Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "instance-segmentation",
           "title": "Instance Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -28998,15 +29842,22 @@
           "id": "dropout",
           "title": "Dropout",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "sparsity-hardware",
+          "title": "Sparsity Hardware",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -29025,6 +29876,12 @@
         {
           "from": "pruning",
           "to": "dropout",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "pruning",
+          "to": "sparsity-hardware",
           "type": "adjacent",
           "reviewed": false
         },
@@ -29184,21 +30041,35 @@
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
           "tier": "verified",
-          "x": 60,
+          "x": 40,
           "y": 22
+        },
+        {
+          "id": "inference-accelerator",
+          "title": "Inference Accelerator",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
         },
         {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
           "tier": "verified",
           "x": 120,
+          "y": 22
+        },
+        {
+          "id": "number-format",
+          "title": "Number Format",
+          "tier": "frontier",
+          "x": 160,
           "y": 110
         },
         {
           "id": "rate-distortion",
           "title": "Rate-Distortion",
           "tier": "verified",
-          "x": 180,
+          "x": 200,
           "y": 22
         }
       ],
@@ -29235,7 +30106,19 @@
         },
         {
           "from": "quantization",
+          "to": "inference-accelerator",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
           "to": "neural-audio-codec",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "number-format",
           "type": "adjacent",
           "reviewed": false
         },
@@ -31061,7 +31944,7 @@
       "center": {
         "id": "semantic-segmentation",
         "title": "Semantic Segmentation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31069,14 +31952,14 @@
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "promptable-segmentation",
           "title": "Promptable Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -31090,7 +31973,7 @@
         {
           "id": "instance-segmentation",
           "title": "Instance Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -31581,8 +32464,15 @@
           "id": "attention",
           "title": "Attention",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "numerical-stability",
+          "title": "Numerical Stability",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -31643,6 +32533,12 @@
         {
           "from": "softmax",
           "to": "attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "numerical-stability",
           "type": "adjacent",
           "reviewed": false
         }
@@ -31736,6 +32632,59 @@
         {
           "from": "sparse-retrieval",
           "to": "dense-retrieval",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "sparsity-hardware",
+      "center": {
+        "id": "sparsity-hardware",
+        "title": "Sparsity Hardware",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "structured-sparsity",
+          "title": "Structured Sparsity",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "pruning",
+          "title": "Pruning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "tensor-core",
+          "title": "Tensor Core",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "structured-sparsity",
+          "to": "sparsity-hardware",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sparsity-hardware",
+          "to": "pruning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sparsity-hardware",
+          "to": "tensor-core",
           "type": "adjacent",
           "reviewed": false
         }
@@ -32404,18 +33353,25 @@
           "y": 66
         },
         {
+          "id": "accelerator-utilization",
+          "title": "Accelerator Utilization",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "job-scheduling",
           "title": "Job Scheduling",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "pipeline-parallelism",
           "title": "Pipeline Parallelism",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -32423,6 +33379,12 @@
           "from": "collective-communication",
           "to": "straggler",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "straggler",
+          "to": "accelerator-utilization",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -32576,6 +33538,13 @@
           "y": 66
         },
         {
+          "id": "sparsity-hardware",
+          "title": "Sparsity Hardware",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "gpu-memory-hierarchy",
           "title": "GPU Memory Hierarchy",
           "tier": "verified",
@@ -32595,6 +33564,12 @@
           "from": "pruning",
           "to": "structured-sparsity",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "structured-sparsity",
+          "to": "sparsity-hardware",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -33114,6 +34089,72 @@
       ]
     },
     {
+      "id": "tensor-core",
+      "center": {
+        "id": "tensor-core",
+        "title": "Tensor Core",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gpu-memory-hierarchy",
+          "title": "GPU Memory Hierarchy",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "flash-attention",
+          "title": "FlashAttention",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "kernel-fusion",
+          "title": "Kernel Fusion",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "sparsity-hardware",
+          "title": "Sparsity Hardware",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "gpu-memory-hierarchy",
+          "to": "tensor-core",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "tensor-core",
+          "to": "flash-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "tensor-core",
+          "to": "kernel-fusion",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "tensor-core",
+          "to": "sparsity-hardware",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "tensor-parallelism",
       "center": {
         "id": "tensor-parallelism",
@@ -33145,11 +34186,18 @@
           "y": 66
         },
         {
+          "id": "interconnect-topology",
+          "title": "Interconnect Topology",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "pipeline-parallelism",
           "title": "Pipeline Parallelism",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -33169,6 +34217,12 @@
           "from": "tensor-parallelism",
           "to": "sequence-parallelism",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tensor-parallelism",
+          "to": "interconnect-topology",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -34645,7 +35699,7 @@
       "center": {
         "id": "video-understanding",
         "title": "Video Understanding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -34653,14 +35707,14 @@
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "optical-flow",
           "title": "Optical Flow",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -34787,7 +35841,7 @@
         {
           "id": "promptable-segmentation",
           "title": "Promptable Segmentation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -34859,7 +35913,7 @@
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
