@@ -192,6 +192,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "hierarchical-rl",
+            "title": "Hierarchical RL",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
             "tier": "verified",
@@ -701,7 +707,7 @@
           {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -726,7 +732,7 @@
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -797,13 +803,13 @@
       "id": "causal-discovery",
       "title": "Causal Discovery",
       "domain": "Causality / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -828,26 +834,26 @@
       "id": "causal-inference",
       "title": "Causal Inference",
       "domain": "Causality / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "causal-discovery",
             "title": "Causal Discovery",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "confounding",
             "title": "Confounding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "intervention",
             "title": "Intervention",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -861,7 +867,7 @@
           {
             "id": "instrumental-variable",
             "title": "Instrumental Variable",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1114,13 +1120,13 @@
       "id": "confounding",
       "title": "Confounding",
       "domain": "Causality / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1128,7 +1134,7 @@
           {
             "id": "instrumental-variable",
             "title": "Instrumental Variable",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1381,13 +1387,13 @@
       "id": "counterfactual",
       "title": "Counterfactual",
       "domain": "Causality / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "intervention",
             "title": "Intervention",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1545,7 +1551,7 @@
           {
             "id": "confounding",
             "title": "Confounding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2000,7 +2006,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "monte-carlo-tree-search",
+            "title": "Monte Carlo Tree Search",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "nucleus-sampling",
@@ -2094,6 +2107,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "imitation-learning",
+            "title": "Imitation Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "instruction-tuning",
             "title": "Instruction Tuning",
@@ -2470,7 +2489,7 @@
           {
             "id": "causal-discovery",
             "title": "Causal Discovery",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2487,7 +2506,7 @@
           {
             "id": "causal-discovery",
             "title": "Causal Discovery",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2588,6 +2607,37 @@
       }
     },
     {
+      "id": "hierarchical-rl",
+      "title": "Hierarchical RL",
+      "domain": "Planning / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "markov-decision-process",
+            "title": "Markov Decision Process",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "task-decomposition",
+            "title": "Task Decomposition",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "agent-memory",
+            "title": "Agent Memory",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "hybrid-search",
       "title": "Hybrid Search",
       "domain": "Retrieval / Ranking",
@@ -2612,6 +2662,37 @@
           {
             "id": "reranking",
             "title": "Reranking",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "imitation-learning",
+      "title": "Imitation Learning",
+      "domain": "Planning / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "offline-rl",
+            "title": "Offline RL",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "rlhf",
+            "title": "RLHF",
             "tier": "verified",
             "reviewed": false
           }
@@ -2759,13 +2840,13 @@
       "id": "instrumental-variable",
       "title": "Instrumental Variable",
       "domain": "Causality / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "confounding",
             "title": "Confounding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2774,7 +2855,7 @@
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2784,13 +2865,13 @@
       "id": "intervention",
       "title": "Intervention",
       "domain": "Causality / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2798,7 +2879,7 @@
           {
             "id": "counterfactual",
             "title": "Counterfactual",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2816,13 +2897,13 @@
       "id": "invariant-risk-minimization",
       "title": "Invariant Risk Minimization",
       "domain": "Causality / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3209,7 +3290,7 @@
           {
             "id": "counterfactual",
             "title": "Counterfactual",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3389,7 +3470,7 @@
           {
             "id": "invariant-risk-minimization",
             "title": "Invariant Risk Minimization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3440,6 +3521,12 @@
             "reviewed": false
           },
           {
+            "id": "hierarchical-rl",
+            "title": "Hierarchical RL",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "policy-gradient",
             "title": "Policy Gradient",
             "tier": "verified",
@@ -3449,6 +3536,12 @@
             "id": "value-function",
             "title": "Value Function",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "world-model",
+            "title": "World Model",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -3661,6 +3754,69 @@
       }
     },
     {
+      "id": "model-based-rl",
+      "title": "Model-Based RL",
+      "domain": "Planning / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "value-function",
+            "title": "Value Function",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "world-model",
+            "title": "World Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "model-predictive-control",
+            "title": "Model Predictive Control",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "temporal-difference-learning",
+            "title": "Temporal Difference Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "model-predictive-control",
+      "title": "Model Predictive Control",
+      "domain": "Planning / Control",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "model-based-rl",
+            "title": "Model-Based RL",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "speculative-decoding",
+            "title": "Speculative Decoding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "momentum",
       "title": "Momentum",
       "domain": "Optimization / Training",
@@ -3689,6 +3845,31 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "monte-carlo-tree-search",
+      "title": "Monte Carlo Tree Search",
+      "domain": "Planning / Search",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "exploration-exploitation",
+            "title": "Exploration and Exploitation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "value-function",
+            "title": "Value Function",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -4003,6 +4184,37 @@
       }
     },
     {
+      "id": "offline-rl",
+      "title": "Offline RL",
+      "domain": "Planning / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "q-learning",
+            "title": "Q-Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "imitation-learning",
+            "title": "Imitation Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "optimizer-state",
       "title": "Optimizer State",
       "domain": "Systems / Memory",
@@ -4057,7 +4269,7 @@
           {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4072,6 +4284,12 @@
             "id": "minimum-description-length",
             "title": "Minimum Description Length",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sim-to-real",
+            "title": "Sim-to-Real",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -4606,7 +4824,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "offline-rl",
+            "title": "Offline RL",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "exploration-exploitation",
@@ -4916,7 +5141,7 @@
           {
             "id": "intervention",
             "title": "Intervention",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5023,6 +5248,12 @@
             "id": "direct-preference-optimization",
             "title": "DPO",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "imitation-learning",
+            "title": "Imitation Learning",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -5311,7 +5542,7 @@
       "id": "shortcut-learning",
       "title": "Shortcut Learning",
       "domain": "Causality / Generalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5325,7 +5556,7 @@
           {
             "id": "invariant-risk-minimization",
             "title": "Invariant Risk Minimization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5337,9 +5568,40 @@
             "reviewed": false
           },
           {
+            "id": "offline-rl",
+            "title": "Offline RL",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "time-series-forecasting",
             "title": "Time Series Forecasting",
             "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "sim-to-real",
+      "title": "Sim-to-Real",
+      "domain": "Planning / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "world-model",
+            "title": "World Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5538,7 +5800,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "model-predictive-control",
+            "title": "Model Predictive Control",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -5773,7 +6042,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "hierarchical-rl",
+            "title": "Hierarchical RL",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "multi-agent-systems",
@@ -5812,7 +6088,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "model-based-rl",
+            "title": "Model-Based RL",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -5933,7 +6216,7 @@
           {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6171,13 +6454,26 @@
             "reviewed": false
           },
           {
+            "id": "model-based-rl",
+            "title": "Model-Based RL",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "temporal-difference-learning",
             "title": "Temporal Difference Learning",
             "tier": "verified",
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "monte-carlo-tree-search",
+            "title": "Monte Carlo Tree Search",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -6213,6 +6509,12 @@
             "id": "kl-divergence",
             "title": "KL Divergence",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "world-model",
+            "title": "World Model",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -6412,6 +6714,44 @@
           {
             "id": "perplexity",
             "title": "Perplexity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "world-model",
+      "title": "World Model",
+      "domain": "Planning / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "markov-decision-process",
+            "title": "Markov Decision Process",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "model-based-rl",
+            "title": "Model-Based RL",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "sim-to-real",
+            "title": "Sim-to-Real",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "variational-autoencoder",
+            "title": "Variational Autoencoder",
             "tier": "verified",
             "reviewed": false
           }
@@ -6754,11 +7094,18 @@
           "y": 66
         },
         {
+          "id": "hierarchical-rl",
+          "title": "Hierarchical RL",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -6766,6 +7113,12 @@
           "from": "context-window",
           "to": "agent-memory",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "agent-memory",
+          "to": "hierarchical-rl",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -7672,7 +8025,7 @@
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -7718,7 +8071,7 @@
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -7849,7 +8202,7 @@
       "center": {
         "id": "causal-discovery",
         "title": "Causal Discovery",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7857,7 +8210,7 @@
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -7902,7 +8255,7 @@
       "center": {
         "id": "causal-inference",
         "title": "Causal Inference",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7910,21 +8263,21 @@
         {
           "id": "causal-discovery",
           "title": "Causal Discovery",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "confounding",
           "title": "Confounding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "intervention",
           "title": "Intervention",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -7938,7 +8291,7 @@
         {
           "id": "instrumental-variable",
           "title": "Instrumental Variable",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -8392,7 +8745,7 @@
       "center": {
         "id": "confounding",
         "title": "Confounding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8400,14 +8753,14 @@
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "instrumental-variable",
           "title": "Instrumental Variable",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -8867,7 +9220,7 @@
       "center": {
         "id": "counterfactual",
         "title": "Counterfactual",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8875,7 +9228,7 @@
         {
           "id": "intervention",
           "title": "Intervention",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -9146,7 +9499,7 @@
         {
           "id": "confounding",
           "title": "Confounding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -9950,6 +10303,13 @@
           "y": 66
         },
         {
+          "id": "monte-carlo-tree-search",
+          "title": "Monte Carlo Tree Search",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
@@ -9969,6 +10329,12 @@
           "from": "markov-decision-process",
           "to": "exploration-exploitation",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "exploration-exploitation",
+          "to": "monte-carlo-tree-search",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -10109,32 +10475,39 @@
           "y": 66
         },
         {
+          "id": "imitation-learning",
+          "title": "Imitation Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 22
+        },
+        {
           "id": "instruction-tuning",
           "title": "Instruction Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 44
         },
         {
           "id": "lora",
           "title": "LoRA",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 66
         },
         {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         }
       ],
       "links": [
@@ -10142,6 +10515,12 @@
           "from": "pretraining",
           "to": "fine-tuning",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "imitation-learning",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -10765,7 +11144,7 @@
         {
           "id": "causal-discovery",
           "title": "Causal Discovery",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -10804,7 +11183,7 @@
         {
           "id": "causal-discovery",
           "title": "Causal Discovery",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -10978,6 +11357,59 @@
       ]
     },
     {
+      "id": "hierarchical-rl",
+      "center": {
+        "id": "hierarchical-rl",
+        "title": "Hierarchical RL",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "markov-decision-process",
+          "title": "Markov Decision Process",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "task-decomposition",
+          "title": "Task Decomposition",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "agent-memory",
+          "title": "Agent Memory",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "markov-decision-process",
+          "to": "hierarchical-rl",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "task-decomposition",
+          "to": "hierarchical-rl",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "hierarchical-rl",
+          "to": "agent-memory",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "hybrid-search",
       "center": {
         "id": "hybrid-search",
@@ -11025,6 +11457,59 @@
         {
           "from": "hybrid-search",
           "to": "reranking",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "imitation-learning",
+      "center": {
+        "id": "imitation-learning",
+        "title": "Imitation Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "offline-rl",
+          "title": "Offline RL",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "fine-tuning",
+          "to": "imitation-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "imitation-learning",
+          "to": "offline-rl",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "imitation-learning",
+          "to": "rlhf",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11273,7 +11758,7 @@
       "center": {
         "id": "instrumental-variable",
         "title": "Instrumental Variable",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11281,14 +11766,14 @@
         {
           "id": "confounding",
           "title": "Confounding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -11313,7 +11798,7 @@
       "center": {
         "id": "intervention",
         "title": "Intervention",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11321,14 +11806,14 @@
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "counterfactual",
           "title": "Counterfactual",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -11366,7 +11851,7 @@
       "center": {
         "id": "invariant-risk-minimization",
         "title": "Invariant Risk Minimization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11374,7 +11859,7 @@
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -12042,7 +12527,7 @@
         {
           "id": "counterfactual",
           "title": "Counterfactual",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -12335,7 +12820,7 @@
         {
           "id": "invariant-risk-minimization",
           "title": "Invariant Risk Minimization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -12459,7 +12944,14 @@
           "title": "Exploration and Exploitation",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 22
+        },
+        {
+          "id": "hierarchical-rl",
+          "title": "Hierarchical RL",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
         },
         {
           "id": "policy-gradient",
@@ -12473,13 +12965,26 @@
           "title": "Value Function",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 88
+        },
+        {
+          "id": "world-model",
+          "title": "World Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 110
         }
       ],
       "links": [
         {
           "from": "markov-decision-process",
           "to": "exploration-exploitation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "markov-decision-process",
+          "to": "hierarchical-rl",
           "type": "unlocks",
           "reviewed": false
         },
@@ -12492,6 +12997,12 @@
         {
           "from": "markov-decision-process",
           "to": "value-function",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "markov-decision-process",
+          "to": "world-model",
           "type": "unlocks",
           "reviewed": false
         }
@@ -12855,6 +13366,112 @@
       ]
     },
     {
+      "id": "model-based-rl",
+      "center": {
+        "id": "model-based-rl",
+        "title": "Model-Based RL",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "value-function",
+          "title": "Value Function",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "world-model",
+          "title": "World Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "model-predictive-control",
+          "title": "Model Predictive Control",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "temporal-difference-learning",
+          "title": "Temporal Difference Learning",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "value-function",
+          "to": "model-based-rl",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "world-model",
+          "to": "model-based-rl",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-based-rl",
+          "to": "model-predictive-control",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "model-based-rl",
+          "to": "temporal-difference-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "model-predictive-control",
+      "center": {
+        "id": "model-predictive-control",
+        "title": "Model Predictive Control",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "model-based-rl",
+          "title": "Model-Based RL",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "speculative-decoding",
+          "title": "Speculative Decoding",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "model-based-rl",
+          "to": "model-predictive-control",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-predictive-control",
+          "to": "speculative-decoding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "momentum",
       "center": {
         "id": "momentum",
@@ -12903,6 +13520,46 @@
           "from": "momentum",
           "to": "muon-optimizer",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "monte-carlo-tree-search",
+      "center": {
+        "id": "monte-carlo-tree-search",
+        "title": "Monte Carlo Tree Search",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "exploration-exploitation",
+          "title": "Exploration and Exploitation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "value-function",
+          "title": "Value Function",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "exploration-exploitation",
+          "to": "monte-carlo-tree-search",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "monte-carlo-tree-search",
+          "to": "value-function",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -13450,6 +14107,59 @@
       ]
     },
     {
+      "id": "offline-rl",
+      "center": {
+        "id": "offline-rl",
+        "title": "Offline RL",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "q-learning",
+          "title": "Q-Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "imitation-learning",
+          "title": "Imitation Learning",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "q-learning",
+          "to": "offline-rl",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "offline-rl",
+          "to": "imitation-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "offline-rl",
+          "to": "shortcut-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "optimizer-state",
       "center": {
         "id": "optimizer-state",
@@ -13523,7 +14233,7 @@
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -13531,22 +14241,29 @@
           "id": "decision-tree",
           "title": "Decision Tree",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "sim-to-real",
+          "title": "Sim-to-Real",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
           "tier": "frontier",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -13583,6 +14300,12 @@
         {
           "from": "overfitting",
           "to": "minimum-description-length",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "sim-to-real",
           "type": "adjacent",
           "reviewed": false
         },
@@ -14486,6 +15209,13 @@
           "y": 66
         },
         {
+          "id": "offline-rl",
+          "title": "Offline RL",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "exploration-exploitation",
           "title": "Exploration and Exploitation",
           "tier": "verified",
@@ -14498,6 +15228,12 @@
           "from": "temporal-difference-learning",
           "to": "q-learning",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "q-learning",
+          "to": "offline-rl",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -15017,7 +15753,7 @@
         {
           "id": "intervention",
           "title": "Intervention",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -15184,29 +15920,36 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "direct-preference-optimization",
           "title": "DPO",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
+        },
+        {
+          "id": "imitation-learning",
+          "title": "Imitation Learning",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         },
         {
           "id": "kl-divergence",
           "title": "KL Divergence",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "reward-hacking",
           "title": "Reward Hacking",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -15243,6 +15986,12 @@
         {
           "from": "rlhf",
           "to": "direct-preference-optimization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "imitation-learning",
           "type": "adjacent",
           "reviewed": false
         },
@@ -15716,7 +16465,7 @@
       "center": {
         "id": "shortcut-learning",
         "title": "Shortcut Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15731,7 +16480,7 @@
         {
           "id": "invariant-risk-minimization",
           "title": "Invariant Risk Minimization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -15739,15 +16488,22 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "offline-rl",
+          "title": "Offline RL",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
           "tier": "frontier",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -15771,7 +16527,53 @@
         },
         {
           "from": "shortcut-learning",
+          "to": "offline-rl",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "shortcut-learning",
           "to": "time-series-forecasting",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "sim-to-real",
+      "center": {
+        "id": "sim-to-real",
+        "title": "Sim-to-Real",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "world-model",
+          "title": "World Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "world-model",
+          "to": "sim-to-real",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sim-to-real",
+          "to": "overfitting",
           "type": "adjacent",
           "reviewed": false
         }
@@ -16122,6 +16924,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "model-predictive-control",
+          "title": "Model Predictive Control",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -16129,6 +16938,12 @@
           "from": "autoregressive-decoding",
           "to": "speculative-decoding",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "speculative-decoding",
+          "to": "model-predictive-control",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -16534,6 +17349,13 @@
           "y": 66
         },
         {
+          "id": "hierarchical-rl",
+          "title": "Hierarchical RL",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "multi-agent-systems",
           "title": "Multi-Agent Systems",
           "tier": "verified",
@@ -16553,6 +17375,12 @@
           "from": "chain-of-thought",
           "to": "task-decomposition",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "task-decomposition",
+          "to": "hierarchical-rl",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -16592,6 +17420,13 @@
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "model-based-rl",
+          "title": "Model-Based RL",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -16605,6 +17440,12 @@
           "from": "temporal-difference-learning",
           "to": "q-learning",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "temporal-difference-learning",
+          "to": "model-based-rl",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -16789,7 +17630,7 @@
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -17237,14 +18078,28 @@
           "title": "Actor-Critic",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
+        },
+        {
+          "id": "model-based-rl",
+          "title": "Model-Based RL",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "temporal-difference-learning",
           "title": "Temporal Difference Learning",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
+        },
+        {
+          "id": "monte-carlo-tree-search",
+          "title": "Monte Carlo Tree Search",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -17262,8 +18117,20 @@
         },
         {
           "from": "value-function",
+          "to": "model-based-rl",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "value-function",
           "to": "temporal-difference-learning",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "value-function",
+          "to": "monte-carlo-tree-search",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -17296,15 +18163,22 @@
           "id": "diffusion-model",
           "title": "Diffusion Model",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "kl-divergence",
           "title": "KL Divergence",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "world-model",
+          "title": "World Model",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -17329,6 +18203,12 @@
         {
           "from": "variational-autoencoder",
           "to": "kl-divergence",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "variational-autoencoder",
+          "to": "world-model",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17673,6 +18553,72 @@
         {
           "from": "word-error-rate",
           "to": "perplexity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "world-model",
+      "center": {
+        "id": "world-model",
+        "title": "World Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "markov-decision-process",
+          "title": "Markov Decision Process",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "model-based-rl",
+          "title": "Model-Based RL",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "sim-to-real",
+          "title": "Sim-to-Real",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "variational-autoencoder",
+          "title": "Variational Autoencoder",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "markov-decision-process",
+          "to": "world-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "world-model",
+          "to": "model-based-rl",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "world-model",
+          "to": "sim-to-real",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "world-model",
+          "to": "variational-autoencoder",
           "type": "adjacent",
           "reviewed": false
         }

@@ -1,0 +1,67 @@
+{
+  "id": "model-based-rl",
+  "title": "Model-Based RL",
+  "domain": [
+    "Planning",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Model-free methods learn what to do; model-based methods learn how the world works and then work out what to do. The second needs far less experience, because a single transition teaches the model something usable everywhere rather than nudging one value estimate. What it buys in sample efficiency it gives back in a new way to be wrong.",
+    "engineer": "The failure is model bias, and it compounds with rollout length rather than staying constant. That single fact explains most of the design space: branch short rollouts from states you actually visited, weight by ensemble disagreement, or use the model only for value expansion rather than for the policy itself. When a paper reports model-based methods beating model-free at ten times fewer samples, the rollout length is usually where to look first.",
+    "math": "With a model error ε per step, the return estimated from an h-step rollout carries error growing roughly with h, so total error trades against the variance reduction longer rollouts buy. The optimum is short and non-zero — a one-step model is nearly useless and a hundred-step one is fiction — which is why h is the hyperparameter these methods live and die on."
+  },
+  "emphasis": {
+    "intuition": "a single transition teaches the model something usable everywhere",
+    "engineer": "the rollout length is usually where to look first"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "model_error": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "model_error",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Error contributed by the learned model against error the policy would have had anyway, in equal units. Drag the model error up to watch it take over the estimate it was meant to improve — it grows with rollout length, which is why short rollouts from real states win."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "world-model",
+        "reviewed": false
+      },
+      {
+        "id": "value-function",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "temporal-difference-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2301.04104",
+      "title": "Mastering Diverse Domains through World Models",
+      "url": "https://arxiv.org/abs/2301.04104"
+    },
+    {
+      "ref": "arXiv:1811.04551",
+      "title": "Learning Latent Dynamics for Planning from Pixels",
+      "url": "https://arxiv.org/abs/1811.04551"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

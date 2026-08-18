@@ -1,0 +1,62 @@
+{
+  "id": "hierarchical-rl",
+  "title": "Hierarchical RL",
+  "domain": [
+    "Planning",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Deciding every muscle twitch and deciding where to go are different problems at different timescales. Hierarchical methods split them: a high-level policy picks a goal every so often, a low-level policy pursues it step by step. Credit then travels back over a handful of decisions rather than thousands, which is what makes long-horizon tasks learnable at all.",
+    "engineer": "The persistent difficulty is that the two levels are learning against each other — the low level's behaviour is the high level's transition function, so it is non-stationary from above. Fixing the low level early stabilises learning and caps the ceiling; letting both move risks neither converging. How goals are represented matters more than the hierarchy itself, and learned goal spaces remain the unsolved part.",
+    "math": "An option is a triple: a policy, an initiation set, and a termination condition. Over options the problem is a semi-MDP whose transitions span variable durations, so the discount over an option lasting k steps is γ^k rather than γ. That single change is what shortens the credit assignment path — a hundred primitive steps become a handful of option-level ones."
+  },
+  "emphasis": {
+    "intuition": "Credit then travels back over a handful of decisions rather than thousands",
+    "engineer": "the low level's behaviour is the high level's transition function, so it is non-stationary from above"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "option_length": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "option_length",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Steps a single option runs for against the decision that launched it, in steps. Drag the option length up to watch the high level decide less often — which shortens credit assignment and hands more of the behaviour to a policy it cannot see inside."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "markov-decision-process",
+        "reviewed": false
+      },
+      {
+        "id": "task-decomposition",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "agent-memory",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.01161",
+      "title": "FeUdal Networks for Hierarchical Reinforcement Learning",
+      "url": "https://arxiv.org/abs/1703.01161"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

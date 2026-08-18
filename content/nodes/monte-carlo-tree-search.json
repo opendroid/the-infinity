@@ -1,0 +1,58 @@
+{
+  "id": "monte-carlo-tree-search",
+  "title": "Monte Carlo Tree Search",
+  "domain": [
+    "Planning",
+    "Search"
+  ],
+  "bodies": {
+    "intuition": "Search a game tree without expanding all of it. Run many simulated playouts, spend more of them on moves that have looked good, and let the visit counts become the answer. It is anytime — stop whenever you run out of time and the current counts are a usable policy — which is why it fits a clock.",
+    "engineer": "The selection rule balances a move's average value against how little it has been tried, and that balance is the whole algorithm. Paired with a learned value network the playouts stop needing to reach the end of the game, which is what made it work on Go and then, with a learned dynamics model, on games whose rules the agent was never given. The visit distribution is a better training target than the value estimate, and that is not obvious.",
+    "math": "Select with argmax over Q(s,a) + c·P(s,a)·√(Σ_b N(s,b))/(1 + N(s,a)): exploitation plus a term that shrinks as a move is visited. Regret is logarithmic in the number of simulations under the bandit analysis, which is why doubling the budget buys a fixed increment of strength rather than a fixed factor."
+  },
+  "emphasis": {
+    "intuition": "let the visit counts become the answer",
+    "engineer": "The visit distribution is a better training target than the value estimate, and that is not obvious."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "best_child_visits": 12,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "best_child_visits",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Simulations spent on the move that currently looks best against simulations spent everywhere else, in simulations. Drag the visits to the best child up to watch the search commit — too far and it has stopped searching."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "exploration-exploitation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "value-function",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1911.08265",
+      "title": "Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model",
+      "url": "https://arxiv.org/abs/1911.08265"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

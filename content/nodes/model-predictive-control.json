@@ -1,0 +1,58 @@
+{
+  "id": "model-predictive-control",
+  "title": "Model Predictive Control",
+  "domain": [
+    "Planning",
+    "Control"
+  ],
+  "bodies": {
+    "intuition": "Plan a sequence of actions over a short horizon, execute only the first one, then throw the rest away and plan again. Discarding most of the plan sounds wasteful and is the entire point: by the time step two arrives the world has moved, and a plan made with newer information beats an old plan made further ahead.",
+    "engineer": "Replanning every step is what makes an imperfect model survivable — errors do not accumulate across the horizon because the horizon is never executed. The cost is that you solve an optimisation problem per timestep, which is why the horizon length is bounded by the control frequency rather than by what would be useful. In learned settings the same loop runs in a world model's latent space.",
+    "math": "At each step solve min over a_{t:t+H} of Σ cost(ŝ_k, a_k) under the model, apply a_t only, advance, repeat. Because only the first action is executed, the model's error at horizon H affects the plan's ranking but never the trajectory directly — which is why MPC tolerates models that would be useless for open-loop rollout."
+  },
+  "emphasis": {
+    "intuition": "a plan made with newer information beats an old plan made further ahead",
+    "engineer": "errors do not accumulate across the horizon because the horizon is never executed"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "planned_steps": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "planned_steps",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Steps planned each round against the steps actually executed before replanning, in steps. Drag the horizon up to watch planning outweigh doing — nearly all of this work is discarded, deliberately."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "model-based-rl",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "speculative-decoding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1811.04551",
+      "title": "Learning Latent Dynamics for Planning from Pixels",
+      "url": "https://arxiv.org/abs/1811.04551"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

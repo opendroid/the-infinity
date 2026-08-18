@@ -1,0 +1,68 @@
+{
+  "id": "offline-rl",
+  "title": "Offline RL",
+  "domain": [
+    "Planning",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Learn a policy from a fixed dataset of past behaviour, with no chance to try anything and see what happens. That rules out the loop reinforcement learning normally depends on, and it introduces a specific trap: the algorithm will prefer actions the data never took, because their value was never corrected downward.",
+    "engineer": "The problem is distributional shift and the fixes are all forms of pessimism — penalise values for actions outside the data, constrain the policy toward the behaviour policy, or model the return distribution and act conservatively. The tell that a method is under-constrained is a value estimate far above anything in the dataset, which is a claim about actions nobody ever tried. Evaluation is the hard part, since offline metrics have the same blind spot.",
+    "math": "Q-learning's max over actions is evaluated at actions the dataset may never contain, so the bootstrap propagates errors that never get corrected — the loop that makes online RL self-repairing is exactly what is missing. Conservative methods add a penalty pushing down values on out-of-distribution actions, which trades a bias toward the data for the unbounded overestimation that would otherwise occur."
+  },
+  "emphasis": {
+    "intuition": "their value was never corrected downward",
+    "engineer": "a value estimate far above anything in the dataset, which is a claim about actions nobody ever tried"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "conservatism": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "conservatism",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Weight on staying near what the data did against weight on maximising the value estimate, in equal units. Drag the conservatism up to watch the objective stop trusting its own estimates — and stop improving on the behaviour it learned from."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "q-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "shortcut-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2005.01643",
+      "title": "Offline Reinforcement Learning: Tutorial, Review, and Perspectives on Open Problems",
+      "url": "https://arxiv.org/abs/2005.01643"
+    },
+    {
+      "ref": "arXiv:2006.04779",
+      "title": "Conservative Q-Learning for Offline Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2006.04779"
+    },
+    {
+      "ref": "arXiv:2106.01345",
+      "title": "Decision Transformer: Reinforcement Learning via Sequence Modeling",
+      "url": "https://arxiv.org/abs/2106.01345"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
