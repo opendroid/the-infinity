@@ -6369,7 +6369,20 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "multi-head-attention",
+            "title": "Multi-Head Attention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -7385,6 +7398,12 @@
           {
             "id": "chain-of-thought",
             "title": "Chain of Thought",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "grouped-query-attention",
+            "title": "Grouped-Query Attention",
             "tier": "verified",
             "reviewed": false
           },
@@ -9430,6 +9449,12 @@
             "title": "Graph Attention",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "grouped-query-attention",
+            "title": "Grouped-Query Attention",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -9862,6 +9887,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "rmsnorm",
+            "title": "RMSNorm",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "softmax",
             "title": "Softmax",
@@ -12180,7 +12211,20 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "numerical-stability",
+            "title": "Numerical Stability",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "transformer-block",
+            "title": "Transformer Block",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -15158,7 +15202,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "rmsnorm",
+            "title": "RMSNorm",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -27380,6 +27431,20 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "multi-head-attention",
+          "title": "Multi-Head Attention",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -27387,6 +27452,18 @@
           "from": "multi-query-attention",
           "to": "grouped-query-attention",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "grouped-query-attention",
+          "to": "kv-cache",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "grouped-query-attention",
+          "to": "multi-head-attention",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -29150,22 +29227,29 @@
           "id": "chain-of-thought",
           "title": "Chain of Thought",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "grouped-query-attention",
+          "title": "Grouped-Query Attention",
+          "tier": "verified",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "inference-accelerator",
           "title": "Inference Accelerator",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "state-space-model",
           "title": "State Space Model",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -29220,6 +29304,12 @@
         {
           "from": "kv-cache",
           "to": "chain-of-thought",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "grouped-query-attention",
           "type": "adjacent",
           "reviewed": false
         },
@@ -32802,8 +32892,15 @@
           "id": "graph-attention",
           "title": "Graph Attention",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "grouped-query-attention",
+          "title": "Grouped-Query Attention",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -32834,6 +32931,12 @@
         {
           "from": "multi-head-attention",
           "to": "graph-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "multi-head-attention",
+          "to": "grouped-query-attention",
           "type": "adjacent",
           "reviewed": false
         }
@@ -33583,11 +33686,18 @@
           "y": 66
         },
         {
+          "id": "rmsnorm",
+          "title": "RMSNorm",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "softmax",
           "title": "Softmax",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -33595,6 +33705,12 @@
           "from": "number-format",
           "to": "numerical-stability",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "numerical-stability",
+          "to": "rmsnorm",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -37735,6 +37851,20 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "numerical-stability",
+          "title": "Numerical Stability",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "transformer-block",
+          "title": "Transformer Block",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -37742,6 +37872,18 @@
           "from": "layer-normalization",
           "to": "rmsnorm",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "rmsnorm",
+          "to": "numerical-stability",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "rmsnorm",
+          "to": "transformer-block",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -42990,6 +43132,13 @@
           "tier": "verified",
           "x": 200,
           "y": 110
+        },
+        {
+          "id": "rmsnorm",
+          "title": "RMSNorm",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -43045,6 +43194,12 @@
           "from": "transformer-block",
           "to": "vision-transformer",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "transformer-block",
+          "to": "rmsnorm",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
