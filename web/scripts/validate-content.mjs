@@ -189,6 +189,25 @@ export function validateLayout() {
   );
 
   const errors = [];
+
+  // AN EMPTY FRONTIER FAILS HERE, AND WITHOUT THIS IT FAILS OPAQUELY (#283).
+  // Verifying the last frontier batch makes every right-lobe bead verified, so
+  // the per-bead check below reports three separate "is verified, but this lobe
+  // is frontier" errors and never names the cause. The reader's next move is to
+  // edit the layout, which cannot work: there is nothing frontier to put in it.
+  //
+  // This says so once, and points at the open question rather than answering
+  // it — whether an empty frontier should be representable at all is a design
+  // decision about the landing page's signature figure, not a validator's call.
+  const anyFrontier = [...nodes.values()].some((n) => tierOf(n) === 'frontier');
+  if (!anyFrontier) {
+    errors.push(
+      'no concept is frontier, so the lemniscate\'s teal lobe cannot be filled — ' +
+        'the layout is not the problem and editing it will not help. ' +
+        'Seed a batch, or see #283 on whether steady state should be representable.',
+    );
+  }
+
   for (const [lobe, tier] of [
     ['left', 'verified'],
     ['right', 'frontier'],
