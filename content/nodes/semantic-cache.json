@@ -1,0 +1,68 @@
+{
+  "id": "semantic-cache",
+  "title": "Semantic Cache",
+  "domain": [
+    "Inference",
+    "Adaptive"
+  ],
+  "bodies": {
+    "intuition": "Return a stored answer when a new question means the same as an old one. An exact-match cache misses \"how do I reset my password\" against \"password reset steps\"; a semantic cache embeds both, finds them close, and serves the earlier answer — turning a model call into a vector lookup.",
+    "engineer": "The distinction from `prefix-caching` is what is being matched and what is at risk. That reuses attention state for a prefix that is identical token for token, and cannot be wrong. This reuses an ANSWER for a question that is merely similar, so a false hit serves a confidently wrong response with no error anywhere. The safety of the whole thing rests on a similarity threshold, and the failures it produces are invisible to the system and obvious to the user.",
+    "math": "This is a detection problem with an unusually bad asymmetry. A miss costs one model call; a false hit costs a wrong answer, and there is no upper bound on what a wrong answer costs. So the threshold belongs far into the conservative range — much further than hit-rate optimisation would put it — and a cache tuned to maximise hit rate is tuned for the wrong quantity. Question length and specificity both make near-duplicates more dangerous, which is why this works better on short support queries than on anything technical."
+  },
+  "emphasis": {
+    "engineer": "the failures it produces are invisible to the system and obvious to the user",
+    "math": "a cache tuned to maximise hit rate is tuned for the wrong quantity"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 2.0,
+      "threshold": 1.4,
+      "base_rate": 0.25
+    },
+    "param_controls": [
+      {
+        "name": "threshold",
+        "min": -2,
+        "max": 4,
+        "step": 0.25
+      }
+    ],
+    "caption": "Questions a cached answer genuinely fits against ones it does not, by embedding similarity. Drag the threshold up to watch false hits vanish and the hit rate go with them — a miss costs one model call and a false hit costs a wrong answer, so the bar belongs well to the right."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "approximate-nearest-neighbor",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "prefix-caching",
+        "reviewed": false
+      },
+      {
+        "id": "hallucination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.05176",
+      "title": "FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance",
+      "url": "https://arxiv.org/abs/2305.05176"
+    },
+    {
+      "ref": "arXiv:2309.06180",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "url": "https://arxiv.org/abs/2309.06180"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

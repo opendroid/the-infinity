@@ -1,0 +1,63 @@
+{
+  "id": "adaptive-computation",
+  "title": "Adaptive Computation",
+  "domain": [
+    "Inference",
+    "Adaptive"
+  ],
+  "bodies": {
+    "intuition": "Spend more on hard inputs than on easy ones. A fixed network does the same work for \"what is 2+2\" as for a research question, which is obviously wasteful — and the reason it persists is that variable work per input is awkward for hardware that likes doing the same thing to everything at once.",
+    "engineer": "The distinction from `conditional-computation` is which axis varies. That routes each token to a subset of experts and every token still costs the same; this varies the total work per input, so two requests in one batch finish at different times. That is the whole engineering difficulty — a batch runs at the pace of its slowest member, so saving compute on the easy inputs saves nothing at all unless the scheduler can retire them and refill the slot.",
+    "math": "The gain is bounded by the share of inputs that are genuinely easy, and by how well easiness can be predicted before the work is done. Both terms matter and the second is usually the binding one: a perfect oracle over a workload that is 70% easy saves most of that 70%, and a predictor at chance saves nothing while adding its own cost. So the honest measure is the saving net of the predictor, on a real traffic mix rather than a benchmark's."
+  },
+  "emphasis": {
+    "engineer": "saving compute on the easy inputs saves nothing at all unless the scheduler can retire them and refill the slot",
+    "math": "the honest measure is the saving net of the predictor"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "easy_inputs": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "easy_inputs",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Requests light enough to finish early, against the ones needing the full model, in requests. Drag the easy share up to watch the available saving grow — it is only realised if the scheduler can retire them and refill the slot, and only predicted if something cheap can tell which is which."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "conditional-computation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "mixture-of-depths",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2207.07061",
+      "title": "Confident Adaptive Language Modeling",
+      "url": "https://arxiv.org/abs/2207.07061"
+    },
+    {
+      "ref": "arXiv:2403.02419",
+      "title": "Are More LLM Calls All You Need? Towards Scaling Laws of Compound Inference Systems",
+      "url": "https://arxiv.org/abs/2403.02419"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

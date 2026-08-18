@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "feature-store",
+      "id": "tail-latency",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "offload",
+      "id": "model-cascade",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "training-serving-skew",
+      "id": "early-exit",
       "t": 0.8,
       "label": true
     }

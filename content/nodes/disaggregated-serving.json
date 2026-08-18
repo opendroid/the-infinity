@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Run the two halves of generation on separate machines. Reading the prompt and writing the reply have almost opposite hardware appetites, and putting them on the same accelerator means every request is contending with the other phase for the wrong resource.",
     "engineer": "Prefill is compute-bound and processes the whole prompt at once; decode is memory-bandwidth-bound and produces one token at a time. Interleaved on one device they interfere: a long prefill stalls every decode waiting behind it, which shows up as latency spikes for users mid-conversation. Splitting them lets each pool be sized and even hardware-matched to its phase, at the cost of moving the KV cache across the network between them — which is the whole engineering problem.",
-    "math": "The transfer is the term that decides whether this pays. The cache for a prompt is proportional to its length, so the cost of disaggregating grows with prompt size while the benefit — decode no longer waiting behind prefill — grows with how much prefill there is to wait behind. Both scale the same way, so the trade turns on the interconnect rather than on the workload, and a fast enough link makes the split nearly free while a slow one makes it a loss."
+    "math": "The transfer is the term that decides whether this pays. The cache for a prompt is proportional to its length, so the cost of disaggregating grows with prompt size while the benefit — decode no longer waiting behind prefill — grows with how much prefill there is to wait behind. Both grow with the prompt, so the ratio is roughly stable and the trade turns on the interconnect rather than on the workload — though prefill's cost grows faster than the cache's, so very long prompts tilt toward splitting. A fast enough link makes the split nearly free; a slow one makes it a loss."
   },
   "emphasis": {
     "intuition": "almost opposite hardware appetites",
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

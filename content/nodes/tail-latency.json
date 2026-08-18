@@ -1,0 +1,67 @@
+{
+  "id": "tail-latency",
+  "title": "Tail Latency",
+  "domain": [
+    "Inference",
+    "Serving"
+  ],
+  "bodies": {
+    "intuition": "The slowest requests, not the typical one. A median of 200 milliseconds with a 99th percentile of eight seconds is a system that feels broken to one user in a hundred — and if a page makes ten calls, most pages contain one of them. The average hides exactly the experience people complain about.",
+    "engineer": "In generation the tail has specific causes and each has a fix: a long prompt monopolising a batch slot, a queue that formed while the autoscaler was still cold, a request stuck behind another's prefill. The reason `disaggregated-serving`, `continuous-batching` and preemption exist is the tail rather than the mean, and a change that improves throughput by making the tail worse is common enough that reporting both is not optional.",
+    "math": "Fan-out is what makes this brutal. If a page issues n independent calls, the chance all of them beat the 99th percentile is 0.99^n — so ten calls means roughly one page in ten contains a tail request, and a hundred calls means almost every page does. The percentile a service should target is therefore set by how many times a page calls it, and a service quoting a comfortable p99 to a caller that fans out widely has answered the wrong question."
+  },
+  "emphasis": {
+    "intuition": "The average hides exactly the experience people complain about.",
+    "math": "a service quoting a comfortable p99 to a caller that fans out widely has answered the wrong question"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "fanout_calls": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "fanout_calls",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Pages containing at least one tail request, against pages where every call was fast, in pages. Drag the fan-out up to watch the tail reach almost every page — at ten calls it is one page in ten, and the per-call percentile never moved."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "continuous-batching",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "straggler",
+        "reviewed": false
+      },
+      {
+        "id": "disaggregated-serving",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2309.06180",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "url": "https://arxiv.org/abs/2309.06180"
+    },
+    {
+      "ref": "arXiv:2403.02419",
+      "title": "Are More LLM Calls All You Need? Towards Scaling Laws of Compound Inference Systems",
+      "url": "https://arxiv.org/abs/2403.02419"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

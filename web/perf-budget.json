@@ -41,19 +41,19 @@
       "js_gzip": 0,
       "html_gzip": null,
       "note": "No islands. Zero is the budget; adding one is a decision.",
-      "html_gzip_measured": 2147
+      "html_gzip_measured": 2142
     },
     "/concepts": {
       "js_gzip": 67000,
       "html_gzip": null,
       "note": "Search overlay and trail count only. HTML grows with the graph.",
-      "html_gzip_measured": 36129
+      "html_gzip_measured": 36505
     },
     "/search": {
       "js_gzip": 67000,
       "html_gzip": null,
       "note": "The panel itself. The index is fetched on open, not bundled.",
-      "html_gzip_measured": 3601
+      "html_gzip_measured": 3602
     },
     "/request": {
       "js_gzip": 69000,
@@ -71,7 +71,7 @@
       "js_gzip": 76000,
       "html_gzip": null,
       "note": "The heaviest route, and the worst concept page is the one measured. Depth toggle, viz primitive, mini-map, trail ribbon, trail count, search, review actions.",
-      "html_gzip_measured": 7788
+      "html_gzip_measured": 7776
     },
     "/t/*": {
       "js_gzip": 70500,
