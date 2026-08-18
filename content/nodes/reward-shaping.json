@@ -1,0 +1,67 @@
+{
+  "id": "reward-shaping",
+  "title": "Reward Shaping",
+  "domain": [
+    "Reinforcement",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Add extra rewards along the way so the agent gets feedback before the end. A robot rewarded only for reaching the goal learns nothing until it stumbles there by accident; rewarded a little for getting closer, it learns immediately. The obvious danger is equally immediate — reward getting closer and it may learn to hover just short of the goal forever.",
+    "engineer": "There is a form that provably cannot do that, and it is worth knowing because it is the only guarantee in the area. Shaping built as the difference of a potential function between two states — a value assigned to each state, and the reward being the change in it — leaves the optimal policy unchanged, whatever potential you choose. Anything else is a bet that your hint is right, and `specification-gaming` is what collects when it is not.",
+    "math": "The reason potential-based shaping is safe is that its contribution telescopes: summed along any trajectory, the intermediate terms cancel and only the endpoints remain, so it adds a constant to every trajectory between the same two states and cannot reorder them. Nothing about which policy is best changes. Shaping that is not of this form does not telescope, so it can and does add more to some trajectories than others — which is exactly the ability to change the answer."
+  },
+  "emphasis": {
+    "intuition": "it may learn to hover just short of the goal forever",
+    "math": "summed along any trajectory, the intermediate terms cancel and only the endpoints remain"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "non_telescoping": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "non_telescoping",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Shaping reward that survives summing along a trajectory, against the part that cancels, in equal units. Drag the non-telescoping share up to watch the shaping start reordering trajectories — which is the same thing as changing which policy is optimal."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "credit-assignment",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "specification-gaming",
+        "reviewed": false
+      },
+      {
+        "id": "reward-hacking",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1707.06347",
+      "title": "Proximal Policy Optimization Algorithms",
+      "url": "https://arxiv.org/abs/1707.06347"
+    },
+    {
+      "ref": "arXiv:1506.02438",
+      "title": "High-Dimensional Continuous Control Using Generalized Advantage Estimation",
+      "url": "https://arxiv.org/abs/1506.02438"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "credit-assignment",
+  "title": "Credit Assignment",
+  "domain": [
+    "Reinforcement",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Something good happened. Which of the things you did made it happen? The question sounds simple and is the central difficulty of learning from delayed feedback — a reward arriving at move two hundred says nothing about which of the two hundred mattered, and most of them did not.",
+    "engineer": "It appears in two forms that get the same name. The structural one asks which parameter to change, and `backpropagation` answers it exactly by the chain rule. The temporal one asks which earlier action deserves the reward, and nothing answers it exactly — value functions, eligibility traces and advantage estimates are all approximations, and `process-supervision` exists because the cheapest solution is to stop needing it and label each step.",
+    "math": "The difficulty scales with the delay. With one reward at the end of a trajectory of length T, the feedback carries one number for T decisions, so the information per decision falls as 1/T while the number of plausible explanations for the reward grows with it. That is the arithmetic behind sparse-reward tasks being hard in a way that is not about the reward being rare — it is about the reward being uninformative once it arrives."
+  },
+  "emphasis": {
+    "intuition": "a reward arriving at move two hundred says nothing about which of the two hundred mattered",
+    "math": "it is about the reward being uninformative once it arrives"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "trajectory_length": 8,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "trajectory_length",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Decisions sharing one end-of-episode reward, against the single number explaining them, in decisions. Drag the trajectory length up to watch the information per decision vanish — the reward is not rarer, it is less informative about any one thing you did."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "bellman-equation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "process-supervision",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1806.07857",
+      "title": "RUDDER: Return Decomposition for Delayed Rewards",
+      "url": "https://arxiv.org/abs/1806.07857"
+    },
+    {
+      "ref": "arXiv:1506.02438",
+      "title": "High-Dimensional Continuous Control Using Generalized Advantage Estimation",
+      "url": "https://arxiv.org/abs/1506.02438"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

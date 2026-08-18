@@ -1,0 +1,67 @@
+{
+  "id": "human-evaluation",
+  "title": "Human Evaluation",
+  "domain": [
+    "Evaluation",
+    "Method"
+  ],
+  "bodies": {
+    "intuition": "Ask people whether the output is good. It is the ground truth every automatic metric is trying to approximate, and it is expensive, slow, and much less reliable than its status suggests — two annotators given the same pair often disagree, and the same annotator on a different day sometimes disagrees with themselves.",
+    "engineer": "What makes a study trustworthy is mostly procedural: a rubric specific enough that two people reading it converge, several annotators per item, an agreement statistic reported, and the raters' background stated because it changes the answer. Studies missing these are common and their numbers are not comparable with anything. `llm-as-judge` exists because this is expensive — and it is calibrated against exactly the human ratings whose reliability is in question, so it inherits every weakness here plus its own.",
+    "math": "The interval around a mean rating depends on the number of raters as well as the number of items, and the rater term usually dominates because rater disagreement exceeds item difficulty variation. So twenty raters on ten items is a different measurement from ten raters on twenty, and a result reporting only the item count has reported the smaller half of its own uncertainty. Agreement statistics correct for chance because raw agreement on a two-option choice starts at 50% for coin flips."
+  },
+  "emphasis": {
+    "intuition": "the same annotator on a different day sometimes disagrees with themselves",
+    "math": "a result reporting only the item count has reported the smaller half of its own uncertainty"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "rater_disagreement": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "rater_disagreement",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Variance from raters disagreeing with each other, against variance from the items differing in difficulty, in equal units. Drag the rater disagreement up to watch it dominate — which is why the rater count matters more than the item count and is usually the one left unreported."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "annotation-quality",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      },
+      {
+        "id": "synthesis-evaluation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2202.06935",
+      "title": "Repairing the Cracked Foundation: A Survey of Obstacles in Evaluation Practices for Generated Text",
+      "url": "https://arxiv.org/abs/2202.06935"
+    },
+    {
+      "ref": "arXiv:2009.01325",
+      "title": "Learning to summarize from human feedback",
+      "url": "https://arxiv.org/abs/2009.01325"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

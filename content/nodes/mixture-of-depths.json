@@ -17,18 +17,18 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "routed_tokens": 8,
+      "skipped_tokens": 40,
       "share_rest": 40
     },
     "param_controls": [
       {
-        "name": "routed_tokens",
+        "name": "skipped_tokens",
         "min": 0,
         "max": 400,
         "step": 20
       }
     ],
-    "caption": "Tokens a block skips, against the ones it processes, in tokens. Drag the routed share up to watch the block's cost fall in proportion — the capacity is fixed in advance, so this saving is exact rather than predicted."
+    "caption": "Tokens a block skips, against the ones it processes, in tokens. Drag the skipped share up to watch the block's cost fall in proportion — the capacity is fixed in advance, so this saving is exact rather than predicted."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

@@ -1,0 +1,75 @@
+{
+  "id": "bellman-equation",
+  "title": "Bellman Equation",
+  "domain": [
+    "Reinforcement",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "The value of where you are is the reward you get now plus the value of where you end up. Written down, that sentence is the whole of dynamic programming and the thing every method in this domain is approximating — it turns a question about an infinite future into a relationship between adjacent moments.",
+    "engineer": "Every algorithm here is a way of making it hold approximately when it cannot be solved exactly. Value iteration applies it as an update until the values stop moving. Temporal-difference learning applies it to sampled transitions rather than to a known model. Q-learning applies it with a maximum over actions, which is what makes it off-policy. The differences between them are differences in what is sampled and what is assumed, over one equation.",
+    "math": "V(s) = E[r + γV(s′)] — the value of a state is the expected immediate reward plus the discounted value of the next. The discount γ is doing more than taste: below one it makes an infinite sum finite and makes the update a contraction, so repeated application converges to a unique fixed point. At γ = 1 that guarantee is gone, which is why episodic tasks need a terminal state and why a discount near one is where instability starts."
+  },
+  "emphasis": {
+    "intuition": "it turns a question about an infinite future into a relationship between adjacent moments",
+    "math": "below one it makes an infinite sum finite and makes the update a contraction"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "discounted_tail": 8,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "discounted_tail",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Value the discount assigns to the far future, against the value of the next few steps, in equal units. Drag the discounted tail up to watch the horizon lengthen — at the far right the contraction weakens, which is where the guarantee that this converges runs out."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "markov-decision-process",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "value-function",
+        "reviewed": false
+      },
+      {
+        "id": "temporal-difference-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1312.5602",
+      "title": "Playing Atari with Deep Reinforcement Learning",
+      "url": "https://arxiv.org/abs/1312.5602"
+    },
+    {
+      "ref": "arXiv:1506.02438",
+      "title": "High-Dimensional Continuous Control Using Generalized Advantage Estimation",
+      "url": "https://arxiv.org/abs/1506.02438"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Bellman 1957",
+      "title": "Dynamic Programming",
+      "venue": "Princeton University Press",
+      "doi": "10.1515/9781400835386"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
