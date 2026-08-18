@@ -1,0 +1,67 @@
+{
+  "id": "semantic-segmentation",
+  "title": "Semantic Segmentation",
+  "domain": [
+    "Vision",
+    "Dense Prediction"
+  ],
+  "bodies": {
+    "intuition": "Label every pixel with what it belongs to — road, building, sky — without distinguishing one car from the car parked behind it. It is classification run at full resolution, and the difficulty is that the network which is good at recognising things is good at it precisely because it threw the resolution away.",
+    "engineer": "A classification backbone downsamples aggressively, typically by 32, because that is what lets deep layers see enough context to know what they are looking at. Then the output has to come back to full resolution. Fully convolutional networks got there by upsampling and adding skip connections from earlier, finer layers; dilated convolutions instead keep the resolution and widen the receptive field by spacing the kernel out. Both are answers to the same tension, and the tension does not go away.",
+    "math": "At stride s the network makes one prediction per s² pixels, so a stride of 32 means one genuine decision covering 1,024 pixels and everything else interpolated between them. The interpolated share rises as the square of the stride, which is why boundaries are where these models fail and why average pixel accuracy flatters them: boundary pixels are a small fraction of the image and almost all of the errors a person notices."
+  },
+  "emphasis": {
+    "intuition": "good at it precisely because it threw the resolution away",
+    "math": "boundary pixels are a small fraction of the image and almost all of the errors a person notices"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "interpolated_pixels": 72,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "interpolated_pixels",
+        "min": 0,
+        "max": 352,
+        "step": 32
+      }
+    ],
+    "caption": "Pixels filled in by interpolation, against the two dozen predictions the network genuinely made. Drag the stride up to watch guessing take the image — it rises as the square of the stride, and the guesses land on the boundaries."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "convolutional-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "dilated-convolution",
+        "reviewed": false
+      },
+      {
+        "id": "instance-segmentation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1411.4038",
+      "title": "Fully Convolutional Networks for Semantic Segmentation",
+      "url": "https://arxiv.org/abs/1411.4038"
+    },
+    {
+      "ref": "arXiv:1405.0312",
+      "title": "Microsoft COCO: Common Objects in Context",
+      "url": "https://arxiv.org/abs/1405.0312"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

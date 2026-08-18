@@ -51,7 +51,7 @@
           {
             "id": "checkpointing-strategy",
             "title": "Checkpointing Strategy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -958,6 +958,12 @@
             "reviewed": false
           },
           {
+            "id": "convolutional-network",
+            "title": "Convolutional Network",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "feature-attribution",
             "title": "Feature Attribution",
             "tier": "verified",
@@ -1610,7 +1616,7 @@
       "id": "checkpointing-strategy",
       "title": "Checkpointing Strategy",
       "domain": "Systems / Reliability",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1631,13 +1637,13 @@
           {
             "id": "failure-recovery",
             "title": "Failure Recovery",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "loss-spike",
             "title": "Loss Spike",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1859,7 +1865,7 @@
           {
             "id": "straggler",
             "title": "Straggler",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2463,6 +2469,68 @@
       }
     },
     {
+      "id": "convolutional-network",
+      "title": "Convolutional Network",
+      "domain": "Vision / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "dilated-convolution",
+            "title": "Dilated Convolution",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "feature-pyramid",
+            "title": "Feature Pyramid",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "object-detection",
+            "title": "Object Detection",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "optical-flow",
+            "title": "Optical Flow",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "semantic-segmentation",
+            "title": "Semantic Segmentation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "video-understanding",
+            "title": "Video Understanding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "vision-transformer",
+            "title": "Vision Transformer",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "counterfactual",
       "title": "Counterfactual",
       "domain": "Causality / Foundations",
@@ -2883,19 +2951,19 @@
           {
             "id": "elastic-training",
             "title": "Elastic Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "failure-recovery",
             "title": "Failure Recovery",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "job-scheduling",
             "title": "Job Scheduling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3243,7 +3311,7 @@
       "id": "determinism-and-reproducibility",
       "title": "Determinism and Reproducibility",
       "domain": "Systems / Operations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3258,7 +3326,7 @@
           {
             "id": "training-observability",
             "title": "Training Observability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3389,6 +3457,12 @@
       "edges": {
         "requires": [
           {
+            "id": "convolutional-network",
+            "title": "Convolutional Network",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "time-series-forecasting",
             "title": "Time Series Forecasting",
             "tier": "verified",
@@ -3401,6 +3475,12 @@
             "id": "causal-masking",
             "title": "Causal Masking",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "semantic-segmentation",
+            "title": "Semantic Segmentation",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -3638,7 +3718,7 @@
       "id": "elastic-training",
       "title": "Elastic Training",
       "domain": "Systems / Reliability",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3653,13 +3733,13 @@
           {
             "id": "failure-recovery",
             "title": "Failure Recovery",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "job-scheduling",
             "title": "Job Scheduling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4098,7 +4178,7 @@
       "id": "failure-recovery",
       "title": "Failure Recovery",
       "domain": "Systems / Reliability",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4113,13 +4193,13 @@
           {
             "id": "checkpointing-strategy",
             "title": "Checkpointing Strategy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "elastic-training",
             "title": "Elastic Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4145,6 +4225,31 @@
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "feature-pyramid",
+      "title": "Feature Pyramid",
+      "domain": "Vision / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "convolutional-network",
+            "title": "Convolutional Network",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "object-detection",
+            "title": "Object Detection",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -4682,7 +4787,7 @@
           {
             "id": "loss-spike",
             "title": "Loss Spike",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5467,6 +5572,37 @@
       }
     },
     {
+      "id": "instance-segmentation",
+      "title": "Instance Segmentation",
+      "domain": "Vision / Dense Prediction",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "object-detection",
+            "title": "Object Detection",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "promptable-segmentation",
+            "title": "Promptable Segmentation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "semantic-segmentation",
+            "title": "Semantic Segmentation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "instruction-tuning",
       "title": "Instruction Tuning",
       "domain": "Alignment / Regimes",
@@ -5646,7 +5782,7 @@
       "id": "job-scheduling",
       "title": "Job Scheduling",
       "domain": "Systems / Operations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5661,13 +5797,13 @@
           {
             "id": "elastic-training",
             "title": "Elastic Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "straggler",
             "title": "Straggler",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6571,7 +6707,7 @@
       "id": "loss-spike",
       "title": "Loss Spike",
       "domain": "Systems / Reliability",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -6586,13 +6722,13 @@
           {
             "id": "checkpointing-strategy",
             "title": "Checkpointing Strategy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "training-observability",
             "title": "Training Observability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7199,7 +7335,7 @@
           {
             "id": "determinism-and-reproducibility",
             "title": "Determinism and Reproducibility",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7888,6 +8024,38 @@
       }
     },
     {
+      "id": "object-detection",
+      "title": "Object Detection",
+      "domain": "Vision / Recognition",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "convolutional-network",
+            "title": "Convolutional Network",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "instance-segmentation",
+            "title": "Instance Segmentation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "feature-pyramid",
+            "title": "Feature Pyramid",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "offline-online-gap",
       "title": "Offline-Online Gap",
       "domain": "Recommenders / Evaluation",
@@ -7987,6 +8155,31 @@
       }
     },
     {
+      "id": "optical-flow",
+      "title": "Optical Flow",
+      "domain": "Vision / Motion",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "convolutional-network",
+            "title": "Convolutional Network",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "video-understanding",
+            "title": "Video Understanding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "optimizer-state",
       "title": "Optimizer State",
       "domain": "Systems / Memory",
@@ -8004,7 +8197,7 @@
           {
             "id": "checkpointing-strategy",
             "title": "Checkpointing Strategy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8333,7 +8526,7 @@
           {
             "id": "straggler",
             "title": "Straggler",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8578,7 +8771,7 @@
           {
             "id": "training-observability",
             "title": "Training Observability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8765,6 +8958,37 @@
           {
             "id": "lora",
             "title": "LoRA",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "promptable-segmentation",
+      "title": "Promptable Segmentation",
+      "domain": "Vision / Dense Prediction",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "semantic-segmentation",
+            "title": "Semantic Segmentation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "instance-segmentation",
+            "title": "Instance Segmentation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vision-language-model",
+            "title": "Vision-Language Model",
             "tier": "verified",
             "reviewed": false
           }
@@ -10047,6 +10271,44 @@
       }
     },
     {
+      "id": "semantic-segmentation",
+      "title": "Semantic Segmentation",
+      "domain": "Vision / Dense Prediction",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "convolutional-network",
+            "title": "Convolutional Network",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "promptable-segmentation",
+            "title": "Promptable Segmentation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "dilated-convolution",
+            "title": "Dilated Convolution",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "instance-segmentation",
+            "title": "Instance Segmentation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "sequence-parallelism",
       "title": "Sequence Parallelism",
       "domain": "Systems / Distributed",
@@ -10747,7 +11009,7 @@
       "id": "straggler",
       "title": "Straggler",
       "domain": "Systems / Reliability",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10762,7 +11024,7 @@
           {
             "id": "job-scheduling",
             "title": "Job Scheduling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11684,7 +11946,7 @@
       "id": "training-observability",
       "title": "Training Observability",
       "domain": "Systems / Operations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -11699,13 +11961,13 @@
           {
             "id": "determinism-and-reproducibility",
             "title": "Determinism and Reproducibility",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "loss-spike",
             "title": "Loss Spike",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11998,6 +12260,31 @@
       }
     },
     {
+      "id": "video-understanding",
+      "title": "Video Understanding",
+      "domain": "Vision / Video",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "convolutional-network",
+            "title": "Convolutional Network",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "optical-flow",
+            "title": "Optical Flow",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "vision-language-action",
       "title": "Vision-Language-Action Model",
       "domain": "Robotics / Architecture",
@@ -12069,7 +12356,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "promptable-segmentation",
+            "title": "Promptable Segmentation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -12101,6 +12395,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "convolutional-network",
+            "title": "Convolutional Network",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "graph-transformer",
             "title": "Graph Transformer",
@@ -12216,7 +12516,7 @@
           {
             "id": "loss-spike",
             "title": "Loss Spike",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -12471,7 +12771,7 @@
         {
           "id": "checkpointing-strategy",
           "title": "Checkpointing Strategy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
@@ -14082,42 +14382,49 @@
           "title": "Activation Checkpointing",
           "tier": "verified",
           "x": 200,
-          "y": 19
+          "y": 17
         },
         {
           "id": "autoencoder",
           "title": "Autoencoder",
           "tier": "verified",
           "x": 200,
-          "y": 38
+          "y": 33
+        },
+        {
+          "id": "convolutional-network",
+          "title": "Convolutional Network",
+          "tier": "frontier",
+          "x": 200,
+          "y": 50
         },
         {
           "id": "feature-attribution",
           "title": "Feature Attribution",
           "tier": "verified",
           "x": 200,
-          "y": 57
+          "y": 66
         },
         {
           "id": "gradient-clipping",
           "title": "Gradient Clipping",
           "tier": "verified",
           "x": 200,
-          "y": 75
+          "y": 83
         },
         {
           "id": "gradient-descent",
           "title": "Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 94
+          "y": 99
         },
         {
           "id": "mixed-precision-training",
           "title": "Mixed-Precision Training",
           "tier": "verified",
           "x": 200,
-          "y": 113
+          "y": 116
         }
       ],
       "links": [
@@ -14136,6 +14443,12 @@
         {
           "from": "backpropagation",
           "to": "autoencoder",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "convolutional-network",
           "type": "unlocks",
           "reviewed": false
         },
@@ -15302,7 +15615,7 @@
       "center": {
         "id": "checkpointing-strategy",
         "title": "Checkpointing Strategy",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15324,14 +15637,14 @@
         {
           "id": "failure-recovery",
           "title": "Failure Recovery",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
         {
           "id": "loss-spike",
           "title": "Loss Spike",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -15727,7 +16040,7 @@
         {
           "id": "straggler",
           "title": "Straggler",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -16816,6 +17129,124 @@
       ]
     },
     {
+      "id": "convolutional-network",
+      "center": {
+        "id": "convolutional-network",
+        "title": "Convolutional Network",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "dilated-convolution",
+          "title": "Dilated Convolution",
+          "tier": "verified",
+          "x": 200,
+          "y": 19
+        },
+        {
+          "id": "feature-pyramid",
+          "title": "Feature Pyramid",
+          "tier": "frontier",
+          "x": 200,
+          "y": 38
+        },
+        {
+          "id": "object-detection",
+          "title": "Object Detection",
+          "tier": "frontier",
+          "x": 200,
+          "y": 57
+        },
+        {
+          "id": "optical-flow",
+          "title": "Optical Flow",
+          "tier": "frontier",
+          "x": 200,
+          "y": 75
+        },
+        {
+          "id": "semantic-segmentation",
+          "title": "Semantic Segmentation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 94
+        },
+        {
+          "id": "video-understanding",
+          "title": "Video Understanding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 113
+        },
+        {
+          "id": "vision-transformer",
+          "title": "Vision Transformer",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "convolutional-network",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "convolutional-network",
+          "to": "dilated-convolution",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "convolutional-network",
+          "to": "feature-pyramid",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "convolutional-network",
+          "to": "object-detection",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "convolutional-network",
+          "to": "optical-flow",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "convolutional-network",
+          "to": "semantic-segmentation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "convolutional-network",
+          "to": "video-understanding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "convolutional-network",
+          "to": "vision-transformer",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "counterfactual",
       "center": {
         "id": "counterfactual",
@@ -17566,21 +17997,21 @@
         {
           "id": "elastic-training",
           "title": "Elastic Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "failure-recovery",
           "title": "Failure Recovery",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "job-scheduling",
           "title": "Job Scheduling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -18229,7 +18660,7 @@
       "center": {
         "id": "determinism-and-reproducibility",
         "title": "Determinism and Reproducibility",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -18244,7 +18675,7 @@
         {
           "id": "training-observability",
           "title": "Training Observability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -18498,28 +18929,48 @@
       },
       "nodes": [
         {
+          "id": "convolutional-network",
+          "title": "Convolutional Network",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
           "tier": "verified",
           "x": 40,
-          "y": 66
+          "y": 88
         },
         {
           "id": "causal-masking",
           "title": "Causal Masking",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "semantic-segmentation",
+          "title": "Semantic Segmentation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "text-to-speech",
           "title": "Text to Speech",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
+        {
+          "from": "convolutional-network",
+          "to": "dilated-convolution",
+          "type": "requires",
+          "reviewed": false
+        },
         {
           "from": "time-series-forecasting",
           "to": "dilated-convolution",
@@ -18529,6 +18980,12 @@
         {
           "from": "dilated-convolution",
           "to": "causal-masking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "dilated-convolution",
+          "to": "semantic-segmentation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -18941,7 +19398,7 @@
       "center": {
         "id": "elastic-training",
         "title": "Elastic Training",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -18956,14 +19413,14 @@
         {
           "id": "failure-recovery",
           "title": "Failure Recovery",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "job-scheduling",
           "title": "Job Scheduling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -19759,7 +20216,7 @@
       "center": {
         "id": "failure-recovery",
         "title": "Failure Recovery",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19774,14 +20231,14 @@
         {
           "id": "checkpointing-strategy",
           "title": "Checkpointing Strategy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "elastic-training",
           "title": "Elastic Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -19842,6 +20299,46 @@
         {
           "from": "feature-attribution",
           "to": "mechanistic-interpretability",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "feature-pyramid",
+      "center": {
+        "id": "feature-pyramid",
+        "title": "Feature Pyramid",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "convolutional-network",
+          "title": "Convolutional Network",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "object-detection",
+          "title": "Object Detection",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "convolutional-network",
+          "to": "feature-pyramid",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "feature-pyramid",
+          "to": "object-detection",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20802,7 +21299,7 @@
         {
           "id": "loss-spike",
           "title": "Loss Spike",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -22208,6 +22705,59 @@
       ]
     },
     {
+      "id": "instance-segmentation",
+      "center": {
+        "id": "instance-segmentation",
+        "title": "Instance Segmentation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "object-detection",
+          "title": "Object Detection",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "promptable-segmentation",
+          "title": "Promptable Segmentation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "semantic-segmentation",
+          "title": "Semantic Segmentation",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "object-detection",
+          "to": "instance-segmentation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "instance-segmentation",
+          "to": "promptable-segmentation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "instance-segmentation",
+          "to": "semantic-segmentation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "instruction-tuning",
       "center": {
         "id": "instruction-tuning",
@@ -22516,7 +23066,7 @@
       "center": {
         "id": "job-scheduling",
         "title": "Job Scheduling",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -22531,14 +23081,14 @@
         {
           "id": "elastic-training",
           "title": "Elastic Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "straggler",
           "title": "Straggler",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -24201,7 +24751,7 @@
       "center": {
         "id": "loss-spike",
         "title": "Loss Spike",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -24216,14 +24766,14 @@
         {
           "id": "checkpointing-strategy",
           "title": "Checkpointing Strategy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
         {
           "id": "training-observability",
           "title": "Training Observability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -25299,7 +25849,7 @@
         {
           "id": "determinism-and-reproducibility",
           "title": "Determinism and Reproducibility",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -26521,6 +27071,59 @@
       ]
     },
     {
+      "id": "object-detection",
+      "center": {
+        "id": "object-detection",
+        "title": "Object Detection",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "convolutional-network",
+          "title": "Convolutional Network",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "instance-segmentation",
+          "title": "Instance Segmentation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "feature-pyramid",
+          "title": "Feature Pyramid",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "convolutional-network",
+          "to": "object-detection",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "object-detection",
+          "to": "instance-segmentation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "object-detection",
+          "to": "feature-pyramid",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "offline-online-gap",
       "center": {
         "id": "offline-online-gap",
@@ -26693,6 +27296,46 @@
       ]
     },
     {
+      "id": "optical-flow",
+      "center": {
+        "id": "optical-flow",
+        "title": "Optical Flow",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "convolutional-network",
+          "title": "Convolutional Network",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "video-understanding",
+          "title": "Video Understanding",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "convolutional-network",
+          "to": "optical-flow",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "optical-flow",
+          "to": "video-understanding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "optimizer-state",
       "center": {
         "id": "optimizer-state",
@@ -26712,7 +27355,7 @@
         {
           "id": "checkpointing-strategy",
           "title": "Checkpointing Strategy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -27305,7 +27948,7 @@
         {
           "id": "straggler",
           "title": "Straggler",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -27711,7 +28354,7 @@
         {
           "id": "training-observability",
           "title": "Training Observability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 119
         }
@@ -28110,6 +28753,59 @@
         {
           "from": "prompt-tuning",
           "to": "lora",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "promptable-segmentation",
+      "center": {
+        "id": "promptable-segmentation",
+        "title": "Promptable Segmentation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "semantic-segmentation",
+          "title": "Semantic Segmentation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "instance-segmentation",
+          "title": "Instance Segmentation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "vision-language-model",
+          "title": "Vision-Language Model",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "semantic-segmentation",
+          "to": "promptable-segmentation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "promptable-segmentation",
+          "to": "instance-segmentation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "promptable-segmentation",
+          "to": "vision-language-model",
           "type": "adjacent",
           "reviewed": false
         }
@@ -30361,6 +31057,72 @@
       ]
     },
     {
+      "id": "semantic-segmentation",
+      "center": {
+        "id": "semantic-segmentation",
+        "title": "Semantic Segmentation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "convolutional-network",
+          "title": "Convolutional Network",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "promptable-segmentation",
+          "title": "Promptable Segmentation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "dilated-convolution",
+          "title": "Dilated Convolution",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "instance-segmentation",
+          "title": "Instance Segmentation",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "convolutional-network",
+          "to": "semantic-segmentation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "semantic-segmentation",
+          "to": "promptable-segmentation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "semantic-segmentation",
+          "to": "dilated-convolution",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "semantic-segmentation",
+          "to": "instance-segmentation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "sequence-parallelism",
       "center": {
         "id": "sequence-parallelism",
@@ -31629,7 +32391,7 @@
       "center": {
         "id": "straggler",
         "title": "Straggler",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31644,7 +32406,7 @@
         {
           "id": "job-scheduling",
           "title": "Job Scheduling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -33304,7 +34066,7 @@
       "center": {
         "id": "training-observability",
         "title": "Training Observability",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -33319,14 +34081,14 @@
         {
           "id": "determinism-and-reproducibility",
           "title": "Determinism and Reproducibility",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "loss-spike",
           "title": "Loss Spike",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -33879,6 +34641,46 @@
       ]
     },
     {
+      "id": "video-understanding",
+      "center": {
+        "id": "video-understanding",
+        "title": "Video Understanding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "convolutional-network",
+          "title": "Convolutional Network",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "optical-flow",
+          "title": "Optical Flow",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "convolutional-network",
+          "to": "video-understanding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "video-understanding",
+          "to": "optical-flow",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "vision-language-action",
       "center": {
         "id": "vision-language-action",
@@ -33981,6 +34783,13 @@
           "tier": "verified",
           "x": 200,
           "y": 88
+        },
+        {
+          "id": "promptable-segmentation",
+          "title": "Promptable Segmentation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -34006,6 +34815,12 @@
           "from": "vision-language-model",
           "to": "vision-language-action",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vision-language-model",
+          "to": "promptable-segmentation",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -34042,11 +34857,18 @@
           "y": 66
         },
         {
+          "id": "convolutional-network",
+          "title": "Convolutional Network",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "graph-transformer",
           "title": "Graph Transformer",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -34066,6 +34888,12 @@
           "from": "vision-transformer",
           "to": "clip",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vision-transformer",
+          "to": "convolutional-network",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -34236,7 +35064,7 @@
         {
           "id": "loss-spike",
           "title": "Loss Spike",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }

@@ -1,0 +1,63 @@
+{
+  "id": "object-detection",
+  "title": "Object Detection",
+  "domain": [
+    "Vision",
+    "Recognition"
+  ],
+  "bodies": {
+    "intuition": "Classification asks what is in the picture; detection asks what is in it and where, which turns one answer into a variable-length list of boxes. That variable length is the whole difficulty — the network has a fixed output shape and the picture might contain no cars or forty of them.",
+    "engineer": "Two families solved it differently. Two-stage detectors propose regions first and classify them second, which is accurate and slow. One-stage detectors score a dense grid of pre-placed anchor boxes in a single pass, which is fast and ran into a problem nobody expected: overwhelming class imbalance, since almost every anchor is background. Transformer detectors dropped anchors entirely for a fixed set of learned queries matched to ground truth by bipartite assignment, which removed the hand-tuned post-processing along with them.",
+    "math": "The imbalance is arithmetic, not bad luck. A dense detector places anchors at every position of every pyramid level, so the count scales with the pixels — tens of thousands for a small image, over a hundred thousand for a large one — while the number of objects stays in single digits. The background fraction therefore rises with resolution, and an unweighted loss summed over anchors is almost entirely a loss about empty sky. Focal weighting exists to undo exactly this."
+  },
+  "emphasis": {
+    "intuition": "the network has a fixed output shape and the picture might contain no cars or forty of them",
+    "math": "an unweighted loss summed over anchors is almost entirely a loss about empty sky"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "background_anchors": 300,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "background_anchors",
+        "min": 0,
+        "max": 4000,
+        "step": 200
+      }
+    ],
+    "caption": "Anchors matching no object, against the handful that match one, in anchors. Drag the resolution up and watch the bar barely move — it was already almost all background at the left, which is the point: a loss summed over these is a loss about empty sky at every setting, and focal weighting exists to undo it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "convolutional-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "feature-pyramid",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1506.01497",
+      "title": "Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks",
+      "url": "https://arxiv.org/abs/1506.01497"
+    },
+    {
+      "ref": "arXiv:2005.12872",
+      "title": "End-to-End Object Detection with Transformers",
+      "url": "https://arxiv.org/abs/2005.12872"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

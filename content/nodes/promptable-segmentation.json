@@ -1,0 +1,63 @@
+{
+  "id": "promptable-segmentation",
+  "title": "Promptable Segmentation",
+  "domain": [
+    "Vision",
+    "Dense Prediction"
+  ],
+  "bodies": {
+    "intuition": "Rather than training a model to segment a fixed list of categories, train one to segment whatever a person points at. A click, a box, a scribble — the model returns the mask for that thing, without ever having been told what the thing is called. It converts segmentation from a closed-vocabulary problem into an interactive one.",
+    "engineer": "The architecture is asymmetric on purpose. A heavy image encoder runs once and produces an embedding; a deliberately tiny decoder turns that embedding plus a prompt into a mask in milliseconds. That split is what makes interaction possible — the expensive part is paid before the person starts clicking, so every click after the first is nearly instant. Training such a model needed a dataset of a size nobody had, which was bootstrapped by annotating with successive versions of the model itself.",
+    "math": "The economics are entirely in the amortisation. The encoder costs orders of magnitude more than one decoder pass, so the average cost per mask falls steeply with the number of prompts on the same image and approaches the decoder's cost alone. One click and you have paid for the encoder; fifty and it has almost disappeared. That is why the interactive framing is not a feature bolted on but the thing the architecture was shaped around."
+  },
+  "emphasis": {
+    "intuition": "without ever having been told what the thing is called",
+    "engineer": "the expensive part is paid before the person starts clicking"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "decoder_passes": 3,
+      "share_rest": 200
+    },
+    "param_controls": [
+      {
+        "name": "decoder_passes",
+        "min": 0,
+        "max": 900,
+        "step": 30
+      }
+    ],
+    "caption": "Compute in the per-click decoder, against the image encoder that runs once, in equal units. Drag the number of clicks up to watch the encoder's share fall away — it takes a great many before it does, which is exactly why interaction is cheap."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "semantic-segmentation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "vision-language-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2304.02643",
+      "title": "Segment Anything",
+      "url": "https://arxiv.org/abs/2304.02643"
+    },
+    {
+      "ref": "arXiv:1703.06870",
+      "title": "Mask R-CNN",
+      "url": "https://arxiv.org/abs/1703.06870"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

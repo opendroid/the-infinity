@@ -1,0 +1,83 @@
+{
+  "id": "convolutional-network",
+  "title": "Convolutional Network",
+  "domain": [
+    "Vision",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "A cat is a cat wherever it appears in the photograph, so a network looking for one should use the same detector at every position rather than learning a separate one for each. That single assumption — weight sharing across space — is what a convolution encodes, and it is why vision worked before anyone had enough data to learn the assumption from scratch.",
+    "engineer": "Two properties follow and both matter. Locality means each unit sees a small window, so the receptive field grows with depth rather than arriving all at once — early layers find edges because that is all they can see. Weight sharing means the parameter count is set by the kernel and channel counts and is independent of the input resolution, so a network trained on 224-pixel images has the right number of parameters for 1024-pixel ones.",
+    "math": "That independence is the whole argument. A dense layer over a d-pixel image needs parameters proportional to d² and grows quadratically as the image does; a convolution needs k²·C_in·C_out however large the image gets. At any real resolution the dense layer's parameters swamp the convolution's by orders of magnitude, which is why the fully-connected approach was never a serious option for images and why the inductive bias had to come first."
+  },
+  "emphasis": {
+    "intuition": "weight sharing across space",
+    "engineer": "the receptive field grows with depth rather than arriving all at once"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "dense_parameters": 6,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "dense_parameters",
+        "min": 0,
+        "max": 120,
+        "step": 8
+      }
+    ],
+    "caption": "Parameters a dense layer needs as the image grows, against the fixed parameter count of a convolution over the same image, in thousands. Drag the resolution up to watch the dense layer swamp it — the convolution's bar never moves, which is the entire argument."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "backpropagation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "vision-transformer",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1512.03385",
+      "title": "Deep Residual Learning for Image Recognition",
+      "url": "https://arxiv.org/abs/1512.03385"
+    },
+    {
+      "ref": "arXiv:1608.06993",
+      "title": "Densely Connected Convolutional Networks",
+      "url": "https://arxiv.org/abs/1608.06993"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "LeCun et al. 1989",
+      "title": "Backpropagation Applied to Handwritten Zip Code Recognition",
+      "venue": "Neural Computation 1(4)",
+      "doi": "10.1162/neco.1989.1.4.541"
+    },
+    {
+      "ref": "LeCun et al. 1998",
+      "title": "Gradient-Based Learning Applied to Document Recognition",
+      "venue": "Proceedings of the IEEE 86(11)",
+      "doi": "10.1109/5.726791"
+    },
+    {
+      "ref": "Fukushima 1980",
+      "title": "Neocognitron: A Self-organizing Neural Network Model for a Mechanism of Pattern Recognition Unaffected by Shift in Position",
+      "venue": "Biological Cybernetics 36",
+      "doi": "10.1007/BF00344251"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

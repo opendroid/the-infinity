@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "A run across thousands of accelerators for six weeks will be interrupted many times, so the only question is how much work each interruption destroys. A checkpoint is the save point: write the model, optimiser state and data position to durable storage often enough that a crash costs minutes, rarely enough that writing does not become the job.",
     "engineer": "Not to be confused with activation checkpointing, which trades compute for memory inside a single step and has nothing to do with durability. This is about writing state that survives the process. The state is larger than the model — optimiser moments alone are typically twice the parameters — so a naive synchronous write stalls every worker for minutes. What ships instead is asynchronous: snapshot to host memory, let a background thread push to storage, and shard the write across ranks so no single one carries it.",
-    "math": "The classic result is that the optimal interval goes as the square root of the checkpoint cost times the mean time between failures, so halving the write cost only buys a 40% shorter interval — the trade is much flatter than it looks, and near the optimum the total overhead barely moves. What actually decides the interval in practice is that both terms are estimates, so the safe move is to sit slightly more often than the formula says."
+    "math": "The classic result is that the optimal interval goes as the square root of the checkpoint cost times the mean time between failures, so halving the write cost buys an interval only about 30% shorter, and doubling it lengthens the interval by 40% — the trade is much flatter than it looks, and near the optimum the total overhead barely moves. What actually decides the interval in practice is that both terms are estimates, so the safe move is to sit slightly more often than the formula says."
   },
   "emphasis": {
     "engineer": "has nothing to do with durability",
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
