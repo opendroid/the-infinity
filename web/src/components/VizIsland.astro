@@ -19,12 +19,13 @@ import UpdateSpectrum from './viz/UpdateSpectrum';
 import BudgetSplit from './viz/BudgetSplit';
 import AttentionHeatmap from './viz/AttentionHeatmap';
 import LossCurve from './viz/LossCurve';
+import ThresholdSweep from './viz/ThresholdSweep';
 
 interface Props { node: ResolvedNode }
 const { node } = Astro.props;
 const { viz } = node;
 
-const IMPLEMENTED = new Set(['router-dispatch', 'update-spectrum', 'budget-split', 'attention-heatmap', 'loss-curve']);
+const IMPLEMENTED = new Set(['router-dispatch', 'update-spectrum', 'budget-split', 'attention-heatmap', 'loss-curve', 'threshold-sweep']);
 
 const shared = {
   seed: node.id,
@@ -59,6 +60,7 @@ const bars = Array.from({ length: 8 }, (_, i) => 30 + ((i * 37) % 70));
 {viz.primitive === 'budget-split' && <BudgetSplit client:visible {...shared} />}
 {viz.primitive === 'attention-heatmap' && <AttentionHeatmap client:visible {...shared} />}
 {viz.primitive === 'loss-curve' && <LossCurve client:visible {...shared} />}
+{viz.primitive === 'threshold-sweep' && <ThresholdSweep client:visible {...shared} />}
 
 {
   !IMPLEMENTED.has(viz.primitive) && (

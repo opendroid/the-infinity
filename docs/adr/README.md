@@ -42,6 +42,8 @@ point.
 | [0010](0010-speaking-the-notation.md) | Notation carries a spoken separator | **accepted** — corrected after a listen, and confirmed |
 | [0011](0011-analytics-from-request-logs.md) | Analytics is read from request logs, not from a script in the page | proposed |
 | [0012](0012-stranded-trail-stops.md) | A deleted concept leaves a tombstone in the trails that visited it | proposed |
+| [0013](0013-primary-sources-that-predate-arxiv.md) | Primary sources that predate arXiv go in `origin`, unfetched | **accepted** |
+| [0014](0014-threshold-sweep-primitive.md) | A sixth shape: a cut through two overlapping populations | **accepted** |
 
 ## Planned
 

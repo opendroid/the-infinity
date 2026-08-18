@@ -98,7 +98,8 @@
             "update-spectrum",
             "attention-heatmap",
             "loss-curve",
-            "budget-split"
+            "budget-split",
+            "threshold-sweep"
           ]
         },
         "params": {
