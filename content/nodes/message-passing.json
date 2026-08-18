@@ -1,0 +1,58 @@
+{
+  "id": "message-passing",
+  "title": "Message Passing",
+  "domain": [
+    "Graphs",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "The operation nearly every graph network is built from: each node sends a message to its neighbours, each node adds up what it receives, and each node updates itself from the total. Repeat, and information travels one hop per round. Depth is reach — how far a node can hear is exactly how many rounds you ran.",
+    "engineer": "Message, aggregate, update — and the aggregator has to be permutation-invariant, so sum, mean and max are the usual choices and they are not interchangeable. Sum preserves how many neighbours there were and mean throws it away, which is why mean-aggregation cannot tell a node with three identical neighbours from one with thirty. That single choice is most of the expressivity difference between architectures.",
+    "math": "h_v^{(l+1)} = φ(h_v^{(l)}, ⊕_{u ∈ N(v)} ψ(h_v^{(l)}, h_u^{(l)}, e_{uv})) with ⊕ a permutation-invariant aggregator. Because ⊕ is invariant and φ is shared across nodes, the layer is equivariant — and because reach grows one hop per layer, an L-layer network cannot represent any dependency longer than L hops."
+  },
+  "emphasis": {
+    "intuition": "Depth is reach — how far a node can hear is exactly how many rounds you ran.",
+    "engineer": "mean-aggregation cannot tell a node with three identical neighbours from one with thirty"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "nodes_in_reach": 12,
+      "share_rest": 36
+    },
+    "param_controls": [
+      {
+        "name": "nodes_in_reach",
+        "min": 0,
+        "max": 384,
+        "step": 12
+      }
+    ],
+    "caption": "Nodes a representation can reach after this many rounds against the graph still out of earshot, in nodes. Drag the reach up to watch the receptive field swallow the graph — and note it is rounds, not kernel size, that decides."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "graph-neural-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "residual-connection",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1704.01212",
+      "title": "Neural Message Passing for Quantum Chemistry",
+      "url": "https://arxiv.org/abs/1704.01212"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

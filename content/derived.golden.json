@@ -309,6 +309,12 @@
             "reviewed": false
           },
           {
+            "id": "graph-attention",
+            "title": "Graph Attention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "query-key-value",
             "title": "Query, Key, Value",
             "tier": "verified",
@@ -322,6 +328,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "graph-neural-network",
+            "title": "Graph Neural Network",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
@@ -629,6 +641,12 @@
             "id": "continuous-batching",
             "title": "Continuous Batching",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "neighborhood-sampling",
+            "title": "Neighborhood Sampling",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2129,6 +2147,163 @@
       }
     },
     {
+      "id": "graph-attention",
+      "title": "Graph Attention",
+      "domain": "Graphs / Attention",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "attention",
+            "title": "Attention",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "graph-convolution",
+            "title": "Graph Convolution",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "graph-transformer",
+            "title": "Graph Transformer",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "multi-head-attention",
+            "title": "Multi-Head Attention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "graph-convolution",
+      "title": "Graph Convolution",
+      "domain": "Graphs / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "message-passing",
+            "title": "Message Passing",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "graph-attention",
+            "title": "Graph Attention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "oversmoothing",
+            "title": "Oversmoothing",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "layer-normalization",
+            "title": "Layer Normalization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "graph-expressivity",
+      "title": "Graph Expressivity",
+      "domain": "Graphs / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "message-passing",
+            "title": "Message Passing",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "graph-transformer",
+            "title": "Graph Transformer",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
+      }
+    },
+    {
+      "id": "graph-neural-network",
+      "title": "Graph Neural Network",
+      "domain": "Graphs / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "message-passing",
+            "title": "Message Passing",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "attention",
+            "title": "Attention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "graph-transformer",
+      "title": "Graph Transformer",
+      "domain": "Graphs / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "graph-attention",
+            "title": "Graph Attention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "graph-expressivity",
+            "title": "Graph Expressivity",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "vision-transformer",
+            "title": "Vision Transformer",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "grounding",
       "title": "Grounding",
       "domain": "Retrieval / Validity",
@@ -2584,6 +2759,12 @@
         ],
         "adjacent": [
           {
+            "id": "graph-convolution",
+            "title": "Graph Convolution",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "residual-connection",
             "title": "Residual Connection",
             "tier": "verified",
@@ -2982,6 +3163,50 @@
       }
     },
     {
+      "id": "message-passing",
+      "title": "Message Passing",
+      "domain": "Graphs / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "graph-neural-network",
+            "title": "Graph Neural Network",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "graph-convolution",
+            "title": "Graph Convolution",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "graph-expressivity",
+            "title": "Graph Expressivity",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "neighborhood-sampling",
+            "title": "Neighborhood Sampling",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "residual-connection",
+            "title": "Residual Connection",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "minimum-description-length",
       "title": "Minimum Description Length",
       "domain": "Information / Generalization",
@@ -3158,7 +3383,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "graph-attention",
+            "title": "Graph Attention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3249,6 +3481,37 @@
           {
             "id": "contrastive-learning",
             "title": "Contrastive Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "neighborhood-sampling",
+      "title": "Neighborhood Sampling",
+      "domain": "Graphs / Systems",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "message-passing",
+            "title": "Message Passing",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "batch-size",
+            "title": "Batch Size",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "stochastic-gradient-descent",
+            "title": "Stochastic Gradient Descent",
             "tier": "verified",
             "reviewed": false
           }
@@ -3436,6 +3699,31 @@
             "id": "minimum-description-length",
             "title": "Minimum Description Length",
             "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "oversmoothing",
+      "title": "Oversmoothing",
+      "domain": "Graphs / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "graph-convolution",
+            "title": "Graph Convolution",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "residual-connection",
+            "title": "Residual Connection",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4139,6 +4427,18 @@
             "title": "Layer Normalization",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "message-passing",
+            "title": "Message Passing",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "oversmoothing",
+            "title": "Oversmoothing",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -4814,7 +5114,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "neighborhood-sampling",
+            "title": "Neighborhood Sampling",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -5360,7 +5667,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "graph-transformer",
+            "title": "Graph Transformer",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -5989,41 +6303,61 @@
           "title": "Cross-Attention",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
+        },
+        {
+          "id": "graph-attention",
+          "title": "Graph Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
         },
         {
           "id": "query-key-value",
           "title": "Query, Key, Value",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 79
         },
         {
           "id": "self-attention",
           "title": "Self-Attention",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
+        },
+        {
+          "id": "graph-neural-network",
+          "title": "Graph Neural Network",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
         },
         {
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "softmax",
           "title": "Softmax",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
         {
           "from": "attention",
           "to": "cross-attention",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "attention",
+          "to": "graph-attention",
           "type": "unlocks",
           "reviewed": false
         },
@@ -6037,6 +6371,12 @@
           "from": "attention",
           "to": "self-attention",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "attention",
+          "to": "graph-neural-network",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -6574,8 +6914,15 @@
           "id": "continuous-batching",
           "title": "Continuous Batching",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "neighborhood-sampling",
+          "title": "Neighborhood Sampling",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -6600,6 +6947,12 @@
         {
           "from": "batch-size",
           "to": "continuous-batching",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "batch-size",
+          "to": "neighborhood-sampling",
           "type": "adjacent",
           "reviewed": false
         }
@@ -9199,6 +9552,271 @@
       ]
     },
     {
+      "id": "graph-attention",
+      "center": {
+        "id": "graph-attention",
+        "title": "Graph Attention",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "attention",
+          "title": "Attention",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "graph-convolution",
+          "title": "Graph Convolution",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "graph-transformer",
+          "title": "Graph Transformer",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "multi-head-attention",
+          "title": "Multi-Head Attention",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "attention",
+          "to": "graph-attention",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "graph-convolution",
+          "to": "graph-attention",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "graph-attention",
+          "to": "graph-transformer",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "graph-attention",
+          "to": "multi-head-attention",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "graph-convolution",
+      "center": {
+        "id": "graph-convolution",
+        "title": "Graph Convolution",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "message-passing",
+          "title": "Message Passing",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "graph-attention",
+          "title": "Graph Attention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "oversmoothing",
+          "title": "Oversmoothing",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "layer-normalization",
+          "title": "Layer Normalization",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "message-passing",
+          "to": "graph-convolution",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "graph-convolution",
+          "to": "graph-attention",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "graph-convolution",
+          "to": "oversmoothing",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "graph-convolution",
+          "to": "layer-normalization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "graph-expressivity",
+      "center": {
+        "id": "graph-expressivity",
+        "title": "Graph Expressivity",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "message-passing",
+          "title": "Message Passing",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "graph-transformer",
+          "title": "Graph Transformer",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        }
+      ],
+      "links": [
+        {
+          "from": "message-passing",
+          "to": "graph-expressivity",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "graph-expressivity",
+          "to": "graph-transformer",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "graph-neural-network",
+      "center": {
+        "id": "graph-neural-network",
+        "title": "Graph Neural Network",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "message-passing",
+          "title": "Message Passing",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "attention",
+          "title": "Attention",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "graph-neural-network",
+          "to": "message-passing",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "graph-neural-network",
+          "to": "attention",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "graph-transformer",
+      "center": {
+        "id": "graph-transformer",
+        "title": "Graph Transformer",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "graph-attention",
+          "title": "Graph Attention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "graph-expressivity",
+          "title": "Graph Expressivity",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "vision-transformer",
+          "title": "Vision Transformer",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "graph-attention",
+          "to": "graph-transformer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "graph-expressivity",
+          "to": "graph-transformer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "graph-transformer",
+          "to": "vision-transformer",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "grounding",
       "center": {
         "id": "grounding",
@@ -9977,18 +10595,25 @@
           "y": 88
         },
         {
+          "id": "graph-convolution",
+          "title": "Graph Convolution",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "residual-connection",
           "title": "Residual Connection",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "warmup",
           "title": "Warmup",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -10002,6 +10627,12 @@
           "from": "layer-normalization",
           "to": "transformer-block",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "layer-normalization",
+          "to": "graph-convolution",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -10693,6 +11324,85 @@
       ]
     },
     {
+      "id": "message-passing",
+      "center": {
+        "id": "message-passing",
+        "title": "Message Passing",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "graph-neural-network",
+          "title": "Graph Neural Network",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "graph-convolution",
+          "title": "Graph Convolution",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "graph-expressivity",
+          "title": "Graph Expressivity",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "neighborhood-sampling",
+          "title": "Neighborhood Sampling",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        },
+        {
+          "id": "residual-connection",
+          "title": "Residual Connection",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "graph-neural-network",
+          "to": "message-passing",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "message-passing",
+          "to": "graph-convolution",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "message-passing",
+          "to": "graph-expressivity",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "message-passing",
+          "to": "neighborhood-sampling",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "message-passing",
+          "to": "residual-connection",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "minimum-description-length",
       "center": {
         "id": "minimum-description-length",
@@ -10968,6 +11678,13 @@
           "tier": "verified",
           "x": 200,
           "y": 99
+        },
+        {
+          "id": "graph-attention",
+          "title": "Graph Attention",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -10993,6 +11710,12 @@
           "from": "multi-head-attention",
           "to": "transformer-block",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "multi-head-attention",
+          "to": "graph-attention",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -11151,6 +11874,59 @@
         {
           "from": "mutual-information",
           "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "neighborhood-sampling",
+      "center": {
+        "id": "neighborhood-sampling",
+        "title": "Neighborhood Sampling",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "message-passing",
+          "title": "Message Passing",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "batch-size",
+          "title": "Batch Size",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "stochastic-gradient-descent",
+          "title": "Stochastic Gradient Descent",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "message-passing",
+          "to": "neighborhood-sampling",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "neighborhood-sampling",
+          "to": "batch-size",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "neighborhood-sampling",
+          "to": "stochastic-gradient-descent",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11481,6 +12257,46 @@
         {
           "from": "overfitting",
           "to": "minimum-description-length",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "oversmoothing",
+      "center": {
+        "id": "oversmoothing",
+        "title": "Oversmoothing",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "graph-convolution",
+          "title": "Graph Convolution",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "residual-connection",
+          "title": "Residual Connection",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "graph-convolution",
+          "to": "oversmoothing",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "oversmoothing",
+          "to": "residual-connection",
           "type": "adjacent",
           "reviewed": false
         }
@@ -12672,7 +13488,21 @@
           "id": "layer-normalization",
           "title": "Layer Normalization",
           "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "message-passing",
+          "title": "Message Passing",
+          "tier": "frontier",
           "x": 120,
+          "y": 110
+        },
+        {
+          "id": "oversmoothing",
+          "title": "Oversmoothing",
+          "tier": "frontier",
+          "x": 180,
           "y": 22
         }
       ],
@@ -12686,6 +13516,18 @@
         {
           "from": "residual-connection",
           "to": "layer-normalization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "residual-connection",
+          "to": "message-passing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "residual-connection",
+          "to": "oversmoothing",
           "type": "adjacent",
           "reviewed": false
         }
@@ -13863,6 +14705,13 @@
           "tier": "verified",
           "x": 200,
           "y": 99
+        },
+        {
+          "id": "neighborhood-sampling",
+          "title": "Neighborhood Sampling",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -13888,6 +14737,12 @@
           "from": "stochastic-gradient-descent",
           "to": "momentum",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "stochastic-gradient-descent",
+          "to": "neighborhood-sampling",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -14821,6 +15676,13 @@
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "graph-transformer",
+          "title": "Graph Transformer",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -14840,6 +15702,12 @@
           "from": "vision-transformer",
           "to": "clip",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vision-transformer",
+          "to": "graph-transformer",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
