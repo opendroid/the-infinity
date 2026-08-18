@@ -1,0 +1,62 @@
+{
+  "id": "selective-state-space",
+  "title": "Selective State Space",
+  "domain": [
+    "Sequence",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "A linear state space model treats every input the same way, which is efficient and also why it cannot decide that one token matters more than another. Making the update depend on the input restores that ability — the model can choose what to keep and what to let pass — and that single change is most of the gap between state space models and attention on language.",
+    "engineer": "Input-dependent parameters break the convolutional trick, because the kernel is no longer fixed. The replacement is a hardware-aware parallel scan that keeps the state in fast memory and never materialises it in HBM, which is what makes the method practical rather than merely correct. This is the same lesson as flash-attention: the algorithm changed to fit the memory hierarchy, not the mathematics.",
+    "math": "Making B, C and the step size Δ functions of u_t makes the recurrence time-varying, so y = K * u no longer holds for any fixed K. An associative scan computes the same recurrence in O(L log L) work and O(L) depth, and the win is memory traffic rather than arithmetic — the state never leaves SRAM."
+  },
+  "emphasis": {
+    "intuition": "the model can choose what to keep and what to let pass",
+    "engineer": "the algorithm changed to fit the memory hierarchy, not the mathematics"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "retained": 12,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "retained",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Tokens the selection keeps in state against tokens it lets pass, in tokens. Drag the retention up to watch the state fill with everything — which is the behaviour selectivity exists to avoid."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "state-space-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "flash-attention",
+        "reviewed": false
+      },
+      {
+        "id": "gpu-memory-hierarchy",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2312.00752",
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+      "url": "https://arxiv.org/abs/2312.00752"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

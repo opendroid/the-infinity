@@ -1,0 +1,58 @@
+{
+  "id": "seasonality",
+  "title": "Seasonality",
+  "domain": [
+    "Sequence",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Electricity demand has a daily shape, a weekly shape and a yearly shape, all at once. Seasonality is that repetition at known periods, and it is the easiest structure in a series to exploit and the easiest to destroy — aggregate to the wrong resolution and a pattern that dominated the signal disappears entirely.",
+    "engineer": "Two representations compete. Fourier terms are compact and assume the shape is smooth; dummies per period are flexible and cost a parameter each. The practical trap is resolution: summing hourly data to daily removes the daily cycle by construction, and a model then reports that no such cycle exists. Multiple seasonalities interacting — a holiday landing on a weekend — are what break the simple approaches.",
+    "math": "A period-m season contributes energy at frequency 1/m and its harmonics, so a spectrum shows it as isolated peaks rather than spread mass. Averaging over a window of length w acts as a low-pass filter with zeros at multiples of 1/w — which is why aggregating at exactly the seasonal period annihilates it rather than attenuating it."
+  },
+  "emphasis": {
+    "intuition": "aggregate to the wrong resolution and a pattern that dominated the signal disappears entirely",
+    "engineer": "summing hourly data to daily removes the daily cycle by construction"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "aggregation": 0.15,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "aggregation",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Energy across frequencies, as measured and after aggregating to a coarser interval. Drag the aggregation up to watch the seasonal peaks flatten into the noise floor — at the wrong resolution the cycle is not weakened, it is gone."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "trend-decomposition",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "spectrogram",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1905.10437",
+      "title": "N-BEATS: Neural basis expansion analysis for interpretable time series forecasting",
+      "url": "https://arxiv.org/abs/1905.10437"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

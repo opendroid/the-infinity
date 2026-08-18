@@ -1,0 +1,67 @@
+{
+  "id": "state-space-model",
+  "title": "State Space Model",
+  "domain": [
+    "Sequence",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "Instead of attending over everything you have seen, carry a fixed-size state forward and update it at each step. That is a recurrent network's idea, and it failed at long sequences for decades because the state either forgot or exploded. Structured state space models fixed the parametrisation rather than the idea, and reach thousands of steps where attention runs out of memory.",
+    "engineer": "The trick is that a linear recurrence can be evaluated as a convolution, so training runs in parallel over the whole sequence while inference runs step by step at constant memory. The state matrix is initialised from HiPPO, which is what makes long memory the default rather than something the optimiser has to discover — an initialisation doing the work an architecture usually gets credit for.",
+    "math": "x_t = Āx_{t−1} + B̄u_t, y_t = Cx_t, with Ā, B̄ the discretised continuous system. Because the recurrence is linear, unrolling it gives y = K * u for a kernel K whose entries are CĀ^k B̄ — computable by FFT in O(L log L) rather than by an O(L) sequential scan. Inference keeps the recurrent form, so cost per token does not grow with context."
+  },
+  "emphasis": {
+    "intuition": "the state either forgot or exploded",
+    "engineer": "an initialisation doing the work an architecture usually gets credit for"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "state_size": 16,
+      "share_rest": 16
+    },
+    "param_controls": [
+      {
+        "name": "state_size",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "State the model carries forward against the step it is reading now, in equal units. Drag the state size up to watch memory outweigh the present — and note that unlike a cache, none of this grows with how long the sequence has run."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "time-series-forecasting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      },
+      {
+        "id": "attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2111.00396",
+      "title": "Efficiently Modeling Long Sequences with Structured State Spaces",
+      "url": "https://arxiv.org/abs/2111.00396"
+    },
+    {
+      "ref": "arXiv:2008.07669",
+      "title": "HiPPO: Recurrent Memory with Optimal Polynomial Projections",
+      "url": "https://arxiv.org/abs/2008.07669"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
