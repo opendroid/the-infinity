@@ -1,0 +1,58 @@
+{
+  "id": "mode-connectivity",
+  "title": "Mode Connectivity",
+  "domain": [
+    "Landscape",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Two networks trained from different random seeds end up in what look like separate valleys — but you can often find a curved path between them along which the loss never rises. The valleys are connected. What looked like isolated solutions is one region with a complicated shape.",
+    "engineer": "The practical uses are direct: averaging weights along such a path gives an ensemble at the cost of one model, and the same fact explains why weight averaging works at all rather than producing nonsense. The connecting path is curved — the straight line between two solutions does have a barrier — which is why simple interpolation between checkpoints fails while a fitted path does not.",
+    "math": "Fit a curve φ(t) from θ_1 to θ_2 minimising the expected loss along it; the finding is that low-loss curves exist between independently trained solutions. Permutation symmetry explains much of it: two networks differing by a hidden-unit permutation are the same function, and accounting for that permutation removes most of the barrier on the straight path."
+  },
+  "emphasis": {
+    "intuition": "What looked like isolated solutions is one region with a complicated shape.",
+    "engineer": "the straight line between two solutions does have a barrier"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "path_curvature": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "path_curvature",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Barrier removed by curving the path against the barrier a straight line leaves, in equal units. Drag the curvature up to watch the wall between two solutions disappear — it was never a wall, only a bad route."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-landscape",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "lottery-ticket-hypothesis",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1802.10026",
+      "title": "Loss Surfaces, Mode Connectivity, and Fast Ensembling of DNNs",
+      "url": "https://arxiv.org/abs/1802.10026"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "id": "implicit-regularization",
+  "title": "Implicit Regularization",
+  "domain": [
+    "Landscape",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "A network with far more parameters than data can fit that data in many ways, most of which generalise terribly. Gradient descent reliably finds one that does not — without anyone telling it to. The optimiser is choosing among solutions, and the choice is a form of regularisation nobody wrote down.",
+    "engineer": "This is why the classical parameter-counting account of overfitting fails on modern networks and why explicit regularisation is often unnecessary. It also means the optimiser is a modelling decision rather than an implementation detail: changing from SGD to full-batch, or changing the learning rate, changes which solution you get among many with identical training loss.",
+    "math": "On separable data with a linear model, gradient descent on the logistic loss converges in direction to the maximum-margin solution — no margin term appears in the objective anywhere. The bias is a property of the optimisation path rather than of the loss, which is why two optimisers minimising the same objective to the same value can generalise differently."
+  },
+  "emphasis": {
+    "intuition": "The optimiser is choosing among solutions, and the choice is a form of regularisation nobody wrote down.",
+    "engineer": "the optimiser is a modelling decision rather than an implementation detail"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "solutions_preferred": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "solutions_preferred",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Zero-training-loss solutions the optimiser actually reaches against those it never visits, in solutions. Drag the preference up to watch the reachable set widen — the narrowness at the left is what is doing the regularising."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-landscape",
+        "reviewed": false
+      },
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      },
+      {
+        "id": "stochastic-gradient-descent",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2010.01412",
+      "title": "Sharpness-Aware Minimization for Efficiently Improving Generalization",
+      "url": "https://arxiv.org/abs/2010.01412"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

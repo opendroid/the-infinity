@@ -1,0 +1,68 @@
+{
+  "id": "edge-of-stability",
+  "title": "Edge of Stability",
+  "domain": [
+    "Landscape",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Classical optimisation says a step size above two over the curvature makes gradient descent diverge. Neural network training routinely sits just past that line and does not diverge — the loss stops falling monotonically and oscillates while still making progress, and the curvature adjusts until it sits right at the boundary.",
+    "engineer": "This is why the largest stable learning rate is where tuning ends up, and why loss curves at good hyperparameters are visibly non-monotone rather than smooth. It also explains warmup: early training has low curvature, so a rate that will be fine later is far past the boundary at step zero. A curve that looks too clean is often a run leaving speed on the table.",
+    "math": "Descent on a quadratic is stable while η < 2/λ_max. Training instead drives λ_max up until ηλ_max ≈ 2 and then hovers there, so the sharpness is set by the learning rate rather than the other way round. The loss decreases over long windows while increasing over short ones, which is what the oscillation in the figure is."
+  },
+  "emphasis": {
+    "intuition": "the curvature adjusts until it sits right at the boundary",
+    "engineer": "A curve that looks too clean is often a run leaving speed on the table."
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.003,
+      "batch": 64,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "lr",
+        "min": 0.001,
+        "max": 0.012,
+        "step": 0.0005
+      }
+    ],
+    "caption": "Training loss at a fixed learning rate. Drag the rate up past what the curvature tolerates to watch the run stop being monotone — training right at that boundary, rather than safely below it, is what the name describes."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "sharpness",
+        "reviewed": false
+      },
+      {
+        "id": "learning-rate",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "warmup",
+        "reviewed": false
+      },
+      {
+        "id": "gradient-clipping",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2103.00065",
+      "title": "Gradient Descent on Neural Networks Typically Occurs at the Edge of Stability",
+      "url": "https://arxiv.org/abs/2103.00065"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

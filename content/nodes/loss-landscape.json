@@ -1,0 +1,58 @@
+{
+  "id": "loss-landscape",
+  "title": "Loss Landscape",
+  "domain": [
+    "Landscape",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "The loss is a function of every weight at once, so its surface lives in a space with millions of dimensions. Nothing about it can be seen directly, and every picture of it — including the ones in papers — is a two-dimensional slice chosen to make a point. The useful facts about it are statistical rather than visual.",
+    "engineer": "The slices are worth reading with suspicion: a random two-dimensional cut through a high-dimensional surface looks smooth almost regardless of what the surface does, and the well-known visualisations use filter normalisation specifically because unnormalised slices are misleading about scale. What survives scrutiny is measurable — curvature spectra, barrier heights between solutions, how far you can move before the loss rises.",
+    "math": "With d parameters, a 2-D slice samples a measure-zero subspace, and the probability that a random plane contains any particular direction of interest is zero. Curvature along a random direction concentrates near the average eigenvalue of the Hessian, which is why random slices look flat while the surface has directions that are enormously sharp."
+  },
+  "emphasis": {
+    "intuition": "every picture of it — including the ones in papers — is a two-dimensional slice chosen to make a point",
+    "engineer": "unnormalised slices are misleading about scale"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "sampled_directions": 4,
+      "share_rest": 48
+    },
+    "param_controls": [
+      {
+        "name": "sampled_directions",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Directions a visualisation actually samples against directions it does not, in dimensions. Drag the sampling up to watch coverage grow — a real network sits at the far left of this bar, at two directions out of millions."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "principal-component-analysis",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1712.09913",
+      "title": "Visualizing the Loss Landscape of Neural Nets",
+      "url": "https://arxiv.org/abs/1712.09913"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

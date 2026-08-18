@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "tiling",
+      "id": "manipulation",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "autotuning",
+      "id": "action-chunking",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "custom-kernel",
+      "id": "vision-language-action",
       "t": 0.8,
       "label": true
     }

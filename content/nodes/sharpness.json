@@ -1,0 +1,67 @@
+{
+  "id": "sharpness",
+  "title": "Sharpness",
+  "domain": [
+    "Landscape",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Two solutions with the same training loss can sit in very different neighbourhoods: one in a narrow valley where moving slightly costs a lot, another on a wide plateau where it barely matters. The wide one usually generalises better, and the reason is intuitive — a test distribution shifts the surface slightly, and a flat solution survives the shift.",
+    "engineer": "Large-batch training tends toward sharper solutions, which is a large part of why it generalises worse at matched steps, and sharpness-aware minimisation attacks that directly by optimising the worst loss in a neighbourhood rather than the loss at a point. The caveat that matters: sharpness is not reparameterisation-invariant, so a network can be made to look flat by rescaling weights without changing the function.",
+    "math": "Sharpness is read off the Hessian's eigenvalue spectrum — its largest eigenvalue, or its trace. SAM minimises max over ‖ε‖ ≤ ρ of L(θ + ε), approximated by one ascent step and one descent step, which costs a doubled backward pass. The spectrum is what the figure here draws: a sharp minimum has a few enormous eigenvalues and a bulk near zero."
+  },
+  "emphasis": {
+    "intuition": "a test distribution shifts the surface slightly, and a flat solution survives the shift",
+    "engineer": "a network can be made to look flat by rescaling weights without changing the function"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "flatness": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "flatness",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "The Hessian's eigenvalues at a solution, as found and as flatness is sought. Drag the flatness up to watch the few enormous directions come down toward the bulk — that spread is what sharpness measures."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-landscape",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "batch-size",
+        "reviewed": false
+      },
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2010.01412",
+      "title": "Sharpness-Aware Minimization for Efficiently Improving Generalization",
+      "url": "https://arxiv.org/abs/2010.01412"
+    },
+    {
+      "ref": "arXiv:1609.04836",
+      "title": "On Large-Batch Training for Deep Learning: Generalization Gap and Sharp Minima",
+      "url": "https://arxiv.org/abs/1609.04836"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
