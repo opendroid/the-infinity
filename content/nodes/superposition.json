@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "A network has fewer dimensions than it has things worth representing, and it stores them anyway — packed at angles that are nearly, but not quite, orthogonal. The cost is interference: every feature slightly contaminates every other. The benefit is that a small model carries far more features than it has neurons, which is why a single neuron so often means several unrelated things at once.",
     "engineer": "Superposition is what makes a neuron polysemantic, and it is a strategy rather than a defect: when features are sparse, storing more of them at the cost of a little interference beats storing fewer cleanly. It also explains why reading a model off its neurons fails — the basis the features live in is not the neuron basis, which is the whole motivation for sparse dictionary learning.",
-    "math": "n features in d dimensions with n > d cannot all be orthogonal, so the Gram matrix carries off-diagonal mass and that mass is the interference. Sparsity is what makes the trade pay: if only k of the n are active at once, expected interference scales with k/d rather than n/d, so a sparse enough feature set packs far past the dimension count."
+    "math": "n features in d dimensions with n > d cannot all be orthogonal, so the Gram matrix carries off-diagonal mass and that mass is the interference. Sparsity is what makes the trade pay: if only k of the n fire on any given input, the interference a feature actually sees comes from those k and not from all n, so a sparse enough feature set packs far past the dimension count while paying interference only for what is on."
   },
   "emphasis": {
     "intuition": "a single neuron so often means several unrelated things at once",
@@ -47,7 +47,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

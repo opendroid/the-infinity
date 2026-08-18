@@ -36,13 +36,13 @@
       "id": "activation-patching",
       "title": "Activation Patching",
       "domain": "Interpretability / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -51,7 +51,7 @@
           {
             "id": "induction-head",
             "title": "Induction Head",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -61,13 +61,13 @@
       "id": "activation-steering",
       "title": "Activation Steering",
       "domain": "Interpretability / Control",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -325,7 +325,7 @@
           {
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -385,7 +385,7 @@
           {
             "id": "sparse-autoencoder",
             "title": "Sparse Autoencoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -571,7 +571,7 @@
           {
             "id": "feature-attribution",
             "title": "Feature Attribution",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -883,7 +883,7 @@
           {
             "id": "activation-steering",
             "title": "Activation Steering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1799,7 +1799,7 @@
       "id": "feature-attribution",
       "title": "Feature Attribution",
       "domain": "Interpretability / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1814,7 +1814,7 @@
           {
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2238,7 +2238,7 @@
           {
             "id": "induction-head",
             "title": "Induction Head",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2256,7 +2256,7 @@
       "id": "induction-head",
       "title": "Induction Head",
       "domain": "Interpretability / Circuits",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2277,7 +2277,7 @@
           {
             "id": "activation-patching",
             "title": "Activation Patching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2741,7 +2741,7 @@
           {
             "id": "probing-classifier",
             "title": "Probing Classifier",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2942,20 +2942,20 @@
       "id": "mechanistic-interpretability",
       "title": "Mechanistic Interpretability",
       "domain": "Interpretability / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "activation-patching",
             "title": "Activation Patching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "activation-steering",
             "title": "Activation Steering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2969,13 +2969,13 @@
           {
             "id": "feature-attribution",
             "title": "Feature Attribution",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "probing-classifier",
             "title": "Probing Classifier",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3142,7 +3142,7 @@
           {
             "id": "induction-head",
             "title": "Induction Head",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3779,7 +3779,7 @@
       "id": "probing-classifier",
       "title": "Probing Classifier",
       "domain": "Interpretability / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3794,7 +3794,7 @@
           {
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4612,7 +4612,7 @@
       "id": "sparse-autoencoder",
       "title": "Sparse Autoencoder",
       "domain": "Interpretability / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4624,7 +4624,7 @@
           {
             "id": "superposition",
             "title": "Superposition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4846,14 +4846,14 @@
       "id": "superposition",
       "title": "Superposition",
       "domain": "Interpretability / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "sparse-autoencoder",
             "title": "Sparse Autoencoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5055,7 +5055,7 @@
           {
             "id": "superposition",
             "title": "Superposition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5296,7 +5296,7 @@
           {
             "id": "sparse-autoencoder",
             "title": "Sparse Autoencoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5541,7 +5541,7 @@
       "center": {
         "id": "activation-patching",
         "title": "Activation Patching",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5549,14 +5549,14 @@
         {
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "induction-head",
           "title": "Induction Head",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -5581,7 +5581,7 @@
       "center": {
         "id": "activation-steering",
         "title": "Activation Steering",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5589,7 +5589,7 @@
         {
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -6008,7 +6008,7 @@
         {
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -6120,7 +6120,7 @@
         {
           "id": "sparse-autoencoder",
           "title": "Sparse Autoencoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
@@ -6468,7 +6468,7 @@
         {
           "id": "feature-attribution",
           "title": "Feature Attribution",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 57
         },
@@ -7010,7 +7010,7 @@
         {
           "id": "activation-steering",
           "title": "Activation Steering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -8621,7 +8621,7 @@
       "center": {
         "id": "feature-attribution",
         "title": "Feature Attribution",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8636,7 +8636,7 @@
         {
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -9365,7 +9365,7 @@
         {
           "id": "induction-head",
           "title": "Induction Head",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -9415,7 +9415,7 @@
       "center": {
         "id": "induction-head",
         "title": "Induction Head",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -9437,7 +9437,7 @@
         {
           "id": "activation-patching",
           "title": "Activation Patching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -10244,7 +10244,7 @@
         {
           "id": "probing-classifier",
           "title": "Probing Classifier",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -10618,7 +10618,7 @@
       "center": {
         "id": "mechanistic-interpretability",
         "title": "Mechanistic Interpretability",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10626,14 +10626,14 @@
         {
           "id": "activation-patching",
           "title": "Activation Patching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "activation-steering",
           "title": "Activation Steering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -10647,14 +10647,14 @@
         {
           "id": "feature-attribution",
           "title": "Feature Attribution",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
         {
           "id": "probing-classifier",
           "title": "Probing Classifier",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -10951,7 +10951,7 @@
         {
           "id": "induction-head",
           "title": "Induction Head",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -12073,7 +12073,7 @@
       "center": {
         "id": "probing-classifier",
         "title": "Probing Classifier",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12088,7 +12088,7 @@
         {
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -13527,7 +13527,7 @@
       "center": {
         "id": "sparse-autoencoder",
         "title": "Sparse Autoencoder",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13542,7 +13542,7 @@
         {
           "id": "superposition",
           "title": "Superposition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -13937,7 +13937,7 @@
       "center": {
         "id": "superposition",
         "title": "Superposition",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13945,7 +13945,7 @@
         {
           "id": "sparse-autoencoder",
           "title": "Sparse Autoencoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -14265,7 +14265,7 @@
         {
           "id": "superposition",
           "title": "Superposition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -14706,7 +14706,7 @@
         {
           "id": "sparse-autoencoder",
           "title": "Sparse Autoencoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
