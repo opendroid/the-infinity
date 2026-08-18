@@ -1,0 +1,61 @@
+{
+  "id": "graph-capture",
+  "title": "Graph Capture",
+  "domain": [
+    "Compilers",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "A compiler cannot optimise what it cannot see. Eager frameworks execute one operation at a time with ordinary control flow in between, so the first job is recovering a graph of what the program does — by tracing an execution, or by rewriting the bytecode as it runs. Everything downstream depends on how much of the program this step captures.",
+    "engineer": "Tracing loses anything that depends on the data, because a trace records the branch that happened rather than the branch that exists. Bytecode-level capture handles more and falls back to eager execution at the parts it cannot express, which produces graph breaks — and a model with a break in its inner loop gets almost none of the benefit. Counting and removing breaks is usually the first real work of making a model compile well.",
+    "math": "The captured region is a straight-line dataflow graph; every data-dependent branch splits it. Speedup comes from fusion and scheduling across the graph, so it scales with the size of the largest unbroken region rather than with the total number of operations — which is why one break in a hot loop can cost most of the gain."
+  },
+  "emphasis": {
+    "intuition": "A compiler cannot optimise what it cannot see.",
+    "engineer": "a model with a break in its inner loop gets almost none of the benefit"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "captured_ops": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "captured_ops",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Operations inside the largest captured region against those left running eagerly, in operations. Drag the capture up to watch the compiler get something to work on — nothing downstream applies to the right-hand side."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "kernel-fusion",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2002.03794",
+      "title": "The Deep Learning Compiler: A Comprehensive Survey",
+      "url": "https://arxiv.org/abs/2002.03794"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Ansel et al. 2024",
+      "title": "PyTorch 2: Faster Machine Learning Through Dynamic Python Bytecode Transformation and Graph Compilation",
+      "venue": "ASPLOS 2024",
+      "doi": "10.1145/3620665.3640366"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

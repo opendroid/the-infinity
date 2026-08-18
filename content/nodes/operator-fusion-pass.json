@@ -1,0 +1,62 @@
+{
+  "id": "operator-fusion-pass",
+  "title": "Operator Fusion Pass",
+  "domain": [
+    "Compilers",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "`kernel-fusion` is the thing being done — merging operations so intermediate values never reach memory. This is the compiler pass that decides which ones to merge, automatically, over a whole graph rather than by hand. The decision is a partition of the graph, and the number of possible partitions is why it is a search problem rather than a rule.",
+    "engineer": "The usual policy is greedy along producer-consumer chains, fusing element-wise operations into whatever heavy operation they follow, and stopping at anything that changes shape or reduces. That heuristic captures most of the available gain and is nowhere near optimal — which is fine, because the remaining gap is smaller than the cost of searching for it in most models.",
+    "math": "Partition the graph into regions that will each become one kernel, maximising the intermediate values that stay in registers. The candidate space is exponential in graph size, so every production compiler uses a linear-time greedy policy with hand-written rules about which operator kinds may join — the optimisation is a heuristic and is described as one."
+  },
+  "emphasis": {
+    "intuition": "the number of possible partitions is why it is a search problem rather than a rule",
+    "engineer": "the remaining gap is smaller than the cost of searching for it in most models"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "fused_ops": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "fused_ops",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Operations merged into one kernel against those left as separate launches, in operations. Drag the fusion up to watch intermediate values stop reaching memory — which is the saving, and it is bounded by what the pass is allowed to merge."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "graph-capture",
+        "reviewed": false
+      },
+      {
+        "id": "kernel-fusion",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "arithmetic-intensity",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1802.04799",
+      "title": "TVM: An Automated End-to-End Optimizing Compiler for Deep Learning",
+      "url": "https://arxiv.org/abs/1802.04799"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

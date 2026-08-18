@@ -1,0 +1,67 @@
+{
+  "id": "autotuning",
+  "title": "Autotuning",
+  "domain": [
+    "Compilers",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Nobody can predict which tile size, unroll factor and thread arrangement will be fastest, so the compiler tries many and measures. It is empirical optimisation over a configuration space, and it routinely beats hand-written kernels — not because the search is clever but because the space is larger than a person will explore.",
+    "engineer": "The cost is compilation time, which can run to hours for a large model, so results are cached and shipped. A learned cost model replaces most of the measurement with prediction and is retrained per hardware target, which is the part that does not transfer. The honest framing is that autotuning converts engineer time into machine time, and the exchange rate is good.",
+    "math": "Search a discrete configuration space by measuring candidates, guided by a cost model fitted to previous measurements. Because the objective is measured rather than differentiable, the methods are evolutionary or bandit-style, and the search's value is bounded by how much the best configuration beats a reasonable default — usually a factor of a few, occasionally an order of magnitude."
+  },
+  "emphasis": {
+    "intuition": "the space is larger than a person will explore",
+    "engineer": "autotuning converts engineer time into machine time, and the exchange rate is good"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "configs_tried": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "configs_tried",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Configurations measured against the one that ships, in candidates. Drag the search up to watch compile time become the cost — every one of these is a real kernel run on real hardware."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tiling",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "monte-carlo-tree-search",
+        "reviewed": false
+      },
+      {
+        "id": "exploration-exploitation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2006.06762",
+      "title": "Ansor: Generating High-Performance Tensor Programs for Deep Learning",
+      "url": "https://arxiv.org/abs/2006.06762"
+    },
+    {
+      "ref": "arXiv:1805.08166",
+      "title": "Learning to Optimize Tensor Programs",
+      "url": "https://arxiv.org/abs/1805.08166"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

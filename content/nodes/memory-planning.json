@@ -1,0 +1,66 @@
+{
+  "id": "memory-planning",
+  "title": "Memory Planning",
+  "domain": [
+    "Compilers",
+    "Systems"
+  ],
+  "bodies": {
+    "intuition": "Intermediate tensors have lifetimes, and two that never coexist can share the same memory. Planning that reuse is what lets a model with far more intermediate values than memory run at all, and it is decided at compile time from the graph rather than by an allocator at runtime.",
+    "engineer": "Static planning beats dynamic allocation because it can see the whole schedule, and it interacts with everything else: fusion removes intermediates entirely, checkpointing trades memory for recomputation, and changing the execution order changes which lifetimes overlap. Peak memory is a property of the schedule rather than of the model, which is why the same model fits on a device under one compiler and not another.",
+    "math": "Given each tensor's live interval, the problem is interval-graph colouring — assign offsets so that overlapping intervals never share memory, minimising the peak. The lower bound is the maximum total size of simultaneously live tensors, and a good planner gets close to it; the gap is fragmentation rather than ignorance."
+  },
+  "emphasis": {
+    "intuition": "two that never coexist can share the same memory",
+    "engineer": "Peak memory is a property of the schedule rather than of the model"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "reused_buffers": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "reused_buffers",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Buffers shared between tensors with disjoint lifetimes against buffers allocated outright, in buffers. Drag the reuse up to watch peak memory fall — the floor is the largest set that is live at once, and no planner beats it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "graph-capture",
+        "reviewed": false
+      },
+      {
+        "id": "gpu-memory-hierarchy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "activation-checkpointing",
+        "reviewed": false
+      },
+      {
+        "id": "paged-attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2002.03794",
+      "title": "The Deep Learning Compiler: A Comprehensive Survey",
+      "url": "https://arxiv.org/abs/2002.03794"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

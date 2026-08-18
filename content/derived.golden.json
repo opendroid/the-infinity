@@ -24,6 +24,12 @@
             "reviewed": false
           },
           {
+            "id": "memory-planning",
+            "title": "Memory Planning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "sequence-parallelism",
             "title": "Sequence Parallelism",
             "tier": "verified",
@@ -346,13 +352,13 @@
       "id": "annotation-quality",
       "title": "Annotation Quality",
       "domain": "Data / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "data-filtering",
             "title": "Data Filtering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -441,6 +447,12 @@
         ],
         "adjacent": [
           {
+            "id": "operator-fusion-pass",
+            "title": "Operator Fusion Pass",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "prefill-and-decode",
             "title": "Prefill and Decode",
             "tier": "verified",
@@ -450,6 +462,12 @@
             "id": "quantization",
             "title": "Quantization",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tiling",
+            "title": "Tiling",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -721,6 +739,44 @@
       }
     },
     {
+      "id": "autotuning",
+      "title": "Autotuning",
+      "domain": "Compilers / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "tiling",
+            "title": "Tiling",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "compilation-cache",
+            "title": "Compilation Cache",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "exploration-exploitation",
+            "title": "Exploration and Exploitation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "monte-carlo-tree-search",
+            "title": "Monte Carlo Tree Search",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "backdoor-attack",
       "title": "Backdoor Attack",
       "domain": "Adversarial / Attacks",
@@ -899,7 +955,7 @@
           {
             "id": "deduplication",
             "title": "Deduplication",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -917,7 +973,7 @@
           {
             "id": "training-corpus-contamination",
             "title": "Training Corpus Contamination",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1003,7 +1059,7 @@
           {
             "id": "annotation-quality",
             "title": "Annotation Quality",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1538,6 +1594,37 @@
       }
     },
     {
+      "id": "compilation-cache",
+      "title": "Compilation Cache",
+      "domain": "Compilers / Systems",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "autotuning",
+            "title": "Autotuning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "shape-specialization",
+            "title": "Shape Specialization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "continuous-batching",
+            "title": "Continuous Batching",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "compression-quality-tradeoff",
       "title": "Compression-Quality Tradeoff",
       "domain": "Compression / Evaluation",
@@ -1593,7 +1680,7 @@
           {
             "id": "data-scaling-laws",
             "title": "Data Scaling Laws",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1915,9 +2002,21 @@
             "reviewed": false
           },
           {
+            "id": "compilation-cache",
+            "title": "Compilation Cache",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "paged-attention",
             "title": "Paged Attention",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "shape-specialization",
+            "title": "Shape Specialization",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2187,13 +2286,13 @@
       "id": "curriculum",
       "title": "Curriculum",
       "domain": "Data / Schedules",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "data-mixing",
             "title": "Data Mixing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2215,10 +2314,47 @@
       }
     },
     {
+      "id": "custom-kernel",
+      "title": "Custom Kernel",
+      "domain": "Compilers / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "kernel-fusion",
+            "title": "Kernel Fusion",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tiling",
+            "title": "Tiling",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "flash-attention",
+            "title": "FlashAttention",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "selective-state-space",
+            "title": "Selective State Space",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "data-filtering",
       "title": "Data Filtering",
       "domain": "Data / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2232,31 +2368,31 @@
           {
             "id": "annotation-quality",
             "title": "Annotation Quality",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "data-mixing",
             "title": "Data Mixing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "data-scaling-laws",
             "title": "Data Scaling Laws",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "deduplication",
             "title": "Deduplication",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "synthetic-data",
             "title": "Synthetic Data",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2274,13 +2410,13 @@
       "id": "data-mixing",
       "title": "Data Mixing",
       "domain": "Data / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "data-filtering",
             "title": "Data Filtering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2288,7 +2424,7 @@
           {
             "id": "curriculum",
             "title": "Curriculum",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2382,13 +2518,13 @@
       "id": "data-scaling-laws",
       "title": "Data Scaling Laws",
       "domain": "Data / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "data-filtering",
             "title": "Data Filtering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2482,13 +2618,13 @@
       "id": "deduplication",
       "title": "Deduplication",
       "domain": "Data / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "data-filtering",
             "title": "Data Filtering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2496,7 +2632,7 @@
           {
             "id": "training-corpus-contamination",
             "title": "Training Corpus Contamination",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3085,7 +3221,7 @@
           {
             "id": "synthetic-data",
             "title": "Synthetic Data",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3139,6 +3275,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "autotuning",
+            "title": "Autotuning",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "cold-start",
             "title": "Cold Start",
@@ -3444,6 +3586,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "custom-kernel",
+            "title": "Custom Kernel",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "gpu-memory-hierarchy",
             "title": "GPU Memory Hierarchy",
             "tier": "verified",
@@ -3465,6 +3613,12 @@
             "id": "selective-state-space",
             "title": "Selective State Space",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tiling",
+            "title": "Tiling",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -3583,6 +3737,18 @@
             "id": "arithmetic-intensity",
             "title": "Arithmetic Intensity",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "memory-planning",
+            "title": "Memory Planning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "tiling",
+            "title": "Tiling",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -3819,6 +3985,43 @@
           {
             "id": "multi-head-attention",
             "title": "Multi-Head Attention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "graph-capture",
+      "title": "Graph Capture",
+      "domain": "Compilers / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "memory-planning",
+            "title": "Memory Planning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "operator-fusion-pass",
+            "title": "Operator Fusion Pass",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "shape-specialization",
+            "title": "Shape Specialization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "kernel-fusion",
+            "title": "Kernel Fusion",
             "tier": "verified",
             "reviewed": false
           }
@@ -4530,12 +4733,31 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "custom-kernel",
+            "title": "Custom Kernel",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "operator-fusion-pass",
+            "title": "Operator Fusion Pass",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "flash-attention",
             "title": "FlashAttention",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "graph-capture",
+            "title": "Graph Capture",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -4627,7 +4849,7 @@
           {
             "id": "synthetic-data",
             "title": "Synthetic Data",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4840,7 +5062,7 @@
           {
             "id": "curriculum",
             "title": "Curriculum",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4940,7 +5162,7 @@
           {
             "id": "annotation-quality",
             "title": "Annotation Quality",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5486,6 +5708,43 @@
       }
     },
     {
+      "id": "memory-planning",
+      "title": "Memory Planning",
+      "domain": "Compilers / Systems",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gpu-memory-hierarchy",
+            "title": "GPU Memory Hierarchy",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "graph-capture",
+            "title": "Graph Capture",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "activation-checkpointing",
+            "title": "Activation Checkpointing",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "paged-attention",
+            "title": "Paged Attention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "message-passing",
       "title": "Message Passing",
       "domain": "Graphs / Foundations",
@@ -5700,7 +5959,7 @@
           {
             "id": "synthetic-data",
             "title": "Synthetic Data",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5816,6 +6075,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "autotuning",
+            "title": "Autotuning",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "value-function",
             "title": "Value Function",
@@ -6254,6 +6519,37 @@
       }
     },
     {
+      "id": "operator-fusion-pass",
+      "title": "Operator Fusion Pass",
+      "domain": "Compilers / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "graph-capture",
+            "title": "Graph Capture",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "kernel-fusion",
+            "title": "Kernel Fusion",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "arithmetic-intensity",
+            "title": "Arithmetic Intensity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "optimizer-state",
       "title": "Optimizer State",
       "domain": "Systems / Memory",
@@ -6398,6 +6694,12 @@
             "title": "Continuous Batching",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "memory-planning",
+            "title": "Memory Planning",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -6496,7 +6798,7 @@
           {
             "id": "data-filtering",
             "title": "Data Filtering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6690,6 +6992,12 @@
             "title": "Arithmetic Intensity",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "shape-specialization",
+            "title": "Shape Specialization",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -6724,7 +7032,7 @@
           {
             "id": "data-filtering",
             "title": "Data Filtering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7767,7 +8075,7 @@
           {
             "id": "data-scaling-laws",
             "title": "Data Scaling Laws",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7781,7 +8089,7 @@
           {
             "id": "data-mixing",
             "title": "Data Mixing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7891,6 +8199,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "custom-kernel",
+            "title": "Custom Kernel",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "flash-attention",
             "title": "FlashAttention",
@@ -8037,6 +8351,44 @@
           {
             "id": "activation-checkpointing",
             "title": "Activation Checkpointing",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "shape-specialization",
+      "title": "Shape Specialization",
+      "domain": "Compilers / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "graph-capture",
+            "title": "Graph Capture",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "compilation-cache",
+            "title": "Compilation Cache",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "continuous-batching",
+            "title": "Continuous Batching",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prefill-and-decode",
+            "title": "Prefill and Decode",
             "tier": "verified",
             "reviewed": false
           }
@@ -8623,13 +8975,13 @@
       "id": "synthetic-data",
       "title": "Synthetic Data",
       "domain": "Data / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "data-filtering",
             "title": "Data Filtering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8838,6 +9190,50 @@
           {
             "id": "generative-adversarial-network",
             "title": "GAN",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "tiling",
+      "title": "Tiling",
+      "domain": "Compilers / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gpu-memory-hierarchy",
+            "title": "GPU Memory Hierarchy",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "autotuning",
+            "title": "Autotuning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "custom-kernel",
+            "title": "Custom Kernel",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "arithmetic-intensity",
+            "title": "Arithmetic Intensity",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "flash-attention",
+            "title": "FlashAttention",
             "tier": "verified",
             "reviewed": false
           }
@@ -9089,13 +9485,13 @@
       "id": "training-corpus-contamination",
       "title": "Training Corpus Contamination",
       "domain": "Data / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "deduplication",
             "title": "Deduplication",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9141,7 +9537,7 @@
           {
             "id": "deduplication",
             "title": "Deduplication",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9515,7 +9911,7 @@
           {
             "id": "curriculum",
             "title": "Curriculum",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9693,15 +10089,22 @@
           "id": "gradient-accumulation",
           "title": "Gradient Accumulation",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "memory-planning",
+          "title": "Memory Planning",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "sequence-parallelism",
           "title": "Sequence Parallelism",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -9714,6 +10117,12 @@
         {
           "from": "activation-checkpointing",
           "to": "gradient-accumulation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "activation-checkpointing",
+          "to": "memory-planning",
           "type": "adjacent",
           "reviewed": false
         },
@@ -10260,7 +10669,7 @@
       "center": {
         "id": "annotation-quality",
         "title": "Annotation Quality",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10268,7 +10677,7 @@
         {
           "id": "data-filtering",
           "title": "Data Filtering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -10412,17 +10821,31 @@
           "y": 66
         },
         {
+          "id": "operator-fusion-pass",
+          "title": "Operator Fusion Pass",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "quantization",
           "title": "Quantization",
           "tier": "verified",
-          "x": 160,
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "tiling",
+          "title": "Tiling",
+          "tier": "frontier",
+          "x": 192,
           "y": 110
         }
       ],
@@ -10441,6 +10864,12 @@
         },
         {
           "from": "arithmetic-intensity",
+          "to": "operator-fusion-pass",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "arithmetic-intensity",
           "to": "prefill-and-decode",
           "type": "adjacent",
           "reviewed": false
@@ -10448,6 +10877,12 @@
         {
           "from": "arithmetic-intensity",
           "to": "quantization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "arithmetic-intensity",
+          "to": "tiling",
           "type": "adjacent",
           "reviewed": false
         }
@@ -10953,6 +11388,72 @@
       ]
     },
     {
+      "id": "autotuning",
+      "center": {
+        "id": "autotuning",
+        "title": "Autotuning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "tiling",
+          "title": "Tiling",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "compilation-cache",
+          "title": "Compilation Cache",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "exploration-exploitation",
+          "title": "Exploration and Exploitation",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "monte-carlo-tree-search",
+          "title": "Monte Carlo Tree Search",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "tiling",
+          "to": "autotuning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "autotuning",
+          "to": "compilation-cache",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autotuning",
+          "to": "exploration-exploitation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "autotuning",
+          "to": "monte-carlo-tree-search",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "backdoor-attack",
       "center": {
         "id": "backdoor-attack",
@@ -11250,7 +11751,7 @@
         {
           "id": "deduplication",
           "title": "Deduplication",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 103,
           "y": 22
         },
@@ -11271,7 +11772,7 @@
         {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 206,
           "y": 110
         }
@@ -11447,7 +11948,7 @@
         {
           "id": "annotation-quality",
           "title": "Annotation Quality",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 30,
           "y": 22
         },
@@ -12417,6 +12918,59 @@
       ]
     },
     {
+      "id": "compilation-cache",
+      "center": {
+        "id": "compilation-cache",
+        "title": "Compilation Cache",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autotuning",
+          "title": "Autotuning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "shape-specialization",
+          "title": "Shape Specialization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "continuous-batching",
+          "title": "Continuous Batching",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "autotuning",
+          "to": "compilation-cache",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "shape-specialization",
+          "to": "compilation-cache",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "compilation-cache",
+          "to": "continuous-batching",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "compression-quality-tradeoff",
       "center": {
         "id": "compression-quality-tradeoff",
@@ -12502,7 +13056,7 @@
         {
           "id": "data-scaling-laws",
           "title": "Data Scaling Laws",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -13058,14 +13612,28 @@
           "id": "batch-size",
           "title": "Batch Size",
           "tier": "verified",
-          "x": 80,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "compilation-cache",
+          "title": "Compilation Cache",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "paged-attention",
           "title": "Paged Attention",
           "tier": "verified",
-          "x": 160,
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "shape-specialization",
+          "title": "Shape Specialization",
+          "tier": "frontier",
+          "x": 192,
           "y": 110
         }
       ],
@@ -13084,7 +13652,19 @@
         },
         {
           "from": "continuous-batching",
+          "to": "compilation-cache",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "continuous-batching",
           "to": "paged-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "continuous-batching",
+          "to": "shape-specialization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -13581,7 +14161,7 @@
       "center": {
         "id": "curriculum",
         "title": "Curriculum",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13589,7 +14169,7 @@
         {
           "id": "data-mixing",
           "title": "Data Mixing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -13630,11 +14210,77 @@
       ]
     },
     {
+      "id": "custom-kernel",
+      "center": {
+        "id": "custom-kernel",
+        "title": "Custom Kernel",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "kernel-fusion",
+          "title": "Kernel Fusion",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "tiling",
+          "title": "Tiling",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "flash-attention",
+          "title": "FlashAttention",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "selective-state-space",
+          "title": "Selective State Space",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "kernel-fusion",
+          "to": "custom-kernel",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "tiling",
+          "to": "custom-kernel",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "custom-kernel",
+          "to": "flash-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "custom-kernel",
+          "to": "selective-state-space",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "data-filtering",
       "center": {
         "id": "data-filtering",
         "title": "Data Filtering",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13649,35 +14295,35 @@
         {
           "id": "annotation-quality",
           "title": "Annotation Quality",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 22
         },
         {
           "id": "data-mixing",
           "title": "Data Mixing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "data-scaling-laws",
           "title": "Data Scaling Laws",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "synthetic-data",
           "title": "Synthetic Data",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 110
         },
@@ -13739,7 +14385,7 @@
       "center": {
         "id": "data-mixing",
         "title": "Data Mixing",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13747,14 +14393,14 @@
         {
           "id": "data-filtering",
           "title": "Data Filtering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "curriculum",
           "title": "Curriculum",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -13924,7 +14570,7 @@
       "center": {
         "id": "data-scaling-laws",
         "title": "Data Scaling Laws",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13932,7 +14578,7 @@
         {
           "id": "data-filtering",
           "title": "Data Filtering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -14096,7 +14742,7 @@
       "center": {
         "id": "deduplication",
         "title": "Deduplication",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14104,14 +14750,14 @@
         {
           "id": "data-filtering",
           "title": "Data Filtering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -15160,7 +15806,7 @@
         {
           "id": "synthetic-data",
           "title": "Synthetic Data",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -15251,25 +15897,32 @@
           "y": 66
         },
         {
+          "id": "autotuning",
+          "title": "Autotuning",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "cold-start",
           "title": "Cold Start",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "q-learning",
           "title": "Q-Learning",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -15283,6 +15936,12 @@
           "from": "exploration-exploitation",
           "to": "monte-carlo-tree-search",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "exploration-exploitation",
+          "to": "autotuning",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -15810,31 +16469,45 @@
           "y": 66
         },
         {
+          "id": "custom-kernel",
+          "title": "Custom Kernel",
+          "tier": "frontier",
+          "x": 34,
+          "y": 22
+        },
+        {
           "id": "gpu-memory-hierarchy",
           "title": "GPU Memory Hierarchy",
           "tier": "verified",
-          "x": 48,
-          "y": 22
+          "x": 69,
+          "y": 110
         },
         {
           "id": "kernel-fusion",
           "title": "Kernel Fusion",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 103,
+          "y": 22
         },
         {
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 137,
+          "y": 110
         },
         {
           "id": "selective-state-space",
           "title": "Selective State Space",
           "tier": "verified",
-          "x": 192,
+          "x": 171,
+          "y": 22
+        },
+        {
+          "id": "tiling",
+          "title": "Tiling",
+          "tier": "frontier",
+          "x": 206,
           "y": 110
         }
       ],
@@ -15843,6 +16516,12 @@
           "from": "self-attention",
           "to": "flash-attention",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "flash-attention",
+          "to": "custom-kernel",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -15866,6 +16545,12 @@
         {
           "from": "flash-attention",
           "to": "selective-state-space",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "flash-attention",
+          "to": "tiling",
           "type": "adjacent",
           "reviewed": false
         }
@@ -16058,7 +16743,21 @@
           "title": "Arithmetic Intensity",
           "tier": "verified",
           "x": 200,
+          "y": 33
+        },
+        {
+          "id": "memory-planning",
+          "title": "Memory Planning",
+          "tier": "frontier",
+          "x": 200,
           "y": 66
+        },
+        {
+          "id": "tiling",
+          "title": "Tiling",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "flash-attention",
@@ -16086,6 +16785,18 @@
         {
           "from": "gpu-memory-hierarchy",
           "to": "arithmetic-intensity",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gpu-memory-hierarchy",
+          "to": "memory-planning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gpu-memory-hierarchy",
+          "to": "tiling",
           "type": "unlocks",
           "reviewed": false
         },
@@ -16487,6 +17198,72 @@
         {
           "from": "graph-attention",
           "to": "multi-head-attention",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "graph-capture",
+      "center": {
+        "id": "graph-capture",
+        "title": "Graph Capture",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "memory-planning",
+          "title": "Memory Planning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "operator-fusion-pass",
+          "title": "Operator Fusion Pass",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "shape-specialization",
+          "title": "Shape Specialization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        },
+        {
+          "id": "kernel-fusion",
+          "title": "Kernel Fusion",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "graph-capture",
+          "to": "memory-planning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "graph-capture",
+          "to": "operator-fusion-pass",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "graph-capture",
+          "to": "shape-specialization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "graph-capture",
+          "to": "kernel-fusion",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17701,18 +18478,39 @@
           "y": 66
         },
         {
+          "id": "custom-kernel",
+          "title": "Custom Kernel",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "operator-fusion-pass",
+          "title": "Operator Fusion Pass",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
           "id": "flash-attention",
           "title": "FlashAttention",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "graph-capture",
+          "title": "Graph Capture",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "structured-sparsity",
           "title": "Structured Sparsity",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -17724,7 +18522,25 @@
         },
         {
           "from": "kernel-fusion",
+          "to": "custom-kernel",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "kernel-fusion",
+          "to": "operator-fusion-pass",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "kernel-fusion",
           "to": "flash-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "kernel-fusion",
+          "to": "graph-capture",
           "type": "adjacent",
           "reviewed": false
         },
@@ -17862,7 +18678,7 @@
         {
           "id": "synthetic-data",
           "title": "Synthetic Data",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -18250,7 +19066,7 @@
         {
           "id": "curriculum",
           "title": "Curriculum",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -18422,7 +19238,7 @@
         {
           "id": "annotation-quality",
           "title": "Annotation Quality",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 69,
           "y": 110
         },
@@ -19412,6 +20228,72 @@
       ]
     },
     {
+      "id": "memory-planning",
+      "center": {
+        "id": "memory-planning",
+        "title": "Memory Planning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gpu-memory-hierarchy",
+          "title": "GPU Memory Hierarchy",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "graph-capture",
+          "title": "Graph Capture",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "activation-checkpointing",
+          "title": "Activation Checkpointing",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "paged-attention",
+          "title": "Paged Attention",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "gpu-memory-hierarchy",
+          "to": "memory-planning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "graph-capture",
+          "to": "memory-planning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "memory-planning",
+          "to": "activation-checkpointing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "memory-planning",
+          "to": "paged-attention",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "message-passing",
       "center": {
         "id": "message-passing",
@@ -19762,7 +20644,7 @@
         {
           "id": "synthetic-data",
           "title": "Synthetic Data",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -19971,11 +20853,18 @@
           "y": 66
         },
         {
+          "id": "autotuning",
+          "title": "Autotuning",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "value-function",
           "title": "Value Function",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -19983,6 +20872,12 @@
           "from": "exploration-exploitation",
           "to": "monte-carlo-tree-search",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "monte-carlo-tree-search",
+          "to": "autotuning",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20747,6 +21642,59 @@
       ]
     },
     {
+      "id": "operator-fusion-pass",
+      "center": {
+        "id": "operator-fusion-pass",
+        "title": "Operator Fusion Pass",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "graph-capture",
+          "title": "Graph Capture",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "kernel-fusion",
+          "title": "Kernel Fusion",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "arithmetic-intensity",
+          "title": "Arithmetic Intensity",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "graph-capture",
+          "to": "operator-fusion-pass",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "kernel-fusion",
+          "to": "operator-fusion-pass",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "operator-fusion-pass",
+          "to": "arithmetic-intensity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "optimizer-state",
       "center": {
         "id": "optimizer-state",
@@ -20991,8 +21939,15 @@
           "id": "continuous-batching",
           "title": "Continuous Batching",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "memory-planning",
+          "title": "Memory Planning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -21005,6 +21960,12 @@
         {
           "from": "paged-attention",
           "to": "continuous-batching",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "paged-attention",
+          "to": "memory-planning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -21150,7 +22111,7 @@
         {
           "id": "data-filtering",
           "title": "Data Filtering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
@@ -21500,8 +22461,15 @@
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "shape-specialization",
+          "title": "Shape Specialization",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -21520,6 +22488,12 @@
         {
           "from": "prefill-and-decode",
           "to": "arithmetic-intensity",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prefill-and-decode",
+          "to": "shape-specialization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -21559,7 +22533,7 @@
         {
           "id": "data-filtering",
           "title": "Data Filtering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -23425,7 +24399,7 @@
         {
           "id": "data-scaling-laws",
           "title": "Data Scaling Laws",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -23439,7 +24413,7 @@
         {
           "id": "data-mixing",
           "title": "Data Mixing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -23641,18 +24615,25 @@
           "y": 66
         },
         {
+          "id": "custom-kernel",
+          "title": "Custom Kernel",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "flash-attention",
           "title": "FlashAttention",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "gpu-memory-hierarchy",
           "title": "GPU Memory Hierarchy",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -23660,6 +24641,12 @@
           "from": "state-space-model",
           "to": "selective-state-space",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "selective-state-space",
+          "to": "custom-kernel",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -23909,6 +24896,72 @@
         {
           "from": "sequence-parallelism",
           "to": "activation-checkpointing",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "shape-specialization",
+      "center": {
+        "id": "shape-specialization",
+        "title": "Shape Specialization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "graph-capture",
+          "title": "Graph Capture",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "compilation-cache",
+          "title": "Compilation Cache",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "continuous-batching",
+          "title": "Continuous Batching",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "prefill-and-decode",
+          "title": "Prefill and Decode",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "graph-capture",
+          "to": "shape-specialization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "shape-specialization",
+          "to": "compilation-cache",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "shape-specialization",
+          "to": "continuous-batching",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "shape-specialization",
+          "to": "prefill-and-decode",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24948,7 +26001,7 @@
       "center": {
         "id": "synthetic-data",
         "title": "Synthetic Data",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -24956,7 +26009,7 @@
         {
           "id": "data-filtering",
           "title": "Data Filtering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -25334,6 +26387,85 @@
         {
           "from": "text-to-speech",
           "to": "generative-adversarial-network",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "tiling",
+      "center": {
+        "id": "tiling",
+        "title": "Tiling",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gpu-memory-hierarchy",
+          "title": "GPU Memory Hierarchy",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "autotuning",
+          "title": "Autotuning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "custom-kernel",
+          "title": "Custom Kernel",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "arithmetic-intensity",
+          "title": "Arithmetic Intensity",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "flash-attention",
+          "title": "FlashAttention",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "gpu-memory-hierarchy",
+          "to": "tiling",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "tiling",
+          "to": "autotuning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tiling",
+          "to": "custom-kernel",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tiling",
+          "to": "arithmetic-intensity",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "tiling",
+          "to": "flash-attention",
           "type": "adjacent",
           "reviewed": false
         }
@@ -25779,7 +26911,7 @@
       "center": {
         "id": "training-corpus-contamination",
         "title": "Training Corpus Contamination",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -25787,7 +26919,7 @@
         {
           "id": "deduplication",
           "title": "Deduplication",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -25848,7 +26980,7 @@
         {
           "id": "deduplication",
           "title": "Deduplication",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -26532,7 +27664,7 @@
         {
           "id": "curriculum",
           "title": "Curriculum",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },

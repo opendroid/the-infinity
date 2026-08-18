@@ -1,0 +1,70 @@
+{
+  "id": "shape-specialization",
+  "title": "Shape Specialization",
+  "domain": [
+    "Compilers",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "A kernel compiled for a batch of thirty-two is not the kernel you want for a batch of one. Compilers specialise on shapes to generate good code, and every distinct shape then triggers a recompile — which is fine in training, where shapes repeat, and painful in serving, where sequence lengths vary with every request.",
+    "engineer": "The two answers are dynamic shapes, where a dimension is compiled symbolically at some cost in quality, and bucketing, where inputs are padded up to a small set of sizes so the cache always hits. Bucketing wastes compute on padding and is usually the better trade, which is a useful example of a crude fix beating an elegant one on measurements.",
+    "math": "With b distinct shapes the compiler holds b variants, and each cold shape costs a full compilation before the first token. Padding to k buckets bounds that at k variants while wasting the difference between the true and padded length — so the choice is compile-time variance against a fixed fraction of throughput."
+  },
+  "emphasis": {
+    "intuition": "painful in serving, where sequence lengths vary with every request",
+    "engineer": "a useful example of a crude fix beating an elegant one on measurements"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "padding_waste": 4,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "padding_waste",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Compute spent on padding against compute on real tokens, in tokens. Drag the bucket coarseness up to watch the waste grow — and note this is what buys a compile cache that always hits."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "graph-capture",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "continuous-batching",
+        "reviewed": false
+      },
+      {
+        "id": "prefill-and-decode",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2002.03794",
+      "title": "The Deep Learning Compiler: A Comprehensive Survey",
+      "url": "https://arxiv.org/abs/2002.03794"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Ansel et al. 2024",
+      "title": "PyTorch 2: Faster Machine Learning Through Dynamic Python Bytecode Transformation and Graph Compilation",
+      "venue": "ASPLOS 2024",
+      "doi": "10.1145/3620665.3640366"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
