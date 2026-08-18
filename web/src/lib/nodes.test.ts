@@ -155,9 +155,26 @@ describe('content/nodes', () => {
     expect(anyEmpty).toBe(true);
   });
 
+  /**
+   * Both tier colours have a node, so both are exercised.
+   *
+   * THIS IS ONE OF THE TWO PLACES AN EMPTY FRONTIER BREAKS THE BUILD (#283).
+   * The other is the lemniscate check in `validate-content.mjs`. Verifying the
+   * last frontier batch takes the corpus to zero frontier nodes and fails both,
+   * which is why a verification cannot land without a seed beside it.
+   *
+   * That coupling is deliberate as far as it goes — the landing page's argument
+   * is reviewed core flowing into new growth, and there is no defined
+   * appearance for the figure with nothing growing. Whether steady state should
+   * be representable is the open question; this assertion is not the place to
+   * settle it, only the place it is felt.
+   */
   it('has at least one node of each tier, so both colours are exercised', () => {
     const graph = resolveGraph(nodes.map((n) => n.node));
     const tiers = new Set([...graph.values()].map((n) => n.tier));
-    expect([...tiers].sort()).toEqual(['frontier', 'verified']);
+    expect([...tiers].sort(), 'an empty frontier also fails validate:content — see #283').toEqual([
+      'frontier',
+      'verified',
+    ]);
   });
 });
