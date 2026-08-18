@@ -1,0 +1,67 @@
+{
+  "id": "convexity",
+  "title": "Convexity",
+  "domain": [
+    "Foundations",
+    "Optimization"
+  ],
+  "bodies": {
+    "intuition": "A bowl has one bottom. A function is convex if the straight line between any two points on its graph never dips below the graph itself, and one consequence carries the whole idea: every local minimum is the global minimum, so an optimiser that has stopped moving has finished. Almost nothing in deep learning is convex, and most of the field's inherited intuitions were formed when things were.",
+    "engineer": "What matters practically is what you give up. A convex problem comes with a unique answer, convergence rates that do not depend on where you started, and a duality theory that turns hard questions into easier ones. Non-convex optimisation surrenders every one of them, and the working substitute is measurement — run it and look. That is why so much of this field is empirical rather than proved, and why a result about non-convex training almost always describes a regime rather than the problem.",
+    "math": "The definition quantifies over every pair of points, which is what makes it strong and what makes it rare: the function at a weighted average of two inputs is at most the same weighted average of the two outputs. In second-order terms it is the Hessian being positive semi-definite everywhere — no direction of negative curvature anywhere in the space. A network with a single hidden layer fails this immediately, and for a reason needing no experiment: permuting the hidden units gives a different parameter vector with identical loss, so the surface has many separated minima of equal value, and a convex function cannot have two."
+  },
+  "emphasis": {
+    "intuition": "an optimiser that has stopped moving has finished",
+    "math": "a convex function cannot have two"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "nonconvex_points": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "nonconvex_points",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Points in the space where some direction curves downward, against points where every direction curves up, in points. Drag the non-convex share up — though the lesson is where the bar starts, not where it ends, since convexity is a claim about every point at once and the guarantee is gone at the first one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "saddle-point",
+        "reviewed": false
+      },
+      {
+        "id": "logistic-regression",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1412.0233",
+      "title": "The Loss Surfaces of Multilayer Networks",
+      "url": "https://arxiv.org/abs/1412.0233"
+    },
+    {
+      "ref": "arXiv:1712.09913",
+      "title": "Visualizing the Loss Landscape of Neural Nets",
+      "url": "https://arxiv.org/abs/1712.09913"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
