@@ -37,27 +37,35 @@ describe('content/nodes', () => {
    * 103 are reachable. This counts both ends of each edge, which is what a reader
    * can actually click.
    *
-   * THE DISTRIBUTION AT 401 NODES AND 892 EDGES, so the next person to raise this
-   * floor has the measurement rather than a guess:
+   * THE FLOOR WAS TWO AND IS NOW THREE (#317). #277 raised it to two and left
+   * three open, on the honest ground that nobody knew whether the 56 nodes then
+   * at the floor had a real third link or would need padding. #315 answered
+   * that by finding one for all 38 that remained — every target taken from the
+   * node's OWN BODY rather than from what sat nearby in the domain tree, which
+   * changed five of the picks. None had to be invented.
    *
-   *     1 link     2 nodes   <- rmsnorm, grouped-query-attention (#277, fixed)
-   *     2 links   54
-   *     3 links  117
-   *     4 links   82
-   *     5 links   54
-   *     6+       111
-   *    14 links    1
+   *     links      #277        after #315
+   *       1           2   ->      0
+   *       2          54   ->      0
+   *       3         117   ->    197
+   *       4          82   ->    103
+   *       5          54   ->     55
+   *       6+        111   ->    126
+   *      21           -          1
    *
-   * THE FLOOR IS TWO AND THE ARGUMENT FOR THREE IS REAL. Two is where a page
-   * always offers at least one thread that is not the way back. Three would mean
-   * two onward threads whichever way you arrived, and raising the corpus to it
-   * would touch 56 nodes — a bigger decision than a regression guard should make
-   * on its own. #277 records those 56 rather than letting them pass silently.
+   * SO THIS RAISE CHANGES NOTHING TODAY, which is the point. It is the same
+   * guard the floor of two always was — the corpus cleared two before that
+   * assertion existed too. What it stops is the next node shipping with two
+   * links, one of them the way in, which #315 found happens by default: an
+   * author names the neighbours they had in mind and nothing goes back to add
+   * the reverse links a later node should have made. `elo-rating` shipped three
+   * rounds ago and nothing linked into it until #315.
    *
-   * This is a guard, not a discovery: it passed the moment the two nodes above
-   * gained honest neighbours, and it exists so the next node cannot ship with one.
+   * FOUR IS NOT THE NEXT STEP. 197 nodes sit at exactly three, so raising again
+   * would be a corpus-wide authoring pass rather than a guard, and there is no
+   * evidence a third onward thread is too few. Deliberately not proposed.
    */
-  it('gives every concept at least two links a reader can follow', () => {
+  it('gives every concept at least three links a reader can follow', () => {
     const degree = new Map<string, number>();
     const bump = (id: string) => degree.set(id, (degree.get(id) ?? 0) + 1);
     for (const { node } of nodes) {
@@ -68,7 +76,7 @@ describe('content/nodes', () => {
         }
       }
     }
-    const lonely = nodes.map(({ node }) => node.id).filter((id) => (degree.get(id) ?? 0) < 2);
+    const lonely = nodes.map(({ node }) => node.id).filter((id) => (degree.get(id) ?? 0) < 3);
     expect(lonely).toEqual([]);
   });
 
