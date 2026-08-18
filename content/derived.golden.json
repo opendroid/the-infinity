@@ -194,7 +194,7 @@
           {
             "id": "hierarchical-rl",
             "title": "Hierarchical RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2127,7 +2127,7 @@
           {
             "id": "monte-carlo-tree-search",
             "title": "Monte Carlo Tree Search",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2271,7 +2271,7 @@
           {
             "id": "imitation-learning",
             "title": "Imitation Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2816,7 +2816,7 @@
       "id": "hierarchical-rl",
       "title": "Hierarchical RL",
       "domain": "Planning / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2878,7 +2878,7 @@
       "id": "imitation-learning",
       "title": "Imitation Learning",
       "domain": "Planning / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2893,7 +2893,7 @@
           {
             "id": "offline-rl",
             "title": "Offline RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3754,7 +3754,7 @@
           {
             "id": "hierarchical-rl",
             "title": "Hierarchical RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3772,7 +3772,7 @@
           {
             "id": "world-model",
             "title": "World Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4020,7 +4020,7 @@
       "id": "model-based-rl",
       "title": "Model-Based RL",
       "domain": "Planning / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4032,7 +4032,7 @@
           {
             "id": "world-model",
             "title": "World Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4040,7 +4040,7 @@
           {
             "id": "model-predictive-control",
             "title": "Model Predictive Control",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4058,13 +4058,13 @@
       "id": "model-predictive-control",
       "title": "Model Predictive Control",
       "domain": "Planning / Control",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "model-based-rl",
             "title": "Model-Based RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4114,7 +4114,7 @@
       "id": "monte-carlo-tree-search",
       "title": "Monte Carlo Tree Search",
       "domain": "Planning / Search",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4450,7 +4450,7 @@
       "id": "offline-rl",
       "title": "Offline RL",
       "domain": "Planning / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4465,7 +4465,7 @@
           {
             "id": "imitation-learning",
             "title": "Imitation Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4558,7 +4558,7 @@
           {
             "id": "sim-to-real",
             "title": "Sim-to-Real",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5109,7 +5109,7 @@
           {
             "id": "offline-rl",
             "title": "Offline RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5534,7 +5534,7 @@
           {
             "id": "imitation-learning",
             "title": "Imitation Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5882,7 +5882,7 @@
           {
             "id": "offline-rl",
             "title": "Offline RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5898,13 +5898,13 @@
       "id": "sim-to-real",
       "title": "Sim-to-Real",
       "domain": "Planning / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "world-model",
             "title": "World Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6116,7 +6116,7 @@
           {
             "id": "model-predictive-control",
             "title": "Model Predictive Control",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6364,7 +6364,7 @@
           {
             "id": "hierarchical-rl",
             "title": "Hierarchical RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6410,7 +6410,7 @@
           {
             "id": "model-based-rl",
             "title": "Model-Based RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6805,7 +6805,7 @@
           {
             "id": "model-based-rl",
             "title": "Model-Based RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6819,7 +6819,7 @@
           {
             "id": "monte-carlo-tree-search",
             "title": "Monte Carlo Tree Search",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6863,7 +6863,7 @@
           {
             "id": "world-model",
             "title": "World Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7073,7 +7073,7 @@
       "id": "world-model",
       "title": "World Model",
       "domain": "Planning / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -7087,13 +7087,13 @@
           {
             "id": "model-based-rl",
             "title": "Model-Based RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "sim-to-real",
             "title": "Sim-to-Real",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7445,7 +7445,7 @@
         {
           "id": "hierarchical-rl",
           "title": "Hierarchical RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -10877,7 +10877,7 @@
         {
           "id": "monte-carlo-tree-search",
           "title": "Monte Carlo Tree Search",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -11128,7 +11128,7 @@
         {
           "id": "imitation-learning",
           "title": "Imitation Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 22
         },
@@ -12091,7 +12091,7 @@
       "center": {
         "id": "hierarchical-rl",
         "title": "Hierarchical RL",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12197,7 +12197,7 @@
       "center": {
         "id": "imitation-learning",
         "title": "Imitation Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12212,7 +12212,7 @@
         {
           "id": "offline-rl",
           "title": "Offline RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -13719,7 +13719,7 @@
         {
           "id": "hierarchical-rl",
           "title": "Hierarchical RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -13740,7 +13740,7 @@
         {
           "id": "world-model",
           "title": "World Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 110
         }
@@ -14193,7 +14193,7 @@
       "center": {
         "id": "model-based-rl",
         "title": "Model-Based RL",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14208,14 +14208,14 @@
         {
           "id": "world-model",
           "title": "World Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
         {
           "id": "model-predictive-control",
           "title": "Model Predictive Control",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -14259,7 +14259,7 @@
       "center": {
         "id": "model-predictive-control",
         "title": "Model Predictive Control",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14267,7 +14267,7 @@
         {
           "id": "model-based-rl",
           "title": "Model-Based RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -14352,7 +14352,7 @@
       "center": {
         "id": "monte-carlo-tree-search",
         "title": "Monte Carlo Tree Search",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14934,7 +14934,7 @@
       "center": {
         "id": "offline-rl",
         "title": "Offline RL",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14949,7 +14949,7 @@
         {
           "id": "imitation-learning",
           "title": "Imitation Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -15084,7 +15084,7 @@
         {
           "id": "sim-to-real",
           "title": "Sim-to-Real",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -16073,7 +16073,7 @@
         {
           "id": "offline-rl",
           "title": "Offline RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -16795,7 +16795,7 @@
         {
           "id": "imitation-learning",
           "title": "Imitation Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         },
@@ -17409,7 +17409,7 @@
         {
           "id": "offline-rl",
           "title": "Offline RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -17459,7 +17459,7 @@
       "center": {
         "id": "sim-to-real",
         "title": "Sim-to-Real",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17467,7 +17467,7 @@
         {
           "id": "world-model",
           "title": "World Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -17843,7 +17843,7 @@
         {
           "id": "model-predictive-control",
           "title": "Model Predictive Control",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -18279,7 +18279,7 @@
         {
           "id": "hierarchical-rl",
           "title": "Hierarchical RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -18352,7 +18352,7 @@
         {
           "id": "model-based-rl",
           "title": "Model-Based RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -19064,7 +19064,7 @@
         {
           "id": "model-based-rl",
           "title": "Model-Based RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -19078,7 +19078,7 @@
         {
           "id": "monte-carlo-tree-search",
           "title": "Monte Carlo Tree Search",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -19157,7 +19157,7 @@
         {
           "id": "world-model",
           "title": "World Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -19544,7 +19544,7 @@
       "center": {
         "id": "world-model",
         "title": "World Model",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19559,14 +19559,14 @@
         {
           "id": "model-based-rl",
           "title": "Model-Based RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "sim-to-real",
           "title": "Sim-to-Real",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },

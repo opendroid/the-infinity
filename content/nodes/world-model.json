@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Learn to predict what the environment does next, then practise inside that prediction instead of in the world. Real experience is slow, dangerous or expensive; imagined experience is none of those. The catch is that a policy trained in imagination is only as good as the imagination, and it will find and exploit whatever the model got wrong.",
     "engineer": "The usual shape is an encoder to a latent state, a dynamics model that rolls that state forward, and a reward head — so planning happens in latent space at a fraction of pixel cost. The exploitation problem is real and specific: an optimiser searching a learned model will steer toward its errors, which is why rollouts are kept short and why ensembles that disagree are used to say where the model should not be trusted.",
-    "math": "Learn p(z_{t+1} | z_t, a_t) and r̂(z_t, a_t), then optimise a policy against rollouts of that model rather than the environment. Model error compounds multiplicatively along a rollout, so a per-step error ε gives divergence roughly (1+ε)^h over horizon h — the reason short rollouts from real states beat long ones from imagined starts."
+    "math": "Learn p(z_{t+1} | z_t, a_t) and r̂(z_t, a_t), then optimise a policy against rollouts of that model rather than the environment. Model error accumulates along a rollout rather than staying put: under the simulation lemma a per-step error ε gives a return gap growing roughly with the horizon h, and again with 1/(1−γ) through the discounting — the reason short rollouts from real states beat long ones from imagined starts."
   },
   "emphasis": {
     "intuition": "it will find and exploit whatever the model got wrong",
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
