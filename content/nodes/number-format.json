@@ -8,11 +8,11 @@
   "bodies": {
     "intuition": "A floating-point number splits its bits between an exponent, which decides how large or small a value it can express, and a mantissa, which decides how precisely. Training cares far more about the first than the second — a gradient that is too small to represent becomes zero and the update is simply lost, while a gradient known to three digits instead of five trains fine.",
     "engineer": "That is why bf16 displaced fp16. Both are sixteen bits; fp16 spends five on the exponent and ten on the mantissa, bf16 spends eight and seven. Eight matches fp32's exponent exactly, so bf16 has fp32's dynamic range and simply drops precision — values that fit in fp32 fit in bf16, and no loss scaling is needed. fp16 needs it, because its smallest normal value is around 6e-5 and gradients routinely go below that. fp8 takes the idea further and comes in two variants precisely so the exponent–mantissa split can be chosen per tensor.",
-    "math": "The loss is not gradual. A value below the smallest representable normal does not become imprecise, it becomes zero, and its contribution to the update disappears entirely rather than arriving slightly wrong. As the underflowing share of a gradient tensor grows, the effective update is computed from a shrinking subset of it — which is why loss scaling multiplies the whole tensor by a constant before the cast, shifting the distribution back into range without changing a single relative magnitude."
+    "math": "The loss is not gradual. Below the smallest normal a format has subnormals, which give up precision digit by digit until they run out — and accelerator kernels commonly flush them to zero outright, so in practice the value does not become imprecise, it disappears. Its contribution to the update is gone rather than slightly wrong. As the underflowing share of a gradient tensor grows, the effective update is computed from a shrinking subset of it — which is why loss scaling multiplies the whole tensor by a constant before the cast, shifting the distribution back into range without changing a single relative magnitude."
   },
   "emphasis": {
     "intuition": "a gradient that is too small to represent becomes zero and the update is simply lost",
-    "math": "it becomes zero, and its contribution to the update disappears entirely"
+    "math": "in practice the value does not become imprecise, it disappears"
   },
   "viz": {
     "primitive": "budget-split",
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

@@ -1,0 +1,63 @@
+{
+  "id": "production-monitoring",
+  "title": "Production Monitoring",
+  "domain": [
+    "Deployment",
+    "Monitoring"
+  ],
+  "bodies": {
+    "intuition": "The thing that makes monitoring a served model hard is that you usually do not know whether it was right. A label arrives days later, or after a human reviews it, or never. So the metric you most want — accuracy — is the one you cannot have in real time, and everything shipped is a proxy for it.",
+    "engineer": "The proxies worth having are the input distribution, the output distribution, and the confidence distribution, watched for change rather than for absolute value. A shift in what is arriving is the earliest available signal that the world moved; a shift in what is being predicted, with the inputs unchanged, means something in the serving path did. Neither says the model is wrong, and that is the honest position: they say something is different, and different is what you can act on before labels exist.",
+    "math": "Label latency is what decides the monitoring design, because it sets how long the system runs blind. The share of predictions you will ever get a label for is usually small, and it is not a random sample of them — labels arrive for the cases somebody escalated, which are the cases the model handled badly. So measured accuracy on labelled traffic is biased downward by construction, and comparing it against an offline test score compares two different quantities."
+  },
+  "emphasis": {
+    "intuition": "the metric you most want — accuracy — is the one you cannot have in real time",
+    "math": "measured accuracy on labelled traffic is biased downward by construction"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unlabelled_predictions": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "unlabelled_predictions",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Predictions that will never get a label, against the ones that eventually will, in predictions. Drag the label latency up to watch the unlabelled share take everything — and note the labelled remainder is not a random sample, but the cases somebody escalated."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "distribution-shift",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2004.05785",
+      "title": "Learning under Concept Drift: A Review",
+      "url": "https://arxiv.org/abs/2004.05785"
+    },
+    {
+      "ref": "arXiv:1906.02530",
+      "title": "Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift",
+      "url": "https://arxiv.org/abs/1906.02530"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

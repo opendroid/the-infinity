@@ -1,0 +1,64 @@
+{
+  "id": "silent-failure",
+  "title": "Silent Failure",
+  "domain": [
+    "Deployment",
+    "Monitoring"
+  ],
+  "bodies": {
+    "intuition": "The failures that hurt are the ones that do not raise anything. A crash gets fixed the same afternoon because somebody is paged; a model that quietly returns a confident wrong answer for six weeks does not, because from the outside it looks exactly like a model that is working. Every mature system's remaining failures are of the second kind, because the first kind got fixed.",
+    "engineer": "Concretely: a feature pipeline that started returning zeros, a tokenizer mismatch that mangles one language, a truncation that silently drops the end of long inputs. None throws. All of them degrade quality on a slice of traffic that aggregate metrics average away. Catching them needs an assertion on the shape of what the model is seeing and producing — a check that fires on a distribution rather than on an exception, which is a different kind of monitoring from the one most systems start with.",
+    "math": "Detection is a threshold on a signal that is not an error, so it inherits the whole detection problem: how well the signal separates broken from normal, and how often broken actually happens. Because silent failures are rare, the alert that catches most of them also fires on healthy traffic more often than on broken traffic — which is why teams turn these alerts off, and why the honest design target is a signal that separates well rather than a threshold that is set aggressively."
+  },
+  "emphasis": {
+    "intuition": "Every mature system's remaining failures are of the second kind, because the first kind got fixed.",
+    "math": "the honest design target is a signal that separates well rather than a threshold that is set aggressively"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.2,
+      "threshold": 1.0,
+      "base_rate": 0.03
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Traffic where something has silently broken, against healthy traffic, scored by whatever signal you monitor. Drag the separation up to watch a better signal buy precision and recall at once — which moving the threshold cannot do, and which is why the signal is the thing to invest in."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "production-monitoring",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "shortcut-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2109.13916",
+      "title": "Unsolved Problems in ML Safety",
+      "url": "https://arxiv.org/abs/2109.13916"
+    },
+    {
+      "ref": "arXiv:2004.05785",
+      "title": "Learning under Concept Drift: A Review",
+      "url": "https://arxiv.org/abs/2004.05785"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

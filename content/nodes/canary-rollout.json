@@ -1,0 +1,65 @@
+{
+  "id": "canary-rollout",
+  "title": "Canary Rollout",
+  "domain": [
+    "Deployment",
+    "Release"
+  ],
+  "bodies": {
+    "intuition": "Send a small slice of traffic to the new model, watch the metrics, and widen only if nothing goes wrong. It bounds the damage of a bad release to the slice rather than the whole, which is the entire point — and it introduces a problem people rarely plan for, which is that a small slice is also a noisy one.",
+    "engineer": "The temptation is to alert on any metric that moves, and the result is a stream of pages about nothing. A one-percent canary sees a hundredth of the traffic, so its metrics have roughly ten times the noise of the full population's, and a threshold tuned on full-traffic variability will fire constantly. Teams that have done this a few times widen the canary before they tighten the threshold, because sample size is the term they control and noise is not.",
+    "math": "This is a detection problem, so its arithmetic is the detection arithmetic: how far apart the two populations sit, where the alert threshold falls, and how often a release is genuinely bad. That last term is the one that ambushes people. If one release in fifty is actually broken, then even an alert that fires on nine of every ten broken releases and only one in twenty healthy ones is wrong more often than it is right — the base rate, not the detector, decides how much an alert is worth."
+  },
+  "emphasis": {
+    "intuition": "a small slice is also a noisy one",
+    "engineer": "sample size is the term they control and noise is not",
+    "math": "the base rate, not the detector, decides how much an alert is worth"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 2.2,
+      "threshold": 0.5,
+      "base_rate": 0.02
+    },
+    "param_controls": [
+      {
+        "name": "threshold",
+        "min": -2,
+        "max": 4,
+        "step": 0.25
+      }
+    ],
+    "caption": "Canary runs where the release is genuinely bad, against runs where it is fine and merely noisy; everything right of the cut pages someone. Drag the alert threshold up to cut false alarms — and watch how much still gets missed, and how little precision buys when one release in fifty is bad."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "shadow-deployment",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "rollback",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2103.03098",
+      "title": "Accounting for Variance in Machine Learning Benchmarks",
+      "url": "https://arxiv.org/abs/2103.03098"
+    },
+    {
+      "ref": "arXiv:2003.05155",
+      "title": "Towards CRISP-ML(Q): A Machine Learning Process Model with Quality Assurance Methodology",
+      "url": "https://arxiv.org/abs/2003.05155"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
