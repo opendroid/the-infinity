@@ -1,0 +1,67 @@
+{
+  "id": "vocoder",
+  "title": "Vocoder",
+  "domain": [
+    "Synthesis",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "A spectrogram has thrown away the phase, so turning one back into sound is not an inverse transform — it is a generation problem. The vocoder is the model that does it, and for years it was the bottleneck: the acoustic model produced a plausible spectrogram and the vocoder made it sound synthetic.",
+    "engineer": "Autoregressive vocoders sounded best and generated one sample at a time at 24 kHz, which is unusable in production. Adversarial vocoders sample in parallel and closed most of the quality gap, which is why they took over. The discriminators do the work — multi-period and multi-scale discriminators exist because a single one misses the periodic structure that makes speech sound like speech.",
+    "math": "Reconstruct a waveform from magnitudes alone, so the model must invent a phase consistent with them. Iterative phase estimation converges slowly and imperfectly; a learned vocoder instead maps the magnitudes to samples directly, and the adversarial term is what supplies the detail a reconstruction loss averages away."
+  },
+  "emphasis": {
+    "intuition": "the vocoder made it sound synthetic",
+    "engineer": "a single one misses the periodic structure that makes speech sound like speech"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "parallel_samples": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "parallel_samples",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Samples generated in parallel against samples that must wait for the one before, in samples. Drag the parallelism up to watch the sequential remainder vanish — at the far left this is one sample at a time, at 24 kHz."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "spectrogram",
+        "reviewed": false
+      },
+      {
+        "id": "text-to-speech",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "generative-adversarial-network",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2206.04658",
+      "title": "BigVGAN: A Universal Neural Vocoder with Large-Scale Training",
+      "url": "https://arxiv.org/abs/2206.04658"
+    },
+    {
+      "ref": "arXiv:2010.05646",
+      "title": "HiFi-GAN: Generative Adversarial Networks for Efficient and High Fidelity Speech Synthesis",
+      "url": "https://arxiv.org/abs/2010.05646"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "speech-tokenization",
+  "title": "Speech Tokenization",
+  "domain": [
+    "Synthesis",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "Once `neural-audio-codec` turns audio into discrete tokens, speech becomes a sequence-modelling problem and everything built for language applies to it. The tokens split into two kinds that do different jobs: semantic tokens carrying what was said, acoustic tokens carrying how it sounded.",
+    "engineer": "That split is the design most audio language models are built on. Semantic tokens are predicted first because they are what the text determines; acoustic tokens are filled in afterwards, conditioned on a short prompt that fixes the voice. Generating acoustic tokens autoregressively across all codebook levels is prohibitively long, which is why parallel and coarse-to-fine schemes exist rather than being optimisations.",
+    "math": "A codec at N residual levels and a frame rate f produces N·f tokens per second — thousands per second at useful quality, against tens for text. That ratio is the whole engineering problem: sequence length is the binding constraint, so every method either lowers the frame rate, predicts levels in parallel, or gives up autoregression."
+  },
+  "emphasis": {
+    "intuition": "everything built for language applies to it",
+    "engineer": "which is why parallel and coarse-to-fine schemes exist rather than being optimisations"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "acoustic_tokens": 18,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "acoustic_tokens",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Acoustic tokens describing how it sounded against semantic tokens describing what was said, in tokens. Drag the acoustic levels up to watch them swamp the sequence — they already outnumber the semantic ones at any useful quality, which is why they are rarely generated one at a time."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "neural-audio-codec",
+        "reviewed": false
+      },
+      {
+        "id": "vector-quantization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "byte-pair-encoding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2209.03143",
+      "title": "AudioLM: a Language Modeling Approach to Audio Generation",
+      "url": "https://arxiv.org/abs/2209.03143"
+    },
+    {
+      "ref": "arXiv:2305.09636",
+      "title": "SoundStorm: Efficient Parallel Audio Generation",
+      "url": "https://arxiv.org/abs/2305.09636"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

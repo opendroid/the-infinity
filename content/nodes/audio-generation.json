@@ -1,0 +1,67 @@
+{
+  "id": "audio-generation",
+  "title": "Audio Generation",
+  "domain": [
+    "Synthesis",
+    "Generation"
+  ],
+  "bodies": {
+    "intuition": "Generating music or sound effects rather than speech. The problem is structurally different: there is no transcript to constrain it, coherence is needed over minutes rather than seconds, and quality is judged by whether it is pleasant rather than whether it is correct.",
+    "engineer": "Hierarchical generation is the standard answer — a coarse structure over long timescales, filled in with detail — because a flat autoregressive model over audio tokens cannot hold minutes of context. Evaluation is the weak point: there is no equivalent of word error rate, so the field leans on distribution distances that correlate with human judgement loosely, and on listening tests that are expensive and rarely reported with error bars.",
+    "math": "At a codec frame rate of 50 Hz and eight levels, a minute of audio is 24,000 tokens — beyond what a flat model attends over comfortably, which is why the hierarchy exists. Long-range structure is what listeners notice most and what token-level likelihood scores least, so the metric and the perception diverge exactly where the difficulty is."
+  },
+  "emphasis": {
+    "intuition": "quality is judged by whether it is pleasant rather than whether it is correct",
+    "engineer": "listening tests that are expensive and rarely reported with error bars"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "structure_tokens": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "structure_tokens",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Tokens spent on long-range structure against tokens spent on local detail, in tokens. Drag the structure up to watch coherence get the budget — it is what a listener notices and what likelihood scores least."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "speech-tokenization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "latent-diffusion",
+        "reviewed": false
+      },
+      {
+        "id": "likelihood-vs-sample-quality",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2301.11325",
+      "title": "MusicLM: Generating Music From Text",
+      "url": "https://arxiv.org/abs/2301.11325"
+    },
+    {
+      "ref": "arXiv:2209.03143",
+      "title": "AudioLM: a Language Modeling Approach to Audio Generation",
+      "url": "https://arxiv.org/abs/2209.03143"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

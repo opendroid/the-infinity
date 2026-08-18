@@ -408,6 +408,12 @@
             "reviewed": false
           },
           {
+            "id": "synthesis-evaluation",
+            "title": "Synthesis Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "teleoperation-data",
             "title": "Teleoperation Data",
             "tier": "verified",
@@ -593,6 +599,37 @@
         ],
         "unlocks": [],
         "adjacent": []
+      }
+    },
+    {
+      "id": "audio-generation",
+      "title": "Audio Generation",
+      "domain": "Synthesis / Generation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "speech-tokenization",
+            "title": "Speech Tokenization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "latent-diffusion",
+            "title": "Latent Diffusion",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "likelihood-vs-sample-quality",
+            "title": "Likelihood vs Sample Quality",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1087,7 +1124,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "speech-tokenization",
+            "title": "Speech Tokenization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1495,6 +1539,12 @@
             "id": "denoising-schedule",
             "title": "Denoising Schedule",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prosody-control",
+            "title": "Prosody Control",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2134,6 +2184,12 @@
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "speaker-embedding",
+            "title": "Speaker Embedding",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -3920,6 +3976,12 @@
             "title": "Text to Speech",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "vocoder",
+            "title": "Vocoder",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -5289,6 +5351,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "audio-generation",
+            "title": "Audio Generation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "vector-quantization",
             "title": "Vector Quantization",
             "tier": "verified",
@@ -5420,6 +5488,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "audio-generation",
+            "title": "Audio Generation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "calibration",
             "title": "Calibration",
             "tier": "verified",
@@ -5522,6 +5596,12 @@
             "id": "self-reflection",
             "title": "Self-Reflection",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "synthesis-evaluation",
+            "title": "Synthesis Evaluation",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -6143,6 +6223,12 @@
             "id": "differential-privacy",
             "title": "Differential Privacy",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "speaker-embedding",
+            "title": "Speaker Embedding",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -6795,7 +6881,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "speech-tokenization",
+            "title": "Speech Tokenization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "quantization",
@@ -7495,6 +7588,12 @@
             "title": "Shape Specialization",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "streaming-synthesis",
+            "title": "Streaming Synthesis",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -7777,6 +7876,31 @@
           {
             "id": "streaming-asr",
             "title": "Streaming ASR",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "prosody-control",
+      "title": "Prosody Control",
+      "domain": "Synthesis / Control",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "text-to-speech",
+            "title": "Text to Speech",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "classifier-free-guidance",
+            "title": "Classifier-Free Guidance",
             "tier": "verified",
             "reviewed": false
           }
@@ -9277,6 +9401,44 @@
       }
     },
     {
+      "id": "speaker-embedding",
+      "title": "Speaker Embedding",
+      "domain": "Synthesis / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "speech-representation-learning",
+            "title": "Speech Representation Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "voice-conversion",
+            "title": "Voice Conversion",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "membership-inference",
+            "title": "Membership Inference",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "spectrogram",
       "title": "Spectrogram",
       "domain": "Speech / Representation",
@@ -9306,6 +9468,12 @@
             "id": "text-to-speech",
             "title": "Text to Speech",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vocoder",
+            "title": "Vocoder",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -9376,7 +9544,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "speaker-embedding",
+            "title": "Speaker Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "contrastive-learning",
@@ -9405,6 +9580,44 @@
           {
             "id": "vector-quantization",
             "title": "Vector Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "speech-tokenization",
+      "title": "Speech Tokenization",
+      "domain": "Synthesis / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "neural-audio-codec",
+            "title": "Neural Audio Codec",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vector-quantization",
+            "title": "Vector Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "audio-generation",
+            "title": "Audio Generation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "byte-pair-encoding",
+            "title": "Byte-Pair Encoding",
             "tier": "verified",
             "reviewed": false
           }
@@ -9569,6 +9782,43 @@
             "title": "Proprioception",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "streaming-synthesis",
+            "title": "Streaming Synthesis",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "streaming-synthesis",
+      "title": "Streaming Synthesis",
+      "domain": "Synthesis / Serving",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "text-to-speech",
+            "title": "Text to Speech",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "prefill-and-decode",
+            "title": "Prefill and Decode",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "streaming-asr",
+            "title": "Streaming ASR",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -9648,6 +9898,43 @@
           {
             "id": "logistic-regression",
             "title": "Logistic Regression",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "synthesis-evaluation",
+      "title": "Synthesis Evaluation",
+      "domain": "Synthesis / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "text-to-speech",
+            "title": "Text to Speech",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "word-error-rate",
+            "title": "Word Error Rate",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "annotation-quality",
+            "title": "Annotation Quality",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
             "tier": "verified",
             "reviewed": false
           }
@@ -9894,7 +10181,32 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "prosody-control",
+            "title": "Prosody Control",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "streaming-synthesis",
+            "title": "Streaming Synthesis",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "synthesis-evaluation",
+            "title": "Synthesis Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vocoder",
+            "title": "Vocoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "autoregressive-decoding",
@@ -10498,6 +10810,12 @@
             "reviewed": false
           },
           {
+            "id": "voice-conversion",
+            "title": "Voice Conversion",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "world-model",
             "title": "World Model",
             "tier": "verified",
@@ -10525,6 +10843,12 @@
             "id": "neural-audio-codec",
             "title": "Neural Audio Codec",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "speech-tokenization",
+            "title": "Speech Tokenization",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -10664,6 +10988,75 @@
       }
     },
     {
+      "id": "vocoder",
+      "title": "Vocoder",
+      "domain": "Synthesis / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "spectrogram",
+            "title": "Spectrogram",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "text-to-speech",
+            "title": "Text to Speech",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "voice-conversion",
+            "title": "Voice Conversion",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "generative-adversarial-network",
+            "title": "GAN",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "voice-conversion",
+      "title": "Voice Conversion",
+      "domain": "Synthesis / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "speaker-embedding",
+            "title": "Speaker Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vocoder",
+            "title": "Vocoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "variational-autoencoder",
+            "title": "Variational Autoencoder",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "warmup",
       "title": "Warmup",
       "domain": "Optimization / Schedules",
@@ -10782,7 +11175,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "synthesis-evaluation",
+            "title": "Synthesis Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "calibration",
@@ -11533,22 +11933,29 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "synthesis-evaluation",
+          "title": "Synthesis Evaluation",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "teleoperation-data",
           "title": "Teleoperation Data",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -11567,6 +11974,12 @@
         {
           "from": "annotation-quality",
           "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "annotation-quality",
+          "to": "synthesis-evaluation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -11903,6 +12316,59 @@
           "from": "kv-cache",
           "to": "attention-sink",
           "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "audio-generation",
+      "center": {
+        "id": "audio-generation",
+        "title": "Audio Generation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "speech-tokenization",
+          "title": "Speech Tokenization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "latent-diffusion",
+          "title": "Latent Diffusion",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "likelihood-vs-sample-quality",
+          "title": "Likelihood vs Sample Quality",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "speech-tokenization",
+          "to": "audio-generation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "audio-generation",
+          "to": "latent-diffusion",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "audio-generation",
+          "to": "likelihood-vs-sample-quality",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -12804,6 +13270,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "speech-tokenization",
+          "title": "Speech Tokenization",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -12811,6 +13284,12 @@
           "from": "tokenization",
           "to": "byte-pair-encoding",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "byte-pair-encoding",
+          "to": "speech-tokenization",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -13521,15 +14000,22 @@
           "id": "activation-steering",
           "title": "Activation Steering",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "denoising-schedule",
           "title": "Denoising Schedule",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "prosody-control",
+          "title": "Prosody Control",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -13548,6 +14034,12 @@
         {
           "from": "classifier-free-guidance",
           "to": "denoising-schedule",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "classifier-free-guidance",
+          "to": "prosody-control",
           "type": "adjacent",
           "reviewed": false
         }
@@ -14633,14 +15125,21 @@
           "title": "CLIP",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "dense-retrieval",
           "title": "Dense Retrieval",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "speaker-embedding",
+          "title": "Speaker Embedding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "few-shot-learning",
@@ -14713,6 +15212,12 @@
         {
           "from": "contrastive-learning",
           "to": "dense-retrieval",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "contrastive-learning",
+          "to": "speaker-embedding",
           "type": "unlocks",
           "reviewed": false
         },
@@ -17854,8 +18359,15 @@
           "id": "text-to-speech",
           "title": "Text to Speech",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "vocoder",
+          "title": "Vocoder",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -17874,6 +18386,12 @@
         {
           "from": "generative-adversarial-network",
           "to": "text-to-speech",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "generative-adversarial-network",
+          "to": "vocoder",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20292,11 +20810,18 @@
           "y": 88
         },
         {
+          "id": "audio-generation",
+          "title": "Audio Generation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "vector-quantization",
           "title": "Vector Quantization",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -20310,6 +20835,12 @@
           "from": "diffusion-model",
           "to": "latent-diffusion",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "latent-diffusion",
+          "to": "audio-generation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20523,18 +21054,25 @@
           "y": 66
         },
         {
+          "id": "audio-generation",
+          "title": "Audio Generation",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -20542,6 +21080,12 @@
           "from": "mode-collapse",
           "to": "likelihood-vs-sample-quality",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "likelihood-vs-sample-quality",
+          "to": "audio-generation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20645,43 +21189,50 @@
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 34,
+          "x": 30,
           "y": 22
         },
         {
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 69,
+          "x": 60,
           "y": 110
         },
         {
           "id": "counterfactual",
           "title": "Counterfactual",
           "tier": "verified",
-          "x": 103,
+          "x": 90,
           "y": 22
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 137,
+          "x": 120,
           "y": 110
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
-          "x": 171,
+          "x": 150,
           "y": 22
         },
         {
           "id": "self-reflection",
           "title": "Self-Reflection",
           "tier": "verified",
-          "x": 206,
+          "x": 180,
           "y": 110
+        },
+        {
+          "id": "synthesis-evaluation",
+          "title": "Synthesis Evaluation",
+          "tier": "frontier",
+          "x": 210,
+          "y": 22
         }
       ],
       "links": [
@@ -20724,6 +21275,12 @@
         {
           "from": "llm-as-judge",
           "to": "self-reflection",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "synthesis-evaluation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -21812,8 +22369,15 @@
           "id": "differential-privacy",
           "title": "Differential Privacy",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "speaker-embedding",
+          "title": "Speaker Embedding",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -21832,6 +22396,12 @@
         {
           "from": "membership-inference",
           "to": "differential-privacy",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "membership-inference",
+          "to": "speaker-embedding",
           "type": "adjacent",
           "reviewed": false
         }
@@ -22946,6 +23516,13 @@
           "y": 88
         },
         {
+          "id": "speech-tokenization",
+          "title": "Speech Tokenization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "quantization",
           "title": "Quantization",
           "tier": "verified",
@@ -22978,6 +23555,12 @@
           "from": "vector-quantization",
           "to": "neural-audio-codec",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "neural-audio-codec",
+          "to": "speech-tokenization",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -24176,15 +24759,22 @@
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "shape-specialization",
           "title": "Shape Specialization",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "streaming-synthesis",
+          "title": "Streaming Synthesis",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -24209,6 +24799,12 @@
         {
           "from": "prefill-and-decode",
           "to": "shape-specialization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prefill-and-decode",
+          "to": "streaming-synthesis",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24723,6 +25319,46 @@
         {
           "from": "proprioception",
           "to": "streaming-asr",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "prosody-control",
+      "center": {
+        "id": "prosody-control",
+        "title": "Prosody Control",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "text-to-speech",
+          "title": "Text to Speech",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "classifier-free-guidance",
+          "title": "Classifier-Free Guidance",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "text-to-speech",
+          "to": "prosody-control",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "prosody-control",
+          "to": "classifier-free-guidance",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27381,6 +28017,72 @@
       ]
     },
     {
+      "id": "speaker-embedding",
+      "center": {
+        "id": "speaker-embedding",
+        "title": "Speaker Embedding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "speech-representation-learning",
+          "title": "Speech Representation Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "voice-conversion",
+          "title": "Voice Conversion",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "membership-inference",
+          "title": "Membership Inference",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "contrastive-learning",
+          "to": "speaker-embedding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "speech-representation-learning",
+          "to": "speaker-embedding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "speaker-embedding",
+          "to": "voice-conversion",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "speaker-embedding",
+          "to": "membership-inference",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "spectrogram",
       "center": {
         "id": "spectrogram",
@@ -27395,28 +28097,35 @@
           "title": "Speech Recognition",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 22
         },
         {
           "id": "connectionist-temporal-classification",
           "title": "CTC",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 44
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 66
         },
         {
           "id": "text-to-speech",
           "title": "Text to Speech",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 88
+        },
+        {
+          "id": "vocoder",
+          "title": "Vocoder",
+          "tier": "frontier",
+          "x": 200,
+          "y": 110
         },
         {
           "id": "patch-embedding",
@@ -27455,6 +28164,12 @@
         {
           "from": "spectrogram",
           "to": "text-to-speech",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "spectrogram",
+          "to": "vocoder",
           "type": "unlocks",
           "reviewed": false
         },
@@ -27550,6 +28265,13 @@
           "y": 88
         },
         {
+          "id": "speaker-embedding",
+          "title": "Speaker Embedding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
@@ -27600,6 +28322,12 @@
         },
         {
           "from": "speech-representation-learning",
+          "to": "speaker-embedding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "speech-representation-learning",
           "to": "contrastive-learning",
           "type": "adjacent",
           "reviewed": false
@@ -27625,6 +28353,72 @@
         {
           "from": "speech-representation-learning",
           "to": "vector-quantization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "speech-tokenization",
+      "center": {
+        "id": "speech-tokenization",
+        "title": "Speech Tokenization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "neural-audio-codec",
+          "title": "Neural Audio Codec",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "vector-quantization",
+          "title": "Vector Quantization",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "audio-generation",
+          "title": "Audio Generation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "byte-pair-encoding",
+          "title": "Byte-Pair Encoding",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "neural-audio-codec",
+          "to": "speech-tokenization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vector-quantization",
+          "to": "speech-tokenization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "speech-tokenization",
+          "to": "audio-generation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "speech-tokenization",
+          "to": "byte-pair-encoding",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27888,15 +28682,22 @@
           "id": "causal-masking",
           "title": "Causal Masking",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "proprioception",
           "title": "Proprioception",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "streaming-synthesis",
+          "title": "Streaming Synthesis",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -27915,6 +28716,65 @@
         {
           "from": "streaming-asr",
           "to": "proprioception",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "streaming-asr",
+          "to": "streaming-synthesis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "streaming-synthesis",
+      "center": {
+        "id": "streaming-synthesis",
+        "title": "Streaming Synthesis",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "text-to-speech",
+          "title": "Text to Speech",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "prefill-and-decode",
+          "title": "Prefill and Decode",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "streaming-asr",
+          "title": "Streaming ASR",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "text-to-speech",
+          "to": "streaming-synthesis",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "streaming-synthesis",
+          "to": "prefill-and-decode",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "streaming-synthesis",
+          "to": "streaming-asr",
           "type": "adjacent",
           "reviewed": false
         }
@@ -28048,6 +28908,72 @@
         {
           "from": "support-vector-machine",
           "to": "logistic-regression",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "synthesis-evaluation",
+      "center": {
+        "id": "synthesis-evaluation",
+        "title": "Synthesis Evaluation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "text-to-speech",
+          "title": "Text to Speech",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "word-error-rate",
+          "title": "Word Error Rate",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "annotation-quality",
+          "title": "Annotation Quality",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "text-to-speech",
+          "to": "synthesis-evaluation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "word-error-rate",
+          "to": "synthesis-evaluation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "synthesis-evaluation",
+          "to": "annotation-quality",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "synthesis-evaluation",
+          "to": "llm-as-judge",
           "type": "adjacent",
           "reviewed": false
         }
@@ -28467,6 +29393,34 @@
           "y": 66
         },
         {
+          "id": "prosody-control",
+          "title": "Prosody Control",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
+          "id": "streaming-synthesis",
+          "title": "Streaming Synthesis",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "synthesis-evaluation",
+          "title": "Synthesis Evaluation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "vocoder",
+          "title": "Vocoder",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        },
+        {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
           "tier": "verified",
@@ -28500,6 +29454,30 @@
           "from": "spectrogram",
           "to": "text-to-speech",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "text-to-speech",
+          "to": "prosody-control",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "text-to-speech",
+          "to": "streaming-synthesis",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "text-to-speech",
+          "to": "synthesis-evaluation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "text-to-speech",
+          "to": "vocoder",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -29519,22 +30497,29 @@
           "id": "diffusion-model",
           "title": "Diffusion Model",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "kl-divergence",
           "title": "KL Divergence",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "voice-conversion",
+          "title": "Voice Conversion",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "world-model",
           "title": "World Model",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -29576,6 +30561,12 @@
         },
         {
           "from": "variational-autoencoder",
+          "to": "voice-conversion",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "variational-autoencoder",
           "to": "world-model",
           "type": "adjacent",
           "reviewed": false
@@ -29604,7 +30595,14 @@
           "title": "Neural Audio Codec",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "speech-tokenization",
+          "title": "Speech Tokenization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "latent-diffusion",
@@ -29638,6 +30636,12 @@
         {
           "from": "vector-quantization",
           "to": "neural-audio-codec",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vector-quantization",
+          "to": "speech-tokenization",
           "type": "unlocks",
           "reviewed": false
         },
@@ -29860,6 +30864,125 @@
       ]
     },
     {
+      "id": "vocoder",
+      "center": {
+        "id": "vocoder",
+        "title": "Vocoder",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "spectrogram",
+          "title": "Spectrogram",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "text-to-speech",
+          "title": "Text to Speech",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "voice-conversion",
+          "title": "Voice Conversion",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "generative-adversarial-network",
+          "title": "GAN",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "spectrogram",
+          "to": "vocoder",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "text-to-speech",
+          "to": "vocoder",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vocoder",
+          "to": "voice-conversion",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vocoder",
+          "to": "generative-adversarial-network",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "voice-conversion",
+      "center": {
+        "id": "voice-conversion",
+        "title": "Voice Conversion",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "speaker-embedding",
+          "title": "Speaker Embedding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "vocoder",
+          "title": "Vocoder",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "variational-autoencoder",
+          "title": "Variational Autoencoder",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "speaker-embedding",
+          "to": "voice-conversion",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vocoder",
+          "to": "voice-conversion",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "voice-conversion",
+          "to": "variational-autoencoder",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "warmup",
       "center": {
         "id": "warmup",
@@ -30074,6 +31197,13 @@
           "y": 66
         },
         {
+          "id": "synthesis-evaluation",
+          "title": "Synthesis Evaluation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
@@ -30093,6 +31223,12 @@
           "from": "automatic-speech-recognition",
           "to": "word-error-rate",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "word-error-rate",
+          "to": "synthesis-evaluation",
+          "type": "unlocks",
           "reviewed": false
         },
         {
