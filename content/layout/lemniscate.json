@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "superposition",
+      "id": "entropy",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "activation-patching",
+      "id": "mutual-information",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "sparse-autoencoder",
+      "id": "kl-divergence",
       "t": 0.8,
       "label": true
     }
