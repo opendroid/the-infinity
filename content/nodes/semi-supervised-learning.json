@@ -1,0 +1,68 @@
+{
+  "id": "semi-supervised-learning",
+  "title": "Semi-Supervised Learning",
+  "domain": [
+    "Foundations",
+    "Supervised"
+  ],
+  "bodies": {
+    "intuition": "A few labelled examples and an enormous pile of unlabelled ones — which is the situation almost everybody is actually in. The bet is that the unlabelled data says something about the shape of the problem even without answers attached, and that a model can use that shape to do better than the labels alone allow.",
+    "engineer": "What works is unglamorous and consistent: predict a label for an unlabelled example, keep it if the model is confident, train on it as though it were real. Add a strong augmentation so the model must agree with itself under perturbation and the method gets most of the way to the elaborate ones. The failure mode is equally consistent — confident wrong predictions get reinforced, and once a class starts collapsing nothing in the loop notices.",
+    "math": "The gain depends on an assumption about the unlabelled data — that the decision boundary lies in a low-density region, or that nearby points share labels — and where the assumption fails the extra data actively hurts. That is why honest evaluations compare against a supervised baseline given the same total budget rather than the same label count: measured that way a good deal of the reported advantage disappears, and what survives is real and smaller."
+  },
+  "emphasis": {
+    "engineer": "once a class starts collapsing nothing in the loop notices",
+    "math": "measured that way a good deal of the reported advantage disappears"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.4,
+      "threshold": 1.2,
+      "base_rate": 0.5
+    },
+    "param_controls": [
+      {
+        "name": "threshold",
+        "min": -2,
+        "max": 4,
+        "step": 0.25
+      }
+    ],
+    "caption": "Pseudo-labels that are right against ones that are wrong, by the model's confidence. Drag the threshold up to watch the wrong ones fall away and the usable pool shrink with them — every one kept below it is trained on as though it were real."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "self-supervised-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "active-learning",
+        "reviewed": false
+      },
+      {
+        "id": "data-augmentation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2001.07685",
+      "title": "FixMatch: Simplifying Semi-Supervised Learning with Consistency and Confidence",
+      "url": "https://arxiv.org/abs/2001.07685"
+    },
+    {
+      "ref": "arXiv:1804.09170",
+      "title": "Realistic Evaluation of Deep Semi-Supervised Learning Algorithms",
+      "url": "https://arxiv.org/abs/1804.09170"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

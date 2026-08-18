@@ -33,7 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "evidence-lower-bound",
+        "id": "bayesian-inference",
         "reviewed": false
       }
     ],

@@ -1,0 +1,63 @@
+{
+  "id": "active-learning",
+  "title": "Active Learning",
+  "domain": [
+    "Foundations",
+    "Supervised"
+  ],
+  "bodies": {
+    "intuition": "If labels are expensive, do not label at random — let the model choose what to ask about. Points it is unsure of teach it more than points it already handles, so the same annotation budget buys more accuracy. It is the practical consequence of `epistemic-uncertainty`: the uncertainty that shrinks with data tells you where to spend.",
+    "engineer": "Selection by predicted uncertainty is the obvious method and it fails in a specific way: the most uncertain points are disproportionately outliers and mislabelled examples, so a naive loop spends its budget on the parts of the data nobody cares about. The fixes add diversity — pick a batch that is uncertain and spread out rather than uncertain and clustered — which matters more once you are labelling in batches, which everybody is.",
+    "math": "The gain over random selection is largest early and shrinks as the labelled set grows, because the whole advantage comes from redundancy in what random sampling would have picked and there is less of it left each round. So the curve to plot is accuracy against labels for both strategies, and the useful number is the gap — reported as a saving in labels at a fixed accuracy rather than an accuracy at a fixed budget, since a budget is what the person paying actually holds fixed."
+  },
+  "emphasis": {
+    "engineer": "a naive loop spends its budget on the parts of the data nobody cares about",
+    "math": "the whole advantage comes from redundancy in what random sampling would have picked"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "labels_saved": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "labels_saved",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Labels active selection did not need, against the labels it did, in labels. Drag the saving up to watch the budget stretch — the gain is largest early and shrinks as the labelled set grows, because it comes from redundancy that gets used up."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "epistemic-uncertainty",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "annotation-quality",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.02910",
+      "title": "Deep Bayesian Active Learning with Image Data",
+      "url": "https://arxiv.org/abs/1703.02910"
+    },
+    {
+      "ref": "arXiv:1206.5533",
+      "title": "Practical recommendations for gradient-based training of deep architectures",
+      "url": "https://arxiv.org/abs/1206.5533"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

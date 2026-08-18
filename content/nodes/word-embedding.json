@@ -1,0 +1,63 @@
+{
+  "id": "word-embedding",
+  "title": "Word Embedding",
+  "domain": [
+    "Foundations",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "A word becomes a vector, and words used in similar contexts end up near each other — not because anyone described their meanings, but because the vectors were fitted to predict the company each word keeps. That a purely distributional procedure recovers something that behaves like meaning is the surprising part, and it is the observation everything since rests on.",
+    "engineer": "The distinction from `token-embedding` is what the vector belongs to. This is a static table: one vector per word type, the same in every sentence, computed once. That is exactly its limitation — a word with two senses gets one vector that is the average of both, and no context can move it. Contextual embeddings, which is what a transformer produces at every layer, dissolve that limitation and are why the static kind became a teaching example rather than a component.",
+    "math": "The famous arithmetic — that vector offsets encode relations — works because the training objective is a factorisation of a co-occurrence statistic, and offsets in the factorised space correspond to ratios of co-occurrence probabilities. It works partially and is oversold: analogy accuracy is much better on frequent, concrete relations than on anything else, and the standard evaluation excludes the query word from the answers, which flatters it more than most reports say."
+  },
+  "emphasis": {
+    "intuition": "not because anyone described their meanings, but because the vectors were fitted to predict the company each word keeps",
+    "math": "the standard evaluation excludes the query word from the answers, which flatters it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "senses_collapsed": 8,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "senses_collapsed",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Word senses sharing one static vector, against the senses that had it to themselves, in senses. Drag the collapsed count up to watch the table average meanings together — no context can pull them apart, which is what contextual embeddings were for."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "token-embedding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1301.3781",
+      "title": "Efficient Estimation of Word Representations in Vector Space",
+      "url": "https://arxiv.org/abs/1301.3781"
+    },
+    {
+      "ref": "arXiv:1310.4546",
+      "title": "Distributed Representations of Words and Phrases and their Compositionality",
+      "url": "https://arxiv.org/abs/1310.4546"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "id": "bayesian-inference",
+  "title": "Bayesian Inference",
+  "domain": [
+    "Foundations",
+    "Statistics"
+  ],
+  "bodies": {
+    "intuition": "Start with what you believed before, weigh it by how well each possibility explains what you saw, and end with what you believe now. The output is not an answer but a distribution over answers — which is the whole appeal, because it carries how sure you are alongside what you think.",
+    "engineer": "The practical objection is that the update requires an integral nobody can compute for any interesting model, so everything shipped is an approximation: sampling from the posterior, fitting a simpler distribution to it, or approximating it locally around a maximum. Each is a different way of being wrong, and choosing between them is most of applied Bayesian work. The other objection is the prior, which is a genuine input and cannot be avoided — declining to state one is choosing a flat one, which is a claim rather than an abstention.",
+    "math": "Posterior ∝ likelihood × prior, and the constant of proportionality is the integral that makes it hard. What the shape gives you is a clean account of how evidence accumulates: with a conjugate prior worth κ observations and n real ones, the data's share of the posterior is n/(n+κ), which rises steeply and then crawls. That is `epistemic-uncertainty`'s figure and it is why the tenth example is worth more than the thousandth — the same arithmetic that makes early data valuable makes the last of the uncertainty expensive."
+  },
+  "emphasis": {
+    "intuition": "it carries how sure you are alongside what you think",
+    "engineer": "declining to state one is choosing a flat one, which is a claim rather than an abstention"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "observations": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "observations",
+        "min": 0,
+        "max": 104,
+        "step": 4
+      }
+    ],
+    "caption": "The share of the posterior the data has bought, against a prior worth twenty observations. Drag the observations up to watch evidence take over — steeply at first and then barely, which is why the last of the uncertainty costs the most."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "maximum-likelihood",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "variational-autoencoder",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1506.02142",
+      "title": "Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning",
+      "url": "https://arxiv.org/abs/1506.02142"
+    },
+    {
+      "ref": "arXiv:1312.6114",
+      "title": "Auto-Encoding Variational Bayes",
+      "url": "https://arxiv.org/abs/1312.6114"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Bayes 1763",
+      "title": "An Essay towards Solving a Problem in the Doctrine of Chances",
+      "venue": "Philosophical Transactions of the Royal Society 53",
+      "doi": "10.1098/rstl.1763.0053"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

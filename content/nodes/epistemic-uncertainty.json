@@ -33,7 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "entropy",
+        "id": "bayesian-inference",
         "reviewed": false
       }
     ],

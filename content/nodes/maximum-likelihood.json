@@ -1,0 +1,71 @@
+{
+  "id": "maximum-likelihood",
+  "title": "Maximum Likelihood",
+  "domain": [
+    "Foundations",
+    "Statistics"
+  ],
+  "bodies": {
+    "intuition": "Pick the parameters that make the data you actually observed as probable as possible. It is the answer to \"how should I fit this?\" that almost everything in the corpus is an instance of — and once you see it, cross-entropy, next-token prediction and most of the loss functions here stop looking like separate inventions.",
+    "engineer": "Training a language model to predict the next token IS maximum likelihood, with the corpus as the data and the softmax as the model. So is fitting a linear regression under Gaussian noise, which is where least squares comes from rather than from anywhere geometric. Recognising this is practical rather than decorative: it tells you what a loss assumes about the noise, and a loss whose implied assumption is wrong for your data will be confidently wrong in a specific direction.",
+    "math": "Maximising the likelihood of independent observations means maximising a product, which underflows immediately, so the log is taken and the product becomes a sum — and maximising that sum is minimising its negative, which is cross-entropy. The three names describe one quantity. The estimator is consistent and asymptotically efficient under its assumptions, and it has no penalty for complexity whatsoever: it will fit noise exactly if the model can, which is why every practical version adds something the principle itself does not contain."
+  },
+  "emphasis": {
+    "intuition": "stop looking like separate inventions",
+    "math": "it has no penalty for complexity whatsoever"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "parameters_free": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "parameters_free",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Parameters the fit is free to spend on the observed data, against the data constraining them, in equal units. Drag the free parameters up to watch the fit stop being constrained — the principle contains nothing that stops this, which is why every practical version adds a term it does not have."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "minimum-description-length",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1206.6426",
+      "title": "A fast and simple algorithm for training neural probabilistic language models",
+      "url": "https://arxiv.org/abs/1206.6426"
+    },
+    {
+      "ref": "arXiv:1312.6114",
+      "title": "Auto-Encoding Variational Bayes",
+      "url": "https://arxiv.org/abs/1312.6114"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Fisher 1922",
+      "title": "On the Mathematical Foundations of Theoretical Statistics",
+      "venue": "Philosophical Transactions of the Royal Society A 222",
+      "doi": "10.1098/rsta.1922.0009"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -8,11 +8,11 @@
   "bodies": {
     "intuition": "A recurrent cell with a deliberate path for information to travel a long way unchanged. Rather than rewriting its state at every step, it keeps a running cell state and uses learned gates to decide what to forget, what to add, and what to expose — so remembering something for a thousand steps is the default rather than an accident that survives.",
     "engineer": "The gates are the design and the cell state is the point. A plain recurrent network multiplies its state by a matrix at every step, which is exactly the repeated multiplication that destroys the gradient; the cell state is added to instead, so the path back through time has a multiplier near one. The simplified variants that merged the gates work nearly as well on most tasks, which suggests the specific gating was less important than having a linear path at all.",
-    "math": "The forget gate sets the multiplier on the carried state, so a gate near one gives a near-identity path and the gradient survives an arbitrary number of steps along it. That converts an exponential decay into something the network controls — which is the same trick a residual connection plays in depth, arrived at four years earlier and in time rather than in layers. Neither removes the problem; both give the optimiser a route around it."
+    "math": "The forget gate sets the multiplier on the carried state, so a gate near one gives a near-identity path and the gradient survives an arbitrary number of steps along it. That converts an exponential decay into something the network controls — which is the same trick a residual connection plays in depth, arrived at eighteen years earlier and in time rather than in layers. Neither removes the problem; both give the optimiser a route around it."
   },
   "emphasis": {
     "intuition": "remembering something for a thousand steps is the default rather than an accident that survives",
-    "math": "the same trick a residual connection plays in depth, arrived at four years earlier and in time rather than in layers"
+    "math": "the same trick a residual connection plays in depth, arrived at eighteen years earlier and in time rather than in layers"
   },
   "viz": {
     "primitive": "budget-split",
@@ -65,7 +65,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
