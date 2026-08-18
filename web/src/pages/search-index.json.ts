@@ -13,6 +13,7 @@
  * and an index in the critical path would trade that away for a feature most
  * readers never use on any given page.
  */
+import { gzipSync } from 'node:zlib';
 import type { APIRoute } from 'astro';
 import { allNodes } from '../lib/content';
 import { buildIndex } from '../lib/search';
@@ -21,11 +22,22 @@ export const GET: APIRoute = () => {
   const index = buildIndex(allNodes);
   const body = JSON.stringify(index);
 
-  // #45 budgets roughly 30 KB. Printed rather than merely asserted: a budget
-  // nobody sees is a budget nobody defends, and this is the number that decides
-  // whether the client-side approach still makes sense as the graph grows.
-  const kb = (Buffer.byteLength(body) / 1024).toFixed(1);
-  console.log(`search index → ${index.length} concepts, ${kb} KB`);
+  // Printed rather than merely asserted: a budget nobody sees is a budget nobody
+  // defends, and this is the number that decides whether the client-side approach
+  // still makes sense as the graph grows.
+  //
+  // GZIPPED IS THE NUMBER THAT DECIDES IT, so it leads. Hosting compresses this
+  // response, so raw bytes are what the build allocates and gzipped bytes are what
+  // the reader waits for — and the two do not move together. Restructuring the
+  // index to intern its repeated domain strings cuts the raw figure by 29% and
+  // makes the transferred figure worse; the measurements are in search.test.ts
+  // (#254). Raw is kept alongside because a sudden divergence between them means
+  // the entries stopped being repetitive, which is worth seeing.
+  const kb = (n: number) => (n / 1024).toFixed(1);
+  const wire = gzipSync(body, { level: 9 }).length;
+  console.log(
+    `search index → ${index.length} concepts, ${kb(wire)} KB gzipped (${kb(Buffer.byteLength(body))} KB raw)`,
+  );
 
   return new Response(body, {
     headers: {

@@ -1,0 +1,62 @@
+{
+  "id": "code-switching",
+  "title": "Code-Switching",
+  "domain": [
+    "Multilingual",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "People switch languages mid-sentence, and they do it by rules rather than at random. Most multilingual systems are built as though each input has one language — a language identifier at the front, a tokenizer tuned for it — and that assumption breaks on a great deal of ordinary speech and writing.",
+    "engineer": "The failure is architectural rather than statistical: a pipeline that identifies a language and then routes has already lost, because there is no single answer to route on. Models trained on monolingual data handle switching poorly and there is little natural code-switched text to train on, so the data problem and the modelling problem reinforce each other.",
+    "math": "Switching happens at syntactically licensed points rather than uniformly, so a model that treats it as noise learns the wrong distribution. Evaluation needs matrix-language and embedded-language accuracy reported separately, since an average hides that a system may handle the dominant language and drop the other entirely."
+  },
+  "emphasis": {
+    "intuition": "they do it by rules rather than at random",
+    "engineer": "the data problem and the modelling problem reinforce each other"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "switched_tokens": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "switched_tokens",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Tokens from the embedded language against tokens from the matrix language, in tokens. Drag the switching up to watch the single-language assumption fail — a router had to pick one before any of this was visible."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "multilingual-model",
+        "reviewed": false
+      },
+      {
+        "id": "tokenization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "tokenizer-fairness",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2003.11080",
+      "title": "XTREME: A Massively Multilingual Multi-task Benchmark for Evaluating Cross-lingual Generalization",
+      "url": "https://arxiv.org/abs/2003.11080"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

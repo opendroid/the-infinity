@@ -1,0 +1,66 @@
+{
+  "id": "machine-translation",
+  "title": "Machine Translation",
+  "domain": [
+    "Multilingual",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "The task that produced the encoder-decoder, attention, and eventually the transformer. It is also the task where evaluation is hardest to take seriously: there are many correct translations of a sentence, and the standard automatic metric compares against one or two of them by counting shared word sequences.",
+    "engineer": "BLEU is known to be a poor proxy for quality and remains the reported number because it is cheap and comparable to a decade of prior work. Learned metrics correlate far better with human judgement and are not comparable across papers that use different versions of them. Both facts are true at once, which is why the field reports BLEU and argues about it rather than replacing it.",
+    "math": "BLEU is a geometric mean of n-gram precisions with a brevity penalty, so it rewards matching the reference's phrasing rather than conveying its meaning — a correct translation using different words scores badly. Score differences below roughly one point are not meaningful, and papers routinely report differences smaller than that."
+  },
+  "emphasis": {
+    "intuition": "counting shared word sequences",
+    "engineer": "the field reports BLEU and argues about it rather than replacing it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "reference_overlap": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "reference_overlap",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Output that matches the reference's exact phrasing against output that conveys the same meaning differently, in n-grams. Drag the overlap up to watch the score rise — the second kind of output is correct and scores nothing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "encoder-decoder",
+        "reviewed": false
+      },
+      {
+        "id": "cross-attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "word-error-rate",
+        "reviewed": false
+      },
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2207.04672",
+      "title": "No Language Left Behind: Scaling Human-Centered Machine Translation",
+      "url": "https://arxiv.org/abs/2207.04672"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

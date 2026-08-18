@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "grokking",
+      "id": "voice-conversion",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "sharpness",
+      "id": "vocoder",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "double-descent",
+      "id": "audio-generation",
       "t": 0.8,
       "label": true
     }

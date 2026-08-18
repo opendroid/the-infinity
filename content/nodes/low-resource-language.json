@@ -1,0 +1,71 @@
+{
+  "id": "low-resource-language",
+  "title": "Low-Resource Language",
+  "domain": [
+    "Multilingual",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Most of the world's languages have almost no digital text. For them the usual recipe — scrape a corpus, train, evaluate on a benchmark — fails at every step, and the small amount of text that does exist is often religious material or machine translation output, which teaches a model the wrong register and sometimes its own errors.",
+    "engineer": "Corpus quality is a bigger problem than corpus size here: automatically crawled low-resource corpora have been audited and found to contain large fractions of misidentified or non-linguistic content. Language identification itself fails on exactly the languages that need it most, so filters trained to keep good text discard the language entirely. Evaluation sets are frequently translations of English ones, which measures something narrower than it appears to.",
+    "math": "Data volume follows a steep power law across languages, so the median language has orders of magnitude less text than the mean suggests. Under `data-scaling-laws` a language below the repetition limit cannot reach a given loss by training longer — the constraint is unique tokens, and no schedule manufactures them."
+  },
+  "emphasis": {
+    "intuition": "teaches a model the wrong register and sometimes its own errors",
+    "engineer": "filters trained to keep good text discard the language entirely"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "usable_text": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "usable_text",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Crawled text that survives an audit against text that turns out to be misidentified or machine-generated, in documents. Drag the usable share up to watch the corpus become real — audits of low-resource crawls put it far left."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "language-imbalance",
+        "reviewed": false
+      },
+      {
+        "id": "data-filtering",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "synthetic-data",
+        "reviewed": false
+      },
+      {
+        "id": "annotation-quality",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2004.09095",
+      "title": "The State and Fate of Linguistic Diversity and Inclusion in the NLP World",
+      "url": "https://arxiv.org/abs/2004.09095"
+    },
+    {
+      "ref": "arXiv:2207.04672",
+      "title": "No Language Left Behind: Scaling Human-Centered Machine Translation",
+      "url": "https://arxiv.org/abs/2207.04672"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

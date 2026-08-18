@@ -408,6 +408,12 @@
             "reviewed": false
           },
           {
+            "id": "low-resource-language",
+            "title": "Low-Resource Language",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "synthesis-evaluation",
             "title": "Synthesis Evaluation",
             "tier": "frontier",
@@ -980,7 +986,7 @@
           {
             "id": "sharpness",
             "title": "Sharpness",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1077,7 +1083,7 @@
           {
             "id": "double-descent",
             "title": "Double Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1123,7 +1129,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "tokenizer-fairness",
+            "title": "Tokenizer Fairness",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "speech-tokenization",
@@ -1579,6 +1592,37 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "code-switching",
+      "title": "Code-Switching",
+      "domain": "Multilingual / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "multilingual-model",
+            "title": "Multilingual Model",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "tokenization",
+            "title": "Tokenization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "tokenizer-fairness",
+            "title": "Tokenizer Fairness",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2056,6 +2100,12 @@
             "title": "Rotary Position Embedding",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "tokenizer-fairness",
+            "title": "Tokenizer Fairness",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -2286,6 +2336,12 @@
             "reviewed": false
           },
           {
+            "id": "machine-translation",
+            "title": "Machine Translation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "vision-language-model",
             "title": "Vision-Language Model",
             "tier": "verified",
@@ -2370,6 +2426,43 @@
           {
             "id": "entropy",
             "title": "Entropy",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross-lingual-transfer",
+      "title": "Cross-Lingual Transfer",
+      "domain": "Multilingual / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "multilingual-model",
+            "title": "Multilingual Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "few-shot-learning",
+            "title": "Few-Shot Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "in-context-learning",
+            "title": "In-Context Learning",
             "tier": "verified",
             "reviewed": false
           }
@@ -2521,6 +2614,12 @@
             "reviewed": false
           },
           {
+            "id": "low-resource-language",
+            "title": "Low-Resource Language",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "synthetic-data",
             "title": "Synthetic Data",
             "tier": "verified",
@@ -2562,6 +2661,12 @@
             "id": "curriculum",
             "title": "Curriculum",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "language-imbalance",
+            "title": "Language Imbalance",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -2678,6 +2783,12 @@
             "title": "Compute-Optimal Training",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "language-imbalance",
+            "title": "Language Imbalance",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -2778,6 +2889,18 @@
             "id": "benchmark-contamination",
             "title": "Benchmark Contamination",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "language-imbalance",
+            "title": "Language Imbalance",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "script-and-orthography",
+            "title": "Script and Orthography",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -3059,7 +3182,7 @@
       "id": "double-descent",
       "title": "Double Descent",
       "domain": "Landscape / Generalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3071,7 +3194,7 @@
           {
             "id": "implicit-regularization",
             "title": "Implicit Regularization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3080,7 +3203,7 @@
           {
             "id": "grokking",
             "title": "Grokking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3163,7 +3286,7 @@
       "id": "edge-of-stability",
       "title": "Edge of Stability",
       "domain": "Landscape / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3175,7 +3298,7 @@
           {
             "id": "sharpness",
             "title": "Sharpness",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3283,7 +3406,7 @@
           {
             "id": "grokking",
             "title": "Grokking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3314,6 +3437,12 @@
             "id": "cross-attention",
             "title": "Cross-Attention",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "machine-translation",
+            "title": "Machine Translation",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -3736,6 +3865,12 @@
             "reviewed": false
           },
           {
+            "id": "cross-lingual-transfer",
+            "title": "Cross-Lingual Transfer",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "in-context-learning",
             "title": "In-Context Learning",
             "tier": "verified",
@@ -3763,6 +3898,12 @@
             "id": "catastrophic-forgetting",
             "title": "Catastrophic Forgetting",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "cross-lingual-transfer",
+            "title": "Cross-Lingual Transfer",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -4109,7 +4250,7 @@
           {
             "id": "edge-of-stability",
             "title": "Edge of Stability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4157,7 +4298,7 @@
           {
             "id": "loss-landscape",
             "title": "Loss Landscape",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4195,7 +4336,7 @@
           {
             "id": "saddle-point",
             "title": "Saddle Point",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4443,7 +4584,7 @@
       "id": "grokking",
       "title": "Grokking",
       "domain": "Landscape / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4464,7 +4605,7 @@
           {
             "id": "double-descent",
             "title": "Double Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4715,13 +4856,13 @@
       "id": "implicit-regularization",
       "title": "Implicit Regularization",
       "domain": "Landscape / Generalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "loss-landscape",
             "title": "Loss Landscape",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4735,7 +4876,7 @@
           {
             "id": "double-descent",
             "title": "Double Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4790,6 +4931,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "cross-lingual-transfer",
+            "title": "Cross-Lingual Transfer",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "few-shot-learning",
             "title": "Few-Shot Learning",
@@ -5329,6 +5476,50 @@
       }
     },
     {
+      "id": "language-imbalance",
+      "title": "Language Imbalance",
+      "domain": "Multilingual / Data",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-mixing",
+            "title": "Data Mixing",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "multilingual-model",
+            "title": "Multilingual Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "low-resource-language",
+            "title": "Low-Resource Language",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "data-scaling-laws",
+            "title": "Data Scaling Laws",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "deduplication",
+            "title": "Deduplication",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "latent-diffusion",
       "title": "Latent Diffusion",
       "domain": "Multimodal / Generation",
@@ -5426,7 +5617,7 @@
           {
             "id": "edge-of-stability",
             "title": "Edge of Stability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5578,6 +5769,12 @@
             "id": "counterfactual",
             "title": "Counterfactual",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "machine-translation",
+            "title": "Machine Translation",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -5835,7 +6032,7 @@
       "id": "loss-landscape",
       "title": "Loss Landscape",
       "domain": "Landscape / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5849,25 +6046,25 @@
           {
             "id": "implicit-regularization",
             "title": "Implicit Regularization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "mode-connectivity",
             "title": "Mode Connectivity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "saddle-point",
             "title": "Saddle Point",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "sharpness",
             "title": "Sharpness",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5900,7 +6097,7 @@
           {
             "id": "mode-connectivity",
             "title": "Mode Connectivity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5944,6 +6141,80 @@
           {
             "id": "muon-optimizer",
             "title": "Muon",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "low-resource-language",
+      "title": "Low-Resource Language",
+      "domain": "Multilingual / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-filtering",
+            "title": "Data Filtering",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "language-imbalance",
+            "title": "Language Imbalance",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "annotation-quality",
+            "title": "Annotation Quality",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "synthetic-data",
+            "title": "Synthetic Data",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "machine-translation",
+      "title": "Machine Translation",
+      "domain": "Multilingual / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-attention",
+            "title": "Cross-Attention",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "encoder-decoder",
+            "title": "Encoder-Decoder",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "word-error-rate",
+            "title": "Word Error Rate",
             "tier": "verified",
             "reviewed": false
           }
@@ -6446,6 +6717,12 @@
         ],
         "adjacent": [
           {
+            "id": "multilingual-model",
+            "title": "Multilingual Model",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "task-interference",
             "title": "Task Interference",
             "tier": "verified",
@@ -6496,13 +6773,13 @@
       "id": "mode-connectivity",
       "title": "Mode Connectivity",
       "domain": "Landscape / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "loss-landscape",
             "title": "Loss Landscape",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6624,7 +6901,7 @@
           {
             "id": "saddle-point",
             "title": "Saddle Point",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6759,6 +7036,56 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "multilingual-model",
+      "title": "Multilingual Model",
+      "domain": "Multilingual / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "code-switching",
+            "title": "Code-Switching",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "cross-lingual-transfer",
+            "title": "Cross-Lingual Transfer",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "language-imbalance",
+            "title": "Language Imbalance",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "mixture-of-experts",
+            "title": "Mixture-of-Experts",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "task-interference",
+            "title": "Task Interference",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -7182,13 +7509,13 @@
           {
             "id": "grokking",
             "title": "Grokking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "implicit-regularization",
             "title": "Implicit Regularization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7650,6 +7977,12 @@
             "reviewed": false
           },
           {
+            "id": "multilingual-model",
+            "title": "Multilingual Model",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "self-supervised-learning",
             "title": "Self-Supervised Learning",
             "tier": "verified",
@@ -7697,7 +8030,7 @@
           {
             "id": "loss-landscape",
             "title": "Loss Landscape",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8638,13 +8971,13 @@
       "id": "saddle-point",
       "title": "Saddle Point",
       "domain": "Landscape / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "loss-landscape",
             "title": "Loss Landscape",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8821,7 +9154,7 @@
           {
             "id": "double-descent",
             "title": "Double Descent",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8854,6 +9187,37 @@
             "id": "entropy",
             "title": "Entropy",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "script-and-orthography",
+      "title": "Script and Orthography",
+      "domain": "Multilingual / Interface",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "tokenization",
+            "title": "Tokenization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "deduplication",
+            "title": "Deduplication",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tokenizer-fairness",
+            "title": "Tokenizer Fairness",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -9131,13 +9495,13 @@
       "id": "sharpness",
       "title": "Sharpness",
       "domain": "Landscape / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "loss-landscape",
             "title": "Loss Landscape",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9145,7 +9509,7 @@
           {
             "id": "edge-of-stability",
             "title": "Edge of Stability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9743,7 +10107,7 @@
           {
             "id": "implicit-regularization",
             "title": "Implicit Regularization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9970,6 +10334,12 @@
             "reviewed": false
           },
           {
+            "id": "low-resource-language",
+            "title": "Low-Resource Language",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "mode-collapse",
             "title": "Mode Collapse",
             "tier": "verified",
@@ -10054,6 +10424,12 @@
             "id": "mixture-of-experts",
             "title": "Mixture-of-Experts",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "multilingual-model",
+            "title": "Multilingual Model",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -10393,9 +10769,21 @@
             "reviewed": false
           },
           {
+            "id": "code-switching",
+            "title": "Code-Switching",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "perplexity",
             "title": "Perplexity",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "script-and-orthography",
+            "title": "Script and Orthography",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -10403,9 +10791,58 @@
             "title": "Token Embedding",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "tokenizer-fairness",
+            "title": "Tokenizer Fairness",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "tokenizer-fairness",
+      "title": "Tokenizer Fairness",
+      "domain": "Multilingual / Interface",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "byte-pair-encoding",
+            "title": "Byte-Pair Encoding",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tokenization",
+            "title": "Tokenization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "code-switching",
+            "title": "Code-Switching",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "script-and-orthography",
+            "title": "Script and Orthography",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -11081,7 +11518,7 @@
           {
             "id": "edge-of-stability",
             "title": "Edge of Stability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11117,7 +11554,7 @@
           {
             "id": "grokking",
             "title": "Grokking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11137,7 +11574,7 @@
           {
             "id": "implicit-regularization",
             "title": "Implicit Regularization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11155,7 +11592,7 @@
           {
             "id": "sharpness",
             "title": "Sharpness",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11188,6 +11625,12 @@
             "id": "calibration",
             "title": "Calibration",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "machine-translation",
+            "title": "Machine Translation",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -11933,29 +12376,36 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
+        },
+        {
+          "id": "low-resource-language",
+          "title": "Low-Resource Language",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         },
         {
           "id": "synthesis-evaluation",
           "title": "Synthesis Evaluation",
           "tier": "frontier",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "teleoperation-data",
           "title": "Teleoperation Data",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -11974,6 +12424,12 @@
         {
           "from": "annotation-quality",
           "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "annotation-quality",
+          "to": "low-resource-language",
           "type": "adjacent",
           "reviewed": false
         },
@@ -12980,7 +13436,7 @@
         {
           "id": "sharpness",
           "title": "Sharpness",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -13182,7 +13638,7 @@
         {
           "id": "double-descent",
           "title": "Double Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -13272,6 +13728,13 @@
           "y": 66
         },
         {
+          "id": "tokenizer-fairness",
+          "title": "Tokenizer Fairness",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "speech-tokenization",
           "title": "Speech Tokenization",
           "tier": "frontier",
@@ -13284,6 +13747,12 @@
           "from": "tokenization",
           "to": "byte-pair-encoding",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "byte-pair-encoding",
+          "to": "tokenizer-fairness",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -14099,6 +14568,59 @@
       ]
     },
     {
+      "id": "code-switching",
+      "center": {
+        "id": "code-switching",
+        "title": "Code-Switching",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "multilingual-model",
+          "title": "Multilingual Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "tokenization",
+          "title": "Tokenization",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "tokenizer-fairness",
+          "title": "Tokenizer Fairness",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "multilingual-model",
+          "to": "code-switching",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "tokenization",
+          "to": "code-switching",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "code-switching",
+          "to": "tokenizer-fairness",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "cold-start",
       "center": {
         "id": "cold-start",
@@ -14855,29 +15377,36 @@
           "id": "grounding",
           "title": "Grounding",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "long-horizon-agent",
           "title": "Long-Horizon Agent",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
         },
         {
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
           "tier": "verified",
-          "x": 144,
+          "x": 120,
           "y": 22
         },
         {
           "id": "rotary-position-embedding",
           "title": "Rotary Position Embedding",
           "tier": "verified",
-          "x": 192,
+          "x": 160,
           "y": 110
+        },
+        {
+          "id": "tokenizer-fairness",
+          "title": "Tokenizer Fairness",
+          "tier": "frontier",
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -14926,6 +15455,12 @@
         {
           "from": "context-window",
           "to": "rotary-position-embedding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "tokenizer-fairness",
           "type": "adjacent",
           "reviewed": false
         }
@@ -15328,14 +15863,21 @@
           "title": "Latent Diffusion",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
+        },
+        {
+          "id": "machine-translation",
+          "title": "Machine Translation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "vision-language-model",
           "title": "Vision-Language Model",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "automatic-speech-recognition",
@@ -15361,6 +15903,12 @@
         {
           "from": "cross-attention",
           "to": "latent-diffusion",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "cross-attention",
+          "to": "machine-translation",
           "type": "unlocks",
           "reviewed": false
         },
@@ -15517,6 +16065,72 @@
         {
           "from": "cross-entropy-loss",
           "to": "entropy",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "cross-lingual-transfer",
+      "center": {
+        "id": "cross-lingual-transfer",
+        "title": "Cross-Lingual Transfer",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "multilingual-model",
+          "title": "Multilingual Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "few-shot-learning",
+          "title": "Few-Shot Learning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "in-context-learning",
+          "title": "In-Context Learning",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "fine-tuning",
+          "to": "cross-lingual-transfer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multilingual-model",
+          "to": "cross-lingual-transfer",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-lingual-transfer",
+          "to": "few-shot-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "cross-lingual-transfer",
+          "to": "in-context-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -15729,35 +16343,42 @@
           "title": "Annotation Quality",
           "tier": "verified",
           "x": 200,
-          "y": 22
+          "y": 19
         },
         {
           "id": "data-mixing",
           "title": "Data Mixing",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 38
         },
         {
           "id": "data-scaling-laws",
           "title": "Data Scaling Laws",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 57
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 75
+        },
+        {
+          "id": "low-resource-language",
+          "title": "Low-Resource Language",
+          "tier": "frontier",
+          "x": 200,
+          "y": 94
         },
         {
           "id": "synthetic-data",
           "title": "Synthetic Data",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 113
         },
         {
           "id": "perplexity",
@@ -15807,6 +16428,12 @@
         },
         {
           "from": "data-filtering",
+          "to": "low-resource-language",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "data-filtering",
           "to": "synthetic-data",
           "type": "unlocks",
           "reviewed": false
@@ -15847,7 +16474,14 @@
           "title": "Curriculum",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "language-imbalance",
+          "title": "Language Imbalance",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "scaling-laws",
@@ -15867,6 +16501,12 @@
         {
           "from": "data-mixing",
           "to": "curriculum",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "data-mixing",
+          "to": "language-imbalance",
           "type": "unlocks",
           "reviewed": false
         },
@@ -16038,8 +16678,15 @@
           "id": "compute-optimal-training",
           "title": "Compute-Optimal Training",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "language-imbalance",
+          "title": "Language Imbalance",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -16058,6 +16705,12 @@
         {
           "from": "data-scaling-laws",
           "to": "compute-optimal-training",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-scaling-laws",
+          "to": "language-imbalance",
           "type": "adjacent",
           "reviewed": false
         }
@@ -16210,14 +16863,28 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 80,
+          "x": 48,
+          "y": 22
+        },
+        {
+          "id": "language-imbalance",
+          "title": "Language Imbalance",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
+        },
+        {
+          "id": "script-and-orthography",
+          "title": "Script and Orthography",
+          "tier": "frontier",
+          "x": 144,
           "y": 22
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
-          "x": 160,
+          "x": 192,
           "y": 110
         }
       ],
@@ -16237,6 +16904,18 @@
         {
           "from": "deduplication",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "deduplication",
+          "to": "language-imbalance",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "deduplication",
+          "to": "script-and-orthography",
           "type": "adjacent",
           "reviewed": false
         },
@@ -16740,7 +17419,7 @@
       "center": {
         "id": "double-descent",
         "title": "Double Descent",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16755,14 +17434,14 @@
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
         {
           "id": "grokking",
           "title": "Grokking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -16925,7 +17604,7 @@
       "center": {
         "id": "edge-of-stability",
         "title": "Edge of Stability",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16940,7 +17619,7 @@
         {
           "id": "sharpness",
           "title": "Sharpness",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -17125,7 +17804,7 @@
         {
           "id": "grokking",
           "title": "Grokking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -17167,14 +17846,21 @@
           "title": "Speech Recognition",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "cross-attention",
           "title": "Cross-Attention",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "machine-translation",
+          "title": "Machine Translation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "decoder-only-transformer",
@@ -17200,6 +17886,12 @@
         {
           "from": "encoder-decoder",
           "to": "cross-attention",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "encoder-decoder",
+          "to": "machine-translation",
           "type": "unlocks",
           "reviewed": false
         },
@@ -17912,15 +18604,22 @@
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "cross-lingual-transfer",
+          "title": "Cross-Lingual Transfer",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -17939,6 +18638,12 @@
         {
           "from": "few-shot-learning",
           "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "few-shot-learning",
+          "to": "cross-lingual-transfer",
           "type": "adjacent",
           "reviewed": false
         },
@@ -17972,49 +18677,56 @@
           "title": "Catastrophic Forgetting",
           "tier": "verified",
           "x": 200,
-          "y": 17
+          "y": 15
+        },
+        {
+          "id": "cross-lingual-transfer",
+          "title": "Cross-Lingual Transfer",
+          "tier": "frontier",
+          "x": 200,
+          "y": 29
         },
         {
           "id": "imitation-learning",
           "title": "Imitation Learning",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 44
         },
         {
           "id": "instruction-tuning",
           "title": "Instruction Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 59
         },
         {
           "id": "lora",
           "title": "LoRA",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 73
         },
         {
           "id": "meta-learning",
           "title": "Meta-Learning",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 88
         },
         {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 103
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 117
         },
         {
           "id": "backdoor-attack",
@@ -18048,6 +18760,12 @@
         {
           "from": "fine-tuning",
           "to": "catastrophic-forgetting",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "cross-lingual-transfer",
           "type": "unlocks",
           "reviewed": false
         },
@@ -18596,7 +19314,7 @@
         {
           "id": "edge-of-stability",
           "title": "Edge of Stability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -18670,7 +19388,7 @@
         {
           "id": "loss-landscape",
           "title": "Loss Landscape",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -18712,7 +19430,7 @@
         {
           "id": "saddle-point",
           "title": "Saddle Point",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -19207,7 +19925,7 @@
       "center": {
         "id": "grokking",
         "title": "Grokking",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19229,7 +19947,7 @@
         {
           "id": "double-descent",
           "title": "Double Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -19683,7 +20401,7 @@
       "center": {
         "id": "implicit-regularization",
         "title": "Implicit Regularization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19691,7 +20409,7 @@
         {
           "id": "loss-landscape",
           "title": "Loss Landscape",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -19705,7 +20423,7 @@
         {
           "id": "double-descent",
           "title": "Double Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -19796,25 +20514,32 @@
           "y": 88
         },
         {
+          "id": "cross-lingual-transfer",
+          "title": "Cross-Lingual Transfer",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "few-shot-learning",
           "title": "Few-Shot Learning",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "meta-learning",
           "title": "Meta-Learning",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -19840,6 +20565,12 @@
           "from": "in-context-learning",
           "to": "induction-head",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "in-context-learning",
+          "to": "cross-lingual-transfer",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20786,6 +21517,85 @@
       ]
     },
     {
+      "id": "language-imbalance",
+      "center": {
+        "id": "language-imbalance",
+        "title": "Language Imbalance",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-mixing",
+          "title": "Data Mixing",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "multilingual-model",
+          "title": "Multilingual Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "low-resource-language",
+          "title": "Low-Resource Language",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "data-scaling-laws",
+          "title": "Data Scaling Laws",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "deduplication",
+          "title": "Deduplication",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "data-mixing",
+          "to": "language-imbalance",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multilingual-model",
+          "to": "language-imbalance",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "language-imbalance",
+          "to": "low-resource-language",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "language-imbalance",
+          "to": "data-scaling-laws",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "language-imbalance",
+          "to": "deduplication",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "latent-diffusion",
       "center": {
         "id": "latent-diffusion",
@@ -20950,7 +21760,7 @@
         {
           "id": "edge-of-stability",
           "title": "Edge of Stability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -21189,50 +21999,57 @@
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 30,
+          "x": 27,
           "y": 22
         },
         {
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 60,
+          "x": 53,
           "y": 110
         },
         {
           "id": "counterfactual",
           "title": "Counterfactual",
           "tier": "verified",
-          "x": 90,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "machine-translation",
+          "title": "Machine Translation",
+          "tier": "frontier",
+          "x": 107,
+          "y": 110
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 133,
+          "y": 22
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
-          "x": 150,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "self-reflection",
           "title": "Self-Reflection",
           "tier": "verified",
-          "x": 180,
-          "y": 110
+          "x": 187,
+          "y": 22
         },
         {
           "id": "synthesis-evaluation",
           "title": "Synthesis Evaluation",
           "tier": "frontier",
-          "x": 210,
-          "y": 22
+          "x": 213,
+          "y": 110
         }
       ],
       "links": [
@@ -21257,6 +22074,12 @@
         {
           "from": "llm-as-judge",
           "to": "counterfactual",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "machine-translation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -21699,7 +22522,7 @@
       "center": {
         "id": "loss-landscape",
         "title": "Loss Landscape",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -21714,28 +22537,28 @@
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
         {
           "id": "mode-connectivity",
           "title": "Mode Connectivity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
         {
           "id": "saddle-point",
           "title": "Saddle Point",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
         {
           "id": "sharpness",
           "title": "Sharpness",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -21806,7 +22629,7 @@
         {
           "id": "mode-connectivity",
           "title": "Mode Connectivity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -21900,6 +22723,138 @@
         {
           "from": "low-rank-factorization",
           "to": "muon-optimizer",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "low-resource-language",
+      "center": {
+        "id": "low-resource-language",
+        "title": "Low-Resource Language",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-filtering",
+          "title": "Data Filtering",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "language-imbalance",
+          "title": "Language Imbalance",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "annotation-quality",
+          "title": "Annotation Quality",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "synthetic-data",
+          "title": "Synthetic Data",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "data-filtering",
+          "to": "low-resource-language",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "language-imbalance",
+          "to": "low-resource-language",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "low-resource-language",
+          "to": "annotation-quality",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "low-resource-language",
+          "to": "synthetic-data",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "machine-translation",
+      "center": {
+        "id": "machine-translation",
+        "title": "Machine Translation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-attention",
+          "title": "Cross-Attention",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "encoder-decoder",
+          "title": "Encoder-Decoder",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "word-error-rate",
+          "title": "Word Error Rate",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-attention",
+          "to": "machine-translation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "encoder-decoder",
+          "to": "machine-translation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "machine-translation",
+          "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "machine-translation",
+          "to": "word-error-rate",
           "type": "adjacent",
           "reviewed": false
         }
@@ -22756,11 +23711,18 @@
           "y": 66
         },
         {
+          "id": "multilingual-model",
+          "title": "Multilingual Model",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "task-interference",
           "title": "Task Interference",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -22780,6 +23742,12 @@
           "from": "mixture-of-experts",
           "to": "expert-parallelism",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "mixture-of-experts",
+          "to": "multilingual-model",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -22861,7 +23829,7 @@
       "center": {
         "id": "mode-connectivity",
         "title": "Mode Connectivity",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -22869,7 +23837,7 @@
         {
           "id": "loss-landscape",
           "title": "Loss Landscape",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -23062,7 +24030,7 @@
         {
           "id": "saddle-point",
           "title": "Saddle Point",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -23315,6 +24283,98 @@
           "from": "multi-query-attention",
           "to": "grouped-query-attention",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "multilingual-model",
+      "center": {
+        "id": "multilingual-model",
+        "title": "Multilingual Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "code-switching",
+          "title": "Code-Switching",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "cross-lingual-transfer",
+          "title": "Cross-Lingual Transfer",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "language-imbalance",
+          "title": "Language Imbalance",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        },
+        {
+          "id": "mixture-of-experts",
+          "title": "Mixture-of-Experts",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "task-interference",
+          "title": "Task Interference",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "pretraining",
+          "to": "multilingual-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multilingual-model",
+          "to": "code-switching",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "multilingual-model",
+          "to": "cross-lingual-transfer",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "multilingual-model",
+          "to": "language-imbalance",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "multilingual-model",
+          "to": "mixture-of-experts",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "multilingual-model",
+          "to": "task-interference",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -24040,14 +25100,14 @@
         {
           "id": "grokking",
           "title": "Grokking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 57
         },
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 75
         },
@@ -24839,49 +25899,56 @@
           "title": "Benchmark Contamination",
           "tier": "verified",
           "x": 200,
-          "y": 17
+          "y": 15
         },
         {
           "id": "data-filtering",
           "title": "Data Filtering",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 29
         },
         {
           "id": "data-poisoning",
           "title": "Data Poisoning",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 44
         },
         {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 59
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 73
+        },
+        {
+          "id": "multilingual-model",
+          "title": "Multilingual Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 103
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 117
         }
       ],
       "links": [
@@ -24924,6 +25991,12 @@
         {
           "from": "pretraining",
           "to": "in-context-learning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
+          "to": "multilingual-model",
           "type": "unlocks",
           "reviewed": false
         },
@@ -24975,7 +26048,7 @@
         {
           "id": "loss-landscape",
           "title": "Loss Landscape",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
@@ -26662,7 +27735,7 @@
       "center": {
         "id": "saddle-point",
         "title": "Saddle Point",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -26670,7 +27743,7 @@
         {
           "id": "loss-landscape",
           "title": "Loss Landscape",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -26956,7 +28029,7 @@
         {
           "id": "double-descent",
           "title": "Double Descent",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -27048,6 +28121,59 @@
         {
           "from": "score-matching",
           "to": "entropy",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "script-and-orthography",
+      "center": {
+        "id": "script-and-orthography",
+        "title": "Script and Orthography",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "tokenization",
+          "title": "Tokenization",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "deduplication",
+          "title": "Deduplication",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "tokenizer-fairness",
+          "title": "Tokenizer Fairness",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "tokenization",
+          "to": "script-and-orthography",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "script-and-orthography",
+          "to": "deduplication",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "script-and-orthography",
+          "to": "tokenizer-fairness",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27521,7 +28647,7 @@
       "center": {
         "id": "sharpness",
         "title": "Sharpness",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -27529,14 +28655,14 @@
         {
           "id": "loss-landscape",
           "title": "Loss Landscape",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "edge-of-stability",
           "title": "Edge of Stability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -28604,7 +29730,7 @@
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -29007,15 +30133,22 @@
           "id": "experience-replay",
           "title": "Experience Replay",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "low-resource-language",
+          "title": "Low-Resource Language",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "mode-collapse",
           "title": "Mode Collapse",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -29034,6 +30167,12 @@
         {
           "from": "synthetic-data",
           "to": "experience-replay",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "synthetic-data",
+          "to": "low-resource-language",
           "type": "adjacent",
           "reviewed": false
         },
@@ -29145,22 +30284,29 @@
           "id": "embodiment-gap",
           "title": "Embodiment Gap",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "lora",
           "title": "LoRA",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "mixture-of-experts",
           "title": "Mixture-of-Experts",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "multilingual-model",
+          "title": "Multilingual Model",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -29185,6 +30331,12 @@
         {
           "from": "task-interference",
           "to": "mixture-of-experts",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "task-interference",
+          "to": "multilingual-model",
           "type": "adjacent",
           "reviewed": false
         }
@@ -29771,28 +30923,49 @@
           "title": "Byte-Pair Encoding",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 17
         },
         {
           "id": "chunking",
           "title": "Chunking",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 33
+        },
+        {
+          "id": "code-switching",
+          "title": "Code-Switching",
+          "tier": "frontier",
+          "x": 200,
+          "y": 50
         },
         {
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 66
+        },
+        {
+          "id": "script-and-orthography",
+          "title": "Script and Orthography",
+          "tier": "frontier",
+          "x": 200,
+          "y": 83
         },
         {
           "id": "token-embedding",
           "title": "Token Embedding",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 99
+        },
+        {
+          "id": "tokenizer-fairness",
+          "title": "Tokenizer Fairness",
+          "tier": "frontier",
+          "x": 200,
+          "y": 116
         }
       ],
       "links": [
@@ -29810,7 +30983,19 @@
         },
         {
           "from": "tokenization",
+          "to": "code-switching",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tokenization",
           "to": "perplexity",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tokenization",
+          "to": "script-and-orthography",
           "type": "unlocks",
           "reviewed": false
         },
@@ -29818,6 +31003,91 @@
           "from": "tokenization",
           "to": "token-embedding",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tokenization",
+          "to": "tokenizer-fairness",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "tokenizer-fairness",
+      "center": {
+        "id": "tokenizer-fairness",
+        "title": "Tokenizer Fairness",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "byte-pair-encoding",
+          "title": "Byte-Pair Encoding",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "tokenization",
+          "title": "Tokenization",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "code-switching",
+          "title": "Code-Switching",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "script-and-orthography",
+          "title": "Script and Orthography",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "byte-pair-encoding",
+          "to": "tokenizer-fairness",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "tokenization",
+          "to": "tokenizer-fairness",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "tokenizer-fairness",
+          "to": "code-switching",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "tokenizer-fairness",
+          "to": "context-window",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "tokenizer-fairness",
+          "to": "script-and-orthography",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -31009,7 +32279,7 @@
         {
           "id": "edge-of-stability",
           "title": "Edge of Stability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -31075,7 +32345,7 @@
         {
           "id": "grokking",
           "title": "Grokking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -31096,7 +32366,7 @@
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 103,
           "y": 22
         },
@@ -31117,7 +32387,7 @@
         {
           "id": "sharpness",
           "title": "Sharpness",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 206,
           "y": 110
         }
@@ -31207,15 +32477,22 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "machine-translation",
+          "title": "Machine Translation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -31234,6 +32511,12 @@
         {
           "from": "word-error-rate",
           "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "word-error-rate",
+          "to": "machine-translation",
           "type": "adjacent",
           "reviewed": false
         },
