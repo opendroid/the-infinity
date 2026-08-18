@@ -18,6 +18,37 @@ in six months:
 | `provenance.sources` | Citations are top-level and tier-independent |
 | both or neither of `review` / `provenance` | Exactly one, and it determines the tier |
 
+## A citation supports the claim the node makes
+
+`check:citations` fetches every URL and reports whether it resolves. That is all it does,
+and it does it well. It has never checked that the paper behind the URL has anything to do
+with the node it is attached to, and the verify-by-title discipline — which has caught six
+invented ids — catches an id naming the *wrong paper*, not a *real paper on the wrong node*.
+There the id and the title agree perfectly; they are simply describing something else.
+
+This happened while drafting #290: `early-stopping` shipped a draft citing the batch
+normalisation and mixup papers, because they were the first two ids already in the batch's
+scope. Schema valid, both URLs resolving, both wrong.
+
+**THE OBVIOUS CHECK DOES NOT WORK, AND THE MEASUREMENT IS WHY (#292).** Testing whether a
+citation's title shares a content word with its node flags **193 of 702 citations, 27.5%**
+— and sampling them finds almost all correct, including the best ones in the corpus:
+
+| node | citation | verdict |
+|---|---|---|
+| `attention` | Neural Machine Translation by Jointly Learning to Align and Translate | the Bahdanau paper |
+| `adversarial-example` | Intriguing properties of neural networks | introduced them |
+| `batch-size` | Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour | correct |
+
+The cause is structural. This field titles papers evocatively rather than descriptively, so
+**the foundational citation for a concept is very often a paper whose title never says the
+concept's name** — which is close to what "foundational" means. A check on overlap would
+flag exactly the citations most worth having.
+
+So this stays a rule for a person: cite the paper the claim came from, and if you cannot
+say which sentence in the node it supports, it is the wrong paper. Written here rather than
+built, so the next person has the measurement instead of rebuilding the check.
+
 ## Viz primitives — a closed set, extended only by a deliberate schema change
 
 `viz.primitive` names **a reusable visual shape, not a drawing of one concept.** The same
