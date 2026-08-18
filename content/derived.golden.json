@@ -3671,6 +3671,37 @@
       }
     },
     {
+      "id": "convexity",
+      "title": "Convexity",
+      "domain": "Foundations / Optimization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "logistic-regression",
+            "title": "Logistic Regression",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "saddle-point",
+            "title": "Saddle Point",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "convolutional-network",
       "title": "Convolutional Network",
       "domain": "Vision / Foundations",
@@ -7329,6 +7360,12 @@
         ],
         "unlocks": [
           {
+            "id": "convexity",
+            "title": "Convexity",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "diffusion-model",
             "title": "Diffusion Model",
             "tier": "verified",
@@ -9710,6 +9747,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "convexity",
+            "title": "Convexity",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "linear-regression",
             "title": "Linear Regression",
@@ -15238,6 +15281,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "convexity",
+            "title": "Convexity",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "gradient-descent",
             "title": "Gradient Descent",
@@ -26374,6 +26423,59 @@
       ]
     },
     {
+      "id": "convexity",
+      "center": {
+        "id": "convexity",
+        "title": "Convexity",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "logistic-regression",
+          "title": "Logistic Regression",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "saddle-point",
+          "title": "Saddle Point",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-descent",
+          "to": "convexity",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "convexity",
+          "to": "logistic-regression",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "convexity",
+          "to": "saddle-point",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "convolutional-network",
       "center": {
         "id": "convolutional-network",
@@ -32978,67 +33080,74 @@
           "y": 66
         },
         {
+          "id": "convexity",
+          "title": "Convexity",
+          "tier": "frontier",
+          "x": 200,
+          "y": 12
+        },
+        {
           "id": "diffusion-model",
           "title": "Diffusion Model",
           "tier": "verified",
           "x": 200,
-          "y": 13
+          "y": 24
         },
         {
           "id": "gradient-boosting",
           "title": "Gradient Boosting",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 36
         },
         {
           "id": "learning-rate",
           "title": "Learning Rate",
           "tier": "verified",
           "x": 200,
-          "y": 40
+          "y": 48
         },
         {
           "id": "linear-regression",
           "title": "Linear Regression",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 60
         },
         {
           "id": "loss-landscape",
           "title": "Loss Landscape",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 72
         },
         {
           "id": "policy-gradient",
           "title": "Policy Gradient",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 84
         },
         {
           "id": "proximal-policy-optimization",
           "title": "PPO",
           "tier": "verified",
           "x": 200,
-          "y": 92
+          "y": 96
         },
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 108
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
           "x": 200,
-          "y": 119
+          "y": 120
         },
         {
           "id": "adversarial-training",
@@ -33060,6 +33169,12 @@
           "from": "backpropagation",
           "to": "gradient-descent",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "convexity",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -37237,18 +37352,25 @@
           "y": 66
         },
         {
+          "id": "convexity",
+          "title": "Convexity",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "linear-regression",
           "title": "Linear Regression",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "support-vector-machine",
           "title": "Support Vector Machine",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -37268,6 +37390,12 @@
           "from": "logistic-regression",
           "to": "probing-classifier",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "logistic-regression",
+          "to": "convexity",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -47115,18 +47243,25 @@
           "y": 66
         },
         {
+          "id": "convexity",
+          "title": "Convexity",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "gradient-descent",
           "title": "Gradient Descent",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "momentum",
           "title": "Momentum",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -47134,6 +47269,12 @@
           "from": "loss-landscape",
           "to": "saddle-point",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "saddle-point",
+          "to": "convexity",
+          "type": "adjacent",
           "reviewed": false
         },
         {

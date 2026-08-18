@@ -17,18 +17,18 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "top_logit_gap": 20,
+      "top_share": 20,
       "share_rest": 40
     },
     "param_controls": [
       {
-        "name": "top_logit_gap",
+        "name": "top_share",
         "min": 0,
         "max": 400,
         "step": 20
       }
     ],
-    "caption": "Probability mass the top option holds, against everything else, in equal units. Drag the top logit's gap up to watch its share saturate without ever reaching one — and note that shifting every logit by the same amount moves nothing here, because only differences survive the softmax."
+    "caption": "The top option's share of the probability mass, against everything else. Drag the top option's share up — a wider logit gap is what moves it — to watch it saturate without ever reaching one, because no finite gap takes all the mass and only differences survive the softmax."
   },
   "edges": {
     "requires": [
