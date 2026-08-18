@@ -1028,6 +1028,12 @@
             "reviewed": false
           },
           {
+            "id": "hallucination",
+            "title": "Hallucination",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "nucleus-sampling",
             "title": "Nucleus Sampling",
             "tier": "verified",
@@ -1588,6 +1594,12 @@
             "reviewed": false
           },
           {
+            "id": "guardrail",
+            "title": "Guardrail",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "selective-prediction",
             "title": "Selective Prediction",
             "tier": "verified",
@@ -1614,6 +1626,12 @@
             "reviewed": false
           },
           {
+            "id": "hallucination",
+            "title": "Hallucination",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "impossibility-result",
             "title": "Impossibility Result",
             "tier": "verified",
@@ -1622,7 +1640,7 @@
           {
             "id": "knowledge-conflict",
             "title": "Knowledge Conflict",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2031,7 +2049,7 @@
           {
             "id": "multi-hop-question-answering",
             "title": "Multi-Hop Question Answering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2744,6 +2762,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "guardrail",
+            "title": "Guardrail",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "human-in-the-loop",
             "title": "Human in the Loop",
             "tier": "verified",
@@ -2794,7 +2818,7 @@
           {
             "id": "logical-constraint",
             "title": "Logical Constraint",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2914,6 +2938,12 @@
             "title": "Repository Context",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "system-prompt",
+            "title": "System Prompt",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -2944,7 +2974,7 @@
           {
             "id": "parametric-vs-retrieved-knowledge",
             "title": "Parametric vs Retrieved Knowledge",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3554,6 +3584,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "open-weights",
+            "title": "Open Weights",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "red-teaming",
             "title": "Red Teaming",
             "tier": "verified",
@@ -3795,6 +3831,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "model-card",
+            "title": "Model Card",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "training-data-licensing",
             "title": "Training Data Licensing",
@@ -4154,7 +4196,7 @@
           {
             "id": "entity-linking",
             "title": "Entity Linking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4970,13 +5012,13 @@
       "id": "entity-linking",
       "title": "Entity Linking",
       "domain": "Knowledge / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "knowledge-graph",
             "title": "Knowledge Graph",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4984,7 +5026,7 @@
           {
             "id": "multi-hop-question-answering",
             "title": "Multi-Hop Question Answering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5815,6 +5857,12 @@
             "reviewed": false
           },
           {
+            "id": "foundation-model",
+            "title": "Foundation Model",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "knowledge-distillation",
             "title": "Knowledge Distillation",
             "tier": "verified",
@@ -5940,6 +5988,38 @@
           {
             "id": "normalizing-flow",
             "title": "Normalizing Flow",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "foundation-model",
+      "title": "Foundation Model",
+      "domain": "Behaviour / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "open-weights",
+            "title": "Open Weights",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
             "tier": "verified",
             "reviewed": false
           }
@@ -6500,7 +6580,7 @@
           {
             "id": "knowledge-graph",
             "title": "Knowledge Graph",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6669,6 +6749,68 @@
           {
             "id": "multi-head-attention",
             "title": "Multi-Head Attention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "guardrail",
+      "title": "Guardrail",
+      "domain": "Behaviour / Deployment",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "constitutional-ai",
+            "title": "Constitutional AI",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "refusal",
+            "title": "Refusal",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "hallucination",
+      "title": "Hallucination",
+      "domain": "Behaviour / Failure",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "autoregressive-decoding",
+            "title": "Autoregressive Decoding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "knowledge-conflict",
+            "title": "Knowledge Conflict",
             "tier": "verified",
             "reviewed": false
           }
@@ -7004,6 +7146,12 @@
             "id": "induction-head",
             "title": "Induction Head",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prompt-engineering",
+            "title": "Prompt Engineering",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -7395,6 +7543,12 @@
             "reviewed": false
           },
           {
+            "id": "refusal",
+            "title": "Refusal",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "sandboxing",
             "title": "Sandboxing",
             "tier": "verified",
@@ -7623,13 +7777,13 @@
       "id": "knowledge-conflict",
       "title": "Knowledge Conflict",
       "domain": "Knowledge / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "parametric-vs-retrieved-knowledge",
             "title": "Parametric vs Retrieved Knowledge",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7639,6 +7793,12 @@
             "id": "calibration",
             "title": "Calibration",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "hallucination",
+            "title": "Hallucination",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -7704,7 +7864,7 @@
       "id": "knowledge-graph",
       "title": "Knowledge Graph",
       "domain": "Knowledge / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -7718,13 +7878,13 @@
           {
             "id": "entity-linking",
             "title": "Entity Linking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "knowledge-graph-embedding",
             "title": "Knowledge Graph Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7742,13 +7902,13 @@
       "id": "knowledge-graph-embedding",
       "title": "Knowledge Graph Embedding",
       "domain": "Knowledge / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "knowledge-graph",
             "title": "Knowledge Graph",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8246,7 +8406,7 @@
       "id": "logical-constraint",
       "title": "Logical Constraint",
       "domain": "Knowledge / Reasoning",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -8260,7 +8420,7 @@
           {
             "id": "neuro-symbolic",
             "title": "Neuro-Symbolic",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9073,7 +9233,7 @@
           {
             "id": "neuro-symbolic",
             "title": "Neuro-Symbolic",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9701,6 +9861,31 @@
       }
     },
     {
+      "id": "model-card",
+      "title": "Model Card",
+      "domain": "Behaviour / Access",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-provenance",
+            "title": "Data Provenance",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "safety-benchmark-validity",
+            "title": "Safety Benchmark Validity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "model-merging",
       "title": "Model Merging",
       "domain": "Weights / Foundations",
@@ -10035,13 +10220,13 @@
       "id": "multi-hop-question-answering",
       "title": "Multi-Hop Question Answering",
       "domain": "Knowledge / Reasoning",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "entity-linking",
             "title": "Entity Linking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10322,13 +10507,13 @@
       "id": "neuro-symbolic",
       "title": "Neuro-Symbolic",
       "domain": "Knowledge / Reasoning",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "logical-constraint",
             "title": "Logical Constraint",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10681,6 +10866,37 @@
       }
     },
     {
+      "id": "open-weights",
+      "title": "Open Weights",
+      "domain": "Behaviour / Access",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "foundation-model",
+            "title": "Foundation Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "dangerous-capability-evaluation",
+            "title": "Dangerous Capability Evaluation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "training-data-licensing",
+            "title": "Training Data Licensing",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "operator-fusion-pass",
       "title": "Operator Fusion Pass",
       "domain": "Compilers / Methods",
@@ -10981,7 +11197,7 @@
       "id": "parametric-vs-retrieved-knowledge",
       "title": "Parametric vs Retrieved Knowledge",
       "domain": "Knowledge / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10995,7 +11211,7 @@
           {
             "id": "knowledge-conflict",
             "title": "Knowledge Conflict",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11470,6 +11686,12 @@
             "title": "Prefill and Decode",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "system-prompt",
+            "title": "System Prompt",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -11517,6 +11739,12 @@
             "id": "fine-tuning",
             "title": "Fine-Tuning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "foundation-model",
+            "title": "Foundation Model",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -11772,6 +12000,37 @@
       }
     },
     {
+      "id": "prompt-engineering",
+      "title": "Prompt Engineering",
+      "domain": "Behaviour / Interface",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "in-context-learning",
+            "title": "In-Context Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "regression-suite",
+            "title": "Regression Suite",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "system-prompt",
+            "title": "System Prompt",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "prompt-injection",
       "title": "Prompt Injection",
       "domain": "Agents / Safety",
@@ -11803,6 +12062,12 @@
             "id": "sandboxing",
             "title": "Sandboxing",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "system-prompt",
+            "title": "System Prompt",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -12443,6 +12708,37 @@
       }
     },
     {
+      "id": "refusal",
+      "title": "Refusal",
+      "domain": "Behaviour / Deployment",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "guardrail",
+            "title": "Guardrail",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "jailbreak",
+            "title": "Jailbreak",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "regression-suite",
       "title": "Regression Suite",
       "domain": "Deployment / Practice",
@@ -12462,6 +12758,12 @@
             "id": "benchmark-contamination",
             "title": "Benchmark Contamination",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prompt-engineering",
+            "title": "Prompt Engineering",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -12657,7 +12959,7 @@
           {
             "id": "parametric-vs-retrieved-knowledge",
             "title": "Parametric vs Retrieved Knowledge",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12683,7 +12985,7 @@
           {
             "id": "knowledge-graph",
             "title": "Knowledge Graph",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -12862,6 +13164,12 @@
             "id": "jailbreak",
             "title": "Jailbreak",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "refusal",
+            "title": "Refusal",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -13093,6 +13401,12 @@
             "id": "dangerous-capability-evaluation",
             "title": "Dangerous Capability Evaluation",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "model-card",
+            "title": "Model Card",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -13329,7 +13643,7 @@
           {
             "id": "logical-constraint",
             "title": "Logical Constraint",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13429,7 +13743,7 @@
           {
             "id": "multi-hop-question-answering",
             "title": "Multi-Hop Question Answering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -15014,6 +15328,43 @@
       }
     },
     {
+      "id": "system-prompt",
+      "title": "System Prompt",
+      "domain": "Behaviour / Interface",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "prefix-caching",
+            "title": "Prefix Caching",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prompt-engineering",
+            "title": "Prompt Engineering",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "prompt-injection",
+            "title": "Prompt Injection",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "task-arithmetic",
       "title": "Task Arithmetic",
       "domain": "Weights / Methods",
@@ -15556,7 +15907,7 @@
           {
             "id": "knowledge-graph-embedding",
             "title": "Knowledge Graph Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -15879,6 +16230,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "open-weights",
+            "title": "Open Weights",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
@@ -18602,63 +18959,70 @@
           "title": "Beam Search",
           "tier": "verified",
           "x": 200,
-          "y": 13
+          "y": 12
         },
         {
           "id": "constrained-decoding",
           "title": "Constrained Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 24
         },
         {
           "id": "continuous-batching",
           "title": "Continuous Batching",
           "tier": "verified",
           "x": 200,
-          "y": 40
+          "y": 36
+        },
+        {
+          "id": "hallucination",
+          "title": "Hallucination",
+          "tier": "frontier",
+          "x": 200,
+          "y": 48
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 60
         },
         {
           "id": "pass-at-k",
           "title": "pass@k",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 72
         },
         {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 84
         },
         {
           "id": "speculative-decoding",
           "title": "Speculative Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 92
+          "y": 96
         },
         {
           "id": "structured-output",
           "title": "Structured Output",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 108
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 119
+          "y": 120
         },
         {
           "id": "text-to-speech",
@@ -18696,6 +19060,12 @@
         {
           "from": "autoregressive-decoding",
           "to": "continuous-batching",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autoregressive-decoding",
+          "to": "hallucination",
           "type": "unlocks",
           "reviewed": false
         },
@@ -19647,98 +20017,112 @@
           "title": "Conformal Prediction",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "fairness-criteria",
           "title": "Fairness Criteria",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
+        },
+        {
+          "id": "guardrail",
+          "title": "Guardrail",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
         },
         {
           "id": "selective-prediction",
           "title": "Selective Prediction",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         },
         {
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 20,
+          "x": 18,
           "y": 22
         },
         {
           "id": "certified-robustness",
           "title": "Certified Robustness",
           "tier": "verified",
-          "x": 40,
+          "x": 37,
           "y": 110
         },
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
           "tier": "verified",
-          "x": 60,
+          "x": 55,
           "y": 22
+        },
+        {
+          "id": "hallucination",
+          "title": "Hallucination",
+          "tier": "frontier",
+          "x": 74,
+          "y": 110
         },
         {
           "id": "impossibility-result",
           "title": "Impossibility Result",
           "tier": "verified",
-          "x": 80,
-          "y": 110
+          "x": 92,
+          "y": 22
         },
         {
           "id": "knowledge-conflict",
           "title": "Knowledge Conflict",
-          "tier": "frontier",
-          "x": 100,
-          "y": 22
+          "tier": "verified",
+          "x": 111,
+          "y": 110
         },
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 129,
+          "y": 22
         },
         {
           "id": "out-of-distribution-detection",
           "title": "Out-of-Distribution Detection",
           "tier": "verified",
-          "x": 140,
-          "y": 22
+          "x": 148,
+          "y": 110
         },
         {
           "id": "probabilistic-forecasting",
           "title": "Probabilistic Forecasting",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 166,
+          "y": 22
         },
         {
           "id": "production-monitoring",
           "title": "Production Monitoring",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 185,
+          "y": 110
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 200,
-          "y": 110
+          "x": 203,
+          "y": 22
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 220,
-          "y": 22
+          "x": 222,
+          "y": 110
         }
       ],
       "links": [
@@ -19757,6 +20141,12 @@
         {
           "from": "calibration",
           "to": "fairness-criteria",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "guardrail",
           "type": "unlocks",
           "reviewed": false
         },
@@ -19781,6 +20171,12 @@
         {
           "from": "calibration",
           "to": "differential-privacy",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "hallucination",
           "type": "adjacent",
           "reviewed": false
         },
@@ -20450,7 +20846,7 @@
         {
           "id": "multi-hop-question-answering",
           "title": "Multi-Hop Question Answering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -21739,25 +22135,32 @@
           "y": 66
         },
         {
+          "id": "guardrail",
+          "title": "Guardrail",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "human-in-the-loop",
           "title": "Human in the Loop",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "jailbreak",
           "title": "Jailbreak",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "sycophancy",
           "title": "Sycophancy",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -21765,6 +22168,12 @@
           "from": "rlhf",
           "to": "constitutional-ai",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "constitutional-ai",
+          "to": "guardrail",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -21821,7 +22230,7 @@
         {
           "id": "logical-constraint",
           "title": "Logical Constraint",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -21988,35 +22397,42 @@
           "title": "Agent Memory",
           "tier": "verified",
           "x": 200,
-          "y": 22
+          "y": 19
         },
         {
           "id": "context-compression",
           "title": "Context Compression",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 38
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 57
         },
         {
           "id": "lost-in-the-middle",
           "title": "Lost in the Middle",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 75
         },
         {
           "id": "repository-context",
           "title": "Repository Context",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 94
+        },
+        {
+          "id": "system-prompt",
+          "title": "System Prompt",
+          "tier": "frontier",
+          "x": 200,
+          "y": 113
         },
         {
           "id": "effective-context-length",
@@ -22049,7 +22465,7 @@
         {
           "id": "parametric-vs-retrieved-knowledge",
           "title": "Parametric vs Retrieved Knowledge",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 150,
           "y": 22
         },
@@ -22108,6 +22524,12 @@
         {
           "from": "context-window",
           "to": "repository-context",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "system-prompt",
           "type": "unlocks",
           "reviewed": false
         },
@@ -23238,18 +23660,25 @@
           "y": 66
         },
         {
+          "id": "open-weights",
+          "title": "Open Weights",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "safety-benchmark-validity",
           "title": "Safety Benchmark Validity",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -23257,6 +23686,12 @@
           "from": "agent-evaluation",
           "to": "dangerous-capability-evaluation",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "dangerous-capability-evaluation",
+          "to": "open-weights",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -23685,11 +24120,18 @@
           "y": 66
         },
         {
+          "id": "model-card",
+          "title": "Model Card",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "training-data-licensing",
           "title": "Training Data Licensing",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "benchmark-contamination",
@@ -23711,6 +24153,12 @@
           "from": "data-filtering",
           "to": "data-provenance",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "data-provenance",
+          "to": "model-card",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -24296,7 +24744,7 @@
         {
           "id": "entity-linking",
           "title": "Entity Linking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
@@ -25795,7 +26243,7 @@
       "center": {
         "id": "entity-linking",
         "title": "Entity Linking",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -25803,14 +26251,14 @@
         {
           "id": "knowledge-graph",
           "title": "Knowledge Graph",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "multi-hop-question-answering",
           "title": "Multi-Hop Question Answering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -27258,22 +27706,29 @@
           "id": "backdoor-attack",
           "title": "Backdoor Attack",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "foundation-model",
+          "title": "Foundation Model",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "knowledge-distillation",
           "title": "Knowledge Distillation",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "machine-unlearning",
           "title": "Machine Unlearning",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -27340,6 +27795,12 @@
         {
           "from": "fine-tuning",
           "to": "backdoor-attack",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "foundation-model",
           "type": "adjacent",
           "reviewed": false
         },
@@ -27563,6 +28024,59 @@
         {
           "from": "flow-matching",
           "to": "normalizing-flow",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "foundation-model",
+      "center": {
+        "id": "foundation-model",
+        "title": "Foundation Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "open-weights",
+          "title": "Open Weights",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "pretraining",
+          "to": "foundation-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "foundation-model",
+          "to": "open-weights",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "foundation-model",
+          "to": "fine-tuning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -28550,7 +29064,7 @@
         {
           "id": "knowledge-graph",
           "title": "Knowledge Graph",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -28856,6 +29370,112 @@
         {
           "from": "grouped-query-attention",
           "to": "multi-head-attention",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "guardrail",
+      "center": {
+        "id": "guardrail",
+        "title": "Guardrail",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "constitutional-ai",
+          "title": "Constitutional AI",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "refusal",
+          "title": "Refusal",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "calibration",
+          "to": "guardrail",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "guardrail",
+          "to": "constitutional-ai",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "guardrail",
+          "to": "refusal",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "hallucination",
+      "center": {
+        "id": "hallucination",
+        "title": "Hallucination",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autoregressive-decoding",
+          "title": "Autoregressive Decoding",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "knowledge-conflict",
+          "title": "Knowledge Conflict",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "autoregressive-decoding",
+          "to": "hallucination",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "hallucination",
+          "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "hallucination",
+          "to": "knowledge-conflict",
           "type": "adjacent",
           "reviewed": false
         }
@@ -29418,14 +30038,21 @@
           "title": "Chain of Thought",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "induction-head",
           "title": "Induction Head",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "prompt-engineering",
+          "title": "Prompt Engineering",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "cross-lingual-transfer",
@@ -29478,6 +30105,12 @@
         {
           "from": "in-context-learning",
           "to": "induction-head",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "in-context-learning",
+          "to": "prompt-engineering",
           "type": "unlocks",
           "reviewed": false
         },
@@ -30085,22 +30718,29 @@
           "id": "constitutional-ai",
           "title": "Constitutional AI",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "prompt-injection",
           "title": "Prompt Injection",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "refusal",
+          "title": "Refusal",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "sandboxing",
           "title": "Sandboxing",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -30131,6 +30771,12 @@
         {
           "from": "jailbreak",
           "to": "prompt-injection",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "jailbreak",
+          "to": "refusal",
           "type": "adjacent",
           "reviewed": false
         },
@@ -30542,7 +31188,7 @@
       "center": {
         "id": "knowledge-conflict",
         "title": "Knowledge Conflict",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -30550,7 +31196,7 @@
         {
           "id": "parametric-vs-retrieved-knowledge",
           "title": "Parametric vs Retrieved Knowledge",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -30558,8 +31204,15 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "hallucination",
+          "title": "Hallucination",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -30572,6 +31225,12 @@
         {
           "from": "knowledge-conflict",
           "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-conflict",
+          "to": "hallucination",
           "type": "adjacent",
           "reviewed": false
         }
@@ -30687,7 +31346,7 @@
       "center": {
         "id": "knowledge-graph",
         "title": "Knowledge Graph",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -30702,14 +31361,14 @@
         {
           "id": "entity-linking",
           "title": "Entity Linking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "knowledge-graph-embedding",
           "title": "Knowledge Graph Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -30753,7 +31412,7 @@
       "center": {
         "id": "knowledge-graph-embedding",
         "title": "Knowledge Graph Embedding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -30761,7 +31420,7 @@
         {
           "id": "knowledge-graph",
           "title": "Knowledge Graph",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -31674,7 +32333,7 @@
       "center": {
         "id": "logical-constraint",
         "title": "Logical Constraint",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31689,7 +32348,7 @@
         {
           "id": "neuro-symbolic",
           "title": "Neuro-Symbolic",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -33128,7 +33787,7 @@
         {
           "id": "neuro-symbolic",
           "title": "Neuro-Symbolic",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         },
@@ -34256,6 +34915,46 @@
       ]
     },
     {
+      "id": "model-card",
+      "center": {
+        "id": "model-card",
+        "title": "Model Card",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-provenance",
+          "title": "Data Provenance",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "safety-benchmark-validity",
+          "title": "Safety Benchmark Validity",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "data-provenance",
+          "to": "model-card",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-card",
+          "to": "safety-benchmark-validity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "model-merging",
       "center": {
         "id": "model-merging",
@@ -34841,7 +35540,7 @@
       "center": {
         "id": "multi-hop-question-answering",
         "title": "Multi-Hop Question Answering",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -34849,7 +35548,7 @@
         {
           "id": "entity-linking",
           "title": "Entity Linking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -35343,7 +36042,7 @@
       "center": {
         "id": "neuro-symbolic",
         "title": "Neuro-Symbolic",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -35351,7 +36050,7 @@
         {
           "id": "logical-constraint",
           "title": "Logical Constraint",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -35973,6 +36672,59 @@
       ]
     },
     {
+      "id": "open-weights",
+      "center": {
+        "id": "open-weights",
+        "title": "Open Weights",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "foundation-model",
+          "title": "Foundation Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "dangerous-capability-evaluation",
+          "title": "Dangerous Capability Evaluation",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "training-data-licensing",
+          "title": "Training Data Licensing",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "foundation-model",
+          "to": "open-weights",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "open-weights",
+          "to": "dangerous-capability-evaluation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "open-weights",
+          "to": "training-data-licensing",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "operator-fusion-pass",
       "center": {
         "id": "operator-fusion-pass",
@@ -36505,7 +37257,7 @@
       "center": {
         "id": "parametric-vs-retrieved-knowledge",
         "title": "Parametric vs Retrieved Knowledge",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -36520,7 +37272,7 @@
         {
           "id": "knowledge-conflict",
           "title": "Knowledge Conflict",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -37352,15 +38104,22 @@
           "id": "compilation-cache",
           "title": "Compilation Cache",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "system-prompt",
+          "title": "System Prompt",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -37379,6 +38138,12 @@
         {
           "from": "prefix-caching",
           "to": "prefill-and-decode",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prefix-caching",
+          "to": "system-prompt",
           "type": "adjacent",
           "reviewed": false
         }
@@ -37413,70 +38178,77 @@
           "title": "Benchmark Contamination",
           "tier": "verified",
           "x": 200,
-          "y": 12
+          "y": 11
         },
         {
           "id": "data-filtering",
           "title": "Data Filtering",
           "tier": "verified",
           "x": 200,
-          "y": 24
+          "y": 22
         },
         {
           "id": "data-poisoning",
           "title": "Data Poisoning",
           "tier": "verified",
           "x": 200,
-          "y": 36
+          "y": 33
         },
         {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 48
+          "y": 44
+        },
+        {
+          "id": "foundation-model",
+          "title": "Foundation Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 55
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 200,
-          "y": 60
+          "y": 66
         },
         {
           "id": "long-context-training",
           "title": "Long-Context Training",
           "tier": "verified",
           "x": 200,
-          "y": 72
+          "y": 77
         },
         {
           "id": "multilingual-model",
           "title": "Multilingual Model",
           "tier": "verified",
           "x": 200,
-          "y": 84
+          "y": 88
         },
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
           "x": 200,
-          "y": 96
+          "y": 99
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
           "x": 200,
-          "y": 108
+          "y": 110
         },
         {
           "id": "training-observability",
           "title": "Training Observability",
           "tier": "verified",
           "x": 200,
-          "y": 120
+          "y": 121
         }
       ],
       "links": [
@@ -37513,6 +38285,12 @@
         {
           "from": "pretraining",
           "to": "fine-tuning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
+          "to": "foundation-model",
           "type": "unlocks",
           "reviewed": false
         },
@@ -37925,6 +38703,59 @@
       ]
     },
     {
+      "id": "prompt-engineering",
+      "center": {
+        "id": "prompt-engineering",
+        "title": "Prompt Engineering",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "in-context-learning",
+          "title": "In-Context Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "regression-suite",
+          "title": "Regression Suite",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "system-prompt",
+          "title": "System Prompt",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "in-context-learning",
+          "to": "prompt-engineering",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "prompt-engineering",
+          "to": "regression-suite",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prompt-engineering",
+          "to": "system-prompt",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "prompt-injection",
       "center": {
         "id": "prompt-injection",
@@ -37945,36 +38776,43 @@
           "id": "grounding",
           "title": "Grounding",
           "tier": "verified",
-          "x": 40,
+          "x": 34,
           "y": 22
         },
         {
           "id": "jailbreak",
           "title": "Jailbreak",
           "tier": "verified",
-          "x": 80,
+          "x": 69,
           "y": 110
         },
         {
           "id": "sandboxing",
           "title": "Sandboxing",
           "tier": "verified",
-          "x": 120,
+          "x": 103,
           "y": 22
+        },
+        {
+          "id": "system-prompt",
+          "title": "System Prompt",
+          "tier": "frontier",
+          "x": 137,
+          "y": 110
         },
         {
           "id": "tool-schema",
           "title": "Tool Schema",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 171,
+          "y": 22
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
-          "x": 200,
-          "y": 22
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -37999,6 +38837,12 @@
         {
           "from": "prompt-injection",
           "to": "sandboxing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prompt-injection",
+          "to": "system-prompt",
           "type": "adjacent",
           "reviewed": false
         },
@@ -39113,6 +39957,59 @@
       ]
     },
     {
+      "id": "refusal",
+      "center": {
+        "id": "refusal",
+        "title": "Refusal",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "guardrail",
+          "title": "Guardrail",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "jailbreak",
+          "title": "Jailbreak",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "rlhf",
+          "to": "refusal",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "refusal",
+          "to": "guardrail",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "refusal",
+          "to": "jailbreak",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "regression-suite",
       "center": {
         "id": "regression-suite",
@@ -39133,8 +40030,15 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "prompt-engineering",
+          "title": "Prompt Engineering",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -39147,6 +40051,12 @@
         {
           "from": "regression-suite",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "regression-suite",
+          "to": "prompt-engineering",
           "type": "adjacent",
           "reviewed": false
         }
@@ -39476,7 +40386,7 @@
         {
           "id": "parametric-vs-retrieved-knowledge",
           "title": "Parametric vs Retrieved Knowledge",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -39504,7 +40414,7 @@
         {
           "id": "knowledge-graph",
           "title": "Knowledge Graph",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -39858,21 +40768,28 @@
           "title": "Constitutional AI",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "jailbreak",
           "title": "Jailbreak",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
+        },
+        {
+          "id": "refusal",
+          "title": "Refusal",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
         },
         {
           "id": "scalable-oversight",
           "title": "Scalable Oversight",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         },
         {
           "id": "calibration",
@@ -39945,6 +40862,12 @@
         {
           "from": "rlhf",
           "to": "jailbreak",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "refusal",
           "type": "unlocks",
           "reviewed": false
         },
@@ -40291,8 +41214,15 @@
           "id": "dangerous-capability-evaluation",
           "title": "Dangerous Capability Evaluation",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "model-card",
+          "title": "Model Card",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -40305,6 +41235,12 @@
         {
           "from": "safety-benchmark-validity",
           "to": "dangerous-capability-evaluation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "safety-benchmark-validity",
+          "to": "model-card",
           "type": "adjacent",
           "reviewed": false
         }
@@ -40712,7 +41648,7 @@
         {
           "id": "logical-constraint",
           "title": "Logical Constraint",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -40884,7 +41820,7 @@
         {
           "id": "multi-hop-question-answering",
           "title": "Multi-Hop Question Answering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -43727,6 +44663,72 @@
       ]
     },
     {
+      "id": "system-prompt",
+      "center": {
+        "id": "system-prompt",
+        "title": "System Prompt",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "prefix-caching",
+          "title": "Prefix Caching",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "prompt-engineering",
+          "title": "Prompt Engineering",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "prompt-injection",
+          "title": "Prompt Injection",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "context-window",
+          "to": "system-prompt",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "system-prompt",
+          "to": "prefix-caching",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "system-prompt",
+          "to": "prompt-engineering",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "system-prompt",
+          "to": "prompt-injection",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "task-arithmetic",
       "center": {
         "id": "task-arithmetic",
@@ -44676,7 +45678,7 @@
         {
           "id": "knowledge-graph-embedding",
           "title": "Knowledge Graph Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -45285,11 +46287,18 @@
           "y": 66
         },
         {
+          "id": "open-weights",
+          "title": "Open Weights",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -45297,6 +46306,12 @@
           "from": "data-provenance",
           "to": "training-data-licensing",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "training-data-licensing",
+          "to": "open-weights",
+          "type": "adjacent",
           "reviewed": false
         },
         {

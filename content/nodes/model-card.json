@@ -1,0 +1,63 @@
+{
+  "id": "model-card",
+  "title": "Model Card",
+  "domain": [
+    "Behaviour",
+    "Access"
+  ],
+  "bodies": {
+    "intuition": "A short document shipped with a model saying what it is for, what it was trained on, how it was evaluated, and where it should not be used. The idea is borrowed from other engineering disciplines, where a component arrives with a datasheet and nobody considers that remarkable.",
+    "engineer": "The section that earns its place is intended use and out-of-scope use, because it is the only part that constrains anyone. Evaluation numbers disaggregated by group are the second — an aggregate accuracy hides exactly the failures a card exists to surface. In practice the format has been widely adopted and unevenly filled: cards that report a headline benchmark and leave the limitations section thin are common, and they are the ones where the omission matters most.",
+    "math": "A card is only as informative as the share of its claims that are checkable. \"Trained on a large corpus of web text\" constrains nothing; a named dataset with a version constrains a great deal. So the useful reading is the ratio of specific to unfalsifiable statements, and it tends to fall as a model becomes commercially significant — the cards with the most at stake are the vaguest, which is the opposite of what the format was for."
+  },
+  "emphasis": {
+    "engineer": "the format has been widely adopted and unevenly filled",
+    "math": "the cards with the most at stake are the vaguest"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unfalsifiable_claims": 8,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "unfalsifiable_claims",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Statements in a card that nothing could contradict, against ones specific enough to check, in claims. Drag the unfalsifiable count up to watch the document stop constraining anything — the shape most cards take as the model behind them becomes commercially significant."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-provenance",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "safety-benchmark-validity",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1810.03993",
+      "title": "Model Cards for Model Reporting",
+      "url": "https://arxiv.org/abs/1810.03993"
+    },
+    {
+      "ref": "arXiv:2305.14251",
+      "title": "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation",
+      "url": "https://arxiv.org/abs/2305.14251"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

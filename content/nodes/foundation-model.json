@@ -1,0 +1,63 @@
+{
+  "id": "foundation-model",
+  "title": "Foundation Model",
+  "domain": [
+    "Behaviour",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "One very large model, trained once on a very broad corpus, then adapted to hundreds of tasks that nobody chose in advance. The name is a claim about position rather than architecture: it is the thing everything else is built on, so its properties — and its failures — propagate to everything downstream.",
+    "engineer": "The practical change is where the effort goes. The old shape was a bespoke model per task, each with its own labelled data. The new shape is one pretraining run and then prompting, fine-tuning or retrieval per task, which moves the cost from many small data collection efforts to one enormous compute one. It also concentrates risk: a flaw in the base — a bias, a memorised secret, a capability nobody wanted — is inherited by every system adapted from it, and cannot be fixed downstream.",
+    "math": "The economics are amortisation. Pretraining is paid once at a cost no individual task could justify, and every adaptation divides it further — so the more downstream uses, the more the base looks free and the more the concentration matters. That is the same curve from two directions: what makes the approach efficient is exactly what makes a single defect expensive, and no amount of downstream care undoes something the base learned."
+  },
+  "emphasis": {
+    "intuition": "its properties — and its failures — propagate to everything downstream",
+    "math": "what makes the approach efficient is exactly what makes a single defect expensive"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "downstream_uses": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "downstream_uses",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Adaptations sharing one pretraining run, against the run itself, in equal units. Drag the downstream uses up to watch the base amortise toward free — and read the same bar the other way, because that is how far a single flaw in it reaches."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2108.07258",
+      "title": "On the Opportunities and Risks of Foundation Models",
+      "url": "https://arxiv.org/abs/2108.07258"
+    },
+    {
+      "ref": "arXiv:2005.14165",
+      "title": "Language Models are Few-Shot Learners",
+      "url": "https://arxiv.org/abs/2005.14165"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "id": "refusal",
+  "title": "Refusal",
+  "domain": [
+    "Behaviour",
+    "Deployment"
+  ],
+  "bodies": {
+    "intuition": "A model declining to answer. Getting this right is two problems that pull against each other: it should decline the things it ought to, and it should not decline everything that merely resembles them. A model that refuses to explain how to kill a Python process has failed, and it has failed in a way that is easy to laugh at and hard to fix.",
+    "engineer": "Both directions are measured, and the second one needed its own benchmark because nobody was looking. Test suites of safe prompts that superficially resemble unsafe ones — the ones with a trigger word in an innocent sentence — find models declining a substantial share of them. The cause is usually the training data: safety examples selected by keyword teach the model to react to the keyword, which is exactly the shortcut it will take if you let it.",
+    "math": "This is a two-sided error problem and reporting one side is meaningless. A model that refuses everything scores perfectly on harmful-request refusal and is useless; a model that refuses nothing scores perfectly on over-refusal and is unsafe. Only the pair says anything, and the pair moves along a single dial — which means an improvement is a movement of the whole curve, not a better point on it, and a paper reporting one number has not shown one."
+  },
+  "emphasis": {
+    "intuition": "it has failed in a way that is easy to laugh at and hard to fix",
+    "math": "an improvement is a movement of the whole curve, not a better point on it"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.8,
+      "threshold": 0.5,
+      "base_rate": 0.15
+    },
+    "param_controls": [
+      {
+        "name": "threshold",
+        "min": -2,
+        "max": 4,
+        "step": 0.25
+      }
+    ],
+    "caption": "Requests that should be declined against ones that should not, by how the model scores them. Drag the threshold up to watch refusals of genuinely harmful requests rise and refusals of harmless ones rise with them — the pair moves together, which is why one number says nothing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "rlhf",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "jailbreak",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2308.01263",
+      "title": "XSTest: A Test Suite for Identifying Exaggerated Safety Behaviours in Large Language Models",
+      "url": "https://arxiv.org/abs/2308.01263"
+    },
+    {
+      "ref": "arXiv:2308.13387",
+      "title": "Do-Not-Answer: A Dataset for Evaluating Safeguards in LLMs",
+      "url": "https://arxiv.org/abs/2308.13387"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
