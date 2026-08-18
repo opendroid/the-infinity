@@ -60,7 +60,8 @@
     }
   ],
   "updated_at": "2026-08-17",
-  "provenance": {
-    "drafted_at": "2026-08-17"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

@@ -379,7 +379,7 @@
           {
             "id": "neural-audio-codec",
             "title": "Neural Audio Codec",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -415,7 +415,7 @@
       "id": "automatic-speech-recognition",
       "title": "Speech Recognition",
       "domain": "Speech / Recognition",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -427,7 +427,7 @@
           {
             "id": "spectrogram",
             "title": "Spectrogram",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -435,13 +435,13 @@
           {
             "id": "streaming-asr",
             "title": "Streaming ASR",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "word-error-rate",
             "title": "Word Error Rate",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -449,7 +449,7 @@
           {
             "id": "connectionist-temporal-classification",
             "title": "CTC",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -535,7 +535,7 @@
           {
             "id": "text-to-speech",
             "title": "Text to Speech",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -745,7 +745,7 @@
           {
             "id": "word-error-rate",
             "title": "Word Error Rate",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -795,7 +795,7 @@
           {
             "id": "streaming-asr",
             "title": "Streaming ASR",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -992,7 +992,7 @@
       "id": "connectionist-temporal-classification",
       "title": "CTC",
       "domain": "Speech / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1004,7 +1004,7 @@
           {
             "id": "spectrogram",
             "title": "Spectrogram",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1013,7 +1013,7 @@
           {
             "id": "automatic-speech-recognition",
             "title": "Speech Recognition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1199,7 +1199,7 @@
           {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1243,7 +1243,7 @@
           {
             "id": "automatic-speech-recognition",
             "title": "Speech Recognition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1273,7 +1273,7 @@
           {
             "id": "connectionist-temporal-classification",
             "title": "CTC",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1536,7 +1536,7 @@
           {
             "id": "text-to-speech",
             "title": "Text to Speech",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1627,7 +1627,7 @@
           {
             "id": "automatic-speech-recognition",
             "title": "Speech Recognition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2771,7 +2771,7 @@
           {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3029,7 +3029,7 @@
       "id": "neural-audio-codec",
       "title": "Neural Audio Codec",
       "domain": "Speech / Compression",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3056,7 +3056,7 @@
           {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3237,7 +3237,7 @@
           {
             "id": "spectrogram",
             "title": "Spectrogram",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3268,7 +3268,7 @@
           {
             "id": "word-error-rate",
             "title": "Word Error Rate",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3690,7 +3690,7 @@
           {
             "id": "neural-audio-codec",
             "title": "Neural Audio Codec",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4168,7 +4168,7 @@
           {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4334,32 +4334,32 @@
       "id": "spectrogram",
       "title": "Spectrogram",
       "domain": "Speech / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "automatic-speech-recognition",
             "title": "Speech Recognition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "connectionist-temporal-classification",
             "title": "CTC",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "text-to-speech",
             "title": "Text to Speech",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4395,7 +4395,7 @@
       "id": "speech-representation-learning",
       "title": "Speech Representation Learning",
       "domain": "Speech / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4407,7 +4407,7 @@
           {
             "id": "spectrogram",
             "title": "Spectrogram",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4428,7 +4428,7 @@
           {
             "id": "neural-audio-codec",
             "title": "Neural Audio Codec",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4481,13 +4481,13 @@
       "id": "streaming-asr",
       "title": "Streaming ASR",
       "domain": "Speech / Serving",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "automatic-speech-recognition",
             "title": "Speech Recognition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4650,13 +4650,13 @@
       "id": "text-to-speech",
       "title": "Text to Speech",
       "domain": "Speech / Synthesis",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "spectrogram",
             "title": "Spectrogram",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4929,7 +4929,7 @@
           {
             "id": "neural-audio-codec",
             "title": "Neural Audio Codec",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4949,7 +4949,7 @@
           {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5071,13 +5071,13 @@
       "id": "word-error-rate",
       "title": "Word Error Rate",
       "domain": "Speech / Metrics",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "automatic-speech-recognition",
             "title": "Speech Recognition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5754,7 +5754,7 @@
         {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
@@ -5831,7 +5831,7 @@
       "center": {
         "id": "automatic-speech-recognition",
         "title": "Speech Recognition",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -5846,28 +5846,28 @@
         {
           "id": "spectrogram",
           "title": "Spectrogram",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
         {
           "id": "streaming-asr",
           "title": "Streaming ASR",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "connectionist-temporal-classification",
           "title": "CTC",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -6001,7 +6001,7 @@
         {
           "id": "text-to-speech",
           "title": "Text to Speech",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -6407,7 +6407,7 @@
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -6481,7 +6481,7 @@
         {
           "id": "streaming-asr",
           "title": "Streaming ASR",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -6836,7 +6836,7 @@
       "center": {
         "id": "connectionist-temporal-classification",
         "title": "CTC",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -6851,14 +6851,14 @@
         {
           "id": "spectrogram",
           "title": "Spectrogram",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
         {
           "id": "automatic-speech-recognition",
           "title": "Speech Recognition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -7164,7 +7164,7 @@
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -7255,7 +7255,7 @@
         {
           "id": "automatic-speech-recognition",
           "title": "Speech Recognition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -7320,7 +7320,7 @@
         {
           "id": "connectionist-temporal-classification",
           "title": "CTC",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 19
         },
@@ -7782,7 +7782,7 @@
         {
           "id": "text-to-speech",
           "title": "Text to Speech",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -7947,7 +7947,7 @@
         {
           "id": "automatic-speech-recognition",
           "title": "Speech Recognition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -9938,7 +9938,7 @@
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -10393,7 +10393,7 @@
       "center": {
         "id": "neural-audio-codec",
         "title": "Neural Audio Codec",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10422,7 +10422,7 @@
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -10727,7 +10727,7 @@
         {
           "id": "spectrogram",
           "title": "Spectrogram",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -10786,7 +10786,7 @@
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -11508,7 +11508,7 @@
         {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -12347,7 +12347,7 @@
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -12655,7 +12655,7 @@
       "center": {
         "id": "spectrogram",
         "title": "Spectrogram",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12663,28 +12663,28 @@
         {
           "id": "automatic-speech-recognition",
           "title": "Speech Recognition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
         {
           "id": "connectionist-temporal-classification",
           "title": "CTC",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
         {
           "id": "text-to-speech",
           "title": "Text to Speech",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -12761,7 +12761,7 @@
       "center": {
         "id": "speech-representation-learning",
         "title": "Speech Representation Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12776,7 +12776,7 @@
         {
           "id": "spectrogram",
           "title": "Spectrogram",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -12797,7 +12797,7 @@
         {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -12919,7 +12919,7 @@
       "center": {
         "id": "streaming-asr",
         "title": "Streaming ASR",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12927,7 +12927,7 @@
         {
           "id": "automatic-speech-recognition",
           "title": "Speech Recognition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -13198,7 +13198,7 @@
       "center": {
         "id": "text-to-speech",
         "title": "Text to Speech",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13206,7 +13206,7 @@
         {
           "id": "spectrogram",
           "title": "Spectrogram",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -13688,7 +13688,7 @@
         {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -13709,7 +13709,7 @@
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -13938,7 +13938,7 @@
       "center": {
         "id": "word-error-rate",
         "title": "Word Error Rate",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13946,7 +13946,7 @@
         {
           "id": "automatic-speech-recognition",
           "title": "Speech Recognition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
