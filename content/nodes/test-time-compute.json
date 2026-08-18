@@ -1,0 +1,67 @@
+{
+  "id": "test-time-compute",
+  "title": "Test-Time Compute",
+  "domain": [
+    "Reasoning",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "There are two ways to make a model answer harder questions: build a bigger one, or let the one you have think for longer. The second is a scaling axis in its own right, and for a while nobody was treating it as one — inference was a fixed cost per query rather than a dial. Turning it into a dial is the change that reorganised the field.",
+    "engineer": "The dial has several settings and they are not equivalent. Sample many answers and vote; sample many and pick with a verifier; revise an answer in sequence; search over partial reasoning. Which one pays depends on the problem: voting needs the right answer to be modal, verification needs a verifier better than the generator, and revision needs the model to be able to spot its own errors — which it often cannot. Choosing wrongly spends the budget for nothing.",
+    "math": "The two axes trade. A fixed serving budget can go into parameters or into tokens per query, and on problems within a model's reach the tokens win — a smaller model thinking longer beats a larger one answering immediately, at equal cost. The trade reverses on problems beyond the smaller model's reach, because no amount of thinking finds an answer it cannot represent, and that boundary is what makes the choice a measurement rather than a preference."
+  },
+  "emphasis": {
+    "intuition": "inference was a fixed cost per query rather than a dial",
+    "math": "no amount of thinking finds an answer it cannot represent"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "reasoning_tokens": 40,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "reasoning_tokens",
+        "min": 0,
+        "max": 900,
+        "step": 25
+      }
+    ],
+    "caption": "Serving budget spent on tokens the model generates before answering, against the budget spent on parameters, in equal units. Drag the thinking up to watch it take the budget — worth it while the problem is within reach, and worth nothing past that boundary."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "scaling-laws",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "chain-of-thought",
+        "reviewed": false
+      },
+      {
+        "id": "inference-scaling-law",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2408.03314",
+      "title": "Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters",
+      "url": "https://arxiv.org/abs/2408.03314"
+    },
+    {
+      "ref": "arXiv:2412.16720",
+      "title": "OpenAI o1 System Card",
+      "url": "https://arxiv.org/abs/2412.16720"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

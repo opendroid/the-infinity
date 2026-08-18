@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "parsing",
+      "id": "test-time-compute",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "sequence-labelling",
+      "id": "self-consistency",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "structured-output",
+      "id": "reasoning-rl",
       "t": 0.8,
       "label": true
     }

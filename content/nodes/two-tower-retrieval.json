@@ -24,7 +24,7 @@
       {
         "name": "precomputed",
         "min": 0,
-        "max": 256,
+        "max": 160,
         "step": 8
       }
     ],

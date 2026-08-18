@@ -1,0 +1,63 @@
+{
+  "id": "search-over-thoughts",
+  "title": "Search Over Thoughts",
+  "domain": [
+    "Reasoning",
+    "Search"
+  ],
+  "bodies": {
+    "intuition": "Instead of one chain of reasoning, explore a tree of them: generate several possible next steps, evaluate which look promising, expand those, and abandon the rest. It turns reasoning from generation into search, and the classical search machinery — breadth, depth, backtracking, an evaluation function — applies directly.",
+    "engineer": "The evaluation function is where this lives or dies. Search only helps if partial states can be scored better than at random, and a model asked to rate its own half-finished reasoning is a weak evaluator on exactly the problems where search would help most. That is the same dependency `monte-carlo-tree-search` has on its value function, arriving in a domain with no simulator to ground it — so the branching gets narrow and shallow in practice, far short of what the framing suggests.",
+    "math": "Cost is the branching factor to the power of the depth, which is why nothing runs deep. At branching 5 and depth 4 that is 625 model calls for one answer, against one — so the interesting comparison is never search versus greedy but search versus spending the same 625 calls on independent samples with a verifier. Flat sampling wins more often than the tree framing suggests, and it wins because it needs no evaluation of partial states at all."
+  },
+  "emphasis": {
+    "engineer": "a model asked to rate its own half-finished reasoning is a weak evaluator on exactly the problems where search would help most",
+    "math": "the interesting comparison is never search versus greedy but search versus spending the same 625 calls on independent samples"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "expanded_nodes": 24,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "expanded_nodes",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Model calls spent expanding a reasoning tree, against the calls a single chain would have used, in calls. Drag the branching up to watch the cost explode — it is the branching factor to the depth, and the honest comparison is against flat sampling at the same price."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "monte-carlo-tree-search",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "verifier-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.10601",
+      "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+      "url": "https://arxiv.org/abs/2305.10601"
+    },
+    {
+      "ref": "arXiv:2408.03314",
+      "title": "Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters",
+      "url": "https://arxiv.org/abs/2408.03314"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

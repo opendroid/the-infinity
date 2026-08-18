@@ -1,0 +1,63 @@
+{
+  "id": "process-supervision",
+  "title": "Process Supervision",
+  "domain": [
+    "Reasoning",
+    "Selection"
+  ],
+  "bodies": {
+    "intuition": "Reward each step of the reasoning rather than only the final answer. It is more expensive to label — someone has to read every line — and it fixes a specific problem that outcome rewards create, which is that a model reaching the right answer through nonsense gets exactly the same credit as one that reasoned correctly.",
+    "engineer": "Outcome supervision is cheap because the answer is checkable automatically; process supervision needs a human or a strong model to judge each step, so the datasets are small and expensive. What buys that cost is a much better verifier: a step-level reward model catches an error where it happens instead of inferring from a wrong answer that something, somewhere, went wrong. It also gives the model a signal it can act on, since \"step four is wrong\" is actionable and \"your answer is wrong\" is not.",
+    "math": "The credit assignment problem is why the difference is large. With outcome-only reward, a trajectory of twenty steps gets one bit of feedback for all twenty, and a correct answer reached by a lucky cancellation reinforces every step that produced it — including the wrong ones. Step-level reward gives one signal per step, so the feedback a trajectory carries grows with its length instead of staying at one bit however long the reasoning gets."
+  },
+  "emphasis": {
+    "intuition": "a model reaching the right answer through nonsense gets exactly the same credit as one that reasoned correctly",
+    "math": "one bit of feedback for all twenty"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "step_labels": 3,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "step_labels",
+        "min": 0,
+        "max": 300,
+        "step": 10
+      }
+    ],
+    "caption": "Feedback signals a step-labelled trajectory carries, against the single bit an outcome-only reward gives it, in signals. Drag the reasoning length up to watch process supervision's advantage grow — outcome feedback stays at one bit however long the chain gets."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "verifier-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "reasoning-rl",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2211.14275",
+      "title": "Solving math word problems with process- and outcome-based feedback",
+      "url": "https://arxiv.org/abs/2211.14275"
+    },
+    {
+      "ref": "arXiv:2305.20050",
+      "title": "Let's Verify Step by Step",
+      "url": "https://arxiv.org/abs/2305.20050"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

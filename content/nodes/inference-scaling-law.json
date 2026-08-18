@@ -1,0 +1,63 @@
+{
+  "id": "inference-scaling-law",
+  "title": "Inference Scaling Law",
+  "domain": [
+    "Reasoning",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Accuracy improves predictably with compute spent at inference, in the same regular way it improves with compute spent at training — and the two are substitutes. That means a serving budget is a choice between a larger model and a longer-thinking one, and the choice has a right answer that depends on the problem rather than on taste.",
+    "engineer": "The practical finding is that on problems a model can nearly do, extra inference compute beats extra parameters at equal cost, sometimes by a wide margin. On problems well beyond it, the reverse holds — thinking longer cannot find what the model has no representation for. So the useful question for a deployment is not which axis is better but where its problem distribution sits relative to that crossover, which is measurable and rarely measured.",
+    "math": "The distinction from `scaling-laws` is the resource being scaled. Training compute is paid once and amortised over every query; inference compute is paid per query, so its cost grows with traffic while the model's does not. A curve showing inference compute buying accuracy is therefore describing a recurring bill, and the two curves cannot be compared without fixing the query volume — which is why the crossover point moves with how much traffic a system serves."
+  },
+  "emphasis": {
+    "intuition": "the two are substitutes",
+    "math": "the crossover point moves with how much traffic a system serves"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "inference_compute": 30,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "inference_compute",
+        "min": 0,
+        "max": 800,
+        "step": 25
+      }
+    ],
+    "caption": "Compute paid per query at inference, against the amortised share of training compute per query, in equal units. Drag the thinking budget up to watch the recurring cost overtake the one-off — which is why the crossover moves with traffic volume."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "compute-optimal-training",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "test-time-compute",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2408.03314",
+      "title": "Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters",
+      "url": "https://arxiv.org/abs/2408.03314"
+    },
+    {
+      "ref": "arXiv:2412.16720",
+      "title": "OpenAI o1 System Card",
+      "url": "https://arxiv.org/abs/2412.16720"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

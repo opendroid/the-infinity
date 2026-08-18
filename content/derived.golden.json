@@ -952,7 +952,7 @@
           {
             "id": "structured-output",
             "title": "Structured Output",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1201,7 +1201,7 @@
           {
             "id": "beam-search-tradeoffs",
             "title": "Beam Search Tradeoffs",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1209,7 +1209,7 @@
           {
             "id": "dynamic-programming-inference",
             "title": "Dynamic Programming Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1219,7 +1219,7 @@
       "id": "beam-search-tradeoffs",
       "title": "Beam Search Tradeoffs",
       "domain": "Structure / Decoding",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1234,7 +1234,7 @@
           {
             "id": "structured-output",
             "title": "Structured Output",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1826,6 +1826,18 @@
             "reviewed": false
           },
           {
+            "id": "reasoning-trace",
+            "title": "Reasoning Trace",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "self-consistency",
+            "title": "Self-Consistency",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "task-decomposition",
             "title": "Task Decomposition",
             "tier": "verified",
@@ -1843,6 +1855,12 @@
             "id": "kv-cache",
             "title": "KV Cache",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "test-time-compute",
+            "title": "Test-Time Compute",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2277,7 +2295,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "inference-scaling-law",
+            "title": "Inference Scaling Law",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "data-scaling-laws",
@@ -2348,13 +2373,13 @@
       "id": "conditional-random-field",
       "title": "Conditional Random Field",
       "domain": "Structure / Labelling",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "dynamic-programming-inference",
             "title": "Dynamic Programming Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2363,7 +2388,7 @@
           {
             "id": "sequence-labelling",
             "title": "Sequence Labelling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2474,7 +2499,7 @@
           {
             "id": "dynamic-programming-inference",
             "title": "Dynamic Programming Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2543,7 +2568,7 @@
           {
             "id": "grammar-constrained-decoding",
             "title": "Grammar-Constrained Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4085,7 +4110,7 @@
       "id": "dynamic-programming-inference",
       "title": "Dynamic Programming Inference",
       "domain": "Structure / Inference",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4099,13 +4124,13 @@
           {
             "id": "conditional-random-field",
             "title": "Conditional Random Field",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "parsing",
             "title": "Parsing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4598,6 +4623,12 @@
             "id": "pass-at-k",
             "title": "pass@k",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "reasoning-rl",
+            "title": "Reasoning RL",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -5273,7 +5304,7 @@
           {
             "id": "grammar-constrained-decoding",
             "title": "Grammar-Constrained Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5580,7 +5611,7 @@
       "id": "grammar-constrained-decoding",
       "title": "Grammar-Constrained Decoding",
       "domain": "Structure / Decoding",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5594,7 +5625,7 @@
           {
             "id": "schema-conformance",
             "title": "Schema Conformance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5608,7 +5639,7 @@
           {
             "id": "structured-output",
             "title": "Structured Output",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6312,6 +6343,31 @@
             "id": "quantization",
             "title": "Quantization",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "inference-scaling-law",
+      "title": "Inference Scaling Law",
+      "domain": "Reasoning / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "compute-optimal-training",
+            "title": "Compute-Optimal Training",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "test-time-compute",
+            "title": "Test-Time Compute",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -8489,7 +8545,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "search-over-thoughts",
+            "title": "Search Over Thoughts",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "autotuning",
@@ -9400,13 +9463,13 @@
       "id": "parsing",
       "title": "Parsing",
       "domain": "Structure / Inference",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "dynamic-programming-inference",
             "title": "Dynamic Programming Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9415,7 +9478,7 @@
           {
             "id": "structured-output",
             "title": "Structured Output",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -9936,6 +9999,31 @@
       }
     },
     {
+      "id": "process-supervision",
+      "title": "Process Supervision",
+      "domain": "Reasoning / Selection",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "verifier-model",
+            "title": "Verifier Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "reasoning-rl",
+            "title": "Reasoning RL",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "production-monitoring",
       "title": "Production Monitoring",
       "domain": "Deployment / Monitoring",
@@ -10198,6 +10286,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "reasoning-rl",
+            "title": "Reasoning RL",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "rlhf",
             "title": "RLHF",
@@ -10552,6 +10646,68 @@
       }
     },
     {
+      "id": "reasoning-rl",
+      "title": "Reasoning RL",
+      "domain": "Reasoning / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "proximal-policy-optimization",
+            "title": "PPO",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "execution-verification",
+            "title": "Execution Verification",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "process-supervision",
+            "title": "Process Supervision",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "reasoning-trace",
+      "title": "Reasoning Trace",
+      "domain": "Reasoning / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "chain-of-thought",
+            "title": "Chain of Thought",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "self-reflection",
+            "title": "Self-Reflection",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "test-time-compute",
+            "title": "Test-Time Compute",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "red-teaming",
       "title": "Red Teaming",
       "domain": "Adversarial / Evaluation",
@@ -10850,6 +11006,12 @@
             "title": "RLHF",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "verifier-model",
+            "title": "Verifier Model",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -10891,6 +11053,12 @@
             "id": "rlhf",
             "title": "RLHF",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "verifier-model",
+            "title": "Verifier Model",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -11270,6 +11438,12 @@
             "title": "Emergent Abilities",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "test-time-compute",
+            "title": "Test-Time Compute",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -11292,13 +11466,13 @@
       "id": "schema-conformance",
       "title": "Schema Conformance",
       "domain": "Structure / Decoding",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "grammar-constrained-decoding",
             "title": "Grammar-Constrained Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11307,7 +11481,7 @@
           {
             "id": "structured-output",
             "title": "Structured Output",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11377,6 +11551,31 @@
             "id": "tokenizer-fairness",
             "title": "Tokenizer Fairness",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "search-over-thoughts",
+      "title": "Search Over Thoughts",
+      "domain": "Reasoning / Search",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "monte-carlo-tree-search",
+            "title": "Monte Carlo Tree Search",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "verifier-model",
+            "title": "Verifier Model",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -11556,6 +11755,37 @@
       }
     },
     {
+      "id": "self-consistency",
+      "title": "Self-Consistency",
+      "domain": "Reasoning / Aggregation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "chain-of-thought",
+            "title": "Chain of Thought",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "test-time-compute",
+            "title": "Test-Time Compute",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "verifier-model",
+            "title": "Verifier Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "self-reflection",
       "title": "Self-Reflection",
       "domain": "Agents / Control",
@@ -11575,6 +11805,12 @@
             "id": "llm-as-judge",
             "title": "LLM as Judge",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "reasoning-trace",
+            "title": "Reasoning Trace",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -11660,13 +11896,13 @@
       "id": "sequence-labelling",
       "title": "Sequence Labelling",
       "domain": "Structure / Labelling",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "structured-output",
             "title": "Structured Output",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11675,7 +11911,7 @@
           {
             "id": "conditional-random-field",
             "title": "Conditional Random Field",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -12030,7 +12266,7 @@
           {
             "id": "conditional-random-field",
             "title": "Conditional Random Field",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -12599,7 +12835,7 @@
       "id": "structured-output",
       "title": "Structured Output",
       "domain": "Structure / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -12613,7 +12849,7 @@
           {
             "id": "sequence-labelling",
             "title": "Sequence Labelling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12621,25 +12857,25 @@
           {
             "id": "beam-search-tradeoffs",
             "title": "Beam Search Tradeoffs",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "grammar-constrained-decoding",
             "title": "Grammar-Constrained Decoding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "parsing",
             "title": "Parsing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "schema-conformance",
             "title": "Schema Conformance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -13077,6 +13313,49 @@
       }
     },
     {
+      "id": "test-time-compute",
+      "title": "Test-Time Compute",
+      "domain": "Reasoning / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "scaling-laws",
+            "title": "Scaling Laws",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "chain-of-thought",
+            "title": "Chain of Thought",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "inference-scaling-law",
+            "title": "Inference Scaling Law",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "reasoning-trace",
+            "title": "Reasoning Trace",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "self-consistency",
+            "title": "Self-Consistency",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "text-to-speech",
       "title": "Text to Speech",
       "domain": "Speech / Synthesis",
@@ -13434,7 +13713,7 @@
           {
             "id": "schema-conformance",
             "title": "Schema Conformance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -13882,6 +14161,50 @@
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "verifier-model",
+      "title": "Verifier Model",
+      "domain": "Reasoning / Selection",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "reward-model",
+            "title": "Reward Model",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "process-supervision",
+            "title": "Process Supervision",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "reward-hacking",
+            "title": "Reward Hacking",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "search-over-thoughts",
+            "title": "Search Over Thoughts",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "self-consistency",
+            "title": "Self-Consistency",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -15985,7 +16308,7 @@
         {
           "id": "structured-output",
           "title": "Structured Output",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -16481,14 +16804,14 @@
         {
           "id": "beam-search-tradeoffs",
           "title": "Beam Search Tradeoffs",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "dynamic-programming-inference",
           "title": "Dynamic Programming Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -16519,7 +16842,7 @@
       "center": {
         "id": "beam-search-tradeoffs",
         "title": "Beam Search Tradeoffs",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16534,7 +16857,7 @@
         {
           "id": "structured-output",
           "title": "Structured Output",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -17615,28 +17938,49 @@
           "title": "ReAct",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 26
+        },
+        {
+          "id": "reasoning-trace",
+          "title": "Reasoning Trace",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "self-consistency",
+          "title": "Self-Consistency",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
         },
         {
           "id": "task-decomposition",
           "title": "Task Decomposition",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 106
         },
         {
           "id": "compression-quality-tradeoff",
           "title": "Compression-Quality Tradeoff",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "kv-cache",
           "title": "KV Cache",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "test-time-compute",
+          "title": "Test-Time Compute",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -17649,6 +17993,18 @@
         {
           "from": "chain-of-thought",
           "to": "react",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "chain-of-thought",
+          "to": "reasoning-trace",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "chain-of-thought",
+          "to": "self-consistency",
           "type": "unlocks",
           "reviewed": false
         },
@@ -17667,6 +18023,12 @@
         {
           "from": "chain-of-thought",
           "to": "kv-cache",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "chain-of-thought",
+          "to": "test-time-compute",
           "type": "adjacent",
           "reviewed": false
         }
@@ -18417,6 +18779,13 @@
           "y": 66
         },
         {
+          "id": "inference-scaling-law",
+          "title": "Inference Scaling Law",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "data-scaling-laws",
           "title": "Data Scaling Laws",
           "tier": "verified",
@@ -18429,6 +18798,12 @@
           "from": "scaling-laws",
           "to": "compute-optimal-training",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "compute-optimal-training",
+          "to": "inference-scaling-law",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -18537,7 +18912,7 @@
       "center": {
         "id": "conditional-random-field",
         "title": "Conditional Random Field",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -18545,14 +18920,14 @@
         {
           "id": "dynamic-programming-inference",
           "title": "Dynamic Programming Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "sequence-labelling",
           "title": "Sequence Labelling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -18744,7 +19119,7 @@
         {
           "id": "dynamic-programming-inference",
           "title": "Dynamic Programming Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -18863,7 +19238,7 @@
         {
           "id": "grammar-constrained-decoding",
           "title": "Grammar-Constrained Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -21697,7 +22072,7 @@
       "center": {
         "id": "dynamic-programming-inference",
         "title": "Dynamic Programming Inference",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -21712,14 +22087,14 @@
         {
           "id": "conditional-random-field",
           "title": "Conditional Random Field",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "parsing",
           "title": "Parsing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -22571,29 +22946,36 @@
           "id": "agentic-coding",
           "title": "Agentic Coding",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "code-generation",
           "title": "Code Generation",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
         },
         {
           "id": "pass-at-k",
           "title": "pass@k",
           "tier": "verified",
-          "x": 144,
+          "x": 120,
           "y": 22
+        },
+        {
+          "id": "reasoning-rl",
+          "title": "Reasoning RL",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         },
         {
           "id": "sandboxing",
           "title": "Sandboxing",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -22630,6 +23012,12 @@
         {
           "from": "execution-verification",
           "to": "pass-at-k",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "execution-verification",
+          "to": "reasoning-rl",
           "type": "adjacent",
           "reviewed": false
         },
@@ -23809,7 +24197,7 @@
         {
           "id": "grammar-constrained-decoding",
           "title": "Grammar-Constrained Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -24398,7 +24786,7 @@
       "center": {
         "id": "grammar-constrained-decoding",
         "title": "Grammar-Constrained Decoding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -24413,7 +24801,7 @@
         {
           "id": "schema-conformance",
           "title": "Schema Conformance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -24427,7 +24815,7 @@
         {
           "id": "structured-output",
           "title": "Structured Output",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -25683,6 +26071,46 @@
         {
           "from": "inference-accelerator",
           "to": "quantization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "inference-scaling-law",
+      "center": {
+        "id": "inference-scaling-law",
+        "title": "Inference Scaling Law",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "compute-optimal-training",
+          "title": "Compute-Optimal Training",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "test-time-compute",
+          "title": "Test-Time Compute",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "compute-optimal-training",
+          "to": "inference-scaling-law",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "inference-scaling-law",
+          "to": "test-time-compute",
           "type": "adjacent",
           "reviewed": false
         }
@@ -29557,6 +29985,13 @@
           "y": 66
         },
         {
+          "id": "search-over-thoughts",
+          "title": "Search Over Thoughts",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "autotuning",
           "title": "Autotuning",
           "tier": "verified",
@@ -29576,6 +30011,12 @@
           "from": "exploration-exploitation",
           "to": "monte-carlo-tree-search",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "monte-carlo-tree-search",
+          "to": "search-over-thoughts",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -31168,7 +31609,7 @@
       "center": {
         "id": "parsing",
         "title": "Parsing",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31176,14 +31617,14 @@
         {
           "id": "dynamic-programming-inference",
           "title": "Dynamic Programming Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "structured-output",
           "title": "Structured Output",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -32139,6 +32580,46 @@
       ]
     },
     {
+      "id": "process-supervision",
+      "center": {
+        "id": "process-supervision",
+        "title": "Process Supervision",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "verifier-model",
+          "title": "Verifier Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "reasoning-rl",
+          "title": "Reasoning RL",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "verifier-model",
+          "to": "process-supervision",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "process-supervision",
+          "to": "reasoning-rl",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "production-monitoring",
       "center": {
         "id": "production-monitoring",
@@ -32586,11 +33067,18 @@
           "y": 88
         },
         {
+          "id": "reasoning-rl",
+          "title": "Reasoning RL",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "actor-critic",
@@ -32611,6 +33099,12 @@
           "from": "policy-gradient",
           "to": "proximal-policy-optimization",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "proximal-policy-optimization",
+          "to": "reasoning-rl",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -33222,6 +33716,112 @@
       ]
     },
     {
+      "id": "reasoning-rl",
+      "center": {
+        "id": "reasoning-rl",
+        "title": "Reasoning RL",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "proximal-policy-optimization",
+          "title": "PPO",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "execution-verification",
+          "title": "Execution Verification",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "process-supervision",
+          "title": "Process Supervision",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "proximal-policy-optimization",
+          "to": "reasoning-rl",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reasoning-rl",
+          "to": "execution-verification",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "reasoning-rl",
+          "to": "process-supervision",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "reasoning-trace",
+      "center": {
+        "id": "reasoning-trace",
+        "title": "Reasoning Trace",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "chain-of-thought",
+          "title": "Chain of Thought",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "self-reflection",
+          "title": "Self-Reflection",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "test-time-compute",
+          "title": "Test-Time Compute",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "chain-of-thought",
+          "to": "reasoning-trace",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reasoning-trace",
+          "to": "self-reflection",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "reasoning-trace",
+          "to": "test-time-compute",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "red-teaming",
       "center": {
         "id": "red-teaming",
@@ -33704,29 +34304,36 @@
           "id": "feedback-loop",
           "title": "Feedback Loop",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "intervention",
           "title": "Intervention",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
         },
         {
           "id": "program-repair",
           "title": "Program Repair",
           "tier": "verified",
-          "x": 144,
+          "x": 120,
           "y": 22
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 192,
+          "x": 160,
           "y": 110
+        },
+        {
+          "id": "verifier-model",
+          "title": "Verifier Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -33757,6 +34364,12 @@
         {
           "from": "reward-hacking",
           "to": "rlhf",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "reward-hacking",
+          "to": "verifier-model",
           "type": "adjacent",
           "reviewed": false
         }
@@ -33791,21 +34404,28 @@
           "title": "DPO",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "reward-hacking",
           "title": "Reward Hacking",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 79
+        },
+        {
+          "id": "verifier-model",
+          "title": "Verifier Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
         },
         {
           "id": "llm-as-judge",
@@ -33843,6 +34463,12 @@
         {
           "from": "reward-model",
           "to": "rlhf",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "reward-model",
+          "to": "verifier-model",
           "type": "unlocks",
           "reviewed": false
         },
@@ -34470,21 +35096,28 @@
           "title": "Compute-Optimal Training",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "data-scaling-laws",
           "title": "Data Scaling Laws",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
         },
         {
           "id": "emergent-abilities",
           "title": "Emergent Abilities",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 79
+        },
+        {
+          "id": "test-time-compute",
+          "title": "Test-Time Compute",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
         },
         {
           "id": "data-mixing",
@@ -34528,6 +35161,12 @@
         },
         {
           "from": "scaling-laws",
+          "to": "test-time-compute",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "scaling-laws",
           "to": "data-mixing",
           "type": "adjacent",
           "reviewed": false
@@ -34545,7 +35184,7 @@
       "center": {
         "id": "schema-conformance",
         "title": "Schema Conformance",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -34553,14 +35192,14 @@
         {
           "id": "grammar-constrained-decoding",
           "title": "Grammar-Constrained Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "structured-output",
           "title": "Structured Output",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -34694,6 +35333,46 @@
         {
           "from": "script-and-orthography",
           "to": "tokenizer-fairness",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "search-over-thoughts",
+      "center": {
+        "id": "search-over-thoughts",
+        "title": "Search Over Thoughts",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "monte-carlo-tree-search",
+          "title": "Monte Carlo Tree Search",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "verifier-model",
+          "title": "Verifier Model",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "monte-carlo-tree-search",
+          "to": "search-over-thoughts",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "search-over-thoughts",
+          "to": "verifier-model",
           "type": "adjacent",
           "reviewed": false
         }
@@ -35004,6 +35683,59 @@
       ]
     },
     {
+      "id": "self-consistency",
+      "center": {
+        "id": "self-consistency",
+        "title": "Self-Consistency",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "chain-of-thought",
+          "title": "Chain of Thought",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "test-time-compute",
+          "title": "Test-Time Compute",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "verifier-model",
+          "title": "Verifier Model",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "chain-of-thought",
+          "to": "self-consistency",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "self-consistency",
+          "to": "test-time-compute",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "self-consistency",
+          "to": "verifier-model",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "self-reflection",
       "center": {
         "id": "self-reflection",
@@ -35024,8 +35756,15 @@
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "reasoning-trace",
+          "title": "Reasoning Trace",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -35038,6 +35777,12 @@
         {
           "from": "self-reflection",
           "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "self-reflection",
+          "to": "reasoning-trace",
           "type": "adjacent",
           "reviewed": false
         }
@@ -35180,7 +35925,7 @@
       "center": {
         "id": "sequence-labelling",
         "title": "Sequence Labelling",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -35188,14 +35933,14 @@
         {
           "id": "structured-output",
           "title": "Structured Output",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "conditional-random-field",
           "title": "Conditional Random Field",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -35786,7 +36531,7 @@
         {
           "id": "conditional-random-field",
           "title": "Conditional Random Field",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -36867,7 +37612,7 @@
       "center": {
         "id": "structured-output",
         "title": "Structured Output",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -36882,35 +37627,35 @@
         {
           "id": "sequence-labelling",
           "title": "Sequence Labelling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "beam-search-tradeoffs",
           "title": "Beam Search Tradeoffs",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
         {
           "id": "grammar-constrained-decoding",
           "title": "Grammar-Constrained Decoding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
         {
           "id": "parsing",
           "title": "Parsing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
         {
           "id": "schema-conformance",
           "title": "Schema Conformance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -37708,6 +38453,85 @@
       ]
     },
     {
+      "id": "test-time-compute",
+      "center": {
+        "id": "test-time-compute",
+        "title": "Test-Time Compute",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "scaling-laws",
+          "title": "Scaling Laws",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "chain-of-thought",
+          "title": "Chain of Thought",
+          "tier": "verified",
+          "x": 48,
+          "y": 22
+        },
+        {
+          "id": "inference-scaling-law",
+          "title": "Inference Scaling Law",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
+        },
+        {
+          "id": "reasoning-trace",
+          "title": "Reasoning Trace",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "self-consistency",
+          "title": "Self-Consistency",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "scaling-laws",
+          "to": "test-time-compute",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "test-time-compute",
+          "to": "chain-of-thought",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "test-time-compute",
+          "to": "inference-scaling-law",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "test-time-compute",
+          "to": "reasoning-trace",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "test-time-compute",
+          "to": "self-consistency",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "text-to-speech",
       "center": {
         "id": "text-to-speech",
@@ -38340,7 +39164,7 @@
         {
           "id": "schema-conformance",
           "title": "Schema Conformance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -39189,6 +40013,85 @@
         {
           "from": "vector-quantization",
           "to": "speech-representation-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "verifier-model",
+      "center": {
+        "id": "verifier-model",
+        "title": "Verifier Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "reward-model",
+          "title": "Reward Model",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "process-supervision",
+          "title": "Process Supervision",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "reward-hacking",
+          "title": "Reward Hacking",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "search-over-thoughts",
+          "title": "Search Over Thoughts",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "self-consistency",
+          "title": "Self-Consistency",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "reward-model",
+          "to": "verifier-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "verifier-model",
+          "to": "process-supervision",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "verifier-model",
+          "to": "reward-hacking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "verifier-model",
+          "to": "search-over-thoughts",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "verifier-model",
+          "to": "self-consistency",
           "type": "adjacent",
           "reviewed": false
         }
