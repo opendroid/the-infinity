@@ -1,3 +1,4 @@
+import { gzipSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
 import { buildIndex, normalise, search, type Entry } from './search';
 import { allNodes } from './content';
@@ -15,9 +16,47 @@ describe('the index', () => {
     expect(Object.keys(index[0]!).sort()).toEqual(['domain', 'id', 'tier', 'title']);
   });
 
+  /**
+   * BUDGETED IN GZIPPED BYTES, WHICH IS WHAT A READER DOWNLOADS.
+   *
+   * This shipped asserting the raw string length against #45's "roughly 30 KB",
+   * and went red at 297 concepts. The obvious fixes are to raise the number or
+   * to shrink the index. Measuring the second says why neither is right:
+   *
+   *   encoding                                  raw     gzip   brotli
+   *   {id, title, domain, tier} per node      30.7 KB   5.7 KB  4.8 KB
+   *   domains interned to a table + index     21.9 KB   5.8 KB  4.9 KB
+   *   tuples [id, title, domainIdx, tierBit]  17.3 KB   5.5 KB  4.6 KB
+   *   + title derived from id where it matches 13.6 KB  4.5 KB  3.8 KB
+   *
+   * Interning the 158 domain strings cuts raw bytes by 29% and makes the
+   * TRANSFERRED bytes larger. That is not a surprise once said out loud: LZ77
+   * back-references are what interning does, and gzip does it better because it
+   * does not have to ship the table. So the raw count is a proxy for nothing a
+   * reader experiences, and every restructuring it would push us toward buys a
+   * second index shape and an encode/decode step in exchange for ~100 bytes.
+   *
+   * The table is here so the next person to see this fail does not re-derive it
+   * before reaching for the interning that does not work (#254).
+   *
+   * `perf-budget.json` (#60) has always been denominated this way — gzipped
+   * bytes, `gzipSync` at level 9 — so this is the codebase's existing unit, not
+   * a new one invented to escape a red test. #45's number was scoped to "the
+   * current graph" of 57 concepts and was a snapshot, not a ceiling.
+   *
+   * TEN KILOBYTES against 5.7 measured. Entries compress to about 20 gzipped
+   * bytes each at 297 concepts, so the budget bites somewhere past 500 — the
+   * next conversation about whether client-side search still makes sense, rather
+   * than a conversation every eighth node. It is not slack: giving each entry a
+   * 120-character summary takes the index to 20.3 KB gzipped and fails here,
+   * which is the growth this is actually watching for.
+   *
+   * What stops a body field landing in here is the assertion above, which pins
+   * the exact key set. This one is about volume; that one is about shape.
+   */
   it('is small enough to send', () => {
-    const bytes = Buffer.byteLength(JSON.stringify(index));
-    expect(bytes).toBeLessThan(30_720); // the 30 KB budget in #45
+    const wire = gzipSync(JSON.stringify(index), { level: 9 }).length;
+    expect(wire).toBeLessThan(10_240);
   });
 
   it('joins the domain path the way the page displays it', () => {
