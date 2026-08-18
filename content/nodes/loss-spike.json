@@ -1,0 +1,67 @@
+{
+  "id": "loss-spike",
+  "title": "Loss Spike",
+  "domain": [
+    "Systems",
+    "Reliability"
+  ],
+  "bodies": {
+    "intuition": "A long run is going well and then the loss jumps — sometimes recovering on its own over a few thousand steps, sometimes never. Large runs hit these repeatedly, and because a run costs millions of dollars, what to do about a spike is a real operational decision rather than a curiosity.",
+    "engineer": "The standard response is unglamorous and effective: rewind to a checkpoint before the spike, skip a few hundred batches of data, and resume. PaLM's authors report doing exactly this, and note that the spike does not reappear when the same data is fed to the earlier checkpoint — so it is an interaction between a particular model state and a particular batch, not a poisoned example you could find and delete. Preventive measures act on the same interaction: gradient clipping, a longer warmup, and tighter control of the numerics.",
+    "math": "The cost of a spike is not the spike; it is everything since the last good checkpoint. Rewinding discards every step between the checkpoint and the detection, so the replayed fraction is set by two things a team controls — how often it checkpoints, and how long the loss is allowed to climb before someone or something reacts. Detection latency is the term people forget, and on a run that is monitored by a human reading a dashboard each morning, it is measured in hours."
+  },
+  "emphasis": {
+    "engineer": "not a poisoned example you could find and delete",
+    "math": "Detection latency is the term people forget"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "steps_replayed": 300,
+      "share_rest": 4000
+    },
+    "param_controls": [
+      {
+        "name": "steps_replayed",
+        "min": 0,
+        "max": 12000,
+        "step": 400
+      }
+    ],
+    "caption": "Steps thrown away and run again after a spike, against the steps that stuck. Drag the replay up to watch it eat the run — the distance is set by the checkpoint interval and by how long the climb went unnoticed, and only the first of those is usually tuned."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "gradient-clipping",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "warmup",
+        "reviewed": false
+      },
+      {
+        "id": "checkpointing-strategy",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2204.02311",
+      "title": "PaLM: Scaling Language Modeling with Pathways",
+      "url": "https://arxiv.org/abs/2204.02311"
+    },
+    {
+      "ref": "arXiv:2309.14322",
+      "title": "Small-scale proxies for large-scale Transformer training instabilities",
+      "url": "https://arxiv.org/abs/2309.14322"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

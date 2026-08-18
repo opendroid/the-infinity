@@ -1,0 +1,63 @@
+{
+  "id": "determinism-and-reproducibility",
+  "title": "Determinism and Reproducibility",
+  "domain": [
+    "Systems",
+    "Operations"
+  ],
+  "bodies": {
+    "intuition": "Run the same training script twice with the same seed and you will usually get two different models. Not wildly different, but different enough that you cannot tell whether the change you just made helped or whether you sampled a slightly better run. Every claim of the form 'this improved things by half a point' depends on knowing how big that noise is.",
+    "engineer": "The sources are mundane and they compound. Floating-point addition is not associative, so a reduction whose order depends on which worker replied first gives a different sum each time; many fast kernels are non-deterministic by design for the same reason; and atomics on the accelerator accumulate in arrival order. Determinism is available — fixed reduction orders, deterministic kernel variants — and it is not free, typically costing throughput, so it is a debugging mode rather than a default.",
+    "math": "What matters is not eliminating the variance but measuring it. Train the same configuration several times, look at the spread of the final numbers, and you have the bar any claimed improvement has to clear. Teams that skip this compare a single run against a single run, which is a comparison of two samples from overlapping distributions — and it is the reason a great many reported gains do not survive being run again."
+  },
+  "emphasis": {
+    "engineer": "Floating-point addition is not associative",
+    "math": "a comparison of two samples from overlapping distributions"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "nondeterminism": 0.4,
+      "bars": 12
+    },
+    "param_controls": [
+      {
+        "name": "nondeterminism",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Where the same configuration's final loss lands, run many times: on the left with every source of nondeterminism pinned, on the right with them live. Drag the nondeterminism up to watch one outcome spread into a range — and read the width, because that is the bar an improvement has to clear."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "mixed-precision-training",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "training-observability",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2003.12206",
+      "title": "Improving Reproducibility in Machine Learning Research (A Report from the NeurIPS 2019 Reproducibility Program)",
+      "url": "https://arxiv.org/abs/2003.12206"
+    },
+    {
+      "ref": "arXiv:2402.15627",
+      "title": "MegaScale: Scaling Large Language Model Training to More Than 10,000 GPUs",
+      "url": "https://arxiv.org/abs/2402.15627"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

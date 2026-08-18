@@ -1,0 +1,63 @@
+{
+  "id": "training-observability",
+  "title": "Training Observability",
+  "domain": [
+    "Systems",
+    "Operations"
+  ],
+  "bodies": {
+    "intuition": "The failure that costs the most is the one nobody notices. A run whose loss is silently wrong, whose data loader is repeating a shard, or whose gradients have gone to zero on one rank will happily burn a week of cluster time producing nothing. Observability is what shortens the gap between something going wrong and someone knowing.",
+    "engineer": "The loss curve alone is not enough, because the expensive failures do not move it. What earns its place on a dashboard is per-rank step time, gradient and activation norms, data-loader position, and the collective's own health — the signals that distinguish a run that is slow from one that is broken. Automated checks on those beat a human reading a chart, because the human reads it once a day and the run makes a step every few seconds.",
+    "math": "Wasted compute is detection latency times cluster size, and only the first term is negotiable. On ten thousand accelerators, a fault noticed after eight hours has spent eighty thousand accelerator-hours producing nothing, and a fault noticed after five minutes has spent eight hundred. The multiplier is why the same monitoring that is optional on one machine becomes the highest-return engineering on a large one — the cost of not looking scales with the thing you built."
+  },
+  "emphasis": {
+    "intuition": "The failure that costs the most is the one nobody notices.",
+    "math": "the cost of not looking scales with the thing you built"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "undetected_hours": 1,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "undetected_hours",
+        "min": 0,
+        "max": 90,
+        "step": 3
+      }
+    ],
+    "caption": "Hours a silent fault runs before anyone notices, against a day of useful training. Drag the detection latency up to watch the wasted share overtake the useful one — multiply what you see by the cluster size, which is the whole reason this is worth engineering."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "loss-spike",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2402.15627",
+      "title": "MegaScale: Scaling Large Language Model Training to More Than 10,000 GPUs",
+      "url": "https://arxiv.org/abs/2402.15627"
+    },
+    {
+      "ref": "arXiv:2403.07648",
+      "title": "Characterization of Large Language Model Development in the Datacenter",
+      "url": "https://arxiv.org/abs/2403.07648"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
