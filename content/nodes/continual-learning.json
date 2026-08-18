@@ -1,0 +1,63 @@
+{
+  "id": "continual-learning",
+  "title": "Continual Learning",
+  "domain": [
+    "Continual",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Learn a sequence of tasks without keeping all the data and without losing the earlier ones. It is how people obviously work and how models obviously do not, and the gap has been open for thirty years. Most reported progress is on benchmarks whose task boundaries are given, which is the easy version.",
+    "engineer": "The scenario matters more than the method: knowing which task an input belongs to at test time makes the problem far easier than inferring it, and papers comparing across those scenarios are not comparing like with like. Three families exist — regularise the weights, replay old data, or grow the architecture — and replay wins on benchmarks whenever storing data is allowed, which is a result about the benchmarks as much as the methods.",
+    "math": "Minimise the average loss over all tasks seen so far while only the current task's data is available. Without stored data the constraint is not observable, so every method substitutes a proxy for it — a penalty on parameter movement, a generative model of old data, or a subset kept in memory — and the method's quality is the proxy's quality."
+  },
+  "emphasis": {
+    "intuition": "It is how people obviously work and how models obviously do not",
+    "engineer": "papers comparing across those scenarios are not comparing like with like"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "tasks_retained": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "tasks_retained",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Earlier tasks the model still performs against those it has lost, in tasks. Drag the retention up to watch the sequence survive — every method here is a different way of paying for this, and none is free."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "catastrophic-forgetting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "meta-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1802.07569",
+      "title": "Continual Lifelong Learning with Neural Networks: A Review",
+      "url": "https://arxiv.org/abs/1802.07569"
+    },
+    {
+      "ref": "arXiv:1904.07734",
+      "title": "Three scenarios for continual learning",
+      "url": "https://arxiv.org/abs/1904.07734"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

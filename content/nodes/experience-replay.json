@@ -1,0 +1,62 @@
+{
+  "id": "experience-replay",
+  "title": "Experience Replay",
+  "domain": [
+    "Continual",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Keep a small sample of old data and mix it into every batch. It is the least clever method in continual learning and the one that usually wins, which is worth sitting with rather than explaining away. A few percent of the original data recovers most of what would otherwise be lost.",
+    "engineer": "It also assumes you are allowed to store the data, which privacy and licensing frequently forbid — and that constraint, not accuracy, is why the other families exist. Generative replay substitutes samples from a model of the old data and inherits that model's failures, which compound over a long sequence in the same way synthetic data does.",
+    "math": "Minimise the new task's loss plus the loss on a stored subset, which is a sampled approximation to the joint objective the problem actually wants. Because it approximates the true objective directly rather than through a proxy on parameters, its error falls with buffer size in a way regularisation penalties have no equivalent of — which is the cleanest explanation for why it wins."
+  },
+  "emphasis": {
+    "intuition": "the one that usually wins, which is worth sitting with rather than explaining away",
+    "engineer": "that constraint, not accuracy, is why the other families exist"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "replayed": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "replayed",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Stored examples from earlier tasks against new-task examples in the batch, in examples. Drag the replay up to watch forgetting stop — and note how far left it can sit and still work."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "continual-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "offline-rl",
+        "reviewed": false
+      },
+      {
+        "id": "synthetic-data",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.08840",
+      "title": "Gradient Episodic Memory for Continual Learning",
+      "url": "https://arxiv.org/abs/1706.08840"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

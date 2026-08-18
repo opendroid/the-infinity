@@ -1,0 +1,70 @@
+{
+  "id": "catastrophic-forgetting",
+  "title": "Catastrophic Forgetting",
+  "domain": [
+    "Continual",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Train a network on a second task and it does not merely get worse at the first — it can lose it almost entirely, within a few hundred steps. Nothing about the architecture protects earlier learning, because the weights that encoded it are the same weights the new gradient is free to move.",
+    "engineer": "This is the risk under every fine-tune in this graph, and it is why instruction tuning degrades pretrained abilities and why RLHF is kept near a reference policy. It is worse when the new data is narrow: a small, homogeneous fine-tuning set moves a few directions a long way, which is exactly the shape that overwrites. Mixing a slice of the original data back in is the crude fix and it works.",
+    "math": "Sequential training minimises the new task's loss with no term for the old one, so the solution drifts to wherever the new gradient leads — and the old loss is unconstrained along that path. Nothing is forgotten in a storage sense; the parameters simply move out of the region where the old task was solved, which is why a small penalty pulling back toward that region recovers so much."
+  },
+  "emphasis": {
+    "intuition": "the weights that encoded it are the same weights the new gradient is free to move",
+    "engineer": "a small, homogeneous fine-tuning set moves a few directions a long way"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "new_task_data": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "new_task_data",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Training mass on the new task against the slice of the old task kept in the mixture, in examples. Drag the new task up to watch the old one lose its share — which is all it takes, since nothing else is protecting it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "rlhf",
+        "reviewed": false
+      },
+      {
+        "id": "instruction-tuning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1802.07569",
+      "title": "Continual Lifelong Learning with Neural Networks: A Review",
+      "url": "https://arxiv.org/abs/1802.07569"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "McCloskey & Cohen 1989",
+      "title": "Catastrophic Interference in Connectionist Networks: The Sequential Learning Problem",
+      "venue": "Psychology of Learning and Motivation 24",
+      "doi": "10.1016/S0079-7421(08)60536-8"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "id": "few-shot-learning",
+  "title": "Few-Shot Learning",
+  "domain": [
+    "Continual",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Learn a new class from five examples. The classical answer was to compare against stored examples in a learned space rather than to train a classifier at all — a nearest-neighbour method where the metric is what was learned. Large language models later did this without being asked, which is what `in-context-learning` describes.",
+    "engineer": "Episodic benchmarks — five classes, five examples each — shaped the field and are narrower than the setting they stand for, because real few-shot problems come with class imbalance and no clean support set. The result that keeps recurring is that a strong pretrained representation with a simple classifier on top beats most purpose-built few-shot architectures, which is the same lesson `meta-learning` reaches from the other side.",
+    "math": "Prototypical networks classify by distance to the mean embedding of each class's support examples, so learning is a metric and inference is a nearest-centroid rule. With k examples the centroid's variance falls as 1/k, which is why the gap between one-shot and five-shot is far larger than between five-shot and twenty."
+  },
+  "emphasis": {
+    "intuition": "a nearest-neighbour method where the metric is what was learned",
+    "engineer": "a strong pretrained representation with a simple classifier on top beats most purpose-built few-shot architectures"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "support_examples": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "support_examples",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Examples available per new class against the single query being classified, in examples. Drag the support up to watch the estimate steady — the first few buy nearly all of it, since centroid variance falls as one over k."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "k-nearest-neighbors",
+        "reviewed": false
+      },
+      {
+        "id": "meta-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "in-context-learning",
+        "reviewed": false
+      },
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.05175",
+      "title": "Prototypical Networks for Few-shot Learning",
+      "url": "https://arxiv.org/abs/1703.05175"
+    },
+    {
+      "ref": "arXiv:1606.04080",
+      "title": "Matching Networks for One Shot Learning",
+      "url": "https://arxiv.org/abs/1606.04080"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

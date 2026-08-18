@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "collaborative-filtering",
+      "id": "synthetic-data",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "matrix-factorization",
+      "id": "data-filtering",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "cold-start",
+      "id": "deduplication",
       "t": 0.8,
       "label": true
     }
