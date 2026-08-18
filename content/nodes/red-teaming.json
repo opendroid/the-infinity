@@ -1,0 +1,62 @@
+{
+  "id": "red-teaming",
+  "title": "Red Teaming",
+  "domain": [
+    "Adversarial",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "Attack your own system before someone else does. For a language model that means deliberately searching for prompts that produce the behaviour you claim it will not produce, and treating each success as a finding rather than an embarrassment. Done manually it does not scale; the interesting version uses one model to attack another.",
+    "engineer": "Automated red-teaming generates candidate attacks with a model, filters them with a classifier, and reports coverage over a taxonomy of harms rather than a single pass rate. The failure of the practice is measuring the wrong thing: a suite that becomes a benchmark gets optimised against, and a model that passes it has learned the suite. Rotating and withholding attacks matters more than the size of the set.",
+    "math": "Report attack success rate per category with the sampling budget stated, since success rises with attempts — a rate quoted without a budget is not comparable to anything. Coverage over a harm taxonomy is the second axis and the one usually missing: a high rate on one category and no attempts in another describes the red team, not the model."
+  },
+  "emphasis": {
+    "intuition": "treating each success as a finding rather than an embarrassment",
+    "engineer": "a model that passes it has learned the suite"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "categories_probed": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "categories_probed",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Harm categories the exercise actually probed against those left untouched, in categories. Drag the coverage up to watch the blind spot close — a pass rate over the probed set says nothing about the rest."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "jailbreak",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      },
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2202.03286",
+      "title": "Red Teaming Language Models with Language Models",
+      "url": "https://arxiv.org/abs/2202.03286"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

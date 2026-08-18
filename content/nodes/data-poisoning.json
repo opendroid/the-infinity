@@ -1,0 +1,58 @@
+{
+  "id": "data-poisoning",
+  "title": "Data Poisoning",
+  "domain": [
+    "Adversarial",
+    "Attacks"
+  ],
+  "bodies": {
+    "intuition": "If a model trains on data scraped from the open web, anyone who can write to the web can contribute to the training set. Poisoning is doing that deliberately — placing content designed to change what the model learns. It needs a far smaller fraction of the corpus than intuition suggests.",
+    "engineer": "Two practical routes make it cheap: buy expired domains that a published snapshot still points at, or edit pages that are known to be crawled on a schedule. Neither needs access to the pipeline. The defences are unglamorous and effective — content hashing at collection time, trusted subsets for the final training phase, and treating the crawl as an input to be validated rather than a fact.",
+    "math": "Attack effect scales with the poisoned fraction, and the fraction needed is small: control of a fraction on the order of 0.01% of a web-scale corpus is enough to shift specific behaviours, because the target behaviour is rare in the clean data too. Rarity is the multiplier — poisoning competes against how often the honest signal appears, not against corpus size."
+  },
+  "emphasis": {
+    "intuition": "anyone who can write to the web can contribute to the training set",
+    "engineer": "treating the crawl as an input to be validated rather than a fact"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "poisoned": 4,
+      "share_rest": 48
+    },
+    "param_controls": [
+      {
+        "name": "poisoned",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Poisoned documents against clean documents covering the same rare behaviour, in documents. Drag the poisoning up to watch it outnumber the honest signal — which is a far smaller number than outnumbering the corpus."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "training-data-extraction",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2302.10149",
+      "title": "Poisoning Web-Scale Training Datasets is Practical",
+      "url": "https://arxiv.org/abs/2302.10149"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

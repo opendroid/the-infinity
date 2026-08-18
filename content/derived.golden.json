@@ -176,6 +176,75 @@
       }
     },
     {
+      "id": "adversarial-example",
+      "title": "Adversarial Example",
+      "domain": "Adversarial / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "adversarial-training",
+            "title": "Adversarial Training",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "certified-robustness",
+            "title": "Certified Robustness",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "jailbreak",
+            "title": "Jailbreak",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "adversarial-training",
+      "title": "Adversarial Training",
+      "domain": "Adversarial / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "adversarial-example",
+            "title": "Adversarial Example",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "robustness-accuracy-tradeoff",
+            "title": "Robustness-Accuracy Tradeoff",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "agent-memory",
       "title": "Agent Memory",
       "domain": "Agents / State",
@@ -566,6 +635,31 @@
       }
     },
     {
+      "id": "backdoor-attack",
+      "title": "Backdoor Attack",
+      "domain": "Adversarial / Attacks",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-poisoning",
+            "title": "Data Poisoning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "backpropagation",
       "title": "Backpropagation",
       "domain": "Optimization / Training",
@@ -711,6 +805,12 @@
             "reviewed": false
           },
           {
+            "id": "red-teaming",
+            "title": "Red Teaming",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
             "tier": "verified",
@@ -745,6 +845,12 @@
             "id": "cross-validation",
             "title": "Cross-Validation",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "robustness-accuracy-tradeoff",
+            "title": "Robustness-Accuracy Tradeoff",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -784,6 +890,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "certified-robustness",
+            "title": "Certified Robustness",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "differential-privacy",
             "title": "Differential Privacy",
@@ -935,6 +1047,31 @@
           {
             "id": "streaming-asr",
             "title": "Streaming ASR",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "certified-robustness",
+      "title": "Certified Robustness",
+      "domain": "Adversarial / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "adversarial-example",
+            "title": "Adversarial Example",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
             "tier": "verified",
             "reviewed": false
           }
@@ -1219,7 +1356,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "jailbreak",
+            "title": "Jailbreak",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1620,6 +1764,38 @@
           {
             "id": "federated-learning",
             "title": "Federated Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "data-poisoning",
+      "title": "Data Poisoning",
+      "domain": "Adversarial / Attacks",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "backdoor-attack",
+            "title": "Backdoor Attack",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "training-data-extraction",
+            "title": "Training Data Extraction",
             "tier": "frontier",
             "reviewed": false
           }
@@ -2301,6 +2477,12 @@
         ],
         "adjacent": [
           {
+            "id": "backdoor-attack",
+            "title": "Backdoor Attack",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "machine-unlearning",
             "title": "Machine Unlearning",
             "tier": "frontier",
@@ -2559,7 +2741,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "adversarial-training",
+            "title": "Adversarial Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3125,6 +3314,50 @@
       }
     },
     {
+      "id": "jailbreak",
+      "title": "Jailbreak",
+      "domain": "Adversarial / Alignment",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "adversarial-example",
+            "title": "Adversarial Example",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "red-teaming",
+            "title": "Red Teaming",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "constitutional-ai",
+            "title": "Constitutional AI",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prompt-injection",
+            "title": "Prompt Injection",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "k-means-clustering",
       "title": "k-Means Clustering",
       "domain": "Unsupervised / Clustering",
@@ -3497,6 +3730,12 @@
             "id": "counterfactual",
             "title": "Counterfactual",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "red-teaming",
+            "title": "Red Teaming",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -4877,6 +5116,12 @@
             "reviewed": false
           },
           {
+            "id": "data-poisoning",
+            "title": "Data Poisoning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "fine-tuning",
             "title": "Fine-Tuning",
             "tier": "verified",
@@ -5011,6 +5256,12 @@
             "id": "grounding",
             "title": "Grounding",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "jailbreak",
+            "title": "Jailbreak",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -5292,6 +5543,37 @@
       }
     },
     {
+      "id": "red-teaming",
+      "title": "Red Teaming",
+      "domain": "Adversarial / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "jailbreak",
+            "title": "Jailbreak",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "reranking",
       "title": "Reranking",
       "domain": "Retrieval / Ranking",
@@ -5516,6 +5798,12 @@
             "title": "Constitutional AI",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "jailbreak",
+            "title": "Jailbreak",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -5568,6 +5856,31 @@
         ],
         "unlocks": [],
         "adjacent": []
+      }
+    },
+    {
+      "id": "robustness-accuracy-tradeoff",
+      "title": "Robustness-Accuracy Tradeoff",
+      "domain": "Adversarial / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "adversarial-training",
+            "title": "Adversarial Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "bias-variance-tradeoff",
+            "title": "Bias-Variance Tradeoff",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -5873,6 +6186,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "adversarial-example",
+            "title": "Adversarial Example",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "benchmark-contamination",
             "title": "Benchmark Contamination",
@@ -6674,6 +6993,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "data-poisoning",
+            "title": "Data Poisoning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "prompt-injection",
             "title": "Prompt Injection",
             "tier": "verified",
@@ -7426,6 +7751,125 @@
       ]
     },
     {
+      "id": "adversarial-example",
+      "center": {
+        "id": "adversarial-example",
+        "title": "Adversarial Example",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "adversarial-training",
+          "title": "Adversarial Training",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "certified-robustness",
+          "title": "Certified Robustness",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "jailbreak",
+          "title": "Jailbreak",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        },
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "adversarial-example",
+          "to": "adversarial-training",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "adversarial-example",
+          "to": "certified-robustness",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "adversarial-example",
+          "to": "jailbreak",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "adversarial-example",
+          "to": "shortcut-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "adversarial-training",
+      "center": {
+        "id": "adversarial-training",
+        "title": "Adversarial Training",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "adversarial-example",
+          "title": "Adversarial Example",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "robustness-accuracy-tradeoff",
+          "title": "Robustness-Accuracy Tradeoff",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "adversarial-example",
+          "to": "adversarial-training",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "adversarial-training",
+          "to": "robustness-accuracy-tradeoff",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "adversarial-training",
+          "to": "gradient-descent",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "agent-memory",
       "center": {
         "id": "agent-memory",
@@ -8137,6 +8581,46 @@
       ]
     },
     {
+      "id": "backdoor-attack",
+      "center": {
+        "id": "backdoor-attack",
+        "title": "Backdoor Attack",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-poisoning",
+          "title": "Data Poisoning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "data-poisoning",
+          "to": "backdoor-attack",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "backdoor-attack",
+          "to": "fine-tuning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "backpropagation",
       "center": {
         "id": "backpropagation",
@@ -8381,15 +8865,22 @@
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "red-teaming",
+          "title": "Red Teaming",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -8402,6 +8893,12 @@
         {
           "from": "benchmark-contamination",
           "to": "cross-validation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "red-teaming",
           "type": "adjacent",
           "reviewed": false
         },
@@ -8434,15 +8931,22 @@
           "id": "causal-inference",
           "title": "Causal Inference",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "robustness-accuracy-tradeoff",
+          "title": "Robustness-Accuracy Tradeoff",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -8461,6 +8965,12 @@
         {
           "from": "bias-variance-tradeoff",
           "to": "cross-validation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "robustness-accuracy-tradeoff",
           "type": "adjacent",
           "reviewed": false
         }
@@ -8511,32 +9021,39 @@
           "y": 66
         },
         {
+          "id": "certified-robustness",
+          "title": "Certified Robustness",
+          "tier": "frontier",
+          "x": 40,
+          "y": 22
+        },
+        {
           "id": "differential-privacy",
           "title": "Differential Privacy",
           "tier": "frontier",
-          "x": 48,
-          "y": 22
+          "x": 80,
+          "y": 110
         },
         {
           "id": "probabilistic-forecasting",
           "title": "Probabilistic Forecasting",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -8544,6 +9061,12 @@
           "from": "softmax",
           "to": "calibration",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "certified-robustness",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -8804,6 +9327,46 @@
         {
           "from": "causal-masking",
           "to": "streaming-asr",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "certified-robustness",
+      "center": {
+        "id": "certified-robustness",
+        "title": "Certified Robustness",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "adversarial-example",
+          "title": "Adversarial Example",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "adversarial-example",
+          "to": "certified-robustness",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "certified-robustness",
+          "to": "calibration",
           "type": "adjacent",
           "reviewed": false
         }
@@ -9263,6 +9826,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "jailbreak",
+          "title": "Jailbreak",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -9270,6 +9840,12 @@
           "from": "rlhf",
           "to": "constitutional-ai",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "constitutional-ai",
+          "to": "jailbreak",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -10006,6 +10582,59 @@
         {
           "from": "data-parallelism",
           "to": "federated-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "data-poisoning",
+      "center": {
+        "id": "data-poisoning",
+        "title": "Data Poisoning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "backdoor-attack",
+          "title": "Backdoor Attack",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "training-data-extraction",
+          "title": "Training Data Extraction",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "pretraining",
+          "to": "data-poisoning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "data-poisoning",
+          "to": "backdoor-attack",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "data-poisoning",
+          "to": "training-data-extraction",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11161,11 +11790,18 @@
           "y": 110
         },
         {
+          "id": "backdoor-attack",
+          "title": "Backdoor Attack",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "machine-unlearning",
           "title": "Machine Unlearning",
           "tier": "frontier",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -11203,6 +11839,12 @@
           "from": "fine-tuning",
           "to": "reward-model",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "backdoor-attack",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -11603,6 +12245,13 @@
           "tier": "verified",
           "x": 200,
           "y": 117
+        },
+        {
+          "id": "adversarial-training",
+          "title": "Adversarial Training",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -11658,6 +12307,12 @@
           "from": "gradient-descent",
           "to": "weight-decay",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "adversarial-training",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -12617,6 +13272,85 @@
       ]
     },
     {
+      "id": "jailbreak",
+      "center": {
+        "id": "jailbreak",
+        "title": "Jailbreak",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "adversarial-example",
+          "title": "Adversarial Example",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "red-teaming",
+          "title": "Red Teaming",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "constitutional-ai",
+          "title": "Constitutional AI",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "prompt-injection",
+          "title": "Prompt Injection",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "adversarial-example",
+          "to": "jailbreak",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "jailbreak",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "jailbreak",
+          "to": "red-teaming",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "jailbreak",
+          "to": "constitutional-ai",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "jailbreak",
+          "to": "prompt-injection",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "k-means-clustering",
       "center": {
         "id": "k-means-clustering",
@@ -13258,22 +13992,29 @@
           "id": "counterfactual",
           "title": "Counterfactual",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "red-teaming",
+          "title": "Red Teaming",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "self-reflection",
           "title": "Self-Reflection",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -13286,6 +14027,12 @@
         {
           "from": "llm-as-judge",
           "to": "counterfactual",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "red-teaming",
           "type": "adjacent",
           "reviewed": false
         },
@@ -15659,35 +16406,42 @@
           "title": "Benchmark Contamination",
           "tier": "verified",
           "x": 200,
-          "y": 22
+          "y": 19
+        },
+        {
+          "id": "data-poisoning",
+          "title": "Data Poisoning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 38
         },
         {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 57
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 75
         },
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 94
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "frontier",
           "x": 200,
-          "y": 110
+          "y": 113
         }
       ],
       "links": [
@@ -15706,6 +16460,12 @@
         {
           "from": "pretraining",
           "to": "benchmark-contamination",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
+          "to": "data-poisoning",
           "type": "unlocks",
           "reviewed": false
         },
@@ -15902,15 +16662,22 @@
           "id": "grounding",
           "title": "Grounding",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "jailbreak",
+          "title": "Jailbreak",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "frontier",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -15923,6 +16690,12 @@
         {
           "from": "prompt-injection",
           "to": "grounding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prompt-injection",
+          "to": "jailbreak",
           "type": "adjacent",
           "reviewed": false
         },
@@ -16398,6 +17171,59 @@
       ]
     },
     {
+      "id": "red-teaming",
+      "center": {
+        "id": "red-teaming",
+        "title": "Red Teaming",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "jailbreak",
+          "title": "Jailbreak",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "jailbreak",
+          "to": "red-teaming",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "red-teaming",
+          "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "red-teaming",
+          "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "reranking",
       "center": {
         "id": "reranking",
@@ -16776,7 +17602,14 @@
           "title": "Constitutional AI",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "jailbreak",
+          "title": "Jailbreak",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "calibration",
@@ -16841,6 +17674,12 @@
         },
         {
           "from": "rlhf",
+          "to": "jailbreak",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
           "to": "calibration",
           "type": "adjacent",
           "reviewed": false
@@ -16894,6 +17733,46 @@
           "from": "layer-normalization",
           "to": "rmsnorm",
           "type": "requires",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "robustness-accuracy-tradeoff",
+      "center": {
+        "id": "robustness-accuracy-tradeoff",
+        "title": "Robustness-Accuracy Tradeoff",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "adversarial-training",
+          "title": "Adversarial Training",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "bias-variance-tradeoff",
+          "title": "Bias-Variance Tradeoff",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "adversarial-training",
+          "to": "robustness-accuracy-tradeoff",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "robustness-accuracy-tradeoff",
+          "to": "bias-variance-tradeoff",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -17400,25 +18279,32 @@
           "y": 66
         },
         {
+          "id": "adversarial-example",
+          "title": "Adversarial Example",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "offline-rl",
           "title": "Offline RL",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -17432,6 +18318,12 @@
           "from": "shortcut-learning",
           "to": "invariant-risk-minimization",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "shortcut-learning",
+          "to": "adversarial-example",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -18825,11 +19717,18 @@
           "y": 88
         },
         {
+          "id": "data-poisoning",
+          "title": "Data Poisoning",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "prompt-injection",
           "title": "Prompt Injection",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -18843,6 +19742,12 @@
           "from": "pretraining",
           "to": "training-data-extraction",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "training-data-extraction",
+          "to": "data-poisoning",
+          "type": "adjacent",
           "reviewed": false
         },
         {

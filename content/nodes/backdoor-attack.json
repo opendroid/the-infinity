@@ -1,0 +1,58 @@
+{
+  "id": "backdoor-attack",
+  "title": "Backdoor Attack",
+  "domain": [
+    "Adversarial",
+    "Attacks"
+  ],
+  "bodies": {
+    "intuition": "A backdoored model behaves correctly on everything you test and misbehaves on inputs carrying a specific trigger — a sticker, a phrase, a pixel pattern. Because clean accuracy is untouched, no ordinary evaluation finds it. The threat is the supply chain: a model you did not train, on data you did not see.",
+    "engineer": "Detection is genuinely hard because the trigger is chosen by the attacker and the search space of possible triggers is the input space. What works is provenance rather than inspection — knowing where weights and data came from — plus fine-tuning on trusted data, which degrades many backdoors without being a guarantee. This is the concrete reason model provenance is a security question rather than a licensing one.",
+    "math": "Train on a mixture where a fraction of examples carry trigger t and label y_target. The objective is satisfied by a model that is correct on the clean distribution and maps the trigger to the target, so clean accuracy carries no information about the backdoor's presence — the two behaviours occupy disjoint parts of the input space and the loss never puts them in conflict."
+  },
+  "emphasis": {
+    "intuition": "no ordinary evaluation finds it",
+    "engineer": "model provenance is a security question rather than a licensing one"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "triggered": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "triggered",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Training examples carrying the trigger against examples without it, in examples. Drag the triggered fraction up to watch the backdoor take hold — clean accuracy does not move anywhere along this bar."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-poisoning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1708.06733",
+      "title": "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain",
+      "url": "https://arxiv.org/abs/1708.06733"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

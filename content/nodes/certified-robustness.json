@@ -1,0 +1,58 @@
+{
+  "id": "certified-robustness",
+  "title": "Certified Robustness",
+  "domain": [
+    "Adversarial",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Empirical defences are claims that nobody has broken them yet, and the history of the field is a list of such claims that were later broken. A certificate is different: a proof that no perturbation within a stated radius can change this prediction. It is much weaker in radius than empirical defences appear to be, and it is actually true.",
+    "engineer": "Randomised smoothing is the practical route — classify a noisy vote rather than the input, and the smoothed classifier's margin yields a radius directly. The trade is that the certificate covers a specific norm ball and says nothing outside it, so a certified model is not a safe model; it is a model with one honest guarantee attached to it. Inference costs a batch of samples per prediction.",
+    "math": "With g(x) = argmax P over noise η ~ N(0, σ²I) of f(x+η) = c, the prediction is certified within radius (σ/2)·(Φ^{-1}(p_A) − Φ^{-1}(p_B)) for top-two class probabilities p_A, p_B. Radius grows with σ and with confidence, so more noise buys a larger certificate and a less accurate classifier — the trade is in one formula."
+  },
+  "emphasis": {
+    "intuition": "a list of such claims that were later broken",
+    "engineer": "a certified model is not a safe model; it is a model with one honest guarantee attached to it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "noise_scale": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "noise_scale",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Certified radius bought against the clean accuracy given up for it, in equal units. Drag the smoothing noise up to watch the guarantee grow and the classifier beneath it get worse."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "adversarial-example",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1902.02918",
+      "title": "Certified Adversarial Robustness via Randomized Smoothing",
+      "url": "https://arxiv.org/abs/1902.02918"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "id": "jailbreak",
+  "title": "Jailbreak",
+  "domain": [
+    "Adversarial",
+    "Alignment"
+  ],
+  "bodies": {
+    "intuition": "A prompt that talks a model out of its own guardrails. Some are social — role-play, hypotheticals, a claimed authority — and some are optimised strings of characters that mean nothing to a reader and reliably work. The second kind is the more troubling, because it is search rather than persuasion and it transfers between models.",
+    "engineer": "Optimised suffixes are adversarial examples in token space, found by gradient-guided search over discrete tokens against an open model, then transferred to closed ones. Refusal training reduces the success rate rather than eliminating it, and every published defence has been followed by an attack that works against it. Treating alignment training as a filter rather than a boundary is the mental model that survives contact.",
+    "math": "Maximise the probability of an affirmative continuation over a suffix s: max_s log p(\"Sure, here is\" | prompt ‖ s), optimised by coordinate descent over token substitutions. Discreteness is the only difficulty — the objective is the same one as in continuous adversarial examples, and the transferability has the same explanation."
+  },
+  "emphasis": {
+    "intuition": "it is search rather than persuasion and it transfers between models",
+    "engineer": "Treating alignment training as a filter rather than a boundary is the mental model that survives contact."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "attempts": 8,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "attempts",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Prompts that get through against prompts the model refuses, in prompts. Drag the attempts up to watch the success count grow — a per-prompt refusal rate says nothing about an attacker allowed to retry."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "adversarial-example",
+        "reviewed": false
+      },
+      {
+        "id": "rlhf",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "prompt-injection",
+        "reviewed": false
+      },
+      {
+        "id": "constitutional-ai",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2307.15043",
+      "title": "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+      "url": "https://arxiv.org/abs/2307.15043"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "robustness-accuracy-tradeoff",
+  "title": "Robustness-Accuracy Tradeoff",
+  "domain": [
+    "Adversarial",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Robust models are less accurate on clean data, and not because anyone has been careless. If some genuinely predictive features are also fragile, then refusing to use them costs accuracy — the trade is a property of the data rather than a limitation of current methods.",
+    "engineer": "This reframes what a robustness number means. A model reported as 90% clean and 45% robust has not failed at 55% of its job; it has been asked to solve a harder problem on which 45% may be near the ceiling. It also explains why robust models often look more interpretable: the features that survive an adversary are the ones a person would have picked.",
+    "math": "There are constructed distributions where the Bayes-optimal accurate classifier and the Bayes-optimal robust one differ, and no estimator achieves both — so the gap is not an optimisation failure. Empirically the frontier is smooth: each increment of ε bought costs clean accuracy at an increasing rate, which is why ε is chosen from a threat model rather than tuned."
+  },
+  "emphasis": {
+    "intuition": "the trade is a property of the data rather than a limitation of current methods",
+    "engineer": "it has been asked to solve a harder problem on which 45% may be near the ceiling"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 64,
+      "holdout": 0.15,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Loss on clean data against loss under attack. Drag the attack strength up to watch the two separate — that gap is not an optimisation failure, it is what the data costs once fragile features are refused."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "adversarial-training",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "bias-variance-tradeoff",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1805.12152",
+      "title": "Robustness May Be at Odds with Accuracy",
+      "url": "https://arxiv.org/abs/1805.12152"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

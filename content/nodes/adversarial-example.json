@@ -1,0 +1,63 @@
+{
+  "id": "adversarial-example",
+  "title": "Adversarial Example",
+  "domain": [
+    "Adversarial",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Change an image by an amount no person can see, and a classifier that was right becomes confidently wrong. The perturbation is not noise and not a corner case — it can be computed for almost any input in a fraction of a second, and it often transfers to models trained separately on different data.",
+    "engineer": "The transferability is the part that matters operationally: an attacker who cannot see your weights can attack a substitute model and expect a usable fraction of the attacks to carry over. The uncomfortable explanation is that these perturbations follow features that are genuinely predictive and genuinely imperceptible — the model is not hallucinating, it is using signal a person cannot see and would not have chosen.",
+    "math": "Find δ minimising ‖δ‖ subject to f(x + δ) ≠ f(x), usually relaxed to maximising the loss inside a ball ‖δ‖_p ≤ ε. Linearity is enough to explain it: with a gradient g, a step of ε·sign(g) moves the logit by ε·‖g‖_1, which grows with input dimension — so high-dimensional inputs are attackable at a per-pixel budget that stays invisible."
+  },
+  "emphasis": {
+    "intuition": "it often transfers to models trained separately on different data",
+    "engineer": "it is using signal a person cannot see and would not have chosen"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "attack_budget": 4,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "attack_budget",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Perturbation the attacker is allowed against the signal already in the image, in equal units. Drag the budget up to watch the attack overtake the picture — long before that point it has already changed the answer."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "shortcut-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1312.6199",
+      "title": "Intriguing properties of neural networks",
+      "url": "https://arxiv.org/abs/1312.6199"
+    },
+    {
+      "ref": "arXiv:1412.6572",
+      "title": "Explaining and Harnessing Adversarial Examples",
+      "url": "https://arxiv.org/abs/1412.6572"
+    },
+    {
+      "ref": "arXiv:1905.02175",
+      "title": "Adversarial Examples Are Not Bugs, They Are Features",
+      "url": "https://arxiv.org/abs/1905.02175"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
