@@ -1,0 +1,70 @@
+{
+  "id": "tiling",
+  "title": "Tiling",
+  "domain": [
+    "Compilers",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "A matrix multiply that streams straight through memory is slow whatever the arithmetic peak says. Tiling breaks the computation into blocks sized to fit in fast memory, so each value loaded is used many times before it is evicted. Every fast kernel in this graph is tiled, including the one `flash-attention` is named for.",
+    "engineer": "Tile sizes are chosen against a specific memory hierarchy — register file, shared memory, L2 — so a kernel tuned for one accelerator is mistuned for the next. This is the concrete reason kernels are re-tuned per architecture rather than ported, and the reason autotuning exists rather than a table of good sizes.",
+    "math": "With a tile of size T, each loaded element is reused about T times, so arithmetic intensity rises roughly linearly in T until the tile stops fitting in the level being targeted. The optimum is the largest tile that fits, which makes the choice a discrete search over a small set of shapes constrained by capacity rather than a continuous optimisation."
+  },
+  "emphasis": {
+    "intuition": "each value loaded is used many times before it is evicted",
+    "engineer": "a kernel tuned for one accelerator is mistuned for the next"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "reused_loads": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "reused_loads",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Uses extracted from each loaded value against the load itself, in accesses. Drag the tile size up to watch memory traffic amortise — until the tile stops fitting, which is a cliff rather than a slope."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "gpu-memory-hierarchy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "flash-attention",
+        "reviewed": false
+      },
+      {
+        "id": "arithmetic-intensity",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1802.04799",
+      "title": "TVM: An Automated End-to-End Optimizing Compiler for Deep Learning",
+      "url": "https://arxiv.org/abs/1802.04799"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Ragan-Kelley et al. 2013",
+      "title": "Halide: A Language and Compiler for Optimizing Parallelism, Locality, and Recomputation in Image Processing Pipelines",
+      "venue": "PLDI 2013",
+      "doi": "10.1145/2491956.2462176"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "id": "custom-kernel",
+  "title": "Custom Kernel",
+  "domain": [
+    "Compilers",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Sometimes the compiler will not produce what you need and you write the kernel yourself. Languages like Triton put this within reach of someone who is not a CUDA specialist — you write in terms of blocks and the compiler handles the thread-level detail — which is why the number of hand-written kernels in open models rose rather than fell.",
+    "engineer": "The case for writing one is a fusion the compiler cannot express or an algorithm it cannot derive, which is exactly what flash-attention is: not a faster matrix multiply but a different algorithm with the same output. The case against is maintenance — a custom kernel is pinned to assumptions about shapes and hardware that the surrounding code is free to change.",
+    "math": "A block-level language exposes tiles as the unit of programming and infers the thread mapping, so the programmer chooses the memory schedule and the compiler chooses the parallel decomposition. That split is what makes the productivity gain real: the hard part of a fast kernel is data movement, and that is the part left with the human."
+  },
+  "emphasis": {
+    "intuition": "the number of hand-written kernels in open models rose rather than fell",
+    "engineer": "a custom kernel is pinned to assumptions about shapes and hardware that the surrounding code is free to change"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "hand_written": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "hand_written",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Operations covered by hand-written kernels against those left to the compiler, in operations. Drag the hand-written share up to watch performance come under your control — and the maintenance with it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tiling",
+        "reviewed": false
+      },
+      {
+        "id": "kernel-fusion",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "flash-attention",
+        "reviewed": false
+      },
+      {
+        "id": "selective-state-space",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1802.04799",
+      "title": "TVM: An Automated End-to-End Optimizing Compiler for Deep Learning",
+      "url": "https://arxiv.org/abs/1802.04799"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Tillet et al. 2019",
+      "title": "Triton: An Intermediate Language and Compiler for Tiled Neural Network Computations",
+      "venue": "MAPL 2019",
+      "doi": "10.1145/3315508.3329973"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

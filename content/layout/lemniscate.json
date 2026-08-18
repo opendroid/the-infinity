@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "synthetic-data",
+      "id": "catastrophic-forgetting",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "data-filtering",
+      "id": "experience-replay",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "deduplication",
+      "id": "few-shot-learning",
       "t": 0.8,
       "label": true
     }

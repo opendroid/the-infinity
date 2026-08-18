@@ -1,0 +1,62 @@
+{
+  "id": "compilation-cache",
+  "title": "Compilation Cache",
+  "domain": [
+    "Compilers",
+    "Systems"
+  ],
+  "bodies": {
+    "intuition": "Compiling and autotuning a large model can take longer than running it. A cache keyed on the graph, the shapes and the hardware makes that a first-run cost rather than a per-run one — and getting the key wrong is worse than having no cache, because a stale hit produces a kernel compiled for something else.",
+    "engineer": "The key has to include everything the generated code depends on: operator versions, hardware model, driver, compiler flags, and the shapes. Cache misses in production usually trace to one of those changing invisibly — a driver update, a different accelerator model in the same fleet — which is why cold-start latency is reported as a distribution rather than a number.",
+    "math": "Amortised cost is compile time divided by the number of runs hitting the entry, so the cache pays off in proportion to shape stability. A serving fleet with many shapes and short-lived processes may never amortise it, which is the case bucketing exists to create rather than merely to improve."
+  },
+  "emphasis": {
+    "intuition": "a stale hit produces a kernel compiled for something else",
+    "engineer": "cold-start latency is reported as a distribution rather than a number"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "cache_hits": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "cache_hits",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Runs served from cache against runs paying compilation, in runs. Drag the hit rate up to watch compilation amortise — a fleet whose shapes never repeat sits at the far left permanently."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autotuning",
+        "reviewed": false
+      },
+      {
+        "id": "shape-specialization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "continuous-batching",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2006.06762",
+      "title": "Ansor: Generating High-Performance Tensor Programs for Deep Learning",
+      "url": "https://arxiv.org/abs/2006.06762"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
