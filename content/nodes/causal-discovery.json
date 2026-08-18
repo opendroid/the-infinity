@@ -1,0 +1,67 @@
+{
+  "id": "causal-discovery",
+  "title": "Causal Discovery",
+  "domain": [
+    "Causality",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Given only observational data, which way do the arrows point? Sometimes you can tell and often you cannot: several different graphs can produce exactly the same correlations, and no amount of that data separates them. What discovery algorithms return is usually a set of graphs rather than one, and the honest output says so.",
+    "engineer": "Constraint-based methods test conditional independences and keep every graph consistent with them; score-based methods search graph space against a penalised likelihood. Both are limited by the Markov equivalence class — the arrows they cannot orient are not a failure of the search. Extra assumptions buy orientation: additive noise, non-Gaussianity, or observed interventions, each trading generality for a definite answer.",
+    "math": "Two DAGs are Markov equivalent when they share a skeleton and the same v-structures, and no observational test distinguishes them. Continuous relaxations replace the combinatorial search over orderings with a smooth acyclicity constraint — tr(e^{A∘A}) − d = 0 is zero exactly for a DAG — which turns structure learning into ordinary constrained optimisation."
+  },
+  "emphasis": {
+    "intuition": "What discovery algorithms return is usually a set of graphs rather than one",
+    "engineer": "the arrows they cannot orient are not a failure of the search"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 10,
+      "lookahead": 0
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 4,
+        "max": 24,
+        "step": 2
+      }
+    ],
+    "caption": "Variables against variables under a topological order, the upper triangle empty because a cause cannot follow its effect. Drag the variable count up to watch the space of candidate graphs grow — it grows faster than the data available to choose among them."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "causal-inference",
+        "reviewed": false
+      },
+      {
+        "id": "graph-neural-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "graph-expressivity",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1803.01422",
+      "title": "DAGs with NO TEARS: Continuous Optimization for Structure Learning",
+      "url": "https://arxiv.org/abs/1803.01422"
+    },
+    {
+      "ref": "arXiv:1309.6779",
+      "title": "Causal Discovery with Continuous Additive Noise Models",
+      "url": "https://arxiv.org/abs/1309.6779"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "id": "causal-inference",
+  "title": "Causal Inference",
+  "domain": [
+    "Causality",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Prediction asks what usually happens together. Causal inference asks what would happen if you changed something — a different question, needing more than the data. No amount of observation settles it on its own, because the same numbers are consistent with several stories about what produces what, and choosing between them takes an assumption you bring rather than one you measure.",
+    "engineer": "This is the gap under most deployed models. A model trained on logged behaviour predicts the world it was logged in, and the moment it is used to decide something it changes that world — a recommender that learns what people click then determines what they see. The assumptions doing the work are always about what was left unmeasured, which is why causal claims are argued rather than computed.",
+    "math": "Association is p(y|x); causation is p(y|do(x)). They differ whenever a common cause feeds both, and they coincide when x is randomised — which is what randomisation buys and the only thing it buys. Recovering the second from observational data needs an identification argument, a proof that the causal quantity can be written in terms of observable ones under the stated assumptions."
+  },
+  "emphasis": {
+    "intuition": "the same numbers are consistent with several stories about what produces what",
+    "engineer": "causal claims are argued rather than computed"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "assumed": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "assumed",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "What the identification argument assumes against what the data supplies, in equal units. Drag the assumptions up to watch the answer come to rest on things nobody measured."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "bias-variance-tradeoff",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2002.02770",
+      "title": "A Survey on Causal Inference",
+      "url": "https://arxiv.org/abs/2002.02770"
+    },
+    {
+      "ref": "arXiv:2102.11107",
+      "title": "Towards Causal Representation Learning",
+      "url": "https://arxiv.org/abs/2102.11107"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Pearl 1995",
+      "title": "Causal Diagrams for Empirical Research",
+      "venue": "Biometrika 82(4)",
+      "doi": "10.1093/biomet/82.4.669"
+    },
+    {
+      "ref": "Rubin 1974",
+      "title": "Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies",
+      "venue": "Journal of Educational Psychology 66(5)",
+      "doi": "10.1037/h0037350"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

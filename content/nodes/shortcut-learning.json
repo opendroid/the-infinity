@@ -1,0 +1,61 @@
+{
+  "id": "shortcut-learning",
+  "title": "Shortcut Learning",
+  "domain": [
+    "Causality",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "A model asked to find pneumonia in chest x-rays learned to read the hospital's scanner tag, because the sick hospital used a different machine. It scored well and understood nothing. Shortcut learning is a model solving the benchmark instead of the task, using a feature that correlates in the training data and not in the world.",
+    "engineer": "It is the default outcome rather than an accident: given two features that both predict, gradient descent takes the easier one, and the easier one is usually the spurious one. Test sets drawn from the same distribution cannot detect it — that is what makes it dangerous, since every number looks fine. Finding it needs a distribution shift chosen to break the shortcut specifically, which means guessing what it was.",
+    "math": "Training loss falls while loss on a shifted distribution does not, and the gap is invisible to any split of the original data because both halves carry the same shortcut. This is why held-out accuracy is not evidence of the mechanism: it certifies that the shortcut is stable across the split, not that it was avoided."
+  },
+  "emphasis": {
+    "intuition": "It scored well and understood nothing.",
+    "engineer": "given two features that both predict, gradient descent takes the easier one"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 64,
+      "holdout": 0.15,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Training loss against loss measured after the shortcut is broken. Drag the shift up to watch the second curve part from the first — nothing in the original split would have shown you this gap."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2004.07780",
+      "title": "Shortcut Learning in Deep Neural Networks",
+      "url": "https://arxiv.org/abs/2004.07780"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

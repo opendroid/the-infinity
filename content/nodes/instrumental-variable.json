@@ -1,0 +1,58 @@
+{
+  "id": "instrumental-variable",
+  "title": "Instrumental Variable",
+  "domain": [
+    "Causality",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "When you cannot randomise and cannot measure the confounder, sometimes nature has randomised something for you. An instrument is a variable that moves the treatment, has no other route to the outcome, and is not itself confounded — a lottery, a distance, an arbitrary cutoff. Its randomness is borrowed to identify an effect you could not otherwise reach.",
+    "engineer": "The strength of the design is that it needs no measurement of the confounder at all. Its weakness is that the exclusion restriction — the instrument affects the outcome only through the treatment — is untestable, and a weak instrument amplifies any violation of it enormously. An instrument that moves the treatment only slightly gives an estimate whose bias can exceed the one it was meant to remove.",
+    "math": "With instrument Z, treatment X and outcome Y, the Wald estimator is Cov(Y,Z)/Cov(X,Z). The denominator is instrument strength, so a weak instrument divides by something near zero and inflates both variance and any bias from a violated exclusion restriction. What it identifies is a local effect — the effect among those whose treatment the instrument actually moved, not the population average."
+  },
+  "emphasis": {
+    "intuition": "Its randomness is borrowed to identify an effect you could not otherwise reach.",
+    "engineer": "a weak instrument amplifies any violation of it enormously"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "instrument_strength": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "instrument_strength",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Variation in the treatment the instrument actually moves against variation it leaves alone, in equal units. Drag the strength up to watch the estimate steady — at the low end you are dividing by nearly nothing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "confounding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "causal-inference",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2011.04216",
+      "title": "DoWhy: An End-to-End Library for Causal Inference",
+      "url": "https://arxiv.org/abs/2011.04216"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

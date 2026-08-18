@@ -1,0 +1,58 @@
+{
+  "id": "invariant-risk-minimization",
+  "title": "Invariant Risk Minimization",
+  "domain": [
+    "Causality",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "If a relationship is causal it should hold in every environment; if it is a shortcut it will not. So collect data from several environments and ask for a representation on which the same predictor is optimal in all of them. What survives that filter is more likely to be mechanism than coincidence.",
+    "engineer": "In practice it is empirical risk plus a penalty on how much the optimal predictor would change per environment. The results are contested — the penalty is hard to optimise, the linear analysis does not transfer cleanly to deep networks, and several papers report that careful ERM matches it on the benchmarks it was proposed for. The idea is right and the estimator is unsettled, which is worth saying plainly.",
+    "math": "Minimise Σ_e R^e(Φ) + λ·‖∇_{w|w=1} R^e(w·Φ)‖² over representations Φ, where the penalty measures how far a fixed classifier is from optimal in environment e. As λ grows the objective stops caring about average risk and starts demanding agreement across environments — the trade the whole method is."
+  },
+  "emphasis": {
+    "intuition": "What survives that filter is more likely to be mechanism than coincidence.",
+    "engineer": "The idea is right and the estimator is unsettled, which is worth saying plainly."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "invariance_penalty": 8,
+      "share_rest": 16
+    },
+    "param_controls": [
+      {
+        "name": "invariance_penalty",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Weight on agreeing across environments against weight on average training risk, in equal units. Drag the invariance penalty up to watch the objective stop caring how well it fits and start caring where it holds."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "shortcut-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "loss-function",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1907.02893",
+      "title": "Invariant Risk Minimization",
+      "url": "https://arxiv.org/abs/1907.02893"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
