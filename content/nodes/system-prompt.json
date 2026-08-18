@@ -1,0 +1,67 @@
+{
+  "id": "system-prompt",
+  "title": "System Prompt",
+  "domain": [
+    "Behaviour",
+    "Interface"
+  ],
+  "bodies": {
+    "intuition": "The standing instruction a model carries into every conversation, written by whoever built the product rather than by the person typing. It sets the persona, the format, the things to refuse, and the tools available — and the user never sees it, which is both the point and the problem.",
+    "engineer": "It is not a privileged channel in any architectural sense: it is tokens in the same context window, distinguished only by position and by whatever the model was trained to treat as authoritative. That training is real and imperfect, which is why `prompt-injection` works — content arriving later in the context can and does override instructions arriving earlier. Treating the system prompt as a security boundary is the mistake; it is a strong default.",
+    "math": "It is also a fixed cost on every request. A long system prompt is prefilled on every call, so its token count multiplies by traffic — which is what makes `prefix-caching` worth the ordering constraint it imposes, since the standing instruction is exactly the shared prefix that caches well. The tension is that the same length that makes it reliable makes it expensive, and the two are traded in tokens rather than in argument."
+  },
+  "emphasis": {
+    "engineer": "Treating the system prompt as a security boundary is the mistake; it is a strong default.",
+    "math": "the same length that makes it reliable makes it expensive"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "system_tokens": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "system_tokens",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Context spent on the standing instruction, against the tokens left for the conversation, in tokens. Drag the system tokens up to watch the instruction crowd the exchange — paid on every request, which is why this prefix is the one worth caching."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "prompt-injection",
+        "reviewed": false
+      },
+      {
+        "id": "prefix-caching",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2203.02155",
+      "title": "Training language models to follow instructions with human feedback",
+      "url": "https://arxiv.org/abs/2203.02155"
+    },
+    {
+      "ref": "arXiv:2107.13586",
+      "title": "Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing",
+      "url": "https://arxiv.org/abs/2107.13586"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

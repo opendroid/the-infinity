@@ -1,0 +1,67 @@
+{
+  "id": "open-weights",
+  "title": "Open Weights",
+  "domain": [
+    "Behaviour",
+    "Access"
+  ],
+  "bodies": {
+    "intuition": "The parameters are downloadable. That is a narrower claim than \"open source\" and the two get conflated constantly: released weights usually come without the training data, the training code, or the right to do anything you like with them. What downloading does give you is the ability to run it yourself, inspect it, and change it — none of which an API allows.",
+    "engineer": "The consequences are asymmetric and worth separating. For research, weights are the difference between studying a model and querying it: interpretability, fine-tuning and reproducibility all need parameters. For deployment, they move the trade from per-token cost and a vendor dependency to fixed infrastructure and your own operations. For safety, they make a released capability irreversible — a model that is downloaded cannot be unreleased, and safety fine-tuning can be undone by anyone with a modest budget.",
+    "math": "Irreversibility is the property that makes this different from other release decisions. An API deployment can be withdrawn, rate-limited or patched, so the risk it carries is bounded by the time it is up; downloaded weights are permanent, so the risk is bounded by nothing. That asymmetry does not settle the question — the research and competitive benefits are also permanent — but it does mean the two sides are not the same kind of quantity, and comparing them as though they were is the usual error."
+  },
+  "emphasis": {
+    "intuition": "That is a narrower claim than \"open source\" and the two get conflated constantly",
+    "math": "the two sides are not the same kind of quantity"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "irreversible_share": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "irreversible_share",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Released capability that cannot be withdrawn, against the part still under the releaser's control, in equal units. Drag the irreversible share up to watch control disappear — an API can be switched off and a download cannot, which is the whole asymmetry."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "foundation-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "training-data-licensing",
+        "reviewed": false
+      },
+      {
+        "id": "dangerous-capability-evaluation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2403.07918",
+      "title": "On the Societal Impact of Open Foundation Models",
+      "url": "https://arxiv.org/abs/2403.07918"
+    },
+    {
+      "ref": "arXiv:2402.00838",
+      "title": "OLMo: Accelerating the Science of Language Models",
+      "url": "https://arxiv.org/abs/2402.00838"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

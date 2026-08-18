@@ -1,0 +1,68 @@
+{
+  "id": "guardrail",
+  "title": "Guardrail",
+  "domain": [
+    "Behaviour",
+    "Deployment"
+  ],
+  "bodies": {
+    "intuition": "A check around the model rather than inside it. Input filters that reject a request before it reaches the model, output filters that inspect what came back, and rules about what the conversation may do next. It exists because training a model to behave is probabilistic and a deployment often needs something closer to a guarantee.",
+    "engineer": "The distinction from `constitutional-ai` is where the work happens: that shapes the model during training and produces a tendency, this sits outside at request time and produces a decision. The two are complementary and are often confused, which leads to systems that rely on the trained tendency for something they needed a rule for. Rails are also inspectable and editable in a way a trained disposition is not, which usually matters more than their accuracy.",
+    "math": "Every filter is a classifier with a threshold, so it inherits a classifier's trade: tighten it and legitimate requests are blocked, loosen it and unwanted ones pass. The base rate makes this hard rather than merely annoying — if one request in a thousand is genuinely a problem, a filter at 99% accuracy on both classes blocks ten legitimate requests for every real one it catches, and the users who notice are all in the first group."
+  },
+  "emphasis": {
+    "engineer": "that shapes the model during training and produces a tendency, this sits outside at request time and produces a decision",
+    "math": "the users who notice are all in the first group"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 2.2,
+      "threshold": 0.9,
+      "base_rate": 0.02
+    },
+    "param_controls": [
+      {
+        "name": "threshold",
+        "min": -2,
+        "max": 4,
+        "step": 0.25
+      }
+    ],
+    "caption": "Requests a filter should block against ones it should not, by the filter's score. Drag the threshold up to watch false alarms fall and misses rise — with a base rate this low, most of what a tight filter blocks is legitimate, and those are the users who complain."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "constitutional-ai",
+        "reviewed": false
+      },
+      {
+        "id": "refusal",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2310.10501",
+      "title": "NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails",
+      "url": "https://arxiv.org/abs/2310.10501"
+    },
+    {
+      "ref": "arXiv:2308.13387",
+      "title": "Do-Not-Answer: A Dataset for Evaluating Safeguards in LLMs",
+      "url": "https://arxiv.org/abs/2308.13387"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

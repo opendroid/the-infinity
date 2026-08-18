@@ -1,0 +1,68 @@
+{
+  "id": "hallucination",
+  "title": "Hallucination",
+  "domain": [
+    "Behaviour",
+    "Failure"
+  ],
+  "bodies": {
+    "intuition": "A model states something false with exactly the fluency it uses for something true. There is no tell — no hedging, no change of register — because nothing in how the sentence was produced distinguishes the two. That absence of a signal is the whole problem, and it is why the word stuck.",
+    "engineer": "Calling it a bug is the wrong frame: the model was trained to continue text plausibly, and a plausible continuation of a question about an obscure paper is a citation that looks right. Retrieval helps by putting the fact in the context where it does not have to be recalled. Fine-tuning on \"I don't know\" helps if the training examples match what the model actually does not know, and hurts otherwise — teaching refusal on things it does know produces a model that declines more and knows less.",
+    "math": "The model outputs a distribution over next tokens, and it does that with the same machinery whether the mass concentrates because the answer is memorised or because the phrasing is predictable. So token probability measures fluency and factuality together, and cannot separate them — which is why a confident wrong answer is not a malfunction but the expected output when the two come apart. Every detection method is an attempt to recover a signal the generation process never carried."
+  },
+  "emphasis": {
+    "intuition": "nothing in how the sentence was produced distinguishes the two",
+    "math": "token probability measures fluency and factuality together, and cannot separate them"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 0.9,
+      "threshold": 0.6,
+      "base_rate": 0.2
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "False statements against true ones, scored by the model's own confidence. Drag the separation up to watch them come apart — at the left, where the corpus actually sits, confidence tells you almost nothing, which is why detection needs a signal from outside the generation."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      },
+      {
+        "id": "knowledge-conflict",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2311.05232",
+      "title": "A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions",
+      "url": "https://arxiv.org/abs/2311.05232"
+    },
+    {
+      "ref": "arXiv:2202.03629",
+      "title": "Survey of Hallucination in Natural Language Generation",
+      "url": "https://arxiv.org/abs/2202.03629"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

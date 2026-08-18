@@ -1,0 +1,67 @@
+{
+  "id": "prompt-engineering",
+  "title": "Prompt Engineering",
+  "domain": [
+    "Behaviour",
+    "Interface"
+  ],
+  "bodies": {
+    "intuition": "Getting a better answer by asking differently. It sounds like a trick and is really an admission: the model has a capability, the phrasing you reached for did not elicit it, and finding the phrasing that does is work. The word \"engineering\" is contested precisely because the practice is empirical in a way engineering usually is not.",
+    "engineer": "What reliably helps is unglamorous — state the format you want, give examples of it, put the instruction where the model attends, and say what to do when the input is unexpected. What does not transfer is the folklore: a phrasing tuned on one model version can lose most of its advantage on the next, because nothing about it was a property of the task. Teams that treat prompts as code — versioned, tested against a fixed set, re-run on every model change — keep their gains; teams that treat them as settings lose them silently.",
+    "math": "The instability is the measurable part. A prompt's advantage is measured against a specific model, and the model is replaced on a schedule nobody prompting controls, so the share of a prompt's tuning that survives an upgrade is the number worth knowing and is almost never measured. Effort spent on phrasing decays with each release; effort spent on the evaluation set does not, which is the argument for spending it there."
+  },
+  "emphasis": {
+    "intuition": "the model has a capability, the phrasing you reached for did not elicit it",
+    "math": "Effort spent on phrasing decays with each release; effort spent on the evaluation set does not"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "tuning_lost": 6,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "tuning_lost",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Prompt tuning that stops working after a model upgrade, against the part that survives, in equal units. Drag the lost share up to watch the investment evaporate — which is the case for putting the effort into an evaluation set instead, since that carries over."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "in-context-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "system-prompt",
+        "reviewed": false
+      },
+      {
+        "id": "regression-suite",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2107.13586",
+      "title": "Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing",
+      "url": "https://arxiv.org/abs/2107.13586"
+    },
+    {
+      "ref": "arXiv:2005.14165",
+      "title": "Language Models are Few-Shot Learners",
+      "url": "https://arxiv.org/abs/2005.14165"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
