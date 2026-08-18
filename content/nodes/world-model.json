@@ -1,0 +1,63 @@
+{
+  "id": "world-model",
+  "title": "World Model",
+  "domain": [
+    "Planning",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Learn to predict what the environment does next, then practise inside that prediction instead of in the world. Real experience is slow, dangerous or expensive; imagined experience is none of those. The catch is that a policy trained in imagination is only as good as the imagination, and it will find and exploit whatever the model got wrong.",
+    "engineer": "The usual shape is an encoder to a latent state, a dynamics model that rolls that state forward, and a reward head — so planning happens in latent space at a fraction of pixel cost. The exploitation problem is real and specific: an optimiser searching a learned model will steer toward its errors, which is why rollouts are kept short and why ensembles that disagree are used to say where the model should not be trusted.",
+    "math": "Learn p(z_{t+1} | z_t, a_t) and r̂(z_t, a_t), then optimise a policy against rollouts of that model rather than the environment. Model error compounds multiplicatively along a rollout, so a per-step error ε gives divergence roughly (1+ε)^h over horizon h — the reason short rollouts from real states beat long ones from imagined starts."
+  },
+  "emphasis": {
+    "intuition": "it will find and exploit whatever the model got wrong",
+    "engineer": "ensembles that disagree are used to say where the model should not be trusted"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "imagined_steps": 24,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "imagined_steps",
+        "min": 0,
+        "max": 384,
+        "step": 12
+      }
+    ],
+    "caption": "Steps taken inside the learned model against steps taken in the environment itself, in steps. Drag the imagination up to watch real experience become the minority — which is the saving, and also the exposure."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "markov-decision-process",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "variational-autoencoder",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1803.10122",
+      "title": "World Models",
+      "url": "https://arxiv.org/abs/1803.10122"
+    },
+    {
+      "ref": "arXiv:2301.04104",
+      "title": "Mastering Diverse Domains through World Models",
+      "url": "https://arxiv.org/abs/2301.04104"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

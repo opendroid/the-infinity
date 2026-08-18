@@ -1,0 +1,58 @@
+{
+  "id": "sim-to-real",
+  "title": "Sim-to-Real",
+  "domain": [
+    "Planning",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Simulators are fast, safe and free, and they are all wrong in ways that matter. A policy trained in one usually fails on the physical system it was meant for, because it learned details of the simulation rather than of the task. The counter-intuitive fix is not a better simulator but a deliberately worse one — many bad simulators instead of one good one.",
+    "engineer": "Domain randomisation varies masses, frictions, latencies, textures and lighting so widely that reality looks like one more sample from the training distribution. The trade is directly visible: the wider the randomisation, the more robust and the less optimal the policy, since it must work everywhere rather than well anywhere. Randomising a parameter the real system does not vary buys nothing and costs performance.",
+    "math": "Train to maximise the expected return over a distribution of simulator parameters rather than a single setting, which turns the problem into robust optimisation. As the parameter distribution widens the optimal policy converges toward one insensitive to those parameters — that insensitivity is the transfer, and the lost performance at any single setting is what it costs."
+  },
+  "emphasis": {
+    "intuition": "many bad simulators instead of one good one",
+    "engineer": "Randomising a parameter the real system does not vary buys nothing and costs performance."
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "randomisation": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "randomisation",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "How much the policy's behaviour depends on each simulator parameter, before randomisation and after. Drag the randomisation up to watch the dependence even out — a policy that leans on nothing in particular is one that survives a system it was not trained on."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "world-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.06907",
+      "title": "Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World",
+      "url": "https://arxiv.org/abs/1703.06907"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

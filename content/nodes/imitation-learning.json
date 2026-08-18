@@ -1,0 +1,65 @@
+{
+  "id": "imitation-learning",
+  "title": "Imitation Learning",
+  "domain": [
+    "Planning",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Rather than specify a reward, show the behaviour you want and have the model copy it. It sidesteps reward design entirely, which is the hardest part of reinforcement learning in practice. The weakness appears the moment the learner drifts somewhere the expert never went — it has no demonstration for the situation its own mistake created.",
+    "engineer": "Behaviour cloning is supervised learning on state-action pairs, and its errors compound quadratically in the episode length because each mistake moves the learner further off the expert's distribution. The fixes either collect corrective data where the learner actually goes, or match distributions rather than actions — which is what adversarial imitation does, treating the discriminator's output as a learned reward.",
+    "math": "With a per-step error ε under the expert's state distribution, behaviour cloning's regret over an episode of length T grows as roughly ε·T² rather than ε·T, because errors move the state distribution as well as the action. Distribution-matching methods target that directly, minimising a divergence between occupancy measures rather than a loss on individual actions."
+  },
+  "emphasis": {
+    "intuition": "it has no demonstration for the situation its own mistake created",
+    "engineer": "errors compound quadratically in the episode length"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 64,
+      "holdout": 0.2,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Loss on the expert's own states against loss on the states the learner drifts into. Drag the drift up to watch the second curve leave the first — every demonstration is on the first distribution and none is on the second."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "rlhf",
+        "reviewed": false
+      },
+      {
+        "id": "offline-rl",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1606.03476",
+      "title": "Generative Adversarial Imitation Learning",
+      "url": "https://arxiv.org/abs/1606.03476"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
