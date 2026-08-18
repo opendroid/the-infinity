@@ -1,0 +1,64 @@
+{
+  "id": "model-routing",
+  "title": "Model Routing",
+  "domain": [
+    "Inference",
+    "Adaptive"
+  ],
+  "bodies": {
+    "intuition": "Decide which model should answer before any of them does. A router looks at the request and sends it to the cheapest model likely to handle it — which is the same goal as a cascade and a different shape, because nothing is computed twice and nothing is thrown away.",
+    "engineer": "The difference from `model-cascade` matters when latency does. A cascade discovers that a request was hard by trying, so a hard request pays the cheap attempt on top of the expensive one; a router decides up front and never pays twice. The price is that it must judge difficulty from the request alone, without the evidence a cheap attempt would have produced — so a router is faster and less informed, and which of those wins is a property of the traffic.",
+    "math": "Routing quality is bounded by how much of the difficulty is visible in the input, and that varies enormously by domain: request length and format predict a great deal for retrieval and almost nothing for reasoning, where two similar-looking questions differ by an order of magnitude in the work they need. So a router trained on one traffic mix transfers badly to another, and its accuracy is a statement about the workload rather than about the router."
+  },
+  "emphasis": {
+    "engineer": "a router is faster and less informed",
+    "math": "its accuracy is a statement about the workload rather than about the router"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.5,
+      "threshold": 0.7,
+      "base_rate": 0.3
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Requests that genuinely need the large model against ones that do not, scored by a router reading only the request. Drag the separation up to watch them come apart — where it sits is a property of the traffic, since some domains show their difficulty and some do not."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "adaptive-computation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "tail-latency",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.05176",
+      "title": "FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance",
+      "url": "https://arxiv.org/abs/2305.05176"
+    },
+    {
+      "ref": "arXiv:2403.02419",
+      "title": "Are More LLM Calls All You Need? Towards Scaling Laws of Compound Inference Systems",
+      "url": "https://arxiv.org/abs/2403.02419"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

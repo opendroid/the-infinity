@@ -1,0 +1,67 @@
+{
+  "id": "quantized-kv-cache",
+  "title": "Quantized KV Cache",
+  "domain": [
+    "Inference",
+    "Memory"
+  ],
+  "bodies": {
+    "intuition": "Store the attention cache in fewer bits. At long context the cache outgrows the weights, so this is where the memory actually is — and unlike the weights, it grows with every request rather than being paid once.",
+    "engineer": "It quantises worse than weights do, and the reason is specific: the key and value tensors carry outliers concentrated in particular channels, so a single scale across a tensor is dominated by a few large values and everything else loses most of its range. Per-channel scaling for keys and per-token for values follows from that asymmetry rather than from tuning, and it is why a technique that works at four bits on weights needs more care here.",
+    "math": "The cache is proportional to context length while the weights are fixed, so there is a length past which halving the cache's precision saves more memory than halving the weights' — and at long context it is not close. That crossing is what makes this worth separate engineering: below it the weights dominate and this is a rounding error, above it the cache is the whole problem and nothing else moves the number."
+  },
+  "emphasis": {
+    "engineer": "a single scale across a tensor is dominated by a few large values",
+    "math": "below it the weights dominate and this is a rounding error, above it the cache is the whole problem"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "cache_bytes": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "cache_bytes",
+        "min": 0,
+        "max": 500,
+        "step": 20
+      }
+    ],
+    "caption": "Memory held by the attention cache, against the memory held by the weights, in equal units. Drag the context length up to watch the cache overtake the weights — past that crossing it is the only term worth quantising."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "quantization",
+        "reviewed": false
+      },
+      {
+        "id": "number-format",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2401.18079",
+      "title": "KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization",
+      "url": "https://arxiv.org/abs/2401.18079"
+    },
+    {
+      "ref": "arXiv:2309.06180",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "url": "https://arxiv.org/abs/2309.06180"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

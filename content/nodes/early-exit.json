@@ -1,0 +1,68 @@
+{
+  "id": "early-exit",
+  "title": "Early Exit",
+  "domain": [
+    "Inference",
+    "Adaptive"
+  ],
+  "bodies": {
+    "intuition": "Stop partway up the stack when the answer is already clear. Attach a small classifier to intermediate layers, and if one of them is confident enough, return from there rather than running the remaining layers. Easy inputs leave early; hard ones go all the way.",
+    "engineer": "Training the exits is the part that decides whether it works. Train them jointly and they compete with the main objective; train them afterwards on a frozen backbone and they are honest but weaker. Either way the confidence they report is the thing being thresholded, so a poorly calibrated exit head does not merely lose accuracy — it loses it invisibly, by leaving early on inputs it had no business being confident about.",
+    "math": "The saving is the layers skipped and the risk is that the skipped layers would have changed the answer. Those two are set by one threshold, so this is `selective-prediction`'s trade with depth in place of abstention: raise the bar and fewer inputs exit early, lower it and more do while the ones that should not exit start to. There is no setting that gets the saving without the risk, and the useful report is the pair rather than the speedup."
+  },
+  "emphasis": {
+    "engineer": "it loses it invisibly, by leaving early on inputs it had no business being confident about",
+    "math": "the useful report is the pair rather than the speedup"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.8,
+      "threshold": 0.9,
+      "base_rate": 0.4
+    },
+    "param_controls": [
+      {
+        "name": "threshold",
+        "min": -2,
+        "max": 4,
+        "step": 0.25
+      }
+    ],
+    "caption": "Inputs an early exit would answer correctly against ones it would get wrong, by the exit head's confidence. Drag the threshold up to watch the wrong exits fall away and the saving fall with them — one dial sets both, which is why a speedup alone says nothing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "adaptive-computation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "selective-prediction",
+        "reviewed": false
+      },
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2004.12993",
+      "title": "DeeBERT: Dynamic Early Exiting for Accelerating BERT Inference",
+      "url": "https://arxiv.org/abs/2004.12993"
+    },
+    {
+      "ref": "arXiv:1709.01686",
+      "title": "BranchyNet: Fast Inference via Early Exiting from Deep Neural Networks",
+      "url": "https://arxiv.org/abs/1709.01686"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

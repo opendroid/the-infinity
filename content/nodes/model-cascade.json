@@ -1,0 +1,67 @@
+{
+  "id": "model-cascade",
+  "title": "Model Cascade",
+  "domain": [
+    "Inference",
+    "Adaptive"
+  ],
+  "bodies": {
+    "intuition": "Ask a cheap model first. If its answer looks good enough, keep it; if not, escalate to an expensive one. Most requests are answered by the cheap model, most of the cost is avoided, and the quality is close to the expensive model's — provided the check that decides is any good.",
+    "engineer": "The check is the system. A confidence score from the cheap model is the obvious choice and is exactly where it is least trustworthy, since a small model's confidence is worst on the inputs it is worst at. A separate scoring model works better and adds a third cost. Note the asymmetry that makes cascades pay at all: escalating a request that did not need it wastes money, and keeping an answer that should have escalated ships a wrong result, so the threshold should sit well toward escalation.",
+    "math": "Expected cost is the cheap call plus the escalation rate times the expensive call, so the saving is large while the rate is low and vanishes as it approaches one — a cascade that escalates most of the time costs MORE than calling the expensive model directly, because it pays for both. That crossing point is the number to check before building one, and it moves with the cheap model's competence rather than with its price."
+  },
+  "emphasis": {
+    "engineer": "a small model's confidence is worst on the inputs it is worst at",
+    "math": "a cascade that escalates most of the time costs MORE than calling the expensive model directly"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "escalated_requests": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "escalated_requests",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Requests that escalate to the expensive model, against the ones the cheap one settles, in requests. Drag the escalation rate up to watch the saving disappear — past the crossing the cascade costs more than the expensive model alone, because it has paid for both."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "adaptive-computation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "model-routing",
+        "reviewed": false
+      },
+      {
+        "id": "verifier-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.05176",
+      "title": "FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance",
+      "url": "https://arxiv.org/abs/2305.05176"
+    },
+    {
+      "ref": "arXiv:2403.02419",
+      "title": "Are More LLM Calls All You Need? Towards Scaling Laws of Compound Inference Systems",
+      "url": "https://arxiv.org/abs/2403.02419"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

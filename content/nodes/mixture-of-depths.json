@@ -1,0 +1,63 @@
+{
+  "id": "mixture-of-depths",
+  "title": "Mixture of Depths",
+  "domain": [
+    "Inference",
+    "Adaptive"
+  ],
+  "bodies": {
+    "intuition": "Let each token choose how many layers it passes through. Some tokens in a sequence carry most of the meaning and some are punctuation and filler, and processing both to full depth spends the same on each. A router at every block picks which tokens it will actually process, and the rest skip past it.",
+    "engineer": "The design decision that makes this practical is a fixed capacity per block: exactly k of the n tokens are processed and the rest are routed around, so the compute per block is known in advance rather than data-dependent. That keeps the tensor shapes static, which is what lets it run efficiently at all — variable work per token would be the thing hardware is worst at, and this is the trick that avoids it.",
+    "math": "With capacity k out of n tokens per block, the block does k/n of the work of a dense one, so a stack alternating dense and routed blocks at capacity one-eighth costs a little over half of dense. The saving is exact and known ahead of time, which is what separates this from every other adaptive method here — nothing depends on a prediction being right, only on the routing being sensible, and a bad router costs quality rather than the guarantee."
+  },
+  "emphasis": {
+    "engineer": "That keeps the tensor shapes static, which is what lets it run efficiently at all",
+    "math": "nothing depends on a prediction being right"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "routed_tokens": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "routed_tokens",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Tokens a block skips, against the ones it processes, in tokens. Drag the routed share up to watch the block's cost fall in proportion — the capacity is fixed in advance, so this saving is exact rather than predicted."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "mixture-of-experts",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "adaptive-computation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2404.02258",
+      "title": "Mixture-of-Depths: Dynamically allocating compute in transformer-based language models",
+      "url": "https://arxiv.org/abs/2404.02258"
+    },
+    {
+      "ref": "arXiv:2207.07061",
+      "title": "Confident Adaptive Language Modeling",
+      "url": "https://arxiv.org/abs/2207.07061"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
