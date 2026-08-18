@@ -1,0 +1,63 @@
+{
+  "id": "regression-suite",
+  "title": "Regression Suite",
+  "domain": [
+    "Deployment",
+    "Practice"
+  ],
+  "bodies": {
+    "intuition": "A fixed set of cases the model must still get right before a new version ships. It is not a benchmark and it is not trying to measure quality — it is trying to stop a specific thing that broke once from breaking again, which is a much narrower and much more achievable goal.",
+    "engineer": "Real suites are mostly scar tissue, and that is a feature. Every incident contributes the case that would have caught it, so the suite grows in the shape of the system's actual failure modes rather than of anyone's guess at them. The discipline that keeps it useful is that a case is added when an incident is closed, not when someone remembers — a suite assembled up front tests what the authors imagined and a suite grown from incidents tests what happened.",
+    "math": "The limit is underspecification: two models scoring identically on the same fixed set can behave differently on everything outside it, and there are many more such models than the suite can distinguish. So a green suite is evidence about the cases in it and nothing beyond — it says the known failures did not recur, which is exactly what it was built to say and considerably less than passing it feels like."
+  },
+  "emphasis": {
+    "engineer": "Real suites are mostly scar tissue, and that is a feature.",
+    "math": "considerably less than passing it feels like"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "incident_cases": 6,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "incident_cases",
+        "min": 0,
+        "max": 210,
+        "step": 10
+      }
+    ],
+    "caption": "Cases added after an incident, against the cases someone wrote up front, in cases. Drag the incidents up to watch the suite become mostly scar tissue — which is the healthy shape, because it grows toward the failures the system actually has."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "model-versioning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2011.03395",
+      "title": "Underspecification Presents Challenges for Credibility in Modern Machine Learning",
+      "url": "https://arxiv.org/abs/2011.03395"
+    },
+    {
+      "ref": "arXiv:2306.05685",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "url": "https://arxiv.org/abs/2306.05685"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

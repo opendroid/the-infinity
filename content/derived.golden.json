@@ -5,7 +5,7 @@
       "id": "accelerator-utilization",
       "title": "Accelerator Utilization",
       "domain": "Hardware / Compute",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -20,7 +20,7 @@
           {
             "id": "interconnect-topology",
             "title": "Interconnect Topology",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -94,7 +94,7 @@
           {
             "id": "memory-bandwidth-wall",
             "title": "Memory Bandwidth Wall",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -576,7 +576,7 @@
           {
             "id": "accelerator-utilization",
             "title": "Accelerator Utilization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -588,7 +588,7 @@
           {
             "id": "memory-bandwidth-wall",
             "title": "Memory Bandwidth Wall",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1186,6 +1186,12 @@
             "reviewed": false
           },
           {
+            "id": "regression-suite",
+            "title": "Regression Suite",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
             "tier": "verified",
@@ -1354,6 +1360,12 @@
             "reviewed": false
           },
           {
+            "id": "production-monitoring",
+            "title": "Production Monitoring",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "rlhf",
             "title": "RLHF",
             "tier": "verified",
@@ -1363,6 +1375,37 @@
             "id": "word-error-rate",
             "title": "Word Error Rate",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "canary-rollout",
+      "title": "Canary Rollout",
+      "domain": "Deployment / Release",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "shadow-deployment",
+            "title": "Shadow Deployment",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "online-experiment",
+            "title": "Online Experiment",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "rollback",
+            "title": "Rollback",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -1914,7 +1957,7 @@
           {
             "id": "interconnect-topology",
             "title": "Interconnect Topology",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3592,6 +3635,12 @@
             "title": "Out-of-Distribution Detection",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "production-monitoring",
+            "title": "Production Monitoring",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -4427,6 +4476,12 @@
             "reviewed": false
           },
           {
+            "id": "online-experiment",
+            "title": "Online Experiment",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "reward-hacking",
             "title": "Reward Hacking",
             "tier": "verified",
@@ -4530,6 +4585,12 @@
             "reviewed": false
           },
           {
+            "id": "model-versioning",
+            "title": "Model Versioning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "prompt-tuning",
             "title": "Prompt Tuning",
             "tier": "verified",
@@ -4613,7 +4674,7 @@
           {
             "id": "tensor-core",
             "title": "Tensor Core",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4755,7 +4816,7 @@
           {
             "id": "tensor-core",
             "title": "Tensor Core",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5617,7 +5678,7 @@
       "id": "inference-accelerator",
       "title": "Inference Accelerator",
       "domain": "Hardware / Serving",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5773,7 +5834,7 @@
       "id": "interconnect-topology",
       "title": "Interconnect Topology",
       "domain": "Hardware / Fabric",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5788,7 +5849,7 @@
           {
             "id": "accelerator-utilization",
             "title": "Accelerator Utilization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6055,7 +6116,7 @@
           {
             "id": "memory-bandwidth-wall",
             "title": "Memory Bandwidth Wall",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6067,7 +6128,7 @@
           {
             "id": "tensor-core",
             "title": "Tensor Core",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6235,7 +6296,7 @@
           {
             "id": "inference-accelerator",
             "title": "Inference Accelerator",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7324,7 +7385,7 @@
       "id": "memory-bandwidth-wall",
       "title": "Memory Bandwidth Wall",
       "domain": "Hardware / Compute",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -7525,7 +7586,7 @@
           {
             "id": "number-format",
             "title": "Number Format",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7725,6 +7786,37 @@
             "reviewed": false
           }
         ]
+      }
+    },
+    {
+      "id": "model-versioning",
+      "title": "Model Versioning",
+      "domain": "Deployment / Practice",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "regression-suite",
+            "title": "Regression Suite",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "rollback",
+            "title": "Rollback",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": []
       }
     },
     {
@@ -8217,7 +8309,7 @@
       "id": "number-format",
       "title": "Number Format",
       "domain": "Hardware / Numerics",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -8231,7 +8323,7 @@
           {
             "id": "numerical-stability",
             "title": "Numerical Stability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8249,13 +8341,13 @@
       "id": "numerical-stability",
       "title": "Numerical Stability",
       "domain": "Hardware / Numerics",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "number-format",
             "title": "Number Format",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8316,7 +8408,20 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "online-experiment",
+            "title": "Online Experiment",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "shadow-deployment",
+            "title": "Shadow Deployment",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "agent-evaluation",
@@ -8364,6 +8469,37 @@
           {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "online-experiment",
+      "title": "Online Experiment",
+      "domain": "Deployment / Measurement",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "offline-online-gap",
+            "title": "Offline-Online Gap",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "canary-rollout",
+            "title": "Canary Rollout",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "feedback-loop",
+            "title": "Feedback Loop",
             "tier": "verified",
             "reviewed": false
           }
@@ -8450,7 +8586,7 @@
           {
             "id": "inference-accelerator",
             "title": "Inference Accelerator",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8779,7 +8915,7 @@
           {
             "id": "interconnect-topology",
             "title": "Interconnect Topology",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9144,6 +9280,50 @@
       }
     },
     {
+      "id": "production-monitoring",
+      "title": "Production Monitoring",
+      "domain": "Deployment / Monitoring",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "distribution-shift",
+            "title": "Distribution Shift",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "silent-failure",
+            "title": "Silent Failure",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "rollback",
+            "title": "Rollback",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "shadow-deployment",
+            "title": "Shadow Deployment",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "prompt-injection",
       "title": "Prompt Injection",
       "domain": "Agents / Safety",
@@ -9379,7 +9559,7 @@
           {
             "id": "sparsity-hardware",
             "title": "Sparsity Hardware",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9498,7 +9678,7 @@
           {
             "id": "inference-accelerator",
             "title": "Inference Accelerator",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9510,7 +9690,7 @@
           {
             "id": "number-format",
             "title": "Number Format",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9684,6 +9864,31 @@
           {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "regression-suite",
+      "title": "Regression Suite",
+      "domain": "Deployment / Practice",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "model-versioning",
+            "title": "Model Versioning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
             "tier": "verified",
             "reviewed": false
           }
@@ -10025,6 +10230,37 @@
             "id": "stability-plasticity",
             "title": "Stability-Plasticity",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "rollback",
+      "title": "Rollback",
+      "domain": "Deployment / Release",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "model-versioning",
+            "title": "Model Versioning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "canary-rollout",
+            "title": "Canary Rollout",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "production-monitoring",
+            "title": "Production Monitoring",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -10611,6 +10847,38 @@
       }
     },
     {
+      "id": "shadow-deployment",
+      "title": "Shadow Deployment",
+      "domain": "Deployment / Release",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "offline-online-gap",
+            "title": "Offline-Online Gap",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "canary-rollout",
+            "title": "Canary Rollout",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "production-monitoring",
+            "title": "Production Monitoring",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "shape-specialization",
       "title": "Shape Specialization",
       "domain": "Compilers / Regimes",
@@ -10746,8 +11014,39 @@
             "reviewed": false
           },
           {
+            "id": "silent-failure",
+            "title": "Silent Failure",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "time-series-forecasting",
             "title": "Time Series Forecasting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "silent-failure",
+      "title": "Silent Failure",
+      "domain": "Deployment / Monitoring",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "production-monitoring",
+            "title": "Production Monitoring",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
             "tier": "verified",
             "reviewed": false
           }
@@ -10871,7 +11170,7 @@
           {
             "id": "numerical-stability",
             "title": "Numerical Stability",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10937,7 +11236,7 @@
       "id": "sparsity-hardware",
       "title": "Sparsity Hardware",
       "domain": "Hardware / Compute",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10958,7 +11257,7 @@
           {
             "id": "tensor-core",
             "title": "Tensor Core",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11338,7 +11637,7 @@
           {
             "id": "accelerator-utilization",
             "title": "Accelerator Utilization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11442,7 +11741,7 @@
           {
             "id": "sparsity-hardware",
             "title": "Sparsity Hardware",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11753,7 +12052,7 @@
       "id": "tensor-core",
       "title": "Tensor Core",
       "domain": "Hardware / Compute",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -11780,7 +12079,7 @@
           {
             "id": "sparsity-hardware",
             "title": "Sparsity Hardware",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11818,7 +12117,7 @@
           {
             "id": "interconnect-topology",
             "title": "Interconnect Topology",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13073,7 +13372,7 @@
       "center": {
         "id": "accelerator-utilization",
         "title": "Accelerator Utilization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13088,7 +13387,7 @@
         {
           "id": "interconnect-topology",
           "title": "Interconnect Topology",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -13208,7 +13507,7 @@
         {
           "id": "memory-bandwidth-wall",
           "title": "Memory Bandwidth Wall",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         },
@@ -14066,7 +14365,7 @@
         {
           "id": "accelerator-utilization",
           "title": "Accelerator Utilization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -14080,7 +14379,7 @@
         {
           "id": "memory-bandwidth-wall",
           "title": "Memory Bandwidth Wall",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -15146,43 +15445,50 @@
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 34,
+          "x": 30,
           "y": 22
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 69,
+          "x": 60,
           "y": 110
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
-          "x": 103,
+          "x": 90,
           "y": 22
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 137,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "regression-suite",
+          "title": "Regression Suite",
+          "tier": "frontier",
+          "x": 150,
+          "y": 22
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 171,
-          "y": 22
+          "x": 180,
+          "y": 110
         },
         {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
           "tier": "verified",
-          "x": 206,
-          "y": 110
+          "x": 210,
+          "y": 22
         }
       ],
       "links": [
@@ -15213,6 +15519,12 @@
         {
           "from": "benchmark-contamination",
           "to": "red-teaming",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "regression-suite",
           "type": "adjacent",
           "reviewed": false
         },
@@ -15423,57 +15735,64 @@
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 27,
+          "x": 24,
           "y": 22
         },
         {
           "id": "certified-robustness",
           "title": "Certified Robustness",
           "tier": "verified",
-          "x": 53,
+          "x": 48,
           "y": 110
         },
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
           "tier": "verified",
-          "x": 80,
+          "x": 72,
           "y": 22
         },
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
           "tier": "verified",
-          "x": 107,
+          "x": 96,
           "y": 110
         },
         {
           "id": "out-of-distribution-detection",
           "title": "Out-of-Distribution Detection",
           "tier": "verified",
-          "x": 133,
+          "x": 120,
           "y": 22
         },
         {
           "id": "probabilistic-forecasting",
           "title": "Probabilistic Forecasting",
           "tier": "verified",
-          "x": 160,
+          "x": 144,
           "y": 110
+        },
+        {
+          "id": "production-monitoring",
+          "title": "Production Monitoring",
+          "tier": "frontier",
+          "x": 168,
+          "y": 22
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 187,
-          "y": 22
+          "x": 192,
+          "y": 110
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 213,
-          "y": 110
+          "x": 216,
+          "y": 22
         }
       ],
       "links": [
@@ -15533,6 +15852,12 @@
         },
         {
           "from": "calibration",
+          "to": "production-monitoring",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
           "to": "rlhf",
           "type": "adjacent",
           "reviewed": false
@@ -15540,6 +15865,59 @@
         {
           "from": "calibration",
           "to": "word-error-rate",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "canary-rollout",
+      "center": {
+        "id": "canary-rollout",
+        "title": "Canary Rollout",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "shadow-deployment",
+          "title": "Shadow Deployment",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "online-experiment",
+          "title": "Online Experiment",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "rollback",
+          "title": "Rollback",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "shadow-deployment",
+          "to": "canary-rollout",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "canary-rollout",
+          "to": "online-experiment",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "canary-rollout",
+          "to": "rollback",
           "type": "adjacent",
           "reviewed": false
         }
@@ -16502,7 +16880,7 @@
         {
           "id": "interconnect-topology",
           "title": "Interconnect Topology",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -19534,7 +19912,14 @@
           "title": "Out-of-Distribution Detection",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "production-monitoring",
+          "title": "Production Monitoring",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "conformal-prediction",
@@ -19575,6 +19960,12 @@
         {
           "from": "distribution-shift",
           "to": "out-of-distribution-detection",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "distribution-shift",
+          "to": "production-monitoring",
           "type": "unlocks",
           "reviewed": false
         },
@@ -20999,15 +21390,22 @@
           "id": "confounding",
           "title": "Confounding",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "online-experiment",
+          "title": "Online Experiment",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "reward-hacking",
           "title": "Reward Hacking",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -21032,6 +21430,12 @@
         {
           "from": "feedback-loop",
           "to": "confounding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "feedback-loop",
+          "to": "online-experiment",
           "type": "adjacent",
           "reviewed": false
         },
@@ -21144,56 +21548,63 @@
           "title": "Catastrophic Forgetting",
           "tier": "verified",
           "x": 200,
-          "y": 15
+          "y": 13
         },
         {
           "id": "cross-lingual-transfer",
           "title": "Cross-Lingual Transfer",
           "tier": "frontier",
           "x": 200,
-          "y": 29
+          "y": 26
         },
         {
           "id": "imitation-learning",
           "title": "Imitation Learning",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 40
         },
         {
           "id": "instruction-tuning",
           "title": "Instruction Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 59
+          "y": 53
         },
         {
           "id": "lora",
           "title": "LoRA",
           "tier": "verified",
           "x": 200,
-          "y": 73
+          "y": 66
         },
         {
           "id": "meta-learning",
           "title": "Meta-Learning",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 79
+        },
+        {
+          "id": "model-versioning",
+          "title": "Model Versioning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 92
         },
         {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 103
+          "y": 106
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
           "x": 200,
-          "y": 117
+          "y": 119
         },
         {
           "id": "backdoor-attack",
@@ -21257,6 +21668,12 @@
         {
           "from": "fine-tuning",
           "to": "meta-learning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "model-versioning",
           "type": "unlocks",
           "reviewed": false
         },
@@ -21347,7 +21764,7 @@
         {
           "id": "tensor-core",
           "title": "Tensor Core",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 110
         },
@@ -21622,7 +22039,7 @@
         {
           "id": "tensor-core",
           "title": "Tensor Core",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -23170,7 +23587,7 @@
       "center": {
         "id": "inference-accelerator",
         "title": "Inference Accelerator",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -23435,7 +23852,7 @@
       "center": {
         "id": "interconnect-topology",
         "title": "Interconnect Topology",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -23450,7 +23867,7 @@
         {
           "id": "accelerator-utilization",
           "title": "Accelerator Utilization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -23901,7 +24318,7 @@
         {
           "id": "memory-bandwidth-wall",
           "title": "Memory Bandwidth Wall",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         },
@@ -23915,7 +24332,7 @@
         {
           "id": "tensor-core",
           "title": "Tensor Core",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 22
         }
@@ -24224,7 +24641,7 @@
         {
           "id": "inference-accelerator",
           "title": "Inference Accelerator",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -26229,7 +26646,7 @@
       "center": {
         "id": "memory-bandwidth-wall",
         "title": "Memory Bandwidth Wall",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -26568,7 +26985,7 @@
         {
           "id": "number-format",
           "title": "Number Format",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -26933,6 +27350,59 @@
           "from": "model-predictive-control",
           "to": "speculative-decoding",
           "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "model-versioning",
+      "center": {
+        "id": "model-versioning",
+        "title": "Model Versioning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "regression-suite",
+          "title": "Regression Suite",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "rollback",
+          "title": "Rollback",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        }
+      ],
+      "links": [
+        {
+          "from": "fine-tuning",
+          "to": "model-versioning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-versioning",
+          "to": "regression-suite",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "model-versioning",
+          "to": "rollback",
+          "type": "unlocks",
           "reviewed": false
         }
       ]
@@ -27800,7 +28270,7 @@
       "center": {
         "id": "number-format",
         "title": "Number Format",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -27815,7 +28285,7 @@
         {
           "id": "numerical-stability",
           "title": "Numerical Stability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -27853,7 +28323,7 @@
       "center": {
         "id": "numerical-stability",
         "title": "Numerical Stability",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -27861,7 +28331,7 @@
         {
           "id": "number-format",
           "title": "Number Format",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -27959,6 +28429,20 @@
           "y": 66
         },
         {
+          "id": "online-experiment",
+          "title": "Online Experiment",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "shadow-deployment",
+          "title": "Shadow Deployment",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
@@ -27978,6 +28462,18 @@
           "from": "feedback-loop",
           "to": "offline-online-gap",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "offline-online-gap",
+          "to": "online-experiment",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "offline-online-gap",
+          "to": "shadow-deployment",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -28055,6 +28551,59 @@
         {
           "from": "offline-rl",
           "to": "shortcut-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "online-experiment",
+      "center": {
+        "id": "online-experiment",
+        "title": "Online Experiment",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "offline-online-gap",
+          "title": "Offline-Online Gap",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "canary-rollout",
+          "title": "Canary Rollout",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "feedback-loop",
+          "title": "Feedback Loop",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "offline-online-gap",
+          "to": "online-experiment",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "online-experiment",
+          "to": "canary-rollout",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "online-experiment",
+          "to": "feedback-loop",
           "type": "adjacent",
           "reviewed": false
         }
@@ -28180,7 +28729,7 @@
         {
           "id": "inference-accelerator",
           "title": "Inference Accelerator",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -28779,7 +29328,7 @@
         {
           "id": "interconnect-topology",
           "title": "Interconnect Topology",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -29458,6 +30007,85 @@
       ]
     },
     {
+      "id": "production-monitoring",
+      "center": {
+        "id": "production-monitoring",
+        "title": "Production Monitoring",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "distribution-shift",
+          "title": "Distribution Shift",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "silent-failure",
+          "title": "Silent Failure",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "rollback",
+          "title": "Rollback",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "shadow-deployment",
+          "title": "Shadow Deployment",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "distribution-shift",
+          "to": "production-monitoring",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "production-monitoring",
+          "to": "silent-failure",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "production-monitoring",
+          "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "production-monitoring",
+          "to": "rollback",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "production-monitoring",
+          "to": "shadow-deployment",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "prompt-injection",
       "center": {
         "id": "prompt-injection",
@@ -29848,7 +30476,7 @@
         {
           "id": "sparsity-hardware",
           "title": "Sparsity Hardware",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -30047,7 +30675,7 @@
         {
           "id": "inference-accelerator",
           "title": "Inference Accelerator",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
@@ -30061,7 +30689,7 @@
         {
           "id": "number-format",
           "title": "Number Format",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         },
@@ -30416,6 +31044,46 @@
         {
           "from": "red-teaming",
           "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "regression-suite",
+      "center": {
+        "id": "regression-suite",
+        "title": "Regression Suite",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "model-versioning",
+          "title": "Model Versioning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "model-versioning",
+          "to": "regression-suite",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "regression-suite",
+          "to": "benchmark-contamination",
           "type": "adjacent",
           "reviewed": false
         }
@@ -31035,6 +31703,59 @@
         {
           "from": "robustness-accuracy-tradeoff",
           "to": "stability-plasticity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "rollback",
+      "center": {
+        "id": "rollback",
+        "title": "Rollback",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "model-versioning",
+          "title": "Model Versioning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "canary-rollout",
+          "title": "Canary Rollout",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "production-monitoring",
+          "title": "Production Monitoring",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "model-versioning",
+          "to": "rollback",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "rollback",
+          "to": "canary-rollout",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "rollback",
+          "to": "production-monitoring",
           "type": "adjacent",
           "reviewed": false
         }
@@ -32046,6 +32767,59 @@
       ]
     },
     {
+      "id": "shadow-deployment",
+      "center": {
+        "id": "shadow-deployment",
+        "title": "Shadow Deployment",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "offline-online-gap",
+          "title": "Offline-Online Gap",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "canary-rollout",
+          "title": "Canary Rollout",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "production-monitoring",
+          "title": "Production Monitoring",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "offline-online-gap",
+          "to": "shadow-deployment",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "shadow-deployment",
+          "to": "canary-rollout",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "shadow-deployment",
+          "to": "production-monitoring",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "shape-specialization",
       "center": {
         "id": "shape-specialization",
@@ -32205,50 +32979,57 @@
           "id": "adversarial-example",
           "title": "Adversarial Example",
           "tier": "verified",
-          "x": 30,
+          "x": 27,
           "y": 22
         },
         {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 60,
+          "x": 53,
           "y": 110
         },
         {
           "id": "distribution-shift",
           "title": "Distribution Shift",
           "tier": "verified",
-          "x": 90,
+          "x": 80,
           "y": 22
         },
         {
           "id": "manipulation",
           "title": "Manipulation",
           "tier": "verified",
-          "x": 120,
+          "x": 107,
           "y": 110
         },
         {
           "id": "offline-online-gap",
           "title": "Offline-Online Gap",
           "tier": "verified",
-          "x": 150,
+          "x": 133,
           "y": 22
         },
         {
           "id": "offline-rl",
           "title": "Offline RL",
           "tier": "verified",
-          "x": 180,
+          "x": 160,
           "y": 110
+        },
+        {
+          "id": "silent-failure",
+          "title": "Silent Failure",
+          "tier": "frontier",
+          "x": 187,
+          "y": 22
         },
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
           "tier": "verified",
-          "x": 210,
-          "y": 22
+          "x": 213,
+          "y": 110
         }
       ],
       "links": [
@@ -32302,7 +33083,53 @@
         },
         {
           "from": "shortcut-learning",
+          "to": "silent-failure",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "shortcut-learning",
           "to": "time-series-forecasting",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "silent-failure",
+      "center": {
+        "id": "silent-failure",
+        "title": "Silent Failure",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "production-monitoring",
+          "title": "Production Monitoring",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "production-monitoring",
+          "to": "silent-failure",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "silent-failure",
+          "to": "shortcut-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -32470,7 +33297,7 @@
         {
           "id": "numerical-stability",
           "title": "Numerical Stability",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -32642,7 +33469,7 @@
       "center": {
         "id": "sparsity-hardware",
         "title": "Sparsity Hardware",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -32664,7 +33491,7 @@
         {
           "id": "tensor-core",
           "title": "Tensor Core",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -33355,7 +34182,7 @@
         {
           "id": "accelerator-utilization",
           "title": "Accelerator Utilization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -33540,7 +34367,7 @@
         {
           "id": "sparsity-hardware",
           "title": "Sparsity Hardware",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -34093,7 +34920,7 @@
       "center": {
         "id": "tensor-core",
         "title": "Tensor Core",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -34122,7 +34949,7 @@
         {
           "id": "sparsity-hardware",
           "title": "Sparsity Hardware",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -34188,7 +35015,7 @@
         {
           "id": "interconnect-topology",
           "title": "Interconnect Topology",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },

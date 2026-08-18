@@ -1,0 +1,63 @@
+{
+  "id": "shadow-deployment",
+  "title": "Shadow Deployment",
+  "domain": [
+    "Deployment",
+    "Release"
+  ],
+  "bodies": {
+    "intuition": "Run the new model on real traffic and throw its answers away. Nobody sees them, nothing depends on them, and you find out how it behaves on the actual distribution of requests rather than on the sample you kept for testing. It is the only way to test against production without exposing anyone to the result.",
+    "engineer": "What it catches is the class of problem an offline test structurally cannot: inputs your held-out set does not contain, latency under real concurrency, and integration failures in the serving path itself. What it cannot catch is anything that depends on the model's output being acted on — if the new model changes what users click, shadow traffic will never show it, because in shadow the users never see it. That limit is worth stating out loud before anyone concludes the shadow was green so the release is safe.",
+    "math": "The cost is a full second copy of inference for zero user-visible benefit, so the decision is how much traffic to mirror. Mirroring everything doubles the serving bill; mirroring a sample buys most of the signal for a fraction of it, because the failures worth finding are usually not rare enough to need every request — and the ones that are rare enough will not show up in a week of shadow either."
+  },
+  "emphasis": {
+    "engineer": "in shadow the users never see it",
+    "math": "a full second copy of inference for zero user-visible benefit"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "mirrored_requests": 10,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "mirrored_requests",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Requests mirrored to the shadow model, against the live traffic they duplicate, in requests. Drag the mirrored share up to watch the second inference bill grow — it buys distribution coverage and nothing about how users would have reacted."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "offline-online-gap",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "production-monitoring",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2003.05155",
+      "title": "Towards CRISP-ML(Q): A Machine Learning Process Model with Quality Assurance Methodology",
+      "url": "https://arxiv.org/abs/2003.05155"
+    },
+    {
+      "ref": "arXiv:2403.07648",
+      "title": "Characterization of Large Language Model Development in the Datacenter",
+      "url": "https://arxiv.org/abs/2403.07648"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

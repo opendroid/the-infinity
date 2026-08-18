@@ -1,0 +1,63 @@
+{
+  "id": "rollback",
+  "title": "Rollback",
+  "domain": [
+    "Deployment",
+    "Release"
+  ],
+  "bodies": {
+    "intuition": "The fastest fix for a bad model is the previous one. Rollback is the ability to get back to it in minutes rather than hours, and it is worth more than almost any amount of pre-release testing — because testing reduces how often you are wrong, while rollback reduces how long being wrong costs you.",
+    "engineer": "It is harder for models than for code because of state. A model that has been writing to a cache, populating a feature store, or generating training data for its own successor has left traces that reverting the binary does not undo. So a rollback plan has to name what the model wrote as well as what it served, and the systems that roll back cleanly are the ones that decided in advance which of a model's side effects are reversible.",
+    "math": "Damage is the rate of bad requests times how long they lasted, and that duration is detection plus decision plus revert. Only the last of those is an engineering problem, and it is usually the smallest — a revert that takes two minutes sits behind a detection that took forty and an argument that took twenty. Teams that invest only in faster reverts are optimising the term that was already small."
+  },
+  "emphasis": {
+    "intuition": "testing reduces how often you are wrong, while rollback reduces how long being wrong costs you",
+    "math": "Teams that invest only in faster reverts are optimising the term that was already small."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "minutes_to_revert": 4,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "minutes_to_revert",
+        "min": 0,
+        "max": 240,
+        "step": 10
+      }
+    ],
+    "caption": "Minutes between a bad release starting and the previous model serving again, against the hour of good traffic around it. Drag the duration up to watch the damage grow linearly — detection and the decision to act are usually most of it, and neither is the revert."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "model-versioning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "production-monitoring",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2109.13916",
+      "title": "Unsolved Problems in ML Safety",
+      "url": "https://arxiv.org/abs/2109.13916"
+    },
+    {
+      "ref": "arXiv:2403.07648",
+      "title": "Characterization of Large Language Model Development in the Datacenter",
+      "url": "https://arxiv.org/abs/2403.07648"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

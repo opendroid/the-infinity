@@ -1,0 +1,58 @@
+{
+  "id": "model-versioning",
+  "title": "Model Versioning",
+  "domain": [
+    "Deployment",
+    "Practice"
+  ],
+  "bodies": {
+    "intuition": "\"Which model produced this prediction?\" is a question every deployed system eventually has to answer, usually under time pressure and usually about something that went wrong. Answering it means the weights were not the only thing that had a version — the data they were trained on, the preprocessing, the prompt, and the configuration all had to be pinned too.",
+    "engineer": "The failure this prevents is subtle and common: a model reproduced from the same checkpoint gives different answers because the tokenizer was updated, or a feature was computed differently, or a default changed in a library. None of that is in the weights. A version that means anything is the whole tuple, and the discipline that makes it work is that the serving path reads its configuration from the version rather than from wherever it happens to be deployed.",
+    "math": "The number of things that must match is the problem. Each independently-versioned component multiplies the space of possible deployed combinations, so a system with five loosely-coupled pieces has far more reachable states than anyone has tested — and the untested ones are reached by ordinary operations rather than by anything exotic. Pinning them together collapses that space to the one line in a manifest, which is the entire value of doing it."
+  },
+  "emphasis": {
+    "intuition": "the weights were not the only thing that had a version",
+    "math": "the untested ones are reached by ordinary operations rather than by anything exotic"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "pinned_artifacts": 2,
+      "share_rest": 1
+    },
+    "param_controls": [
+      {
+        "name": "pinned_artifacts",
+        "min": 0,
+        "max": 13,
+        "step": 1
+      }
+    ],
+    "caption": "Things that must be pinned alongside the weights — data snapshot, preprocessing, prompt, config, library versions — against the weights themselves. Drag the count up to watch the checkpoint become the small part of what a version actually is."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1810.03993",
+      "title": "Model Cards for Model Reporting",
+      "url": "https://arxiv.org/abs/1810.03993"
+    },
+    {
+      "ref": "arXiv:2011.03395",
+      "title": "Underspecification Presents Challenges for Credibility in Modern Machine Learning",
+      "url": "https://arxiv.org/abs/2011.03395"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

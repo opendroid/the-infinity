@@ -1,0 +1,68 @@
+{
+  "id": "online-experiment",
+  "title": "Online Experiment",
+  "domain": [
+    "Deployment",
+    "Measurement"
+  ],
+  "bodies": {
+    "intuition": "Split live traffic between the current model and the new one, and measure which does better on the thing you actually care about. It is the only measurement that is not a proxy — and it costs real traffic, real time, and exposes real users to whichever arm turns out to be worse.",
+    "engineer": "Two mistakes account for most of the wasted experiments. The first is stopping when the result looks good, which turns a fixed-sample test into a procedure that finds significance eventually whatever is true. The second is measuring a proxy that is easy to move — clicks, session length — instead of the outcome that matters, and then shipping a model that moved the proxy in the wrong direction for the outcome. Both are decided before the experiment starts, which is when the thinking has to happen.",
+    "math": "Sample size scales as the variance over the square of the effect you want to detect, so halving the detectable effect quadruples the traffic. That is the whole economics: a two-percent improvement is cheap to establish and a half-percent one may cost more traffic than the product has, which is why mature systems accumulate many small unmeasurable gains and cannot tell you which of them worked."
+  },
+  "emphasis": {
+    "engineer": "finds significance eventually whatever is true",
+    "math": "halving the detectable effect quadruples the traffic"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.0,
+      "threshold": 1.6,
+      "base_rate": 0.3
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Experiments where the new model is genuinely better, against ones where the difference is noise, with the significance cut through both. Drag the effect size up to watch them separate — small effects sit inside the overlap, and no threshold gets them out; only more traffic does."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "offline-online-gap",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "canary-rollout",
+        "reviewed": false
+      },
+      {
+        "id": "feedback-loop",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2103.03098",
+      "title": "Accounting for Variance in Machine Learning Benchmarks",
+      "url": "https://arxiv.org/abs/2103.03098"
+    },
+    {
+      "ref": "arXiv:2306.05685",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "url": "https://arxiv.org/abs/2306.05685"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
