@@ -1,0 +1,67 @@
+{
+  "id": "feature-store",
+  "title": "Feature Store",
+  "domain": [
+    "Platform",
+    "Data"
+  ],
+  "bodies": {
+    "intuition": "One place where a feature is defined, computed, stored and served — so that the thing a model trains on and the thing it is served are produced by the same code. It is infrastructure that exists mainly to prevent one failure, and the failure is expensive enough that the infrastructure is worth it.",
+    "engineer": "Two access patterns from one definition, which is what makes it more than a database. Training needs the value a feature had at a past moment, joined across millions of rows, and it must be the value as of that moment rather than today's — the point-in-time join, and getting it wrong leaks the future into the training set. Serving needs one row in single-digit milliseconds. An offline store and an online store, written by the same pipeline, is the shape that falls out.",
+    "math": "The point-in-time requirement is the hard part and the one people underestimate. A naive join takes the current value of a feature for a historical label, so the model trains on information that did not exist when the label was produced, and its offline accuracy is inflated by exactly the amount of leakage. That inflation does not show up until serving, where the feature is genuinely unavailable — which is why a model that tested well and serves badly is the classic symptom."
+  },
+  "emphasis": {
+    "engineer": "getting it wrong leaks the future into the training set",
+    "math": "a model that tested well and serves badly is the classic symptom"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "leaked_features": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "leaked_features",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Features joined at today's value rather than the label's, against the ones joined correctly, in features. Drag the leaked count up to watch offline accuracy inflate — the gain is entirely information the model will not have when it is served."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "training-serving-skew",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "data-versioning",
+        "reviewed": false
+      },
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2205.02302",
+      "title": "Machine Learning Operations (MLOps): Overview, Definition, and Architecture",
+      "url": "https://arxiv.org/abs/2205.02302"
+    },
+    {
+      "ref": "arXiv:2209.09125",
+      "title": "Operationalizing Machine Learning: An Interview Study",
+      "url": "https://arxiv.org/abs/2209.09125"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

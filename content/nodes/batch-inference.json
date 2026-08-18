@@ -1,0 +1,67 @@
+{
+  "id": "batch-inference",
+  "title": "Batch Inference",
+  "domain": [
+    "Platform",
+    "Serving"
+  ],
+  "bodies": {
+    "intuition": "Score a large set of inputs offline, with nobody waiting. It is the mode most machine learning actually runs in — nightly recommendations, document classification, embedding a corpus — and it is a different engineering problem from serving a request, because the thing being optimised is throughput and there is no latency to protect.",
+    "engineer": "Which changes almost every decision. Batches can be as large as memory allows rather than as large as the latency budget permits. Preemptible capacity becomes attractive, because a failed shard is re-run rather than a failed request. Quantisation is easier to justify. And the system that does this well is a data pipeline with a model in it rather than a service — the hard parts are partitioning, retries and idempotency, none of which a serving stack spends much thought on.",
+    "math": "Throughput per unit cost is the objective and it is bounded by the same arithmetic intensity as anywhere else, except that batch size is free to rise until memory stops it. Since the per-token cost of reading weights amortises across the batch, the marginal cost of an item falls steeply and then flattens once the weights are no longer the dominant term — so the useful batch size is the knee of that curve, and beyond it larger batches buy latency nobody is paying for."
+  },
+  "emphasis": {
+    "engineer": "a data pipeline with a model in it rather than a service",
+    "math": "beyond it larger batches buy latency nobody is paying for"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "batched_items": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "batched_items",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Items sharing one read of the weights, against the read itself, in equal units. Drag the batch up to watch the weight read amortise away — the knee is the useful size, and past it a bigger batch buys latency nobody is waiting on."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "continuous-batching",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "arithmetic-intensity",
+        "reviewed": false
+      },
+      {
+        "id": "job-scheduling",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2309.06180",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "url": "https://arxiv.org/abs/2309.06180"
+    },
+    {
+      "ref": "arXiv:2205.02302",
+      "title": "Machine Learning Operations (MLOps): Overview, Definition, and Architecture",
+      "url": "https://arxiv.org/abs/2205.02302"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

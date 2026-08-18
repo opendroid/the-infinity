@@ -1,0 +1,63 @@
+{
+  "id": "experiment-tracking",
+  "title": "Experiment Tracking",
+  "domain": [
+    "Platform",
+    "Practice"
+  ],
+  "bodies": {
+    "intuition": "Recording what was run, with what code, on what data, and what came out — automatically, at the moment it happens. Without it, a result from three weeks ago is a number in a chat message that nobody can reproduce, and the honest position on it is that you do not know whether it was real.",
+    "engineer": "What has to be captured is more than the metrics: the commit, the config, the data snapshot, the environment, the random seed, and the hardware, because any of them can be the reason two runs differ. Teams that capture only metrics discover this the first time a result fails to reproduce and there is nothing to compare. The discipline that makes it work is that logging is not optional in the training script — an opt-in tracker records the runs somebody remembered to track, which is a biased sample of them.",
+    "math": "The value is in comparison, so it scales with the number of runs and with how long they stay comparable. One run tracked is a record; a hundred tracked identically is a dataset you can ask questions of — which hyperparameter mattered, whether an effect exceeds run-to-run variance. That last question is the one that needs `determinism-and-reproducibility`, because without repeated runs of the same configuration there is no bar for an improvement to clear."
+  },
+  "emphasis": {
+    "engineer": "an opt-in tracker records the runs somebody remembered to track, which is a biased sample of them",
+    "math": "there is no bar for an improvement to clear"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "untracked_runs": 20,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "untracked_runs",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Runs nobody recorded, against the ones in the tracker, in runs. Drag the untracked count up to watch the record become a biased sample — the runs people remember to log are not a random subset of the runs they did."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "determinism-and-reproducibility",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "online-experiment",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2003.12206",
+      "title": "Improving Reproducibility in Machine Learning Research (A Report from the NeurIPS 2019 Reproducibility Program)",
+      "url": "https://arxiv.org/abs/2003.12206"
+    },
+    {
+      "ref": "arXiv:2205.02302",
+      "title": "Machine Learning Operations (MLOps): Overview, Definition, and Architecture",
+      "url": "https://arxiv.org/abs/2205.02302"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

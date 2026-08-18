@@ -111,6 +111,12 @@
             "reviewed": false
           },
           {
+            "id": "offload",
+            "title": "Offload",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "sequence-parallelism",
             "title": "Sequence Parallelism",
             "tier": "verified",
@@ -776,6 +782,18 @@
         ],
         "adjacent": [
           {
+            "id": "batch-inference",
+            "title": "Batch Inference",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "offload",
+            "title": "Offload",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "operator-fusion-pass",
             "title": "Operator Fusion Pass",
             "tier": "verified",
@@ -1134,7 +1152,7 @@
           {
             "id": "teacher-forcing",
             "title": "Teacher Forcing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1301,6 +1319,37 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "batch-inference",
+      "title": "Batch Inference",
+      "domain": "Platform / Serving",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "continuous-batching",
+            "title": "Continuous Batching",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "arithmetic-intensity",
+            "title": "Arithmetic Intensity",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "job-scheduling",
+            "title": "Job Scheduling",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1570,6 +1619,12 @@
             "reviewed": false
           },
           {
+            "id": "feature-store",
+            "title": "Feature Store",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "model-written-evaluation",
             "title": "Model-Written Evaluation",
             "tier": "verified",
@@ -1663,7 +1718,7 @@
           {
             "id": "ensemble-methods",
             "title": "Ensemble Methods",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1813,7 +1868,7 @@
           {
             "id": "label-smoothing",
             "title": "Label Smoothing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1999,7 +2054,7 @@
           {
             "id": "transfer-learning",
             "title": "Transfer Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3199,6 +3254,12 @@
             "reviewed": false
           },
           {
+            "id": "online-learning",
+            "title": "Online Learning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "stability-plasticity",
             "title": "Stability-Plasticity",
             "tier": "verified",
@@ -3235,7 +3296,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "batch-inference",
+            "title": "Batch Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "batch-size",
@@ -3410,7 +3478,7 @@
           {
             "id": "receptive-field",
             "title": "Receptive Field",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3523,7 +3591,7 @@
           {
             "id": "sequence-to-sequence",
             "title": "Sequence to Sequence",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3571,7 +3639,7 @@
           {
             "id": "label-smoothing",
             "title": "Label Smoothing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4096,6 +4164,12 @@
         ],
         "unlocks": [
           {
+            "id": "data-versioning",
+            "title": "Data Versioning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "model-card",
             "title": "Model Card",
             "tier": "verified",
@@ -4162,6 +4236,37 @@
             "id": "language-imbalance",
             "title": "Language Imbalance",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "data-versioning",
+      "title": "Data Versioning",
+      "domain": "Platform / Data",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-provenance",
+            "title": "Data Provenance",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "deduplication",
+            "title": "Deduplication",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "feature-store",
+            "title": "Feature Store",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -4309,6 +4414,12 @@
             "reviewed": false
           },
           {
+            "id": "data-versioning",
+            "title": "Data Versioning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "language-imbalance",
             "title": "Language Imbalance",
             "tier": "verified",
@@ -4339,7 +4450,7 @@
           {
             "id": "ensemble-methods",
             "title": "Ensemble Methods",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4498,7 +4609,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "experiment-tracking",
+            "title": "Experiment Tracking",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "training-observability",
@@ -4657,7 +4775,7 @@
           {
             "id": "receptive-field",
             "title": "Receptive Field",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4700,6 +4818,37 @@
           {
             "id": "sycophancy",
             "title": "Sycophancy",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "disaggregated-serving",
+      "title": "Disaggregated Serving",
+      "domain": "Platform / Serving",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "prefill-and-decode",
+            "title": "Prefill and Decode",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "interconnect-topology",
+            "title": "Interconnect Topology",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
             "tier": "verified",
             "reviewed": false
           }
@@ -4757,6 +4906,12 @@
             "title": "Production Monitoring",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "training-serving-skew",
+            "title": "Training-Serving Skew",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -4776,6 +4931,12 @@
             "id": "epistemic-uncertainty",
             "title": "Epistemic Uncertainty",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "online-learning",
+            "title": "Online Learning",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -5232,7 +5393,7 @@
           {
             "id": "sequence-to-sequence",
             "title": "Sequence to Sequence",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5319,7 +5480,7 @@
       "id": "ensemble-methods",
       "title": "Ensemble Methods",
       "domain": "Foundations / Supervised",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5739,6 +5900,31 @@
       }
     },
     {
+      "id": "experiment-tracking",
+      "title": "Experiment Tracking",
+      "domain": "Platform / Practice",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "determinism-and-reproducibility",
+            "title": "Determinism and Reproducibility",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "online-experiment",
+            "title": "Online Experiment",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "expert-parallelism",
       "title": "Expert Parallelism",
       "domain": "Systems / Distributed",
@@ -5817,13 +6003,13 @@
       "id": "exposure-bias",
       "title": "Exposure Bias",
       "domain": "Foundations / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "teacher-forcing",
             "title": "Teacher Forcing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5982,6 +6168,37 @@
       }
     },
     {
+      "id": "feature-store",
+      "title": "Feature Store",
+      "domain": "Platform / Data",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "training-serving-skew",
+            "title": "Training-Serving Skew",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "data-versioning",
+            "title": "Data Versioning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "federated-learning",
       "title": "Federated Learning",
       "domain": "Privacy / Systems",
@@ -6107,6 +6324,12 @@
             "id": "online-experiment",
             "title": "Online Experiment",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "online-learning",
+            "title": "Online Learning",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -6290,7 +6513,7 @@
           {
             "id": "transfer-learning",
             "title": "Transfer Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6644,7 +6867,7 @@
           {
             "id": "ensemble-methods",
             "title": "Ensemble Methods",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7242,7 +7465,7 @@
           {
             "id": "exposure-bias",
             "title": "Exposure Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7898,6 +8121,12 @@
             "reviewed": false
           },
           {
+            "id": "disaggregated-serving",
+            "title": "Disaggregated Serving",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "pipeline-parallelism",
             "title": "Pipeline Parallelism",
             "tier": "verified",
@@ -8041,6 +8270,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "batch-inference",
+            "title": "Batch Inference",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "elastic-training",
             "title": "Elastic Training",
@@ -8322,7 +8557,7 @@
           {
             "id": "label-smoothing",
             "title": "Label Smoothing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8469,6 +8704,12 @@
             "reviewed": false
           },
           {
+            "id": "disaggregated-serving",
+            "title": "Disaggregated Serving",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "grouped-query-attention",
             "title": "Grouped-Query Attention",
             "tier": "verified",
@@ -8493,7 +8734,7 @@
       "id": "label-smoothing",
       "title": "Label Smoothing",
       "domain": "Foundations / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10565,7 +10806,7 @@
           {
             "id": "ensemble-methods",
             "title": "Ensemble Methods",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10715,7 +10956,7 @@
           {
             "id": "self-play",
             "title": "Self-Play",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11464,6 +11705,37 @@
       }
     },
     {
+      "id": "offload",
+      "title": "Offload",
+      "domain": "Platform / Systems",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "zero-redundancy-optimizer",
+            "title": "ZeRO",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "activation-checkpointing",
+            "title": "Activation Checkpointing",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "arithmetic-intensity",
+            "title": "Arithmetic Intensity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "online-experiment",
       "title": "Online Experiment",
       "domain": "Deployment / Measurement",
@@ -11482,6 +11754,43 @@
           {
             "id": "canary-rollout",
             "title": "Canary Rollout",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "experiment-tracking",
+            "title": "Experiment Tracking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "feedback-loop",
+            "title": "Feedback Loop",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "online-learning",
+      "title": "Online Learning",
+      "domain": "Platform / Practice",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "continual-learning",
+            "title": "Continual Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "distribution-shift",
+            "title": "Distribution Shift",
             "tier": "verified",
             "reviewed": false
           },
@@ -12139,7 +12448,7 @@
           {
             "id": "self-play",
             "title": "Self-Play",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12284,7 +12593,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "disaggregated-serving",
+            "title": "Disaggregated Serving",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "arithmetic-intensity",
@@ -12440,7 +12756,7 @@
           {
             "id": "transfer-learning",
             "title": "Transfer Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -13293,7 +13609,7 @@
           {
             "id": "self-play",
             "title": "Self-Play",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -13334,7 +13650,7 @@
       "id": "receptive-field",
       "title": "Receptive Field",
       "domain": "Vision / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -13387,7 +13703,7 @@
           {
             "id": "sequence-to-sequence",
             "title": "Sequence to Sequence",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -14716,7 +15032,7 @@
       "id": "self-play",
       "title": "Self-Play",
       "domain": "Reinforcement / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -14947,7 +15263,7 @@
       "id": "sequence-to-sequence",
       "title": "Sequence to Sequence",
       "domain": "Foundations / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -14974,7 +15290,7 @@
           {
             "id": "teacher-forcing",
             "title": "Teacher Forcing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -15194,6 +15510,12 @@
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "training-serving-skew",
+            "title": "Training-Serving Skew",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -16357,7 +16679,7 @@
       "id": "teacher-forcing",
       "title": "Teacher Forcing",
       "domain": "Foundations / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -16371,7 +16693,7 @@
           {
             "id": "exposure-bias",
             "title": "Exposure Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -16379,7 +16701,7 @@
           {
             "id": "sequence-to-sequence",
             "title": "Sequence to Sequence",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -17192,10 +17514,42 @@
       }
     },
     {
+      "id": "training-serving-skew",
+      "title": "Training-Serving Skew",
+      "domain": "Platform / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "distribution-shift",
+            "title": "Distribution Shift",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "feature-store",
+            "title": "Feature Store",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "silent-failure",
+            "title": "Silent Failure",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "transfer-learning",
       "title": "Transfer Learning",
       "domain": "Foundations / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -18189,7 +18543,7 @@
           {
             "id": "exposure-bias",
             "title": "Exposure Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -18221,7 +18575,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "offload",
+            "title": "Offload",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": []
       }
     }
@@ -18367,36 +18728,43 @@
           "id": "checkpointing-strategy",
           "title": "Checkpointing Strategy",
           "tier": "verified",
-          "x": 40,
+          "x": 34,
           "y": 22
         },
         {
           "id": "gradient-accumulation",
           "title": "Gradient Accumulation",
           "tier": "verified",
-          "x": 80,
+          "x": 69,
           "y": 110
         },
         {
           "id": "memory-bandwidth-wall",
           "title": "Memory Bandwidth Wall",
           "tier": "verified",
-          "x": 120,
+          "x": 103,
           "y": 22
         },
         {
           "id": "memory-planning",
           "title": "Memory Planning",
           "tier": "verified",
-          "x": 160,
+          "x": 137,
           "y": 110
+        },
+        {
+          "id": "offload",
+          "title": "Offload",
+          "tier": "frontier",
+          "x": 171,
+          "y": 22
         },
         {
           "id": "sequence-parallelism",
           "title": "Sequence Parallelism",
           "tier": "verified",
-          "x": 200,
-          "y": 22
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -18427,6 +18795,12 @@
         {
           "from": "activation-checkpointing",
           "to": "memory-planning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "activation-checkpointing",
+          "to": "offload",
           "type": "adjacent",
           "reviewed": false
         },
@@ -19573,31 +19947,45 @@
           "y": 99
         },
         {
+          "id": "batch-inference",
+          "title": "Batch Inference",
+          "tier": "frontier",
+          "x": 34,
+          "y": 22
+        },
+        {
+          "id": "offload",
+          "title": "Offload",
+          "tier": "frontier",
+          "x": 69,
+          "y": 110
+        },
+        {
           "id": "operator-fusion-pass",
           "title": "Operator Fusion Pass",
           "tier": "verified",
-          "x": 48,
+          "x": 103,
           "y": 22
         },
         {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
           "tier": "verified",
-          "x": 96,
+          "x": 137,
           "y": 110
         },
         {
           "id": "quantization",
           "title": "Quantization",
           "tier": "verified",
-          "x": 144,
+          "x": 171,
           "y": 22
         },
         {
           "id": "tiling",
           "title": "Tiling",
           "tier": "verified",
-          "x": 192,
+          "x": 206,
           "y": 110
         }
       ],
@@ -19624,6 +20012,18 @@
           "from": "arithmetic-intensity",
           "to": "memory-bandwidth-wall",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "arithmetic-intensity",
+          "to": "batch-inference",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "arithmetic-intensity",
+          "to": "offload",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20203,7 +20603,7 @@
         {
           "id": "teacher-forcing",
           "title": "Teacher Forcing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 110
         },
@@ -20581,6 +20981,59 @@
           "from": "backpropagation",
           "to": "vanishing-gradient",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "batch-inference",
+      "center": {
+        "id": "batch-inference",
+        "title": "Batch Inference",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "continuous-batching",
+          "title": "Continuous Batching",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "arithmetic-intensity",
+          "title": "Arithmetic Intensity",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "job-scheduling",
+          "title": "Job Scheduling",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "continuous-batching",
+          "to": "batch-inference",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "batch-inference",
+          "to": "arithmetic-intensity",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "batch-inference",
+          "to": "job-scheduling",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -20996,71 +21449,78 @@
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 22,
+          "x": 20,
           "y": 22
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 44,
+          "x": 40,
           "y": 110
         },
         {
           "id": "data-provenance",
           "title": "Data Provenance",
           "tier": "verified",
-          "x": 65,
+          "x": 60,
           "y": 22
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
-          "x": 87,
+          "x": 80,
           "y": 110
+        },
+        {
+          "id": "feature-store",
+          "title": "Feature Store",
+          "tier": "frontier",
+          "x": 100,
+          "y": 22
         },
         {
           "id": "model-written-evaluation",
           "title": "Model-Written Evaluation",
           "tier": "verified",
-          "x": 109,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "needle-in-a-haystack",
           "title": "Needle in a Haystack",
           "tier": "verified",
-          "x": 131,
-          "y": 110
+          "x": 140,
+          "y": 22
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 153,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "regression-suite",
           "title": "Regression Suite",
           "tier": "verified",
-          "x": 175,
-          "y": 110
+          "x": 180,
+          "y": 22
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 196,
-          "y": 22
+          "x": 200,
+          "y": 110
         },
         {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
           "tier": "verified",
-          "x": 218,
-          "y": 110
+          "x": 220,
+          "y": 22
         }
       ],
       "links": [
@@ -21097,6 +21557,12 @@
         {
           "from": "benchmark-contamination",
           "to": "deduplication",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "feature-store",
           "type": "adjacent",
           "reviewed": false
         },
@@ -21218,7 +21684,7 @@
         {
           "id": "ensemble-methods",
           "title": "Ensemble Methods",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -21452,7 +21918,7 @@
         {
           "id": "label-smoothing",
           "title": "Label Smoothing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         },
@@ -21830,7 +22296,7 @@
         {
           "id": "transfer-learning",
           "title": "Transfer Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -24005,21 +24471,28 @@
           "title": "Experience Replay",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
+        },
+        {
+          "id": "online-learning",
+          "title": "Online Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
         },
         {
           "id": "stability-plasticity",
           "title": "Stability-Plasticity",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 79
         },
         {
           "id": "task-interference",
           "title": "Task Interference",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         },
         {
           "id": "meta-learning",
@@ -24039,6 +24512,12 @@
         {
           "from": "continual-learning",
           "to": "experience-replay",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "continual-learning",
+          "to": "online-learning",
           "type": "unlocks",
           "reviewed": false
         },
@@ -24080,6 +24559,13 @@
           "y": 66
         },
         {
+          "id": "batch-inference",
+          "title": "Batch Inference",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "batch-size",
           "title": "Batch Size",
           "tier": "verified",
@@ -24113,6 +24599,12 @@
           "from": "autoregressive-decoding",
           "to": "continuous-batching",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "continuous-batching",
+          "to": "batch-inference",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -24398,7 +24890,7 @@
         {
           "id": "receptive-field",
           "title": "Receptive Field",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 83
         },
@@ -24596,7 +25088,7 @@
         {
           "id": "sequence-to-sequence",
           "title": "Sequence to Sequence",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -24700,7 +25192,7 @@
         {
           "id": "label-smoothing",
           "title": "Label Smoothing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
@@ -25683,18 +26175,25 @@
           "y": 66
         },
         {
+          "id": "data-versioning",
+          "title": "Data Versioning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "model-card",
           "title": "Model Card",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "training-data-licensing",
           "title": "Training Data Licensing",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "benchmark-contamination",
@@ -25716,6 +26215,12 @@
           "from": "data-filtering",
           "to": "data-provenance",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "data-provenance",
+          "to": "data-versioning",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -25818,6 +26323,59 @@
         {
           "from": "data-scaling-laws",
           "to": "language-imbalance",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "data-versioning",
+      "center": {
+        "id": "data-versioning",
+        "title": "Data Versioning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-provenance",
+          "title": "Data Provenance",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "deduplication",
+          "title": "Deduplication",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "feature-store",
+          "title": "Feature Store",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "data-provenance",
+          "to": "data-versioning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "data-versioning",
+          "to": "deduplication",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-versioning",
+          "to": "feature-store",
           "type": "adjacent",
           "reviewed": false
         }
@@ -26043,29 +26601,36 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
+        },
+        {
+          "id": "data-versioning",
+          "title": "Data Versioning",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
         },
         {
           "id": "language-imbalance",
           "title": "Language Imbalance",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "script-and-orthography",
           "title": "Script and Orthography",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -26090,6 +26655,12 @@
         {
           "from": "deduplication",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "deduplication",
+          "to": "data-versioning",
           "type": "adjacent",
           "reviewed": false
         },
@@ -26126,7 +26697,7 @@
         {
           "id": "ensemble-methods",
           "title": "Ensemble Methods",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -26420,6 +26991,13 @@
           "y": 66
         },
         {
+          "id": "experiment-tracking",
+          "title": "Experiment Tracking",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "training-observability",
           "title": "Training Observability",
           "tier": "verified",
@@ -26432,6 +27010,12 @@
           "from": "mixed-precision-training",
           "to": "determinism-and-reproducibility",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "determinism-and-reproducibility",
+          "to": "experiment-tracking",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -26699,7 +27283,7 @@
         {
           "id": "receptive-field",
           "title": "Receptive Field",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -26811,6 +27395,59 @@
       ]
     },
     {
+      "id": "disaggregated-serving",
+      "center": {
+        "id": "disaggregated-serving",
+        "title": "Disaggregated Serving",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "prefill-and-decode",
+          "title": "Prefill and Decode",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "interconnect-topology",
+          "title": "Interconnect Topology",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "prefill-and-decode",
+          "to": "disaggregated-serving",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "disaggregated-serving",
+          "to": "interconnect-topology",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "disaggregated-serving",
+          "to": "kv-cache",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "disparate-impact",
       "center": {
         "id": "disparate-impact",
@@ -26872,42 +27509,56 @@
           "title": "Out-of-Distribution Detection",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "production-monitoring",
           "title": "Production Monitoring",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "training-serving-skew",
+          "title": "Training-Serving Skew",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "conformal-prediction",
           "title": "Conformal Prediction",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "deep-ensemble",
           "title": "Deep Ensemble",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
         },
         {
           "id": "epistemic-uncertainty",
           "title": "Epistemic Uncertainty",
           "tier": "verified",
-          "x": 144,
+          "x": 120,
           "y": 22
+        },
+        {
+          "id": "online-learning",
+          "title": "Online Learning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -26931,6 +27582,12 @@
         },
         {
           "from": "distribution-shift",
+          "to": "training-serving-skew",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "distribution-shift",
           "to": "conformal-prediction",
           "type": "adjacent",
           "reviewed": false
@@ -26944,6 +27601,12 @@
         {
           "from": "distribution-shift",
           "to": "epistemic-uncertainty",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "distribution-shift",
+          "to": "online-learning",
           "type": "adjacent",
           "reviewed": false
         },
@@ -27710,7 +28373,7 @@
         {
           "id": "sequence-to-sequence",
           "title": "Sequence to Sequence",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -27885,7 +28548,7 @@
       "center": {
         "id": "ensemble-methods",
         "title": "Ensemble Methods",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -28645,6 +29308,46 @@
       ]
     },
     {
+      "id": "experiment-tracking",
+      "center": {
+        "id": "experiment-tracking",
+        "title": "Experiment Tracking",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "determinism-and-reproducibility",
+          "title": "Determinism and Reproducibility",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "online-experiment",
+          "title": "Online Experiment",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "determinism-and-reproducibility",
+          "to": "experiment-tracking",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "experiment-tracking",
+          "to": "online-experiment",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "expert-parallelism",
       "center": {
         "id": "expert-parallelism",
@@ -28781,7 +29484,7 @@
       "center": {
         "id": "exposure-bias",
         "title": "Exposure Bias",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -28789,7 +29492,7 @@
         {
           "id": "teacher-forcing",
           "title": "Teacher Forcing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -29068,6 +29771,59 @@
       ]
     },
     {
+      "id": "feature-store",
+      "center": {
+        "id": "feature-store",
+        "title": "Feature Store",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "training-serving-skew",
+          "title": "Training-Serving Skew",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "data-versioning",
+          "title": "Data Versioning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "training-serving-skew",
+          "to": "feature-store",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "feature-store",
+          "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "feature-store",
+          "to": "data-versioning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "federated-learning",
       "center": {
         "id": "federated-learning",
@@ -29260,22 +30016,29 @@
           "id": "confounding",
           "title": "Confounding",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "online-experiment",
           "title": "Online Experiment",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "online-learning",
+          "title": "Online Learning",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "reward-hacking",
           "title": "Reward Hacking",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -29306,6 +30069,12 @@
         {
           "from": "feedback-loop",
           "to": "online-experiment",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "feedback-loop",
+          "to": "online-learning",
           "type": "adjacent",
           "reviewed": false
         },
@@ -29560,7 +30329,7 @@
         {
           "id": "transfer-learning",
           "title": "Transfer Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 22
         }
@@ -30259,7 +31028,7 @@
         {
           "id": "ensemble-methods",
           "title": "Ensemble Methods",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -31321,7 +32090,7 @@
         {
           "id": "exposure-bias",
           "title": "Exposure Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -32477,22 +33246,29 @@
           "id": "accelerator-utilization",
           "title": "Accelerator Utilization",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "disaggregated-serving",
+          "title": "Disaggregated Serving",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "pipeline-parallelism",
           "title": "Pipeline Parallelism",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "tensor-parallelism",
           "title": "Tensor Parallelism",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -32505,6 +33281,12 @@
         {
           "from": "interconnect-topology",
           "to": "accelerator-utilization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "interconnect-topology",
+          "to": "disaggregated-serving",
           "type": "adjacent",
           "reviewed": false
         },
@@ -32738,18 +33520,25 @@
           "y": 66
         },
         {
+          "id": "batch-inference",
+          "title": "Batch Inference",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "elastic-training",
           "title": "Elastic Training",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "straggler",
           "title": "Straggler",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -32757,6 +33546,12 @@
           "from": "data-parallelism",
           "to": "job-scheduling",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "job-scheduling",
+          "to": "batch-inference",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -33229,7 +34024,7 @@
         {
           "id": "label-smoothing",
           "title": "Label Smoothing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -33475,29 +34270,36 @@
           "id": "chain-of-thought",
           "title": "Chain of Thought",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
+        },
+        {
+          "id": "disaggregated-serving",
+          "title": "Disaggregated Serving",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
         },
         {
           "id": "grouped-query-attention",
           "title": "Grouped-Query Attention",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "inference-accelerator",
           "title": "Inference Accelerator",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "state-space-model",
           "title": "State Space Model",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -33557,6 +34359,12 @@
         },
         {
           "from": "kv-cache",
+          "to": "disaggregated-serving",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
           "to": "grouped-query-attention",
           "type": "adjacent",
           "reviewed": false
@@ -33580,7 +34388,7 @@
       "center": {
         "id": "label-smoothing",
         "title": "Label Smoothing",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -37249,7 +38057,7 @@
         {
           "id": "ensemble-methods",
           "title": "Ensemble Methods",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
@@ -37501,7 +38309,7 @@
         {
           "id": "self-play",
           "title": "Self-Play",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -38841,6 +39649,59 @@
       ]
     },
     {
+      "id": "offload",
+      "center": {
+        "id": "offload",
+        "title": "Offload",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "zero-redundancy-optimizer",
+          "title": "ZeRO",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "activation-checkpointing",
+          "title": "Activation Checkpointing",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "arithmetic-intensity",
+          "title": "Arithmetic Intensity",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "zero-redundancy-optimizer",
+          "to": "offload",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "offload",
+          "to": "activation-checkpointing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "offload",
+          "to": "arithmetic-intensity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "online-experiment",
       "center": {
         "id": "online-experiment",
@@ -38861,15 +39722,22 @@
           "id": "canary-rollout",
           "title": "Canary Rollout",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "experiment-tracking",
+          "title": "Experiment Tracking",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "feedback-loop",
           "title": "Feedback Loop",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -38887,6 +39755,65 @@
         },
         {
           "from": "online-experiment",
+          "to": "experiment-tracking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "online-experiment",
+          "to": "feedback-loop",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "online-learning",
+      "center": {
+        "id": "online-learning",
+        "title": "Online Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "continual-learning",
+          "title": "Continual Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "distribution-shift",
+          "title": "Distribution Shift",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "feedback-loop",
+          "title": "Feedback Loop",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "continual-learning",
+          "to": "online-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "online-learning",
+          "to": "distribution-shift",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "online-learning",
           "to": "feedback-loop",
           "type": "adjacent",
           "reviewed": false
@@ -40016,7 +40943,7 @@
         {
           "id": "self-play",
           "title": "Self-Play",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         }
@@ -40290,6 +41217,13 @@
           "y": 88
         },
         {
+          "id": "disaggregated-serving",
+          "title": "Disaggregated Serving",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
           "tier": "verified",
@@ -40329,6 +41263,12 @@
           "from": "kv-cache",
           "to": "prefill-and-decode",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "prefill-and-decode",
+          "to": "disaggregated-serving",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -40527,7 +41467,7 @@
         {
           "id": "transfer-learning",
           "title": "Transfer Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 122
         }
@@ -42092,7 +43032,7 @@
         {
           "id": "self-play",
           "title": "Self-Play",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -42182,7 +43122,7 @@
       "center": {
         "id": "receptive-field",
         "title": "Receptive Field",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -42251,7 +43191,7 @@
         {
           "id": "sequence-to-sequence",
           "title": "Sequence to Sequence",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -44673,7 +45613,7 @@
       "center": {
         "id": "self-play",
         "title": "Self-Play",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -45070,7 +46010,7 @@
       "center": {
         "id": "sequence-to-sequence",
         "title": "Sequence to Sequence",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -45099,7 +46039,7 @@
         {
           "id": "teacher-forcing",
           "title": "Teacher Forcing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -45507,8 +46447,15 @@
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "training-serving-skew",
+          "title": "Training-Serving Skew",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -45521,6 +46468,12 @@
         {
           "from": "silent-failure",
           "to": "shortcut-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "silent-failure",
+          "to": "training-serving-skew",
           "type": "adjacent",
           "reviewed": false
         }
@@ -47613,7 +48566,7 @@
       "center": {
         "id": "teacher-forcing",
         "title": "Teacher Forcing",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -47628,14 +48581,14 @@
         {
           "id": "exposure-bias",
           "title": "Exposure Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "sequence-to-sequence",
           "title": "Sequence to Sequence",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -49124,11 +50077,64 @@
       ]
     },
     {
+      "id": "training-serving-skew",
+      "center": {
+        "id": "training-serving-skew",
+        "title": "Training-Serving Skew",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "distribution-shift",
+          "title": "Distribution Shift",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "feature-store",
+          "title": "Feature Store",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "silent-failure",
+          "title": "Silent Failure",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "distribution-shift",
+          "to": "training-serving-skew",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "training-serving-skew",
+          "to": "feature-store",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "training-serving-skew",
+          "to": "silent-failure",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "transfer-learning",
       "center": {
         "id": "transfer-learning",
         "title": "Transfer Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -50896,7 +51902,7 @@
         {
           "id": "exposure-bias",
           "title": "Exposure Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -50964,6 +51970,13 @@
           "tier": "verified",
           "x": 40,
           "y": 88
+        },
+        {
+          "id": "offload",
+          "title": "Offload",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         }
       ],
       "links": [
@@ -50977,6 +51990,12 @@
           "from": "optimizer-state",
           "to": "zero-redundancy-optimizer",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "zero-redundancy-optimizer",
+          "to": "offload",
+          "type": "unlocks",
           "reviewed": false
         }
       ]

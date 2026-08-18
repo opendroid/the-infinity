@@ -1,0 +1,63 @@
+{
+  "id": "training-serving-skew",
+  "title": "Training-Serving Skew",
+  "domain": [
+    "Platform",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "A feature computed one way when the model was trained and another way when it is served. The model is fine, the data is fine, and the predictions are quietly wrong — because the number arriving at inference does not mean what the number in training meant.",
+    "engineer": "It happens because the two paths are usually written twice, in different languages, by different people, months apart. A batch job computes a seven-day average over a table; a serving path computes it over a live stream with a different window boundary and a different null policy. Neither is a bug on its own. The fix that works is not care but sharing — one definition, executed by both paths, which is the argument a feature store makes.",
+    "math": "It is invisible to every check that looks at one side. Training metrics are computed on training features and look correct; serving latency and error rates look correct; only a comparison of the two distributions catches it, and that comparison is a thing someone has to build. So the expected time to detection is set by whether anyone is diffing the two, and where nobody is, the answer is bounded by how long until a person notices the product is worse."
+  },
+  "emphasis": {
+    "intuition": "the number arriving at inference does not mean what the number in training meant",
+    "math": "It is invisible to every check that looks at one side."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "skewed_features": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "skewed_features",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Features whose two implementations disagree, against the ones computed identically, in features. Drag the skewed count up to watch the model be served something other than what it learned — no single-sided metric moves while this happens."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "distribution-shift",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "silent-failure",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2209.09125",
+      "title": "Operationalizing Machine Learning: An Interview Study",
+      "url": "https://arxiv.org/abs/2209.09125"
+    },
+    {
+      "ref": "arXiv:2011.09926",
+      "title": "Challenges in Deploying Machine Learning: a Survey of Case Studies",
+      "url": "https://arxiv.org/abs/2011.09926"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
