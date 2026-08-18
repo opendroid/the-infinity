@@ -1,0 +1,67 @@
+{
+  "id": "inference-accelerator",
+  "title": "Inference Accelerator",
+  "domain": [
+    "Hardware",
+    "Serving"
+  ],
+  "bodies": {
+    "intuition": "A chip built to serve a model needs a different shape from one built to train it. Training has to hold gradients and optimiser state and every activation on the forward path; serving needs the weights and very little else. That difference is large enough that the two workloads want different ratios of memory to arithmetic, different number formats, and different economics.",
+    "engineer": "Serving silicon leans into it. Lower-precision integer units are acceptable because there is no backward pass to destabilise; memory is sized for weights plus a key-value cache rather than for optimiser state; and the workload is many small independent requests rather than one enormous synchronous job, so the interconnect requirements largely disappear. The constraint that replaces them is latency per request, which is a much harder thing to design for than throughput, because it cannot be recovered by batching more.",
+    "math": "The memory ratio is the clearest way to see the split. Training in mixed precision holds roughly sixteen bytes per parameter once the optimiser's two moments and the fp32 master copy are counted, against about two for a served half-precision weight — so the state a training chip carries beyond the weights is several times the weights themselves. Everything else follows from that number: the memory-to-FLOPs ratio, the cost per chip, and why the same accelerator is rarely the right answer to both problems."
+  },
+  "emphasis": {
+    "engineer": "it cannot be recovered by batching more",
+    "math": "the state a training chip carries beyond the weights is several times the weights themselves"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "training_state_bytes": 2,
+      "share_rest": 2
+    },
+    "param_controls": [
+      {
+        "name": "training_state_bytes",
+        "min": 0,
+        "max": 14,
+        "step": 2
+      }
+    ],
+    "caption": "Bytes per parameter a training chip holds beyond the weights, against the two bytes a served half-precision weight needs. Drag it up to the fourteen mixed precision actually carries — gradients, two optimiser moments, a master copy — and watch the weights become the small part."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "optimizer-state",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "quantization",
+        "reviewed": false
+      },
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2110.02861",
+      "title": "8-bit Optimizers via Block-wise Quantization",
+      "url": "https://arxiv.org/abs/2110.02861"
+    },
+    {
+      "ref": "arXiv:2211.10438",
+      "title": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models",
+      "url": "https://arxiv.org/abs/2211.10438"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

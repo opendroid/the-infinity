@@ -1,0 +1,67 @@
+{
+  "id": "memory-bandwidth-wall",
+  "title": "Memory Bandwidth Wall",
+  "domain": [
+    "Hardware",
+    "Compute"
+  ],
+  "bodies": {
+    "intuition": "Every accelerator generation adds far more arithmetic throughput than memory bandwidth. The gap has widened for decades, and the effect is that operations which used to be limited by how fast the chip could compute are now limited by how fast it can be fed. Buying a faster chip stops helping, which is a strange and specific kind of disappointment.",
+    "engineer": "This is why the same kernel can be compute-bound on one generation and memory-bound on the next without a line of it changing. It is also why the optimisation that pays has shifted from reducing arithmetic to reducing data movement — fusing kernels so intermediates never reach memory, recomputing values rather than storing them, and choosing algorithms with better reuse even when they do more arithmetic. `arithmetic-intensity` is the per-kernel measurement; this is the trend that keeps moving the threshold it is measured against.",
+    "math": "The crossing point sits where a kernel's arithmetic per byte equals the machine's FLOPs per byte of bandwidth, and that machine ratio has climbed steadily — an accelerator delivering a few operations per byte a decade ago now demands hundreds. So a kernel with fixed reuse does not change while the bar it must clear rises underneath it, and the share of a workload that is memory-bound therefore grows with every generation without anyone rewriting anything."
+  },
+  "emphasis": {
+    "intuition": "Buying a faster chip stops helping",
+    "math": "the bar it must clear rises underneath it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "memory_bound_kernels": 6,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "memory_bound_kernels",
+        "min": 0,
+        "max": 240,
+        "step": 10
+      }
+    ],
+    "caption": "Kernels whose speed is set by memory bandwidth, against those still limited by arithmetic, in kernels. Drag the hardware generation forward to watch memory-bound take the workload — nothing in the code changed; the machine's demanded operations-per-byte rose underneath it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "arithmetic-intensity",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "kernel-fusion",
+        "reviewed": false
+      },
+      {
+        "id": "activation-checkpointing",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2007.00072",
+      "title": "Data Movement Is All You Need: A Case Study on Optimizing Transformers",
+      "url": "https://arxiv.org/abs/2007.00072"
+    },
+    {
+      "ref": "arXiv:2312.03863",
+      "title": "Efficient Large Language Models: A Survey",
+      "url": "https://arxiv.org/abs/2312.03863"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

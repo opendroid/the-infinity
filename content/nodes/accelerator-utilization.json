@@ -1,0 +1,67 @@
+{
+  "id": "accelerator-utilization",
+  "title": "Accelerator Utilization",
+  "domain": [
+    "Hardware",
+    "Compute"
+  ],
+  "bodies": {
+    "intuition": "A cluster's peak throughput is a number on a specification sheet, and a training run reaches somewhere between a third and a half of it on a good day. The gap is not waste to be scolded about — it is memory stalls, communication, and workers waiting at barriers, all of which are real work that produces no gradient. Knowing how big the gap is, and what it is made of, is what turns a slow run into a fixable one.",
+    "engineer": "The metric worth quoting is model FLOPs utilisation: the arithmetic the model definition requires, divided by what the hardware could have done in the same time. It deliberately excludes recomputation, so a run that recomputes activations is not credited for the extra work — which is right, because that work bought memory rather than progress. Reported figures for large transformer runs cluster in the thirty-to-fifty percent range, and a run far below that has a specific problem worth finding rather than a general inefficiency to accept.",
+    "math": "The gap is a sum of terms and each is separately attackable: bytes waited on, messages waited on, and barriers waited at. Attacking the largest is the only move that helps, and its share shifts with scale — communication grows with the worker count while memory stalls do not, so the term that dominates a sixteen-accelerator run is usually not the one that dominates a sixteen-thousand-accelerator one. A team that optimises the wrong term can work hard and move the number by nothing."
+  },
+  "emphasis": {
+    "intuition": "real work that produces no gradient",
+    "math": "A team that optimises the wrong term can work hard and move the number by nothing."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "stalled_time": 10,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "stalled_time",
+        "min": 0,
+        "max": 220,
+        "step": 10
+      }
+    ],
+    "caption": "Time spent waiting on memory, messages and barriers, against time spent doing the model's arithmetic, in equal units. Drag the stalls up to watch utilisation collapse — the bar is one number, but the stall is a sum of terms, and only the largest is worth attacking."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "arithmetic-intensity",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "straggler",
+        "reviewed": false
+      },
+      {
+        "id": "interconnect-topology",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2204.02311",
+      "title": "PaLM: Scaling Language Modeling with Pathways",
+      "url": "https://arxiv.org/abs/2204.02311"
+    },
+    {
+      "ref": "arXiv:2201.11990",
+      "title": "Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model",
+      "url": "https://arxiv.org/abs/2201.11990"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

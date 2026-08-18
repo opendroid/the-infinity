@@ -1,0 +1,67 @@
+{
+  "id": "sparsity-hardware",
+  "title": "Sparsity Hardware",
+  "domain": [
+    "Hardware",
+    "Compute"
+  ],
+  "bodies": {
+    "intuition": "Zeros in a weight matrix are only free if the silicon can skip them, and general unstructured sparsity is very hard to skip — the hardware cannot know in advance which lanes to idle. So accelerators support one narrow, rigid pattern instead: in every group of four consecutive weights, exactly two must be zero. Fit that pattern and the matmul runs at twice the rate; miss it by one weight and you get nothing.",
+    "engineer": "The rigidity is the design, not a limitation someone forgot to fix. A fixed two-of-four pattern means the index of every surviving weight fits in two bits and the selection multiplexer is the same width for every group, so the decode costs almost no area. Anything more flexible needs per-row metadata and variable-width gather, which is where the area and the power go. Training to the pattern is a pruning-and-retraining recipe rather than something a trained model happens to satisfy.",
+    "math": "The ceiling is exactly two, and it is worth seeing why nothing gets past it: the pattern fixes the skipped fraction at one half by definition, so the arithmetic saving cannot exceed a factor of two however sparse the underlying model really is. A model that is 90% zeros still runs at 2× under this scheme, because the hardware skips two of every four and no more. That is the whole trade — a guaranteed, modest, universally-available speedup instead of a large and unreliable one."
+  },
+  "emphasis": {
+    "intuition": "miss it by one weight and you get nothing",
+    "math": "A model that is 90% zeros still runs at 2× under this scheme"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "skipped_weights": 8,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "skipped_weights",
+        "min": 0,
+        "max": 100,
+        "step": 4
+      }
+    ],
+    "caption": "Weights the hardware skips, against the weights it must multiply, in weights. Drag the model's sparsity up and watch the bar stop at half — the two-of-four pattern fixes the skipped fraction, so a 90%-zero model runs no faster than a 50%-zero one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "structured-sparsity",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "pruning",
+        "reviewed": false
+      },
+      {
+        "id": "tensor-core",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2104.08378",
+      "title": "Accelerating Sparse Deep Neural Networks",
+      "url": "https://arxiv.org/abs/2104.08378"
+    },
+    {
+      "ref": "arXiv:2101.03961",
+      "title": "Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity",
+      "url": "https://arxiv.org/abs/2101.03961"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
