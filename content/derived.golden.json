@@ -2,6 +2,31 @@
   "_note": "DERIVED, NOT AUTHORED. Regenerate with `cd api && make golden`. Checked by api/internal/publish (Go) and web/src/lib/golden.test.ts (TypeScript) so the served graph and the pre-rendered graph cannot drift apart.",
   "concepts": [
     {
+      "id": "ablation",
+      "title": "Ablation",
+      "domain": "Evaluation / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-validation",
+            "title": "Cross-Validation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "statistical-significance",
+            "title": "Statistical Significance",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "accelerator-utilization",
       "title": "Accelerator Utilization",
       "domain": "Hardware / Compute",
@@ -260,6 +285,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "advantage-estimation",
+            "title": "Advantage Estimation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "proximal-policy-optimization",
             "title": "PPO",
             "tier": "verified",
@@ -334,7 +365,7 @@
       "id": "adaptive-computation",
       "title": "Adaptive Computation",
       "domain": "Inference / Adaptive",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -348,19 +379,19 @@
           {
             "id": "early-exit",
             "title": "Early Exit",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "model-cascade",
             "title": "Model Cascade",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "model-routing",
             "title": "Model Routing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -368,7 +399,38 @@
           {
             "id": "mixture-of-depths",
             "title": "Mixture of Depths",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "advantage-estimation",
+      "title": "Advantage Estimation",
+      "domain": "Reinforcement / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "credit-assignment",
+            "title": "Credit Assignment",
             "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "actor-critic",
+            "title": "Actor-Critic",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "proximal-policy-optimization",
+            "title": "PPO",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -661,6 +723,12 @@
             "title": "Evaluation Disaggregation",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "human-evaluation",
+            "title": "Human Evaluation",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -770,7 +838,7 @@
           {
             "id": "semantic-cache",
             "title": "Semantic Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1622,6 +1690,44 @@
       }
     },
     {
+      "id": "bellman-equation",
+      "title": "Bellman Equation",
+      "domain": "Reinforcement / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "markov-decision-process",
+            "title": "Markov Decision Process",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "credit-assignment",
+            "title": "Credit Assignment",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "temporal-difference-learning",
+            "title": "Temporal Difference Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "value-function",
+            "title": "Value Function",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "benchmark-contamination",
       "title": "Benchmark Contamination",
       "domain": "Evaluation / Validity",
@@ -1702,6 +1808,12 @@
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "statistical-significance",
+            "title": "Statistical Significance",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -1900,7 +2012,7 @@
           {
             "id": "early-exit",
             "title": "Early Exit",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2871,7 +2983,7 @@
           {
             "id": "adaptive-computation",
             "title": "Adaptive Computation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3368,7 +3480,7 @@
           {
             "id": "tail-latency",
             "title": "Tail Latency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3597,6 +3709,44 @@
           {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "credit-assignment",
+      "title": "Credit Assignment",
+      "domain": "Reinforcement / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "bellman-equation",
+            "title": "Bellman Equation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "advantage-estimation",
+            "title": "Advantage Estimation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "reward-shaping",
+            "title": "Reward Shaping",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "process-supervision",
+            "title": "Process Supervision",
             "tier": "verified",
             "reviewed": false
           }
@@ -3833,7 +3983,20 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "ablation",
+            "title": "Ablation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "statistical-significance",
+            "title": "Statistical Significance",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "benchmark-contamination",
@@ -4923,7 +5086,7 @@
           {
             "id": "tail-latency",
             "title": "Tail Latency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5199,13 +5362,13 @@
       "id": "early-exit",
       "title": "Early Exit",
       "domain": "Inference / Adaptive",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "adaptive-computation",
             "title": "Adaptive Computation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5388,6 +5551,31 @@
           {
             "id": "weight-decay",
             "title": "Weight Decay",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "elo-rating",
+      "title": "Elo Rating",
+      "domain": "Evaluation / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "human-evaluation",
+            "title": "Human Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
             "tier": "verified",
             "reviewed": false
           }
@@ -7582,7 +7770,7 @@
           {
             "id": "semantic-cache",
             "title": "Semantic Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7650,6 +7838,44 @@
           {
             "id": "proprioception",
             "title": "Proprioception",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "human-evaluation",
+      "title": "Human Evaluation",
+      "domain": "Evaluation / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "annotation-quality",
+            "title": "Annotation Quality",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "elo-rating",
+            "title": "Elo Rating",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "synthesis-evaluation",
+            "title": "Synthesis Evaluation",
             "tier": "verified",
             "reviewed": false
           }
@@ -8809,7 +9035,7 @@
           {
             "id": "quantized-kv-cache",
             "title": "Quantized KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9236,6 +9462,18 @@
             "id": "counterfactual",
             "title": "Counterfactual",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "elo-rating",
+            "title": "Elo Rating",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "human-evaluation",
+            "title": "Human Evaluation",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -9995,6 +10233,12 @@
         "requires": [],
         "unlocks": [
           {
+            "id": "bellman-equation",
+            "title": "Bellman Equation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "exploration-exploitation",
             "title": "Exploration and Exploitation",
             "tier": "verified",
@@ -10587,7 +10831,7 @@
       "id": "mixture-of-depths",
       "title": "Mixture of Depths",
       "domain": "Inference / Adaptive",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10602,7 +10846,7 @@
           {
             "id": "adaptive-computation",
             "title": "Adaptive Computation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10638,7 +10882,7 @@
           {
             "id": "mixture-of-depths",
             "title": "Mixture of Depths",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10864,13 +11108,13 @@
       "id": "model-cascade",
       "title": "Model Cascade",
       "domain": "Inference / Adaptive",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "adaptive-computation",
             "title": "Adaptive Computation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10879,7 +11123,7 @@
           {
             "id": "model-routing",
             "title": "Model Routing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10970,13 +11214,13 @@
       "id": "model-routing",
       "title": "Model Routing",
       "domain": "Inference / Adaptive",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "adaptive-computation",
             "title": "Adaptive Computation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10985,13 +11229,13 @@
           {
             "id": "model-cascade",
             "title": "Model Cascade",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "tail-latency",
             "title": "Tail Latency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11770,7 +12014,7 @@
           {
             "id": "quantized-kv-cache",
             "title": "Quantized KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -12876,7 +13120,7 @@
           {
             "id": "semantic-cache",
             "title": "Semantic Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13113,6 +13357,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "credit-assignment",
+            "title": "Credit Assignment",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "reasoning-rl",
             "title": "Reasoning RL",
@@ -13441,6 +13691,12 @@
             "title": "Actor-Critic",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "advantage-estimation",
+            "title": "Advantage Estimation",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -13644,7 +13900,7 @@
           {
             "id": "quantized-kv-cache",
             "title": "Quantized KV Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13691,7 +13947,7 @@
       "id": "quantized-kv-cache",
       "title": "Quantized KV Cache",
       "domain": "Inference / Memory",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -14379,6 +14635,12 @@
             "reviewed": false
           },
           {
+            "id": "reward-shaping",
+            "title": "Reward Shaping",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "rlhf",
             "title": "RLHF",
             "tier": "verified",
@@ -14449,6 +14711,37 @@
           {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "reward-shaping",
+      "title": "Reward Shaping",
+      "domain": "Reinforcement / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "credit-assignment",
+            "title": "Credit Assignment",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "reward-hacking",
+            "title": "Reward Hacking",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "specification-gaming",
+            "title": "Specification Gaming",
             "tier": "verified",
             "reviewed": false
           }
@@ -15164,7 +15457,7 @@
           {
             "id": "early-exit",
             "title": "Early Exit",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -15409,7 +15702,7 @@
       "id": "semantic-cache",
       "title": "Semantic Cache",
       "domain": "Inference / Adaptive",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -16100,6 +16393,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "reward-shaping",
+            "title": "Reward Shaping",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "sycophancy",
             "title": "Sycophancy",
             "tier": "verified",
@@ -16376,6 +16675,37 @@
       }
     },
     {
+      "id": "statistical-significance",
+      "title": "Statistical Significance",
+      "domain": "Evaluation / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-validation",
+            "title": "Cross-Validation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "ablation",
+            "title": "Ablation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "stochastic-gradient-descent",
       "title": "Stochastic Gradient Descent",
       "domain": "Optimization / Training",
@@ -16468,7 +16798,7 @@
           {
             "id": "tail-latency",
             "title": "Tail Latency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -16758,6 +17088,12 @@
             "reviewed": false
           },
           {
+            "id": "human-evaluation",
+            "title": "Human Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
             "tier": "verified",
@@ -16862,7 +17198,7 @@
       "id": "tail-latency",
       "title": "Tail Latency",
       "domain": "Inference / Serving",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -16883,7 +17219,7 @@
           {
             "id": "model-routing",
             "title": "Model Routing",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -17107,6 +17443,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "bellman-equation",
+            "title": "Bellman Equation",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "model-based-rl",
             "title": "Model-Based RL",
@@ -18088,6 +18430,12 @@
         ],
         "adjacent": [
           {
+            "id": "bellman-equation",
+            "title": "Bellman Equation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "monte-carlo-tree-search",
             "title": "Monte Carlo Tree Search",
             "tier": "verified",
@@ -18296,7 +18644,7 @@
           {
             "id": "model-cascade",
             "title": "Model Cascade",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -18934,6 +19282,46 @@
   ],
   "neighborhoods": [
     {
+      "id": "ablation",
+      "center": {
+        "id": "ablation",
+        "title": "Ablation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-validation",
+          "title": "Cross-Validation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "statistical-significance",
+          "title": "Statistical Significance",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-validation",
+          "to": "ablation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "ablation",
+          "to": "statistical-significance",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "accelerator-utilization",
       "center": {
         "id": "accelerator-utilization",
@@ -19368,11 +19756,18 @@
           "y": 88
         },
         {
+          "id": "advantage-estimation",
+          "title": "Advantage Estimation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "proximal-policy-optimization",
           "title": "PPO",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -19386,6 +19781,12 @@
           "from": "value-function",
           "to": "actor-critic",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "actor-critic",
+          "to": "advantage-estimation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -19507,7 +19908,7 @@
       "center": {
         "id": "adaptive-computation",
         "title": "Adaptive Computation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19522,28 +19923,28 @@
         {
           "id": "early-exit",
           "title": "Early Exit",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "model-cascade",
           "title": "Model Cascade",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "model-routing",
           "title": "Model Routing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
         {
           "id": "mixture-of-depths",
           "title": "Mixture of Depths",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -19576,6 +19977,59 @@
         {
           "from": "adaptive-computation",
           "to": "mixture-of-depths",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "advantage-estimation",
+      "center": {
+        "id": "advantage-estimation",
+        "title": "Advantage Estimation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "credit-assignment",
+          "title": "Credit Assignment",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "actor-critic",
+          "title": "Actor-Critic",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "proximal-policy-optimization",
+          "title": "PPO",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "credit-assignment",
+          "to": "advantage-estimation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "advantage-estimation",
+          "to": "actor-critic",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "advantage-estimation",
+          "to": "proximal-policy-optimization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20078,7 +20532,14 @@
           "title": "Evaluation Disaggregation",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "human-evaluation",
+          "title": "Human Evaluation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "active-learning",
@@ -20147,6 +20608,12 @@
         {
           "from": "annotation-quality",
           "to": "evaluation-disaggregation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "annotation-quality",
+          "to": "human-evaluation",
           "type": "unlocks",
           "reviewed": false
         },
@@ -20274,7 +20741,7 @@
         {
           "id": "semantic-cache",
           "title": "Semantic Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -21859,6 +22326,72 @@
       ]
     },
     {
+      "id": "bellman-equation",
+      "center": {
+        "id": "bellman-equation",
+        "title": "Bellman Equation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "markov-decision-process",
+          "title": "Markov Decision Process",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "credit-assignment",
+          "title": "Credit Assignment",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "temporal-difference-learning",
+          "title": "Temporal Difference Learning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "value-function",
+          "title": "Value Function",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "markov-decision-process",
+          "to": "bellman-equation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "bellman-equation",
+          "to": "credit-assignment",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "bellman-equation",
+          "to": "temporal-difference-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "bellman-equation",
+          "to": "value-function",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "benchmark-contamination",
       "center": {
         "id": "benchmark-contamination",
@@ -21886,78 +22419,85 @@
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 20,
+          "x": 18,
           "y": 22
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 40,
+          "x": 37,
           "y": 110
         },
         {
           "id": "data-provenance",
           "title": "Data Provenance",
           "tier": "verified",
-          "x": 60,
+          "x": 55,
           "y": 22
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
-          "x": 80,
+          "x": 74,
           "y": 110
         },
         {
           "id": "feature-store",
           "title": "Feature Store",
           "tier": "verified",
-          "x": 100,
+          "x": 92,
           "y": 22
         },
         {
           "id": "model-written-evaluation",
           "title": "Model-Written Evaluation",
           "tier": "verified",
-          "x": 120,
+          "x": 111,
           "y": 110
         },
         {
           "id": "needle-in-a-haystack",
           "title": "Needle in a Haystack",
           "tier": "verified",
-          "x": 140,
+          "x": 129,
           "y": 22
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 160,
+          "x": 148,
           "y": 110
         },
         {
           "id": "regression-suite",
           "title": "Regression Suite",
           "tier": "verified",
-          "x": 180,
+          "x": 166,
           "y": 22
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 200,
+          "x": 185,
           "y": 110
+        },
+        {
+          "id": "statistical-significance",
+          "title": "Statistical Significance",
+          "tier": "frontier",
+          "x": 203,
+          "y": 22
         },
         {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
           "tier": "verified",
-          "x": 220,
-          "y": 22
+          "x": 222,
+          "y": 110
         }
       ],
       "links": [
@@ -22030,6 +22570,12 @@
         {
           "from": "benchmark-contamination",
           "to": "shortcut-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "statistical-significance",
           "type": "adjacent",
           "reviewed": false
         },
@@ -22334,7 +22880,7 @@
         {
           "id": "early-exit",
           "title": "Early Exit",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 64,
           "y": 110
         },
@@ -24135,7 +24681,7 @@
         {
           "id": "adaptive-computation",
           "title": "Adaptive Computation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -25031,7 +25577,7 @@
         {
           "id": "tail-latency",
           "title": "Tail Latency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -25503,6 +26049,72 @@
       ]
     },
     {
+      "id": "credit-assignment",
+      "center": {
+        "id": "credit-assignment",
+        "title": "Credit Assignment",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "bellman-equation",
+          "title": "Bellman Equation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "advantage-estimation",
+          "title": "Advantage Estimation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "reward-shaping",
+          "title": "Reward Shaping",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "process-supervision",
+          "title": "Process Supervision",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "bellman-equation",
+          "to": "credit-assignment",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "credit-assignment",
+          "to": "advantage-estimation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "credit-assignment",
+          "to": "reward-shaping",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "credit-assignment",
+          "to": "process-supervision",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "cross-attention",
       "center": {
         "id": "cross-attention",
@@ -25927,6 +26539,20 @@
           "y": 66
         },
         {
+          "id": "ablation",
+          "title": "Ablation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "statistical-significance",
+          "title": "Statistical Significance",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
@@ -25960,6 +26586,18 @@
           "from": "overfitting",
           "to": "cross-validation",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cross-validation",
+          "to": "ablation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "cross-validation",
+          "to": "statistical-significance",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -27904,7 +28542,7 @@
         {
           "id": "tail-latency",
           "title": "Tail Latency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -28416,7 +29054,7 @@
       "center": {
         "id": "early-exit",
         "title": "Early Exit",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -28424,7 +29062,7 @@
         {
           "id": "adaptive-computation",
           "title": "Adaptive Computation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -28750,6 +29388,46 @@
         {
           "from": "elastic-weight-consolidation",
           "to": "weight-decay",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "elo-rating",
+      "center": {
+        "id": "elo-rating",
+        "title": "Elo Rating",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "human-evaluation",
+          "title": "Human Evaluation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "human-evaluation",
+          "to": "elo-rating",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "elo-rating",
+          "to": "llm-as-judge",
           "type": "adjacent",
           "reviewed": false
         }
@@ -32646,7 +33324,7 @@
         {
           "id": "semantic-cache",
           "title": "Semantic Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -32798,6 +33476,72 @@
         {
           "from": "hierarchical-rl",
           "to": "proprioception",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "human-evaluation",
+      "center": {
+        "id": "human-evaluation",
+        "title": "Human Evaluation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "annotation-quality",
+          "title": "Annotation Quality",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "elo-rating",
+          "title": "Elo Rating",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "synthesis-evaluation",
+          "title": "Synthesis Evaluation",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "annotation-quality",
+          "to": "human-evaluation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "human-evaluation",
+          "to": "elo-rating",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "human-evaluation",
+          "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "human-evaluation",
+          "to": "synthesis-evaluation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -34824,7 +35568,7 @@
         {
           "id": "quantized-kv-cache",
           "title": "Quantized KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 116
         },
@@ -35599,63 +36343,77 @@
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 24,
+          "x": 20,
           "y": 22
         },
         {
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 110
         },
         {
           "id": "counterfactual",
           "title": "Counterfactual",
           "tier": "verified",
-          "x": 72,
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "elo-rating",
+          "title": "Elo Rating",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
+        },
+        {
+          "id": "human-evaluation",
+          "title": "Human Evaluation",
+          "tier": "frontier",
+          "x": 100,
           "y": 22
         },
         {
           "id": "image-generation-evaluation",
           "title": "Image Generation Evaluation",
           "tier": "verified",
-          "x": 96,
+          "x": 120,
           "y": 110
         },
         {
           "id": "machine-translation",
           "title": "Machine Translation",
           "tier": "verified",
-          "x": 120,
+          "x": 140,
           "y": 22
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 144,
+          "x": 160,
           "y": 110
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
-          "x": 168,
+          "x": 180,
           "y": 22
         },
         {
           "id": "self-reflection",
           "title": "Self-Reflection",
           "tier": "verified",
-          "x": 192,
+          "x": 200,
           "y": 110
         },
         {
           "id": "synthesis-evaluation",
           "title": "Synthesis Evaluation",
           "tier": "verified",
-          "x": 216,
+          "x": 220,
           "y": 22
         }
       ],
@@ -35687,6 +36445,18 @@
         {
           "from": "llm-as-judge",
           "to": "counterfactual",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "elo-rating",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "human-evaluation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -37005,49 +37775,62 @@
       },
       "nodes": [
         {
+          "id": "bellman-equation",
+          "title": "Bellman Equation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 17
+        },
+        {
           "id": "exploration-exploitation",
           "title": "Exploration and Exploitation",
           "tier": "verified",
           "x": 200,
-          "y": 19
+          "y": 33
         },
         {
           "id": "hidden-markov-model",
           "title": "Hidden Markov Model",
           "tier": "verified",
           "x": 200,
-          "y": 38
+          "y": 50
         },
         {
           "id": "hierarchical-rl",
           "title": "Hierarchical RL",
           "tier": "verified",
           "x": 200,
-          "y": 57
+          "y": 66
         },
         {
           "id": "policy-gradient",
           "title": "Policy Gradient",
           "tier": "verified",
           "x": 200,
-          "y": 75
+          "y": 83
         },
         {
           "id": "value-function",
           "title": "Value Function",
           "tier": "verified",
           "x": 200,
-          "y": 94
+          "y": 99
         },
         {
           "id": "world-model",
           "title": "World Model",
           "tier": "verified",
           "x": 200,
-          "y": 113
+          "y": 116
         }
       ],
       "links": [
+        {
+          "from": "markov-decision-process",
+          "to": "bellman-equation",
+          "type": "unlocks",
+          "reviewed": false
+        },
         {
           "from": "markov-decision-process",
           "to": "exploration-exploitation",
@@ -38055,7 +38838,7 @@
       "center": {
         "id": "mixture-of-depths",
         "title": "Mixture of Depths",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -38070,7 +38853,7 @@
         {
           "id": "adaptive-computation",
           "title": "Adaptive Computation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -38124,7 +38907,7 @@
         {
           "id": "mixture-of-depths",
           "title": "Mixture of Depths",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -38531,7 +39314,7 @@
       "center": {
         "id": "model-cascade",
         "title": "Model Cascade",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -38539,14 +39322,14 @@
         {
           "id": "adaptive-computation",
           "title": "Adaptive Computation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "model-routing",
           "title": "Model Routing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -38716,7 +39499,7 @@
       "center": {
         "id": "model-routing",
         "title": "Model Routing",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -38724,21 +39507,21 @@
         {
           "id": "adaptive-computation",
           "title": "Adaptive Computation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "model-cascade",
           "title": "Model Cascade",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "tail-latency",
           "title": "Tail Latency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -40105,7 +40888,7 @@
         {
           "id": "quantized-kv-cache",
           "title": "Quantized KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -42071,7 +42854,7 @@
         {
           "id": "semantic-cache",
           "title": "Semantic Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -42528,11 +43311,18 @@
           "y": 66
         },
         {
+          "id": "credit-assignment",
+          "title": "Credit Assignment",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "reasoning-rl",
           "title": "Reasoning RL",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -42540,6 +43330,12 @@
           "from": "verifier-model",
           "to": "process-supervision",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "process-supervision",
+          "to": "credit-assignment",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -43081,8 +43877,15 @@
           "id": "actor-critic",
           "title": "Actor-Critic",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "advantage-estimation",
+          "title": "Advantage Estimation",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -43113,6 +43916,12 @@
         {
           "from": "proximal-policy-optimization",
           "to": "actor-critic",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "proximal-policy-optimization",
+          "to": "advantage-estimation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -43419,7 +44228,7 @@
         {
           "id": "quantized-kv-cache",
           "title": "Quantized KV Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 110
         },
@@ -43558,7 +44367,7 @@
       "center": {
         "id": "quantized-kv-cache",
         "title": "Quantized KV Cache",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -44754,36 +45563,43 @@
           "id": "feedback-loop",
           "title": "Feedback Loop",
           "tier": "verified",
-          "x": 40,
+          "x": 34,
           "y": 22
         },
         {
           "id": "intervention",
           "title": "Intervention",
           "tier": "verified",
-          "x": 80,
+          "x": 69,
           "y": 110
         },
         {
           "id": "program-repair",
           "title": "Program Repair",
           "tier": "verified",
-          "x": 120,
+          "x": 103,
           "y": 22
+        },
+        {
+          "id": "reward-shaping",
+          "title": "Reward Shaping",
+          "tier": "frontier",
+          "x": 137,
+          "y": 110
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 171,
+          "y": 22
         },
         {
           "id": "verifier-model",
           "title": "Verifier Model",
           "tier": "verified",
-          "x": 200,
-          "y": 22
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -44814,6 +45630,12 @@
         {
           "from": "reward-hacking",
           "to": "program-repair",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "reward-hacking",
+          "to": "reward-shaping",
           "type": "adjacent",
           "reviewed": false
         },
@@ -44944,6 +45766,59 @@
         {
           "from": "reward-model",
           "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "reward-shaping",
+      "center": {
+        "id": "reward-shaping",
+        "title": "Reward Shaping",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "credit-assignment",
+          "title": "Credit Assignment",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "reward-hacking",
+          "title": "Reward Hacking",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "specification-gaming",
+          "title": "Specification Gaming",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "credit-assignment",
+          "to": "reward-shaping",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reward-shaping",
+          "to": "reward-hacking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "reward-shaping",
+          "to": "specification-gaming",
           "type": "adjacent",
           "reviewed": false
         }
@@ -46190,7 +47065,7 @@
         {
           "id": "early-exit",
           "title": "Early Exit",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -46643,7 +47518,7 @@
       "center": {
         "id": "semantic-cache",
         "title": "Semantic Cache",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -47869,11 +48744,18 @@
           "y": 66
         },
         {
+          "id": "reward-shaping",
+          "title": "Reward Shaping",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "sycophancy",
           "title": "Sycophancy",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -47881,6 +48763,12 @@
           "from": "reward-hacking",
           "to": "specification-gaming",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "specification-gaming",
+          "to": "reward-shaping",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -48379,6 +49267,59 @@
       ]
     },
     {
+      "id": "statistical-significance",
+      "center": {
+        "id": "statistical-significance",
+        "title": "Statistical Significance",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-validation",
+          "title": "Cross-Validation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "ablation",
+          "title": "Ablation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-validation",
+          "to": "statistical-significance",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "statistical-significance",
+          "to": "ablation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "statistical-significance",
+          "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "stochastic-gradient-descent",
       "center": {
         "id": "stochastic-gradient-descent",
@@ -48524,7 +49465,7 @@
         {
           "id": "tail-latency",
           "title": "Tail Latency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -49039,15 +49980,22 @@
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "human-evaluation",
+          "title": "Human Evaluation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -49066,6 +50014,12 @@
         {
           "from": "synthesis-evaluation",
           "to": "annotation-quality",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "synthesis-evaluation",
+          "to": "human-evaluation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -49253,7 +50207,7 @@
       "center": {
         "id": "tail-latency",
         "title": "Tail Latency",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -49275,7 +50229,7 @@
         {
           "id": "model-routing",
           "title": "Model Routing",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -49669,11 +50623,18 @@
           "y": 66
         },
         {
+          "id": "bellman-equation",
+          "title": "Bellman Equation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "model-based-rl",
           "title": "Model-Based RL",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -49687,6 +50648,12 @@
           "from": "temporal-difference-learning",
           "to": "q-learning",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "temporal-difference-learning",
+          "to": "bellman-equation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -51435,11 +52402,18 @@
           "y": 99
         },
         {
+          "id": "bellman-equation",
+          "title": "Bellman Equation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "monte-carlo-tree-search",
           "title": "Monte Carlo Tree Search",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -51465,6 +52439,12 @@
           "from": "value-function",
           "to": "temporal-difference-learning",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "value-function",
+          "to": "bellman-equation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -51830,7 +52810,7 @@
         {
           "id": "model-cascade",
           "title": "Model Cascade",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },

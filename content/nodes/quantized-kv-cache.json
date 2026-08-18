@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Memory held by the attention cache, against the memory held by the weights, in equal units. Drag the context length up to watch the cache overtake the weights — past that crossing it is the only term worth quantising."
+    "caption": "Memory held by the attention cache, against the memory held by the weights, in equal units. Drag the cache up — it is context length that moves it in practice — to watch it overtake the weights; past that crossing it is the only term worth quantising."
   },
   "edges": {
     "requires": [
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

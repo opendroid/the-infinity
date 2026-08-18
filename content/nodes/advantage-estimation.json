@@ -1,0 +1,67 @@
+{
+  "id": "advantage-estimation",
+  "title": "Advantage Estimation",
+  "domain": [
+    "Reinforcement",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Was this action better than what I would normally have done here? That is the advantage — the value of an action minus the value of the state it was taken in — and it is a far more useful learning signal than the raw return, because it strips out how good the situation was and leaves only what the choice contributed.",
+    "engineer": "Estimating it is a bias-variance dial with a name. Use the full return and the estimate is unbiased and extremely noisy, because it carries every random thing that happened afterwards. Use one step and a learned value function and it is low-variance and biased by however wrong that function is. Generalised advantage estimation interpolates between them with one parameter, and that parameter is the actual knob practitioners turn.",
+    "math": "The interpolation weights an exponentially decaying sum of k-step estimates by λ. At λ = 0 it is the one-step temporal-difference error — biased, quiet. At λ = 1 it is the Monte Carlo return — unbiased, loud. Every value between trades the two smoothly, and the reason a middle setting wins is that neither endpoint is where the total error is smallest: bias and variance are both costs, and the sum of them has an interior minimum."
+  },
+  "emphasis": {
+    "intuition": "it strips out how good the situation was and leaves only what the choice contributed",
+    "math": "the sum of them has an interior minimum"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "variance_share": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "variance_share",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Error from variance in the estimate, against error from the bias traded for it, in equal units. Drag the variance share up toward the Monte Carlo end to watch it dominate — neither endpoint minimises the total, which is why λ sits in between."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "credit-assignment",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "actor-critic",
+        "reviewed": false
+      },
+      {
+        "id": "proximal-policy-optimization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1506.02438",
+      "title": "High-Dimensional Continuous Control Using Generalized Advantage Estimation",
+      "url": "https://arxiv.org/abs/1506.02438"
+    },
+    {
+      "ref": "arXiv:1707.06347",
+      "title": "Proximal Policy Optimization Algorithms",
+      "url": "https://arxiv.org/abs/1707.06347"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

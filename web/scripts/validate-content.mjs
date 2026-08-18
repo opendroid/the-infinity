@@ -159,6 +159,56 @@ export function validateContent() {
     }
   }
 
+
+  // THE DOMAIN PATH IS A GROUPING KEY, so two spellings of one segment are two
+  // groups — and a reader has no way to tell the sibling heading from the real
+  // one. Four nodes shipped `["Evaluation", "Method"]` against the corpus's
+  // `"Methods"` and every gate stayed green; it was caught by eye (#307).
+  //
+  // MEASURED BEFORE IT WAS BUILT, because two checks in this area were measured
+  // and REJECTED — see content/schema/README.md on caption-word-overlap (75 of
+  // 392) and citation-title-overlap (193 of 702). Normalising a segment and
+  // looking for a collision flags 0 of 47 first-level and 0 of 89 second-level
+  // values on the corpus as it stands, and flagged exactly the plural that
+  // prompted it. No false positives is what earns a gate rather than a rule.
+  //
+  // Deliberately NOT an enum: the corpus adds a domain most batches, and closing
+  // the set would put that behind a schema change for nothing this does not give.
+  const spellings = [new Map(), new Map()];
+  for (const { node } of nodes) {
+    for (const level of [0, 1]) {
+      const raw = node.domain?.[level];
+      if (typeof raw !== 'string') continue;
+      // Strip one trailing plural, case and separators — the ways a segment
+      // drifts while still reading as the same word to whoever typed it.
+      const key = raw.toLowerCase().replace(/[\s-]/g, '').replace(/s$/, '');
+      const seen = spellings[level].get(key) ?? new Map();
+      seen.set(raw, [...(seen.get(raw) ?? []), node.id]);
+      spellings[level].set(key, seen);
+    }
+  }
+  for (const [level, byKey] of spellings.entries()) {
+    for (const variants of byKey.values()) {
+      if (variants.size < 2) continue;
+      // The majority spelling is the one the corpus already uses, so name it
+      // rather than making whoever hits this go and count.
+      const ranked = [...variants].sort((a, b) => b[1].length - a[1].length);
+      const [winner] = ranked;
+      for (const [spelling, owners] of ranked.slice(1)) {
+        for (const id of owners) {
+          failures.push({
+            file: `${id}.json`,
+            errors: [
+              `domain[${level}] is "${spelling}" (${owners.length} node(s)) where ` +
+                `the corpus uses "${winner[0]}" (${winner[1].length}) — one segment, ` +
+                `two spellings, and the site would group them apart`,
+            ],
+          });
+        }
+      }
+    }
+  }
+
   return failures;
 }
 

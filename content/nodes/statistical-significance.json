@@ -1,0 +1,67 @@
+{
+  "id": "statistical-significance",
+  "title": "Statistical Significance",
+  "domain": [
+    "Evaluation",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Whether a difference between two numbers is bigger than the noise that produced them. Benchmark tables are full of comparisons where it has not been checked, and a great many reported improvements are inside the range two identical configurations would differ by anyway.",
+    "engineer": "Two things are usually missing and each is enough on its own. A single run per configuration gives no estimate of variance, so there is nothing to compare the gap against — and re-running the same configuration with different seeds routinely moves the number by more than the claimed improvement. And a table comparing many methods on many datasets is making many comparisons at once, so some will look significant by chance unless that is corrected for.",
+    "math": "The multiple-comparisons arithmetic is the part people find surprising. At a 5% threshold, twenty independent comparisons of things that do not differ produce a significant-looking result about once by construction — so a table with twenty cells contains an expected false positive before anyone has done anything wrong. That is why a paper reporting the best of many configurations has selected on the same noise it is measuring, and why the number to report is variance across seeds rather than a single best."
+  },
+  "emphasis": {
+    "intuition": "a great many reported improvements are inside the range two identical configurations would differ by anyway",
+    "math": "a table with twenty cells contains an expected false positive before anyone has done anything wrong"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "comparisons_made": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "comparisons_made",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Comparisons a results table makes at once, against the one it appears to make, in comparisons. Drag the comparison count up to watch an expected false positive arrive — at twenty, one significant-looking result is what chance alone produces."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "cross-validation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "ablation",
+        "reviewed": false
+      },
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1803.09578",
+      "title": "Why Comparing Single Performance Scores Does Not Allow to Draw Conclusions About Machine Learning Approaches",
+      "url": "https://arxiv.org/abs/1803.09578"
+    },
+    {
+      "ref": "arXiv:2103.03098",
+      "title": "Accounting for Variance in Machine Learning Benchmarks",
+      "url": "https://arxiv.org/abs/2103.03098"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

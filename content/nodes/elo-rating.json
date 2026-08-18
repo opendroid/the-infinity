@@ -1,0 +1,70 @@
+{
+  "id": "elo-rating",
+  "title": "Elo Rating",
+  "domain": [
+    "Evaluation",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Rank things by who beats whom rather than by scoring each alone. Two models answer the same prompt, a person picks the better one, and each result nudges both ratings — the winner up, the loser down, by an amount that depends on how surprising the result was. It came from chess and it is now how frontier models are compared.",
+    "engineer": "It fits this problem well because pairwise preference is much easier for a person to give than an absolute score, and because it needs no fixed test set to be contaminated. What it inherits is chess's assumptions: that skill is one number, and that it does not depend on the opponent. Neither holds for models — one may be better at code and worse at prose, and a single rating averages that away, so two models with the same Elo can be reliably different on any particular task.",
+    "math": "The expected score is a logistic function of the rating difference, so a 400-point gap means the stronger player is expected to score about 91%, and the update moves a rating in proportion to how far the result was from that expectation. The consequence worth knowing is that the confidence interval shrinks with the square root of games played, so early ratings on a new model are noisy in a way the leaderboard's ordering does not show — and a rank based on a few hundred votes is a much weaker claim than the same rank on a hundred thousand."
+  },
+  "emphasis": {
+    "engineer": "two models with the same Elo can be reliably different on any particular task",
+    "math": "a rank based on a few hundred votes is a much weaker claim than the same rank on a hundred thousand"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "votes_collected": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "votes_collected",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Votes behind a rating, against the uncertainty they have not yet removed, in equal units. Drag the vote count up to watch the unresolved share shrink beside it — it shrinks with the square root, so an early rating is noisy in a way the ordering never shows."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "human-evaluation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2403.04132",
+      "title": "Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference",
+      "url": "https://arxiv.org/abs/2403.04132"
+    },
+    {
+      "ref": "arXiv:2306.05685",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "url": "https://arxiv.org/abs/2306.05685"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Elo 1978",
+      "title": "The Rating of Chessplayers, Past and Present",
+      "venue": "Arco"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

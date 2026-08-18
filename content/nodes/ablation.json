@@ -1,0 +1,63 @@
+{
+  "id": "ablation",
+  "title": "Ablation",
+  "domain": [
+    "Evaluation",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Remove one piece and measure what happens. It is how nearly every claim in the field is supported — this component is why the number improved — and it is the closest thing to a controlled experiment available when the system is too complex to reason about analytically.",
+    "engineer": "The common failure is that removing a component changes more than the component. Delete a regularisation term and the best learning rate moves, so what is measured is the term plus a now-mistuned optimiser. An honest ablation re-tunes what the removal invalidated, which is expensive and is the reason most published ones do not. The second failure is coverage: removing pieces one at a time cannot see an interaction, and interactions are common.",
+    "math": "One-at-a-time removal explores a number of configurations linear in the component count while the space of subsets is exponential, so the fraction of the space examined collapses as a system gains parts. That is fine when effects are additive and misleading when they are not — and a set of individually-small ablation results that do not add up to the headline gain is the signature of an interaction the design could not see."
+  },
+  "emphasis": {
+    "engineer": "what is measured is the term plus a now-mistuned optimiser",
+    "math": "a set of individually-small ablation results that do not add up to the headline gain is the signature of an interaction"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unexplored_subsets": 8,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "unexplored_subsets",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Component combinations one-at-a-time removal never tries, against the ones it does, in configurations. Drag the untried combinations up — each added component roughly doubles them — to watch coverage collapse against a tried set that only grows by one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "cross-validation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "statistical-significance",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1909.03004",
+      "title": "Show Your Work: Improved Reporting of Experimental Results",
+      "url": "https://arxiv.org/abs/1909.03004"
+    },
+    {
+      "ref": "arXiv:2103.03098",
+      "title": "Accounting for Variance in Machine Learning Benchmarks",
+      "url": "https://arxiv.org/abs/2103.03098"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

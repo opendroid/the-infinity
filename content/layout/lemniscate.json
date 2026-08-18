@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "tail-latency",
+      "id": "bellman-equation",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "model-cascade",
+      "id": "ablation",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "early-exit",
+      "id": "elo-rating",
       "t": 0.8,
       "label": true
     }
