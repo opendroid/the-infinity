@@ -1,0 +1,63 @@
+{
+  "id": "training-corpus-contamination",
+  "title": "Training Corpus Contamination",
+  "domain": [
+    "Data",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "Evaluation sets end up in training corpora because both are scraped from the same internet. The model then answers from memory and the benchmark reports understanding. Unlike `benchmark-contamination`, which is about a benchmark's integrity, this is about what a crawl swept up before anyone looked.",
+    "engineer": "Detection is a corpus-side problem: n-gram overlap against known evaluation sets, run at collection time, with the decontamination decision recorded. Doing it after the fact requires the corpus, which closed models do not publish — so for most reported numbers contamination is unfalsifiable rather than absent. Canary strings in benchmark files help only if the crawler and the trainer both respect them.",
+    "math": "Flag a document when a long enough n-gram matches an evaluation item; the threshold trades false positives against missed paraphrase, and paraphrase evades any exact-match rule. Because the crawl predates the benchmark's existence in some cases and postdates it in others, publication date is a weak proxy that a temporal split can exploit — evaluating only on items created after the crawl cutoff."
+  },
+  "emphasis": {
+    "intuition": "this is about what a crawl swept up before anyone looked",
+    "engineer": "for most reported numbers contamination is unfalsifiable rather than absent"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "contaminated": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "contaminated",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Evaluation items with a match in the training corpus against items with none, in items. Drag the contamination up to watch the score stop measuring the model — a small share at the left is enough to move a leaderboard."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "deduplication",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2107.06499",
+      "title": "Deduplicating Training Data Makes Language Models Better",
+      "url": "https://arxiv.org/abs/2107.06499"
+    },
+    {
+      "ref": "arXiv:2101.00027",
+      "title": "The Pile: An 800GB Dataset of Diverse Text for Language Modeling",
+      "url": "https://arxiv.org/abs/2101.00027"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "id": "data-scaling-laws",
+  "title": "Data Scaling Laws",
+  "domain": [
+    "Data",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Model quality improves predictably with data, and the improvement is a power law rather than a wall — which is what makes it plannable. The interesting regime now is being data-constrained rather than compute-constrained: the highest-quality text is finite, and repeating it works for a few epochs and then stops.",
+    "engineer": "Repeated data is not free but it is close to free at first — up to roughly four epochs, repeated tokens are worth nearly as much as fresh ones, and past that they contribute almost nothing while still costing compute. That single result changes how a data budget is planned, because it turns 'we are out of data' into a bounded amount of extra headroom rather than a hard stop.",
+    "math": "Loss falls as a power law in unique tokens, with repeated epochs decaying in value: the effective token count grows sublinearly with epochs and saturates. Combined with compute-optimal scaling this makes the joint problem a constrained optimisation over parameters, unique data, and epochs — not one where each is set independently."
+  },
+  "emphasis": {
+    "intuition": "the highest-quality text is finite, and repeating it works for a few epochs and then stops",
+    "engineer": "it turns 'we are out of data' into a bounded amount of extra headroom rather than a hard stop"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 64,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "params",
+        "min": 0.05,
+        "max": 40,
+        "step": 0.05
+      }
+    ],
+    "caption": "Loss against training progress at a fixed data budget. Drag the model size up to watch the floor fall — and watch how little the last doubling buys, which is what a data constraint looks like from inside a training run."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "scaling-laws",
+        "reviewed": false
+      },
+      {
+        "id": "data-filtering",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "compute-optimal-training",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.16264",
+      "title": "Scaling Data-Constrained Language Models",
+      "url": "https://arxiv.org/abs/2305.16264"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

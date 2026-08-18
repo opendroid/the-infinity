@@ -1,0 +1,72 @@
+{
+  "id": "synthetic-data",
+  "title": "Synthetic Data",
+  "domain": [
+    "Data",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Generate training data with a model instead of collecting it. It works well enough that small models trained on carefully generated textbook-style data outperform much larger ones trained on raw web text — and it fails in a specific way when a model is trained on its own output repeatedly, losing the tails of the distribution.",
+    "engineer": "The distinction that matters is whether the generator knows something the learner does not. Distilling a stronger model, or filtering generations by an executable check, adds information; sampling from the model you are about to train adds none and removes variance. Verification is what makes it work, which is why code and mathematics — where correctness is checkable — are where synthetic data has gone furthest.",
+    "math": "Repeated training on generated data narrows the distribution, because each round samples from an estimate and estimates lose the tails first. Successive generations converge toward a low-variance mode — model collapse — unless real data is retained in the mixture or generations are filtered by a signal outside the model."
+  },
+  "emphasis": {
+    "intuition": "losing the tails of the distribution",
+    "engineer": "Verification is what makes it work"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "generated": 8,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "generated",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Generated examples against real ones held in the mixture, in examples. Drag the synthetic share up to watch real data thin out — the tails go first, and nothing in the objective notices."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-filtering",
+        "reviewed": false
+      },
+      {
+        "id": "knowledge-distillation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "mode-collapse",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2306.11644",
+      "title": "Textbooks Are All You Need",
+      "url": "https://arxiv.org/abs/2306.11644"
+    },
+    {
+      "ref": "arXiv:2212.10560",
+      "title": "Self-Instruct: Aligning Language Models with Self-Generated Instructions",
+      "url": "https://arxiv.org/abs/2212.10560"
+    },
+    {
+      "ref": "arXiv:2305.17493",
+      "title": "The Curse of Recursion: Training on Generated Data Makes Models Forget",
+      "url": "https://arxiv.org/abs/2305.17493"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "computer-use",
+      "id": "collaborative-filtering",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "tool-schema",
+      "id": "matrix-factorization",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "sandboxing",
+      "id": "cold-start",
       "t": 0.8,
       "label": true
     }

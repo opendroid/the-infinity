@@ -1,0 +1,62 @@
+{
+  "id": "deduplication",
+  "title": "Deduplication",
+  "domain": [
+    "Data",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Web corpora contain the same text many times — mirrored pages, quoted passages, licence boilerplate. Removing duplicates makes models better and training cheaper at once, which is rare enough to be worth noticing. It also removes most of what a model would otherwise memorise verbatim.",
+    "engineer": "Exact matching is not enough; near-duplicate detection with MinHash over shingles is the standard tool, and the threshold is a real decision rather than a default. The strongest argument for doing it is not the quality gain but the memorisation one — extraction risk scales with how often a sequence appeared, so removing duplicates removes attack surface faster than it removes data.",
+    "math": "Estimate Jaccard similarity between documents by MinHash signatures and bucket with LSH, giving approximate near-duplicate detection in roughly linear time rather than the quadratic cost of all pairs. Since recoverability of a sequence rises steeply with its duplicate count, deleting the tail of repeats removes a disproportionate share of the memorisation risk."
+  },
+  "emphasis": {
+    "intuition": "makes models better and training cheaper at once, which is rare enough to be worth noticing",
+    "engineer": "removing duplicates removes attack surface faster than it removes data"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "duplicate_copies": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "duplicate_copies",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Repeated copies of a document against its single original, in copies. Drag the duplication up to watch repeats dominate what the model sees — and with them, the chance it can be made to recite the text."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-filtering",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "training-data-extraction",
+        "reviewed": false
+      },
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2107.06499",
+      "title": "Deduplicating Training Data Makes Language Models Better",
+      "url": "https://arxiv.org/abs/2107.06499"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
