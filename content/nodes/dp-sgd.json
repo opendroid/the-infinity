@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Train a model with a privacy guarantee by doing two things to every gradient step: clip each example's gradient so no single record can push far, then add noise to the sum. The result is a model whose weights carry a bounded amount about any one person, at the cost of accuracy and a great deal of compute.",
     "engineer": "Clipping is per-example rather than per-batch, which is what breaks the usual efficiency of batched autodiff and makes the method expensive. The noise multiplier and the clipping norm interact — tighter clipping means less noise needed for the same ε but more bias in the direction of the update — and large batches help, because the noise added is per-step while the signal grows with batch size.",
-    "math": "Clip each per-example gradient to norm at most C, sum, add Gaussian noise of scale σC, and divide by the batch size. Privacy accounting over T steps at sampling rate q gives ε growing roughly as q√(T log(1/δ))/σ, so the signal-to-noise ratio improves with batch size while the privacy cost does not — the reason DP training uses batches far larger than ordinary training."
+    "math": "Clip each per-example gradient to norm at most C, sum, add Gaussian noise of scale σC, and divide by the batch size. Privacy accounting over T steps at sampling rate q gives ε growing roughly as q√(T log(1/δ))/σ. Since q is the batch size over the dataset size, at a fixed number of epochs ε grows with the SQUARE ROOT of the batch while the signal-to-noise ratio per step grows linearly with it — a favourable trade rather than a free one, and the reason DP training uses batches far larger than ordinary training."
   },
   "emphasis": {
     "intuition": "a model whose weights carry a bounded amount about any one person",
@@ -67,7 +67,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

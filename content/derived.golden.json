@@ -752,7 +752,7 @@
           {
             "id": "dp-sgd",
             "title": "DP-SGD",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -899,7 +899,7 @@
           {
             "id": "differential-privacy",
             "title": "Differential Privacy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1223,13 +1223,13 @@
           {
             "id": "federated-learning",
             "title": "Federated Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "secure-aggregation",
             "title": "Secure Aggregation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1764,7 +1764,7 @@
           {
             "id": "federated-learning",
             "title": "Federated Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1796,7 +1796,7 @@
           {
             "id": "training-data-extraction",
             "title": "Training Data Extraction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1925,26 +1925,26 @@
       "id": "differential-privacy",
       "title": "Differential Privacy",
       "domain": "Privacy / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "dp-sgd",
             "title": "DP-SGD",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "federated-learning",
             "title": "Federated Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "machine-unlearning",
             "title": "Machine Unlearning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1958,7 +1958,7 @@
           {
             "id": "membership-inference",
             "title": "Membership Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2074,13 +2074,13 @@
       "id": "dp-sgd",
       "title": "DP-SGD",
       "domain": "Privacy / Optimization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "differential-privacy",
             "title": "Differential Privacy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2107,7 +2107,7 @@
           {
             "id": "gradient-leakage",
             "title": "Gradient Leakage",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2352,13 +2352,13 @@
       "id": "federated-learning",
       "title": "Federated Learning",
       "domain": "Privacy / Systems",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "differential-privacy",
             "title": "Differential Privacy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2366,13 +2366,13 @@
           {
             "id": "gradient-leakage",
             "title": "Gradient Leakage",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "secure-aggregation",
             "title": "Secure Aggregation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2485,7 +2485,7 @@
           {
             "id": "machine-unlearning",
             "title": "Machine Unlearning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2671,7 +2671,7 @@
           {
             "id": "dp-sgd",
             "title": "DP-SGD",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2755,13 +2755,13 @@
       "id": "gradient-leakage",
       "title": "Gradient Leakage",
       "domain": "Privacy / Attacks",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "federated-learning",
             "title": "Federated Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2770,13 +2770,13 @@
           {
             "id": "dp-sgd",
             "title": "DP-SGD",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "secure-aggregation",
             "title": "Secure Aggregation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3925,13 +3925,13 @@
       "id": "machine-unlearning",
       "title": "Machine Unlearning",
       "domain": "Privacy / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "differential-privacy",
             "title": "Differential Privacy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4096,7 +4096,7 @@
       "id": "membership-inference",
       "title": "Membership Inference",
       "domain": "Privacy / Attacks",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4110,7 +4110,7 @@
           {
             "id": "training-data-extraction",
             "title": "Training Data Extraction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4118,7 +4118,7 @@
           {
             "id": "differential-privacy",
             "title": "Differential Privacy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4771,7 +4771,7 @@
           {
             "id": "membership-inference",
             "title": "Membership Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5142,7 +5142,7 @@
           {
             "id": "training-data-extraction",
             "title": "Training Data Extraction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5267,7 +5267,7 @@
           {
             "id": "training-data-extraction",
             "title": "Training Data Extraction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5968,13 +5968,13 @@
       "id": "secure-aggregation",
       "title": "Secure Aggregation",
       "domain": "Privacy / Systems",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "federated-learning",
             "title": "Federated Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5989,7 +5989,7 @@
           {
             "id": "gradient-leakage",
             "title": "Gradient Leakage",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6570,7 +6570,7 @@
           {
             "id": "dp-sgd",
             "title": "DP-SGD",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6974,13 +6974,13 @@
       "id": "training-data-extraction",
       "title": "Training Data Extraction",
       "domain": "Privacy / Attacks",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "membership-inference",
             "title": "Membership Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8766,7 +8766,7 @@
         {
           "id": "dp-sgd",
           "title": "DP-SGD",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -9030,7 +9030,7 @@
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
@@ -9598,14 +9598,14 @@
         {
           "id": "federated-learning",
           "title": "Federated Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "secure-aggregation",
           "title": "Secure Aggregation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -10549,7 +10549,7 @@
         {
           "id": "federated-learning",
           "title": "Federated Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -10614,7 +10614,7 @@
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -10856,7 +10856,7 @@
       "center": {
         "id": "differential-privacy",
         "title": "Differential Privacy",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10864,21 +10864,21 @@
         {
           "id": "dp-sgd",
           "title": "DP-SGD",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "federated-learning",
           "title": "Federated Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "machine-unlearning",
           "title": "Machine Unlearning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -10892,7 +10892,7 @@
         {
           "id": "membership-inference",
           "title": "Membership Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -11120,7 +11120,7 @@
       "center": {
         "id": "dp-sgd",
         "title": "DP-SGD",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11128,7 +11128,7 @@
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -11156,7 +11156,7 @@
         {
           "id": "gradient-leakage",
           "title": "Gradient Leakage",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -11597,7 +11597,7 @@
       "center": {
         "id": "federated-learning",
         "title": "Federated Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11605,21 +11605,21 @@
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "gradient-leakage",
           "title": "Gradient Leakage",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "secure-aggregation",
           "title": "Secure Aggregation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -11799,7 +11799,7 @@
         {
           "id": "machine-unlearning",
           "title": "Machine Unlearning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -12153,7 +12153,7 @@
         {
           "id": "dp-sgd",
           "title": "DP-SGD",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -12322,7 +12322,7 @@
       "center": {
         "id": "gradient-leakage",
         "title": "Gradient Leakage",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12330,21 +12330,21 @@
         {
           "id": "federated-learning",
           "title": "Federated Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "dp-sgd",
           "title": "DP-SGD",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "secure-aggregation",
           "title": "Secure Aggregation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -14358,7 +14358,7 @@
       "center": {
         "id": "machine-unlearning",
         "title": "Machine Unlearning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14366,7 +14366,7 @@
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -14662,7 +14662,7 @@
       "center": {
         "id": "membership-inference",
         "title": "Membership Inference",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14677,14 +14677,14 @@
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -15803,7 +15803,7 @@
         {
           "id": "membership-inference",
           "title": "Membership Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -16439,7 +16439,7 @@
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 113
         }
@@ -16675,7 +16675,7 @@
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -17915,7 +17915,7 @@
       "center": {
         "id": "secure-aggregation",
         "title": "Secure Aggregation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17923,7 +17923,7 @@
         {
           "id": "federated-learning",
           "title": "Federated Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -17937,7 +17937,7 @@
         {
           "id": "gradient-leakage",
           "title": "Gradient Leakage",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -18973,7 +18973,7 @@
         {
           "id": "dp-sgd",
           "title": "DP-SGD",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -19697,7 +19697,7 @@
       "center": {
         "id": "training-data-extraction",
         "title": "Training Data Extraction",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19705,7 +19705,7 @@
         {
           "id": "membership-inference",
           "title": "Membership Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
