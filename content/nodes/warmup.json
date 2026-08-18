@@ -29,7 +29,7 @@
         "step": 10
       }
     ],
-    "caption": "Loss through the opening of a run, with and without a ramp. Drag the warmup length to watch the early instability disappear."
+    "caption": "Loss through the opening of a run, with and without a ramp. Drag the warmup length to watch the ramp stretch — the spike is gone the moment there is any warmup at all, and what the extra length buys is a longer gentle opening rather than a calmer one."
   },
   "edges": {
     "requires": [

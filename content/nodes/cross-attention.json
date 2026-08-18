@@ -18,7 +18,7 @@
     "primitive": "attention-heatmap",
     "params": {
       "tokens": 6,
-      "keys": 11,
+      "keys": 20,
       "heads": 1
     },
     "param_controls": [
