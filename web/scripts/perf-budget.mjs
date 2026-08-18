@@ -148,6 +148,14 @@ function main() {
       // A route whose HTML is recorded rather than enforced stays that way:
       // --update must not quietly turn a note into a limit.
       if (typeof entry.html_gzip === 'number') entry.html_gzip = row.html;
+      // The measurement is written unconditionally and compared by nobody (#286).
+      // perf-budget.json said its HTML numbers were "here so a jump is visible"
+      // while every one of them was null — the size was measured on each run,
+      // printed, and stored nowhere, so a jump between two runs a month apart
+      // was invisible unless somebody kept the terminal output. Two fields
+      // because they are two different jobs: `html_gzip` is an opt-in limit,
+      // `html_gzip_measured` is the record.
+      entry.html_gzip_measured = row.html;
     }
     writeFileSync(BUDGET_PATH, JSON.stringify(budget, null, 2) + '\n');
     console.log(`updated ${relative(WEB, BUDGET_PATH)} — commit it, and say in the message why`);
