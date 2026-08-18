@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Recover the structure behind a string: which words group together, what modifies what. Every natural sentence has more than one structure consistent with its words — \"I saw the man with the telescope\" has two, and both are grammatical — so parsing is not decoding a signal but choosing among readings, and the choice needs information the grammar does not contain.",
     "engineer": "Classical parsers built a chart of every partial analysis over every span and combined them bottom-up, which handles ambiguity by representing all of it and scoring afterwards. Neural parsers mostly predict the structure directly instead, from an encoder that has already resolved much of the ambiguity by context. The chart has not disappeared — it is still what you use when you need every analysis rather than the best one, which is most of the time in a compiler and rarely in an NLP pipeline.",
-    "math": "The number of binary trees over n items is the Catalan number, which grows faster than exponentially — so enumeration is out at any interesting length, and a chart representing all of them in polynomial space is the trick that makes ambiguity tractable rather than fatal. The ambiguous share grows with sentence length faster than the sentence does, which is why parse quality falls off with length in a way per-word accuracy does not predict."
+    "math": "The number of binary trees over n items is the Catalan number, which is about 4^n over n^{3/2} — exponential, not merely large — so enumeration is out at any interesting length, and a chart representing all of them in polynomial space is the trick that makes ambiguity tractable rather than fatal. The ambiguous share grows with sentence length faster than the sentence does, which is why parse quality falls off with length in a way per-word accuracy does not predict."
   },
   "emphasis": {
     "intuition": "parsing is not decoding a signal but choosing among readings",
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

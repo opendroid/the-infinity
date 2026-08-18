@@ -1,0 +1,67 @@
+{
+  "id": "self-consistency",
+  "title": "Self-Consistency",
+  "domain": [
+    "Reasoning",
+    "Aggregation"
+  ],
+  "bodies": {
+    "intuition": "Ask the same question several times at a temperature above zero, and take the answer that comes up most often. The reasoning paths differ; the correct answer tends to be the one they converge on, because there are many ways to reason correctly to the same place and comparatively few ways to make the same mistake twice.",
+    "engineer": "The distinction from `chain-of-thought` is what is being aggregated. Chain-of-thought changes what a single sample looks like; this changes how many you take and what you do with them, and it works on top of any prompting scheme that produces a final answer you can compare. It also needs the answer to be extractable and comparable — it works on arithmetic and multiple choice, and does not work on a paragraph, which is the practical limit on where it can be used.",
+    "math": "It is a majority vote over samples, so it inherits the majority vote's condition: the correct answer must be the most likely single answer, even if it is well under half. If the model's errors concentrate on one wrong answer more often than they land on the right one, more samples make the result more confidently wrong — voting amplifies the mode, whatever the mode is. Accuracy therefore rises with sample count and saturates at whatever the modal answer's accuracy is, not at one."
+  },
+  "emphasis": {
+    "intuition": "there are many ways to reason correctly to the same place and comparatively few ways to make the same mistake twice",
+    "math": "voting amplifies the mode, whatever the mode is"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "extra_samples": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "extra_samples",
+        "min": 0,
+        "max": 200,
+        "step": 10
+      }
+    ],
+    "caption": "Answers drawn beyond the first, against the single sample a greedy decode would have given, in samples. Drag the sample count up to watch voting take the budget — accuracy saturates at whatever the modal answer's accuracy is, which is not one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "chain-of-thought",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "test-time-compute",
+        "reviewed": false
+      },
+      {
+        "id": "verifier-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2203.11171",
+      "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+      "url": "https://arxiv.org/abs/2203.11171"
+    },
+    {
+      "ref": "arXiv:2201.11903",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "url": "https://arxiv.org/abs/2201.11903"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

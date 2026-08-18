@@ -100,6 +100,10 @@ const draggable = nodes.flatMap((node) =>
 );
 
 describe('viz controls reach the primitive', () => {
+  /** Captions whose point IS that the figure barely moves. Shared by two checks below. */
+  const SAYS_IT_STAYS = /\b(stays?|negligible|rounding error|saturat\w*|barely|hardly|never quite)\b/i;
+  const SAYS_DOWN = /drag[^.]*?\b(down|lower)\b/i;
+
   it('has controls to check', () => {
     expect(draggable.length).toBeGreaterThan(0);
   });
@@ -127,6 +131,69 @@ describe('viz controls reach the primitive', () => {
   it.each(draggable)('$id · $control.name still moves at the end of its range', ({ node, control }) => {
     const lastStep = control.max - control.step;
     expect(frameAt(node, control, lastStep)).not.toEqual(frameAt(node, control, control.max));
+  });
+
+  /**
+   * A DEAD TAIL THE READER CAN SEE, which is a different question from the one
+   * above and had to be measured before it could be asked.
+   *
+   * The assertion above compares raw frames. For `budget-split` that is
+   * `split()`'s float, while the bar draws `percent()` — a whole number, because
+   * `share.ts` says the bar "is read, not measured". So a last step that moves
+   * the share by 0.3 of a point passes it and is invisible on screen.
+   *
+   * #255 proposed simply comparing the rendered percent instead. Sweeping the
+   * corpus says that is the wrong invariant: **166 of 251 budget-split controls
+   * fail it**, and nearly all of them honestly. `share = part/(part+rest)`
+   * saturates, so the final atomic step of any fine control rounds to where it
+   * already was — `adamw`'s decay moves 0.01 of 1.0 and lands on 50% twice;
+   * `autoencoder`'s latent_dims is a 784-step slider. Neither is a defect, and
+   * an assertion failing two thirds of the corpus is measuring the curve rather
+   * than the authoring.
+   *
+   * What #194 was actually about is a range whose UPPER PORTION does nothing —
+   * `lookahead` past the token count masking no more, `warmup` past steps/2
+   * hitting a clamp. So the checkable version is how much of the drag renders
+   * identically at the top:
+   *
+   *     top 50% flat →   0 of 251
+   *     top 30% flat →   4
+   *     top 25% flat →   4      <- the threshold, sitting in an empty band
+   *     top 20% flat →   4
+   *     top 17% flat →   5
+   *     top 10% flat →  25
+   *
+   * Nothing sits between 17% and 37%, so 25 separates cleanly rather than being
+   * tuned to the current corpus. The four above it are `collective-communication`
+   * (saturates — its caption says so), `prompt-tuning` (stays negligible),
+   * `multi-query-attention` (drags DOWN, and says the top is already won), and
+   * `two-tower-retrieval`, which was the one real finding and is fixed.
+   *
+   * The exemptions reuse the same caption regexes as the travel check below,
+   * deliberately: a figure allowed to sit still is one whose caption says it
+   * sits still, and there should be exactly one definition of that in this file.
+   *
+   * `budget-split` only. `update-spectrum`'s `progress` eases as 1−(1−x)² and so
+   * reaches exactly 1 at the maximum whatever the range is — its top step is
+   * mathematically invisible for a reason no author controls, and narrowing a
+   * range does not help because the easing rescales with it. That is a property
+   * of the curve, recorded here rather than fixed, because making t=1
+   * unreachable would contradict the primitive's own documented contract.
+   */
+  const DEAD_TAIL = 0.25;
+
+  it.each(draggable)('$id · $control.name does not render flat over the top of its drag', ({ node, control }) => {
+    if (node.viz.primitive !== 'budget-split') return;
+    if (SAYS_IT_STAYS.test(node.viz.caption) || SAYS_DOWN.test(node.viz.caption)) return;
+
+    const rest = node.viz.params.share_rest ?? 0;
+    const at = (v: number) => percent(split(v, rest).share);
+    const top = at(control.max);
+    let v = control.max;
+    while (v - control.step >= control.min && at(v - control.step) === top) v -= control.step;
+
+    const flat = (control.max - v) / (control.max - control.min);
+    expect(flat).toBeLessThan(DEAD_TAIL);
   });
   /**
    * A DEFAULT PARKED AT THE CEILING. Two nodes shipped with the control's
@@ -204,9 +271,6 @@ describe('viz controls reach the primitive', () => {
    * tightening to the current corpus and failing the next node written.
    */
   const MIN_TRAVEL = 10;
-  /** Captions whose point IS that the figure barely moves. */
-  const SAYS_IT_STAYS = /\b(stays?|negligible|rounding error|saturat\w*|barely|hardly|never quite)\b/i;
-  const SAYS_DOWN = /drag[^.]*?\b(down|lower)\b/i;
 
   /**
    * How far along the picture is, 0..100, or null when the primitive has no

@@ -1,0 +1,67 @@
+{
+  "id": "reasoning-rl",
+  "title": "Reasoning RL",
+  "domain": [
+    "Reasoning",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "Rather than prompting a model to reason, train it to, by rewarding trajectories that reach verifiable answers. The surprise was how much emerged without being asked for: models trained this way lengthen their own reasoning, start checking their work, and backtrack when a line fails — behaviours nobody wrote a reward for.",
+    "engineer": "The setup needs a domain where correctness is checkable automatically, which is why mathematics and code came first — the reward is a test suite or a numeric comparison, and no human sits in the loop. That constraint is the whole design: it is what makes the reward cheap enough to run at scale and what limits the approach to problems with a checker, which is a much smaller set than the set of problems people care about.",
+    "math": "Reward on the outcome alone is sparse, and sparse reward on long trajectories is the hardest credit assignment there is — a correct final answer says nothing about which of two hundred tokens mattered. What makes it tractable is that the policy already generates plausible trajectories, so the search is not over an empty space but over a distribution already concentrated near solutions. That is why this works on a pretrained model and would not work from scratch."
+  },
+  "emphasis": {
+    "intuition": "behaviours nobody wrote a reward for",
+    "math": "the search is not over an empty space but over a distribution already concentrated near solutions"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unverifiable_problems": 40,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "unverifiable_problems",
+        "min": 0,
+        "max": 800,
+        "step": 25
+      }
+    ],
+    "caption": "Problems with no automatic checker, against the ones a test suite or a numeric comparison can score, in problems. Drag the domain wider to watch the checkable set become the small part — which is the boundary of where this training signal reaches at all."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "proximal-policy-optimization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "process-supervision",
+        "reviewed": false
+      },
+      {
+        "id": "execution-verification",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2501.12948",
+      "title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2501.12948"
+    },
+    {
+      "ref": "arXiv:2412.16720",
+      "title": "OpenAI o1 System Card",
+      "url": "https://arxiv.org/abs/2412.16720"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

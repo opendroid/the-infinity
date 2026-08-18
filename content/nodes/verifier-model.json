@@ -1,0 +1,64 @@
+{
+  "id": "verifier-model",
+  "title": "Verifier Model",
+  "domain": [
+    "Reasoning",
+    "Selection"
+  ],
+  "bodies": {
+    "intuition": "Generate many candidate answers and train a second model to say which one is right. It works for the same reason marking is easier than solving: checking a chain of reasoning is a different and usually simpler task than producing one, so a verifier can be smaller than the generator and still beat it at telling good from bad.",
+    "engineer": "Best-of-n with a verifier reliably beats majority voting once n grows, because voting can only pick the modal answer while a verifier can pick a correct answer that only one sample found. The failure mode is the one every learned scorer has: optimise hard enough against the verifier and you find the answers it likes rather than the answers that are right, so the gains flatten and then reverse as n grows past where the verifier's judgement holds.",
+    "math": "This is a detection problem, and the base rate is where it bites. If the generator is right one time in twenty, then even a verifier that accepts 90% of correct answers and 10% of wrong ones is picking a wrong answer more often than a right one — and the ranking that best-of-n depends on is only as good as that separation. Which is why verifier quality, not sample count, is what bounds the whole approach."
+  },
+  "emphasis": {
+    "intuition": "checking a chain of reasoning is a different and usually simpler task than producing one",
+    "math": "verifier quality, not sample count, is what bounds the whole approach"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.8,
+      "threshold": 0.8,
+      "base_rate": 0.05
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Candidate answers that are correct, against ones that are not, scored by the verifier. Drag its quality up to watch them separate — at the left, with the generator right one time in twenty, most of what the verifier accepts is still wrong however many samples you draw."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "reward-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "reward-hacking",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.20050",
+      "title": "Let's Verify Step by Step",
+      "url": "https://arxiv.org/abs/2305.20050"
+    },
+    {
+      "ref": "arXiv:2408.03314",
+      "title": "Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters",
+      "url": "https://arxiv.org/abs/2408.03314"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
