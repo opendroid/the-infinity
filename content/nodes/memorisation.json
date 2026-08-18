@@ -1,0 +1,67 @@
+{
+  "id": "memorisation",
+  "title": "Memorisation",
+  "domain": [
+    "Provenance",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Models reproduce parts of their training data verbatim. Not as a bug in a few pathological cases, but routinely and predictably, and more as they get larger. It is the same capacity that lets a model recall a fact, working on a passage instead — which is why it cannot simply be trained away without losing the thing it is a side effect of.",
+    "engineer": "It is measured by prompting with a prefix from the training set and checking whether the continuation matches. Doing that systematically produces three clear relationships: memorisation grows with model size, with how many times a sequence was duplicated in the corpus, and with how much context the prompt supplies. The duplication one is the actionable finding — deduplication reduces memorisation substantially, and it is the cheapest intervention available.",
+    "math": "The three factors compound rather than adding, so a long-context prompt against a large model on a sequence that appeared many times is where extraction succeeds and single occurrences in small models is where it does not. The practical consequence is that the memorised fraction is not a fixed property of a model: it is a property of the model, the corpus statistics, and how hard someone is trying, and quoting it as one number without those is quoting nothing."
+  },
+  "emphasis": {
+    "intuition": "which is why it cannot simply be trained away without losing the thing it is a side effect of",
+    "math": "quoting it as one number without those is quoting nothing"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "duplicated_sequences": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "duplicated_sequences",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Training sequences that appeared many times in the corpus, against the ones that appeared once, in sequences. Drag the duplication up to watch the memorisable share grow — which is why deduplication is the cheapest intervention against extraction."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "deduplication",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "training-data-extraction",
+        "reviewed": false
+      },
+      {
+        "id": "machine-unlearning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2202.07646",
+      "title": "Quantifying Memorization Across Neural Language Models",
+      "url": "https://arxiv.org/abs/2202.07646"
+    },
+    {
+      "ref": "arXiv:2310.20707",
+      "title": "What's In My Big Data?",
+      "url": "https://arxiv.org/abs/2310.20707"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

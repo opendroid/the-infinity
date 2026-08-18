@@ -1,0 +1,63 @@
+{
+  "id": "data-provenance",
+  "title": "Data Provenance",
+  "domain": [
+    "Provenance",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Knowing what is actually in a training corpus, and where each part came from. It sounds like bookkeeping and turns out to be research: web-scale corpora are assembled from crawls and dumps whose contents nobody has read, so what a model trained on is genuinely unknown to the people who trained it until somebody goes and looks.",
+    "engineer": "When people do look, they find things that were not supposed to be there — personal data, benchmark test sets, machine-translated text presented as native, whole books. The finding that matters most for everything downstream is that these are not rare contaminants but structural features of web crawls, so a pipeline that assumes a clean corpus and filters for quality is filtering something it has not characterised.",
+    "math": "Provenance is a property of a document that has to be recorded when the document is collected, because it cannot be recovered afterwards. Once a corpus is deduplicated, shuffled and tokenised, the mapping back to sources is gone, and reconstructing it costs more than keeping it would have. So the share of a corpus with known origin is fixed at collection time and only ever falls as the corpus is processed — which is why retrofitting provenance onto an existing dataset does not work."
+  },
+  "emphasis": {
+    "intuition": "what a model trained on is genuinely unknown to the people who trained it until somebody goes and looks",
+    "math": "the share of a corpus with known origin is fixed at collection time and only ever falls"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unattributed_documents": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "unattributed_documents",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Corpus documents whose origin was never recorded, against the ones with a known source, in documents. Drag the crawl size up to watch the unattributed share take over — provenance is recorded at collection or not at all, so this bar only moves one way."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-filtering",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2310.20707",
+      "title": "What's In My Big Data?",
+      "url": "https://arxiv.org/abs/2310.20707"
+    },
+    {
+      "ref": "arXiv:2406.11794",
+      "title": "DataComp-LM: In search of the next generation of training sets for language models",
+      "url": "https://arxiv.org/abs/2406.11794"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

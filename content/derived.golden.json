@@ -15,7 +15,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "energy-cost-of-training",
+            "title": "Energy Cost of Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "interconnect-topology",
@@ -348,7 +355,7 @@
           {
             "id": "dangerous-capability-evaluation",
             "title": "Dangerous Capability Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1042,7 +1049,7 @@
           {
             "id": "deceptive-alignment",
             "title": "Deceptive Alignment",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1279,7 +1286,7 @@
           {
             "id": "safety-benchmark-validity",
             "title": "Safety Benchmark Validity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1297,6 +1304,12 @@
             "reviewed": false
           },
           {
+            "id": "data-provenance",
+            "title": "Data Provenance",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "deduplication",
             "title": "Deduplication",
             "tier": "verified",
@@ -1305,7 +1318,7 @@
           {
             "id": "model-written-evaluation",
             "title": "Model-Written Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1627,6 +1640,31 @@
           {
             "id": "reranking",
             "title": "Reranking",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "carbon-accounting",
+      "title": "Carbon Accounting",
+      "domain": "Provenance / Cost",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "energy-cost-of-training",
+            "title": "Energy Cost of Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "compute-optimal-training",
+            "title": "Compute-Optimal Training",
             "tier": "verified",
             "reviewed": false
           }
@@ -2358,9 +2396,21 @@
         ],
         "adjacent": [
           {
+            "id": "carbon-accounting",
+            "title": "Carbon Accounting",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "data-scaling-laws",
             "title": "Data Scaling Laws",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "energy-cost-of-training",
+            "title": "Energy Cost of Training",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2597,7 +2647,7 @@
           {
             "id": "sycophancy",
             "title": "Sycophancy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3319,7 +3369,7 @@
       "id": "dangerous-capability-evaluation",
       "title": "Dangerous Capability Evaluation",
       "domain": "Alignment / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3340,7 +3390,7 @@
           {
             "id": "safety-benchmark-validity",
             "title": "Safety Benchmark Validity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3371,6 +3421,12 @@
             "id": "data-mixing",
             "title": "Data Mixing",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "data-provenance",
+            "title": "Data Provenance",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -3553,6 +3609,44 @@
       }
     },
     {
+      "id": "data-provenance",
+      "title": "Data Provenance",
+      "domain": "Provenance / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-filtering",
+            "title": "Data Filtering",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "training-data-licensing",
+            "title": "Training Data Licensing",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "membership-in-training-data",
+            "title": "Membership in Training Data",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "data-scaling-laws",
       "title": "Data Scaling Laws",
       "domain": "Data / Foundations",
@@ -3599,7 +3693,7 @@
       "id": "deceptive-alignment",
       "title": "Deceptive Alignment",
       "domain": "Alignment / Research",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3710,6 +3804,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "memorisation",
+            "title": "Memorisation",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "training-corpus-contamination",
             "title": "Training Corpus Contamination",
@@ -4558,6 +4658,75 @@
           {
             "id": "decoder-only-transformer",
             "title": "Decoder-Only Transformer",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "energy-cost-of-inference",
+      "title": "Energy Cost of Inference",
+      "domain": "Provenance / Cost",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "energy-cost-of-training",
+            "title": "Energy Cost of Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "quantization",
+            "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "test-time-compute",
+            "title": "Test-Time Compute",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "energy-cost-of-training",
+      "title": "Energy Cost of Training",
+      "domain": "Provenance / Cost",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "accelerator-utilization",
+            "title": "Accelerator Utilization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "carbon-accounting",
+            "title": "Carbon Accounting",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "energy-cost-of-inference",
+            "title": "Energy Cost of Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "compute-optimal-training",
+            "title": "Compute-Optimal Training",
             "tier": "verified",
             "reviewed": false
           }
@@ -6271,7 +6440,7 @@
           {
             "id": "scalable-oversight",
             "title": "Scalable Oversight",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7148,7 +7317,7 @@
           {
             "id": "weak-to-strong-generalization",
             "title": "Weak-to-Strong Generalization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7545,7 +7714,7 @@
           {
             "id": "model-written-evaluation",
             "title": "Model-Written Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8169,6 +8338,12 @@
             "title": "Fine-Tuning",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "memorisation",
+            "title": "Memorisation",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -8382,7 +8557,7 @@
           {
             "id": "deceptive-alignment",
             "title": "Deceptive Alignment",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8395,6 +8570,31 @@
             "id": "probing-classifier",
             "title": "Probing Classifier",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "membership-in-training-data",
+      "title": "Membership in Training Data",
+      "domain": "Provenance / Rights",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "membership-inference",
+            "title": "Membership Inference",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "data-provenance",
+            "title": "Data Provenance",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -8416,6 +8616,12 @@
         ],
         "unlocks": [
           {
+            "id": "membership-in-training-data",
+            "title": "Membership in Training Data",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "training-data-extraction",
             "title": "Training Data Extraction",
             "tier": "verified",
@@ -8432,6 +8638,37 @@
           {
             "id": "speaker-embedding",
             "title": "Speaker Embedding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "memorisation",
+      "title": "Memorisation",
+      "domain": "Provenance / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "deduplication",
+            "title": "Deduplication",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "machine-unlearning",
+            "title": "Machine Unlearning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "training-data-extraction",
+            "title": "Training Data Extraction",
             "tier": "verified",
             "reviewed": false
           }
@@ -9031,7 +9268,7 @@
       "id": "model-written-evaluation",
       "title": "Model-Written Evaluation",
       "domain": "Alignment / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9547,7 +9784,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "output-watermarking",
+            "title": "Output Watermarking",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "exploration-exploitation",
@@ -9889,6 +10133,31 @@
           {
             "id": "calibration",
             "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "output-watermarking",
+      "title": "Output Watermarking",
+      "domain": "Provenance / Rights",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "nucleus-sampling",
+            "title": "Nucleus Sampling",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "synthetic-data",
+            "title": "Synthetic Data",
             "tier": "verified",
             "reviewed": false
           }
@@ -11171,6 +11440,12 @@
             "reviewed": false
           },
           {
+            "id": "energy-cost-of-inference",
+            "title": "Energy Cost of Inference",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "inference-accelerator",
             "title": "Inference Accelerator",
             "tier": "verified",
@@ -11421,13 +11696,13 @@
           {
             "id": "dangerous-capability-evaluation",
             "title": "Dangerous Capability Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "deceptive-alignment",
             "title": "Deceptive Alignment",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11676,6 +11951,12 @@
             "title": "Repository Context",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "training-data-licensing",
+            "title": "Training Data Licensing",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -11698,7 +11979,7 @@
           {
             "id": "specification-gaming",
             "title": "Specification Gaming",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11778,7 +12059,7 @@
           {
             "id": "sycophancy",
             "title": "Sycophancy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11840,7 +12121,7 @@
           {
             "id": "scalable-oversight",
             "title": "Scalable Oversight",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12031,7 +12312,7 @@
       "id": "safety-benchmark-validity",
       "title": "Safety Benchmark Validity",
       "domain": "Alignment / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -12046,7 +12327,7 @@
           {
             "id": "dangerous-capability-evaluation",
             "title": "Dangerous Capability Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -12174,7 +12455,7 @@
       "id": "scalable-oversight",
       "title": "Scalable Oversight",
       "domain": "Alignment / Research",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -12188,7 +12469,7 @@
           {
             "id": "weak-to-strong-generalization",
             "title": "Weak-to-Strong Generalization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -13215,7 +13496,7 @@
       "id": "specification-gaming",
       "title": "Specification Gaming",
       "domain": "Alignment / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -13230,7 +13511,7 @@
           {
             "id": "sycophancy",
             "title": "Sycophancy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -13800,7 +14081,7 @@
       "id": "sycophancy",
       "title": "Sycophancy",
       "domain": "Alignment / Behaviour",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -13821,7 +14102,7 @@
           {
             "id": "specification-gaming",
             "title": "Specification Gaming",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -13902,6 +14183,12 @@
             "id": "mode-collapse",
             "title": "Mode Collapse",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "output-watermarking",
+            "title": "Output Watermarking",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -14222,6 +14509,12 @@
             "id": "chain-of-thought",
             "title": "Chain of Thought",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "energy-cost-of-inference",
+            "title": "Energy Cost of Inference",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -14731,8 +15024,39 @@
             "reviewed": false
           },
           {
+            "id": "memorisation",
+            "title": "Memorisation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "prompt-injection",
             "title": "Prompt Injection",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "training-data-licensing",
+      "title": "Training Data Licensing",
+      "domain": "Provenance / Rights",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-provenance",
+            "title": "Data Provenance",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "retrieval-augmented-generation",
+            "title": "Retrieval-Augmented Generation",
             "tier": "verified",
             "reviewed": false
           }
@@ -15367,13 +15691,13 @@
       "id": "weak-to-strong-generalization",
       "title": "Weak-to-Strong Generalization",
       "domain": "Alignment / Research",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "scalable-oversight",
             "title": "Scalable Oversight",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -15607,6 +15931,13 @@
           "y": 66
         },
         {
+          "id": "energy-cost-of-training",
+          "title": "Energy Cost of Training",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "interconnect-topology",
           "title": "Interconnect Topology",
           "tier": "verified",
@@ -15626,6 +15957,12 @@
           "from": "arithmetic-intensity",
           "to": "accelerator-utilization",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "accelerator-utilization",
+          "to": "energy-cost-of-training",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -16178,7 +16515,7 @@
         {
           "id": "dangerous-capability-evaluation",
           "title": "Dangerous Capability Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -17454,7 +17791,7 @@
         {
           "id": "deceptive-alignment",
           "title": "Deceptive Alignment",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -17876,7 +18213,7 @@
         {
           "id": "safety-benchmark-validity",
           "title": "Safety Benchmark Validity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -17884,64 +18221,71 @@
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 24,
+          "x": 22,
           "y": 22
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 48,
+          "x": 44,
           "y": 110
+        },
+        {
+          "id": "data-provenance",
+          "title": "Data Provenance",
+          "tier": "frontier",
+          "x": 65,
+          "y": 22
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
-          "x": 72,
-          "y": 22
+          "x": 87,
+          "y": 110
         },
         {
           "id": "model-written-evaluation",
           "title": "Model-Written Evaluation",
-          "tier": "frontier",
-          "x": 96,
-          "y": 110
+          "tier": "verified",
+          "x": 109,
+          "y": 22
         },
         {
           "id": "needle-in-a-haystack",
           "title": "Needle in a Haystack",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 131,
+          "y": 110
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 144,
-          "y": 110
+          "x": 153,
+          "y": 22
         },
         {
           "id": "regression-suite",
           "title": "Regression Suite",
           "tier": "verified",
-          "x": 168,
-          "y": 22
+          "x": 175,
+          "y": 110
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 196,
+          "y": 22
         },
         {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
           "tier": "verified",
-          "x": 216,
-          "y": 22
+          "x": 218,
+          "y": 110
         }
       ],
       "links": [
@@ -17966,6 +18310,12 @@
         {
           "from": "benchmark-contamination",
           "to": "cross-validation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "data-provenance",
           "type": "adjacent",
           "reviewed": false
         },
@@ -18547,6 +18897,46 @@
         {
           "from": "candidate-generation",
           "to": "reranking",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "carbon-accounting",
+      "center": {
+        "id": "carbon-accounting",
+        "title": "Carbon Accounting",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "energy-cost-of-training",
+          "title": "Energy Cost of Training",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "compute-optimal-training",
+          "title": "Compute-Optimal Training",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "energy-cost-of-training",
+          "to": "carbon-accounting",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "carbon-accounting",
+          "to": "compute-optimal-training",
           "type": "adjacent",
           "reviewed": false
         }
@@ -19830,10 +20220,24 @@
           "y": 66
         },
         {
+          "id": "carbon-accounting",
+          "title": "Carbon Accounting",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "data-scaling-laws",
           "title": "Data Scaling Laws",
           "tier": "verified",
           "x": 120,
+          "y": 110
+        },
+        {
+          "id": "energy-cost-of-training",
+          "title": "Energy Cost of Training",
+          "tier": "frontier",
+          "x": 180,
           "y": 22
         }
       ],
@@ -19852,7 +20256,19 @@
         },
         {
           "from": "compute-optimal-training",
+          "to": "carbon-accounting",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "compute-optimal-training",
           "to": "data-scaling-laws",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "compute-optimal-training",
+          "to": "energy-cost-of-training",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20236,7 +20652,7 @@
         {
           "id": "sycophancy",
           "title": "Sycophancy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -21588,7 +22004,7 @@
       "center": {
         "id": "dangerous-capability-evaluation",
         "title": "Dangerous Capability Evaluation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -21610,7 +22026,7 @@
         {
           "id": "safety-benchmark-validity",
           "title": "Safety Benchmark Validity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -21658,49 +22074,56 @@
           "title": "Annotation Quality",
           "tier": "verified",
           "x": 200,
-          "y": 17
+          "y": 15
         },
         {
           "id": "data-mixing",
           "title": "Data Mixing",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 29
+        },
+        {
+          "id": "data-provenance",
+          "title": "Data Provenance",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
         },
         {
           "id": "data-scaling-laws",
           "title": "Data Scaling Laws",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 59
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 73
         },
         {
           "id": "low-resource-language",
           "title": "Low-Resource Language",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 88
         },
         {
           "id": "representation-bias",
           "title": "Representation Bias",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 103
         },
         {
           "id": "synthetic-data",
           "title": "Synthetic Data",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 117
         },
         {
           "id": "perplexity",
@@ -21733,6 +22156,12 @@
         {
           "from": "data-filtering",
           "to": "data-mixing",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "data-filtering",
+          "to": "data-provenance",
           "type": "unlocks",
           "reviewed": false
         },
@@ -22018,6 +22447,72 @@
       ]
     },
     {
+      "id": "data-provenance",
+      "center": {
+        "id": "data-provenance",
+        "title": "Data Provenance",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-filtering",
+          "title": "Data Filtering",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "training-data-licensing",
+          "title": "Training Data Licensing",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "membership-in-training-data",
+          "title": "Membership in Training Data",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "data-filtering",
+          "to": "data-provenance",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "data-provenance",
+          "to": "training-data-licensing",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "data-provenance",
+          "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-provenance",
+          "to": "membership-in-training-data",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "data-scaling-laws",
       "center": {
         "id": "data-scaling-laws",
@@ -22101,7 +22596,7 @@
       "center": {
         "id": "deceptive-alignment",
         "title": "Deceptive Alignment",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -22286,11 +22781,18 @@
           "y": 66
         },
         {
+          "id": "memorisation",
+          "title": "Memorisation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "benchmark-contamination",
@@ -22326,6 +22828,12 @@
           "from": "data-filtering",
           "to": "deduplication",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "deduplication",
+          "to": "memorisation",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -23819,6 +24327,125 @@
         {
           "from": "encoder-decoder",
           "to": "decoder-only-transformer",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "energy-cost-of-inference",
+      "center": {
+        "id": "energy-cost-of-inference",
+        "title": "Energy Cost of Inference",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "energy-cost-of-training",
+          "title": "Energy Cost of Training",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "test-time-compute",
+          "title": "Test-Time Compute",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "energy-cost-of-training",
+          "to": "energy-cost-of-inference",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "energy-cost-of-inference",
+          "to": "quantization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "energy-cost-of-inference",
+          "to": "test-time-compute",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "energy-cost-of-training",
+      "center": {
+        "id": "energy-cost-of-training",
+        "title": "Energy Cost of Training",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "accelerator-utilization",
+          "title": "Accelerator Utilization",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "carbon-accounting",
+          "title": "Carbon Accounting",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "energy-cost-of-inference",
+          "title": "Energy Cost of Inference",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "compute-optimal-training",
+          "title": "Compute-Optimal Training",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "accelerator-utilization",
+          "to": "energy-cost-of-training",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "energy-cost-of-training",
+          "to": "carbon-accounting",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "energy-cost-of-training",
+          "to": "energy-cost-of-inference",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "energy-cost-of-training",
+          "to": "compute-optimal-training",
           "type": "adjacent",
           "reviewed": false
         }
@@ -26864,7 +27491,7 @@
         {
           "id": "scalable-oversight",
           "title": "Scalable Oversight",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -28403,7 +29030,7 @@
         {
           "id": "weak-to-strong-generalization",
           "title": "Weak-to-Strong Generalization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -29145,7 +29772,7 @@
         {
           "id": "model-written-evaluation",
           "title": "Model-Written Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -30278,8 +30905,15 @@
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "memorisation",
+          "title": "Memorisation",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -30292,6 +30926,12 @@
         {
           "from": "machine-unlearning",
           "to": "fine-tuning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "machine-unlearning",
+          "to": "memorisation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -30648,7 +31288,7 @@
         {
           "id": "deceptive-alignment",
           "title": "Deceptive Alignment",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -30707,6 +31347,46 @@
       ]
     },
     {
+      "id": "membership-in-training-data",
+      "center": {
+        "id": "membership-in-training-data",
+        "title": "Membership in Training Data",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "membership-inference",
+          "title": "Membership Inference",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "data-provenance",
+          "title": "Data Provenance",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "membership-inference",
+          "to": "membership-in-training-data",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "membership-in-training-data",
+          "to": "data-provenance",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "membership-inference",
       "center": {
         "id": "membership-inference",
@@ -30724,11 +31404,18 @@
           "y": 66
         },
         {
+          "id": "membership-in-training-data",
+          "title": "Membership in Training Data",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "differential-privacy",
@@ -30754,6 +31441,12 @@
         },
         {
           "from": "membership-inference",
+          "to": "membership-in-training-data",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "membership-inference",
           "to": "training-data-extraction",
           "type": "unlocks",
           "reviewed": false
@@ -30767,6 +31460,59 @@
         {
           "from": "membership-inference",
           "to": "speaker-embedding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "memorisation",
+      "center": {
+        "id": "memorisation",
+        "title": "Memorisation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "deduplication",
+          "title": "Deduplication",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "machine-unlearning",
+          "title": "Machine Unlearning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "training-data-extraction",
+          "title": "Training Data Extraction",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "deduplication",
+          "to": "memorisation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "memorisation",
+          "to": "machine-unlearning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "memorisation",
+          "to": "training-data-extraction",
           "type": "adjacent",
           "reviewed": false
         }
@@ -31807,7 +32553,7 @@
       "center": {
         "id": "model-written-evaluation",
         "title": "Model-Written Evaluation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -32699,6 +33445,13 @@
           "y": 88
         },
         {
+          "id": "output-watermarking",
+          "title": "Output Watermarking",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "exploration-exploitation",
           "title": "Exploration and Exploitation",
           "tier": "verified",
@@ -32731,6 +33484,12 @@
           "from": "softmax",
           "to": "nucleus-sampling",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "nucleus-sampling",
+          "to": "output-watermarking",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -33304,6 +34063,46 @@
         {
           "from": "out-of-distribution-detection",
           "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "output-watermarking",
+      "center": {
+        "id": "output-watermarking",
+        "title": "Output Watermarking",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "nucleus-sampling",
+          "title": "Nucleus Sampling",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "synthetic-data",
+          "title": "Synthetic Data",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "nucleus-sampling",
+          "to": "output-watermarking",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "output-watermarking",
+          "to": "synthetic-data",
           "type": "adjacent",
           "reviewed": false
         }
@@ -35554,36 +36353,43 @@
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
           "tier": "verified",
-          "x": 40,
+          "x": 34,
           "y": 22
+        },
+        {
+          "id": "energy-cost-of-inference",
+          "title": "Energy Cost of Inference",
+          "tier": "frontier",
+          "x": 69,
+          "y": 110
         },
         {
           "id": "inference-accelerator",
           "title": "Inference Accelerator",
           "tier": "verified",
-          "x": 80,
-          "y": 110
+          "x": 103,
+          "y": 22
         },
         {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 137,
+          "y": 110
         },
         {
           "id": "number-format",
           "title": "Number Format",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 171,
+          "y": 22
         },
         {
           "id": "rate-distortion",
           "title": "Rate-Distortion",
           "tier": "verified",
-          "x": 200,
-          "y": 22
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -35614,6 +36420,12 @@
         {
           "from": "quantization",
           "to": "arithmetic-intensity",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "energy-cost-of-inference",
           "type": "adjacent",
           "reviewed": false
         },
@@ -36014,14 +36826,14 @@
         {
           "id": "dangerous-capability-evaluation",
           "title": "Dangerous Capability Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
         {
           "id": "deceptive-alignment",
           "title": "Deceptive Alignment",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -36418,36 +37230,43 @@
           "id": "agent-memory",
           "title": "Agent Memory",
           "tier": "verified",
-          "x": 40,
+          "x": 34,
           "y": 22
         },
         {
           "id": "context-compression",
           "title": "Context Compression",
           "tier": "verified",
-          "x": 80,
+          "x": 69,
           "y": 110
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
-          "x": 120,
+          "x": 103,
           "y": 22
         },
         {
           "id": "lost-in-the-middle",
           "title": "Lost in the Middle",
           "tier": "verified",
-          "x": 160,
+          "x": 137,
           "y": 110
         },
         {
           "id": "repository-context",
           "title": "Repository Context",
           "tier": "verified",
-          "x": 200,
+          "x": 171,
           "y": 22
+        },
+        {
+          "id": "training-data-licensing",
+          "title": "Training Data Licensing",
+          "tier": "frontier",
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -36498,6 +37317,12 @@
           "to": "repository-context",
           "type": "adjacent",
           "reviewed": false
+        },
+        {
+          "from": "retrieval-augmented-generation",
+          "to": "training-data-licensing",
+          "type": "adjacent",
+          "reviewed": false
         }
       ]
     },
@@ -36521,7 +37346,7 @@
         {
           "id": "specification-gaming",
           "title": "Specification Gaming",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -36654,7 +37479,7 @@
         {
           "id": "sycophancy",
           "title": "Sycophancy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -36772,7 +37597,7 @@
         {
           "id": "scalable-oversight",
           "title": "Scalable Oversight",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -37138,7 +37963,7 @@
       "center": {
         "id": "safety-benchmark-validity",
         "title": "Safety Benchmark Validity",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -37153,7 +37978,7 @@
         {
           "id": "dangerous-capability-evaluation",
           "title": "Dangerous Capability Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -37389,7 +38214,7 @@
       "center": {
         "id": "scalable-oversight",
         "title": "Scalable Oversight",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -37404,7 +38229,7 @@
         {
           "id": "weak-to-strong-generalization",
           "title": "Weak-to-Strong Generalization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -39224,7 +40049,7 @@
       "center": {
         "id": "specification-gaming",
         "title": "Specification Gaming",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -39239,7 +40064,7 @@
         {
           "id": "sycophancy",
           "title": "Sycophancy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -40266,7 +41091,7 @@
       "center": {
         "id": "sycophancy",
         "title": "Sycophancy",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -40288,7 +41113,7 @@
         {
           "id": "specification-gaming",
           "title": "Specification Gaming",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -40408,22 +41233,29 @@
           "id": "experience-replay",
           "title": "Experience Replay",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "low-resource-language",
           "title": "Low-Resource Language",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "mode-collapse",
           "title": "Mode Collapse",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "output-watermarking",
+          "title": "Output Watermarking",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -40454,6 +41286,12 @@
         {
           "from": "synthetic-data",
           "to": "mode-collapse",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "synthetic-data",
+          "to": "output-watermarking",
           "type": "adjacent",
           "reviewed": false
         }
@@ -40995,29 +41833,36 @@
           "id": "chain-of-thought",
           "title": "Chain of Thought",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
+        },
+        {
+          "id": "energy-cost-of-inference",
+          "title": "Energy Cost of Inference",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
         },
         {
           "id": "inference-scaling-law",
           "title": "Inference Scaling Law",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "reasoning-trace",
           "title": "Reasoning Trace",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "self-consistency",
           "title": "Self-Consistency",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -41030,6 +41875,12 @@
         {
           "from": "test-time-compute",
           "to": "chain-of-thought",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "test-time-compute",
+          "to": "energy-cost-of-inference",
           "type": "adjacent",
           "reviewed": false
         },
@@ -41910,22 +42761,29 @@
           "id": "data-poisoning",
           "title": "Data Poisoning",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "memorisation",
+          "title": "Memorisation",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "prompt-injection",
           "title": "Prompt Injection",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -41955,7 +42813,53 @@
         },
         {
           "from": "training-data-extraction",
+          "to": "memorisation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "training-data-extraction",
           "to": "prompt-injection",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "training-data-licensing",
+      "center": {
+        "id": "training-data-licensing",
+        "title": "Training Data Licensing",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-provenance",
+          "title": "Data Provenance",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "retrieval-augmented-generation",
+          "title": "Retrieval-Augmented Generation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "data-provenance",
+          "to": "training-data-licensing",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "training-data-licensing",
+          "to": "retrieval-augmented-generation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -43086,7 +43990,7 @@
       "center": {
         "id": "weak-to-strong-generalization",
         "title": "Weak-to-Strong Generalization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -43094,7 +43998,7 @@
         {
           "id": "scalable-oversight",
           "title": "Scalable Oversight",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },

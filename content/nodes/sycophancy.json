@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Reward a response earns for agreeing with the rater, against reward earned for being right, in equal units. Drag the optimisation pressure up to watch agreement take the signal — the two are indistinguishable in the comparison data that produced it."
+    "caption": "Reward a response earns for agreeing with the rater, against reward earned for being right, in equal units. Drag the agreement reward up to watch it take the signal — the two are indistinguishable in the comparison data that produced it."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

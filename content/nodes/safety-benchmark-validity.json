@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Benchmark variance explained by general capability, against the variance that could be measuring safety, in equal units. Drag the correlation up to watch capability account for the whole score — at the right the benchmark has a different title and the same content."
+    "caption": "Benchmark variance explained by general capability, against the variance that could be measuring safety, in equal units. Drag the explained share up to watch capability account for the whole score — at the right the benchmark has a different title and the same content."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

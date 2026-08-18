@@ -1,0 +1,64 @@
+{
+  "id": "output-watermarking",
+  "title": "Output Watermarking",
+  "domain": [
+    "Provenance",
+    "Rights"
+  ],
+  "bodies": {
+    "intuition": "Bias a model's sampling so its output carries a statistical signature only someone with the key can detect, without changing how the text reads. Then generated text can be identified as generated — which is what platforms, schools and publishers keep asking for and what no detector operating on text alone can reliably provide.",
+    "engineer": "The scheme that made this practical partitions the vocabulary pseudorandomly at each step, seeded by the preceding tokens, and nudges sampling toward one half. Detection counts how often the output landed in the favoured half and computes how unlikely that is by chance, so it needs no model access and no reference text. The strength is a dial: nudge harder and detection needs less text, at the cost of pushing the output further from what the model would have said.",
+    "math": "Detection is a hypothesis test whose power grows with the square root of the token count, so short outputs are much harder than long ones and a single sentence is close to undetectable at any usable strength. The other limit is more awkward: paraphrasing removes the signal, and the effort to paraphrase is far below the effort to generate. So the honest claim is a signature that survives copying and not one that survives an adversary."
+  },
+  "emphasis": {
+    "intuition": "what no detector operating on text alone can reliably provide",
+    "math": "a signature that survives copying and not one that survives an adversary"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 2.4,
+      "threshold": 1.0,
+      "base_rate": 0.5
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Watermarked outputs against unwatermarked ones, by the detector's score. Drag the output length up to watch them separate — power grows with the square root of the token count, so a sentence sits in the overlap and a page does not."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "nucleus-sampling",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "synthetic-data",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2301.10226",
+      "title": "A Watermark for Large Language Models",
+      "url": "https://arxiv.org/abs/2301.10226"
+    },
+    {
+      "ref": "arXiv:2306.04634",
+      "title": "On the Reliability of Watermarks for Large Language Models",
+      "url": "https://arxiv.org/abs/2306.04634"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

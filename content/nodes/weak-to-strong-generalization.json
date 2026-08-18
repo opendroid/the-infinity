@@ -28,7 +28,7 @@
         "step": 10
       }
     ],
-    "caption": "The performance gap weak supervision recovers, against the part that stays lost, in equal units. Drag the elicitation up to watch most of the gap close — reported values stop well short of the whole, and what remains is the supervisor's errors learned as the task."
+    "caption": "The performance gap weak supervision recovers, against the part that stays lost, in equal units. Drag the recovered share up to watch most of the gap close — reported values stop well short of the whole, and what remains is the supervisor's errors learned as the task."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

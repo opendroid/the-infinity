@@ -77,6 +77,35 @@ where the engineer body's "roughly two thirds" comes from. **Nothing validates t
 relationship. Keeping the arithmetic in the content rather than the component is the trade
 ([ADR-0007](../../docs/adr/0007-budget-split-primitive.md)).
 
+### The caption's drag instruction names the control, not its cause
+
+The slider renders its own `name` beneath it. So a caption saying *"drag the model
+count"* over a control named `contested_coordinates` asks a reader to bridge between
+two quantities, and they are not the same quantity — one is what the author varied in
+their head, the other is what the bar counts.
+
+This is not the same as forbidding synonyms, and most captions in the corpus use one
+correctly. `attention` captions `tokens` as "the sequence length"; `clip` captions the
+same param as "the batch size"; `adam` captions `beta2` as "the second moment decay";
+`alibi` captions `decay` as "the penalty". Every one of those names the *same thing*
+the control names, in the words the concept uses.
+
+**The test is denotation, not vocabulary.** A synonym is fine. A cause is not:
+
+| control | caption said | verdict |
+|---|---|---|
+| `tokens` | "the sequence length" | fine — the same quantity |
+| `beta2` | "the second moment decay" | fine — the same quantity |
+| `contested_coordinates` | "the model count" | wrong — the cause, not the quantity |
+| `unverifiable_outputs` | "the capability" | wrong — the cause, not the quantity |
+| `gap_recovered` | "the elicitation" | wrong — the cause, not the quantity |
+
+**This cannot be checked mechanically and was measured rather than assumed.** A check
+for "the caption mentions a word from the control's name" flags 75 of 392 controls,
+and the sampled ones are almost all legitimate synonyms — a 19% false-positive rate,
+which would train an author to add exemptions instead of reading. It stays a rule for
+a person to apply, which is why it is written here rather than in a test.
+
 Two constraints on params that are easy to trip over:
 
 - **Params are numbers only** (`additionalProperties: { type: number }`), so a flag has to be
