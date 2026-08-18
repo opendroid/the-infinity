@@ -118,9 +118,18 @@ jobs:
       # module, and pass while linting nothing. Verified on this PR by planting
       # a misspelling in /api and watching this step fail — not by observing a
       # green run.
+      #
+      # THE VERSION COMES FROM api/.golangci-version, NOT FROM A LITERAL HERE
+      # (#263). It was a literal, `make lint` looked for whatever was on the
+      # developer's PATH, and the two drifted to v2.12.2 against v2.5.0 without
+      # anything noticing — so a local lint and the merge gate were different
+      # checks wearing one name. One file now feeds both.
+      - id: golangci-version
+        run: echo "value=$(cat api/.golangci-version)" >> "$GITHUB_OUTPUT"
+
       - uses: golangci/golangci-lint-action@v9
         with:
-          version: v2.12.2
+          version: ${{ steps.golangci-version.outputs.value }}
           working-directory: api
 
       # The jar is fetched directly rather than through `gcloud components

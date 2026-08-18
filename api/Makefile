@@ -52,15 +52,41 @@ cover: ## Tests with a coverage summary across ALL packages
 	go test -race -coverprofile=coverage.out -coverpkg=./... ./...
 	go tool cover -func=coverage.out | tail -1
 
-lint: ## go vet, gofmt check, and golangci-lint if installed
+# THE VERSION IS PINNED IN ONE FILE AND CI READS THE SAME ONE (#263), so a local
+# lint that passes cannot mean a different thing from the one that gates the merge.
+GOLANGCI_VERSION := $(shell cat .golangci-version)
+GOLANGCI_BARE    := $(GOLANGCI_VERSION:v%=%)
+GOLANGCI_PLATFORM := $(shell go env GOOS)-$(shell go env GOARCH)
+GOLANGCI_DIR     := golangci-lint-$(GOLANGCI_BARE)-$(GOLANGCI_PLATFORM)
+GOLANGCI         := bin/golangci-lint
+# Stamped with the version, so bumping .golangci-version renames the target and
+# forces a refetch rather than silently reusing whatever is already in bin/.
+GOLANGCI_STAMP   := bin/.golangci-$(GOLANGCI_BARE)
+
+# A RELEASE BINARY, NOT `go install`. This looks like the fussier choice and is
+# the load-bearing one: `go install` builds golangci-lint with whatever toolchain
+# ITS go.mod selects, which lags the released binaries. At v2.12.2 that is
+# go1.25.13, and a linter built with go1.25 refuses a module targeting go1.26 —
+#
+#   can't load config: the Go language version (go1.25) used to build
+#   golangci-lint is lower than the targeted Go version (1.26.0)
+#
+# The published binary for the same version is built with go1.26.2 and runs
+# clean. So the failure was never the pin being stale; it was the install method.
+$(GOLANGCI_STAMP):
+	@mkdir -p bin
+	@rm -f $(GOLANGCI) bin/.golangci-*
+	@echo "fetching golangci-lint $(GOLANGCI_VERSION) for $(GOLANGCI_PLATFORM)…"
+	@curl -sSfL "https://github.com/golangci/golangci-lint/releases/download/$(GOLANGCI_VERSION)/$(GOLANGCI_DIR).tar.gz" \
+		| tar xz -C bin --strip-components=1 "$(GOLANGCI_DIR)/golangci-lint" \
+		|| { echo "could not fetch golangci-lint $(GOLANGCI_VERSION) for $(GOLANGCI_PLATFORM) — check the tag in .golangci-version"; exit 1; }
+	@touch $@
+	@$(GOLANGCI) --version
+
+lint: $(GOLANGCI_STAMP) ## go vet, gofmt check, and the pinned golangci-lint
 	go vet ./...
 	@test -z "$$(gofmt -l . )" || { echo "gofmt needed:"; gofmt -l .; exit 1; }
-	@if command -v golangci-lint >/dev/null; then \
-		golangci-lint run; \
-	else \
-		echo "golangci-lint not installed — see https://golangci-lint.run/welcome/install/"; \
-		exit 1; \
-	fi
+	@$(GOLANGCI) run
 
 fmt: ## Format
 	gofmt -w .
