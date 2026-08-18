@@ -14,6 +14,7 @@ import DepthToggle from '../../components/DepthToggle';
 import ReviewActions from '../../components/ReviewActions';
 import { allNodes, graph, nodeOrThrow } from '../../lib/content';
 import { neighborhood, splitEmphasis, type Depth } from '../../lib/graph';
+import { segments, withoutMarkers } from '../../lib/refs';
 
 export function getStaticPaths() {
   return allNodes.map((node) => ({ params: { id: node.id } }));
@@ -24,16 +25,27 @@ const node = nodeOrThrow(id!);
 const map = neighborhood(graph, node.id);
 
 const DEPTHS: Depth[] = ['intuition', 'engineer', 'math'];
+// A backticked id in body copy becomes a link (#298). Resolved here rather than
+// in the island so the payload carries the handful of references a node actually
+// has, not the whole corpus's id list.
+const titleOf = new Map(allNodes.map((n) => [n.id, n.title]));
+const resolve = (id: string) => titleOf.get(id) ?? null;
+
 const bodies = DEPTHS.map((depth) => {
   const [before, emphasis, after] = splitEmphasis(node.bodies[depth], node.emphasis?.[depth]);
-  return { depth, before, emphasis, after };
+  return {
+    depth,
+    before: segments(before, resolve),
+    emphasis: segments(emphasis, resolve),
+    after: segments(after, resolve),
+  };
 });
 
 ---
 
 <Base
   title={`${node.title} — theinfinity.ai`}
-  description={node.bodies.intuition.slice(0, 155)}
+  description={withoutMarkers(node.bodies.intuition).slice(0, 155)}
   type="article"
 >
   <Topbar />

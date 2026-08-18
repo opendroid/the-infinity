@@ -18,10 +18,12 @@ beforeEach(() => {
   window.history.replaceState(null, '', '/c/attention');
 });
 
+/** Bodies arrive as segments since #298, so a reference can be a link. */
+const text = (s: string) => [s];
 const BODIES = [
-  { depth: 'intuition' as Depth, before: 'The intuition.', emphasis: '', after: '' },
-  { depth: 'engineer' as Depth, before: 'The engineering.', emphasis: '', after: '' },
-  { depth: 'math' as Depth, before: 'The math.', emphasis: '', after: '' },
+  { depth: 'intuition' as Depth, before: text('The intuition.'), emphasis: [], after: [] },
+  { depth: 'engineer' as Depth, before: text('The engineering.'), emphasis: [], after: [] },
+  { depth: 'math' as Depth, before: text('The math.'), emphasis: [], after: [] },
 ];
 
 /**

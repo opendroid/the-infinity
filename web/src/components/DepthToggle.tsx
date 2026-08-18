@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { Depth } from '../lib/graph';
 import { fromSearch, read, resolve, searchFor, write } from '../lib/depth';
 import Notation from './Notation';
+import type { Segment } from '../lib/refs';
 
 /**
  * Before paint on the client, after-paint never on the server.
@@ -20,9 +21,9 @@ const useBeforePaint = typeof window === 'undefined' ? useEffect : useLayoutEffe
 
 interface Body {
   depth: Depth;
-  before: string;
-  emphasis: string;
-  after: string;
+  before: Segment[];
+  emphasis: Segment[];
+  after: Segment[];
 }
 
 interface Props {
@@ -201,15 +202,44 @@ export default function DepthToggle({ bodies, initial = 'intuition' }: Props) {
             cut a notation group in half would leave both halves literal —
             `validate:content` rejects that rather than letting it render.
           */}
-          <Notation text={body.before} />
-          {body.emphasis && (
+          <Prose segments={body.before} />
+          {body.emphasis.length > 0 && (
             <em className="font-medium not-italic text-thread">
-              <Notation text={body.emphasis} />
+              <Prose segments={body.emphasis} />
             </em>
           )}
-          <Notation text={body.after} />
+          <Prose segments={body.after} />
         </p>
       ))}
+    </>
+  );
+}
+
+/**
+ * Body copy with inline concept references resolved to links (#298).
+ *
+ * A reference shows the target's TITLE rather than the id the author typed:
+ * "Constrained Decoding is the second applied to output shape" reads as prose
+ * where the kebab-case id does not. The id is still what was written, so the
+ * link cannot point somewhere the author did not name.
+ *
+ * `thread` violet and an underline, per CLAUDE.md §5 — links are the only
+ * interactive colour, and inside a paragraph an underline is what marks one
+ * without the weight of a button. Text segments still go through `Notation`,
+ * so a subscript beside a reference renders as it always did.
+ */
+function Prose({ segments }: { segments: Segment[] }) {
+  return (
+    <>
+      {segments.map((s, i) =>
+        typeof s === 'string' ? (
+          <Notation key={i} text={s} />
+        ) : (
+          <a key={i} href={`/c/${s.id}`} className="text-thread underline underline-offset-2">
+            {s.label}
+          </a>
+        ),
+      )}
     </>
   );
 }
