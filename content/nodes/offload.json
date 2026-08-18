@@ -1,0 +1,67 @@
+{
+  "id": "offload",
+  "title": "Offload",
+  "domain": [
+    "Platform",
+    "Systems"
+  ],
+  "bodies": {
+    "intuition": "Keep part of the model somewhere cheaper than the accelerator — host memory, or an SSD — and move it in when it is needed. It trades speed for capacity, and it is what makes a model that does not fit trainable on hardware that cannot hold it.",
+    "engineer": "Optimiser state is the usual thing to move, because it is the largest and it is touched once per step rather than twice like the parameters. Pushing further to NVMe extends this to models far beyond aggregate accelerator memory, at the cost of a much slower link. The engineering that makes either usable is overlap: prefetch the next piece while computing on the current one, so the transfer hides behind arithmetic rather than adding to it — and where it cannot be hidden, the accelerator sits idle waiting for a disk.",
+    "math": "The trade is bandwidth against capacity. Host memory is roughly an order of magnitude slower to reach than device memory and NVMe another order below that, so a step that would take t on-device takes t plus the transfer time not hidden by overlap. The condition for offload to be free is that arithmetic per byte moved exceeds the ratio of compute throughput to link bandwidth — which is `arithmetic-intensity` again, applied to a link nobody thinks of as the bottleneck until it is."
+  },
+  "emphasis": {
+    "intuition": "it is what makes a model that does not fit trainable on hardware that cannot hold it",
+    "math": "applied to a link nobody thinks of as the bottleneck until it is"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unhidden_transfer": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "unhidden_transfer",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Transfer time that overlap fails to hide, against the compute it was meant to hide behind, in equal units. Drag the unhidden portion up to watch the accelerator wait on a slower tier — the condition for this to stay near zero is arithmetic per byte moved."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "zero-redundancy-optimizer",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "arithmetic-intensity",
+        "reviewed": false
+      },
+      {
+        "id": "activation-checkpointing",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2101.06840",
+      "title": "ZeRO-Offload: Democratizing Billion-Scale Model Training",
+      "url": "https://arxiv.org/abs/2101.06840"
+    },
+    {
+      "ref": "arXiv:2104.07857",
+      "title": "ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning",
+      "url": "https://arxiv.org/abs/2104.07857"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

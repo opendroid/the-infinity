@@ -1,0 +1,68 @@
+{
+  "id": "online-learning",
+  "title": "Online Learning",
+  "domain": [
+    "Platform",
+    "Practice"
+  ],
+  "bodies": {
+    "intuition": "Update the model as data arrives, rather than retraining on a corpus every so often. The data comes once, in the order it happened, and cannot be shuffled or revisited — which rules out most of what ordinary training assumes and is exactly the situation a recommender or a fraud model is in.",
+    "engineer": "The distinction from `continual-learning` is what is changing. That is about a sequence of tasks and the risk of forgetting the old ones; this is one task with a moving distribution, where the risk is instability — a burst of unusual traffic moves the model, and by the time anyone notices, the thing that produced the burst is over. Almost everything deployed is a hybrid: frequent small updates on a base that is retrained from scratch on a slower cycle, so drift has a floor to return to.",
+    "math": "The learning rate is doing two jobs at once and they conflict. High enough to track a genuine change is high enough to be moved by noise, and low enough to ignore noise is low enough to lag a real shift — with no setting that does both, because the two are the same signal at different timescales. Everything here is a way of estimating which one you are seeing, and none of them can do it from the current sample alone."
+  },
+  "emphasis": {
+    "intuition": "The data comes once, in the order it happened, and cannot be shuffled or revisited",
+    "math": "the two are the same signal at different timescales"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.2,
+      "threshold": 0.8,
+      "base_rate": 0.1
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Genuine distribution changes against ordinary noise, by how far each moves the model. Drag the separation up to watch them come apart — at the left, where a live stream sits, no learning rate distinguishes the two, because they are one signal at different timescales."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "continual-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "distribution-shift",
+        "reviewed": false
+      },
+      {
+        "id": "feedback-loop",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2209.09125",
+      "title": "Operationalizing Machine Learning: An Interview Study",
+      "url": "https://arxiv.org/abs/2209.09125"
+    },
+    {
+      "ref": "arXiv:2011.09926",
+      "title": "Challenges in Deploying Machine Learning: a Survey of Case Studies",
+      "url": "https://arxiv.org/abs/2011.09926"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

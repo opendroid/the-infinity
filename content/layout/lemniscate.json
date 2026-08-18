@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "teacher-forcing",
+      "id": "feature-store",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "self-play",
+      "id": "offload",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "transfer-learning",
+      "id": "training-serving-skew",
       "t": 0.8,
       "label": true
     }

@@ -1,0 +1,63 @@
+{
+  "id": "data-versioning",
+  "title": "Data Versioning",
+  "domain": [
+    "Platform",
+    "Data"
+  ],
+  "bodies": {
+    "intuition": "Being able to name the exact data a run used, and get it back. Code has had this for fifty years and data mostly has not — a training set is a path on a filesystem that somebody has since appended to, and \"the model trained on the March data\" is a sentence with no way to check it.",
+    "engineer": "The distinction from `data-provenance` is the question being answered. Provenance asks where a document came from; versioning asks which exact set was used, and lets you retrieve it. The implementations either copy, which is exact and expensive, or record content hashes and rely on the underlying storage being immutable, which is cheap and fails silently if anything is ever overwritten in place. Which one you have determines whether a reproduction is a guarantee or a hope.",
+    "math": "Storage cost is the objection and it is smaller than it looks, because versions overlap almost entirely. Content-addressed storage keeps one copy of each distinct chunk, so the marginal cost of a version is the size of what changed rather than the size of the dataset — appending a week to a year of data costs a week. The cost that is real is the metadata and the discipline, not the bytes."
+  },
+  "emphasis": {
+    "intuition": "\"the model trained on the March data\" is a sentence with no way to check it",
+    "math": "the marginal cost of a version is the size of what changed rather than the size of the dataset"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "shared_chunks": 20,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "shared_chunks",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Data a new version shares with the last one, against what actually changed, in equal units. Drag the shared portion up to watch a version become nearly free — content addressing stores the overlap once, so the cost is the delta and not the dataset."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-provenance",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "deduplication",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2205.02302",
+      "title": "Machine Learning Operations (MLOps): Overview, Definition, and Architecture",
+      "url": "https://arxiv.org/abs/2205.02302"
+    },
+    {
+      "ref": "arXiv:2011.09926",
+      "title": "Challenges in Deploying Machine Learning: a Survey of Case Studies",
+      "url": "https://arxiv.org/abs/2011.09926"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
