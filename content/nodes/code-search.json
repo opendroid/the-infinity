@@ -1,0 +1,63 @@
+{
+  "id": "code-search",
+  "title": "Code Search",
+  "domain": [
+    "Code",
+    "Retrieval"
+  ],
+  "bodies": {
+    "intuition": "Find the code that does this thing, in a codebase nobody has read all of. It looks like a text retrieval problem and is not quite one: code has structure that prose does not — an identifier is defined exactly once, a call graph is a real graph, and a type says what a function accepts. Retrieval that ignores that is throwing away the part of the corpus that is unambiguous.",
+    "engineer": "The two failure modes pull opposite ways. Lexical search finds the exact identifier and misses the function that does the same job under another name; embedding search finds the paraphrase and returns something plausible from the wrong module. What works is neither alone — structure narrows the candidate set to what could possibly be relevant, and semantics ranks within it, which is a different pipeline from the hybrid retrieval used on prose.",
+    "math": "The share of queries that structure alone can answer is the useful quantity, because those are the ones that can be answered exactly rather than probably. A query naming an identifier, a type or a call site is resolvable by a symbol index with no model involved, and it is a large share of real queries. Semantic retrieval is then working on the remainder — which is the harder remainder, and a much smaller one than an evaluation on paraphrase queries suggests."
+  },
+  "emphasis": {
+    "intuition": "Retrieval that ignores that is throwing away the part of the corpus that is unambiguous.",
+    "math": "a much smaller one than an evaluation on paraphrase queries suggests"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "symbol_answerable": 12,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "symbol_answerable",
+        "min": 0,
+        "max": 210,
+        "step": 10
+      }
+    ],
+    "caption": "Queries a symbol index answers exactly, against the ones needing a semantic guess, in queries. Drag the share resolvable by structure up to watch it take most of the traffic — the remainder is harder than the average query and smaller than a paraphrase benchmark suggests."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "sparse-retrieval",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2102.04664",
+      "title": "CodeXGLUE: A Machine Learning Benchmark Dataset for Code Understanding and Generation",
+      "url": "https://arxiv.org/abs/2102.04664"
+    },
+    {
+      "ref": "arXiv:2211.15533",
+      "title": "The Stack: 3 TB of permissively licensed source code",
+      "url": "https://arxiv.org/abs/2211.15533"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

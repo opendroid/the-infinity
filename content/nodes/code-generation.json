@@ -1,0 +1,67 @@
+{
+  "id": "code-generation",
+  "title": "Code Generation",
+  "domain": [
+    "Code",
+    "Generation"
+  ],
+  "bodies": {
+    "intuition": "Write the function from its description. Code is the domain where the field's usual evaluation problem goes away, because you can run the answer — there is no need for a human judge or a similarity score when the program either produces the right output or does not. That single property is why so much recent progress routes through code.",
+    "engineer": "The evaluation that stuck is functional correctness against a test suite, not similarity to a reference solution. Similarity metrics were tried and are poorly correlated with whether the program works: two correct implementations can share almost no tokens, and a one-character change that breaks everything barely moves the score. Sampling many candidates and keeping any that passes is standard, which is why the metric has a k in it.",
+    "math": "pass@k rises with k and saturates, and the shape is the useful part. With a per-sample success probability p, the chance that at least one of k samples works is 1 − (1 − p)^k — steep while p·k is small and flat once it is not. So a model at 20% per sample reaches about two thirds by k = 5 and gains very little after 20, which means quoting pass@100 for a model that will be sampled once in production describes a system nobody is running."
+  },
+  "emphasis": {
+    "intuition": "you can run the answer",
+    "math": "describes a system nobody is running"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "extra_samples_solved": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "extra_samples_solved",
+        "min": 0,
+        "max": 180,
+        "step": 10
+      }
+    ],
+    "caption": "Problems solved only because more than one sample was drawn, against the ones the first sample already got, in problems. Drag the sample budget up to watch the extra solves saturate — most of the gain arrives by the fifth, and pass@100 describes a system nobody serves."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pass-at-k",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "execution-verification",
+        "reviewed": false
+      },
+      {
+        "id": "fill-in-the-middle",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2107.03374",
+      "title": "Evaluating Large Language Models Trained on Code",
+      "url": "https://arxiv.org/abs/2107.03374"
+    },
+    {
+      "ref": "arXiv:2108.07732",
+      "title": "Program Synthesis with Large Language Models",
+      "url": "https://arxiv.org/abs/2108.07732"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "id": "execution-verification",
+  "title": "Execution Verification",
+  "domain": [
+    "Code",
+    "Verification"
+  ],
+  "bodies": {
+    "intuition": "Run it and see. Code is checkable in a way essays are not, and that changes what is possible: you can generate a hundred candidates, keep the ones that pass, and never ask a human. But a test suite is not a specification — passing every test you have is evidence, not proof, and the gap between them is where this gets interesting.",
+    "engineer": "In practice execution is used two ways: as a filter over sampled candidates, and as a reward signal for training. Both inherit the tests' blind spots. A suite that exercises the happy path accepts code that fails on an empty input, and a model optimised against that suite learns to satisfy it rather than to be correct — the standard reward-hacking shape, arriving through a channel that feels objective because it is automated.",
+    "math": "This is a detection problem wearing a compiler. The signal is \"passes the tests\", the truth is \"is actually correct\", and the two are separated by however thorough the suite is. A weak suite leaves the populations overlapping, so a large share of what passes is wrong — and no threshold fixes that, because there is no threshold: the test either passes or does not. The only lever is the separation, which means the tests, which is why test quality bounds everything built on top of this."
+  },
+  "emphasis": {
+    "intuition": "passing every test you have is evidence, not proof",
+    "math": "The only lever is the separation, which means the tests"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.4,
+      "threshold": 0.8,
+      "base_rate": 0.35
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Generated programs that are actually correct, against ones that are not, scored by how thoroughly the tests exercise them. Drag the suite's thoroughness up to watch them separate — at the left a great deal of what passes is wrong, and no threshold helps, because a test has none."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "execution-feedback",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "sandboxing",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2207.10397",
+      "title": "CodeT: Code Generation with Generated Tests",
+      "url": "https://arxiv.org/abs/2207.10397"
+    },
+    {
+      "ref": "arXiv:2401.03065",
+      "title": "CRUXEval: A Benchmark for Code Reasoning, Understanding and Execution",
+      "url": "https://arxiv.org/abs/2401.03065"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

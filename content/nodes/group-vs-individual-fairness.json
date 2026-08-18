@@ -28,7 +28,7 @@
         "step": 10
       }
     ],
-    "caption": "Pairs of individuals an individual-fairness constraint binds, against the handful of group averages a parity criterion binds, in constraints. Drag the population up to watch pairs overwhelm aggregates — quadratically, which is both why it is the stronger claim and why it is rarely checked."
+    "caption": "Pairs of individuals an individual-fairness constraint binds, against the handful of group averages a parity criterion binds, in constraints. Drag the pair count up to watch pairs overwhelm aggregates — they grow with the square of the population, which is why it is the stronger claim and why it is rarely checked."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
