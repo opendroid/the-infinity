@@ -1,0 +1,63 @@
+{
+  "id": "score-matching",
+  "title": "Score Matching",
+  "domain": [
+    "Generative",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "You can describe a distribution by where its density is going up rather than by the density itself — the gradient of the log-probability, which is called the score. Learning that gradient avoids the normalising constant entirely, and once you have it you can sample by climbing it while adding noise. This is the machinery underneath diffusion.",
+    "engineer": "The trick that makes it practical is training on noisy data at many noise levels: the score is hopeless to estimate where there is no data, and noise fills the space in so the model has a target everywhere. Large noise gives coarse structure and small noise gives detail, which is why sampling anneals from one to the other rather than running at a single level.",
+    "math": "The score is ∇_x log p(x), and it does not involve the partition function since ∇_x log Z = 0. Denoising score matching gives the tractable objective E‖s_θ(x̃) − ∇_x̃ log q(x̃|x)‖², whose target for Gaussian noise is just −(x̃ − x)/σ² — so predicting the score and predicting the noise added are the same task written twice."
+  },
+  "emphasis": {
+    "intuition": "you can sample by climbing it while adding noise",
+    "engineer": "the score is hopeless to estimate where there is no data"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "noise_level": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "noise_level",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "The data distribution as the model sees it at one noise level, sharp and smoothed. Drag the noise up to watch structure flatten away — the large-noise end is easy to learn and says little, which is why sampling starts there and anneals down."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "diffusion-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "entropy",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1907.05600",
+      "title": "Generative Modeling by Estimating Gradients of the Data Distribution",
+      "url": "https://arxiv.org/abs/1907.05600"
+    },
+    {
+      "ref": "arXiv:2011.13456",
+      "title": "Score-Based Generative Modeling through Stochastic Differential Equations",
+      "url": "https://arxiv.org/abs/2011.13456"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

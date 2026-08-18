@@ -1,0 +1,63 @@
+{
+  "id": "denoising-schedule",
+  "title": "Denoising Schedule",
+  "domain": [
+    "Generative",
+    "Schedules"
+  ],
+  "bodies": {
+    "intuition": "A diffusion model is trained across a range of noise levels, and how that range is traversed at sampling time is a separate decision from the model itself. Spend steps where the picture is still being decided and it looks better; spread them evenly and most are wasted on levels where nothing changes.",
+    "engineer": "This is why the same trained weights produce different quality under different samplers, and why sampler papers report gains that have nothing to do with training. The schedule interacts with guidance — strong guidance at high noise distorts composition, while at low noise it mostly sharpens — so the two are tuned together rather than separately.",
+    "math": "The forward process fixes β_t and hence ᾱ_t; the reverse process is free to choose which t to visit. Deterministic samplers make the reverse an ODE whose discretisation error concentrates where the score changes fastest, so a schedule matching step density to that curvature reaches the same quality in a fraction of the evaluations."
+  },
+  "emphasis": {
+    "intuition": "most are wasted on levels where nothing changes",
+    "engineer": "the same trained weights produce different quality under different samplers"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "steps_at_high_noise": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "steps_at_high_noise",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Sampling steps spent at high noise against steps spent near the end, in steps. Drag the allocation up to watch composition get the budget and detail lose it — the total is yours to divide, and dividing it evenly is a choice."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "diffusion-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "classifier-free-guidance",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2006.11239",
+      "title": "Denoising Diffusion Probabilistic Models",
+      "url": "https://arxiv.org/abs/2006.11239"
+    },
+    {
+      "ref": "arXiv:2011.13456",
+      "title": "Score-Based Generative Modeling through Stochastic Differential Equations",
+      "url": "https://arxiv.org/abs/2011.13456"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

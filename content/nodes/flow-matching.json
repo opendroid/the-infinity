@@ -1,0 +1,58 @@
+{
+  "id": "flow-matching",
+  "title": "Flow Matching",
+  "domain": [
+    "Generative",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "Diffusion learns to undo noise step by step. Flow matching asks a simpler question: what velocity field carries the simple distribution to the data one, in a straight line if possible? Train a network to predict that velocity, then integrate it. Straighter paths mean fewer integration steps, which is most of why newer image and video models sample so much faster.",
+    "engineer": "The objective is a plain regression onto a target velocity, with no noise schedule to tune and no variational bound to derive — which is why it has largely displaced the diffusion formulation in new work even though the two are closely related. Path straightness is the design variable: an optimal-transport-shaped path needs far fewer function evaluations at sampling time than a curved one.",
+    "math": "Regress v_θ(x_t, t) onto the conditional velocity of a chosen probability path. With the linear path x_t = (1−t)x_0 + t·x_1 the target is simply x_1 − x_0, constant along the path — so sampling is integrating an ODE rather than simulating an SDE, and a straight path is exactly integrable in one step."
+  },
+  "emphasis": {
+    "intuition": "Straighter paths mean fewer integration steps",
+    "engineer": "Path straightness is the design variable"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "sampling_steps": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "sampling_steps",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Function evaluations spent integrating the path against the single evaluation a perfectly straight path would need, in evaluations. Drag the steps up to watch the cost of curvature — straightening the path is how it comes back down."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "score-matching",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "diffusion-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2210.02747",
+      "title": "Flow Matching for Generative Modeling",
+      "url": "https://arxiv.org/abs/2210.02747"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
