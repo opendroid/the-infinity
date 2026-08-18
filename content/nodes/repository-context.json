@@ -1,0 +1,67 @@
+{
+  "id": "repository-context",
+  "title": "Repository Context",
+  "domain": [
+    "Code",
+    "Context"
+  ],
+  "bodies": {
+    "intuition": "The function you are writing depends on types defined in another file, a helper three directories away, and a convention nobody wrote down but every file follows. A model shown only the current file is missing most of what it needs, and the difference between a completion that compiles and one that invents a plausible-looking method is usually somewhere else in the repository.",
+    "engineer": "Nobody fits a repository into a context window, so the work is selection: which files to pull in, and in what order. Retrieval by textual similarity is the baseline and is beaten by anything that uses structure — imports, call graph, the file the cursor's symbol is defined in. Repository-level benchmarks exist because file-level ones were saturating while the tools were still visibly failing at the thing people used them for.",
+    "math": "The share of a repository that fits in context falls as the repository grows and the window does not, and repositories grow faster. A medium project is already millions of tokens against a window of hundreds of thousands, so the fraction visible at once is a few percent and shrinking — which means selection quality, not window size, is what a completion depends on. Doubling the window moves a few percent to a few more percent."
+  },
+  "emphasis": {
+    "intuition": "the difference between a completion that compiles and one that invents a plausible-looking method is usually somewhere else in the repository",
+    "math": "selection quality, not window size, is what a completion depends on"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "excluded_tokens": 20,
+      "share_rest": 32
+    },
+    "param_controls": [
+      {
+        "name": "excluded_tokens",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Repository tokens that will not fit in the context window, against the ones that will, in tens of thousands. Drag the repository size up to watch almost all of it fall outside — which is why what gets selected matters more than how large the window is."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "code-search",
+        "reviewed": false
+      },
+      {
+        "id": "retrieval-augmented-generation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2306.03091",
+      "title": "RepoBench: Benchmarking Repository-Level Code Auto-Completion Systems",
+      "url": "https://arxiv.org/abs/2306.03091"
+    },
+    {
+      "ref": "arXiv:2305.06161",
+      "title": "StarCoder: may the source be with you!",
+      "url": "https://arxiv.org/abs/2305.06161"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

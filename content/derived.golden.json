@@ -347,6 +347,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "agentic-coding",
+            "title": "Agentic Coding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "benchmark-contamination",
             "title": "Benchmark Contamination",
             "tier": "verified",
@@ -405,6 +411,37 @@
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "agentic-coding",
+      "title": "Agentic Coding",
+      "domain": "Code / Agents",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "long-horizon-agent",
+            "title": "Long-Horizon Agent",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "agent-evaluation",
+            "title": "Agent Evaluation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "execution-verification",
+            "title": "Execution Verification",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -477,7 +514,7 @@
           {
             "id": "evaluation-disaggregation",
             "title": "Evaluation Disaggregation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -509,7 +546,7 @@
           {
             "id": "representation-bias",
             "title": "Representation Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1223,13 +1260,13 @@
       "id": "bias-mitigation",
       "title": "Bias Mitigation",
       "domain": "Fairness / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "fairness-criteria",
             "title": "Fairness Criteria",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1238,13 +1275,13 @@
           {
             "id": "evaluation-disaggregation",
             "title": "Evaluation Disaggregation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "representation-bias",
             "title": "Representation Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1362,7 +1399,7 @@
           {
             "id": "fairness-criteria",
             "title": "Fairness Criteria",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1394,7 +1431,7 @@
           {
             "id": "impossibility-result",
             "title": "Impossibility Result",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1669,6 +1706,12 @@
             "reviewed": false
           },
           {
+            "id": "fill-in-the-middle",
+            "title": "Fill in the Middle",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "kv-cache",
             "title": "KV Cache",
             "tier": "verified",
@@ -1888,6 +1931,68 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "code-generation",
+      "title": "Code Generation",
+      "domain": "Code / Generation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pass-at-k",
+            "title": "pass@k",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "execution-verification",
+            "title": "Execution Verification",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "fill-in-the-middle",
+            "title": "Fill in the Middle",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "code-search",
+      "title": "Code Search",
+      "domain": "Code / Retrieval",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "dense-retrieval",
+            "title": "Dense Retrieval",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "repository-context",
+            "title": "Repository Context",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "sparse-retrieval",
+            "title": "Sparse Retrieval",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2249,7 +2354,7 @@
           {
             "id": "proxy-variable",
             "title": "Proxy Variable",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2418,6 +2523,12 @@
             "id": "in-context-learning",
             "title": "In-Context Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "repository-context",
+            "title": "Repository Context",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -3029,7 +3140,7 @@
           {
             "id": "representation-bias",
             "title": "Representation Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3427,6 +3538,12 @@
             "reviewed": false
           },
           {
+            "id": "code-search",
+            "title": "Code Search",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "hybrid-search",
             "title": "Hybrid Search",
             "tier": "verified",
@@ -3687,13 +3804,13 @@
       "id": "disparate-impact",
       "title": "Disparate Impact",
       "domain": "Fairness / Criteria",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "fairness-criteria",
             "title": "Fairness Criteria",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3702,7 +3819,7 @@
           {
             "id": "proxy-variable",
             "title": "Proxy Variable",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4193,7 +4310,7 @@
       "id": "evaluation-disaggregation",
       "title": "Evaluation Disaggregation",
       "domain": "Fairness / Measurement",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4208,19 +4325,19 @@
           {
             "id": "bias-mitigation",
             "title": "Bias Mitigation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "group-vs-individual-fairness",
             "title": "Group vs Individual Fairness",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "representation-bias",
             "title": "Representation Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4280,6 +4397,12 @@
         ],
         "unlocks": [
           {
+            "id": "execution-verification",
+            "title": "Execution Verification",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "long-horizon-agent",
             "title": "Long-Horizon Agent",
             "tier": "verified",
@@ -4296,6 +4419,62 @@
           {
             "id": "react",
             "title": "ReAct",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "execution-verification",
+      "title": "Execution Verification",
+      "domain": "Code / Verification",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "execution-feedback",
+            "title": "Execution Feedback",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "program-repair",
+            "title": "Program Repair",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "test-generation",
+            "title": "Test Generation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "agentic-coding",
+            "title": "Agentic Coding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "code-generation",
+            "title": "Code Generation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "pass-at-k",
+            "title": "pass@k",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sandboxing",
+            "title": "Sandboxing",
             "tier": "verified",
             "reviewed": false
           }
@@ -4443,7 +4622,7 @@
       "id": "fairness-criteria",
       "title": "Fairness Criteria",
       "domain": "Fairness / Criteria",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4457,25 +4636,25 @@
           {
             "id": "bias-mitigation",
             "title": "Bias Mitigation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "disparate-impact",
             "title": "Disparate Impact",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "group-vs-individual-fairness",
             "title": "Group vs Individual Fairness",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "impossibility-result",
             "title": "Impossibility Result",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4708,6 +4887,37 @@
             "id": "in-context-learning",
             "title": "In-Context Learning",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "fill-in-the-middle",
+      "title": "Fill in the Middle",
+      "domain": "Code / Generation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-masking",
+            "title": "Causal Masking",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "code-generation",
+            "title": "Code Generation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "repository-context",
+            "title": "Repository Context",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -5511,13 +5721,13 @@
       "id": "group-vs-individual-fairness",
       "title": "Group vs Individual Fairness",
       "domain": "Fairness / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "fairness-criteria",
             "title": "Fairness Criteria",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5526,7 +5736,7 @@
           {
             "id": "evaluation-disaggregation",
             "title": "Evaluation Disaggregation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5790,13 +6000,13 @@
       "id": "impossibility-result",
       "title": "Impossibility Result",
       "domain": "Fairness / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "fairness-criteria",
             "title": "Fairness Criteria",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6930,6 +7140,12 @@
             "id": "agent-evaluation",
             "title": "Agent Evaluation",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "agentic-coding",
+            "title": "Agentic Coding",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -9022,12 +9238,25 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "code-generation",
+            "title": "Code Generation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "agent-evaluation",
             "title": "Agent Evaluation",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "execution-verification",
+            "title": "Execution Verification",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -9554,6 +9783,37 @@
       }
     },
     {
+      "id": "program-repair",
+      "title": "Program Repair",
+      "domain": "Code / Verification",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "execution-verification",
+            "title": "Execution Verification",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "reward-hacking",
+            "title": "Reward Hacking",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "test-generation",
+            "title": "Test Generation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "prompt-injection",
       "title": "Prompt Injection",
       "domain": "Agents / Safety",
@@ -9762,7 +10022,7 @@
       "id": "proxy-variable",
       "title": "Proxy Variable",
       "domain": "Fairness / Data",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9777,7 +10037,7 @@
           {
             "id": "disparate-impact",
             "title": "Disparate Impact",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10151,10 +10411,47 @@
       }
     },
     {
+      "id": "repository-context",
+      "title": "Repository Context",
+      "domain": "Code / Context",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "code-search",
+            "title": "Code Search",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "fill-in-the-middle",
+            "title": "Fill in the Middle",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "retrieval-augmented-generation",
+            "title": "Retrieval-Augmented Generation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "representation-bias",
       "title": "Representation Bias",
       "domain": "Fairness / Data",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10175,13 +10472,13 @@
           {
             "id": "bias-mitigation",
             "title": "Bias Mitigation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "evaluation-disaggregation",
             "title": "Evaluation Disaggregation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10307,6 +10604,12 @@
             "title": "In-Context Learning",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "repository-context",
+            "title": "Repository Context",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -10337,6 +10640,12 @@
             "id": "intervention",
             "title": "Intervention",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "program-repair",
+            "title": "Program Repair",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -10703,6 +11012,12 @@
             "id": "computer-use",
             "title": "Computer Use",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "execution-verification",
+            "title": "Execution Verification",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -11515,6 +11830,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "code-search",
+            "title": "Code Search",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
@@ -12422,6 +12743,31 @@
       }
     },
     {
+      "id": "test-generation",
+      "title": "Test Generation",
+      "domain": "Code / Verification",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "execution-verification",
+            "title": "Execution Verification",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "program-repair",
+            "title": "Program Repair",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "text-to-speech",
       "title": "Text to Speech",
       "domain": "Speech / Synthesis",
@@ -12717,7 +13063,7 @@
           {
             "id": "fairness-criteria",
             "title": "Fairness Criteria",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -14252,32 +14598,39 @@
           "y": 66
         },
         {
+          "id": "agentic-coding",
+          "title": "Agentic Coding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 22
+        },
+        {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 48,
-          "y": 22
+          "x": 80,
+          "y": 110
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "offline-online-gap",
           "title": "Offline-Online Gap",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "pass-at-k",
           "title": "pass@k",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -14285,6 +14638,12 @@
           "from": "long-horizon-agent",
           "to": "agent-evaluation",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "agent-evaluation",
+          "to": "agentic-coding",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -14374,6 +14733,59 @@
         {
           "from": "agent-memory",
           "to": "retrieval-augmented-generation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "agentic-coding",
+      "center": {
+        "id": "agentic-coding",
+        "title": "Agentic Coding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "long-horizon-agent",
+          "title": "Long-Horizon Agent",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "agent-evaluation",
+          "title": "Agent Evaluation",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "execution-verification",
+          "title": "Execution Verification",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "long-horizon-agent",
+          "to": "agentic-coding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "agentic-coding",
+          "to": "agent-evaluation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "agentic-coding",
+          "to": "execution-verification",
           "type": "adjacent",
           "reviewed": false
         }
@@ -14479,7 +14891,7 @@
         {
           "id": "evaluation-disaggregation",
           "title": "Evaluation Disaggregation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -14514,7 +14926,7 @@
         {
           "id": "representation-bias",
           "title": "Representation Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 150,
           "y": 22
         },
@@ -15871,7 +16283,7 @@
       "center": {
         "id": "bias-mitigation",
         "title": "Bias Mitigation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15879,21 +16291,21 @@
         {
           "id": "fairness-criteria",
           "title": "Fairness Criteria",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "evaluation-disaggregation",
           "title": "Evaluation Disaggregation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "representation-bias",
           "title": "Representation Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -16104,7 +16516,7 @@
         {
           "id": "fairness-criteria",
           "title": "Fairness Criteria",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -16139,7 +16551,7 @@
         {
           "id": "impossibility-result",
           "title": "Impossibility Result",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 87,
           "y": 110
         },
@@ -16651,28 +17063,35 @@
           "title": "Attention Sink",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 22
         },
         {
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 44
         },
         {
           "id": "decoder-only-transformer",
           "title": "Decoder-Only Transformer",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 66
+        },
+        {
+          "id": "fill-in-the-middle",
+          "title": "Fill in the Middle",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "kv-cache",
           "title": "KV Cache",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         },
         {
           "id": "dilated-convolution",
@@ -16711,6 +17130,12 @@
         {
           "from": "causal-masking",
           "to": "decoder-only-transformer",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-masking",
+          "to": "fill-in-the-middle",
           "type": "unlocks",
           "reviewed": false
         },
@@ -17074,6 +17499,112 @@
           "from": "clip",
           "to": "vision-language-model",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "code-generation",
+      "center": {
+        "id": "code-generation",
+        "title": "Code Generation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pass-at-k",
+          "title": "pass@k",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "execution-verification",
+          "title": "Execution Verification",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "fill-in-the-middle",
+          "title": "Fill in the Middle",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "pass-at-k",
+          "to": "code-generation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "code-generation",
+          "to": "execution-verification",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "code-generation",
+          "to": "fill-in-the-middle",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "code-search",
+      "center": {
+        "id": "code-search",
+        "title": "Code Search",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "dense-retrieval",
+          "title": "Dense Retrieval",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "repository-context",
+          "title": "Repository Context",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "sparse-retrieval",
+          "title": "Sparse Retrieval",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "dense-retrieval",
+          "to": "code-search",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "code-search",
+          "to": "repository-context",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "code-search",
+          "to": "sparse-retrieval",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -17687,7 +18218,7 @@
         {
           "id": "proxy-variable",
           "title": "Proxy Variable",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -17967,14 +18498,21 @@
           "title": "Agent Memory",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "repository-context",
+          "title": "Repository Context",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "grounding",
@@ -18034,6 +18572,12 @@
         {
           "from": "context-window",
           "to": "in-context-learning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "repository-context",
           "type": "unlocks",
           "reviewed": false
         },
@@ -19097,7 +19641,7 @@
         {
           "id": "representation-bias",
           "title": "Representation Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -19828,28 +20372,35 @@
           "title": "Approximate Nearest Neighbor",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 22
+        },
+        {
+          "id": "code-search",
+          "title": "Code Search",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
         },
         {
           "id": "hybrid-search",
           "title": "Hybrid Search",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 66
         },
         {
           "id": "reranking",
           "title": "Reranking",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "two-tower-retrieval",
           "title": "Two-Tower Retrieval",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         },
         {
           "id": "collaborative-filtering",
@@ -19890,6 +20441,12 @@
         {
           "from": "dense-retrieval",
           "to": "approximate-nearest-neighbor",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "dense-retrieval",
+          "to": "code-search",
           "type": "unlocks",
           "reviewed": false
         },
@@ -20324,7 +20881,7 @@
       "center": {
         "id": "disparate-impact",
         "title": "Disparate Impact",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -20332,14 +20889,14 @@
         {
           "id": "fairness-criteria",
           "title": "Fairness Criteria",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "proxy-variable",
           "title": "Proxy Variable",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -21234,7 +21791,7 @@
       "center": {
         "id": "evaluation-disaggregation",
         "title": "Evaluation Disaggregation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -21249,21 +21806,21 @@
         {
           "id": "bias-mitigation",
           "title": "Bias Mitigation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
         {
           "id": "group-vs-individual-fairness",
           "title": "Group vs Individual Fairness",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
         {
           "id": "representation-bias",
           "title": "Representation Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -21379,11 +21936,18 @@
           "y": 66
         },
         {
+          "id": "execution-verification",
+          "title": "Execution Verification",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "long-horizon-agent",
           "title": "Long-Horizon Agent",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "agent-memory",
@@ -21409,6 +21973,12 @@
         },
         {
           "from": "execution-feedback",
+          "to": "execution-verification",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "execution-feedback",
           "to": "long-horizon-agent",
           "type": "unlocks",
           "reviewed": false
@@ -21422,6 +21992,111 @@
         {
           "from": "execution-feedback",
           "to": "react",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "execution-verification",
+      "center": {
+        "id": "execution-verification",
+        "title": "Execution Verification",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "execution-feedback",
+          "title": "Execution Feedback",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "program-repair",
+          "title": "Program Repair",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "test-generation",
+          "title": "Test Generation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "agentic-coding",
+          "title": "Agentic Coding",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
+          "id": "code-generation",
+          "title": "Code Generation",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
+        },
+        {
+          "id": "pass-at-k",
+          "title": "pass@k",
+          "tier": "verified",
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "sandboxing",
+          "title": "Sandboxing",
+          "tier": "verified",
+          "x": 192,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "execution-feedback",
+          "to": "execution-verification",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "execution-verification",
+          "to": "program-repair",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "execution-verification",
+          "to": "test-generation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "execution-verification",
+          "to": "agentic-coding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "execution-verification",
+          "to": "code-generation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "execution-verification",
+          "to": "pass-at-k",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "execution-verification",
+          "to": "sandboxing",
           "type": "adjacent",
           "reviewed": false
         }
@@ -21670,7 +22345,7 @@
       "center": {
         "id": "fairness-criteria",
         "title": "Fairness Criteria",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -21685,28 +22360,28 @@
         {
           "id": "bias-mitigation",
           "title": "Bias Mitigation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
         {
           "id": "disparate-impact",
           "title": "Disparate Impact",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
         {
           "id": "group-vs-individual-fairness",
           "title": "Group vs Individual Fairness",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
         {
           "id": "impossibility-result",
           "title": "Impossibility Result",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -22148,6 +22823,59 @@
         {
           "from": "few-shot-learning",
           "to": "in-context-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "fill-in-the-middle",
+      "center": {
+        "id": "fill-in-the-middle",
+        "title": "Fill in the Middle",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-masking",
+          "title": "Causal Masking",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "code-generation",
+          "title": "Code Generation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "repository-context",
+          "title": "Repository Context",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-masking",
+          "to": "fill-in-the-middle",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "fill-in-the-middle",
+          "to": "code-generation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "fill-in-the-middle",
+          "to": "repository-context",
           "type": "adjacent",
           "reviewed": false
         }
@@ -23594,7 +24322,7 @@
       "center": {
         "id": "group-vs-individual-fairness",
         "title": "Group vs Individual Fairness",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -23602,14 +24330,14 @@
         {
           "id": "fairness-criteria",
           "title": "Fairness Criteria",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "evaluation-disaggregation",
           "title": "Evaluation Disaggregation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -24083,7 +24811,7 @@
       "center": {
         "id": "impossibility-result",
         "title": "Impossibility Result",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -24091,7 +24819,7 @@
         {
           "id": "fairness-criteria",
           "title": "Fairness Criteria",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -26117,7 +26845,14 @@
           "title": "Agent Evaluation",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "agentic-coding",
+          "title": "Agentic Coding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "action-chunking",
@@ -26151,6 +26886,12 @@
         {
           "from": "long-horizon-agent",
           "to": "agent-evaluation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "long-horizon-agent",
+          "to": "agentic-coding",
           "type": "unlocks",
           "reviewed": false
         },
@@ -29822,11 +30563,25 @@
           "y": 66
         },
         {
+          "id": "code-generation",
+          "title": "Code Generation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "execution-verification",
+          "title": "Execution Verification",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -29838,7 +30593,19 @@
         },
         {
           "from": "pass-at-k",
+          "to": "code-generation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pass-at-k",
           "to": "agent-evaluation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "pass-at-k",
+          "to": "execution-verification",
           "type": "adjacent",
           "reviewed": false
         }
@@ -30793,6 +31560,59 @@
       ]
     },
     {
+      "id": "program-repair",
+      "center": {
+        "id": "program-repair",
+        "title": "Program Repair",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "execution-verification",
+          "title": "Execution Verification",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "reward-hacking",
+          "title": "Reward Hacking",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "test-generation",
+          "title": "Test Generation",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "execution-verification",
+          "to": "program-repair",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "program-repair",
+          "to": "reward-hacking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "program-repair",
+          "to": "test-generation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "prompt-injection",
       "center": {
         "id": "prompt-injection",
@@ -31154,7 +31974,7 @@
       "center": {
         "id": "proxy-variable",
         "title": "Proxy Variable",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31169,7 +31989,7 @@
         {
           "id": "disparate-impact",
           "title": "Disparate Impact",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -31837,11 +32657,77 @@
       ]
     },
     {
+      "id": "repository-context",
+      "center": {
+        "id": "repository-context",
+        "title": "Repository Context",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "code-search",
+          "title": "Code Search",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "fill-in-the-middle",
+          "title": "Fill in the Middle",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "retrieval-augmented-generation",
+          "title": "Retrieval-Augmented Generation",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "context-window",
+          "to": "repository-context",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "repository-context",
+          "to": "code-search",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "repository-context",
+          "to": "fill-in-the-middle",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "repository-context",
+          "to": "retrieval-augmented-generation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "representation-bias",
       "center": {
         "id": "representation-bias",
         "title": "Representation Bias",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31863,14 +32749,14 @@
         {
           "id": "bias-mitigation",
           "title": "Bias Mitigation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
         {
           "id": "evaluation-disaggregation",
           "title": "Evaluation Disaggregation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -32082,15 +32968,22 @@
           "id": "agent-memory",
           "title": "Agent Memory",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "repository-context",
+          "title": "Repository Context",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -32123,6 +33016,12 @@
           "to": "in-context-learning",
           "type": "adjacent",
           "reviewed": false
+        },
+        {
+          "from": "retrieval-augmented-generation",
+          "to": "repository-context",
+          "type": "adjacent",
+          "reviewed": false
         }
       ]
     },
@@ -32147,22 +33046,29 @@
           "id": "feedback-loop",
           "title": "Feedback Loop",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "intervention",
           "title": "Intervention",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "program-repair",
+          "title": "Program Repair",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -32181,6 +33087,12 @@
         {
           "from": "reward-hacking",
           "to": "intervention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "reward-hacking",
+          "to": "program-repair",
           "type": "adjacent",
           "reviewed": false
         },
@@ -32801,29 +33713,36 @@
           "id": "computer-use",
           "title": "Computer Use",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
+        },
+        {
+          "id": "execution-verification",
+          "title": "Execution Verification",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
         },
         {
           "id": "jailbreak",
           "title": "Jailbreak",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "prompt-injection",
           "title": "Prompt Injection",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "safety-envelope",
           "title": "Safety Envelope",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -32842,6 +33761,12 @@
         {
           "from": "sandboxing",
           "to": "computer-use",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sandboxing",
+          "to": "execution-verification",
           "type": "adjacent",
           "reviewed": false
         },
@@ -34255,11 +35180,18 @@
           "y": 66
         },
         {
+          "id": "code-search",
+          "title": "Code Search",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "dense-retrieval",
           "title": "Dense Retrieval",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -34267,6 +35199,12 @@
           "from": "sparse-retrieval",
           "to": "hybrid-search",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "sparse-retrieval",
+          "to": "code-search",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -35874,6 +36812,46 @@
       ]
     },
     {
+      "id": "test-generation",
+      "center": {
+        "id": "test-generation",
+        "title": "Test Generation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "execution-verification",
+          "title": "Execution Verification",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "program-repair",
+          "title": "Program Repair",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "execution-verification",
+          "to": "test-generation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "test-generation",
+          "to": "program-repair",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "text-to-speech",
       "center": {
         "id": "text-to-speech",
@@ -36400,7 +37378,7 @@
         {
           "id": "fairness-criteria",
           "title": "Fairness Criteria",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },

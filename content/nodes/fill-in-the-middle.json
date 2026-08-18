@@ -1,0 +1,63 @@
+{
+  "id": "fill-in-the-middle",
+  "title": "Fill in the Middle",
+  "domain": [
+    "Code",
+    "Generation"
+  ],
+  "bodies": {
+    "intuition": "Real editing almost never happens at the end of a file. The cursor sits in the middle, with code above it and code below, and a left-to-right model can only see one of those. Fill-in-the-middle is the training change that lets a model condition on both — and it is what makes autocomplete inside an existing file work at all.",
+    "engineer": "The transformation is disarmingly simple: take a fraction of training documents, cut them into prefix, middle and suffix, and reorder them so the middle comes last with the prefix and suffix as context. The model learns the new arrangement from sentinel tokens. Nothing about the architecture changes — the same causal model, trained on documents that have been rearranged, acquires an ability the architecture appeared to forbid.",
+    "math": "The result that made it standard is that the ability is close to free. Applying the transformation to a large share of documents leaves left-to-right performance essentially unchanged while adding infilling outright, so the trade a reader would expect — capacity spent here comes from there — does not show up at the rates people actually use. It has to bind eventually, because the model has finite capacity and the rearranged documents are a different distribution; the finding is that the binding point is above where anyone needs to be."
+  },
+  "emphasis": {
+    "engineer": "acquires an ability the architecture appeared to forbid",
+    "math": "the binding point is above where anyone needs to be"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "fim_documents": 10,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "fim_documents",
+        "min": 0,
+        "max": 300,
+        "step": 10
+      }
+    ],
+    "caption": "Training documents rearranged into prefix–suffix–middle order, against the ones left in reading order, in documents. Drag the rate up to watch infilling take the corpus — and note the reported result, which is that left-to-right ability holds at the rates people actually use."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "causal-masking",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "repository-context",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2207.14255",
+      "title": "Efficient Training of Language Models to Fill in the Middle",
+      "url": "https://arxiv.org/abs/2207.14255"
+    },
+    {
+      "ref": "arXiv:2308.12950",
+      "title": "Code Llama: Open Foundation Models for Code",
+      "url": "https://arxiv.org/abs/2308.12950"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

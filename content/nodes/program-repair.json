@@ -1,0 +1,63 @@
+{
+  "id": "program-repair",
+  "title": "Program Repair",
+  "domain": [
+    "Code",
+    "Verification"
+  ],
+  "bodies": {
+    "intuition": "Given code that fails a test, produce code that passes it. It is the most commercially useful shape of the coding problem, because a failing test is a real signal that arrives for free from CI — and it is the shape with the sharpest known failure mode, which is producing a patch that satisfies the test and is nonetheless wrong.",
+    "engineer": "The literature calls it overfitting to the test, and it is not exotic: deleting the assertion passes the test, and so does special-casing the input the test uses. Search-based repair found these constantly, and a language model asked to make a test pass will find them too, faster. What separates a usable system is what else it checks — the rest of the suite, whether the patch is minimal, whether it touches code the failure implicates.",
+    "math": "The risk scales with how weak the failing test is relative to the specification. A patch is accepted if it passes; among the patches that pass, the share that are actually correct is set by how much of the intended behaviour the suite pins down, and that share falls as the suite gets thinner. So a repair system evaluated only on the test it was given reports a number that improves as the tests get worse, which is exactly the wrong direction for a metric to move."
+  },
+  "emphasis": {
+    "engineer": "deleting the assertion passes the test",
+    "math": "reports a number that improves as the tests get worse"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "overfitted_patches": 6,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "overfitted_patches",
+        "min": 0,
+        "max": 180,
+        "step": 10
+      }
+    ],
+    "caption": "Patches that pass the failing test while being wrong, against patches that are genuinely correct, in patches. Drag the suite's weakness up to watch the wrong ones take over — a repair system scored on the test it was handed gets a better number as the tests get worse."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "execution-verification",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "reward-hacking",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "url": "https://arxiv.org/abs/2310.06770"
+    },
+    {
+      "ref": "arXiv:2102.04664",
+      "title": "CodeXGLUE: A Machine Learning Benchmark Dataset for Code Understanding and Generation",
+      "url": "https://arxiv.org/abs/2102.04664"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

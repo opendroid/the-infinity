@@ -1,0 +1,63 @@
+{
+  "id": "test-generation",
+  "title": "Test Generation",
+  "domain": [
+    "Code",
+    "Verification"
+  ],
+  "bodies": {
+    "intuition": "If execution is how code gets verified, then tests are the bottleneck — and writing them is exactly the tedious work people want a model for. The circularity is obvious and worth stating: a model that misunderstands the specification writes tests that encode the misunderstanding, and then the wrong code passes them confidently.",
+    "engineer": "The trick that makes it useful anyway is agreement rather than trust. Generate many programs and many tests independently, run every program against every test, and prefer the programs that agree with the most tests and the tests that agree with the most programs. Neither side is trusted individually; the consensus is the signal, and it works because independent errors rarely agree while correct implementations always do.",
+    "math": "What a generated suite buys is coverage, and coverage saturates against the behaviours that matter. Each new test adds less than the last because the easy paths are exercised first and the interesting inputs — empty, enormous, adversarial, concurrent — are exactly the ones a model generating typical cases does not think of. So the curve rises steeply and then flattens well below the specification, and the remaining gap is not closed by generating more of the same."
+  },
+  "emphasis": {
+    "intuition": "a model that misunderstands the specification writes tests that encode the misunderstanding",
+    "engineer": "independent errors rarely agree while correct implementations always do"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "generated_tests": 4,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "generated_tests",
+        "min": 0,
+        "max": 260,
+        "step": 10
+      }
+    ],
+    "caption": "Behaviours a generated suite exercises, against the ones it never reaches, in behaviours. Drag the test count up to watch coverage saturate below the specification — the inputs left over are the empty, enormous and adversarial ones a model writing typical cases does not think of."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "execution-verification",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "program-repair",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2207.10397",
+      "title": "CodeT: Code Generation with Generated Tests",
+      "url": "https://arxiv.org/abs/2207.10397"
+    },
+    {
+      "ref": "arXiv:2108.07732",
+      "title": "Program Synthesis with Large Language Models",
+      "url": "https://arxiv.org/abs/2108.07732"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

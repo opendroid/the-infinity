@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "disparate-impact",
+      "id": "code-generation",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "fairness-criteria",
+      "id": "program-repair",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "representation-bias",
+      "id": "agentic-coding",
       "t": 0.8,
       "label": true
     }

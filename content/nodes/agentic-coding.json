@@ -1,0 +1,67 @@
+{
+  "id": "agentic-coding",
+  "title": "Agentic Coding",
+  "domain": [
+    "Code",
+    "Agents"
+  ],
+  "bodies": {
+    "intuition": "Not a function from a description, but a task in a repository: read the issue, find the files, make the change, run the tests, fix what broke. The unit of work is a session rather than a completion, and what limits it is not whether the model can write the line — it usually can — but whether it can take fifty correct actions in a row.",
+    "engineer": "The finding that reframed this work is that the interface matters as much as the model. The same model, given tools designed for it — a file viewer that pages, an edit command that validates syntax before committing, concise error output — succeeds far more often than one driving a raw shell. That is an argument about the environment, and it connects this to `long-horizon-agent`'s problem rather than restating it: the horizon is long because the interface makes each step expensive, not only because the task is.",
+    "math": "Success compounds multiplicatively, which is what makes long tasks hard out of proportion to their length. At 98% per action a fifty-action trajectory completes about a third of the time; at 95% it is under a tenth. So the lever with the most leverage is per-step reliability rather than model capability in the usual sense — and it is also why recovery matters more than accuracy, since an agent that notices and retries turns a failed step into a longer trajectory instead of a failed one."
+  },
+  "emphasis": {
+    "intuition": "whether it can take fifty correct actions in a row",
+    "math": "recovery matters more than accuracy"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "failed_trajectories": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "failed_trajectories",
+        "min": 0,
+        "max": 240,
+        "step": 10
+      }
+    ],
+    "caption": "Trajectories that fail at some step, against the ones that complete, in trajectories. Drag the task length up to watch failure take almost all of them — at 95% per action, fifty actions complete under a tenth of the time, which is why per-step reliability beats capability."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "long-horizon-agent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "agent-evaluation",
+        "reviewed": false
+      },
+      {
+        "id": "execution-verification",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2405.15793",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "url": "https://arxiv.org/abs/2405.15793"
+    },
+    {
+      "ref": "arXiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "url": "https://arxiv.org/abs/2310.06770"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
