@@ -1,0 +1,69 @@
+{
+  "id": "regularization",
+  "title": "Regularization",
+  "domain": [
+    "Optimization",
+    "Regularization"
+  ],
+  "bodies": {
+    "intuition": "Anything you do to a model to stop it memorising the training set. Weight decay, dropout, early stopping, data augmentation and label smoothing are all the same move in different clothes — deliberately making the training objective harder to satisfy, so that the easy way out stops being available.",
+    "engineer": "The unifying description is that each one removes capacity the model could otherwise spend on the training set specifically. That is also why the classical story of it as a capacity limit is incomplete: a large network can fit pure noise, so it plainly has capacity to spare, and it still generalises when trained on real data. Whatever regularisation is doing is therefore about which solution the optimiser lands on rather than about which solutions exist, and the implicit regularisation of the optimiser itself is often the larger term.",
+    "math": "Every explicit form buys the same thing: some training-set fit is given up in exchange for a smaller gap between training and held-out error. So the training loss is guaranteed to get WORSE and the quantity of interest is not visible on it at all — a regularised run underperforming an unregularised one on training loss is the method working, not failing. The only place the trade can be read is the held-out curve, which is why tuning any of these on training loss silently selects for no regularisation."
+  },
+  "emphasis": {
+    "intuition": "the same move in different clothes",
+    "math": "tuning any of these on training loss silently selects for no regularisation"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 4000,
+      "lr": 0.003,
+      "batch": 64,
+      "holdout": 0.3
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Training loss against the same run measured on data it did not train on, dashed. Drag the holdout up to watch the gap open — regularisation is judged on that gap and never on the solid line, which is why tuning it on training loss picks the unregularised run every time."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      },
+      {
+        "id": "dropout",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1611.03530",
+      "title": "Understanding deep learning requires rethinking generalization",
+      "url": "https://arxiv.org/abs/1611.03530"
+    },
+    {
+      "ref": "arXiv:1711.05101",
+      "title": "Decoupled Weight Decay Regularization",
+      "url": "https://arxiv.org/abs/1711.05101"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "precision-and-recall",
+  "title": "Precision and Recall",
+  "domain": [
+    "Evaluation",
+    "Metrics"
+  ],
+  "bodies": {
+    "intuition": "Two questions about the same detector that pull against each other. Of the things it flagged, how many should have been? That is precision. Of the things that should have been flagged, how many were? That is recall. Reporting one alone is how a useless system looks good — flag everything and recall is perfect, flag one certain case and precision is.",
+    "engineer": "F1 is their harmonic mean, and the harmonic part is doing work: it is dragged down by whichever is worse, so a system cannot buy a good score by maximising one and abandoning the other. What a single F1 still hides is that the right balance is a property of the application rather than of the model — a spam filter and a cancer screen want opposite ends of the same curve, and no one number can encode which end you are at.",
+    "math": "Precision depends on the base rate and recall does not, which is the asymmetry behind most surprised readers. Take a detector with 99% recall and a 1% false-positive rate, and run it on a population where 1 in 1000 is positive: per 10000 items it catches about 10 real cases and raises about 100 false alarms, so precision lands near 9%. Nothing about the detector changed — the prevalence did. A precision figure quoted without the base rate it was measured at is not a statement about the detector at all."
+  },
+  "emphasis": {
+    "intuition": "flag everything and recall is perfect, flag one certain case and precision is",
+    "math": "A precision figure quoted without the base rate it was measured at is not a statement about the detector at all."
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 2.6,
+      "threshold": 1.0,
+      "base_rate": 0.5
+    },
+    "param_controls": [
+      {
+        "name": "base_rate",
+        "min": 0.01,
+        "max": 0.9,
+        "step": 0.01
+      }
+    ],
+    "caption": "Items that should be flagged against items that should not, by the detector's score. Drag the base rate down to watch precision collapse while the detector itself never moves — the same recall on a rarer event simply buys far more false alarms for every catch."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      },
+      {
+        "id": "selective-prediction",
+        "reviewed": false
+      },
+      {
+        "id": "statistical-significance",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1904.06991",
+      "title": "Improved Precision and Recall Metric for Assessing Generative Models",
+      "url": "https://arxiv.org/abs/1904.06991"
+    },
+    {
+      "ref": "arXiv:1706.04599",
+      "title": "On Calibration of Modern Neural Networks",
+      "url": "https://arxiv.org/abs/1706.04599"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

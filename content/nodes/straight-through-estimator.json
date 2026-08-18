@@ -1,0 +1,67 @@
+{
+  "id": "straight-through-estimator",
+  "title": "Straight-Through Estimator",
+  "domain": [
+    "Optimization",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "A discrete step — rounding, picking an index, thresholding — has a derivative of zero almost everywhere, so gradients die at it and nothing upstream learns. The straight-through trick is to use the discrete value going forward and pretend, on the way back, that the step was the identity. It is knowingly the wrong gradient, and it works.",
+    "engineer": "It is the reason quantisation-aware training and discrete latent codebooks are trainable at all, and the reason both need care. The forward and backward passes now disagree about what the function is, so the gradient is biased by exactly that disagreement — and the bias grows with how far the discretisation moves the value. That is why implementations clip the pass-through outside the quantiser's range: beyond it the pretence is indefensible and the gradient points somewhere unrelated.",
+    "math": "The honest alternative is an unbiased estimator built from sampling, and it has variance that grows with the number of discrete options. So this is a bias-variance choice and not a hack that happens to work: straight-through takes a fixed bias in exchange for the variance of a single deterministic pass, and it wins wherever that variance was the thing preventing training. It loses where the bias compounds — deep stacks of discrete steps, each one adding its own disagreement."
+  },
+  "emphasis": {
+    "intuition": "It is knowingly the wrong gradient, and it works.",
+    "math": "this is a bias-variance choice and not a hack that happens to work"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "estimator_bias": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "estimator_bias",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Bias the straight-through approximation accepts, against the variance an unbiased sampling estimator would carry instead, in equal units. Drag the bias up to watch it overtake — the trade only pays while it stays the smaller of the two, which is why stacking discrete steps is where it stops."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "backpropagation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "vector-quantization",
+        "reviewed": false
+      },
+      {
+        "id": "quantization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1308.3432",
+      "title": "Estimating or Propagating Gradients Through Stochastic Neurons for Conditional Computation",
+      "url": "https://arxiv.org/abs/1308.3432"
+    },
+    {
+      "ref": "arXiv:1711.00937",
+      "title": "Neural Discrete Representation Learning",
+      "url": "https://arxiv.org/abs/1711.00937"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

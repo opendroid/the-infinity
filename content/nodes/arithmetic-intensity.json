@@ -35,6 +35,10 @@
       {
         "id": "gpu-memory-hierarchy",
         "reviewed": false
+      },
+      {
+        "id": "flops",
+        "reviewed": false
       }
     ],
     "adjacent": [
