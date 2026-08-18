@@ -69,6 +69,18 @@ type Citation struct {
 	URL   string `firestore:"url" json:"url"`
 }
 
+// Origin is a primary source that predates arXiv and cannot be fetched
+// (ADR-0013). It deliberately has no URL field: a place to put one is a place
+// somebody eventually puts one, and then whether these get checked becomes an
+// open question again. The DOI is an identifier a reader can paste, not a link
+// this project dereferences.
+type Origin struct {
+	Ref   string `firestore:"ref" json:"ref"`
+	Title string `firestore:"title" json:"title"`
+	Venue string `firestore:"venue" json:"venue,omitempty"`
+	DOI   string `firestore:"doi" json:"doi,omitempty"`
+}
+
 type ParamControl struct {
 	Name string  `firestore:"name" json:"name"`
 	Min  float64 `firestore:"min" json:"min"`
@@ -162,6 +174,7 @@ type Concept struct {
 	Viz       Viz            `firestore:"viz" json:"viz"`
 	Edges     Edges          `firestore:"edges" json:"edges"`
 	Citations List[Citation] `firestore:"citations" json:"citations"`
+	Origin    List[Origin]   `firestore:"origin" json:"origin,omitempty"`
 	Review    *Review        `firestore:"review" json:"review"`
 	Prov      *Provenance    `firestore:"provenance" json:"provenance"`
 	UpdatedAt string         `firestore:"updated_at" json:"updated_at"`

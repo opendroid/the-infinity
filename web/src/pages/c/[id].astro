@@ -76,6 +76,29 @@ const bodies = DEPTHS.map((depth) => {
                 </li>
               ))}
             </ul>
+            {node.origin && node.origin.length > 0 && (
+              <>
+                {/*
+                  ADR-0013. Rendered as TEXT, never as links, and under a label of
+                  its own — these are sources nothing fetched. Presenting an
+                  asserted attribution in the same violet as a checked one would
+                  tell the reader the two carry the same weight, which is the
+                  single outcome that ADR exists to prevent.
+                */}
+                <p class="mt-4 font-mono text-[10px] uppercase tracking-[.16em] text-dust">
+                  Origin · not linkable
+                </p>
+                <ul class="mt-2 space-y-1.5">
+                  {node.origin.map((o) => (
+                    <li class="font-mono text-[11.5px] text-dust">
+                      {o.ref} — {o.title}
+                      {o.venue && <span> · {o.venue}</span>}
+                      {o.doi && <span> · doi:{o.doi}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
             {/*
               client:idle, not client:visible. The island renders null until it
               mounts (no JS, no buttons), so a visible-gated island has zero
@@ -100,6 +123,29 @@ const bodies = DEPTHS.map((depth) => {
                 </li>
               ))}
             </ul>
+            {node.origin && node.origin.length > 0 && (
+              <>
+                {/*
+                  ADR-0013. Rendered as TEXT, never as links, and under a label of
+                  its own — these are sources nothing fetched. Presenting an
+                  asserted attribution in the same violet as a checked one would
+                  tell the reader the two carry the same weight, which is the
+                  single outcome that ADR exists to prevent.
+                */}
+                <p class="mt-4 font-mono text-[10px] uppercase tracking-[.16em] text-dust">
+                  Origin · not linkable
+                </p>
+                <ul class="mt-2 space-y-1.5">
+                  {node.origin.map((o) => (
+                    <li class="font-mono text-[11.5px] text-dust">
+                      {o.ref} — {o.title}
+                      {o.venue && <span> · {o.venue}</span>}
+                      {o.doi && <span> · doi:{o.doi}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </section>
         )
       }

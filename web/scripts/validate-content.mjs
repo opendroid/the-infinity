@@ -104,6 +104,24 @@ export function validateContent() {
       }
     }
 
+    // ADR-0013: `origin` names a source nothing fetched, so nothing in it may
+    // look like something that was. The schema already forbids a `url` key
+    // (additionalProperties is false); this catches a link smuggled into a
+    // `ref`, `title` or `venue`, which is the shape the drift would actually
+    // take — an author with a URL in hand and nowhere the schema will accept it.
+    for (const o of node.origin ?? []) {
+      for (const [field, value] of Object.entries(o)) {
+        if (typeof value === 'string' && /https?:\/\//i.test(value)) {
+          errors.push(`origin "${o.ref}" puts a URL in ${field} — origin entries are named, not linked`);
+        }
+      }
+      // The two arrays answer different questions, so the same source appearing
+      // in both means one of them is answering the wrong one.
+      if ((node.citations ?? []).some((c) => c.ref === o.ref)) {
+        errors.push(`origin "${o.ref}" is also a citation — a source is fetchable or it is not`);
+      }
+    }
+
     if (errors.length) failures.push({ file, errors });
   }
 

@@ -85,6 +85,7 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 			Viz:       n.Viz,
 			Edges:     store.Edges{},
 			Citations: n.Citations,
+			Origin:    n.Origin,
 			Review:    n.Review,
 			Prov:      n.Prov,
 			UpdatedAt: n.UpdatedAt,

@@ -56,6 +56,14 @@
       "url": "https://arxiv.org/abs/cs/9605103"
     }
   ],
+  "origin": [
+    {
+      "ref": "Watkins & Dayan 1992",
+      "title": "Q-learning",
+      "venue": "Machine Learning 8(3)",
+      "doi": "10.1007/BF00992698"
+    }
+  ],
   "updated_at": "2026-08-17",
   "review": {
     "reviewed_by": "opendroid",
