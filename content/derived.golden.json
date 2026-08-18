@@ -4,7 +4,7 @@
     {
       "id": "ablation",
       "title": "Ablation",
-      "domain": "Evaluation / Method",
+      "domain": "Evaluation / Methods",
       "tier": "frontier",
       "edges": {
         "requires": [
@@ -5560,7 +5560,7 @@
     {
       "id": "elo-rating",
       "title": "Elo Rating",
-      "domain": "Evaluation / Method",
+      "domain": "Evaluation / Methods",
       "tier": "frontier",
       "edges": {
         "requires": [
@@ -7847,7 +7847,7 @@
     {
       "id": "human-evaluation",
       "title": "Human Evaluation",
-      "domain": "Evaluation / Method",
+      "domain": "Evaluation / Methods",
       "tier": "frontier",
       "edges": {
         "requires": [
@@ -16677,7 +16677,7 @@
     {
       "id": "statistical-significance",
       "title": "Statistical Significance",
-      "domain": "Evaluation / Method",
+      "domain": "Evaluation / Methods",
       "tier": "frontier",
       "edges": {
         "requires": [

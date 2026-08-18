@@ -3,7 +3,7 @@
   "title": "Human Evaluation",
   "domain": [
     "Evaluation",
-    "Method"
+    "Methods"
   ],
   "bodies": {
     "intuition": "Ask people whether the output is good. It is the ground truth every automatic metric is trying to approximate, and it is expensive, slow, and much less reliable than its status suggests — two annotators given the same pair often disagree, and the same annotator on a different day sometimes disagrees with themselves.",

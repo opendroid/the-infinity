@@ -3,7 +3,7 @@
   "title": "Ablation",
   "domain": [
     "Evaluation",
-    "Method"
+    "Methods"
   ],
   "bodies": {
     "intuition": "Remove one piece and measure what happens. It is how nearly every claim in the field is supported — this component is why the number improved — and it is the closest thing to a controlled experiment available when the system is too complex to reason about analytically.",

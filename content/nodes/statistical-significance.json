@@ -3,7 +3,7 @@
   "title": "Statistical Significance",
   "domain": [
     "Evaluation",
-    "Method"
+    "Methods"
   ],
   "bodies": {
     "intuition": "Whether a difference between two numbers is bigger than the noise that produced them. Benchmark tables are full of comparisons where it has not been checked, and a great many reported improvements are inside the range two identical configurations would differ by anyway.",

@@ -3,7 +3,7 @@
   "title": "Elo Rating",
   "domain": [
     "Evaluation",
-    "Method"
+    "Methods"
   ],
   "bodies": {
     "intuition": "Rank things by who beats whom rather than by scoring each alone. Two models answer the same prompt, a person picks the better one, and each result nudges both ratings — the winner up, the loser down, by an amount that depends on how surprising the result was. It came from chess and it is now how frontier models are compared.",
