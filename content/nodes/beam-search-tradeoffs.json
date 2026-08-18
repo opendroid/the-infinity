@@ -1,0 +1,63 @@
+{
+  "id": "beam-search-tradeoffs",
+  "title": "Beam Search Tradeoffs",
+  "domain": [
+    "Structure",
+    "Decoding"
+  ],
+  "bodies": {
+    "intuition": "Widening the beam finds sequences the model likes better. It also, past a small width, produces worse output — a result that looks like a bug and is not. If a better search yields a worse answer, then the thing the search is optimising was not what you wanted, and the search's own limitations had been hiding that.",
+    "engineer": "Separate the two error sources and the confusion goes away. A SEARCH error is the decoder failing to find the sequence the model scores highest. A MODEL error is that sequence being bad. A narrow beam has plenty of the first, which masks the second; widening it removes search errors and exposes model errors that were there all along. Reported gains from beam width are therefore not gains in the model, and reported degradation at large widths is not a decoder bug.",
+    "math": "The specific pathology is length. Sequence probability is a product of per-token probabilities, so every additional token multiplies by something below one and longer sequences score lower by construction. A wider beam explores more short candidates and finds the very short ones the model scores highest — which is why unnormalised beam search degenerates toward the empty string, and why length normalisation is not a tweak but a repair of the objective."
+  },
+  "emphasis": {
+    "intuition": "the thing the search is optimising was not what you wanted",
+    "math": "not a tweak but a repair of the objective"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "model_errors": 5,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "model_errors",
+        "min": 0,
+        "max": 240,
+        "step": 10
+      }
+    ],
+    "caption": "Errors that remain because the model's highest-scoring sequence is bad, against errors from the search not finding it, in errors. Drag the beam width up to watch model error take everything — a wider beam does not fix the output, it stops hiding what was wrong with it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "beam-search",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "structured-output",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2010.02650",
+      "title": "If beam search is the answer, what was the question?",
+      "url": "https://arxiv.org/abs/2010.02650"
+    },
+    {
+      "ref": "arXiv:1808.10006",
+      "title": "Correcting Length Bias in Neural Machine Translation",
+      "url": "https://arxiv.org/abs/1808.10006"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

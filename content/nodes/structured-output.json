@@ -1,0 +1,67 @@
+{
+  "id": "structured-output",
+  "title": "Structured Output",
+  "domain": [
+    "Structure",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Sometimes the answer is not a sentence but an object: a parse tree, a table, an alignment, a JSON document a program will read. The difference that matters is that most possible outputs are not merely wrong, they are malformed — and a model that is 99% likely to produce well-formed output is unusable in a pipeline that runs a thousand times.",
+    "engineer": "There are two families and they fail differently. Constrain the decoder so malformed output cannot be produced, and you get a guarantee at the cost of pushing the model off the distribution it was trained on. Ask nicely and retry, and you keep the distribution but have no guarantee, only a rate — which is fine at a hundred calls and not at a million. Which one is right depends entirely on what happens downstream when the output does not parse.",
+    "math": "The reason this is hard is that the valid set is vanishingly small inside the space the decoder searches. With a vocabulary of tens of thousands and a sequence of hundreds, the number of token sequences is astronomically larger than the number that parse, and the ratio worsens with every additional token. So a model producing well-formed output at all is doing something remarkable — and asking it to do so reliably, rather than usually, is asking for a different kind of guarantee than a probability can give."
+  },
+  "emphasis": {
+    "intuition": "most possible outputs are not merely wrong, they are malformed",
+    "math": "a different kind of guarantee than a probability can give"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "malformed_sequences": 10,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "malformed_sequences",
+        "min": 0,
+        "max": 180,
+        "step": 10
+      }
+    ],
+    "caption": "Token sequences that do not parse, against the ones that do, in equal units. Drag the output length up to watch the malformed set swallow the space — which is why a well-formed rate is not the same guarantee as a well-formed grammar."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "grammar-constrained-decoding",
+        "reviewed": false
+      },
+      {
+        "id": "schema-conformance",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.13971",
+      "title": "Grammar-Constrained Decoding for Structured NLP Tasks without Finetuning",
+      "url": "https://arxiv.org/abs/2305.13971"
+    },
+    {
+      "ref": "arXiv:2201.11227",
+      "title": "Synchromesh: Reliable code generation from pre-trained language models",
+      "url": "https://arxiv.org/abs/2201.11227"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "grammar-constrained-decoding",
+  "title": "Grammar-Constrained Decoding",
+  "domain": [
+    "Structure",
+    "Decoding"
+  ],
+  "bodies": {
+    "intuition": "At every step, work out which tokens could still lead to a valid output and set the probability of all the others to zero. The model can then only produce something the grammar accepts — not usually, but always, because the invalid continuations were never on the table.",
+    "engineer": "The implementation is a mask over the logits, computed from a parser's state. Doing it naively costs a grammar check per vocabulary entry per step, which is why the useful work here has been on precomputation — compiling the grammar to an automaton whose state indexes directly into a precomputed mask, so the per-step cost stops depending on the vocabulary size. `constrained-decoding` is the general idea; this is the version where the constraint is a formal grammar and the guarantee is total.",
+    "math": "The mask does something to the distribution that is worth being precise about: it renormalises over the allowed set, so the relative probabilities among survivors are preserved but the sequence-level distribution is not the model's. A continuation the model strongly preferred can be removed at step one, and everything downstream is then conditioned on a prefix the model would rarely have chosen. That is why constrained output can be well-formed and worse — the guarantee is on the shape, never on the content."
+  },
+  "emphasis": {
+    "intuition": "the invalid continuations were never on the table",
+    "math": "the guarantee is on the shape, never on the content"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "masked_tokens": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "masked_tokens",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Vocabulary entries the grammar forbids at this position, against the ones it still allows, in tokens. Drag the grammar's strictness up to watch almost everything be masked — the survivors keep their relative probabilities, and the sequence the model wanted may not be among them."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "constrained-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "function-calling",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2307.09702",
+      "title": "Efficient Guided Generation for Large Language Models",
+      "url": "https://arxiv.org/abs/2307.09702"
+    },
+    {
+      "ref": "arXiv:2403.06988",
+      "title": "Guiding LLMs The Right Way: Fast, Non-Invasive Constrained Generation",
+      "url": "https://arxiv.org/abs/2403.06988"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

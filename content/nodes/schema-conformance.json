@@ -1,0 +1,63 @@
+{
+  "id": "schema-conformance",
+  "title": "Schema Conformance",
+  "domain": [
+    "Structure",
+    "Decoding"
+  ],
+  "bodies": {
+    "intuition": "The output has to be JSON matching a declared schema — the right keys, the right types, the enum values you listed. It is what makes a model callable from a program rather than readable by a person, and it is the boundary where a language model becomes a component instead of a conversation.",
+    "engineer": "Conformance is a solved problem and correctness is not, which is the distinction most worth holding on to. A constrained decoder can guarantee the JSON parses and matches the schema, and it can do nothing at all about the value being the wrong value. A schema that says `\"severity\": \"low\" | \"high\"` gets one of those two strings every time, and whether it is the right one is exactly as uncertain as it ever was.",
+    "math": "Worse, tightening the schema can move the answer. Every constraint removes options and renormalises over what is left, so a model that would have hedged in prose is forced to commit to one of the enum values — and the confidence that commitment implies is manufactured by the constraint rather than held by the model. So the conformant share rises to one while the correct share does not follow it, and the gap between them is invisible to every check the schema performs."
+  },
+  "emphasis": {
+    "engineer": "Conformance is a solved problem and correctness is not",
+    "math": "the confidence that commitment implies is manufactured by the constraint rather than held by the model"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "conformant_but_wrong": 6,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "conformant_but_wrong",
+        "min": 0,
+        "max": 210,
+        "step": 10
+      }
+    ],
+    "caption": "Outputs that match the schema perfectly and say the wrong thing, against the ones that are also right, in outputs. Drag the schema's tightness up to watch conformity rise without correctness following — the gap is invisible to every check the schema runs."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "grammar-constrained-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "tool-schema",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2201.11227",
+      "title": "Synchromesh: Reliable code generation from pre-trained language models",
+      "url": "https://arxiv.org/abs/2201.11227"
+    },
+    {
+      "ref": "arXiv:2403.06988",
+      "title": "Guiding LLMs The Right Way: Fast, Non-Invasive Constrained Generation",
+      "url": "https://arxiv.org/abs/2403.06988"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "sequence-labelling",
+  "title": "Sequence Labelling",
+  "domain": [
+    "Structure",
+    "Labelling"
+  ],
+  "bodies": {
+    "intuition": "Give every token a tag: this word starts a person's name, this one continues it, this one is outside any entity. It is the oldest shape of structured prediction still in daily use, and the reason it is not just per-token classification is that the tags constrain each other — a continuation tag with nothing to continue is not a mistake about one token, it is an invalid structure.",
+    "engineer": "The BIO scheme encodes that: B for the beginning of an entity, I for inside, O for outside, with I-PER only legal after B-PER or I-PER. Evaluation is at the entity level rather than the token level, which is the detail that changes what a model is optimising for — an entity counts only if every one of its tokens is right and its boundaries are exact, so partial credit does not exist.",
+    "math": "That all-or-nothing scoring makes the entity-level number fall much faster than token accuracy suggests. An entity of length L survives only if all L tokens are correct, so at a per-token error rate e the share of intact entities goes as (1−e)^L — a 2% token error rate leaves 98% of single-token entities but only about 90% of five-token ones. Long entities are where a model looks much worse under the metric people actually report."
+  },
+  "emphasis": {
+    "intuition": "is not a mistake about one token, it is an invalid structure",
+    "math": "Long entities are where a model looks much worse under the metric people actually report."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "broken_entities": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "broken_entities",
+        "min": 0,
+        "max": 240,
+        "step": 10
+      }
+    ],
+    "caption": "Entities broken by at least one wrong token, against the ones that came out intact, in entities. Drag the token error rate up to watch whole entities fail far faster than tokens do — there is no partial credit, so length multiplies the damage."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "structured-output",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "conditional-random-field",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1603.01360",
+      "title": "Neural Architectures for Named Entity Recognition",
+      "url": "https://arxiv.org/abs/1603.01360"
+    },
+    {
+      "ref": "arXiv:1508.01991",
+      "title": "Bidirectional LSTM-CRF Models for Sequence Tagging",
+      "url": "https://arxiv.org/abs/1508.01991"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

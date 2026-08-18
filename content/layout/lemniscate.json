@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "code-generation",
+      "id": "parsing",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "program-repair",
+      "id": "sequence-labelling",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "agentic-coding",
+      "id": "structured-output",
       "t": 0.8,
       "label": true
     }
