@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Decisions sharing one end-of-episode reward, against the single number explaining them, in decisions. Drag the trajectory length up to watch the information per decision vanish — the reward is not rarer, it is less informative about any one thing you did."
+    "caption": "Decisions too far back for one end-of-episode reward to speak to, against the recent ones it plausibly does, in decisions. Drag the trajectory length up to watch the unattributable share take over — the reward is not rarer, it is less informative about any one thing you did."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

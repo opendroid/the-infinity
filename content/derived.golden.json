@@ -5,7 +5,7 @@
       "id": "ablation",
       "title": "Ablation",
       "domain": "Evaluation / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -20,7 +20,7 @@
           {
             "id": "statistical-significance",
             "title": "Statistical Significance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -299,7 +299,7 @@
           {
             "id": "advantage-estimation",
             "title": "Advantage Estimation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -421,13 +421,13 @@
       "id": "advantage-estimation",
       "title": "Advantage Estimation",
       "domain": "Reinforcement / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "credit-assignment",
             "title": "Credit Assignment",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -739,7 +739,7 @@
           {
             "id": "human-evaluation",
             "title": "Human Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1717,7 +1717,7 @@
       "id": "bellman-equation",
       "title": "Bellman Equation",
       "domain": "Reinforcement / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1731,7 +1731,7 @@
           {
             "id": "credit-assignment",
             "title": "Credit Assignment",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1837,7 +1837,7 @@
           {
             "id": "statistical-significance",
             "title": "Statistical Significance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3779,13 +3779,13 @@
       "id": "credit-assignment",
       "title": "Credit Assignment",
       "domain": "Reinforcement / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "bellman-equation",
             "title": "Bellman Equation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3793,13 +3793,13 @@
           {
             "id": "advantage-estimation",
             "title": "Advantage Estimation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "reward-shaping",
             "title": "Reward Shaping",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4053,13 +4053,13 @@
           {
             "id": "ablation",
             "title": "Ablation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "statistical-significance",
             "title": "Statistical Significance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5633,13 +5633,13 @@
       "id": "elo-rating",
       "title": "Elo Rating",
       "domain": "Evaluation / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "human-evaluation",
             "title": "Human Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7951,7 +7951,7 @@
       "id": "human-evaluation",
       "title": "Human Evaluation",
       "domain": "Evaluation / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -7965,7 +7965,7 @@
           {
             "id": "elo-rating",
             "title": "Elo Rating",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9601,13 +9601,13 @@
           {
             "id": "elo-rating",
             "title": "Elo Rating",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "human-evaluation",
             "title": "Human Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10407,7 +10407,7 @@
           {
             "id": "bellman-equation",
             "title": "Bellman Equation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13241,7 +13241,7 @@
           {
             "id": "statistical-significance",
             "title": "Statistical Significance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -13574,7 +13574,7 @@
           {
             "id": "credit-assignment",
             "title": "Credit Assignment",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13909,7 +13909,7 @@
           {
             "id": "advantage-estimation",
             "title": "Advantage Estimation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -14888,7 +14888,7 @@
           {
             "id": "reward-shaping",
             "title": "Reward Shaping",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -14972,13 +14972,13 @@
       "id": "reward-shaping",
       "title": "Reward Shaping",
       "domain": "Reinforcement / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "credit-assignment",
             "title": "Credit Assignment",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -16689,7 +16689,7 @@
           {
             "id": "reward-shaping",
             "title": "Reward Shaping",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -16972,7 +16972,7 @@
       "id": "statistical-significance",
       "title": "Statistical Significance",
       "domain": "Evaluation / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -16987,7 +16987,7 @@
           {
             "id": "ablation",
             "title": "Ablation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -17421,7 +17421,7 @@
           {
             "id": "human-evaluation",
             "title": "Human Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -17783,7 +17783,7 @@
           {
             "id": "bellman-equation",
             "title": "Bellman Equation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -18806,7 +18806,7 @@
           {
             "id": "bellman-equation",
             "title": "Bellman Equation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -19678,7 +19678,7 @@
       "center": {
         "id": "ablation",
         "title": "Ablation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19693,7 +19693,7 @@
         {
           "id": "statistical-significance",
           "title": "Statistical Significance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -20176,7 +20176,7 @@
         {
           "id": "advantage-estimation",
           "title": "Advantage Estimation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -20405,7 +20405,7 @@
       "center": {
         "id": "advantage-estimation",
         "title": "Advantage Estimation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -20413,7 +20413,7 @@
         {
           "id": "credit-assignment",
           "title": "Credit Assignment",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -20955,7 +20955,7 @@
         {
           "id": "human-evaluation",
           "title": "Human Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -22774,7 +22774,7 @@
       "center": {
         "id": "bellman-equation",
         "title": "Bellman Equation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -22789,7 +22789,7 @@
         {
           "id": "credit-assignment",
           "title": "Credit Assignment",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -22932,7 +22932,7 @@
         {
           "id": "statistical-significance",
           "title": "Statistical Significance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 203,
           "y": 22
         },
@@ -26575,7 +26575,7 @@
       "center": {
         "id": "credit-assignment",
         "title": "Credit Assignment",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -26583,21 +26583,21 @@
         {
           "id": "bellman-equation",
           "title": "Bellman Equation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "advantage-estimation",
           "title": "Advantage Estimation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "reward-shaping",
           "title": "Reward Shaping",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -27076,14 +27076,14 @@
         {
           "id": "ablation",
           "title": "Ablation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "statistical-significance",
           "title": "Statistical Significance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -29946,7 +29946,7 @@
       "center": {
         "id": "elo-rating",
         "title": "Elo Rating",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -29954,7 +29954,7 @@
         {
           "id": "human-evaluation",
           "title": "Human Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -34087,7 +34087,7 @@
       "center": {
         "id": "human-evaluation",
         "title": "Human Evaluation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -34102,7 +34102,7 @@
         {
           "id": "elo-rating",
           "title": "Elo Rating",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -37017,14 +37017,14 @@
         {
           "id": "elo-rating",
           "title": "Elo Rating",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
         {
           "id": "human-evaluation",
           "title": "Human Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 100,
           "y": 22
         },
@@ -38497,7 +38497,7 @@
         {
           "id": "bellman-equation",
           "title": "Bellman Equation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 17
         },
@@ -43488,7 +43488,7 @@
         {
           "id": "statistical-significance",
           "title": "Statistical Significance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -44112,7 +44112,7 @@
         {
           "id": "credit-assignment",
           "title": "Credit Assignment",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -44682,7 +44682,7 @@
         {
           "id": "advantage-estimation",
           "title": "Advantage Estimation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -46448,7 +46448,7 @@
         {
           "id": "reward-shaping",
           "title": "Reward Shaping",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 137,
           "y": 110
         },
@@ -46641,7 +46641,7 @@
       "center": {
         "id": "reward-shaping",
         "title": "Reward Shaping",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -46649,7 +46649,7 @@
         {
           "id": "credit-assignment",
           "title": "Credit Assignment",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -49690,7 +49690,7 @@
         {
           "id": "reward-shaping",
           "title": "Reward Shaping",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -50215,7 +50215,7 @@
       "center": {
         "id": "statistical-significance",
         "title": "Statistical Significance",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -50230,7 +50230,7 @@
         {
           "id": "ablation",
           "title": "Ablation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -50996,7 +50996,7 @@
         {
           "id": "human-evaluation",
           "title": "Human Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -51648,7 +51648,7 @@
         {
           "id": "bellman-equation",
           "title": "Bellman Equation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -53493,7 +53493,7 @@
         {
           "id": "bellman-equation",
           "title": "Bellman Equation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
