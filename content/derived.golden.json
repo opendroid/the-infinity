@@ -49,6 +49,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "checkpointing-strategy",
+            "title": "Checkpointing Strategy",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "gradient-accumulation",
             "title": "Gradient Accumulation",
             "tier": "verified",
@@ -243,7 +249,7 @@
           {
             "id": "out-of-distribution-detection",
             "title": "Out-of-Distribution Detection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -371,7 +377,7 @@
       "id": "aleatoric-uncertainty",
       "title": "Aleatoric Uncertainty",
       "domain": "Uncertainty / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -392,7 +398,7 @@
           {
             "id": "epistemic-uncertainty",
             "title": "Epistemic Uncertainty",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -435,7 +441,7 @@
           {
             "id": "aleatoric-uncertainty",
             "title": "Aleatoric Uncertainty",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1039,7 +1045,7 @@
       "id": "bayesian-neural-network",
       "title": "Bayesian Neural Network",
       "domain": "Uncertainty / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1060,7 +1066,7 @@
           {
             "id": "epistemic-uncertainty",
             "title": "Epistemic Uncertainty",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1157,7 +1163,7 @@
           {
             "id": "deep-ensemble",
             "title": "Deep Ensemble",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1245,13 +1251,13 @@
           {
             "id": "conformal-prediction",
             "title": "Conformal Prediction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "selective-prediction",
             "title": "Selective Prediction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1283,7 +1289,7 @@
           {
             "id": "out-of-distribution-detection",
             "title": "Out-of-Distribution Detection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1601,6 +1607,43 @@
       }
     },
     {
+      "id": "checkpointing-strategy",
+      "title": "Checkpointing Strategy",
+      "domain": "Systems / Reliability",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "optimizer-state",
+            "title": "Optimizer State",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "activation-checkpointing",
+            "title": "Activation Checkpointing",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "failure-recovery",
+            "title": "Failure Recovery",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "loss-spike",
+            "title": "Loss Spike",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "chunking",
       "title": "Chunking",
       "domain": "Retrieval / Indexing",
@@ -1814,6 +1857,12 @@
         ],
         "unlocks": [
           {
+            "id": "straggler",
+            "title": "Straggler",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "tensor-parallelism",
             "title": "Tensor Parallelism",
             "tier": "verified",
@@ -1989,7 +2038,7 @@
       "id": "conformal-prediction",
       "title": "Conformal Prediction",
       "domain": "Uncertainty / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2004,13 +2053,13 @@
           {
             "id": "distribution-shift",
             "title": "Distribution Shift",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "selective-prediction",
             "title": "Selective Prediction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2832,6 +2881,24 @@
             "reviewed": false
           },
           {
+            "id": "elastic-training",
+            "title": "Elastic Training",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "failure-recovery",
+            "title": "Failure Recovery",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "job-scheduling",
+            "title": "Job Scheduling",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "zero-redundancy-optimizer",
             "title": "ZeRO",
             "tier": "verified",
@@ -2917,7 +2984,7 @@
           {
             "id": "epistemic-uncertainty",
             "title": "Epistemic Uncertainty",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3052,7 +3119,7 @@
       "id": "deep-ensemble",
       "title": "Deep Ensemble",
       "domain": "Uncertainty / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3067,13 +3134,13 @@
           {
             "id": "distribution-shift",
             "title": "Distribution Shift",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "epistemic-uncertainty",
             "title": "Epistemic Uncertainty",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3167,6 +3234,31 @@
             "id": "tool-selection",
             "title": "Tool Selection",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "determinism-and-reproducibility",
+      "title": "Determinism and Reproducibility",
+      "domain": "Systems / Operations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "mixed-precision-training",
+            "title": "Mixed-Precision Training",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "training-observability",
+            "title": "Training Observability",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -3349,7 +3441,7 @@
       "id": "distribution-shift",
       "title": "Distribution Shift",
       "domain": "Uncertainty / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3363,7 +3455,7 @@
           {
             "id": "out-of-distribution-detection",
             "title": "Out-of-Distribution Detection",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3371,19 +3463,19 @@
           {
             "id": "conformal-prediction",
             "title": "Conformal Prediction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "deep-ensemble",
             "title": "Deep Ensemble",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "epistemic-uncertainty",
             "title": "Epistemic Uncertainty",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3487,7 +3579,7 @@
           {
             "id": "bayesian-neural-network",
             "title": "Bayesian Neural Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3537,6 +3629,37 @@
             "id": "warmup",
             "title": "Warmup",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-training",
+      "title": "Elastic Training",
+      "domain": "Systems / Reliability",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-parallelism",
+            "title": "Data Parallelism",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "failure-recovery",
+            "title": "Failure Recovery",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "job-scheduling",
+            "title": "Job Scheduling",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -3690,7 +3813,7 @@
           {
             "id": "epistemic-uncertainty",
             "title": "Epistemic Uncertainty",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3744,7 +3867,7 @@
       "id": "epistemic-uncertainty",
       "title": "Epistemic Uncertainty",
       "domain": "Uncertainty / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3759,13 +3882,13 @@
           {
             "id": "aleatoric-uncertainty",
             "title": "Aleatoric Uncertainty",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "bayesian-neural-network",
             "title": "Bayesian Neural Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3777,13 +3900,13 @@
           {
             "id": "deep-ensemble",
             "title": "Deep Ensemble",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "distribution-shift",
             "title": "Distribution Shift",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3813,7 +3936,7 @@
           {
             "id": "bayesian-neural-network",
             "title": "Bayesian Neural Network",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3966,6 +4089,37 @@
             "id": "q-learning",
             "title": "Q-Learning",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "failure-recovery",
+      "title": "Failure Recovery",
+      "domain": "Systems / Reliability",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-parallelism",
+            "title": "Data Parallelism",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "checkpointing-strategy",
+            "title": "Checkpointing Strategy",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "elastic-training",
+            "title": "Elastic Training",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -4524,7 +4678,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "loss-spike",
+            "title": "Loss Spike",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "dp-sgd",
@@ -5019,7 +5180,7 @@
           {
             "id": "selective-prediction",
             "title": "Selective Prediction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5476,6 +5637,37 @@
             "id": "sandboxing",
             "title": "Sandboxing",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "job-scheduling",
+      "title": "Job Scheduling",
+      "domain": "Systems / Operations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "data-parallelism",
+            "title": "Data Parallelism",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "elastic-training",
+            "title": "Elastic Training",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "straggler",
+            "title": "Straggler",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -6269,7 +6461,7 @@
           {
             "id": "aleatoric-uncertainty",
             "title": "Aleatoric Uncertainty",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6369,6 +6561,43 @@
           {
             "id": "principal-component-analysis",
             "title": "Principal Component Analysis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "loss-spike",
+      "title": "Loss Spike",
+      "domain": "Systems / Reliability",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-clipping",
+            "title": "Gradient Clipping",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "checkpointing-strategy",
+            "title": "Checkpointing Strategy",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "training-observability",
+            "title": "Training Observability",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "warmup",
+            "title": "Warmup",
             "tier": "verified",
             "reviewed": false
           }
@@ -6967,6 +7196,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "determinism-and-reproducibility",
+            "title": "Determinism and Reproducibility",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "quantization",
             "title": "Quantization",
@@ -7767,6 +8002,12 @@
         ],
         "unlocks": [
           {
+            "id": "checkpointing-strategy",
+            "title": "Checkpointing Strategy",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "zero-redundancy-optimizer",
             "title": "ZeRO",
             "tier": "verified",
@@ -7780,13 +8021,13 @@
       "id": "out-of-distribution-detection",
       "title": "Out-of-Distribution Detection",
       "domain": "Uncertainty / Detection",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "distribution-shift",
             "title": "Distribution Shift",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7837,7 +8078,7 @@
           {
             "id": "distribution-shift",
             "title": "Distribution Shift",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8090,6 +8331,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "straggler",
+            "title": "Straggler",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "tensor-parallelism",
             "title": "Tensor Parallelism",
             "tier": "verified",
@@ -8326,6 +8573,12 @@
             "id": "training-data-extraction",
             "title": "Training Data Extraction",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "training-observability",
+            "title": "Training Observability",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -9617,7 +9870,7 @@
       "id": "selective-prediction",
       "title": "Selective Prediction",
       "domain": "Uncertainty / Decisions",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9632,7 +9885,7 @@
           {
             "id": "conformal-prediction",
             "title": "Conformal Prediction",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9932,7 +10185,7 @@
           {
             "id": "distribution-shift",
             "title": "Distribution Shift",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10484,6 +10737,37 @@
           {
             "id": "neighborhood-sampling",
             "title": "Neighborhood Sampling",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "straggler",
+      "title": "Straggler",
+      "domain": "Systems / Reliability",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "collective-communication",
+            "title": "Collective Communication",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "job-scheduling",
+            "title": "Job Scheduling",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "pipeline-parallelism",
+            "title": "Pipeline Parallelism",
             "tier": "verified",
             "reviewed": false
           }
@@ -11397,6 +11681,37 @@
       }
     },
     {
+      "id": "training-observability",
+      "title": "Training Observability",
+      "domain": "Systems / Operations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "determinism-and-reproducibility",
+            "title": "Determinism and Reproducibility",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "loss-spike",
+            "title": "Loss Spike",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "transformer-block",
       "title": "Transformer Block",
       "domain": "Architecture / Blocks",
@@ -11897,6 +12212,12 @@
             "title": "Layer Normalization",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "loss-spike",
+            "title": "Loss Spike",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -12148,25 +12469,32 @@
           "y": 66
         },
         {
+          "id": "checkpointing-strategy",
+          "title": "Checkpointing Strategy",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "gradient-accumulation",
           "title": "Gradient Accumulation",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "memory-planning",
           "title": "Memory Planning",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "sequence-parallelism",
           "title": "Sequence Parallelism",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -12174,6 +12502,12 @@
           "from": "backpropagation",
           "to": "activation-checkpointing",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "activation-checkpointing",
+          "to": "checkpointing-strategy",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -12469,7 +12803,7 @@
         {
           "id": "out-of-distribution-detection",
           "title": "Out-of-Distribution Detection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -12717,7 +13051,7 @@
       "center": {
         "id": "aleatoric-uncertainty",
         "title": "Aleatoric Uncertainty",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12739,7 +13073,7 @@
         {
           "id": "epistemic-uncertainty",
           "title": "Epistemic Uncertainty",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -12812,7 +13146,7 @@
         {
           "id": "aleatoric-uncertainty",
           "title": "Aleatoric Uncertainty",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 34,
           "y": 22
         },
@@ -13941,7 +14275,7 @@
       "center": {
         "id": "bayesian-neural-network",
         "title": "Bayesian Neural Network",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13963,7 +14297,7 @@
         {
           "id": "epistemic-uncertainty",
           "title": "Epistemic Uncertainty",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -14141,7 +14475,7 @@
         {
           "id": "deep-ensemble",
           "title": "Deep Ensemble",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -14299,14 +14633,14 @@
         {
           "id": "conformal-prediction",
           "title": "Conformal Prediction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "selective-prediction",
           "title": "Selective Prediction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -14341,7 +14675,7 @@
         {
           "id": "out-of-distribution-detection",
           "title": "Out-of-Distribution Detection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 133,
           "y": 22
         },
@@ -14964,6 +15298,72 @@
       ]
     },
     {
+      "id": "checkpointing-strategy",
+      "center": {
+        "id": "checkpointing-strategy",
+        "title": "Checkpointing Strategy",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "optimizer-state",
+          "title": "Optimizer State",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "activation-checkpointing",
+          "title": "Activation Checkpointing",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "failure-recovery",
+          "title": "Failure Recovery",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "loss-spike",
+          "title": "Loss Spike",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "optimizer-state",
+          "to": "checkpointing-strategy",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "checkpointing-strategy",
+          "to": "activation-checkpointing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "checkpointing-strategy",
+          "to": "failure-recovery",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "checkpointing-strategy",
+          "to": "loss-spike",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "chunking",
       "center": {
         "id": "chunking",
@@ -15325,11 +15725,18 @@
           "y": 66
         },
         {
+          "id": "straggler",
+          "title": "Straggler",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "tensor-parallelism",
           "title": "Tensor Parallelism",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "federated-learning",
@@ -15351,6 +15758,12 @@
           "from": "data-parallelism",
           "to": "collective-communication",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "collective-communication",
+          "to": "straggler",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -15630,7 +16043,7 @@
       "center": {
         "id": "conformal-prediction",
         "title": "Conformal Prediction",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15645,14 +16058,14 @@
         {
           "id": "distribution-shift",
           "title": "Distribution Shift",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "selective-prediction",
           "title": "Selective Prediction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -17148,14 +17561,35 @@
           "title": "Collective Communication",
           "tier": "verified",
           "x": 200,
+          "y": 22
+        },
+        {
+          "id": "elastic-training",
+          "title": "Elastic Training",
+          "tier": "frontier",
+          "x": 200,
           "y": 44
+        },
+        {
+          "id": "failure-recovery",
+          "title": "Failure Recovery",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "job-scheduling",
+          "title": "Job Scheduling",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "zero-redundancy-optimizer",
           "title": "ZeRO",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 110
         },
         {
           "id": "expert-parallelism",
@@ -17182,6 +17616,24 @@
         {
           "from": "data-parallelism",
           "to": "collective-communication",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "data-parallelism",
+          "to": "elastic-training",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "data-parallelism",
+          "to": "failure-recovery",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "data-parallelism",
+          "to": "job-scheduling",
           "type": "unlocks",
           "reviewed": false
         },
@@ -17292,7 +17744,7 @@
         {
           "id": "epistemic-uncertainty",
           "title": "Epistemic Uncertainty",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -17553,7 +18005,7 @@
       "center": {
         "id": "deep-ensemble",
         "title": "Deep Ensemble",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17568,14 +18020,14 @@
         {
           "id": "distribution-shift",
           "title": "Distribution Shift",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "epistemic-uncertainty",
           "title": "Epistemic Uncertainty",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -17767,6 +18219,46 @@
         {
           "from": "dense-retrieval",
           "to": "tool-selection",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "determinism-and-reproducibility",
+      "center": {
+        "id": "determinism-and-reproducibility",
+        "title": "Determinism and Reproducibility",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mixed-precision-training",
+          "title": "Mixed-Precision Training",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "training-observability",
+          "title": "Training Observability",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "mixed-precision-training",
+          "to": "determinism-and-reproducibility",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "determinism-and-reproducibility",
+          "to": "training-observability",
           "type": "adjacent",
           "reviewed": false
         }
@@ -18093,7 +18585,7 @@
       "center": {
         "id": "distribution-shift",
         "title": "Distribution Shift",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -18108,28 +18600,28 @@
         {
           "id": "out-of-distribution-detection",
           "title": "Out-of-Distribution Detection",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "conformal-prediction",
           "title": "Conformal Prediction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
         {
           "id": "deep-ensemble",
           "title": "Deep Ensemble",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
         {
           "id": "epistemic-uncertainty",
           "title": "Epistemic Uncertainty",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -18338,7 +18830,7 @@
         {
           "id": "bayesian-neural-network",
           "title": "Bayesian Neural Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -18439,6 +18931,59 @@
         {
           "from": "edge-of-stability",
           "to": "warmup",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "elastic-training",
+      "center": {
+        "id": "elastic-training",
+        "title": "Elastic Training",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-parallelism",
+          "title": "Data Parallelism",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "failure-recovery",
+          "title": "Failure Recovery",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "job-scheduling",
+          "title": "Job Scheduling",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "data-parallelism",
+          "to": "elastic-training",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "elastic-training",
+          "to": "failure-recovery",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "elastic-training",
+          "to": "job-scheduling",
           "type": "adjacent",
           "reviewed": false
         }
@@ -18695,7 +19240,7 @@
         {
           "id": "epistemic-uncertainty",
           "title": "Epistemic Uncertainty",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 22
         },
@@ -18805,7 +19350,7 @@
       "center": {
         "id": "epistemic-uncertainty",
         "title": "Epistemic Uncertainty",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -18820,14 +19365,14 @@
         {
           "id": "aleatoric-uncertainty",
           "title": "Aleatoric Uncertainty",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 22
         },
         {
           "id": "bayesian-neural-network",
           "title": "Bayesian Neural Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
@@ -18841,14 +19386,14 @@
         {
           "id": "deep-ensemble",
           "title": "Deep Ensemble",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         },
         {
           "id": "distribution-shift",
           "title": "Distribution Shift",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 22
         }
@@ -18919,7 +19464,7 @@
         {
           "id": "bayesian-neural-network",
           "title": "Bayesian Neural Network",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -19204,6 +19749,59 @@
         {
           "from": "exploration-exploitation",
           "to": "q-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "failure-recovery",
+      "center": {
+        "id": "failure-recovery",
+        "title": "Failure Recovery",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-parallelism",
+          "title": "Data Parallelism",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "checkpointing-strategy",
+          "title": "Checkpointing Strategy",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "elastic-training",
+          "title": "Elastic Training",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "data-parallelism",
+          "to": "failure-recovery",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "failure-recovery",
+          "to": "checkpointing-strategy",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "failure-recovery",
+          "to": "elastic-training",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20202,6 +20800,13 @@
           "y": 66
         },
         {
+          "id": "loss-spike",
+          "title": "Loss Spike",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "dp-sgd",
           "title": "DP-SGD",
           "tier": "verified",
@@ -20221,6 +20826,12 @@
           "from": "backpropagation",
           "to": "gradient-clipping",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-clipping",
+          "to": "loss-spike",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -21063,7 +21674,7 @@
         {
           "id": "selective-prediction",
           "title": "Selective Prediction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -21895,6 +22506,59 @@
         {
           "from": "jailbreak",
           "to": "sandboxing",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "job-scheduling",
+      "center": {
+        "id": "job-scheduling",
+        "title": "Job Scheduling",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "data-parallelism",
+          "title": "Data Parallelism",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "elastic-training",
+          "title": "Elastic Training",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "straggler",
+          "title": "Straggler",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "data-parallelism",
+          "to": "job-scheduling",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "job-scheduling",
+          "to": "elastic-training",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "job-scheduling",
+          "to": "straggler",
           "type": "adjacent",
           "reviewed": false
         }
@@ -23322,7 +23986,7 @@
         {
           "id": "aleatoric-uncertainty",
           "title": "Aleatoric Uncertainty",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 15
         },
@@ -23527,6 +24191,72 @@
         {
           "from": "loss-landscape",
           "to": "principal-component-analysis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "loss-spike",
+      "center": {
+        "id": "loss-spike",
+        "title": "Loss Spike",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-clipping",
+          "title": "Gradient Clipping",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "checkpointing-strategy",
+          "title": "Checkpointing Strategy",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "training-observability",
+          "title": "Training Observability",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "warmup",
+          "title": "Warmup",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-clipping",
+          "to": "loss-spike",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "loss-spike",
+          "to": "checkpointing-strategy",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "loss-spike",
+          "to": "training-observability",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "loss-spike",
+          "to": "warmup",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24567,11 +25297,18 @@
           "y": 66
         },
         {
+          "id": "determinism-and-reproducibility",
+          "title": "Determinism and Reproducibility",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "quantization",
           "title": "Quantization",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "quantization-aware-training",
@@ -24586,6 +25323,12 @@
           "from": "backpropagation",
           "to": "mixed-precision-training",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "mixed-precision-training",
+          "to": "determinism-and-reproducibility",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -25967,11 +26710,18 @@
           "y": 66
         },
         {
+          "id": "checkpointing-strategy",
+          "title": "Checkpointing Strategy",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "zero-redundancy-optimizer",
           "title": "ZeRO",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         }
       ],
       "links": [
@@ -25979,6 +26729,12 @@
           "from": "adam",
           "to": "optimizer-state",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "optimizer-state",
+          "to": "checkpointing-strategy",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -25994,7 +26750,7 @@
       "center": {
         "id": "out-of-distribution-detection",
         "title": "Out-of-Distribution Detection",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -26002,7 +26758,7 @@
         {
           "id": "distribution-shift",
           "title": "Distribution Shift",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -26076,7 +26832,7 @@
         {
           "id": "distribution-shift",
           "title": "Distribution Shift",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 50
         },
@@ -26547,11 +27303,18 @@
           "y": 66
         },
         {
+          "id": "straggler",
+          "title": "Straggler",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "tensor-parallelism",
           "title": "Tensor Parallelism",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -26559,6 +27322,12 @@
           "from": "transformer-block",
           "to": "pipeline-parallelism",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "pipeline-parallelism",
+          "to": "straggler",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -26888,56 +27657,63 @@
           "title": "Benchmark Contamination",
           "tier": "verified",
           "x": 200,
-          "y": 15
+          "y": 13
         },
         {
           "id": "data-filtering",
           "title": "Data Filtering",
           "tier": "verified",
           "x": 200,
-          "y": 29
+          "y": 26
         },
         {
           "id": "data-poisoning",
           "title": "Data Poisoning",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 40
         },
         {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 59
+          "y": 53
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 200,
-          "y": 73
+          "y": 66
         },
         {
           "id": "multilingual-model",
           "title": "Multilingual Model",
           "tier": "frontier",
           "x": 200,
-          "y": 88
+          "y": 79
         },
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
           "x": 200,
-          "y": 103
+          "y": 92
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
           "x": 200,
-          "y": 117
+          "y": 106
+        },
+        {
+          "id": "training-observability",
+          "title": "Training Observability",
+          "tier": "frontier",
+          "x": 200,
+          "y": 119
         }
       ],
       "links": [
@@ -26998,6 +27774,12 @@
         {
           "from": "pretraining",
           "to": "training-data-extraction",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
+          "to": "training-observability",
           "type": "unlocks",
           "reviewed": false
         }
@@ -29266,7 +30048,7 @@
       "center": {
         "id": "selective-prediction",
         "title": "Selective Prediction",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -29281,7 +30063,7 @@
         {
           "id": "conformal-prediction",
           "title": "Conformal Prediction",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -29791,7 +30573,7 @@
         {
           "id": "distribution-shift",
           "title": "Distribution Shift",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 90,
           "y": 22
         },
@@ -30837,6 +31619,59 @@
         {
           "from": "stochastic-gradient-descent",
           "to": "neighborhood-sampling",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "straggler",
+      "center": {
+        "id": "straggler",
+        "title": "Straggler",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "collective-communication",
+          "title": "Collective Communication",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "job-scheduling",
+          "title": "Job Scheduling",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "pipeline-parallelism",
+          "title": "Pipeline Parallelism",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "collective-communication",
+          "to": "straggler",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "straggler",
+          "to": "job-scheduling",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "straggler",
+          "to": "pipeline-parallelism",
           "type": "adjacent",
           "reviewed": false
         }
@@ -32465,6 +33300,59 @@
       ]
     },
     {
+      "id": "training-observability",
+      "center": {
+        "id": "training-observability",
+        "title": "Training Observability",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "determinism-and-reproducibility",
+          "title": "Determinism and Reproducibility",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "loss-spike",
+          "title": "Loss Spike",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "pretraining",
+          "to": "training-observability",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "training-observability",
+          "to": "determinism-and-reproducibility",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "training-observability",
+          "to": "loss-spike",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "transformer-block",
       "center": {
         "id": "transformer-block",
@@ -33328,22 +34216,29 @@
           "id": "curriculum",
           "title": "Curriculum",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "edge-of-stability",
           "title": "Edge of Stability",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "layer-normalization",
           "title": "Layer Normalization",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "loss-spike",
+          "title": "Loss Spike",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -33368,6 +34263,12 @@
         {
           "from": "warmup",
           "to": "layer-normalization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "warmup",
+          "to": "loss-spike",
           "type": "adjacent",
           "reviewed": false
         }

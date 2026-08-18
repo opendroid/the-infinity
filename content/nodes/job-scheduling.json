@@ -1,0 +1,63 @@
+{
+  "id": "job-scheduling",
+  "title": "Job Scheduling",
+  "domain": [
+    "Systems",
+    "Operations"
+  ],
+  "bodies": {
+    "intuition": "A cluster is shared, and the decision about which job runs next is where a lot of a research team's effective throughput is won or lost. A scheduler that packs jobs tightly keeps the accelerators busy; one that leaves a job waiting for a whole node to free up leaves expensive hardware idle while somebody waits.",
+    "engineer": "Large training jobs make this harder than ordinary batch scheduling because they are gang-scheduled: a job needing 512 accelerators cannot start with 511, so partial availability is worthless and fragmentation is the enemy. The scheduling literature that helps here optimises goodput — useful work per unit time, accounting for how a job's own efficiency changes with the allocation it is given — rather than raw utilisation, which a badly-shaped allocation can keep high while achieving little.",
+    "math": "Queueing time is the term users feel and utilisation is the term operators report, and pushing either toward its optimum worsens the other: a cluster kept near full has long queues by definition, because there is no slack for an arriving job to land in. Which of the two to give up is a policy question rather than a technical one, and stating it as a policy is the useful step — a cluster that has not decided is optimising for whoever complains loudest."
+  },
+  "emphasis": {
+    "engineer": "partial availability is worthless and fragmentation is the enemy",
+    "math": "a cluster that has not decided is optimising for whoever complains loudest"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "queued_hours": 8,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "queued_hours",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Accelerator-hours a week spent waiting in the queue, against hours spent running. Drag the queue up to watch waiting overtake work — pushing utilisation toward full is what produces this, so the two numbers cannot both be optimised and a cluster has to choose."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-parallelism",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "straggler",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2008.12260",
+      "title": "Pollux: Co-adaptive Cluster Scheduling for Goodput-Optimized Deep Learning",
+      "url": "https://arxiv.org/abs/2008.12260"
+    },
+    {
+      "ref": "arXiv:2403.07648",
+      "title": "Characterization of Large Language Model Development in the Datacenter",
+      "url": "https://arxiv.org/abs/2403.07648"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

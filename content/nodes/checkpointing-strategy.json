@@ -1,0 +1,67 @@
+{
+  "id": "checkpointing-strategy",
+  "title": "Checkpointing Strategy",
+  "domain": [
+    "Systems",
+    "Reliability"
+  ],
+  "bodies": {
+    "intuition": "A run across thousands of accelerators for six weeks will be interrupted many times, so the only question is how much work each interruption destroys. A checkpoint is the save point: write the model, optimiser state and data position to durable storage often enough that a crash costs minutes, rarely enough that writing does not become the job.",
+    "engineer": "Not to be confused with activation checkpointing, which trades compute for memory inside a single step and has nothing to do with durability. This is about writing state that survives the process. The state is larger than the model — optimiser moments alone are typically twice the parameters — so a naive synchronous write stalls every worker for minutes. What ships instead is asynchronous: snapshot to host memory, let a background thread push to storage, and shard the write across ranks so no single one carries it.",
+    "math": "The classic result is that the optimal interval goes as the square root of the checkpoint cost times the mean time between failures, so halving the write cost only buys a 40% shorter interval — the trade is much flatter than it looks, and near the optimum the total overhead barely moves. What actually decides the interval in practice is that both terms are estimates, so the safe move is to sit slightly more often than the formula says."
+  },
+  "emphasis": {
+    "engineer": "has nothing to do with durability",
+    "math": "the trade is much flatter than it looks"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "checkpoint_minutes": 2,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "checkpoint_minutes",
+        "min": 0,
+        "max": 90,
+        "step": 3
+      }
+    ],
+    "caption": "Minutes an hour spent writing state, against the hour of training it protects. Drag the frequency up to watch the write take the run — this is only the cost arm; the other is the work a crash destroys, and the interval you want is where the two cross."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "optimizer-state",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "activation-checkpointing",
+        "reviewed": false
+      },
+      {
+        "id": "failure-recovery",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2010.08679",
+      "title": "Check-N-Run: A Checkpointing System for Training Deep Learning Recommendation Models",
+      "url": "https://arxiv.org/abs/2010.08679"
+    },
+    {
+      "ref": "arXiv:2310.12670",
+      "title": "Fault-Tolerant Hybrid-Parallel Training at Scale with Reliable and Efficient In-memory Checkpointing",
+      "url": "https://arxiv.org/abs/2310.12670"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

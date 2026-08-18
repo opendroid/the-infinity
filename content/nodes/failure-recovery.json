@@ -1,0 +1,63 @@
+{
+  "id": "failure-recovery",
+  "title": "Failure Recovery",
+  "domain": [
+    "Systems",
+    "Reliability"
+  ],
+  "bodies": {
+    "intuition": "At the scale large models are trained, hardware failure is not an incident — it is the weather. A single accelerator that dies takes the whole synchronous job with it, because every worker is waiting on a collective that will now never complete. Recovery is the loop that notices, evicts the dead node, restarts from the last checkpoint, and gets back to the step it was on.",
+    "engineer": "The published logbooks are the honest source here. Llama 3's 16,000-GPU run reports a failure roughly every three hours, most of them a single accelerator or its host, and the OPT and BLOOM logs describe the same rhythm at smaller scale. The engineering that matters is detection latency and restart cost, not failure rate — you cannot buy hardware that does not fail, and you can absolutely build a job that restarts in ninety seconds instead of forty minutes.",
+    "math": "Independent components make this arithmetic unforgiving: if one node fails on average every t hours, a job spanning n of them expects a failure every t/n hours. Ten thousand nodes each lasting a year between failures gives a job that breaks about every fifty minutes. The lost time per failure is detection plus restart plus the steps replayed since the checkpoint, and only the last of those three is bounded by the checkpoint interval — which is why teams that only tune checkpoint frequency stop making progress."
+  },
+  "emphasis": {
+    "intuition": "hardware failure is not an incident — it is the weather",
+    "math": "a job spanning n of them expects a failure every t/n hours"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "hours_lost": 20,
+      "share_rest": 168
+    },
+    "param_controls": [
+      {
+        "name": "hours_lost",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Hours a week lost to failure, detection and replay, against the week of training they interrupt. Drag the loss up to watch it take a third of the run and then half — the arithmetic every scaled cluster is fighting, since spanning more nodes shortens the time between failures."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-parallelism",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "elastic-training",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2407.21783",
+      "title": "The Llama 3 Herd of Models",
+      "url": "https://arxiv.org/abs/2407.21783"
+    },
+    {
+      "ref": "arXiv:2403.07648",
+      "title": "Characterization of Large Language Model Development in the Datacenter",
+      "url": "https://arxiv.org/abs/2403.07648"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

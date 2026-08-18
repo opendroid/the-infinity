@@ -1,0 +1,63 @@
+{
+  "id": "elastic-training",
+  "title": "Elastic Training",
+  "domain": [
+    "Systems",
+    "Reliability"
+  ],
+  "bodies": {
+    "intuition": "If a job must have exactly 1,024 accelerators, losing one stops it. Elastic training lets the run continue on what is left — narrower, slower, but moving — and widen again when capacity returns. It turns a hard failure into a performance change, which is a much easier thing to survive.",
+    "engineer": "The obstacle is that the batch size is baked into the hyperparameters. Shrink the worker count and either each worker takes more of the batch, which may not fit in memory, or the global batch shrinks, which quietly changes the optimisation problem you were solving. Systems that do this well hold the global batch fixed by raising gradient accumulation steps, so the maths of the run is untouched and only the wall clock moves.",
+    "math": "The payoff is largest exactly where the failure rate is worst. A rigid job loses everything since its last checkpoint on every failure; an elastic one loses only the reconfiguration, so the share of work preserved rises with how often failures arrive. On preemptible capacity, where instances are reclaimed rather than broken, this is the difference between a job that finishes and one that never gets far enough between preemptions to reach the next checkpoint."
+  },
+  "emphasis": {
+    "intuition": "It turns a hard failure into a performance change",
+    "engineer": "quietly changes the optimisation problem you were solving"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "steps_preserved": 12,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "steps_preserved",
+        "min": 0,
+        "max": 600,
+        "step": 25
+      }
+    ],
+    "caption": "Steps a shrinking job keeps going through, against the steps a rigid one would have completed between interruptions. Drag the preserved work up to watch it dominate — the gain grows with the failure rate, which is why elasticity matters most on the least reliable capacity."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-parallelism",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "job-scheduling",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2111.04007",
+      "title": "Varuna: Scalable, Low-cost Training of Massive Deep Learning Models",
+      "url": "https://arxiv.org/abs/2111.04007"
+    },
+    {
+      "ref": "arXiv:2204.12013",
+      "title": "Bamboo: Making Preemptible Instances Resilient for Affordable Training of Large DNNs",
+      "url": "https://arxiv.org/abs/2204.12013"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
