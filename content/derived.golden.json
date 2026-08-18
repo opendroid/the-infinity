@@ -355,7 +355,7 @@
           {
             "id": "state-space-model",
             "title": "State Space Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -781,7 +781,7 @@
           {
             "id": "probabilistic-forecasting",
             "title": "Probabilistic Forecasting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -917,7 +917,7 @@
           {
             "id": "dilated-convolution",
             "title": "Dilated Convolution",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1272,7 +1272,7 @@
           {
             "id": "long-range-dependency",
             "title": "Long-Range Dependency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1768,13 +1768,13 @@
       "id": "dilated-convolution",
       "title": "Dilated Convolution",
       "domain": "Sequence / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "time-series-forecasting",
             "title": "Time Series Forecasting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2172,13 +2172,13 @@
           {
             "id": "long-range-dependency",
             "title": "Long-Range Dependency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "selective-state-space",
             "title": "Selective State Space",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2247,7 +2247,7 @@
           {
             "id": "selective-state-space",
             "title": "Selective State Space",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3103,7 +3103,7 @@
           {
             "id": "state-space-model",
             "title": "State Space Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3356,13 +3356,13 @@
       "id": "long-range-dependency",
       "title": "Long-Range Dependency",
       "domain": "Sequence / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "state-space-model",
             "title": "State Space Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4295,7 +4295,7 @@
           {
             "id": "time-series-forecasting",
             "title": "Time Series Forecasting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4660,7 +4660,7 @@
           {
             "id": "trend-decomposition",
             "title": "Trend Decomposition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4670,13 +4670,13 @@
       "id": "probabilistic-forecasting",
       "title": "Probabilistic Forecasting",
       "domain": "Sequence / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "time-series-forecasting",
             "title": "Time Series Forecasting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5349,13 +5349,13 @@
       "id": "seasonality",
       "title": "Seasonality",
       "domain": "Sequence / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "trend-decomposition",
             "title": "Trend Decomposition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5374,13 +5374,13 @@
       "id": "selective-state-space",
       "title": "Selective State Space",
       "domain": "Sequence / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "state-space-model",
             "title": "State Space Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5576,7 +5576,7 @@
           {
             "id": "time-series-forecasting",
             "title": "Time Series Forecasting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5779,7 +5779,7 @@
           {
             "id": "seasonality",
             "title": "Seasonality",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5869,13 +5869,13 @@
       "id": "state-space-model",
       "title": "State Space Model",
       "domain": "Sequence / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "time-series-forecasting",
             "title": "Time Series Forecasting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5883,13 +5883,13 @@
           {
             "id": "long-range-dependency",
             "title": "Long-Range Dependency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "selective-state-space",
             "title": "Selective State Space",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6167,7 +6167,7 @@
           {
             "id": "dilated-convolution",
             "title": "Dilated Convolution",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6177,32 +6177,32 @@
       "id": "time-series-forecasting",
       "title": "Time Series Forecasting",
       "domain": "Sequence / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "dilated-convolution",
             "title": "Dilated Convolution",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "probabilistic-forecasting",
             "title": "Probabilistic Forecasting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "state-space-model",
             "title": "State Space Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "trend-decomposition",
             "title": "Trend Decomposition",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6404,13 +6404,13 @@
       "id": "trend-decomposition",
       "title": "Trend Decomposition",
       "domain": "Sequence / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "time-series-forecasting",
             "title": "Time Series Forecasting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6418,7 +6418,7 @@
           {
             "id": "seasonality",
             "title": "Seasonality",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7350,7 +7350,7 @@
         {
           "id": "state-space-model",
           "title": "State Space Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -8151,7 +8151,7 @@
         {
           "id": "probabilistic-forecasting",
           "title": "Probabilistic Forecasting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -8377,7 +8377,7 @@
         {
           "id": "dilated-convolution",
           "title": "Dilated Convolution",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -8974,7 +8974,7 @@
         {
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -9905,7 +9905,7 @@
       "center": {
         "id": "dilated-convolution",
         "title": "Dilated Convolution",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -9913,7 +9913,7 @@
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -10583,14 +10583,14 @@
         {
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
         {
           "id": "selective-state-space",
           "title": "Selective State Space",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -10721,7 +10721,7 @@
         {
           "id": "selective-state-space",
           "title": "Selective State Space",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -12167,7 +12167,7 @@
         {
           "id": "state-space-model",
           "title": "State Space Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -12657,7 +12657,7 @@
       "center": {
         "id": "long-range-dependency",
         "title": "Long-Range Dependency",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12665,7 +12665,7 @@
         {
           "id": "state-space-model",
           "title": "State Space Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -14261,7 +14261,7 @@
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -14920,7 +14920,7 @@
         {
           "id": "trend-decomposition",
           "title": "Trend Decomposition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -14957,7 +14957,7 @@
       "center": {
         "id": "probabilistic-forecasting",
         "title": "Probabilistic Forecasting",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14965,7 +14965,7 @@
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -16134,7 +16134,7 @@
       "center": {
         "id": "seasonality",
         "title": "Seasonality",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16142,7 +16142,7 @@
         {
           "id": "trend-decomposition",
           "title": "Trend Decomposition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -16174,7 +16174,7 @@
       "center": {
         "id": "selective-state-space",
         "title": "Selective State Space",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16182,7 +16182,7 @@
         {
           "id": "state-space-model",
           "title": "State Space Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -16501,7 +16501,7 @@
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -16864,7 +16864,7 @@
         {
           "id": "seasonality",
           "title": "Seasonality",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -17058,7 +17058,7 @@
       "center": {
         "id": "state-space-model",
         "title": "State Space Model",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17066,21 +17066,21 @@
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "selective-state-space",
           "title": "Selective State Space",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -17550,7 +17550,7 @@
         {
           "id": "dilated-convolution",
           "title": "Dilated Convolution",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -17587,7 +17587,7 @@
       "center": {
         "id": "time-series-forecasting",
         "title": "Time Series Forecasting",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17595,28 +17595,28 @@
         {
           "id": "dilated-convolution",
           "title": "Dilated Convolution",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
         {
           "id": "probabilistic-forecasting",
           "title": "Probabilistic Forecasting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
         {
           "id": "state-space-model",
           "title": "State Space Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
         {
           "id": "trend-decomposition",
           "title": "Trend Decomposition",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -18008,7 +18008,7 @@
       "center": {
         "id": "trend-decomposition",
         "title": "Trend Decomposition",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -18016,14 +18016,14 @@
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "seasonality",
           "title": "Seasonality",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },

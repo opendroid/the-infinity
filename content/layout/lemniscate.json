@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "time-series-forecasting",
+      "id": "world-model",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "state-space-model",
+      "id": "model-based-rl",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "seasonality",
+      "id": "offline-rl",
       "t": 0.8,
       "label": true
     }
