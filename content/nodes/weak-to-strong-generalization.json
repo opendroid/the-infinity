@@ -1,0 +1,63 @@
+{
+  "id": "weak-to-strong-generalization",
+  "title": "Weak-to-Strong Generalization",
+  "domain": [
+    "Alignment",
+    "Research"
+  ],
+  "bodies": {
+    "intuition": "Fine-tune a strong model on labels produced by a weak one. Naively the strong model should learn to imitate the weak one's mistakes and end up no better. It does not — it recovers a substantial part of the gap, apparently because the weak labels point at a capability the strong model already has rather than teaching it one.",
+    "engineer": "The setup is a deliberate stand-in for the case nobody can run: a superhuman model supervised by humans. Replace \"human\" with \"small model\" and \"superhuman\" with \"large model\" and the experiment becomes possible, with the large model's own ground-truth performance as the ceiling. The result is encouraging and the analogy is the weak point — humans are not small language models, and whether the same elicitation happens across a genuinely different kind of supervisor is exactly what the setup cannot test.",
+    "math": "The measure is the fraction of the gap recovered: with weak performance w, strong-with-weak-labels s, and strong-with-ground-truth c, the recovered share is (s − w)/(c − w). Reported values sit well below one, which is the honest headline — the method elicits much of the gap and not all of it, and the residual is the part where the strong model has learned the weak supervisor's errors rather than the task."
+  },
+  "emphasis": {
+    "intuition": "the weak labels point at a capability the strong model already has rather than teaching it one",
+    "math": "the residual is the part where the strong model has learned the weak supervisor's errors rather than the task"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "gap_recovered": 12,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "gap_recovered",
+        "min": 0,
+        "max": 200,
+        "step": 10
+      }
+    ],
+    "caption": "The performance gap weak supervision recovers, against the part that stays lost, in equal units. Drag the elicitation up to watch most of the gap close — reported values stop well short of the whole, and what remains is the supervisor's errors learned as the task."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "scalable-oversight",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "knowledge-distillation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2312.09390",
+      "title": "Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision",
+      "url": "https://arxiv.org/abs/2312.09390"
+    },
+    {
+      "ref": "arXiv:2211.03540",
+      "title": "Measuring Progress on Scalable Oversight for Large Language Models",
+      "url": "https://arxiv.org/abs/2211.03540"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

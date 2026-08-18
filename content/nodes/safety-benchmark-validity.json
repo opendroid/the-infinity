@@ -1,0 +1,63 @@
+{
+  "id": "safety-benchmark-validity",
+  "title": "Safety Benchmark Validity",
+  "domain": [
+    "Alignment",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "A benchmark labelled \"safety\" is only measuring safety if a model can score well on it without simply being more capable. Many do not clear that bar — their scores track general capability closely enough that a bigger model improves on them for free, which means they measure progress that would have happened anyway.",
+    "engineer": "The check is straightforward and rarely run: correlate the benchmark against a general capability measure across a range of models. A safety benchmark whose scores are nearly a linear function of capability is a capability benchmark with a different title, and reporting improvement on it as safety progress is the failure the term \"safetywashing\" names. Benchmarks that survive the check are the ones where the two come apart — where a more capable model can and does score worse.",
+    "math": "The quantity is the share of variance in the benchmark not explained by capability, because that is the only part that could be measuring something else. A high correlation does not prove a benchmark is worthless — safety and capability are genuinely entangled in places — but it does mean the benchmark cannot distinguish them, and a measure that cannot distinguish its subject from a confound is not measuring its subject."
+  },
+  "emphasis": {
+    "intuition": "they measure progress that would have happened anyway",
+    "math": "a measure that cannot distinguish its subject from a confound is not measuring its subject"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "capability_explained": 12,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "capability_explained",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Benchmark variance explained by general capability, against the variance that could be measuring safety, in equal units. Drag the correlation up to watch capability account for the whole score — at the right the benchmark has a different title and the same content."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "dangerous-capability-evaluation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2407.21792",
+      "title": "Safetywashing: Do AI Safety Benchmarks Actually Measure Safety Progress?",
+      "url": "https://arxiv.org/abs/2407.21792"
+    },
+    {
+      "ref": "arXiv:2403.13793",
+      "title": "Evaluating Frontier Models for Dangerous Capabilities",
+      "url": "https://arxiv.org/abs/2403.13793"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

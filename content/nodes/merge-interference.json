@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Coordinates more than one task vector wants to move, against the ones nobody contests, in coordinates. Drag the model count up to watch contested coordinates take over — they grow with its square while the useful signal grows only linearly."
+    "caption": "Coordinates more than one task vector wants to move, against the ones nobody contests, in coordinates. Drag the contested set up to watch it take over — it grows with the square of the model count while the useful signal grows only linearly."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
