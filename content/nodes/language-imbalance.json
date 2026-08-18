@@ -1,0 +1,71 @@
+{
+  "id": "language-imbalance",
+  "title": "Language Imbalance",
+  "domain": [
+    "Multilingual",
+    "Data"
+  ],
+  "bodies": {
+    "intuition": "Web text is overwhelmingly a handful of languages. A corpus sampled proportionally gives some languages billions of tokens and others a rounding error, and a model trained that way is a strong English model with a multilingual veneer. Every multilingual corpus therefore resamples, and how it resamples is a decision with consequences.",
+    "engineer": "Temperature sampling is the standard lever: raise the temperature and low-resource languages are oversampled relative to their share. Too little and they are ignored; too much and their small corpora are repeated many times, which is memorisation rather than learning. The right setting depends on how much unique text each language actually has, not on its proportion — which is the quantity nobody reports.",
+    "math": "Sample language i with probability proportional to p_i^{1/T}. At T = 1 this is the natural distribution; as T grows it approaches uniform. The epochs a low-resource language sees rise with T, so the setting is bounded by the repetition limit `data-scaling-laws` describes — roughly four epochs before repeated tokens stop paying."
+  },
+  "emphasis": {
+    "intuition": "a strong English model with a multilingual veneer",
+    "engineer": "which is the quantity nobody reports"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "sampling_temperature": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "sampling_temperature",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Training mass across languages, as the web supplies it and as resampling evens it. Drag the temperature up to watch the distribution flatten toward uniform — and the smallest corpora start repeating."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-mixing",
+        "reviewed": false
+      },
+      {
+        "id": "multilingual-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "data-scaling-laws",
+        "reviewed": false
+      },
+      {
+        "id": "deduplication",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1911.02116",
+      "title": "Unsupervised Cross-lingual Representation Learning at Scale",
+      "url": "https://arxiv.org/abs/1911.02116"
+    },
+    {
+      "ref": "arXiv:2004.09095",
+      "title": "The State and Fate of Linguistic Diversity and Inclusion in the NLP World",
+      "url": "https://arxiv.org/abs/2004.09095"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "id": "cross-lingual-transfer",
+  "title": "Cross-Lingual Transfer",
+  "domain": [
+    "Multilingual",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Fine-tune a multilingual model on a task in English and it often performs that task in languages it never saw labelled examples for. The representation has aligned the languages well enough that the task head does not care which one the input is in. Nobody engineered that alignment; it emerges from joint training on unaligned text.",
+    "engineer": "Transfer is strongest between languages sharing script and word order and weakest across both, which makes the usual English-to-everything evaluation flattering to related languages and misleading about the rest. Reporting an average over a benchmark's languages hides that entirely — the distribution over languages is the result, and the mean is not.",
+    "math": "Zero-shot transfer is measured as task performance in a target language after fine-tuning only in a source. The gap to in-language fine-tuning is the transfer cost, and it correlates with typological distance rather than with the target language's pretraining share — which is why more pretraining data does not close it."
+  },
+  "emphasis": {
+    "intuition": "Nobody engineered that alignment; it emerges from joint training on unaligned text.",
+    "engineer": "the distribution over languages is the result, and the mean is not"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "transferred": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "transferred",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Task ability that arrives without in-language labels against the ability that still needs them, in equal units. Drag the transfer up to watch the labelled requirement shrink — it shrinks furthest for languages closest to the source."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "multilingual-model",
+        "reviewed": false
+      },
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "few-shot-learning",
+        "reviewed": false
+      },
+      {
+        "id": "in-context-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1906.01502",
+      "title": "How multilingual is Multilingual BERT?",
+      "url": "https://arxiv.org/abs/1906.01502"
+    },
+    {
+      "ref": "arXiv:2003.11080",
+      "title": "XTREME: A Massively Multilingual Multi-task Benchmark for Evaluating Cross-lingual Generalization",
+      "url": "https://arxiv.org/abs/2003.11080"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

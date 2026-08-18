@@ -1,0 +1,67 @@
+{
+  "id": "tokenizer-fairness",
+  "title": "Tokenizer Fairness",
+  "domain": [
+    "Multilingual",
+    "Interface"
+  ],
+  "bodies": {
+    "intuition": "A tokenizer trained mostly on English gives English the shortest encodings. The same sentence in another language can cost several times more tokens — which means more money per request, more of the context window consumed, and worse quality at the same budget. It is a fairness problem that arrives disguised as an implementation detail.",
+    "engineer": "The effect is largest for scripts poorly covered in the training corpus, where words fragment into bytes. Because API pricing is per token, speakers of those languages pay more for the same content, and because the context window is in tokens, they get less of it. Rebalancing the tokenizer's training corpus is cheap relative to retraining a model and is rarely done, which is the part worth being direct about.",
+    "math": "Fertility — tokens per word — measures it directly, and it ranges from near one for English to several for morphologically rich or under-covered languages. A fertility of three means three times the cost, a third of the effective context, and an effectively shorter memory, all from a preprocessing choice made once before training."
+  },
+  "emphasis": {
+    "intuition": "a fairness problem that arrives disguised as an implementation detail",
+    "engineer": "Rebalancing the tokenizer's training corpus is cheap relative to retraining a model and is rarely done"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "extra_tokens": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "extra_tokens",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Tokens a language spends beyond what the same content costs in English against that baseline, in tokens. Drag the fertility up to watch the surcharge exceed the message — this bar is money, context, and quality at once."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tokenization",
+        "reviewed": false
+      },
+      {
+        "id": "byte-pair-encoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.13707",
+      "title": "Do All Languages Cost the Same? Tokenization in the Era of Commercial Language Models",
+      "url": "https://arxiv.org/abs/2305.13707"
+    },
+    {
+      "ref": "arXiv:2310.08754",
+      "title": "Tokenizer Choice For LLM Training: Negligible or Crucial?",
+      "url": "https://arxiv.org/abs/2310.08754"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

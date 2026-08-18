@@ -1,0 +1,67 @@
+{
+  "id": "multilingual-model",
+  "title": "Multilingual Model",
+  "domain": [
+    "Multilingual",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "One model for many languages, sharing parameters across all of them. Languages help each other where they share structure and compete where they do not, so adding a language improves the low-resource ones and can cost the high-resource ones — a trade that has a name and a measurable shape.",
+    "engineer": "The curse of multilinguality is that per-language quality rises with more languages up to a point and then falls, because a fixed parameter budget is being divided. Raising capacity moves the peak rather than removing it. The practical decision is which languages share a model at all, and it is usually made by data availability rather than by linguistic relatedness, which is why the groupings in released models rarely match anything a linguist would draw.",
+    "math": "With a fixed budget and L languages, per-language capacity falls roughly as 1/L while cross-lingual sharing supplies a gain that saturates. The sum peaks at some L and declines, so the optimum is interior — which is why the answer is neither one model per language nor one model for all."
+  },
+  "emphasis": {
+    "intuition": "adding a language improves the low-resource ones and can cost the high-resource ones",
+    "engineer": "the groupings in released models rarely match anything a linguist would draw"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "languages_added": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "languages_added",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Capacity divided among added languages against the capacity left to any one of them, in equal units. Drag the language count up to watch each share thin — the gain from sharing saturates while this does not."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "task-interference",
+        "reviewed": false
+      },
+      {
+        "id": "mixture-of-experts",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1911.02116",
+      "title": "Unsupervised Cross-lingual Representation Learning at Scale",
+      "url": "https://arxiv.org/abs/1911.02116"
+    },
+    {
+      "ref": "arXiv:2003.11080",
+      "title": "XTREME: A Massively Multilingual Multi-task Benchmark for Evaluating Cross-lingual Generalization",
+      "url": "https://arxiv.org/abs/2003.11080"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

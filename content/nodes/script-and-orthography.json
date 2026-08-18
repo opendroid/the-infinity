@@ -1,0 +1,62 @@
+{
+  "id": "script-and-orthography",
+  "title": "Script and Orthography",
+  "domain": [
+    "Multilingual",
+    "Interface"
+  ],
+  "bodies": {
+    "intuition": "Writing systems differ in ways that reach all the way down to the byte level. Some scripts have no spaces between words, some encode the same character in several ways, some render differently depending on neighbours. A pipeline built for Latin script quietly mishandles all of it, usually without erroring.",
+    "engineer": "Unicode normalisation is the first thing to get right and the easiest to skip: the same visible string can have multiple byte representations, so deduplication misses duplicates and lookups miss matches. Word-boundary assumptions are the second — a tokenizer that pre-splits on whitespace has already decided that scripts without spaces are one long word, which is why byte-level tokenizers handle them better without anyone intending it.",
+    "math": "Byte-level encoding sidesteps the boundary question at the cost of sequence length, which is exactly the fertility cost `tokenizer-fairness` measures. Normalisation is a many-to-one map, so skipping it inflates apparent vocabulary and splits statistics that should have been pooled — an error that shows up as slightly worse everything rather than as a failure."
+  },
+  "emphasis": {
+    "intuition": "usually without erroring",
+    "engineer": "which is why byte-level tokenizers handle them better without anyone intending it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unnormalised_variants": 4,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "unnormalised_variants",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Byte representations of the same visible text against the one a normaliser would keep, in variants. Drag the variants up to watch statistics that belong together split apart — nothing fails, everything gets slightly worse."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tokenization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "tokenizer-fairness",
+        "reviewed": false
+      },
+      {
+        "id": "deduplication",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2310.08754",
+      "title": "Tokenizer Choice For LLM Training: Negligible or Crucial?",
+      "url": "https://arxiv.org/abs/2310.08754"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
