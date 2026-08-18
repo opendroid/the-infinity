@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Comparisons a results table makes at once, against the one it appears to make, in comparisons. Drag the comparison count up to watch an expected false positive arrive — at twenty, one significant-looking result is what chance alone produces."
+    "caption": "Comparisons a results table makes at once, against the twenty a 5% threshold tolerates before one false positive is expected, in comparisons. Drag the comparison count up to watch it pass that mark — at twenty, one significant-looking result is what chance alone produces."
   },
   "edges": {
     "requires": [
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

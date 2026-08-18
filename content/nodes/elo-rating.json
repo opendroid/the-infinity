@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Votes behind a rating, against the uncertainty they have not yet removed, in equal units. Drag the vote count up to watch the unresolved share shrink beside it — it shrinks with the square root, so an early rating is noisy in a way the ordering never shows."
+    "caption": "Votes behind a rating, against the uncertainty they have not yet removed. Drag the vote count up to watch the unresolved share shrink beside it — it shrinks with the square root, so an early rating is noisy in a way the ordering never shows."
   },
   "edges": {
     "requires": [
@@ -64,7 +64,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
