@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "causal-inference",
+      "id": "time-series-forecasting",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "confounding",
+      "id": "state-space-model",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "counterfactual",
+      "id": "seasonality",
       "t": 0.8,
       "label": true
     }

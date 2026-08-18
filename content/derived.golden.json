@@ -701,7 +701,7 @@
           {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -726,7 +726,7 @@
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -797,13 +797,13 @@
       "id": "causal-discovery",
       "title": "Causal Discovery",
       "domain": "Causality / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -828,26 +828,26 @@
       "id": "causal-inference",
       "title": "Causal Inference",
       "domain": "Causality / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "causal-discovery",
             "title": "Causal Discovery",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "confounding",
             "title": "Confounding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "intervention",
             "title": "Intervention",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -861,7 +861,7 @@
           {
             "id": "instrumental-variable",
             "title": "Instrumental Variable",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1114,13 +1114,13 @@
       "id": "confounding",
       "title": "Confounding",
       "domain": "Causality / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1128,7 +1128,7 @@
           {
             "id": "instrumental-variable",
             "title": "Instrumental Variable",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1381,13 +1381,13 @@
       "id": "counterfactual",
       "title": "Counterfactual",
       "domain": "Causality / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "intervention",
             "title": "Intervention",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1545,7 +1545,7 @@
           {
             "id": "confounding",
             "title": "Confounding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2470,7 +2470,7 @@
           {
             "id": "causal-discovery",
             "title": "Causal Discovery",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2487,7 +2487,7 @@
           {
             "id": "causal-discovery",
             "title": "Causal Discovery",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2759,13 +2759,13 @@
       "id": "instrumental-variable",
       "title": "Instrumental Variable",
       "domain": "Causality / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "confounding",
             "title": "Confounding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2774,7 +2774,7 @@
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2784,13 +2784,13 @@
       "id": "intervention",
       "title": "Intervention",
       "domain": "Causality / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "causal-inference",
             "title": "Causal Inference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2798,7 +2798,7 @@
           {
             "id": "counterfactual",
             "title": "Counterfactual",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2816,13 +2816,13 @@
       "id": "invariant-risk-minimization",
       "title": "Invariant Risk Minimization",
       "domain": "Causality / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3209,7 +3209,7 @@
           {
             "id": "counterfactual",
             "title": "Counterfactual",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3389,7 +3389,7 @@
           {
             "id": "invariant-risk-minimization",
             "title": "Invariant Risk Minimization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4057,7 +4057,7 @@
           {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4916,7 +4916,7 @@
           {
             "id": "intervention",
             "title": "Intervention",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5311,7 +5311,7 @@
       "id": "shortcut-learning",
       "title": "Shortcut Learning",
       "domain": "Causality / Generalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5325,7 +5325,7 @@
           {
             "id": "invariant-risk-minimization",
             "title": "Invariant Risk Minimization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5933,7 +5933,7 @@
           {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7672,7 +7672,7 @@
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -7718,7 +7718,7 @@
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -7849,7 +7849,7 @@
       "center": {
         "id": "causal-discovery",
         "title": "Causal Discovery",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7857,7 +7857,7 @@
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -7902,7 +7902,7 @@
       "center": {
         "id": "causal-inference",
         "title": "Causal Inference",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -7910,21 +7910,21 @@
         {
           "id": "causal-discovery",
           "title": "Causal Discovery",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "confounding",
           "title": "Confounding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "intervention",
           "title": "Intervention",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -7938,7 +7938,7 @@
         {
           "id": "instrumental-variable",
           "title": "Instrumental Variable",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -8392,7 +8392,7 @@
       "center": {
         "id": "confounding",
         "title": "Confounding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8400,14 +8400,14 @@
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "instrumental-variable",
           "title": "Instrumental Variable",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -8867,7 +8867,7 @@
       "center": {
         "id": "counterfactual",
         "title": "Counterfactual",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8875,7 +8875,7 @@
         {
           "id": "intervention",
           "title": "Intervention",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -9146,7 +9146,7 @@
         {
           "id": "confounding",
           "title": "Confounding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -10765,7 +10765,7 @@
         {
           "id": "causal-discovery",
           "title": "Causal Discovery",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -10804,7 +10804,7 @@
         {
           "id": "causal-discovery",
           "title": "Causal Discovery",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -11273,7 +11273,7 @@
       "center": {
         "id": "instrumental-variable",
         "title": "Instrumental Variable",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11281,14 +11281,14 @@
         {
           "id": "confounding",
           "title": "Confounding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -11313,7 +11313,7 @@
       "center": {
         "id": "intervention",
         "title": "Intervention",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11321,14 +11321,14 @@
         {
           "id": "causal-inference",
           "title": "Causal Inference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "counterfactual",
           "title": "Counterfactual",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -11366,7 +11366,7 @@
       "center": {
         "id": "invariant-risk-minimization",
         "title": "Invariant Risk Minimization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11374,7 +11374,7 @@
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -12042,7 +12042,7 @@
         {
           "id": "counterfactual",
           "title": "Counterfactual",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -12335,7 +12335,7 @@
         {
           "id": "invariant-risk-minimization",
           "title": "Invariant Risk Minimization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -13523,7 +13523,7 @@
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -15017,7 +15017,7 @@
         {
           "id": "intervention",
           "title": "Intervention",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -15716,7 +15716,7 @@
       "center": {
         "id": "shortcut-learning",
         "title": "Shortcut Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15731,7 +15731,7 @@
         {
           "id": "invariant-risk-minimization",
           "title": "Invariant Risk Minimization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -16789,7 +16789,7 @@
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }

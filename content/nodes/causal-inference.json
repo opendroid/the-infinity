@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Prediction asks what usually happens together. Causal inference asks what would happen if you changed something — a different question, needing more than the data. No amount of observation settles it on its own, because the same numbers are consistent with several stories about what produces what, and choosing between them takes an assumption you bring rather than one you measure.",
     "engineer": "This is the gap under most deployed models. A model trained on logged behaviour predicts the world it was logged in, and the moment it is used to decide something it changes that world — a recommender that learns what people click then determines what they see. The assumptions doing the work are always about what was left unmeasured, which is why causal claims are argued rather than computed.",
-    "math": "Association is p(y|x); causation is p(y|do(x)). They differ whenever a common cause feeds both, and they coincide when x is randomised — which is what randomisation buys and the only thing it buys. Recovering the second from observational data needs an identification argument, a proof that the causal quantity can be written in terms of observable ones under the stated assumptions."
+    "math": "Association is p(y|x); causation is p(y|do(x)). They differ whenever a common cause feeds both, and they coincide when x is randomised — which is what randomisation buys, and it buys nothing about the parts you did not randomise. Recovering the second from observational data needs an identification argument, a proof that the causal quantity can be written in terms of observable ones under the stated assumptions."
   },
   "emphasis": {
     "intuition": "the same numbers are consistent with several stories about what produces what",
@@ -66,7 +66,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
