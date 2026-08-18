@@ -1,0 +1,67 @@
+{
+  "id": "model-soup",
+  "title": "Model Soup",
+  "domain": [
+    "Weights",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Fine-tune the same base many times with different hyperparameters, then average the weights of the ones that came out well. Normally you would pick the best on a validation set and discard the rest; a soup keeps them, and the average usually beats the single best run.",
+    "engineer": "Two recipes. The uniform soup averages everything, which is simple and can be dragged down by a bad run. The greedy soup sorts candidates by validation accuracy and adds each only if it improves the running average — slower, more robust, and the version people actually ship. Either way the result is one model, so serving costs nothing extra, which is the difference between this and keeping the runs as an ensemble.",
+    "math": "The gain comes from variance reduction in weight space rather than in output space. Independent hyperparameter draws land at different points in the same basin, and averaging cancels the component of each that is idiosyncratic to its run while preserving what they agree on. It follows that the benefit falls as the runs become more similar — a soup of near-identical runs is one run — and that it needs the runs to share a basin, which is why they must share a base."
+  },
+  "emphasis": {
+    "intuition": "the average usually beats the single best run",
+    "math": "a soup of near-identical runs is one run"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "cancelled_variance": 8,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "cancelled_variance",
+        "min": 0,
+        "max": 200,
+        "step": 10
+      }
+    ],
+    "caption": "Run-to-run variance that averaging cancels, against the part every run shares and averaging cannot touch, in equal units. Drag the number of runs up to watch cancellation saturate — it stops where the runs stop differing, which is why a soup of near-identical runs is one run."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "model-merging",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "weight-averaging",
+        "reviewed": false
+      },
+      {
+        "id": "merge-vs-ensemble",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2203.05482",
+      "title": "Model soups: averaging weights of multiple fine-tuned models improves accuracy without increasing inference time",
+      "url": "https://arxiv.org/abs/2203.05482"
+    },
+    {
+      "ref": "arXiv:1803.05407",
+      "title": "Averaging Weights Leads to Wider Optima and Better Generalization",
+      "url": "https://arxiv.org/abs/1803.05407"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

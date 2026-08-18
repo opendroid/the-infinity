@@ -1,0 +1,63 @@
+{
+  "id": "permutation-symmetry",
+  "title": "Permutation Symmetry",
+  "domain": [
+    "Weights",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Swap two neurons in a hidden layer, and swap the corresponding weights that read from them, and the network computes exactly the same function. So every trained model is one of an enormous number of identical twins, differing only in the order things are written down — and two models that look completely different in weight space may be the same model in disguise.",
+    "engineer": "This is why averaging two independently trained networks gives garbage. They are not in conflict about what to compute; they have written equivalent answers in different orders, and averaging across orderings destroys both. Align one to the other first — find the permutation that best matches their units — and the average becomes reasonable. That alignment step is what separates \"merging does not work across runs\" from \"merging needs a correspondence\".",
+    "math": "A layer of width n has n! equivalent orderings, so the number of weight-space points computing one function grows factorially with width and multiplicatively across layers. That is why the loss landscape looks like it has an astronomical number of distinct minima and why so many of them turn out to be the same one: quotient out the symmetry and much of the apparent multiplicity disappears, which is the observation `mode-connectivity` depends on."
+  },
+  "emphasis": {
+    "intuition": "two models that look completely different in weight space may be the same model in disguise",
+    "math": "quotient out the symmetry and much of the apparent multiplicity disappears"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "symmetric_copies": 24,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "symmetric_copies",
+        "min": 0,
+        "max": 200,
+        "step": 10
+      }
+    ],
+    "caption": "Weight-space points that are one function written in a different order, against genuinely distinct solutions, in points. Drag the layer width up to watch reorderings swamp the distinct ones — the count grows factorially, which a share can only show as saturation."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "mode-connectivity",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "model-merging",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2209.04836",
+      "title": "Git Re-Basin: Merging Models modulo Permutation Symmetries",
+      "url": "https://arxiv.org/abs/2209.04836"
+    },
+    {
+      "ref": "arXiv:1802.10026",
+      "title": "Loss Surfaces, Mode Connectivity, and Fast Ensembling of DNNs",
+      "url": "https://arxiv.org/abs/1802.10026"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

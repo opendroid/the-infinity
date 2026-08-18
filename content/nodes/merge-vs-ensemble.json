@@ -1,0 +1,63 @@
+{
+  "id": "merge-vs-ensemble",
+  "title": "Merge vs Ensemble",
+  "domain": [
+    "Weights",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Both take several models and combine them; the difference is when. An ensemble keeps all of them and combines their outputs at every query. A merge combines their weights once and keeps one model. The ensemble is more accurate and the merge is the one you can afford to serve.",
+    "engineer": "Which to choose is usually decided by the serving constraint rather than by accuracy. An ensemble of five costs five times the inference forever; a merge of five costs the same as one, permanently. So merging wins wherever inference dominates the bill, which is most deployed systems, and ensembling survives where accuracy is worth a fivefold cost — offline scoring, competitions, and the reference number a paper reports.",
+    "math": "The two are not approximations of each other. An ensemble averages functions and a merge averages parameters, and those coincide only where the model is linear in its weights over the region spanned. Fine-tunes of a shared base are close enough to that regime for the merge to retain most of the ensemble's gain; models from different initialisations are nowhere near it, and there the merge gets nothing while the ensemble still works."
+  },
+  "emphasis": {
+    "intuition": "The ensemble is more accurate and the merge is the one you can afford to serve.",
+    "math": "An ensemble averages functions and a merge averages parameters"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "ensemble_members": 1,
+      "share_rest": 1
+    },
+    "param_controls": [
+      {
+        "name": "ensemble_members",
+        "min": 0,
+        "max": 13,
+        "step": 1
+      }
+    ],
+    "caption": "Inference an ensemble pays on every query, against the single forward pass a merge costs, in models. Drag the member count up to watch the ensemble's recurring cost take everything — the merge's bar never moves, which is the entire argument for it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "deep-ensemble",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "model-merging",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2203.05482",
+      "title": "Model soups: averaging weights of multiple fine-tuned models improves accuracy without increasing inference time",
+      "url": "https://arxiv.org/abs/2203.05482"
+    },
+    {
+      "ref": "arXiv:2403.13187",
+      "title": "Evolutionary Optimization of Model Merging Recipes",
+      "url": "https://arxiv.org/abs/2403.13187"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

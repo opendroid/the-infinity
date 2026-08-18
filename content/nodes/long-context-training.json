@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "A model does not get a long context by having its positions rescaled; it gets one by then being trained on long sequences. That training stage is short compared with pretraining and surprisingly particular about its data — most long documents are long by accident rather than because anything in them depends on anything far away.",
     "engineer": "The data problem is the interesting one. Concatenated short documents are long sequences with no long-range dependencies, so training on them teaches the model nothing about distance; it needs material where an answer late in the sequence genuinely depends on something early. Constructing that at scale means either finding naturally long-dependency documents, which are rare, or synthesising them, which risks teaching the shape of the synthetic task rather than the capability.",
-    "math": "Attention is quadratic in sequence length, so a stage at sixteen times the pretraining length costs 256 times per token processed — which is why this stage is short and why the token budget spent on it is a small fraction of pretraining's. That small fraction is also why the resulting long-context ability is thin: the model has seen orders of magnitude fewer long-range dependencies than short-range ones, and behaves accordingly."
+    "math": "Attention is quadratic in sequence length, so a stage at sixteen times the pretraining length costs 256 times as much per sequence, and sixteen times as much per token — which is why this stage is short and why the token budget spent on it is a small fraction of pretraining's. That small fraction is also why the resulting long-context ability is thin: the model has seen orders of magnitude fewer long-range dependencies than short-range ones, and behaves accordingly."
   },
   "emphasis": {
     "intuition": "most long documents are long by accident rather than because anything in them depends on anything far away",
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

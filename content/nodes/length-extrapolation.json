@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "A model trained on sequences of four thousand tokens is shown forty thousand. Nothing in the architecture forbids it — attention has no fixed length — and yet quality collapses, often into repetition or nonsense. The reason is that the model has never seen positions that far apart and has no idea what they mean.",
     "engineer": "The failure is specific to how position is encoded. Learned absolute embeddings simply have no entry past the trained length, so there is nothing to look up. Rotary embeddings do have a value at every position, but the rotation frequencies were only ever composed at distances the model saw, so far-apart pairs land in a regime it has no experience of. Relative schemes with a distance penalty degrade more gracefully, which is what \"train short, test long\" was demonstrating — but graceful degradation is not the same as working.",
-    "math": "Extrapolation asks a model to evaluate at inputs outside its training distribution, which is the one thing no fitting procedure promises. The distances a model saw during training are bounded by its training length, so the share of position pairs at inference that fall outside that bound rises with the ratio of the two lengths — at ten times the training length, almost every pair in the sequence is at a distance the model never encountered. That is why the failure is sudden rather than proportional."
+    "math": "Extrapolation asks a model to evaluate at inputs outside its training distribution, which is the one thing no fitting procedure promises. The distances a model saw during training are bounded by its training length, so the share of position pairs at inference that fall outside that bound rises with the ratio of the two lengths — at ten times the training length, four pairs in five sit at a distance the model never encountered. That share grows smoothly, though, so it is not what makes the failure abrupt — that comes from the encoding, where a rotary phase past the trained range is not merely unfamiliar but lands on values the model learned to read as a different distance entirely."
   },
   "emphasis": {
     "intuition": "the model has never seen positions that far apart and has no idea what they mean",
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
