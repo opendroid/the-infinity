@@ -1,0 +1,63 @@
+{
+  "id": "data-filtering",
+  "title": "Data Filtering",
+  "domain": [
+    "Data",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Most of a web crawl is not worth training on — boilerplate, spam, machine translation, pages that are mostly navigation. Filtering decides what survives, and the decision moves benchmark scores more than most architectural changes do. It is also the least published part of any frontier model.",
+    "engineer": "The pipeline is a stack of cheap classifiers and heuristics: language identification, perplexity against a reference model, near-duplicate detection, quality classifiers trained on a curated positive set. Every filter is also a bias — a quality classifier trained on Wikipedia and books encodes what those look like, and removes dialects and domains that do not. Aggressive filtering can hurt: past a point it strips the diversity that made scale useful.",
+    "math": "Each filter is a threshold on a score, and the aggregate keep rate is the product of the individual ones — so a stack of five filters each keeping 80% keeps a third. Because thresholds are usually tuned one filter at a time against a downstream metric, the interaction between them is rarely measured, and the stack's true selectivity is not what any single tuning run saw."
+  },
+  "emphasis": {
+    "intuition": "the decision moves benchmark scores more than most architectural changes do",
+    "engineer": "Every filter is also a bias"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "discarded": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "discarded",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Documents the pipeline throws away against documents it keeps, in documents. Drag the filtering up to watch most of the crawl go — and past some point what leaves is the diversity that made the crawl worth having."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "perplexity",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2406.11794",
+      "title": "DataComp-LM: In search of the next generation of training sets for language models",
+      "url": "https://arxiv.org/abs/2406.11794"
+    },
+    {
+      "ref": "arXiv:2101.00027",
+      "title": "The Pile: An 800GB Dataset of Diverse Text for Language Modeling",
+      "url": "https://arxiv.org/abs/2101.00027"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

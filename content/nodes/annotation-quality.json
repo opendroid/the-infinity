@@ -1,0 +1,62 @@
+{
+  "id": "annotation-quality",
+  "title": "Annotation Quality",
+  "domain": [
+    "Data",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "Labels are produced by people who disagree, get tired, and interpret instructions differently. On many datasets the gap between two annotators is larger than the gap between the top models, which means the leaderboard is partly measuring who best fits the annotation noise.",
+    "engineer": "Inter-annotator agreement should be reported alongside model scores and usually is not — without it, a model exceeding the agreement ceiling is being credited for fitting idiosyncrasy. Disagreement is also signal rather than error in subjective tasks: collapsing five annotators to a majority label discards the information that the item was contested, which is often what a downstream system most needs to know.",
+    "math": "Agreement measured by Cohen's or Krippendorff's alpha corrects for chance agreement, which raw percentages do not — two annotators labelling 90% of items as one class agree 82% of the time by chance alone. A model's headroom is bounded by that ceiling: above it, extra accuracy against a majority label is fitting the annotator pool rather than the task."
+  },
+  "emphasis": {
+    "intuition": "the leaderboard is partly measuring who best fits the annotation noise",
+    "engineer": "collapsing five annotators to a majority label discards the information that the item was contested"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "contested_items": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "contested_items",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Items annotators disagreed on against items they agreed on, in items. Drag the disagreement up to watch the ceiling come down — a model cannot be right about an item where right was never established."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-filtering",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      },
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2406.11794",
+      "title": "DataComp-LM: In search of the next generation of training sets for language models",
+      "url": "https://arxiv.org/abs/2406.11794"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

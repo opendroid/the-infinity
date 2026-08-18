@@ -1,0 +1,58 @@
+{
+  "id": "data-mixing",
+  "title": "Data Mixing",
+  "domain": [
+    "Data",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "A training corpus is several corpora — web text, code, books, papers, forums — and how much of each you use is a decision with large effects. Code improves reasoning on non-code tasks; too much of any single source costs breadth. The proportions are tuned like hyperparameters and reported far less often.",
+    "engineer": "Tuning them directly is expensive because each trial is a training run, so the practical methods fit proxy models at small scale and transfer the weights up. That transfer is the assumption to watch: a mixture optimal for a small model is not obviously optimal for a large one, and the literature has examples of the ranking changing with scale.",
+    "math": "Sample domain i with weight w_i summing to one; the loss is a weighted sum over domains and the gradient is dominated by whichever has the most mass. Optimising the weights against a target distribution is a bilevel problem — the inner problem is training — which is why the working methods approximate it with small proxy models rather than solving it."
+  },
+  "emphasis": {
+    "intuition": "Code improves reasoning on non-code tasks",
+    "engineer": "a mixture optimal for a small model is not obviously optimal for a large one"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "balancing": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "balancing",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "How training mass is spread across source domains, as sampled and as it is balanced. Drag the balancing up to watch the mixture even out — a natural crawl is steeply uneven, and both ends of this drag cost something."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-filtering",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "scaling-laws",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.10429",
+      "title": "DoReMi: Optimizing Data Mixtures Speeds Up Language Model Pretraining",
+      "url": "https://arxiv.org/abs/2305.10429"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

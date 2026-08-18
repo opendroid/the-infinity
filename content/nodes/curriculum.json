@@ -1,0 +1,70 @@
+{
+  "id": "curriculum",
+  "title": "Curriculum",
+  "domain": [
+    "Data",
+    "Schedules"
+  ],
+  "bodies": {
+    "intuition": "Show easy examples first and hard ones later, as a teacher would. The idea is old and intuitive and its record in deep learning is mixed — it helps clearly in some settings and does nothing in others, and which is which is not well predicted in advance.",
+    "engineer": "Where it reliably helps is when the hard examples are hard because they depend on something the easy ones teach — long context after short, multi-step reasoning after single-step. Where it does not is when difficulty is just noise, since ordering noise is still noise. Modern large-scale training uses a weak version of this in length and domain scheduling rather than a strict easy-to-hard ordering.",
+    "math": "Order examples by a difficulty measure and anneal the sampling distribution from easy toward the full one. The mechanism claimed is a smoother optimisation path — early steps see a simpler loss surface — which is a claim about the trajectory rather than the optimum, so any benefit is about reaching a good solution faster rather than reaching a better one."
+  },
+  "emphasis": {
+    "intuition": "which is which is not well predicted in advance",
+    "engineer": "ordering noise is still noise"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "easy_examples": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "easy_examples",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Easy examples early in training against hard ones held back, in examples. Drag the curriculum up to watch the early distribution simplify — the claim is about how fast a good solution is reached, not about which one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-mixing",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "learning-rate-schedule",
+        "reviewed": false
+      },
+      {
+        "id": "warmup",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.16264",
+      "title": "Scaling Data-Constrained Language Models",
+      "url": "https://arxiv.org/abs/2305.16264"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Bengio et al. 2009",
+      "title": "Curriculum Learning",
+      "venue": "ICML 2009",
+      "doi": "10.1145/1553374.1553380"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
