@@ -5,13 +5,13 @@
       "id": "action-chunking",
       "title": "Action Chunking",
       "domain": "Robotics / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "manipulation",
             "title": "Manipulation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -410,7 +410,7 @@
           {
             "id": "teleoperation-data",
             "title": "Teleoperation Data",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1927,7 +1927,7 @@
       "id": "contact-dynamics",
       "title": "Contact Dynamics",
       "domain": "Robotics / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2481,7 +2481,7 @@
           {
             "id": "teleoperation-data",
             "title": "Teleoperation Data",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3175,19 +3175,19 @@
       "id": "embodiment-gap",
       "title": "Embodiment Gap",
       "domain": "Robotics / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "teleoperation-data",
             "title": "Teleoperation Data",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "vision-language-action",
             "title": "Vision-Language-Action Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4494,7 +4494,7 @@
           {
             "id": "proprioception",
             "title": "Proprioception",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4525,7 +4525,7 @@
           {
             "id": "safety-envelope",
             "title": "Safety Envelope",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4586,19 +4586,19 @@
           {
             "id": "manipulation",
             "title": "Manipulation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "teleoperation-data",
             "title": "Teleoperation Data",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "vision-language-action",
             "title": "Vision-Language-Action Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5597,7 +5597,7 @@
           {
             "id": "action-chunking",
             "title": "Action Chunking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5929,7 +5929,7 @@
       "id": "manipulation",
       "title": "Manipulation",
       "domain": "Robotics / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5943,19 +5943,19 @@
           {
             "id": "action-chunking",
             "title": "Action Chunking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "proprioception",
             "title": "Proprioception",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "safety-envelope",
             "title": "Safety Envelope",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6463,7 +6463,7 @@
           {
             "id": "contact-dynamics",
             "title": "Contact Dynamics",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6494,7 +6494,7 @@
           {
             "id": "action-chunking",
             "title": "Action Chunking",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7756,13 +7756,13 @@
       "id": "proprioception",
       "title": "Proprioception",
       "domain": "Robotics / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "manipulation",
             "title": "Manipulation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8545,13 +8545,13 @@
       "id": "safety-envelope",
       "title": "Safety Envelope",
       "domain": "Robotics / Safety",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "manipulation",
             "title": "Manipulation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8647,7 +8647,7 @@
           {
             "id": "safety-envelope",
             "title": "Safety Envelope",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -9079,7 +9079,7 @@
           {
             "id": "manipulation",
             "title": "Manipulation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9121,7 +9121,7 @@
           {
             "id": "contact-dynamics",
             "title": "Contact Dynamics",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9129,7 +9129,7 @@
           {
             "id": "embodiment-gap",
             "title": "Embodiment Gap",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9141,7 +9141,7 @@
           {
             "id": "vision-language-action",
             "title": "Vision-Language-Action Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -9567,7 +9567,7 @@
           {
             "id": "proprioception",
             "title": "Proprioception",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -9754,7 +9754,7 @@
           {
             "id": "embodiment-gap",
             "title": "Embodiment Gap",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9776,7 +9776,7 @@
       "id": "teleoperation-data",
       "title": "Teleoperation Data",
       "domain": "Robotics / Data",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9790,7 +9790,7 @@
           {
             "id": "embodiment-gap",
             "title": "Embodiment Gap",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10554,7 +10554,7 @@
       "id": "vision-language-action",
       "title": "Vision-Language-Action Model",
       "domain": "Robotics / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10574,7 +10574,7 @@
           {
             "id": "embodiment-gap",
             "title": "Embodiment Gap",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10618,7 +10618,7 @@
           {
             "id": "vision-language-action",
             "title": "Vision-Language-Action Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10868,7 +10868,7 @@
       "center": {
         "id": "action-chunking",
         "title": "Action Chunking",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10876,7 +10876,7 @@
         {
           "id": "manipulation",
           "title": "Manipulation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -11546,7 +11546,7 @@
         {
           "id": "teleoperation-data",
           "title": "Teleoperation Data",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -14286,7 +14286,7 @@
       "center": {
         "id": "contact-dynamics",
         "title": "Contact Dynamics",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15264,7 +15264,7 @@
         {
           "id": "teleoperation-data",
           "title": "Teleoperation Data",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -16539,7 +16539,7 @@
       "center": {
         "id": "embodiment-gap",
         "title": "Embodiment Gap",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16547,14 +16547,14 @@
         {
           "id": "teleoperation-data",
           "title": "Teleoperation Data",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "vision-language-action",
           "title": "Vision-Language-Action Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -18864,7 +18864,7 @@
         {
           "id": "proprioception",
           "title": "Proprioception",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -18923,7 +18923,7 @@
         {
           "id": "safety-envelope",
           "title": "Safety Envelope",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -19035,21 +19035,21 @@
         {
           "id": "manipulation",
           "title": "Manipulation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "teleoperation-data",
           "title": "Teleoperation Data",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "vision-language-action",
           "title": "Vision-Language-Action Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -20835,7 +20835,7 @@
         {
           "id": "action-chunking",
           "title": "Action Chunking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -21446,7 +21446,7 @@
       "center": {
         "id": "manipulation",
         "title": "Manipulation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -21461,21 +21461,21 @@
         {
           "id": "action-chunking",
           "title": "Action Chunking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "proprioception",
           "title": "Proprioception",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "safety-envelope",
           "title": "Safety Envelope",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -22360,7 +22360,7 @@
         {
           "id": "contact-dynamics",
           "title": "Contact Dynamics",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -22425,7 +22425,7 @@
         {
           "id": "action-chunking",
           "title": "Action Chunking",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -24680,7 +24680,7 @@
       "center": {
         "id": "proprioception",
         "title": "Proprioception",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -24688,7 +24688,7 @@
         {
           "id": "manipulation",
           "title": "Manipulation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -26079,7 +26079,7 @@
       "center": {
         "id": "safety-envelope",
         "title": "Safety Envelope",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -26087,7 +26087,7 @@
         {
           "id": "manipulation",
           "title": "Manipulation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -26228,7 +26228,7 @@
         {
           "id": "safety-envelope",
           "title": "Safety Envelope",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -26987,7 +26987,7 @@
         {
           "id": "manipulation",
           "title": "Manipulation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 103,
           "y": 22
         },
@@ -27084,14 +27084,14 @@
         {
           "id": "contact-dynamics",
           "title": "Contact Dynamics",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "embodiment-gap",
           "title": "Embodiment Gap",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -27105,7 +27105,7 @@
         {
           "id": "vision-language-action",
           "title": "Vision-Language-Action Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -27894,7 +27894,7 @@
         {
           "id": "proprioception",
           "title": "Proprioception",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -28218,7 +28218,7 @@
         {
           "id": "embodiment-gap",
           "title": "Embodiment Gap",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -28269,7 +28269,7 @@
       "center": {
         "id": "teleoperation-data",
         "title": "Teleoperation Data",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -28284,7 +28284,7 @@
         {
           "id": "embodiment-gap",
           "title": "Embodiment Gap",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -29666,7 +29666,7 @@
       "center": {
         "id": "vision-language-action",
         "title": "Vision-Language-Action Model",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -29688,7 +29688,7 @@
         {
           "id": "embodiment-gap",
           "title": "Embodiment Gap",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -29761,7 +29761,7 @@
         {
           "id": "vision-language-action",
           "title": "Vision-Language-Action Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         }

@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "manipulation",
+      "id": "grokking",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "action-chunking",
+      "id": "sharpness",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "vision-language-action",
+      "id": "double-descent",
       "t": 0.8,
       "label": true
     }

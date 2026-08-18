@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Robot training data is collected by people driving robots, one episode at a time, in real time. There is no crawl to scrape — the data costs human hours at roughly the rate the task takes, which puts the entire field several orders of magnitude below the data scales the rest of this graph assumes.",
     "engineer": "That constraint shapes everything: low-cost hardware to parallelise collection, cross-embodiment datasets pooled between labs, and simulation as a supplement that brings its own gap. Demonstration quality varies with the operator, and inconsistent demonstrations of the same task teach a policy to average between strategies — which is worse than either.",
-    "math": "Collection scales linearly with operator hours, so a dataset of n episodes at t seconds each costs n·t of human time with no economy of scale. Against a language corpus this is the difference between 10⁴ and 10¹² tokens, which is why the transferable-pretraining strategy exists rather than being one option among several."
+    "math": "Collection scales linearly with operator hours, so a dataset of n episodes at t seconds each costs n·t of human time with no economy of scale. The units do not even match a language corpus — a large robot dataset is measured in 10⁶ episodes against 10¹² tokens — and that gap is why the transferable-pretraining strategy exists rather than being one option among several."
   },
   "emphasis": {
     "intuition": "the data costs human hours at roughly the rate the task takes",
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
