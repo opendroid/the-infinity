@@ -1,0 +1,64 @@
+{
+  "id": "membership-in-training-data",
+  "title": "Membership in Training Data",
+  "domain": [
+    "Provenance",
+    "Rights"
+  ],
+  "bodies": {
+    "intuition": "Given a document and a model, was that document in the model's training set? Authors want to know it about their books, benchmark maintainers about their test sets, and everyone about their own writing. It is a simple question with no reliable answer from outside, which is why so much rests on provenance being recorded rather than inferred.",
+    "engineer": "The detection methods rely on a model assigning higher likelihood to text it has seen — comparing per-token probabilities against a reference, looking at the least-likely tokens, or comparing against a second model trained without the candidate. All of them work better on unusual text than on ordinary text, and they degrade sharply when the candidate resembles the general distribution, which is most writing.",
+    "math": "This is a detection problem with a base rate that makes it unforgiving. A candidate document is one of billions, so even a test that separates seen from unseen well produces far more false positives than true ones when applied at corpus scale — and the cases people care about are precisely the ordinary documents where separation is worst. `membership-inference` is the same shape aimed at a privacy attack on a trained model; this is the auditing question, and it fails for the same reason."
+  },
+  "emphasis": {
+    "intuition": "a simple question with no reliable answer from outside",
+    "math": "the cases people care about are precisely the ordinary documents where separation is worst"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.0,
+      "threshold": 0.9,
+      "base_rate": 0.05
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Documents that were in the training set, against ones that were not, scored by how surprised the model is. Drag the distinctiveness up to watch them separate — ordinary writing sits at the left, inside the overlap, and that is where the question is usually asked."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "membership-inference",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "data-provenance",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2310.16789",
+      "title": "Detecting Pretraining Data from Large Language Models",
+      "url": "https://arxiv.org/abs/2310.16789"
+    },
+    {
+      "ref": "arXiv:2202.07646",
+      "title": "Quantifying Memorization Across Neural Language Models",
+      "url": "https://arxiv.org/abs/2202.07646"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

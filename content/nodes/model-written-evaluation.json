@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Failures the generator and the model under test share, and so cannot detect, against failures the evaluation can catch, in failures. Drag their similarity up to watch the blind region grow — a score from a test that shares provenance carries less than the same score from an independent one."
+    "caption": "Failures the generator and the model under test share, and so cannot detect, against failures the evaluation can catch, in failures. Drag the shared region up to watch it grow — a score from a test that shares provenance carries less than the same score from an independent one."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

@@ -1,0 +1,63 @@
+{
+  "id": "energy-cost-of-training",
+  "title": "Energy Cost of Training",
+  "domain": [
+    "Provenance",
+    "Cost"
+  ],
+  "bodies": {
+    "intuition": "A training run is a physical event: some number of accelerators drawing some number of watts for some number of weeks. Converting the compute figure everyone quotes into energy is arithmetic, and it is worth doing, because the compute figure is abstract and the energy figure is a quantity people have intuitions about.",
+    "engineer": "The conversion needs three things beyond the FLOP count: the accelerators' power draw, how efficiently the run used them, and the datacentre's overhead for cooling and distribution. That last multiplier is not small and varies by roughly a factor of two across facilities, so an energy figure quoted without it is understated by however much the facility spends on not overheating. Published estimates that do this carefully are rare, and the careful ones disagree with the casual ones by a lot.",
+    "math": "Energy is power times time, and both scale with the run, so energy tracks total compute closely — which is the useful simplification. What breaks the proportionality is utilisation: a run at 35% model FLOPs utilisation draws nearly the same power as one at 55% and produces a third less work, so the energy per unit of useful compute is set by the efficiency of the run rather than by its size. That makes utilisation an energy metric as well as a throughput one."
+  },
+  "emphasis": {
+    "engineer": "understated by however much the facility spends on not overheating",
+    "math": "utilisation an energy metric as well as a throughput one"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "overhead_and_stalls": 20,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "overhead_and_stalls",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Energy a run spends on cooling, distribution and stalled accelerators, against the energy that became useful compute, in equal units. Drag the inefficiency up to watch overhead take the bill — which is why utilisation is an energy figure and not only a throughput one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "accelerator-utilization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "compute-optimal-training",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1906.02243",
+      "title": "Energy and Policy Considerations for Deep Learning in NLP",
+      "url": "https://arxiv.org/abs/1906.02243"
+    },
+    {
+      "ref": "arXiv:2211.02001",
+      "title": "Estimating the Carbon Footprint of BLOOM, a 176B Parameter Language Model",
+      "url": "https://arxiv.org/abs/2211.02001"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

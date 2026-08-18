@@ -1,0 +1,63 @@
+{
+  "id": "carbon-accounting",
+  "title": "Carbon Accounting",
+  "domain": [
+    "Provenance",
+    "Cost"
+  ],
+  "bodies": {
+    "intuition": "Energy is not carbon. The same run in two datacentres can differ in emissions by more than an order of magnitude, because what matters is what generated the electricity — and that varies by location, by season, and by hour of the day. So where and when a run happens is a larger lever than almost anything about the run itself.",
+    "engineer": "Two accounting choices decide the number, and both are contested. Average grid intensity assigns each kilowatt-hour the mix of the whole grid; marginal intensity assigns it whatever generation was actually dispatched to meet the extra demand, which for a large new load is usually dirtier than the average. And purchased renewable certificates let an operator report near-zero while drawing from the same grid as everyone else — legitimate as an accounting practice, and not the same claim as having emitted nothing.",
+    "math": "Emissions are energy times intensity, so the arithmetic is trivial and every difficulty is in the second factor. Reported figures for the same run vary widely because they differ on which intensity to use, on whether to count embodied emissions from manufacturing the hardware, and on whether to apply certificates — so a single number is only comparable to another number computed the same way, and almost none of them say which way that was."
+  },
+  "emphasis": {
+    "intuition": "where and when a run happens is a larger lever than almost anything about the run itself",
+    "math": "a single number is only comparable to another number computed the same way"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "grid_intensity": 20,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "grid_intensity",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Emissions attributable to a run's electricity, against the fixed energy the run consumed, in equal units. Drag the grid's carbon intensity up to watch the same run's footprint multiply — location and hour move this bar further than anything in the training code does."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "energy-cost-of-training",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "compute-optimal-training",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2104.10350",
+      "title": "Carbon Emissions and Large Neural Network Training",
+      "url": "https://arxiv.org/abs/2104.10350"
+    },
+    {
+      "ref": "arXiv:2211.02001",
+      "title": "Estimating the Carbon Footprint of BLOOM, a 176B Parameter Language Model",
+      "url": "https://arxiv.org/abs/2211.02001"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

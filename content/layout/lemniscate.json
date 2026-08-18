@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "specification-gaming",
+      "id": "memorisation",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "sycophancy",
+      "id": "carbon-accounting",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "scalable-oversight",
+      "id": "data-provenance",
       "t": 0.8,
       "label": true
     }

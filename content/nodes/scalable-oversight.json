@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Outputs a human supervisor cannot check, against the ones they can, in outputs. Drag the capability up to watch the unverifiable share take over — preference learning does not fail at any point on this drag, it just stops being trained on anything anyone confirmed."
+    "caption": "Outputs a human supervisor cannot check, against the ones they can, in outputs. Drag the unverifiable share up to watch it take over — preference learning does not fail at any point on this drag, it just stops being trained on anything anyone confirmed."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

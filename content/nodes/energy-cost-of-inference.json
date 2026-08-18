@@ -1,0 +1,67 @@
+{
+  "id": "energy-cost-of-inference",
+  "title": "Energy Cost of Inference",
+  "domain": [
+    "Provenance",
+    "Cost"
+  ],
+  "bodies": {
+    "intuition": "Training happens once; serving happens every time anyone asks a question. So the energy that matters for a deployed model is not what it cost to build but what it costs to run, and past enough traffic the second overtakes the first — often well within the model's serving life, and then keeps going.",
+    "engineer": "Per request the number is small, which is what makes it easy to dismiss and easy to underestimate in aggregate. The levers are the ordinary serving ones seen from a different angle: batching amortises the weight reads that dominate a small request, quantisation moves fewer bytes for the same answer, and a smaller model serving the same traffic is the largest lever of all. `test-time-compute` runs directly against this — thinking longer is more energy per answer, every answer.",
+    "math": "Cumulative inference energy is per-request energy times request count, so it is linear in traffic while training energy is a constant. Two lines with those shapes cross exactly once, and the crossing point is early for anything widely deployed: a model serving millions of requests a day passes its own training cost in a period measured in weeks or months rather than years. After the crossing the training figure is a rounding error, which is the opposite of how the two are usually discussed."
+  },
+  "emphasis": {
+    "intuition": "past enough traffic the second overtakes the first",
+    "math": "After the crossing the training figure is a rounding error"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "cumulative_inference": 20,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "cumulative_inference",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Energy spent serving a model, against the one-off energy of training it, in equal units. Drag the traffic up to watch serving overtake training and keep going — the two lines cross exactly once, and for a widely deployed model they cross early."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "energy-cost-of-training",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "test-time-compute",
+        "reviewed": false
+      },
+      {
+        "id": "quantization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1906.02243",
+      "title": "Energy and Policy Considerations for Deep Learning in NLP",
+      "url": "https://arxiv.org/abs/1906.02243"
+    },
+    {
+      "ref": "arXiv:2007.03051",
+      "title": "Carbontracker: Tracking and Predicting the Carbon Footprint of Training Deep Learning Models",
+      "url": "https://arxiv.org/abs/2007.03051"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

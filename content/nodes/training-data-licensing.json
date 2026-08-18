@@ -1,0 +1,63 @@
+{
+  "id": "training-data-licensing",
+  "title": "Training Data Licensing",
+  "domain": [
+    "Provenance",
+    "Rights"
+  ],
+  "bodies": {
+    "intuition": "Whether a model may be trained on a piece of text is a legal question, it is answered differently in different jurisdictions, and it is not settled anywhere. What is clear is the engineering consequence: the answer changes what a corpus may contain, and a corpus assembled before anyone asked cannot be un-assembled afterwards.",
+    "engineer": "The responses split three ways. Train on everything and argue the use is permitted — the position most large models were built on, and the one being litigated. Restrict the corpus to permissively-licensed material, which is much smaller and produces measurably weaker models. Or separate the two: train the parametric model on low-risk data and put the risky material in a retrieval datastore that can be edited or removed without retraining, which converts a legal problem into a systems one.",
+    "math": "The trade is between corpus size and legal exposure, and it is steep because permissively-licensed text is a small fraction of what exists. Restricting to it costs the model whatever the excluded distribution contained, and that loss does not shrink with scale — a larger permissive corpus is still a corpus missing the same kinds of material. The datastore approach is interesting precisely because it changes the shape of the trade rather than choosing a point on it."
+  },
+  "emphasis": {
+    "intuition": "it is answered differently in different jurisdictions, and it is not settled anywhere",
+    "math": "it changes the shape of the trade rather than choosing a point on it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "excluded_corpus": 20,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "excluded_corpus",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Text excluded by a licence restriction, against the permissively-licensed remainder, in equal units. Drag the restriction tighter to watch most of the corpus go — the excluded distribution is not a random sample of the rest, so the loss does not shrink with scale."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-provenance",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "retrieval-augmented-generation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2303.15715",
+      "title": "Foundation Models and Fair Use",
+      "url": "https://arxiv.org/abs/2303.15715"
+    },
+    {
+      "ref": "arXiv:2308.04430",
+      "title": "SILO Language Models: Isolating Legal Risk In a Nonparametric Datastore",
+      "url": "https://arxiv.org/abs/2308.04430"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
