@@ -1,0 +1,67 @@
+{
+  "id": "out-of-distribution-detection",
+  "title": "Out-of-Distribution Detection",
+  "domain": [
+    "Uncertainty",
+    "Detection"
+  ],
+  "bodies": {
+    "intuition": "Before trusting a prediction, ask whether the input is the kind of thing the model was trained on at all. A digit classifier shown a photograph of a cat will confidently pick a digit — there is no output that means 'this is not my problem' unless someone builds one. Detection is that missing output, inferred from the model rather than asked of it.",
+    "engineer": "The strongest baseline is embarrassingly simple: threshold the maximum softmax probability. Later methods rescale logits, fit a density in feature space, or train against an outlier set, and each beats the baseline on the benchmarks it was tuned on. The honest summary is that far-away inputs were never the hard part, and the methods separate mostly on how they handle inputs that are only slightly wrong.",
+    "math": "Detection rate rises with distance from the training distribution and saturates: a photograph against a digit classifier is caught by anything, and the share of shifted inputs a detector catches climbs steeply for the first few units of distance and then hardly moves. The remaining cases sit close in — a new hospital's scanner, next year's slang, the same object under different lighting — and those are the ones a deployment meets, so a benchmark reporting only far-OOD numbers is measuring the easy half."
+  },
+  "emphasis": {
+    "intuition": "there is no output that means 'this is not my problem' unless someone builds one",
+    "math": "a benchmark reporting only far-OOD numbers is measuring the easy half"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "shift_distance": 3,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "shift_distance",
+        "min": 0,
+        "max": 105,
+        "step": 3
+      }
+    ],
+    "caption": "Shifted inputs a detector catches, against a fixed population of near-shifted ones it never does, as the input moves further from what the model was trained on. Drag the distance up to watch the caught share saturate — the residue does not shrink, and the residue is what a deployment meets."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "distribution-shift",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      },
+      {
+        "id": "adversarial-example",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1610.02136",
+      "title": "A Baseline for Detecting Misclassified and Out-of-Distribution Examples in Neural Networks",
+      "url": "https://arxiv.org/abs/1610.02136"
+    },
+    {
+      "ref": "arXiv:2110.11334",
+      "title": "Generalized Out-of-Distribution Detection: A Survey",
+      "url": "https://arxiv.org/abs/2110.11334"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

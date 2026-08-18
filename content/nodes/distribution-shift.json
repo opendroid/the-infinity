@@ -1,0 +1,70 @@
+{
+  "id": "distribution-shift",
+  "title": "Distribution Shift",
+  "domain": [
+    "Uncertainty",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "The data a model meets in deployment is never quite the data it was trained on. The camera changed, the users changed, the year changed. Almost every claim in machine learning assumes training and test data are drawn from the same distribution, and almost every deployment violates it — which is why a model's benchmark number and its production number are different numbers.",
+    "engineer": "It is worth naming which part moved. Covariate shift moves the inputs and leaves the labelling rule alone; label shift moves the class frequencies; concept drift moves the rule itself, and only that last one strictly requires retraining. Confusing them wastes effort: reweighting fixes covariate shift cheaply and does nothing at all for a rule that has changed underneath you.",
+    "math": "Held-out loss under shift is what the gap between two curves measures — one run scored on data like its training set, one scored on data that has moved. The gap does not appear at the start and does not close: training drives both down together at first, then the shifted curve flattens while the matched one keeps improving, because further optimisation is fitting structure that only exists on one side. Longer training makes the gap wider, not smaller."
+  },
+  "emphasis": {
+    "intuition": "which is why a model's benchmark number and its production number are different numbers",
+    "engineer": "reweighting fixes covariate shift cheaply and does nothing at all for a rule that has changed underneath you"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.006,
+      "batch": 128,
+      "params": 10,
+      "holdout": 0.1
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 0.9,
+        "step": 0.05
+      }
+    ],
+    "caption": "One run scored on data like its training set, and the same run scored on data that has moved. Drag the shift up to watch the second curve peel away — and note where it happens, late rather than early, because the gap is opened by the training that came after the easy structure was learned."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "shortcut-learning",
+        "reviewed": false
+      },
+      {
+        "id": "epistemic-uncertainty",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1906.02530",
+      "title": "Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift",
+      "url": "https://arxiv.org/abs/1906.02530"
+    },
+    {
+      "ref": "arXiv:2012.07421",
+      "title": "WILDS: A Benchmark of in-the-Wild Distribution Shifts",
+      "url": "https://arxiv.org/abs/2012.07421"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

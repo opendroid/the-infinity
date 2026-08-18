@@ -1,0 +1,67 @@
+{
+  "id": "deep-ensemble",
+  "title": "Deep Ensemble",
+  "domain": [
+    "Uncertainty",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Train the same architecture five times from different random seeds and keep all five. Where they agree, the answer is probably safe; where they disagree, you have found the model's own doubt. It is the least clever method in uncertainty quantification and, embarrassingly often, the one that wins.",
+    "engineer": "The disagreement is real because random initialisation and data order land the runs in different basins, so they fail on different inputs. That independence is the whole product, and it is what averaging a single run's checkpoints does not give you. Under distribution shift it holds up better than any single-model calibration fix, which is the result that made ensembles the default baseline rather than a curiosity.",
+    "math": "The cost is not subtle: with m members you pay m times the training and m times the inference, so the share of your compute spent on copies is (m−1)/m. It saturates fast — going from one model to two costs as much as everything after five put together, and the accuracy gain runs the other way, most of it arriving by the third member. That asymmetry is the entire design question, and it is why five is the number people quote."
+  },
+  "emphasis": {
+    "intuition": "the one that wins",
+    "math": "going from one model to two costs as much as everything after five put together"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "extra_members": 1,
+      "share_rest": 1
+    },
+    "param_controls": [
+      {
+        "name": "extra_members",
+        "min": 0,
+        "max": 13,
+        "step": 1
+      }
+    ],
+    "caption": "Compute spent on the extra members, against the one model you would have trained anyway, in models. Drag the members up to watch copies take the whole budget — the second one costs more than everything after the fifth, while the accuracy arrives the other way round."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "bias-variance-tradeoff",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "epistemic-uncertainty",
+        "reviewed": false
+      },
+      {
+        "id": "distribution-shift",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1612.01474",
+      "title": "Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles",
+      "url": "https://arxiv.org/abs/1612.01474"
+    },
+    {
+      "ref": "arXiv:1906.02530",
+      "title": "Can You Trust Your Model's Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift",
+      "url": "https://arxiv.org/abs/1906.02530"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

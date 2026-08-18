@@ -1,0 +1,75 @@
+{
+  "id": "conformal-prediction",
+  "title": "Conformal Prediction",
+  "domain": [
+    "Uncertainty",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Stop asking the model for a confident label and ask it for a set. Conformal prediction turns any model, however badly calibrated, into one that outputs a set of labels guaranteed to contain the truth 90% of the time — and the guarantee is distribution-free, holding without assuming anything about the model or the data beyond exchangeability.",
+    "engineer": "Split off a calibration set, score every calibration example by how badly the model fits it, and take the appropriate quantile of those scores. At test time, keep every label whose score falls under that threshold. That is the whole method: a sort and a lookup, wrapped around a model you never retrain, which is why it can be added to a system after the fact.",
+    "math": "The guarantee is marginal, and that word does the work. Coverage holds averaged over inputs, not for each one — a set can be right 90% of the time overall while systematically failing on a subgroup, and conformal says nothing about which. What it does say is how much the guarantee costs you: it is bought with set size, and on hard inputs the set grows until it contains most of the label space and has told you nothing."
+  },
+  "emphasis": {
+    "intuition": "the guarantee is distribution-free",
+    "math": "The guarantee is marginal, and that word does the work."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "extra_labels": 1,
+      "share_rest": 1
+    },
+    "param_controls": [
+      {
+        "name": "extra_labels",
+        "min": 0,
+        "max": 13,
+        "step": 1
+      }
+    ],
+    "caption": "Labels the set adds as hedging, against the single label a point predictor would have committed to. Drag the coverage demand up to watch the hedge swamp the answer — the guarantee is bought with set size, and at the right the set is almost all hedge and has told you nothing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "selective-prediction",
+        "reviewed": false
+      },
+      {
+        "id": "distribution-shift",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2107.07511",
+      "title": "A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification",
+      "url": "https://arxiv.org/abs/2107.07511"
+    },
+    {
+      "ref": "arXiv:1905.02928",
+      "title": "Predictive inference with the jackknife+",
+      "url": "https://arxiv.org/abs/1905.02928"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Vovk, Gammerman & Shafer 2005",
+      "title": "Algorithmic Learning in a Random World",
+      "venue": "Springer",
+      "doi": "10.1007/b106715"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
