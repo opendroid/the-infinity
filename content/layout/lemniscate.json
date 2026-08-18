@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "graph-neural-network",
+      "id": "causal-inference",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "message-passing",
+      "id": "confounding",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "oversmoothing",
+      "id": "counterfactual",
       "t": 0.8,
       "label": true
     }
