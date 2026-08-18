@@ -1,0 +1,63 @@
+{
+  "id": "weight-averaging",
+  "title": "Weight Averaging",
+  "domain": [
+    "Weights",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Average the weights a single run passes through, rather than the weights of separate runs. Late in training a model does not converge to a point so much as wander around one, and the centre of that wander is usually a better model than any point on the path — including the last one, which is what you would otherwise ship.",
+    "engineer": "The two forms differ in what they weight. A running average over late checkpoints treats them equally and needs a schedule that keeps the learning rate high enough to keep moving. An exponential moving average weights recent steps more and can run throughout training, which is why it is the default in diffusion training and in most self-supervised setups. Neither costs a forward pass; both cost one extra copy of the weights in memory.",
+    "math": "This is the same variance argument as a soup, applied along one trajectory instead of across several. Successive iterates are correlated, so the effective number of independent samples is far below the number of checkpoints averaged — which is why the gain saturates quickly with the averaging window and why extending it further buys almost nothing. It also lands the result in a flatter region than any single iterate, which is the connection to `sharpness`."
+  },
+  "emphasis": {
+    "intuition": "the centre of that wander is usually a better model than any point on the path",
+    "math": "the effective number of independent samples is far below the number of checkpoints averaged"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "averaged_checkpoints": 6,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "averaged_checkpoints",
+        "min": 0,
+        "max": 240,
+        "step": 10
+      }
+    ],
+    "caption": "Checkpoints inside the averaging window, against the single final one you would otherwise ship, in checkpoints. Drag the window up to watch it dominate — the gain saturates long before the bar does, because successive iterates are correlated rather than independent."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "sharpness",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "model-soup",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1803.05407",
+      "title": "Averaging Weights Leads to Wider Optima and Better Generalization",
+      "url": "https://arxiv.org/abs/1803.05407"
+    },
+    {
+      "ref": "arXiv:1802.10026",
+      "title": "Loss Surfaces, Mode Connectivity, and Fast Ensembling of DNNs",
+      "url": "https://arxiv.org/abs/1802.10026"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

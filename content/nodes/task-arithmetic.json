@@ -1,0 +1,63 @@
+{
+  "id": "task-arithmetic",
+  "title": "Task Arithmetic",
+  "domain": [
+    "Weights",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Subtract a base model's weights from its fine-tune and you get a task vector — a direction in weight space that means \"be better at this\". Those vectors can then be added to give a model a capability, subtracted to remove one, and combined to get several at once, with ordinary arithmetic and no training.",
+    "engineer": "Negation is the striking one: subtracting a task vector fine-tuned on toxic text reduces toxic generation while leaving unrelated behaviour largely intact. It is a blunt instrument — the vector carries everything the fine-tune changed, not only the part anyone wanted — but it needs no data, no gradient step, and no access to whatever produced the fine-tune, which is why it turns up in practice far more than its precision would suggest.",
+    "math": "The arithmetic assumes the directions are roughly independent, and they are not. Two task vectors sharing significant weight coordinates interfere when added, and the interference grows with the number of vectors combined — so a sum of two often behaves like both, and a sum of eight rarely behaves like any of them. That decay with count is the practical ceiling and the reason the refinements are all about resolving conflicts between coordinates rather than about the addition itself."
+  },
+  "emphasis": {
+    "intuition": "a direction in weight space that means \"be better at this\"",
+    "math": "a sum of two often behaves like both, and a sum of eight rarely behaves like any of them"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "conflicting_coordinates": 10,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "conflicting_coordinates",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Weight coordinates two task vectors both want to move, against the ones only one of them touches, in coordinates. Drag the number of vectors up to watch conflict take the sum — which is why merging eight capabilities rarely gives you eight."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "model-merging",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "lora",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2212.04089",
+      "title": "Editing Models with Task Arithmetic",
+      "url": "https://arxiv.org/abs/2212.04089"
+    },
+    {
+      "ref": "arXiv:2311.03099",
+      "title": "Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch",
+      "url": "https://arxiv.org/abs/2311.03099"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

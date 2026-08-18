@@ -1,0 +1,63 @@
+{
+  "id": "model-merging",
+  "title": "Model Merging",
+  "domain": [
+    "Weights",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Take two models fine-tuned from the same base for different things, average their weights, and get one model that does both. It should not work — nothing constrains the average of two good solutions to be a good solution — and it does, often well enough to skip retraining entirely.",
+    "engineer": "The condition that makes it work is a shared ancestor. Fine-tunes of one base stay in the same region of the landscape, so the straight line between them does not leave the low-loss basin. Two models trained from different random initialisations have no such relationship, and averaging them produces something at chance — the difference between the two cases is the whole subject, and confusing them is the most common way people conclude merging does not work.",
+    "math": "Fine-tuning moves weights a small distance relative to the base, so two fine-tunes differ from each other by roughly the sum of two small displacements. As long as the loss surface is close to flat over that region, the loss at the midpoint is close to the average of the losses — which is a statement about curvature and is why merging degrades as the fine-tunes get further apart. Nothing here promises anything about models that were never near each other."
+  },
+  "emphasis": {
+    "intuition": "nothing constrains the average of two good solutions to be a good solution",
+    "math": "Nothing here promises anything about models that were never near each other."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "divergence_from_base": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "divergence_from_base",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Distance the fine-tunes have moved from the shared base, against the radius over which the loss surface stays flat, in equal units. Drag them apart to watch the merge leave the region where averaging is safe — a shared ancestor is the condition, not a convenience."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-landscape",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "permutation-symmetry",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2212.04089",
+      "title": "Editing Models with Task Arithmetic",
+      "url": "https://arxiv.org/abs/2212.04089"
+    },
+    {
+      "ref": "arXiv:2203.05482",
+      "title": "Model soups: averaging weights of multiple fine-tuned models improves accuracy without increasing inference time",
+      "url": "https://arxiv.org/abs/2203.05482"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

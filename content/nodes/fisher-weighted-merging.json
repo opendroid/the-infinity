@@ -1,0 +1,63 @@
+{
+  "id": "fisher-weighted-merging",
+  "title": "Fisher-Weighted Merging",
+  "domain": [
+    "Weights",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "A plain average treats every weight as equally important to every model, which is obviously false — some weights a model barely uses, and others it cannot afford to move. Weighting the average by how much each model cares about each weight lets the merge give ground where a model is indifferent and hold firm where it is not.",
+    "engineer": "The measure of caring is the Fisher information, estimated from the squared gradients a model produces on its own data — cheap, since it needs no second-order computation and no labels beyond what the model already predicts. Each weight is then averaged in proportion to those estimates. The cost is that it needs data from each contributing task, which plain averaging does not, and that is often exactly what a merger does not have.",
+    "math": "The Fisher is the curvature of the loss in the direction of each weight, so weighting by it is a local second-order approximation to \"move each weight as little as each model's loss demands\". Where a model's Fisher is near zero the loss is flat in that direction and the weight can be surrendered for free; where it is large the same displacement costs a great deal. A uniform average is the special case that assumes the curvature is the same everywhere, which no trained model satisfies."
+  },
+  "emphasis": {
+    "engineer": "it needs data from each contributing task, which plain averaging does not",
+    "math": "A uniform average is the special case that assumes the curvature is the same everywhere"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "high_curvature_weights": 8,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "high_curvature_weights",
+        "min": 0,
+        "max": 500,
+        "step": 20
+      }
+    ],
+    "caption": "Weights a contributing model cannot afford to move, against the ones it is indifferent to, in weights. Drag the curvature threshold up to watch the constrained set grow — a uniform average is the assumption that this bar never moves at all."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "merge-interference",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "elastic-weight-consolidation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2306.01708",
+      "title": "TIES-Merging: Resolving Interference When Merging Models",
+      "url": "https://arxiv.org/abs/2306.01708"
+    },
+    {
+      "ref": "arXiv:2403.13187",
+      "title": "Evolutionary Optimization of Model Merging Recipes",
+      "url": "https://arxiv.org/abs/2403.13187"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

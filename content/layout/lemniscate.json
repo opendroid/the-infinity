@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "lost-in-the-middle",
+      "id": "model-merging",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "prefix-caching",
+      "id": "model-soup",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "length-extrapolation",
+      "id": "task-arithmetic",
       "t": 0.8,
       "label": true
     }

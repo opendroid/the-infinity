@@ -1,0 +1,63 @@
+{
+  "id": "merge-interference",
+  "title": "Merge Interference",
+  "domain": [
+    "Weights",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Merging two models degrades both a little. Merging eight degrades all of them a lot. The reason is that the fine-tunes do not agree about what to do with the same weights — one wants a coordinate raised, another wants it lowered — and averaging splits the difference in a way that satisfies neither.",
+    "engineer": "The mitigations all attack the same thing from different angles. Trim each task vector to its largest-magnitude coordinates, since most of a fine-tune's displacement is noise. Resolve sign conflicts by majority before averaging, so opposing directions do not cancel to nothing. Drop a large random fraction of the vector and rescale the rest, which works surprisingly well and is evidence for how redundant these displacements are.",
+    "math": "Interference grows with the number of models merged because the chance that any given coordinate is contested rises with each one added. If each task vector touches a fraction of coordinates, the expected number of contested coordinates grows roughly with the square of the model count while the useful signal grows only linearly — so there is a count past which adding a model makes the merge worse, and it arrives sooner than the linear intuition suggests."
+  },
+  "emphasis": {
+    "intuition": "averaging splits the difference in a way that satisfies neither",
+    "math": "there is a count past which adding a model makes the merge worse"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "contested_coordinates": 8,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "contested_coordinates",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Coordinates more than one task vector wants to move, against the ones nobody contests, in coordinates. Drag the model count up to watch contested coordinates take over — they grow with its square while the useful signal grows only linearly."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "task-arithmetic",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "model-soup",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2306.01708",
+      "title": "TIES-Merging: Resolving Interference When Merging Models",
+      "url": "https://arxiv.org/abs/2306.01708"
+    },
+    {
+      "ref": "arXiv:2311.03099",
+      "title": "Language Models are Super Mario: Absorbing Abilities from Homologous Models as a Free Lunch",
+      "url": "https://arxiv.org/abs/2311.03099"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -497,7 +497,7 @@
           {
             "id": "length-extrapolation",
             "title": "Length Extrapolation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1284,7 +1284,7 @@
           {
             "id": "needle-in-a-haystack",
             "title": "Needle in a Haystack",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1942,7 +1942,7 @@
           {
             "id": "context-compression",
             "title": "Context Compression",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2264,7 +2264,7 @@
           {
             "id": "prefix-caching",
             "title": "Prefix Caching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2637,7 +2637,7 @@
       "id": "context-compression",
       "title": "Context Compression",
       "domain": "Context / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2694,7 +2694,7 @@
           {
             "id": "context-compression",
             "title": "Context Compression",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2706,7 +2706,7 @@
           {
             "id": "lost-in-the-middle",
             "title": "Lost in the Middle",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2720,7 +2720,7 @@
           {
             "id": "effective-context-length",
             "title": "Effective Context Length",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3664,7 +3664,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "merge-vs-ensemble",
+            "title": "Merge vs Ensemble",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "distribution-shift",
@@ -4260,13 +4267,13 @@
       "id": "effective-context-length",
       "title": "Effective Context Length",
       "domain": "Context / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "lost-in-the-middle",
             "title": "Lost in the Middle",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4274,7 +4281,7 @@
           {
             "id": "needle-in-a-haystack",
             "title": "Needle in a Haystack",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4335,6 +4342,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "fisher-weighted-merging",
+            "title": "Fisher-Weighted Merging",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "kl-divergence",
             "title": "KL Divergence",
@@ -5275,6 +5288,31 @@
           {
             "id": "machine-unlearning",
             "title": "Machine Unlearning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "fisher-weighted-merging",
+      "title": "Fisher-Weighted Merging",
+      "domain": "Weights / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "merge-interference",
+            "title": "Merge Interference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "elastic-weight-consolidation",
+            "title": "Elastic Weight Consolidation",
             "tier": "verified",
             "reviewed": false
           }
@@ -7063,7 +7101,7 @@
           {
             "id": "prefix-caching",
             "title": "Prefix Caching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7280,7 +7318,7 @@
       "id": "length-extrapolation",
       "title": "Length Extrapolation",
       "domain": "Context / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -7301,7 +7339,7 @@
           {
             "id": "position-interpolation",
             "title": "Position Interpolation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7497,7 +7535,7 @@
       "id": "long-context-training",
       "title": "Long-Context Training",
       "domain": "Context / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -7518,7 +7556,7 @@
           {
             "id": "position-interpolation",
             "title": "Position Interpolation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7605,7 +7643,7 @@
           {
             "id": "long-context-training",
             "title": "Long-Context Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7644,6 +7682,12 @@
             "id": "prompt-tuning",
             "title": "Prompt Tuning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "task-arithmetic",
+            "title": "Task Arithmetic",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -7750,6 +7794,12 @@
             "reviewed": false
           },
           {
+            "id": "model-merging",
+            "title": "Model Merging",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "saddle-point",
             "title": "Saddle Point",
             "tier": "verified",
@@ -7813,7 +7863,7 @@
       "id": "lost-in-the-middle",
       "title": "Lost in the Middle",
       "domain": "Context / Behaviour",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -7827,7 +7877,7 @@
           {
             "id": "effective-context-length",
             "title": "Effective Context Length",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8337,6 +8387,69 @@
       }
     },
     {
+      "id": "merge-interference",
+      "title": "Merge Interference",
+      "domain": "Weights / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "task-arithmetic",
+            "title": "Task Arithmetic",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "fisher-weighted-merging",
+            "title": "Fisher-Weighted Merging",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "model-soup",
+            "title": "Model Soup",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "merge-vs-ensemble",
+      "title": "Merge vs Ensemble",
+      "domain": "Weights / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "deep-ensemble",
+            "title": "Deep Ensemble",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "model-merging",
+            "title": "Model Merging",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "model-soup",
+            "title": "Model Soup",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "message-passing",
       "title": "Message Passing",
       "domain": "Graphs / Foundations",
@@ -8589,7 +8702,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "permutation-symmetry",
+            "title": "Permutation Symmetry",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "lottery-ticket-hypothesis",
@@ -8645,6 +8765,50 @@
       }
     },
     {
+      "id": "model-merging",
+      "title": "Model Merging",
+      "domain": "Weights / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-landscape",
+            "title": "Loss Landscape",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "model-soup",
+            "title": "Model Soup",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "task-arithmetic",
+            "title": "Task Arithmetic",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "merge-vs-ensemble",
+            "title": "Merge vs Ensemble",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "permutation-symmetry",
+            "title": "Permutation Symmetry",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "model-predictive-control",
       "title": "Model Predictive Control",
       "domain": "Planning / Control",
@@ -8670,6 +8834,43 @@
             "id": "speculative-decoding",
             "title": "Speculative Decoding",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "model-soup",
+      "title": "Model Soup",
+      "domain": "Weights / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "model-merging",
+            "title": "Model Merging",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "merge-interference",
+            "title": "Merge Interference",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "merge-vs-ensemble",
+            "title": "Merge vs Ensemble",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "weight-averaging",
+            "title": "Weight Averaging",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -9005,13 +9206,13 @@
       "id": "needle-in-a-haystack",
       "title": "Needle in a Haystack",
       "domain": "Context / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "effective-context-length",
             "title": "Effective Context Length",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9799,6 +10000,31 @@
       }
     },
     {
+      "id": "permutation-symmetry",
+      "title": "Permutation Symmetry",
+      "domain": "Weights / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "mode-connectivity",
+            "title": "Mode Connectivity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "model-merging",
+            "title": "Model Merging",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "perplexity",
       "title": "Perplexity",
       "domain": "Evaluation / Metrics",
@@ -9931,7 +10157,7 @@
       "id": "position-interpolation",
       "title": "Position Interpolation",
       "domain": "Context / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9946,13 +10172,13 @@
           {
             "id": "length-extrapolation",
             "title": "Length Extrapolation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "long-context-training",
             "title": "Long-Context Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -9988,7 +10214,7 @@
           {
             "id": "length-extrapolation",
             "title": "Length Extrapolation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10076,7 +10302,7 @@
           {
             "id": "prefix-caching",
             "title": "Prefix Caching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10098,7 +10324,7 @@
       "id": "prefix-caching",
       "title": "Prefix Caching",
       "domain": "Context / Serving",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10179,7 +10405,7 @@
           {
             "id": "long-context-training",
             "title": "Long-Context Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11273,7 +11499,7 @@
           {
             "id": "context-compression",
             "title": "Context Compression",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11285,7 +11511,7 @@
           {
             "id": "lost-in-the-middle",
             "title": "Lost in the Middle",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11580,7 +11806,7 @@
           {
             "id": "position-interpolation",
             "title": "Position Interpolation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12368,6 +12594,12 @@
             "id": "edge-of-stability",
             "title": "Edge of Stability",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "weight-averaging",
+            "title": "Weight Averaging",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -13380,6 +13612,38 @@
           {
             "id": "mode-collapse",
             "title": "Mode Collapse",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "task-arithmetic",
+      "title": "Task Arithmetic",
+      "domain": "Weights / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "model-merging",
+            "title": "Model Merging",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "merge-interference",
+            "title": "Merge Interference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "lora",
+            "title": "LoRA",
             "tier": "verified",
             "reviewed": false
           }
@@ -14811,6 +15075,31 @@
       }
     },
     {
+      "id": "weight-averaging",
+      "title": "Weight Averaging",
+      "domain": "Weights / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "sharpness",
+            "title": "Sharpness",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "model-soup",
+            "title": "Model Soup",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "weight-decay",
       "title": "Weight Decay",
       "domain": "Optimization / Regularization",
@@ -15839,7 +16128,7 @@
         {
           "id": "length-extrapolation",
           "title": "Length Extrapolation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -17268,7 +17557,7 @@
         {
           "id": "needle-in-a-haystack",
           "title": "Needle in a Haystack",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 107,
           "y": 110
         },
@@ -18490,7 +18779,7 @@
         {
           "id": "context-compression",
           "title": "Context Compression",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -19052,7 +19341,7 @@
         {
           "id": "prefix-caching",
           "title": "Prefix Caching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -19711,7 +20000,7 @@
       "center": {
         "id": "context-compression",
         "title": "Context Compression",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19793,7 +20082,7 @@
         {
           "id": "context-compression",
           "title": "Context Compression",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -19807,7 +20096,7 @@
         {
           "id": "lost-in-the-middle",
           "title": "Lost in the Middle",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -19821,7 +20110,7 @@
         {
           "id": "effective-context-length",
           "title": "Effective Context Length",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 34,
           "y": 22
         },
@@ -21604,6 +21893,13 @@
           "y": 66
         },
         {
+          "id": "merge-vs-ensemble",
+          "title": "Merge vs Ensemble",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "distribution-shift",
           "title": "Distribution Shift",
           "tier": "verified",
@@ -21623,6 +21919,12 @@
           "from": "bias-variance-tradeoff",
           "to": "deep-ensemble",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "deep-ensemble",
+          "to": "merge-vs-ensemble",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -22685,7 +22987,7 @@
       "center": {
         "id": "effective-context-length",
         "title": "Effective Context Length",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -22693,14 +22995,14 @@
         {
           "id": "lost-in-the-middle",
           "title": "Lost in the Middle",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "needle-in-a-haystack",
           "title": "Needle in a Haystack",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -22804,18 +23106,25 @@
           "y": 66
         },
         {
+          "id": "fisher-weighted-merging",
+          "title": "Fisher-Weighted Merging",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "kl-divergence",
           "title": "KL Divergence",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -22823,6 +23132,12 @@
           "from": "catastrophic-forgetting",
           "to": "elastic-weight-consolidation",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "elastic-weight-consolidation",
+          "to": "fisher-weighted-merging",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -24520,6 +24835,46 @@
         {
           "from": "fine-tuning",
           "to": "machine-unlearning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "fisher-weighted-merging",
+      "center": {
+        "id": "fisher-weighted-merging",
+        "title": "Fisher-Weighted Merging",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "merge-interference",
+          "title": "Merge Interference",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "elastic-weight-consolidation",
+          "title": "Elastic Weight Consolidation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "merge-interference",
+          "to": "fisher-weighted-merging",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "fisher-weighted-merging",
+          "to": "elastic-weight-consolidation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27649,7 +28004,7 @@
         {
           "id": "prefix-caching",
           "title": "Prefix Caching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 113
         },
@@ -28079,7 +28434,7 @@
       "center": {
         "id": "length-extrapolation",
         "title": "Length Extrapolation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -28101,7 +28456,7 @@
         {
           "id": "position-interpolation",
           "title": "Position Interpolation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -28474,7 +28829,7 @@
       "center": {
         "id": "long-context-training",
         "title": "Long-Context Training",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -28496,7 +28851,7 @@
         {
           "id": "position-interpolation",
           "title": "Position Interpolation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -28648,7 +29003,7 @@
         {
           "id": "long-context-training",
           "title": "Long-Context Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -28708,22 +29063,29 @@
           "id": "low-rank-factorization",
           "title": "Low-Rank Factorization",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "task-arithmetic",
+          "title": "Task Arithmetic",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "task-interference",
           "title": "Task Interference",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -28748,6 +29110,12 @@
         {
           "from": "lora",
           "to": "prompt-tuning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "lora",
+          "to": "task-arithmetic",
           "type": "adjacent",
           "reviewed": false
         },
@@ -28912,28 +29280,35 @@
           "title": "Implicit Regularization",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 22
         },
         {
           "id": "mode-connectivity",
           "title": "Mode Connectivity",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 44
+        },
+        {
+          "id": "model-merging",
+          "title": "Model Merging",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "saddle-point",
           "title": "Saddle Point",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "sharpness",
           "title": "Sharpness",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         },
         {
           "id": "principal-component-analysis",
@@ -28959,6 +29334,12 @@
         {
           "from": "loss-landscape",
           "to": "mode-connectivity",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-landscape",
+          "to": "model-merging",
           "type": "unlocks",
           "reviewed": false
         },
@@ -29053,7 +29434,7 @@
       "center": {
         "id": "lost-in-the-middle",
         "title": "Lost in the Middle",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -29068,7 +29449,7 @@
         {
           "id": "effective-context-length",
           "title": "Effective Context Length",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -29974,6 +30355,112 @@
       ]
     },
     {
+      "id": "merge-interference",
+      "center": {
+        "id": "merge-interference",
+        "title": "Merge Interference",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "task-arithmetic",
+          "title": "Task Arithmetic",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "fisher-weighted-merging",
+          "title": "Fisher-Weighted Merging",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "model-soup",
+          "title": "Model Soup",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "task-arithmetic",
+          "to": "merge-interference",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "merge-interference",
+          "to": "fisher-weighted-merging",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "merge-interference",
+          "to": "model-soup",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "merge-vs-ensemble",
+      "center": {
+        "id": "merge-vs-ensemble",
+        "title": "Merge vs Ensemble",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "deep-ensemble",
+          "title": "Deep Ensemble",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "model-merging",
+          "title": "Model Merging",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "model-soup",
+          "title": "Model Soup",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "deep-ensemble",
+          "to": "merge-vs-ensemble",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "merge-vs-ensemble",
+          "to": "model-merging",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "merge-vs-ensemble",
+          "to": "model-soup",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "message-passing",
       "center": {
         "id": "message-passing",
@@ -30413,6 +30900,13 @@
           "y": 66
         },
         {
+          "id": "permutation-symmetry",
+          "title": "Permutation Symmetry",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "lottery-ticket-hypothesis",
           "title": "Lottery Ticket Hypothesis",
           "tier": "verified",
@@ -30425,6 +30919,12 @@
           "from": "loss-landscape",
           "to": "mode-connectivity",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "mode-connectivity",
+          "to": "permutation-symmetry",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -30515,6 +31015,85 @@
       ]
     },
     {
+      "id": "model-merging",
+      "center": {
+        "id": "model-merging",
+        "title": "Model Merging",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-landscape",
+          "title": "Loss Landscape",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "model-soup",
+          "title": "Model Soup",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "task-arithmetic",
+          "title": "Task Arithmetic",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "merge-vs-ensemble",
+          "title": "Merge vs Ensemble",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "permutation-symmetry",
+          "title": "Permutation Symmetry",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-landscape",
+          "to": "model-merging",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-merging",
+          "to": "model-soup",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "model-merging",
+          "to": "task-arithmetic",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "model-merging",
+          "to": "merge-vs-ensemble",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "model-merging",
+          "to": "permutation-symmetry",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "model-predictive-control",
       "center": {
         "id": "model-predictive-control",
@@ -30562,6 +31141,72 @@
         {
           "from": "model-predictive-control",
           "to": "speculative-decoding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "model-soup",
+      "center": {
+        "id": "model-soup",
+        "title": "Model Soup",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "model-merging",
+          "title": "Model Merging",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "merge-interference",
+          "title": "Merge Interference",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "merge-vs-ensemble",
+          "title": "Merge vs Ensemble",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "weight-averaging",
+          "title": "Weight Averaging",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "model-merging",
+          "to": "model-soup",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-soup",
+          "to": "merge-interference",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "model-soup",
+          "to": "merge-vs-ensemble",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "model-soup",
+          "to": "weight-averaging",
           "type": "adjacent",
           "reviewed": false
         }
@@ -31140,7 +31785,7 @@
       "center": {
         "id": "needle-in-a-haystack",
         "title": "Needle in a Haystack",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31148,7 +31793,7 @@
         {
           "id": "effective-context-length",
           "title": "Effective Context Length",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -32536,6 +33181,46 @@
       ]
     },
     {
+      "id": "permutation-symmetry",
+      "center": {
+        "id": "permutation-symmetry",
+        "title": "Permutation Symmetry",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mode-connectivity",
+          "title": "Mode Connectivity",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "model-merging",
+          "title": "Model Merging",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "mode-connectivity",
+          "to": "permutation-symmetry",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "permutation-symmetry",
+          "to": "model-merging",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "perplexity",
       "center": {
         "id": "perplexity",
@@ -32777,7 +33462,7 @@
       "center": {
         "id": "position-interpolation",
         "title": "Position Interpolation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -32792,14 +33477,14 @@
         {
           "id": "length-extrapolation",
           "title": "Length Extrapolation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "long-context-training",
           "title": "Long-Context Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -32859,7 +33544,7 @@
         {
           "id": "length-extrapolation",
           "title": "Length Extrapolation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -33017,7 +33702,7 @@
         {
           "id": "prefix-caching",
           "title": "Prefix Caching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -33080,7 +33765,7 @@
       "center": {
         "id": "prefix-caching",
         "title": "Prefix Caching",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -33190,7 +33875,7 @@
         {
           "id": "long-context-training",
           "title": "Long-Context Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 72
         },
@@ -35136,7 +35821,7 @@
         {
           "id": "context-compression",
           "title": "Context Compression",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
@@ -35150,7 +35835,7 @@
         {
           "id": "lost-in-the-middle",
           "title": "Lost in the Middle",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         },
@@ -35720,7 +36405,7 @@
         {
           "id": "position-interpolation",
           "title": "Position Interpolation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -37084,7 +37769,14 @@
           "title": "Edge of Stability",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "weight-averaging",
+          "title": "Weight Averaging",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "batch-size",
@@ -37111,6 +37803,12 @@
         {
           "from": "sharpness",
           "to": "edge-of-stability",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "sharpness",
+          "to": "weight-averaging",
           "type": "unlocks",
           "reviewed": false
         },
@@ -38928,6 +39626,59 @@
         {
           "from": "synthetic-data",
           "to": "mode-collapse",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "task-arithmetic",
+      "center": {
+        "id": "task-arithmetic",
+        "title": "Task Arithmetic",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "model-merging",
+          "title": "Model Merging",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "merge-interference",
+          "title": "Merge Interference",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "lora",
+          "title": "LoRA",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "model-merging",
+          "to": "task-arithmetic",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "task-arithmetic",
+          "to": "merge-interference",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "task-arithmetic",
+          "to": "lora",
           "type": "adjacent",
           "reviewed": false
         }
@@ -41497,6 +42248,46 @@
         {
           "from": "warmup",
           "to": "loss-spike",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "weight-averaging",
+      "center": {
+        "id": "weight-averaging",
+        "title": "Weight Averaging",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "sharpness",
+          "title": "Sharpness",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "model-soup",
+          "title": "Model Soup",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "sharpness",
+          "to": "weight-averaging",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "weight-averaging",
+          "to": "model-soup",
           "type": "adjacent",
           "reviewed": false
         }
