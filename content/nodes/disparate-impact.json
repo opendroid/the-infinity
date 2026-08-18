@@ -1,0 +1,63 @@
+{
+  "id": "disparate-impact",
+  "title": "Disparate Impact",
+  "domain": [
+    "Fairness",
+    "Criteria"
+  ],
+  "bodies": {
+    "intuition": "A rule can treat everyone identically and still fall much more heavily on one group. Disparate impact is that outcome measured directly — not what the rule says, but who ends up selected — and it is the form of unfairness that survives removing every protected attribute from the model, because the world the data came from is correlated with those attributes whether the model can see them or not.",
+    "engineer": "The four-fifths rule is the operational version: if one group's selection rate is below 80% of the highest group's, the practice is flagged for scrutiny. It is a screening device rather than a definition — it does not say the rule is unlawful, it says look. Treating it as the target has a predictable failure mode, which is selecting people to reach the ratio rather than changing what makes the ratio come out that way.",
+    "math": "It is a ratio of selection rates, so it says nothing about who was selected correctly, and a rule can satisfy it perfectly by selecting the wrong people from the disadvantaged group. That is not a hypothetical objection: it is the standard critique of demographic parity as a target, and it is why disparate impact is most useful as the thing that starts an investigation rather than as the thing an optimiser is pointed at."
+  },
+  "emphasis": {
+    "intuition": "it is the form of unfairness that survives removing every protected attribute from the model",
+    "math": "a rule can satisfy it perfectly by selecting the wrong people from the disadvantaged group"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "disadvantaged_selected": 20,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "disadvantaged_selected",
+        "min": 0,
+        "max": 260,
+        "step": 10
+      }
+    ],
+    "caption": "People selected from the disadvantaged group, against a fixed hundred selected from the advantaged one. Drag it up: the four-fifths rule is met at 80 of them, which is 44% of this bar — and a rule reaching that number by selecting the wrong people passes anyway."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fairness-criteria",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "proxy-variable",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1808.00023",
+      "title": "The Measure and Mismeasure of Fairness",
+      "url": "https://arxiv.org/abs/1808.00023"
+    },
+    {
+      "ref": "arXiv:1908.09635",
+      "title": "A Survey on Bias and Fairness in Machine Learning",
+      "url": "https://arxiv.org/abs/1908.09635"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

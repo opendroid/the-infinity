@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "machine-translation",
+      "id": "disparate-impact",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "cross-lingual-transfer",
+      "id": "fairness-criteria",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "multilingual-model",
+      "id": "representation-bias",
       "t": 0.8,
       "label": true
     }

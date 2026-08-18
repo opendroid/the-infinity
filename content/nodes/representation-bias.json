@@ -1,0 +1,67 @@
+{
+  "id": "representation-bias",
+  "title": "Representation Bias",
+  "domain": [
+    "Fairness",
+    "Data"
+  ],
+  "bodies": {
+    "intuition": "If a group is a small fraction of the training data, the model has had less opportunity to learn them and will usually be worse at them. No malice and no protected attribute is required — a rare group is simply harder, in exactly the way any rare thing is harder, and the aggregate accuracy number will not mention it because the group is too small to move an average.",
+    "engineer": "It shows up most starkly where data collection followed convenience. Object recognition systems trained on web images perform substantially worse on household items photographed in low-income countries than in high-income ones — the objects are the same objects; the photographs are not the photographs the model was trained on. Fixing it is a data problem before it is a modelling problem, and reweighting the loss helps a little where collecting more data helps a lot.",
+    "math": "The damage compounds because the group's share of the data and its share of the error move in opposite directions. A group at a small fraction of the corpus contributes proportionally little to the training signal and proportionally little to the reported metric, so it is simultaneously the least learned and the least visible. That is the whole mechanism, and it means aggregate accuracy is structurally incapable of surfacing the problem."
+  },
+  "emphasis": {
+    "intuition": "the aggregate accuracy number will not mention it because the group is too small to move an average",
+    "math": "simultaneously the least learned and the least visible"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "majority_examples": 20,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "majority_examples",
+        "min": 0,
+        "max": 260,
+        "step": 20
+      }
+    ],
+    "caption": "Training examples from the well-represented group, against a fixed twenty from the rare one. Drag the majority up to watch the minority's share vanish — its contribution to the gradient and to the reported metric fall together, which is why the average never mentions it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "data-filtering",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "evaluation-disaggregation",
+        "reviewed": false
+      },
+      {
+        "id": "annotation-quality",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1906.02659",
+      "title": "Does Object Recognition Work for Everyone?",
+      "url": "https://arxiv.org/abs/1906.02659"
+    },
+    {
+      "ref": "arXiv:1908.09635",
+      "title": "A Survey on Bias and Fairness in Machine Learning",
+      "url": "https://arxiv.org/abs/1908.09635"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

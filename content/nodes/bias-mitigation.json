@@ -1,0 +1,63 @@
+{
+  "id": "bias-mitigation",
+  "title": "Bias Mitigation",
+  "domain": [
+    "Fairness",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Once a disparity has been measured, something has to change. The interventions land in three places — the data before training, the objective during it, or the decisions after it — and which one is available usually depends less on what would work than on what part of the system you are allowed to touch.",
+    "engineer": "Post-processing adjusts thresholds per group and is the only option when the model is a vendor's; it satisfies rate-based criteria directly and is legally fraught precisely because it acts on the protected attribute. In-processing adds a constraint or penalty to the objective and needs the attribute during training. Pre-processing reweights or repairs the data and is the most durable when it works, because it addresses why the disparity is in the model rather than correcting the model's output. Debiasing learned representations sits here too, and the geometric versions of it turned out to hide the association rather than remove it.",
+    "math": "Every method here costs accuracy against the observed labels, and it has to: if the unconstrained optimum satisfied the constraint, the constraint would not bind. So the number to look at is the size of that loss, not whether it exists — and a large one is usually evidence that the labels themselves encode the disparity, which is a finding about the data rather than a reason to abandon the constraint."
+  },
+  "emphasis": {
+    "engineer": "hide the association rather than remove it",
+    "math": "if the unconstrained optimum satisfied the constraint, the constraint would not bind"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "accuracy_given_up": 3,
+      "share_rest": 100
+    },
+    "param_controls": [
+      {
+        "name": "accuracy_given_up",
+        "min": 0,
+        "max": 220,
+        "step": 10
+      }
+    ],
+    "caption": "Accuracy against the observed labels given up to satisfy a fairness constraint, against the accuracy kept, in equal units. Drag the constraint tighter to watch the cost climb — it can never be zero, and a large one says the labels encode the disparity."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fairness-criteria",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "representation-bias",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1610.02413",
+      "title": "Equality of Opportunity in Supervised Learning",
+      "url": "https://arxiv.org/abs/1610.02413"
+    },
+    {
+      "ref": "arXiv:1607.06520",
+      "title": "Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings",
+      "url": "https://arxiv.org/abs/1607.06520"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

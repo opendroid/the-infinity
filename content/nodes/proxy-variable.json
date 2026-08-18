@@ -1,0 +1,63 @@
+{
+  "id": "proxy-variable",
+  "title": "Proxy Variable",
+  "domain": [
+    "Fairness",
+    "Data"
+  ],
+  "bodies": {
+    "intuition": "Delete race from the features and the model finds postcode. Delete postcode and it finds something correlated with postcode. A proxy is any feature that carries information about a protected attribute, and in a society where that attribute is correlated with almost everything, proxies are not exotic — they are most of the feature set.",
+    "engineer": "This is why \"we do not use the protected attribute\" is not an answer, and why fairness-through-unawareness fails as a strategy. Worse, removing the attribute makes the problem harder to find rather than smaller: with the attribute present you can measure the disparity and act on it, and with it absent the disparity is still there and you have destroyed your ability to audit for it. Several fairness criteria require the attribute at evaluation time for exactly this reason.",
+    "math": "The distinction from `confounding` is worth being precise about. A confounder causes both the treatment and the outcome, and controlling for it removes bias from a causal estimate. A proxy carries information about a protected attribute and may have no causal role at all — it is a channel, not a common cause, and the question about it is not whether to adjust for it but how much of the model's predictive power reaches the decision through it."
+  },
+  "emphasis": {
+    "engineer": "removing the attribute makes the problem harder to find rather than smaller",
+    "math": "it is a channel, not a common cause"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "proxy_signal": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "proxy_signal",
+        "min": 0,
+        "max": 260,
+        "step": 10
+      }
+    ],
+    "caption": "Predictive power reaching the decision through features correlated with a protected attribute, against power from features that are not. Drag the proxy's correlation up to watch the channel take the model — none of which requires the attribute itself to be in the feature set."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "confounding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "disparate-impact",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1908.09635",
+      "title": "A Survey on Bias and Fairness in Machine Learning",
+      "url": "https://arxiv.org/abs/1908.09635"
+    },
+    {
+      "ref": "arXiv:1808.00023",
+      "title": "The Measure and Mismeasure of Fairness",
+      "url": "https://arxiv.org/abs/1808.00023"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

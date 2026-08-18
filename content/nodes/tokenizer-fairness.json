@@ -45,6 +45,10 @@
       {
         "id": "context-window",
         "reviewed": false
+      },
+      {
+        "id": "fairness-criteria",
+        "reviewed": false
       }
     ]
   },
@@ -61,7 +65,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

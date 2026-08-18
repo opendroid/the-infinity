@@ -1,0 +1,63 @@
+{
+  "id": "evaluation-disaggregation",
+  "title": "Evaluation Disaggregation",
+  "domain": [
+    "Fairness",
+    "Measurement"
+  ],
+  "bodies": {
+    "intuition": "Report the metric per group instead of once. It is the least clever intervention in this whole area and reliably the most useful, because almost every disparity in a deployed system was sitting in plain sight behind an average that nobody had split.",
+    "engineer": "The practical work is choosing the slices and having the labels to slice by — which is where it usually stops, since the group memberships needed to disaggregate are often the attributes an organisation has decided not to collect. Model cards make the reporting a deliverable rather than an investigation, which matters: a disaggregated evaluation someone has to be asked for is one that happens after a problem, and the point is to have it before.",
+    "math": "An average over groups hides a disparity in proportion to how small the affected group is, so the metric is least sensitive exactly where the problem is worst. A group at 2% of the evaluation set can be catastrophically mishandled and move the aggregate by less than the noise between two training runs — which means the aggregate is not merely a weak signal there, it is no signal at all, and reporting it alone is a measurement decision rather than a neutral summary."
+  },
+  "emphasis": {
+    "intuition": "sitting in plain sight behind an average that nobody had split",
+    "math": "the metric is least sensitive exactly where the problem is worst"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "majority_slice": 25,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "majority_slice",
+        "min": 0,
+        "max": 250,
+        "step": 25
+      }
+    ],
+    "caption": "Evaluation examples from the large slice, against a fixed twenty from the small one. Drag the large slice up to watch it own the aggregate — at the right, the small slice can fail completely and move the reported number by less than run-to-run noise."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "annotation-quality",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "bias-mitigation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1810.03993",
+      "title": "Model Cards for Model Reporting",
+      "url": "https://arxiv.org/abs/1810.03993"
+    },
+    {
+      "ref": "arXiv:1906.02659",
+      "title": "Does Object Recognition Work for Everyone?",
+      "url": "https://arxiv.org/abs/1906.02659"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

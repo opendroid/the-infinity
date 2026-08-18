@@ -1,0 +1,63 @@
+{
+  "id": "group-vs-individual-fairness",
+  "title": "Group vs Individual Fairness",
+  "domain": [
+    "Fairness",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Group fairness asks whether the outcomes come out even across groups. Individual fairness asks whether two people who are alike in every way that should matter get treated alike. They are different questions, and a system can satisfy one while obviously violating the other — group parity achieved by choosing arbitrarily within a group is the standard example, and it is unfair to every individual in it.",
+    "engineer": "Individual fairness is the harder one to operationalise because it needs a similarity metric: a statement about which differences between two people are relevant to this decision. That metric is the entire ethical content of the criterion, and nobody can compute it from data — deriving it from the data reproduces exactly the historical judgements the exercise was meant to examine. So the honest version is that someone must write the metric down and defend it, which is why the approach is cited far more often than it is deployed.",
+    "math": "Formally, individual fairness asks the model to be Lipschitz with respect to that metric: two people at distance d receive output distributions no further apart than d. Group criteria constrain averages over a partition instead, which is why they are cheap to check and easy to satisfy vacuously. The gap between them is not a technical detail — one constrains every pair, the other constrains a handful of aggregates, and a constraint on aggregates is nearly always the weaker claim."
+  },
+  "emphasis": {
+    "engineer": "That metric is the entire ethical content of the criterion",
+    "math": "a constraint on aggregates is nearly always the weaker claim"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "pairs_constrained": 10,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "pairs_constrained",
+        "min": 0,
+        "max": 180,
+        "step": 10
+      }
+    ],
+    "caption": "Pairs of individuals an individual-fairness constraint binds, against the handful of group averages a parity criterion binds, in constraints. Drag the population up to watch pairs overwhelm aggregates — quadratically, which is both why it is the stronger claim and why it is rarely checked."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fairness-criteria",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "evaluation-disaggregation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1104.3913",
+      "title": "Fairness Through Awareness",
+      "url": "https://arxiv.org/abs/1104.3913"
+    },
+    {
+      "ref": "arXiv:1712.03586",
+      "title": "Fairness in Machine Learning: Lessons from Political Philosophy",
+      "url": "https://arxiv.org/abs/1712.03586"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
