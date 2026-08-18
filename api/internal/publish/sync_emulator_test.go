@@ -247,8 +247,12 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 		{
 			name: "concept",
 			doc:  concepts.Doc(id),
+			// "origin" is stored for every concept, not only the eight that author
+			// one: the firestore tag carries no omitempty, so an absent array is
+			// written as null rather than skipped. Listing it here is the point of
+			// this test — a field reaches Firestore only when someone says so.
 			want: []string{"bodies", "citations", "domain", "edges", "emphasis", "id",
-				"provenance", "review", "tier", "title", "updated_at", "viz"},
+				"origin", "provenance", "review", "tier", "title", "updated_at", "viz"},
 		},
 		{name: "concept.bodies", doc: concepts.Doc(id), at: "bodies",
 			want: []string{"engineer", "intuition", "math"}},
