@@ -1,0 +1,67 @@
+{
+  "id": "self-play",
+  "title": "Self-Play",
+  "domain": [
+    "Reinforcement",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "A system improves by playing against itself. There is no human data and no fixed opponent — the training signal comes from the game's own rules, and the difficulty scales automatically because the opponent is always exactly as good as you are.",
+    "engineer": "That automatic difficulty is the mechanism people underrate. A fixed opponent is either too hard to learn from or too easy to learn from for most of training; an opponent that improves alongside you is at the right difficulty by construction, which is a curriculum nobody had to design. The requirement is a cheap and exact reward, which games have and almost nothing else does — extending this to open domains is mostly the problem of what to put where the rules were.",
+    "math": "Improvement compounds because each round trains against the previous round's policy, so gains multiply rather than adding — but only while the opponent distribution stays broad. Training solely against the current best invites cycling, where A beats B beats C beats A and nothing improves; keeping a population or a history of past versions is what prevents it, and that mitigation is what makes the compounding real rather than apparent."
+  },
+  "emphasis": {
+    "intuition": "the opponent is always exactly as good as you are",
+    "math": "gains multiply rather than adding"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "past_opponents": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "past_opponents",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Past versions kept in the opponent pool, against the current best alone, in versions. Drag the pool up to watch the training distribution broaden — a pool of one invites cycling, where each policy beats the last and nothing gets better."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "policy-gradient",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "monte-carlo-tree-search",
+        "reviewed": false
+      },
+      {
+        "id": "reasoning-rl",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1712.01815",
+      "title": "Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm",
+      "url": "https://arxiv.org/abs/1712.01815"
+    },
+    {
+      "ref": "arXiv:1511.06732",
+      "title": "Sequence Level Training with Recurrent Neural Networks",
+      "url": "https://arxiv.org/abs/1511.06732"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

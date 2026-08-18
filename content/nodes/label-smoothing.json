@@ -1,0 +1,67 @@
+{
+  "id": "label-smoothing",
+  "title": "Label Smoothing",
+  "domain": [
+    "Foundations",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "Instead of training toward a target of exactly one for the correct class and zero for everything else, aim slightly lower — say 0.9 — and spread the remainder across the others. It is one line, it is in almost every transformer recipe, and it exists because the honest target is unreachable and chasing it does damage.",
+    "engineer": "The unreachable part is literal: a softmax reaches one only in the limit of infinite logits, so a model trained toward one is trained to grow its logits without bound, which sharpens it and hurts calibration. Smoothing gives a finite optimum. The trade is that it deliberately destroys information — a smoothed model is worse as a teacher for distillation, because the between-class structure that distillation transfers is exactly what the smoothing erased.",
+    "math": "With smoothing ε over K classes the target is 1−ε for the true class and ε/(K−1) elsewhere, and the optimal logit gap is finite rather than infinite. It also tightens the clusters a penultimate layer forms — representations of one class pull toward their centroid — which improves accuracy and calibration and removes the finer structure. Better predictions, worse representations, from one parameter: which of the two you need decides whether to use it."
+  },
+  "emphasis": {
+    "intuition": "the honest target is unreachable and chasing it does damage",
+    "math": "Better predictions, worse representations, from one parameter"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "smoothing": 0.4,
+      "bars": 10
+    },
+    "param_controls": [
+      {
+        "name": "smoothing",
+        "min": 0,
+        "max": 4,
+        "step": 0.25
+      }
+    ],
+    "caption": "A model's output distribution before and after smoothing the targets it was trained toward. Drag the smoothing up to watch the confident spike spread — the logit gap becomes finite, and the between-class structure a distillation teacher needs goes with it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      },
+      {
+        "id": "knowledge-distillation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1906.02629",
+      "title": "When Does Label Smoothing Help?",
+      "url": "https://arxiv.org/abs/1906.02629"
+    },
+    {
+      "ref": "arXiv:1512.00567",
+      "title": "Rethinking the Inception Architecture for Computer Vision",
+      "url": "https://arxiv.org/abs/1512.00567"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

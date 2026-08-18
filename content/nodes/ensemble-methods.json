@@ -1,0 +1,75 @@
+{
+  "id": "ensemble-methods",
+  "title": "Ensemble Methods",
+  "domain": [
+    "Foundations",
+    "Supervised"
+  ],
+  "bodies": {
+    "intuition": "Combine several models instead of trusting one. If their mistakes are different, averaging cancels some of them, and the combination is better than any member — which sounds like something for nothing and is not: what you spend is the compute to train and run several models.",
+    "engineer": "The families differ in how they make the members disagree. Bagging trains each on a different resample and averages, which reduces variance and is what a random forest does. Boosting trains each on what the previous ones got wrong and adds them, which reduces bias and is what gradient boosting does. Averaging independently-initialised deep networks is the bagging idea without the resampling, and it works because random initialisation supplies the disagreement on its own.",
+    "math": "The variance of an average of m models with pairwise correlation ρ falls to ρ + (1−ρ)/m of a single model's — so the ceiling is set by the correlation and not by the count. Perfectly correlated members give no reduction however many you add, which is the whole reason the methods work so hard at making members differ, and why the third and fourth member buy so much less than the second."
+  },
+  "emphasis": {
+    "intuition": "what you spend is the compute to train and run several models",
+    "math": "the ceiling is set by the correlation and not by the count"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "correlated_error": 20,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "correlated_error",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Error the members share and averaging cannot remove, against the error that cancels, in equal units. Drag the correlated part up to watch the ensemble stop helping — the floor is set by how alike the members are, not by how many there are."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "bias-variance-tradeoff",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "gradient-boosting",
+        "reviewed": false
+      },
+      {
+        "id": "model-soup",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1612.01474",
+      "title": "Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles",
+      "url": "https://arxiv.org/abs/1612.01474"
+    },
+    {
+      "ref": "arXiv:1411.1792",
+      "title": "How transferable are features in deep neural networks?",
+      "url": "https://arxiv.org/abs/1411.1792"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Breiman 1996",
+      "title": "Bagging Predictors",
+      "venue": "Machine Learning 24(2)",
+      "doi": "10.1007/BF00058655"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

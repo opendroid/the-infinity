@@ -8,11 +8,11 @@
   "bodies": {
     "intuition": "A sequence of states you cannot see, each producing an observation you can. Speech is the canonical case: the phonemes are hidden, the audio is what arrives, and the task is to recover the first from the second. It was the backbone of speech recognition for decades and it is the ancestor of everything sequential in this corpus.",
     "engineer": "The Markov assumption — the next state depends only on the current one — is what makes it tractable and what limits it. Dynamic programming then gives exact answers to all three questions you want: how likely is this observation sequence, what is the most likely state path, and what parameters best explain the data. Neural sequence models gave up the exactness and the interpretability in exchange for dropping the assumption, and that is the trade the whole lineage represents.",
-    "math": "The state path has exponentially many possibilities and the forward and Viterbi recursions evaluate them in time linear in the sequence and quadratic in the state count, by reusing shared prefixes. That is the same structural insight `connectionist-temporal-classification` uses to sum over alignments, arrived at forty years earlier — which is why CTC feels familiar to anyone who learned this first, and arbitrary to anyone who did not."
+    "math": "The state path has exponentially many possibilities and the forward and Viterbi recursions evaluate them in time linear in the sequence and quadratic in the state count, by reusing shared prefixes. That is the same structural insight `connectionist-temporal-classification` uses to sum over alignments, arrived at in the 1960s, four decades before CTC — which is why CTC feels familiar to anyone who learned this first, and arbitrary to anyone who did not."
   },
   "emphasis": {
     "intuition": "it is the ancestor of everything sequential in this corpus",
-    "math": "arrived at forty years earlier"
+    "math": "arrived at in the 1960s, four decades before CTC"
   },
   "viz": {
     "primitive": "attention-heatmap",
@@ -70,7 +70,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
