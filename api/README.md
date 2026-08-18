@@ -45,34 +45,35 @@ internal/
   store/          interface, Fake, Firestore
 ```
 
-**`make check` is meant to be exactly what CI runs**, which means the `golangci-lint`
-version in [`ci.yml`](../.github/workflows/ci.yml) tracks a recent release rather than
-freezing. A pin far behind what `brew install golangci-lint` gives you today makes `make
-check` fail locally on code CI calls clean, and the gap only widens with each release.
-Bumping it is routine: run the new version, fix what it finds, move the pin.
+**`make check` is exactly what CI runs**, and since #263 that is enforced by construction
+rather than by intention. [`.golangci-version`](.golangci-version) holds the pin;
+`make lint` fetches that version and CI reads the same file into its action input. Bumping
+is one line in one file: change it, run `make lint`, fix what the new version finds.
 
-The two versions are coupled in one direction that is easy to trip over:
+Before that, `ci.yml` held a literal and `make lint` used whatever was on your PATH. The
+two drifted to v2.12.2 against v2.5.0 with nothing to notice, so a green local lint and a
+green merge gate were different checks sharing a name.
+
+**`make lint` fetches a RELEASE BINARY into `bin/`, not `go install`.** That looks like the
+fussier choice and is the load-bearing one:
 
 ```
 can't load config: the Go language version (go1.25) used to build golangci-lint
 is lower than the targeted Go version (1.26.0)
 ```
 
-**`golangci-lint` must be built with a Go at least as new as the `go` directive in
-`go.mod`** — not merely able to run, built with. Official release binaries and Homebrew
-both track the current Go closely, so this is invisible until you install golangci-lint
-with `go install` on an older toolchain, which builds it with whatever you have. If you
-see that error, reinstall from a release rather than downgrading `go.mod`. The version CI
-pins, fetched directly:
+`golangci-lint` must be *built with* a Go at least as new as the `go` directive in
+`go.mod` — not merely able to run, built with. `go install` builds it with whatever
+toolchain **its own** `go.mod` selects, which lags the published binaries: at v2.12.2 that
+is go1.25.13, and the resulting binary refuses this module. The release binary for the same
+version is built with go1.26.2 and runs clean. So the pin was never the problem; the
+install method was, and pinning harder without changing it would not have helped.
 
-```sh
-V=$(grep -o 'version: v[0-9.]*' ../.github/workflows/ci.yml | head -1 | sed 's/.*v//')
-curl -sSL "https://github.com/golangci/golangci-lint/releases/download/v$V/golangci-lint-$V-linux-amd64.tar.gz" \
-  | tar xz -C /tmp && /tmp/golangci-lint-$V-linux-amd64/golangci-lint run
-```
+`bin/` is gitignored, and the fetched binary is stamped with its version so bumping the pin
+forces a refetch rather than silently reusing what is already there.
 
-Worth the two minutes: `contextcheck` and `noctx` are both enabled and neither `go vet` nor
-`gofmt` sees them, so a stale local binary means CI is the first thing that tells you.
+Worth having: `contextcheck` and `noctx` are both enabled and neither `go vet` nor `gofmt`
+sees them, so without a working local linter CI is the first thing that tells you.
 
 ## Layout notes
 
