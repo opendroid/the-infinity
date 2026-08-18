@@ -1,0 +1,67 @@
+{
+  "id": "long-context-training",
+  "title": "Long-Context Training",
+  "domain": [
+    "Context",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "A model does not get a long context by having its positions rescaled; it gets one by then being trained on long sequences. That training stage is short compared with pretraining and surprisingly particular about its data — most long documents are long by accident rather than because anything in them depends on anything far away.",
+    "engineer": "The data problem is the interesting one. Concatenated short documents are long sequences with no long-range dependencies, so training on them teaches the model nothing about distance; it needs material where an answer late in the sequence genuinely depends on something early. Constructing that at scale means either finding naturally long-dependency documents, which are rare, or synthesising them, which risks teaching the shape of the synthetic task rather than the capability.",
+    "math": "Attention is quadratic in sequence length, so a stage at sixteen times the pretraining length costs 256 times per token processed — which is why this stage is short and why the token budget spent on it is a small fraction of pretraining's. That small fraction is also why the resulting long-context ability is thin: the model has seen orders of magnitude fewer long-range dependencies than short-range ones, and behaves accordingly."
+  },
+  "emphasis": {
+    "intuition": "most long documents are long by accident rather than because anything in them depends on anything far away",
+    "math": "the model has seen orders of magnitude fewer long-range dependencies than short-range ones"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "short_range_pairs": 60,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "short_range_pairs",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Token pairs at short range the model trained on, against the long-range pairs it saw, in equal units. Drag the pretraining share up to watch long-range dependencies become a rounding error — which is the honest reason long-context ability is thinner than the window suggests."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "position-interpolation",
+        "reviewed": false
+      },
+      {
+        "id": "long-range-dependency",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2402.10171",
+      "title": "Data Engineering for Scaling Language Models to 128K Context",
+      "url": "https://arxiv.org/abs/2402.10171"
+    },
+    {
+      "ref": "arXiv:2309.00071",
+      "title": "YaRN: Efficient Context Window Extension of Large Language Models",
+      "url": "https://arxiv.org/abs/2309.00071"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "test-time-compute",
+      "id": "lost-in-the-middle",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "self-consistency",
+      "id": "prefix-caching",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "reasoning-rl",
+      "id": "length-extrapolation",
       "t": 0.8,
       "label": true
     }

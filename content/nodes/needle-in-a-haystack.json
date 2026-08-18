@@ -1,0 +1,64 @@
+{
+  "id": "needle-in-a-haystack",
+  "title": "Needle in a Haystack",
+  "domain": [
+    "Context",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "Hide one distinctive sentence in a very long document and ask the model to find it. It is the standard long-context demonstration, it produces a satisfying green grid, and it is much easier than almost anything a reader actually wants to do with a long context.",
+    "engineer": "The reason it is easy is that the needle is lexically distinctive and the task is single-hop retrieval — one lookup, no aggregation, no comparison, no reasoning over anything found. Models that saturate it fail on tasks that require tracking several facts across the same context, or noticing that a fact is absent. So a perfect score is evidence about retrieval and no evidence about use, and the two get reported as though they were the same claim.",
+    "math": "Difficulty scales with the number of items that must be held at once, not with the length of the context. A single needle is one item however long the haystack; multi-hop questions over the same document require holding several and relating them, and accuracy falls with that count far faster than with length. So a benchmark that varies only length is varying the axis that matters least, which is why saturating it says less than it appears to."
+  },
+  "emphasis": {
+    "intuition": "much easier than almost anything a reader actually wants to do with a long context",
+    "math": "varying the axis that matters least"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 3.2,
+      "threshold": 1.0,
+      "base_rate": 0.5
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Contexts where the model finds what it was asked for, against ones where it does not, by how distinctive the target is. Drag the distinctiveness up to a single odd sentence and watch the task become trivial — which is where this benchmark sits, and why saturating it proves little."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "effective-context-length",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2404.06654",
+      "title": "RULER: What's the Real Context Size of Your Long-Context Language Models?",
+      "url": "https://arxiv.org/abs/2404.06654"
+    },
+    {
+      "ref": "arXiv:2307.03172",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

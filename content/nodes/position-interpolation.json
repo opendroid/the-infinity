@@ -1,0 +1,63 @@
+{
+  "id": "position-interpolation",
+  "title": "Position Interpolation",
+  "domain": [
+    "Context",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Rather than asking a model to handle positions it has never seen, squeeze the new positions into the range it already knows. A sequence four times too long is re-indexed so that position 16,000 is presented as position 4,000 — the model interpolates between distances it understands instead of extrapolating past them, which it cannot do.",
+    "engineer": "The plain version scales every rotary frequency by the same factor, which works and costs resolution: neighbouring tokens now sit at distances the model reads as fractional, so fine-grained local ordering blurs. The refinements scale frequencies unevenly — high-frequency components, which carry local order, are left alone while low-frequency ones, which carry long-range position, are stretched. A short fine-tune on long sequences then recovers most of what the squeeze cost.",
+    "math": "The trade is between the two things position has to encode. Compressing by a factor of s divides the angular separation between adjacent tokens by s, so local resolution falls in proportion — while the maximum representable distance rises by the same factor. There is no setting where both improve, which is why every method here is a choice about which frequency bands to spend the compression on rather than a way to avoid spending it."
+  },
+  "emphasis": {
+    "intuition": "the model interpolates between distances it understands instead of extrapolating past them",
+    "math": "There is no setting where both improve"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "stretched_frequencies": 8,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "stretched_frequencies",
+        "min": 0,
+        "max": 200,
+        "step": 8
+      }
+    ],
+    "caption": "Rotary frequency bands stretched to reach the new length, against the high-frequency bands left alone to keep local order, in bands. Drag the compression up to watch long range bought with local resolution — the two cannot both improve."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "rotary-position-embedding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "length-extrapolation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2306.15595",
+      "title": "Extending Context Window of Large Language Models via Positional Interpolation",
+      "url": "https://arxiv.org/abs/2306.15595"
+    },
+    {
+      "ref": "arXiv:2309.00071",
+      "title": "YaRN: Efficient Context Window Extension of Large Language Models",
+      "url": "https://arxiv.org/abs/2309.00071"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

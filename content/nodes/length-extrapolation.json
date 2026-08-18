@@ -1,0 +1,67 @@
+{
+  "id": "length-extrapolation",
+  "title": "Length Extrapolation",
+  "domain": [
+    "Context",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "A model trained on sequences of four thousand tokens is shown forty thousand. Nothing in the architecture forbids it — attention has no fixed length — and yet quality collapses, often into repetition or nonsense. The reason is that the model has never seen positions that far apart and has no idea what they mean.",
+    "engineer": "The failure is specific to how position is encoded. Learned absolute embeddings simply have no entry past the trained length, so there is nothing to look up. Rotary embeddings do have a value at every position, but the rotation frequencies were only ever composed at distances the model saw, so far-apart pairs land in a regime it has no experience of. Relative schemes with a distance penalty degrade more gracefully, which is what \"train short, test long\" was demonstrating — but graceful degradation is not the same as working.",
+    "math": "Extrapolation asks a model to evaluate at inputs outside its training distribution, which is the one thing no fitting procedure promises. The distances a model saw during training are bounded by its training length, so the share of position pairs at inference that fall outside that bound rises with the ratio of the two lengths — at ten times the training length, almost every pair in the sequence is at a distance the model never encountered. That is why the failure is sudden rather than proportional."
+  },
+  "emphasis": {
+    "intuition": "the model has never seen positions that far apart and has no idea what they mean",
+    "math": "the one thing no fitting procedure promises"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unseen_pairs": 20,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "unseen_pairs",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Position pairs at distances the model never saw in training, against the pairs it did, in equal units. Drag the inference length up to watch unseen distances take the sequence — at ten times the training length almost every pair is one the model has no experience of."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "positional-encoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "alibi",
+        "reviewed": false
+      },
+      {
+        "id": "position-interpolation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2108.12409",
+      "title": "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation",
+      "url": "https://arxiv.org/abs/2108.12409"
+    },
+    {
+      "ref": "arXiv:2310.05209",
+      "title": "Scaling Laws of RoPE-based Extrapolation",
+      "url": "https://arxiv.org/abs/2310.05209"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

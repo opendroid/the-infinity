@@ -493,7 +493,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "length-extrapolation",
+            "title": "Length Extrapolation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1275,6 +1282,12 @@
             "reviewed": false
           },
           {
+            "id": "needle-in-a-haystack",
+            "title": "Needle in a Haystack",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "red-teaming",
             "title": "Red Teaming",
             "tier": "verified",
@@ -1828,13 +1841,13 @@
           {
             "id": "reasoning-trace",
             "title": "Reasoning Trace",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "self-consistency",
             "title": "Self-Consistency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1860,7 +1873,7 @@
           {
             "id": "test-time-compute",
             "title": "Test-Time Compute",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1925,7 +1938,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "context-compression",
+            "title": "Context Compression",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2240,6 +2260,12 @@
             "title": "Continuous Batching",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "prefix-caching",
+            "title": "Prefix Caching",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -2299,7 +2325,7 @@
           {
             "id": "inference-scaling-law",
             "title": "Inference Scaling Law",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2608,6 +2634,37 @@
       }
     },
     {
+      "id": "context-compression",
+      "title": "Context Compression",
+      "domain": "Context / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "chunking",
+            "title": "Chunking",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "retrieval-augmented-generation",
+            "title": "Retrieval-Augmented Generation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "context-window",
       "title": "Context Window",
       "domain": "Inference / Memory",
@@ -2635,9 +2692,21 @@
             "reviewed": false
           },
           {
+            "id": "context-compression",
+            "title": "Context Compression",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "in-context-learning",
             "title": "In-Context Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "lost-in-the-middle",
+            "title": "Lost in the Middle",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -2648,6 +2717,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "effective-context-length",
+            "title": "Effective Context Length",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "grounding",
             "title": "Grounding",
@@ -4182,6 +4257,38 @@
       }
     },
     {
+      "id": "effective-context-length",
+      "title": "Effective Context Length",
+      "domain": "Context / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "lost-in-the-middle",
+            "title": "Lost in the Middle",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "needle-in-a-haystack",
+            "title": "Needle in a Haystack",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "elastic-training",
       "title": "Elastic Training",
       "domain": "Systems / Reliability",
@@ -4628,7 +4735,7 @@
           {
             "id": "reasoning-rl",
             "title": "Reasoning RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6352,7 +6459,7 @@
       "id": "inference-scaling-law",
       "title": "Inference Scaling Law",
       "domain": "Reasoning / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -6367,7 +6474,7 @@
           {
             "id": "test-time-compute",
             "title": "Test-Time Compute",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6952,6 +7059,12 @@
             "title": "Prefill and Decode",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "prefix-caching",
+            "title": "Prefix Caching",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -7164,6 +7277,37 @@
       }
     },
     {
+      "id": "length-extrapolation",
+      "title": "Length Extrapolation",
+      "domain": "Context / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "positional-encoding",
+            "title": "Positional Encoding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "alibi",
+            "title": "ALiBi",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "position-interpolation",
+            "title": "Position Interpolation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "likelihood-vs-sample-quality",
       "title": "Likelihood vs Sample Quality",
       "domain": "Generative / Evaluation",
@@ -7350,6 +7494,37 @@
       }
     },
     {
+      "id": "long-context-training",
+      "title": "Long-Context Training",
+      "domain": "Context / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pretraining",
+            "title": "Pretraining",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "long-range-dependency",
+            "title": "Long-Range Dependency",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "position-interpolation",
+            "title": "Position Interpolation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "long-horizon-agent",
       "title": "Long-Horizon Agent",
       "domain": "Tools / Regimes",
@@ -7425,6 +7600,12 @@
             "id": "flash-attention",
             "title": "FlashAttention",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "long-context-training",
+            "title": "Long-Context Training",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -7622,6 +7803,38 @@
           {
             "id": "warmup",
             "title": "Warmup",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "lost-in-the-middle",
+      "title": "Lost in the Middle",
+      "domain": "Context / Behaviour",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "effective-context-length",
+            "title": "Effective Context Length",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "retrieval-augmented-generation",
+            "title": "Retrieval-Augmented Generation",
             "tier": "verified",
             "reviewed": false
           }
@@ -8549,7 +8762,7 @@
           {
             "id": "search-over-thoughts",
             "title": "Search Over Thoughts",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8782,6 +8995,31 @@
           {
             "id": "contrastive-learning",
             "title": "Contrastive Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "needle-in-a-haystack",
+      "title": "Needle in a Haystack",
+      "domain": "Context / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "effective-context-length",
+            "title": "Effective Context Length",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
             "tier": "verified",
             "reviewed": false
           }
@@ -9690,6 +9928,37 @@
       }
     },
     {
+      "id": "position-interpolation",
+      "title": "Position Interpolation",
+      "domain": "Context / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "rotary-position-embedding",
+            "title": "Rotary Position Embedding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "length-extrapolation",
+            "title": "Length Extrapolation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "long-context-training",
+            "title": "Long-Context Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "positional-encoding",
       "title": "Positional Encoding",
       "domain": "Attention / Position",
@@ -9714,6 +9983,12 @@
             "id": "context-window",
             "title": "Context Window",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "length-extrapolation",
+            "title": "Length Extrapolation",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -9799,6 +10074,12 @@
             "reviewed": false
           },
           {
+            "id": "prefix-caching",
+            "title": "Prefix Caching",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "shape-specialization",
             "title": "Shape Specialization",
             "tier": "verified",
@@ -9807,6 +10088,37 @@
           {
             "id": "streaming-synthesis",
             "title": "Streaming Synthesis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "prefix-caching",
+      "title": "Prefix Caching",
+      "domain": "Context / Serving",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "compilation-cache",
+            "title": "Compilation Cache",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prefill-and-decode",
+            "title": "Prefill and Decode",
             "tier": "verified",
             "reviewed": false
           }
@@ -9862,6 +10174,12 @@
             "id": "in-context-learning",
             "title": "In-Context Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "long-context-training",
+            "title": "Long-Context Training",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -10002,13 +10320,13 @@
       "id": "process-supervision",
       "title": "Process Supervision",
       "domain": "Reasoning / Selection",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "verifier-model",
             "title": "Verifier Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10017,7 +10335,7 @@
           {
             "id": "reasoning-rl",
             "title": "Reasoning RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10289,7 +10607,7 @@
           {
             "id": "reasoning-rl",
             "title": "Reasoning RL",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10649,7 +10967,7 @@
       "id": "reasoning-rl",
       "title": "Reasoning RL",
       "domain": "Reasoning / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10670,7 +10988,7 @@
           {
             "id": "process-supervision",
             "title": "Process Supervision",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10680,7 +10998,7 @@
       "id": "reasoning-trace",
       "title": "Reasoning Trace",
       "domain": "Reasoning / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10701,7 +11019,7 @@
           {
             "id": "test-time-compute",
             "title": "Test-Time Compute",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10953,9 +11271,21 @@
             "reviewed": false
           },
           {
+            "id": "context-compression",
+            "title": "Context Compression",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "in-context-learning",
             "title": "In-Context Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "lost-in-the-middle",
+            "title": "Lost in the Middle",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -11010,7 +11340,7 @@
           {
             "id": "verifier-model",
             "title": "Verifier Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11058,7 +11388,7 @@
           {
             "id": "verifier-model",
             "title": "Verifier Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11246,7 +11576,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "position-interpolation",
+            "title": "Position Interpolation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "context-window",
@@ -11442,7 +11779,7 @@
           {
             "id": "test-time-compute",
             "title": "Test-Time Compute",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11560,7 +11897,7 @@
       "id": "search-over-thoughts",
       "title": "Search Over Thoughts",
       "domain": "Reasoning / Search",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -11575,7 +11912,7 @@
           {
             "id": "verifier-model",
             "title": "Verifier Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11758,7 +12095,7 @@
       "id": "self-consistency",
       "title": "Self-Consistency",
       "domain": "Reasoning / Aggregation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -11773,13 +12110,13 @@
           {
             "id": "test-time-compute",
             "title": "Test-Time Compute",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "verifier-model",
             "title": "Verifier Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11810,7 +12147,7 @@
           {
             "id": "reasoning-trace",
             "title": "Reasoning Trace",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -13316,7 +13653,7 @@
       "id": "test-time-compute",
       "title": "Test-Time Compute",
       "domain": "Reasoning / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -13337,19 +13674,19 @@
           {
             "id": "inference-scaling-law",
             "title": "Inference Scaling Law",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "reasoning-trace",
             "title": "Reasoning Trace",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "self-consistency",
             "title": "Self-Consistency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -14170,7 +14507,7 @@
       "id": "verifier-model",
       "title": "Verifier Model",
       "domain": "Reasoning / Selection",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -14184,7 +14521,7 @@
           {
             "id": "process-supervision",
             "title": "Process Supervision",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -14198,13 +14535,13 @@
           {
             "id": "search-over-thoughts",
             "title": "Search Over Thoughts",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "self-consistency",
             "title": "Self-Consistency",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -15498,6 +15835,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "length-extrapolation",
+          "title": "Length Extrapolation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -15505,6 +15849,12 @@
           "from": "positional-encoding",
           "to": "alibi",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "alibi",
+          "to": "length-extrapolation",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -16898,50 +17248,57 @@
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 30,
+          "x": 27,
           "y": 22
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 60,
+          "x": 53,
           "y": 110
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
-          "x": 90,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "needle-in-a-haystack",
+          "title": "Needle in a Haystack",
+          "tier": "frontier",
+          "x": 107,
+          "y": 110
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 133,
+          "y": 22
         },
         {
           "id": "regression-suite",
           "title": "Regression Suite",
           "tier": "verified",
-          "x": 150,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 180,
-          "y": 110
+          "x": 187,
+          "y": 22
         },
         {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
           "tier": "verified",
-          "x": 210,
-          "y": 22
+          "x": 213,
+          "y": 110
         }
       ],
       "links": [
@@ -16966,6 +17323,12 @@
         {
           "from": "benchmark-contamination",
           "to": "deduplication",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "needle-in-a-haystack",
           "type": "adjacent",
           "reviewed": false
         },
@@ -17943,14 +18306,14 @@
         {
           "id": "reasoning-trace",
           "title": "Reasoning Trace",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
         {
           "id": "self-consistency",
           "title": "Self-Consistency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -17978,7 +18341,7 @@
         {
           "id": "test-time-compute",
           "title": "Test-Time Compute",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -18123,6 +18486,13 @@
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "context-compression",
+          "title": "Context Compression",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -18136,6 +18506,12 @@
           "from": "chunking",
           "to": "retrieval-augmented-generation",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "chunking",
+          "to": "context-compression",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -18670,8 +19046,15 @@
           "id": "continuous-batching",
           "title": "Continuous Batching",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "prefix-caching",
+          "title": "Prefix Caching",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -18690,6 +19073,12 @@
         {
           "from": "compilation-cache",
           "to": "continuous-batching",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "compilation-cache",
+          "to": "prefix-caching",
           "type": "adjacent",
           "reviewed": false
         }
@@ -18781,7 +19170,7 @@
         {
           "id": "inference-scaling-law",
           "title": "Inference Scaling Law",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -19318,6 +19707,59 @@
       ]
     },
     {
+      "id": "context-compression",
+      "center": {
+        "id": "context-compression",
+        "title": "Context Compression",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "chunking",
+          "title": "Chunking",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "retrieval-augmented-generation",
+          "title": "Retrieval-Augmented Generation",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "context-window",
+          "to": "context-compression",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "context-compression",
+          "to": "chunking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "context-compression",
+          "to": "retrieval-augmented-generation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "context-window",
       "center": {
         "id": "context-window",
@@ -19346,7 +19788,14 @@
           "title": "Agent Memory",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 22
+        },
+        {
+          "id": "context-compression",
+          "title": "Context Compression",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
         },
         {
           "id": "in-context-learning",
@@ -19356,46 +19805,60 @@
           "y": 66
         },
         {
+          "id": "lost-in-the-middle",
+          "title": "Lost in the Middle",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
           "id": "repository-context",
           "title": "Repository Context",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 110
+        },
+        {
+          "id": "effective-context-length",
+          "title": "Effective Context Length",
+          "tier": "frontier",
+          "x": 34,
+          "y": 22
         },
         {
           "id": "grounding",
           "title": "Grounding",
           "tier": "verified",
-          "x": 40,
-          "y": 22
+          "x": 69,
+          "y": 110
         },
         {
           "id": "long-horizon-agent",
           "title": "Long-Horizon Agent",
           "tier": "verified",
-          "x": 80,
-          "y": 110
+          "x": 103,
+          "y": 22
         },
         {
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 137,
+          "y": 110
         },
         {
           "id": "rotary-position-embedding",
           "title": "Rotary Position Embedding",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 171,
+          "y": 22
         },
         {
           "id": "tokenizer-fairness",
           "title": "Tokenizer Fairness",
           "tier": "verified",
-          "x": 200,
-          "y": 22
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -19419,7 +19882,19 @@
         },
         {
           "from": "context-window",
+          "to": "context-compression",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
           "to": "in-context-learning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "lost-in-the-middle",
           "type": "unlocks",
           "reviewed": false
         },
@@ -19427,6 +19902,12 @@
           "from": "context-window",
           "to": "repository-context",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "effective-context-length",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -22200,6 +22681,59 @@
       ]
     },
     {
+      "id": "effective-context-length",
+      "center": {
+        "id": "effective-context-length",
+        "title": "Effective Context Length",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "lost-in-the-middle",
+          "title": "Lost in the Middle",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "needle-in-a-haystack",
+          "title": "Needle in a Haystack",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "lost-in-the-middle",
+          "to": "effective-context-length",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "effective-context-length",
+          "to": "needle-in-a-haystack",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "effective-context-length",
+          "to": "context-window",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "elastic-training",
       "center": {
         "id": "elastic-training",
@@ -22966,7 +23500,7 @@
         {
           "id": "reasoning-rl",
           "title": "Reasoning RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         },
@@ -26081,7 +26615,7 @@
       "center": {
         "id": "inference-scaling-law",
         "title": "Inference Scaling Law",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -26096,7 +26630,7 @@
         {
           "id": "test-time-compute",
           "title": "Test-Time Compute",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -27082,35 +27616,42 @@
           "title": "Attention Sink",
           "tier": "verified",
           "x": 200,
-          "y": 22
+          "y": 19
         },
         {
           "id": "context-window",
           "title": "Context Window",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 38
         },
         {
           "id": "multi-query-attention",
           "title": "Multi-Query Attention",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 57
         },
         {
           "id": "paged-attention",
           "title": "Paged Attention",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 75
         },
         {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 94
+        },
+        {
+          "id": "prefix-caching",
+          "title": "Prefix Caching",
+          "tier": "frontier",
+          "x": 200,
+          "y": 113
         },
         {
           "id": "chain-of-thought",
@@ -27174,6 +27715,12 @@
         {
           "from": "kv-cache",
           "to": "prefill-and-decode",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "prefix-caching",
           "type": "unlocks",
           "reviewed": false
         },
@@ -27528,6 +28075,59 @@
       ]
     },
     {
+      "id": "length-extrapolation",
+      "center": {
+        "id": "length-extrapolation",
+        "title": "Length Extrapolation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "positional-encoding",
+          "title": "Positional Encoding",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "alibi",
+          "title": "ALiBi",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "position-interpolation",
+          "title": "Position Interpolation",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "positional-encoding",
+          "to": "length-extrapolation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "length-extrapolation",
+          "to": "alibi",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "length-extrapolation",
+          "to": "position-interpolation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "likelihood-vs-sample-quality",
       "center": {
         "id": "likelihood-vs-sample-quality",
@@ -27870,6 +28470,59 @@
       ]
     },
     {
+      "id": "long-context-training",
+      "center": {
+        "id": "long-context-training",
+        "title": "Long-Context Training",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pretraining",
+          "title": "Pretraining",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "long-range-dependency",
+          "title": "Long-Range Dependency",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "position-interpolation",
+          "title": "Position Interpolation",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "pretraining",
+          "to": "long-context-training",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "long-context-training",
+          "to": "long-range-dependency",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "long-context-training",
+          "to": "position-interpolation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "long-horizon-agent",
       "center": {
         "id": "long-horizon-agent",
@@ -27982,15 +28635,22 @@
           "id": "context-window",
           "title": "Context Window",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "flash-attention",
           "title": "FlashAttention",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "long-context-training",
+          "title": "Long-Context Training",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -28009,6 +28669,12 @@
         {
           "from": "long-range-dependency",
           "to": "flash-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "long-range-dependency",
+          "to": "long-context-training",
           "type": "adjacent",
           "reviewed": false
         }
@@ -28377,6 +29043,59 @@
         {
           "from": "loss-spike",
           "to": "warmup",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "lost-in-the-middle",
+      "center": {
+        "id": "lost-in-the-middle",
+        "title": "Lost in the Middle",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "effective-context-length",
+          "title": "Effective Context Length",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "retrieval-augmented-generation",
+          "title": "Retrieval-Augmented Generation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "context-window",
+          "to": "lost-in-the-middle",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "lost-in-the-middle",
+          "to": "effective-context-length",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "lost-in-the-middle",
+          "to": "retrieval-augmented-generation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -29987,7 +30706,7 @@
         {
           "id": "search-over-thoughts",
           "title": "Search Over Thoughts",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -30411,6 +31130,46 @@
         {
           "from": "mutual-information",
           "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "needle-in-a-haystack",
+      "center": {
+        "id": "needle-in-a-haystack",
+        "title": "Needle in a Haystack",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "effective-context-length",
+          "title": "Effective Context Length",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "effective-context-length",
+          "to": "needle-in-a-haystack",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "needle-in-a-haystack",
+          "to": "benchmark-contamination",
           "type": "adjacent",
           "reviewed": false
         }
@@ -32014,6 +32773,59 @@
       ]
     },
     {
+      "id": "position-interpolation",
+      "center": {
+        "id": "position-interpolation",
+        "title": "Position Interpolation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "rotary-position-embedding",
+          "title": "Rotary Position Embedding",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "length-extrapolation",
+          "title": "Length Extrapolation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "long-context-training",
+          "title": "Long-Context Training",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "rotary-position-embedding",
+          "to": "position-interpolation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "position-interpolation",
+          "to": "length-extrapolation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "position-interpolation",
+          "to": "long-context-training",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "positional-encoding",
       "center": {
         "id": "positional-encoding",
@@ -32035,28 +32847,35 @@
           "title": "ALiBi",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 22
         },
         {
           "id": "context-window",
           "title": "Context Window",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 44
+        },
+        {
+          "id": "length-extrapolation",
+          "title": "Length Extrapolation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "patch-embedding",
           "title": "Patch Embedding",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "rotary-position-embedding",
           "title": "Rotary Position Embedding",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         }
       ],
       "links": [
@@ -32075,6 +32894,12 @@
         {
           "from": "positional-encoding",
           "to": "context-window",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "positional-encoding",
+          "to": "length-extrapolation",
           "type": "unlocks",
           "reviewed": false
         },
@@ -32186,22 +33011,29 @@
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "prefix-caching",
+          "title": "Prefix Caching",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "shape-specialization",
           "title": "Shape Specialization",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "streaming-synthesis",
           "title": "Streaming Synthesis",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -32225,6 +33057,12 @@
         },
         {
           "from": "prefill-and-decode",
+          "to": "prefix-caching",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prefill-and-decode",
           "to": "shape-specialization",
           "type": "adjacent",
           "reviewed": false
@@ -32232,6 +33070,59 @@
         {
           "from": "prefill-and-decode",
           "to": "streaming-synthesis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "prefix-caching",
+      "center": {
+        "id": "prefix-caching",
+        "title": "Prefix Caching",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "compilation-cache",
+          "title": "Compilation Cache",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "prefill-and-decode",
+          "title": "Prefill and Decode",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "kv-cache",
+          "to": "prefix-caching",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "prefix-caching",
+          "to": "compilation-cache",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prefix-caching",
+          "to": "prefill-and-decode",
           "type": "adjacent",
           "reviewed": false
         }
@@ -32266,63 +33157,70 @@
           "title": "Benchmark Contamination",
           "tier": "verified",
           "x": 200,
-          "y": 13
+          "y": 12
         },
         {
           "id": "data-filtering",
           "title": "Data Filtering",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 24
         },
         {
           "id": "data-poisoning",
           "title": "Data Poisoning",
           "tier": "verified",
           "x": 200,
-          "y": 40
+          "y": 36
         },
         {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 48
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 60
+        },
+        {
+          "id": "long-context-training",
+          "title": "Long-Context Training",
+          "tier": "frontier",
+          "x": 200,
+          "y": 72
         },
         {
           "id": "multilingual-model",
           "title": "Multilingual Model",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 84
         },
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
           "x": 200,
-          "y": 92
+          "y": 96
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 108
         },
         {
           "id": "training-observability",
           "title": "Training Observability",
           "tier": "verified",
           "x": 200,
-          "y": 119
+          "y": 120
         }
       ],
       "links": [
@@ -32365,6 +33263,12 @@
         {
           "from": "pretraining",
           "to": "in-context-learning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pretraining",
+          "to": "long-context-training",
           "type": "unlocks",
           "reviewed": false
         },
@@ -32584,7 +33488,7 @@
       "center": {
         "id": "process-supervision",
         "title": "Process Supervision",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -32592,14 +33496,14 @@
         {
           "id": "verifier-model",
           "title": "Verifier Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "reasoning-rl",
           "title": "Reasoning RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -33069,7 +33973,7 @@
         {
           "id": "reasoning-rl",
           "title": "Reasoning RL",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -33720,7 +34624,7 @@
       "center": {
         "id": "reasoning-rl",
         "title": "Reasoning RL",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -33742,7 +34646,7 @@
         {
           "id": "process-supervision",
           "title": "Process Supervision",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -33773,7 +34677,7 @@
       "center": {
         "id": "reasoning-trace",
         "title": "Reasoning Trace",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -33795,7 +34699,7 @@
         {
           "id": "test-time-compute",
           "title": "Test-Time Compute",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -34226,21 +35130,35 @@
           "id": "agent-memory",
           "title": "Agent Memory",
           "tier": "verified",
-          "x": 60,
+          "x": 40,
           "y": 22
+        },
+        {
+          "id": "context-compression",
+          "title": "Context Compression",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
           "x": 120,
+          "y": 22
+        },
+        {
+          "id": "lost-in-the-middle",
+          "title": "Lost in the Middle",
+          "tier": "frontier",
+          "x": 160,
           "y": 110
         },
         {
           "id": "repository-context",
           "title": "Repository Context",
           "tier": "verified",
-          "x": 180,
+          "x": 200,
           "y": 22
         }
       ],
@@ -34271,7 +35189,19 @@
         },
         {
           "from": "retrieval-augmented-generation",
+          "to": "context-compression",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "retrieval-augmented-generation",
           "to": "in-context-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "retrieval-augmented-generation",
+          "to": "lost-in-the-middle",
           "type": "adjacent",
           "reviewed": false
         },
@@ -34331,7 +35261,7 @@
         {
           "id": "verifier-model",
           "title": "Verifier Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 22
         }
@@ -34423,7 +35353,7 @@
         {
           "id": "verifier-model",
           "title": "Verifier Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -34788,6 +35718,13 @@
           "y": 66
         },
         {
+          "id": "position-interpolation",
+          "title": "Position Interpolation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "context-window",
           "title": "Context Window",
           "tier": "verified",
@@ -34800,6 +35737,12 @@
           "from": "positional-encoding",
           "to": "rotary-position-embedding",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "rotary-position-embedding",
+          "to": "position-interpolation",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -35115,7 +36058,7 @@
         {
           "id": "test-time-compute",
           "title": "Test-Time Compute",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -35343,7 +36286,7 @@
       "center": {
         "id": "search-over-thoughts",
         "title": "Search Over Thoughts",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -35358,7 +36301,7 @@
         {
           "id": "verifier-model",
           "title": "Verifier Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -35687,7 +36630,7 @@
       "center": {
         "id": "self-consistency",
         "title": "Self-Consistency",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -35702,14 +36645,14 @@
         {
           "id": "test-time-compute",
           "title": "Test-Time Compute",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "verifier-model",
           "title": "Verifier Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -35762,7 +36705,7 @@
         {
           "id": "reasoning-trace",
           "title": "Reasoning Trace",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -38457,7 +39400,7 @@
       "center": {
         "id": "test-time-compute",
         "title": "Test-Time Compute",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -38479,21 +39422,21 @@
         {
           "id": "inference-scaling-law",
           "title": "Inference Scaling Law",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
         {
           "id": "reasoning-trace",
           "title": "Reasoning Trace",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
         {
           "id": "self-consistency",
           "title": "Self-Consistency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -40023,7 +40966,7 @@
       "center": {
         "id": "verifier-model",
         "title": "Verifier Model",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -40038,7 +40981,7 @@
         {
           "id": "process-supervision",
           "title": "Process Supervision",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -40052,14 +40995,14 @@
         {
           "id": "search-over-thoughts",
           "title": "Search Over Thoughts",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
         {
           "id": "self-consistency",
           "title": "Self-Consistency",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
