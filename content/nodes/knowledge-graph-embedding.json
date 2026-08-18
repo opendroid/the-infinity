@@ -41,6 +41,10 @@
       {
         "id": "token-embedding",
         "reviewed": false
+      },
+      {
+        "id": "entity-linking",
+        "reviewed": false
       }
     ]
   },

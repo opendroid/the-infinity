@@ -37,7 +37,12 @@
         "reviewed": false
       }
     ],
-    "adjacent": []
+    "adjacent": [
+      {
+        "id": "data-parallelism",
+        "reviewed": false
+      }
+    ]
   },
   "citations": [
     {

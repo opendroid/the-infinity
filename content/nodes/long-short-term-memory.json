@@ -41,6 +41,10 @@
       {
         "id": "residual-connection",
         "reviewed": false
+      },
+      {
+        "id": "vanishing-gradient",
+        "reviewed": false
       }
     ]
   },

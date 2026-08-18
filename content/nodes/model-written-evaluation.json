@@ -41,6 +41,10 @@
       {
         "id": "benchmark-contamination",
         "reviewed": false
+      },
+      {
+        "id": "dangerous-capability-evaluation",
+        "reviewed": false
       }
     ]
   },

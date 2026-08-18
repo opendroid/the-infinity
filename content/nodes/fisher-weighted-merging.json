@@ -35,6 +35,10 @@
       {
         "id": "merge-interference",
         "reviewed": false
+      },
+      {
+        "id": "model-merging",
+        "reviewed": false
       }
     ],
     "adjacent": [

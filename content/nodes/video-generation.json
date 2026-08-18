@@ -41,6 +41,10 @@
       {
         "id": "video-understanding",
         "reviewed": false
+      },
+      {
+        "id": "diffusion-model",
+        "reviewed": false
       }
     ]
   },

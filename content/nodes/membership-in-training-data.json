@@ -42,6 +42,10 @@
       {
         "id": "data-provenance",
         "reviewed": false
+      },
+      {
+        "id": "memorisation",
+        "reviewed": false
       }
     ]
   },

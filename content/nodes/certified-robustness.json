@@ -41,6 +41,10 @@
       {
         "id": "calibration",
         "reviewed": false
+      },
+      {
+        "id": "adversarial-training",
+        "reviewed": false
       }
     ]
   },

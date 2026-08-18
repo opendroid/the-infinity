@@ -42,6 +42,10 @@
       {
         "id": "benchmark-contamination",
         "reviewed": false
+      },
+      {
+        "id": "lost-in-the-middle",
+        "reviewed": false
       }
     ]
   },

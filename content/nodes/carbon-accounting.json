@@ -41,6 +41,10 @@
       {
         "id": "compute-optimal-training",
         "reviewed": false
+      },
+      {
+        "id": "energy-cost-of-inference",
+        "reviewed": false
       }
     ]
   },

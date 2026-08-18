@@ -41,6 +41,10 @@
       {
         "id": "vision-language-model",
         "reviewed": false
+      },
+      {
+        "id": "positional-encoding",
+        "reviewed": false
       }
     ]
   },

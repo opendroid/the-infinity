@@ -41,6 +41,10 @@
       {
         "id": "program-repair",
         "reviewed": false
+      },
+      {
+        "id": "code-generation",
+        "reviewed": false
       }
     ]
   },

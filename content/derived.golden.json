@@ -189,6 +189,12 @@
             "title": "Vanishing Gradient",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "weight-initialization",
+            "title": "Weight Initialization",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -237,6 +243,12 @@
           {
             "id": "classifier-free-guidance",
             "title": "Classifier-Free Guidance",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sparse-autoencoder",
+            "title": "Sparse Autoencoder",
             "tier": "verified",
             "reviewed": false
           }
@@ -514,6 +526,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "certified-robustness",
+            "title": "Certified Robustness",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "gradient-descent",
             "title": "Gradient Descent",
@@ -1102,6 +1120,12 @@
             "reviewed": false
           },
           {
+            "id": "modality-imbalance",
+            "title": "Modality Imbalance",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "video-understanding",
             "title": "Video Understanding",
             "tier": "verified",
@@ -1515,6 +1539,12 @@
             "title": "Batch Size",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "training-serving-skew",
+            "title": "Training-Serving Skew",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -1705,6 +1735,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "grammar-constrained-decoding",
+            "title": "Grammar-Constrained Decoding",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "structured-output",
             "title": "Structured Output",
             "tier": "verified",
@@ -1795,6 +1831,12 @@
           {
             "id": "deduplication",
             "title": "Deduplication",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "elo-rating",
+            "title": "Elo Rating",
             "tier": "verified",
             "reviewed": false
           },
@@ -2216,6 +2258,12 @@
             "title": "Compute-Optimal Training",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "energy-cost-of-inference",
+            "title": "Energy Cost of Inference",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -2428,6 +2476,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "adversarial-training",
+            "title": "Adversarial Training",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "calibration",
             "title": "Calibration",
@@ -2675,6 +2729,12 @@
             "title": "Fill in the Middle",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "test-generation",
+            "title": "Test Generation",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -2760,6 +2820,12 @@
           {
             "id": "exploration-exploitation",
             "title": "Exploration and Exploitation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "implicit-feedback",
+            "title": "Implicit Feedback",
             "tier": "verified",
             "reviewed": false
           }
@@ -2850,6 +2916,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "expert-parallelism",
+            "title": "Expert Parallelism",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "federated-learning",
             "title": "Federated Learning",
@@ -3159,6 +3231,12 @@
             "title": "Feedback Loop",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "invariant-risk-minimization",
+            "title": "Invariant Risk Minimization",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -3310,6 +3388,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "manipulation",
+            "title": "Manipulation",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "model-based-rl",
             "title": "Model-Based RL",
@@ -4207,6 +4291,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "model-written-evaluation",
+            "title": "Model-Written Evaluation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "open-weights",
             "title": "Open Weights",
             "tier": "verified",
@@ -4340,6 +4430,12 @@
             "title": "Teleoperation Data",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "training-corpus-contamination",
+            "title": "Training Corpus Contamination",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -4440,6 +4536,12 @@
             "title": "Federated Learning",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "gradient-accumulation",
+            "title": "Gradient Accumulation",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -4522,6 +4624,12 @@
             "title": "Membership in Training Data",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "output-watermarking",
+            "title": "Output Watermarking",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -4588,6 +4696,12 @@
           {
             "id": "deduplication",
             "title": "Deduplication",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "experiment-tracking",
+            "title": "Experiment Tracking",
             "tier": "verified",
             "reviewed": false
           },
@@ -5068,6 +5182,12 @@
             "title": "Variational Autoencoder",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "video-generation",
+            "title": "Video Generation",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -5298,6 +5418,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "positional-encoding",
+            "title": "Positional Encoding",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "vision-language-model",
             "title": "Vision-Language Model",
@@ -5677,6 +5803,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
             "tier": "verified",
@@ -5820,6 +5952,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "carbon-accounting",
+            "title": "Carbon Accounting",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "quantization",
             "title": "Quantization",
             "tier": "verified",
@@ -5936,6 +6074,12 @@
           {
             "id": "dense-retrieval",
             "title": "Dense Retrieval",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "knowledge-graph-embedding",
+            "title": "Knowledge Graph Embedding",
             "tier": "verified",
             "reviewed": false
           }
@@ -6312,6 +6456,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "data-versioning",
+            "title": "Data Versioning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "online-experiment",
             "title": "Online Experiment",
             "tier": "verified",
@@ -6336,6 +6486,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "collective-communication",
+            "title": "Collective Communication",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "data-parallelism",
             "title": "Data Parallelism",
@@ -6557,6 +6713,12 @@
           {
             "id": "object-detection",
             "title": "Object Detection",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "receptive-field",
+            "title": "Receptive Field",
             "tier": "verified",
             "reviewed": false
           }
@@ -6927,6 +7089,12 @@
             "title": "Merge Interference",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "model-merging",
+            "title": "Model Merging",
+            "tier": "verified",
+            "reviewed": false
           }
         ],
         "unlocks": [],
@@ -7259,6 +7427,12 @@
             "title": "Activation Checkpointing",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "data-parallelism",
+            "title": "Data Parallelism",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -7490,6 +7664,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "beam-search-tradeoffs",
+            "title": "Beam Search Tradeoffs",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "function-calling",
             "title": "Function Calling",
@@ -7805,6 +7985,12 @@
           {
             "id": "evaluation-disaggregation",
             "title": "Evaluation Disaggregation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "impossibility-result",
+            "title": "Impossibility Result",
             "tier": "verified",
             "reviewed": false
           }
@@ -8200,6 +8386,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "cold-start",
+            "title": "Cold Start",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "contrastive-learning",
             "title": "Contrastive Learning",
             "tier": "verified",
@@ -8277,6 +8469,12 @@
           {
             "id": "calibration",
             "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "group-vs-individual-fairness",
+            "title": "Group vs Individual Fairness",
             "tier": "verified",
             "reviewed": false
           }
@@ -8698,6 +8896,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "confounding",
+            "title": "Confounding",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "loss-function",
             "title": "Loss Function",
             "tier": "verified",
@@ -9113,6 +9317,12 @@
         ],
         "adjacent": [
           {
+            "id": "neuro-symbolic",
+            "title": "Neuro-Symbolic",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
             "tier": "verified",
@@ -9137,6 +9347,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "entity-linking",
+            "title": "Entity Linking",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "token-embedding",
             "title": "Token Embedding",
@@ -9833,6 +10049,12 @@
             "title": "Position Interpolation",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "sequence-parallelism",
+            "title": "Sequence Parallelism",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -9943,6 +10165,12 @@
           {
             "id": "residual-connection",
             "title": "Residual Connection",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vanishing-gradient",
+            "title": "Vanishing Gradient",
             "tier": "verified",
             "reviewed": false
           }
@@ -10182,6 +10410,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "needle-in-a-haystack",
+            "title": "Needle in a Haystack",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
@@ -10431,6 +10665,12 @@
         ],
         "adjacent": [
           {
+            "id": "contact-dynamics",
+            "title": "Contact Dynamics",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
             "tier": "verified",
@@ -10663,6 +10903,12 @@
             "title": "Data Provenance",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "memorisation",
+            "title": "Memorisation",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -10736,6 +10982,12 @@
           {
             "id": "machine-unlearning",
             "title": "Machine Unlearning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "membership-in-training-data",
+            "title": "Membership in Training Data",
             "tier": "verified",
             "reviewed": false
           },
@@ -10914,6 +11166,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "oversmoothing",
+            "title": "Oversmoothing",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "residual-connection",
             "title": "Residual Connection",
@@ -11172,6 +11430,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "audio-visual-learning",
+            "title": "Audio-Visual Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
             "tier": "verified",
@@ -11311,6 +11575,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "open-weights",
+            "title": "Open Weights",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "safety-benchmark-validity",
             "title": "Safety Benchmark Validity",
             "tier": "verified",
@@ -11365,6 +11635,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "fisher-weighted-merging",
+            "title": "Fisher-Weighted Merging",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "model-soup",
             "title": "Model Soup",
@@ -11549,6 +11825,12 @@
           {
             "id": "benchmark-contamination",
             "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "dangerous-capability-evaluation",
+            "title": "Dangerous Capability Evaluation",
             "tier": "verified",
             "reviewed": false
           }
@@ -11957,6 +12239,12 @@
             "title": "Benchmark Contamination",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "lost-in-the-middle",
+            "title": "Lost in the Middle",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -12058,6 +12346,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "knowledge-graph",
+            "title": "Knowledge Graph",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
@@ -12507,6 +12801,12 @@
             "reviewed": false
           },
           {
+            "id": "model-card",
+            "title": "Model Card",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "training-data-licensing",
             "title": "Training Data Licensing",
             "tier": "verified",
@@ -12656,6 +12956,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "data-provenance",
+            "title": "Data Provenance",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "synthetic-data",
             "title": "Synthetic Data",
             "tier": "verified",
@@ -12791,6 +13097,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "message-passing",
+            "title": "Message Passing",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "residual-connection",
             "title": "Residual Connection",
             "tier": "verified",
@@ -12878,6 +13190,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "sequence-labelling",
+            "title": "Sequence Labelling",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "structured-output",
             "title": "Structured Output",
@@ -13219,7 +13537,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "document-understanding",
+            "title": "Document Understanding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -13563,6 +13888,12 @@
             "title": "Calibration",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "seasonality",
+            "title": "Seasonality",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -13902,6 +14233,12 @@
           {
             "id": "classifier-free-guidance",
             "title": "Classifier-Free Guidance",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "synthesis-evaluation",
+            "title": "Synthesis Evaluation",
             "tier": "verified",
             "reviewed": false
           }
@@ -14443,6 +14780,12 @@
           {
             "id": "dilated-convolution",
             "title": "Dilated Convolution",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "feature-pyramid",
+            "title": "Feature Pyramid",
             "tier": "verified",
             "reviewed": false
           }
@@ -15130,6 +15473,12 @@
             "title": "Reward Hacking",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "weak-to-strong-generalization",
+            "title": "Weak-to-Strong Generalization",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -15724,6 +16073,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "probabilistic-forecasting",
+            "title": "Probabilistic Forecasting",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "spectrogram",
             "title": "Spectrogram",
             "tier": "verified",
@@ -16156,6 +16511,12 @@
             "title": "Conditional Random Field",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "parsing",
+            "title": "Parsing",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -16179,6 +16540,12 @@
           {
             "id": "activation-checkpointing",
             "title": "Activation Checkpointing",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "long-context-training",
+            "title": "Long-Context Training",
             "tier": "verified",
             "reviewed": false
           }
@@ -16604,6 +16971,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "activation-steering",
+            "title": "Activation Steering",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "vector-quantization",
             "title": "Vector Quantization",
@@ -17478,6 +17851,12 @@
             "title": "LLM as Judge",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "prosody-control",
+            "title": "Prosody Control",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -17941,6 +18320,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "code-generation",
+            "title": "Code Generation",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "program-repair",
             "title": "Program Repair",
@@ -18502,6 +18887,12 @@
             "title": "Benchmark Contamination",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "data-filtering",
+            "title": "Data Filtering",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -18640,6 +19031,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "batch-normalization",
+            "title": "Batch Normalization",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "silent-failure",
             "title": "Silent Failure",
@@ -18903,6 +19300,12 @@
             "reviewed": false
           },
           {
+            "id": "long-short-term-memory",
+            "title": "Long Short-Term Memory",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "residual-connection",
             "title": "Residual Connection",
             "tier": "verified",
@@ -19113,6 +19516,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "diffusion-model",
+            "title": "Diffusion Model",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "video-understanding",
             "title": "Video Understanding",
@@ -19436,6 +19845,12 @@
             "title": "Knowledge Distillation",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -19561,6 +19976,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "activation-function",
+            "title": "Activation Function",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "residual-connection",
             "title": "Residual Connection",
@@ -20033,15 +20454,22 @@
           "id": "feed-forward-network",
           "title": "Feed-Forward Network",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "vanishing-gradient",
           "title": "Vanishing Gradient",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "weight-initialization",
+          "title": "Weight Initialization",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -20060,6 +20488,12 @@
         {
           "from": "activation-function",
           "to": "vanishing-gradient",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "activation-function",
+          "to": "weight-initialization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20126,8 +20560,15 @@
           "id": "classifier-free-guidance",
           "title": "Classifier-Free Guidance",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "sparse-autoencoder",
+          "title": "Sparse Autoencoder",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -20140,6 +20581,12 @@
         {
           "from": "activation-steering",
           "to": "classifier-free-guidance",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "activation-steering",
+          "to": "sparse-autoencoder",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20606,11 +21053,18 @@
           "y": 66
         },
         {
+          "id": "certified-robustness",
+          "title": "Certified Robustness",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "gradient-descent",
           "title": "Gradient Descent",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -20624,6 +21078,12 @@
           "from": "adversarial-training",
           "to": "robustness-accuracy-tradeoff",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "adversarial-training",
+          "to": "certified-robustness",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -21681,15 +22141,22 @@
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "modality-imbalance",
+          "title": "Modality Imbalance",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "video-understanding",
           "title": "Video Understanding",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -21702,6 +22169,12 @@
         {
           "from": "audio-visual-learning",
           "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "audio-visual-learning",
+          "to": "modality-imbalance",
           "type": "adjacent",
           "reviewed": false
         },
@@ -22456,8 +22929,15 @@
           "id": "batch-size",
           "title": "Batch Size",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "training-serving-skew",
+          "title": "Training-Serving Skew",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -22470,6 +22950,12 @@
         {
           "from": "batch-normalization",
           "to": "batch-size",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "batch-normalization",
+          "to": "training-serving-skew",
           "type": "adjacent",
           "reviewed": false
         }
@@ -22796,11 +23282,18 @@
           "y": 66
         },
         {
+          "id": "grammar-constrained-decoding",
+          "title": "Grammar-Constrained Decoding",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "structured-output",
           "title": "Structured Output",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -22808,6 +23301,12 @@
           "from": "beam-search",
           "to": "beam-search-tradeoffs",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "beam-search-tradeoffs",
+          "to": "grammar-constrained-decoding",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -22912,85 +23411,92 @@
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 18,
+          "x": 17,
           "y": 22
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 37,
+          "x": 34,
           "y": 110
         },
         {
           "id": "data-provenance",
           "title": "Data Provenance",
           "tier": "verified",
-          "x": 55,
+          "x": 51,
           "y": 22
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
-          "x": 74,
+          "x": 69,
           "y": 110
+        },
+        {
+          "id": "elo-rating",
+          "title": "Elo Rating",
+          "tier": "verified",
+          "x": 86,
+          "y": 22
         },
         {
           "id": "feature-store",
           "title": "Feature Store",
           "tier": "verified",
-          "x": 92,
-          "y": 22
+          "x": 103,
+          "y": 110
         },
         {
           "id": "model-written-evaluation",
           "title": "Model-Written Evaluation",
           "tier": "verified",
-          "x": 111,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "needle-in-a-haystack",
           "title": "Needle in a Haystack",
           "tier": "verified",
-          "x": 129,
-          "y": 22
+          "x": 137,
+          "y": 110
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 148,
-          "y": 110
+          "x": 154,
+          "y": 22
         },
         {
           "id": "regression-suite",
           "title": "Regression Suite",
           "tier": "verified",
-          "x": 166,
-          "y": 22
+          "x": 171,
+          "y": 110
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 185,
-          "y": 110
+          "x": 189,
+          "y": 22
         },
         {
           "id": "statistical-significance",
           "title": "Statistical Significance",
           "tier": "verified",
-          "x": 203,
-          "y": 22
+          "x": 206,
+          "y": 110
         },
         {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
           "tier": "verified",
-          "x": 222,
-          "y": 110
+          "x": 223,
+          "y": 22
         }
       ],
       "links": [
@@ -23027,6 +23533,12 @@
         {
           "from": "benchmark-contamination",
           "to": "deduplication",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "elo-rating",
           "type": "adjacent",
           "reviewed": false
         },
@@ -23757,8 +24269,15 @@
           "id": "compute-optimal-training",
           "title": "Compute-Optimal Training",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "energy-cost-of-inference",
+          "title": "Energy Cost of Inference",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -23771,6 +24290,12 @@
         {
           "from": "carbon-accounting",
           "to": "compute-optimal-training",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "carbon-accounting",
+          "to": "energy-cost-of-inference",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24149,11 +24674,18 @@
           "y": 66
         },
         {
+          "id": "adversarial-training",
+          "title": "Adversarial Training",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -24161,6 +24693,12 @@
           "from": "adversarial-example",
           "to": "certified-robustness",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "certified-robustness",
+          "to": "adversarial-training",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -24574,15 +25112,22 @@
           "id": "execution-verification",
           "title": "Execution Verification",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "fill-in-the-middle",
           "title": "Fill in the Middle",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "test-generation",
+          "title": "Test Generation",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -24601,6 +25146,12 @@
         {
           "from": "code-generation",
           "to": "fill-in-the-middle",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "code-generation",
+          "to": "test-generation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24733,8 +25284,15 @@
           "id": "exploration-exploitation",
           "title": "Exploration and Exploitation",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "implicit-feedback",
+          "title": "Implicit Feedback",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -24747,6 +25305,12 @@
         {
           "from": "cold-start",
           "to": "exploration-exploitation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "cold-start",
+          "to": "implicit-feedback",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24883,18 +25447,25 @@
           "y": 99
         },
         {
+          "id": "expert-parallelism",
+          "title": "Expert Parallelism",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "federated-learning",
           "title": "Federated Learning",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "secure-aggregation",
           "title": "Secure Aggregation",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -24920,6 +25491,12 @@
           "from": "collective-communication",
           "to": "tensor-parallelism",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "collective-communication",
+          "to": "expert-parallelism",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -25420,15 +25997,22 @@
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "feedback-loop",
           "title": "Feedback Loop",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "invariant-risk-minimization",
+          "title": "Invariant Risk Minimization",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -25459,6 +26043,12 @@
         {
           "from": "confounding",
           "to": "feedback-loop",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "confounding",
+          "to": "invariant-risk-minimization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -25719,11 +26309,18 @@
           "y": 66
         },
         {
+          "id": "manipulation",
+          "title": "Manipulation",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "model-based-rl",
           "title": "Model-Based RL",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -25731,6 +26328,12 @@
           "from": "sim-to-real",
           "to": "contact-dynamics",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "contact-dynamics",
+          "to": "manipulation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -27400,25 +28003,32 @@
           "y": 66
         },
         {
+          "id": "model-written-evaluation",
+          "title": "Model-Written Evaluation",
+          "tier": "verified",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "open-weights",
           "title": "Open Weights",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "safety-benchmark-validity",
           "title": "Safety Benchmark Validity",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -27426,6 +28036,12 @@
           "from": "agent-evaluation",
           "to": "dangerous-capability-evaluation",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "dangerous-capability-evaluation",
+          "to": "model-written-evaluation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -27591,15 +28207,22 @@
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "teleoperation-data",
           "title": "Teleoperation Data",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "training-corpus-contamination",
+          "title": "Training Corpus Contamination",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -27666,6 +28289,12 @@
         {
           "from": "data-filtering",
           "to": "teleoperation-data",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-filtering",
+          "to": "training-corpus-contamination",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27793,15 +28422,22 @@
           "id": "expert-parallelism",
           "title": "Expert Parallelism",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "federated-learning",
           "title": "Federated Learning",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "gradient-accumulation",
+          "title": "Gradient Accumulation",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -27850,6 +28486,12 @@
         {
           "from": "data-parallelism",
           "to": "federated-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-parallelism",
+          "to": "gradient-accumulation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27950,15 +28592,22 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "membership-in-training-data",
           "title": "Membership in Training Data",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "output-watermarking",
+          "title": "Output Watermarking",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -27995,6 +28644,12 @@
         {
           "from": "data-provenance",
           "to": "membership-in-training-data",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-provenance",
+          "to": "output-watermarking",
           "type": "adjacent",
           "reviewed": false
         }
@@ -28100,15 +28755,22 @@
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "experiment-tracking",
+          "title": "Experiment Tracking",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "feature-store",
           "title": "Feature Store",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -28121,6 +28783,12 @@
         {
           "from": "data-versioning",
           "to": "deduplication",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-versioning",
+          "to": "experiment-tracking",
           "type": "adjacent",
           "reviewed": false
         },
@@ -28919,22 +29587,29 @@
           "id": "flow-matching",
           "title": "Flow Matching",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "text-to-speech",
           "title": "Text to Speech",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "variational-autoencoder",
           "title": "Variational Autoencoder",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "video-generation",
+          "title": "Video Generation",
+          "tier": "verified",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -28995,6 +29670,12 @@
         {
           "from": "diffusion-model",
           "to": "variational-autoencoder",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "diffusion-model",
+          "to": "video-generation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -29400,11 +30081,18 @@
           "y": 66
         },
         {
+          "id": "positional-encoding",
+          "title": "Positional Encoding",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "vision-language-model",
           "title": "Vision-Language Model",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -29412,6 +30100,12 @@
           "from": "patch-embedding",
           "to": "document-understanding",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "document-understanding",
+          "to": "positional-encoding",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -30061,11 +30755,18 @@
           "y": 66
         },
         {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -30073,6 +30774,12 @@
           "from": "human-evaluation",
           "to": "elo-rating",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "elo-rating",
+          "to": "benchmark-contamination",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -30312,18 +31019,25 @@
           "y": 66
         },
         {
+          "id": "carbon-accounting",
+          "title": "Carbon Accounting",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "quantization",
           "title": "Quantization",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "test-time-compute",
           "title": "Test-Time Compute",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -30331,6 +31045,12 @@
           "from": "energy-cost-of-training",
           "to": "energy-cost-of-inference",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "energy-cost-of-inference",
+          "to": "carbon-accounting",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -30507,8 +31227,15 @@
           "id": "dense-retrieval",
           "title": "Dense Retrieval",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "knowledge-graph-embedding",
+          "title": "Knowledge Graph Embedding",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -30527,6 +31254,12 @@
         {
           "from": "entity-linking",
           "to": "dense-retrieval",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "entity-linking",
+          "to": "knowledge-graph-embedding",
           "type": "adjacent",
           "reviewed": false
         }
@@ -31195,11 +31928,18 @@
           "y": 66
         },
         {
+          "id": "data-versioning",
+          "title": "Data Versioning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "online-experiment",
           "title": "Online Experiment",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -31207,6 +31947,12 @@
           "from": "determinism-and-reproducibility",
           "to": "experiment-tracking",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "experiment-tracking",
+          "to": "data-versioning",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -31235,11 +31981,18 @@
           "y": 66
         },
         {
+          "id": "collective-communication",
+          "title": "Collective Communication",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "data-parallelism",
           "title": "Data Parallelism",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -31247,6 +32000,12 @@
           "from": "mixture-of-experts",
           "to": "expert-parallelism",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "expert-parallelism",
+          "to": "collective-communication",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -31621,8 +32380,15 @@
           "id": "object-detection",
           "title": "Object Detection",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "receptive-field",
+          "title": "Receptive Field",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -31635,6 +32401,12 @@
         {
           "from": "feature-pyramid",
           "to": "object-detection",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "feature-pyramid",
+          "to": "receptive-field",
           "type": "adjacent",
           "reviewed": false
         }
@@ -32312,7 +33084,14 @@
           "title": "Merge Interference",
           "tier": "verified",
           "x": 40,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "model-merging",
+          "title": "Model Merging",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
         },
         {
           "id": "elastic-weight-consolidation",
@@ -32325,6 +33104,12 @@
       "links": [
         {
           "from": "merge-interference",
+          "to": "fisher-weighted-merging",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-merging",
           "to": "fisher-weighted-merging",
           "type": "requires",
           "reviewed": false
@@ -32898,8 +33683,15 @@
           "id": "activation-checkpointing",
           "title": "Activation Checkpointing",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "data-parallelism",
+          "title": "Data Parallelism",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -32912,6 +33704,12 @@
         {
           "from": "gradient-accumulation",
           "to": "activation-checkpointing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-accumulation",
+          "to": "data-parallelism",
           "type": "adjacent",
           "reviewed": false
         }
@@ -33323,18 +34121,25 @@
           "y": 66
         },
         {
+          "id": "beam-search-tradeoffs",
+          "title": "Beam Search Tradeoffs",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "function-calling",
           "title": "Function Calling",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "structured-output",
           "title": "Structured Output",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -33348,6 +34153,12 @@
           "from": "grammar-constrained-decoding",
           "to": "schema-conformance",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "grammar-constrained-decoding",
+          "to": "beam-search-tradeoffs",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -33874,8 +34685,15 @@
           "id": "evaluation-disaggregation",
           "title": "Evaluation Disaggregation",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "impossibility-result",
+          "title": "Impossibility Result",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -33888,6 +34706,12 @@
         {
           "from": "group-vs-individual-fairness",
           "to": "evaluation-disaggregation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "group-vs-individual-fairness",
+          "to": "impossibility-result",
           "type": "adjacent",
           "reviewed": false
         }
@@ -34571,18 +35395,25 @@
           "y": 66
         },
         {
+          "id": "cold-start",
+          "title": "Cold Start",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "noise-contrastive-estimation",
           "title": "Noise-Contrastive Estimation",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -34590,6 +35421,12 @@
           "from": "collaborative-filtering",
           "to": "implicit-feedback",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "implicit-feedback",
+          "to": "cold-start",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -34706,8 +35543,15 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "group-vs-individual-fairness",
+          "title": "Group vs Individual Fairness",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -34720,6 +35564,12 @@
         {
           "from": "impossibility-result",
           "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "impossibility-result",
+          "to": "group-vs-individual-fairness",
           "type": "adjacent",
           "reviewed": false
         }
@@ -35443,11 +36293,18 @@
           "y": 66
         },
         {
+          "id": "confounding",
+          "title": "Confounding",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "loss-function",
           "title": "Loss Function",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -35455,6 +36312,12 @@
           "from": "shortcut-learning",
           "to": "invariant-risk-minimization",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "invariant-risk-minimization",
+          "to": "confounding",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -36194,11 +37057,18 @@
           "y": 88
         },
         {
+          "id": "neuro-symbolic",
+          "title": "Neuro-Symbolic",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -36218,6 +37088,12 @@
           "from": "knowledge-graph",
           "to": "knowledge-graph-embedding",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-graph",
+          "to": "neuro-symbolic",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -36246,11 +37122,18 @@
           "y": 66
         },
         {
+          "id": "entity-linking",
+          "title": "Entity Linking",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "token-embedding",
           "title": "Token Embedding",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -36258,6 +37141,12 @@
           "from": "knowledge-graph",
           "to": "knowledge-graph-embedding",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-graph-embedding",
+          "to": "entity-linking",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -37499,15 +38388,22 @@
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "position-interpolation",
           "title": "Position Interpolation",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "sequence-parallelism",
+          "title": "Sequence Parallelism",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -37526,6 +38422,12 @@
         {
           "from": "long-context-training",
           "to": "position-interpolation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "long-context-training",
+          "to": "sequence-parallelism",
           "type": "adjacent",
           "reviewed": false
         }
@@ -37710,8 +38612,15 @@
           "id": "residual-connection",
           "title": "Residual Connection",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "vanishing-gradient",
+          "title": "Vanishing Gradient",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -37724,6 +38633,12 @@
         {
           "from": "long-short-term-memory",
           "to": "residual-connection",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "long-short-term-memory",
+          "to": "vanishing-gradient",
           "type": "adjacent",
           "reviewed": false
         }
@@ -38148,11 +39063,18 @@
           "y": 66
         },
         {
+          "id": "needle-in-a-haystack",
+          "title": "Needle in a Haystack",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -38166,6 +39088,12 @@
           "from": "lost-in-the-middle",
           "to": "effective-context-length",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "lost-in-the-middle",
+          "to": "needle-in-a-haystack",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -38572,11 +39500,18 @@
           "y": 99
         },
         {
+          "id": "contact-dynamics",
+          "title": "Contact Dynamics",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -38602,6 +39537,12 @@
           "from": "manipulation",
           "to": "safety-envelope",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "manipulation",
+          "to": "contact-dynamics",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -39002,8 +39943,15 @@
           "id": "data-provenance",
           "title": "Data Provenance",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "memorisation",
+          "title": "Memorisation",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -39016,6 +39964,12 @@
         {
           "from": "membership-in-training-data",
           "to": "data-provenance",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "membership-in-training-data",
+          "to": "memorisation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -39121,22 +40075,29 @@
           "id": "image-generation-evaluation",
           "title": "Image Generation Evaluation",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "machine-unlearning",
           "title": "Machine Unlearning",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "membership-in-training-data",
+          "title": "Membership in Training Data",
+          "tier": "verified",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -39155,6 +40116,12 @@
         {
           "from": "memorisation",
           "to": "machine-unlearning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "memorisation",
+          "to": "membership-in-training-data",
           "type": "adjacent",
           "reviewed": false
         },
@@ -39430,11 +40397,18 @@
           "y": 99
         },
         {
+          "id": "oversmoothing",
+          "title": "Oversmoothing",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "residual-connection",
           "title": "Residual Connection",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -39460,6 +40434,12 @@
           "from": "message-passing",
           "to": "neighborhood-sampling",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "message-passing",
+          "to": "oversmoothing",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -39897,11 +40877,18 @@
           "y": 66
         },
         {
+          "id": "audio-visual-learning",
+          "title": "Audio-Visual Learning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -39909,6 +40896,12 @@
           "from": "modality-fusion",
           "to": "modality-imbalance",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "modality-imbalance",
+          "to": "audio-visual-learning",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -40135,11 +41128,18 @@
           "y": 66
         },
         {
+          "id": "open-weights",
+          "title": "Open Weights",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "safety-benchmark-validity",
           "title": "Safety Benchmark Validity",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -40147,6 +41147,12 @@
           "from": "data-provenance",
           "to": "model-card",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-card",
+          "to": "open-weights",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -40228,18 +41234,25 @@
           "y": 66
         },
         {
+          "id": "fisher-weighted-merging",
+          "title": "Fisher-Weighted Merging",
+          "tier": "verified",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "model-soup",
           "title": "Model Soup",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "task-arithmetic",
           "title": "Task Arithmetic",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "merge-vs-ensemble",
@@ -40261,6 +41274,12 @@
           "from": "loss-landscape",
           "to": "model-merging",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-merging",
+          "to": "fisher-weighted-merging",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -40548,8 +41567,15 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "dangerous-capability-evaluation",
+          "title": "Dangerous Capability Evaluation",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -40562,6 +41588,12 @@
         {
           "from": "model-written-evaluation",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "model-written-evaluation",
+          "to": "dangerous-capability-evaluation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -41261,8 +42293,15 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "lost-in-the-middle",
+          "title": "Lost in the Middle",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -41275,6 +42314,12 @@
         {
           "from": "needle-in-a-haystack",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "needle-in-a-haystack",
+          "to": "lost-in-the-middle",
           "type": "adjacent",
           "reviewed": false
         }
@@ -41443,11 +42488,18 @@
           "y": 66
         },
         {
+          "id": "knowledge-graph",
+          "title": "Knowledge Graph",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -41455,6 +42507,12 @@
           "from": "logical-constraint",
           "to": "neuro-symbolic",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "neuro-symbolic",
+          "to": "knowledge-graph",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -42225,15 +43283,22 @@
           "id": "dangerous-capability-evaluation",
           "title": "Dangerous Capability Evaluation",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "model-card",
+          "title": "Model Card",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "training-data-licensing",
           "title": "Training Data Licensing",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -42246,6 +43311,12 @@
         {
           "from": "open-weights",
           "to": "dangerous-capability-evaluation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "open-weights",
+          "to": "model-card",
           "type": "adjacent",
           "reviewed": false
         },
@@ -42487,11 +43558,18 @@
           "y": 66
         },
         {
+          "id": "data-provenance",
+          "title": "Data Provenance",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "synthetic-data",
           "title": "Synthetic Data",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -42499,6 +43577,12 @@
           "from": "nucleus-sampling",
           "to": "output-watermarking",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "output-watermarking",
+          "to": "data-provenance",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -42749,11 +43833,18 @@
           "y": 66
         },
         {
+          "id": "message-passing",
+          "title": "Message Passing",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "residual-connection",
           "title": "Residual Connection",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -42761,6 +43852,12 @@
           "from": "graph-convolution",
           "to": "oversmoothing",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "oversmoothing",
+          "to": "message-passing",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -42895,11 +43992,18 @@
           "y": 66
         },
         {
+          "id": "sequence-labelling",
+          "title": "Sequence Labelling",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "structured-output",
           "title": "Structured Output",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -42907,6 +44011,12 @@
           "from": "dynamic-programming-inference",
           "to": "parsing",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "parsing",
+          "to": "sequence-labelling",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -43482,6 +44592,13 @@
           "tier": "verified",
           "x": 200,
           "y": 110
+        },
+        {
+          "id": "document-understanding",
+          "title": "Document Understanding",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -43519,6 +44636,12 @@
           "from": "positional-encoding",
           "to": "rotary-position-embedding",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "positional-encoding",
+          "to": "document-understanding",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -44148,8 +45271,15 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "seasonality",
+          "title": "Seasonality",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -44162,6 +45292,12 @@
         {
           "from": "probabilistic-forecasting",
           "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "probabilistic-forecasting",
+          "to": "seasonality",
           "type": "adjacent",
           "reviewed": false
         }
@@ -44743,8 +45879,15 @@
           "id": "classifier-free-guidance",
           "title": "Classifier-Free Guidance",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "synthesis-evaluation",
+          "title": "Synthesis Evaluation",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -44757,6 +45900,12 @@
         {
           "from": "prosody-control",
           "to": "classifier-free-guidance",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prosody-control",
+          "to": "synthesis-evaluation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -45706,8 +46855,15 @@
           "id": "dilated-convolution",
           "title": "Dilated Convolution",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "feature-pyramid",
+          "title": "Feature Pyramid",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -45720,6 +46876,12 @@
         {
           "from": "receptive-field",
           "to": "dilated-convolution",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "receptive-field",
+          "to": "feature-pyramid",
           "type": "adjacent",
           "reviewed": false
         }
@@ -46880,43 +48042,50 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 34,
+          "x": 30,
           "y": 22
         },
         {
           "id": "catastrophic-forgetting",
           "title": "Catastrophic Forgetting",
           "tier": "verified",
-          "x": 69,
+          "x": 60,
           "y": 110
         },
         {
           "id": "direct-preference-optimization",
           "title": "DPO",
           "tier": "verified",
-          "x": 103,
+          "x": 90,
           "y": 22
         },
         {
           "id": "imitation-learning",
           "title": "Imitation Learning",
           "tier": "verified",
-          "x": 137,
+          "x": 120,
           "y": 110
         },
         {
           "id": "kl-divergence",
           "title": "KL Divergence",
           "tier": "verified",
-          "x": 171,
+          "x": 150,
           "y": 22
         },
         {
           "id": "reward-hacking",
           "title": "Reward Hacking",
           "tier": "verified",
-          "x": 206,
+          "x": 180,
           "y": 110
+        },
+        {
+          "id": "weak-to-strong-generalization",
+          "title": "Weak-to-Strong Generalization",
+          "tier": "verified",
+          "x": 210,
+          "y": 22
         }
       ],
       "links": [
@@ -46995,6 +48164,12 @@
         {
           "from": "rlhf",
           "to": "reward-hacking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "weak-to-strong-generalization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -48022,11 +49197,18 @@
           "y": 66
         },
         {
+          "id": "probabilistic-forecasting",
+          "title": "Probabilistic Forecasting",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "spectrogram",
           "title": "Spectrogram",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -48034,6 +49216,12 @@
           "from": "trend-decomposition",
           "to": "seasonality",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "seasonality",
+          "to": "probabilistic-forecasting",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -48778,8 +49966,15 @@
           "id": "conditional-random-field",
           "title": "Conditional Random Field",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "parsing",
+          "title": "Parsing",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -48792,6 +49987,12 @@
         {
           "from": "sequence-labelling",
           "to": "conditional-random-field",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sequence-labelling",
+          "to": "parsing",
           "type": "adjacent",
           "reviewed": false
         }
@@ -48818,8 +50019,15 @@
           "id": "activation-checkpointing",
           "title": "Activation Checkpointing",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "long-context-training",
+          "title": "Long-Context Training",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -48832,6 +50040,12 @@
         {
           "from": "sequence-parallelism",
           "to": "activation-checkpointing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sequence-parallelism",
+          "to": "long-context-training",
           "type": "adjacent",
           "reviewed": false
         }
@@ -49598,11 +50812,18 @@
           "y": 88
         },
         {
+          "id": "activation-steering",
+          "title": "Activation Steering",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "vector-quantization",
           "title": "Vector Quantization",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -49616,6 +50837,12 @@
           "from": "superposition",
           "to": "sparse-autoencoder",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sparse-autoencoder",
+          "to": "activation-steering",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -51131,22 +52358,29 @@
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "human-evaluation",
           "title": "Human Evaluation",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "prosody-control",
+          "title": "Prosody Control",
+          "tier": "verified",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -51177,6 +52411,12 @@
         {
           "from": "synthesis-evaluation",
           "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "synthesis-evaluation",
+          "to": "prosody-control",
           "type": "adjacent",
           "reviewed": false
         }
@@ -51991,11 +53231,18 @@
           "y": 66
         },
         {
+          "id": "code-generation",
+          "title": "Code Generation",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "program-repair",
           "title": "Program Repair",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -52003,6 +53250,12 @@
           "from": "execution-verification",
           "to": "test-generation",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "test-generation",
+          "to": "code-generation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -53020,8 +54273,15 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "data-filtering",
+          "title": "Data Filtering",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -53034,6 +54294,12 @@
         {
           "from": "training-corpus-contamination",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "training-corpus-contamination",
+          "to": "data-filtering",
           "type": "adjacent",
           "reviewed": false
         }
@@ -53262,11 +54528,18 @@
           "y": 66
         },
         {
+          "id": "batch-normalization",
+          "title": "Batch Normalization",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "silent-failure",
           "title": "Silent Failure",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -53280,6 +54553,12 @@
           "from": "training-serving-skew",
           "to": "feature-store",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "training-serving-skew",
+          "to": "batch-normalization",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -53713,22 +54992,29 @@
           "id": "activation-function",
           "title": "Activation Function",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "gradient-clipping",
           "title": "Gradient Clipping",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "long-short-term-memory",
+          "title": "Long Short-Term Memory",
+          "tier": "verified",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "residual-connection",
           "title": "Residual Connection",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -53753,6 +55039,12 @@
         {
           "from": "vanishing-gradient",
           "to": "gradient-clipping",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "vanishing-gradient",
+          "to": "long-short-term-memory",
           "type": "adjacent",
           "reviewed": false
         },
@@ -54136,11 +55428,18 @@
           "y": 66
         },
         {
+          "id": "diffusion-model",
+          "title": "Diffusion Model",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "video-understanding",
           "title": "Video Understanding",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -54148,6 +55447,12 @@
           "from": "latent-diffusion",
           "to": "video-generation",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "video-generation",
+          "to": "diffusion-model",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -54706,8 +56011,15 @@
           "id": "knowledge-distillation",
           "title": "Knowledge Distillation",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -54720,6 +56032,12 @@
         {
           "from": "weak-to-strong-generalization",
           "to": "knowledge-distillation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "weak-to-strong-generalization",
+          "to": "rlhf",
           "type": "adjacent",
           "reviewed": false
         }
@@ -54940,11 +56258,18 @@
           "y": 66
         },
         {
+          "id": "activation-function",
+          "title": "Activation Function",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "residual-connection",
           "title": "Residual Connection",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -54952,6 +56277,12 @@
           "from": "vanishing-gradient",
           "to": "weight-initialization",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "weight-initialization",
+          "to": "activation-function",
+          "type": "adjacent",
           "reviewed": false
         },
         {
