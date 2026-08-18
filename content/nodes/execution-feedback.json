@@ -1,0 +1,62 @@
+{
+  "id": "execution-feedback",
+  "title": "Execution Feedback",
+  "domain": [
+    "Tools",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "The difference between an agent and a plan is that an agent gets to see what happened. A tool returns a result, an error, or nothing at all, and the next decision is made with that in hand. Systems that act without reading their own output are open-loop, and they fail in the way open-loop systems always have.",
+    "engineer": "Feedback quality decides agent quality more than model quality does. A stack trace is a usable signal, a generic failure string is not, and truncating a long output at the wrong place removes the part carrying the diagnosis. Code as the action format wins partly for this reason — the interpreter's errors are precise, structured, and already designed to be read.",
+    "math": "Each cycle conditions the next action on the accumulated transcript, so an agent's behaviour is a policy over histories rather than states. That means an uninformative observation does not merely waste a step — it leaves the belief unchanged, and repeating the same action from the same belief is the loop these systems fall into."
+  },
+  "emphasis": {
+    "intuition": "Systems that act without reading their own output are open-loop",
+    "engineer": "Feedback quality decides agent quality more than model quality does."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "informative_output": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "informative_output",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Tool output that changes the next decision against output that merely fills the transcript, in tokens. Drag the informative share up to watch the loop close — at the left end the agent is acting blind and repeating itself."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tool-schema",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "react",
+        "reviewed": false
+      },
+      {
+        "id": "agent-memory",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2402.01030",
+      "title": "Executable Code Actions Elicit Better LLM Agents",
+      "url": "https://arxiv.org/abs/2402.01030"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

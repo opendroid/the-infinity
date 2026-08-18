@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "generative-adversarial-network",
+      "id": "knowledge-distillation",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "mode-collapse",
+      "id": "lottery-ticket-hypothesis",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "flow-matching",
+      "id": "pruning",
       "t": 0.8,
       "label": true
     }

@@ -245,6 +245,43 @@
       }
     },
     {
+      "id": "agent-evaluation",
+      "title": "Agent Evaluation",
+      "domain": "Tools / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "long-horizon-agent",
+            "title": "Long-Horizon Agent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "pass-at-k",
+            "title": "pass@k",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "agent-memory",
       "title": "Agent Memory",
       "domain": "Agents / State",
@@ -260,6 +297,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "execution-feedback",
+            "title": "Execution Feedback",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "hierarchical-rl",
             "title": "Hierarchical RL",
@@ -799,6 +842,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "agent-evaluation",
+            "title": "Agent Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "cross-validation",
             "title": "Cross-Validation",
             "tier": "verified",
@@ -905,7 +954,7 @@
           {
             "id": "likelihood-vs-sample-quality",
             "title": "Likelihood vs Sample Quality",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1178,7 +1227,7 @@
           {
             "id": "denoising-schedule",
             "title": "Denoising Schedule",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1309,6 +1358,37 @@
       }
     },
     {
+      "id": "computer-use",
+      "title": "Computer Use",
+      "domain": "Tools / Interface",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "tool-schema",
+            "title": "Tool Schema",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vision-language-model",
+            "title": "Vision-Language Model",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "sandboxing",
+            "title": "Sandboxing",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "conditional-computation",
       "title": "Conditional Computation",
       "domain": "Architecture / Sparsity",
@@ -1413,6 +1493,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "human-in-the-loop",
+            "title": "Human in the Loop",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "jailbreak",
             "title": "Jailbreak",
             "tier": "verified",
@@ -1491,6 +1577,12 @@
             "id": "grounding",
             "title": "Grounding",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "long-horizon-agent",
+            "title": "Long-Horizon Agent",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -1936,7 +2028,7 @@
       "id": "denoising-schedule",
       "title": "Denoising Schedule",
       "domain": "Generative / Schedules",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2002,6 +2094,12 @@
             "id": "sparse-retrieval",
             "title": "Sparse Retrieval",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tool-selection",
+            "title": "Tool Selection",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2080,7 +2178,7 @@
           {
             "id": "denoising-schedule",
             "title": "Denoising Schedule",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2092,13 +2190,13 @@
           {
             "id": "sampling-steps",
             "title": "Sampling Steps",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "score-matching",
             "title": "Score Matching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2106,7 +2204,7 @@
           {
             "id": "flow-matching",
             "title": "Flow Matching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2352,7 +2450,7 @@
           {
             "id": "score-matching",
             "title": "Score Matching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2383,7 +2481,45 @@
           {
             "id": "normalizing-flow",
             "title": "Normalizing Flow",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "execution-feedback",
+      "title": "Execution Feedback",
+      "domain": "Tools / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "tool-schema",
+            "title": "Tool Schema",
             "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "long-horizon-agent",
+            "title": "Long-Horizon Agent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "agent-memory",
+            "title": "Agent Memory",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "react",
+            "title": "ReAct",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2673,13 +2809,13 @@
       "id": "flow-matching",
       "title": "Flow Matching",
       "domain": "Generative / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "score-matching",
             "title": "Score Matching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2720,6 +2856,12 @@
             "title": "ReAct",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "tool-schema",
+            "title": "Tool Schema",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -2736,7 +2878,7 @@
       "id": "generative-adversarial-network",
       "title": "GAN",
       "domain": "Generative / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2750,7 +2892,7 @@
           {
             "id": "mode-collapse",
             "title": "Mode Collapse",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3231,6 +3373,31 @@
       }
     },
     {
+      "id": "human-in-the-loop",
+      "title": "Human in the Loop",
+      "domain": "Tools / Safety",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "sandboxing",
+            "title": "Sandboxing",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "constitutional-ai",
+            "title": "Constitutional AI",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "hybrid-search",
       "title": "Hybrid Search",
       "domain": "Retrieval / Ranking",
@@ -3551,6 +3718,12 @@
             "title": "Prompt Injection",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "sandboxing",
+            "title": "Sandboxing",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3728,7 +3901,7 @@
           {
             "id": "sampling-steps",
             "title": "Sampling Steps",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3930,13 +4103,13 @@
       "id": "likelihood-vs-sample-quality",
       "title": "Likelihood vs Sample Quality",
       "domain": "Generative / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "mode-collapse",
             "title": "Mode Collapse",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4012,6 +4185,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "agent-evaluation",
+            "title": "Agent Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "counterfactual",
             "title": "Counterfactual",
             "tier": "verified",
@@ -4076,6 +4255,44 @@
           {
             "id": "support-vector-machine",
             "title": "Support Vector Machine",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "long-horizon-agent",
+      "title": "Long-Horizon Agent",
+      "domain": "Tools / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "execution-feedback",
+            "title": "Execution Feedback",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "agent-evaluation",
+            "title": "Agent Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "task-decomposition",
+            "title": "Task Decomposition",
             "tier": "verified",
             "reviewed": false
           }
@@ -4613,13 +4830,13 @@
       "id": "mode-collapse",
       "title": "Mode Collapse",
       "domain": "Generative / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "generative-adversarial-network",
             "title": "GAN",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4627,7 +4844,7 @@
           {
             "id": "likelihood-vs-sample-quality",
             "title": "Likelihood vs Sample Quality",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5044,7 +5261,7 @@
       "id": "normalizing-flow",
       "title": "Normalizing Flow",
       "domain": "Generative / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5096,7 +5313,7 @@
           {
             "id": "mode-collapse",
             "title": "Mode Collapse",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5303,7 +5520,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "agent-evaluation",
+            "title": "Agent Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -5381,7 +5605,7 @@
           {
             "id": "likelihood-vs-sample-quality",
             "title": "Likelihood vs Sample Quality",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5751,6 +5975,18 @@
             "reviewed": false
           },
           {
+            "id": "sandboxing",
+            "title": "Sandboxing",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "tool-schema",
+            "title": "Tool Schema",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "training-data-extraction",
             "title": "Training Data Extraction",
             "tier": "verified",
@@ -6107,6 +6343,12 @@
         ],
         "adjacent": [
           {
+            "id": "execution-feedback",
+            "title": "Execution Feedback",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "task-decomposition",
             "title": "Task Decomposition",
             "tier": "verified",
@@ -6172,6 +6414,12 @@
             "id": "hybrid-search",
             "title": "Hybrid Search",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tool-selection",
+            "title": "Tool Selection",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -6485,7 +6733,7 @@
       "id": "sampling-steps",
       "title": "Sampling Steps",
       "domain": "Generative / Inference",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -6506,6 +6754,50 @@
           {
             "id": "speculative-decoding",
             "title": "Speculative Decoding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "sandboxing",
+      "title": "Sandboxing",
+      "domain": "Tools / Safety",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "tool-schema",
+            "title": "Tool Schema",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "human-in-the-loop",
+            "title": "Human in the Loop",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "computer-use",
+            "title": "Computer Use",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "jailbreak",
+            "title": "Jailbreak",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "prompt-injection",
+            "title": "Prompt Injection",
             "tier": "verified",
             "reviewed": false
           }
@@ -6547,7 +6839,7 @@
       "id": "score-matching",
       "title": "Score Matching",
       "domain": "Generative / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -6561,7 +6853,7 @@
           {
             "id": "flow-matching",
             "title": "Flow Matching",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7077,7 +7369,7 @@
           {
             "id": "sampling-steps",
             "title": "Sampling Steps",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7362,6 +7654,12 @@
         ],
         "adjacent": [
           {
+            "id": "long-horizon-agent",
+            "title": "Long-Horizon Agent",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "multi-agent-systems",
             "title": "Multi-Agent Systems",
             "tier": "verified",
@@ -7483,7 +7781,7 @@
           {
             "id": "generative-adversarial-network",
             "title": "GAN",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7616,6 +7914,87 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "tool-schema",
+      "title": "Tool Schema",
+      "domain": "Tools / Interface",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "function-calling",
+            "title": "Function Calling",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "computer-use",
+            "title": "Computer Use",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "execution-feedback",
+            "title": "Execution Feedback",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "sandboxing",
+            "title": "Sandboxing",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "tool-selection",
+            "title": "Tool Selection",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "prompt-injection",
+            "title": "Prompt Injection",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "tool-selection",
+      "title": "Tool Selection",
+      "domain": "Tools / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "tool-schema",
+            "title": "Tool Schema",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "dense-retrieval",
+            "title": "Dense Retrieval",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "reranking",
+            "title": "Reranking",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -7853,13 +8232,13 @@
           {
             "id": "generative-adversarial-network",
             "title": "GAN",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "normalizing-flow",
             "title": "Normalizing Flow",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7949,7 +8328,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "computer-use",
+            "title": "Computer Use",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": []
       }
     },
@@ -8567,6 +8953,72 @@
       ]
     },
     {
+      "id": "agent-evaluation",
+      "center": {
+        "id": "agent-evaluation",
+        "title": "Agent Evaluation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "long-horizon-agent",
+          "title": "Long-Horizon Agent",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "pass-at-k",
+          "title": "pass@k",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "long-horizon-agent",
+          "to": "agent-evaluation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "agent-evaluation",
+          "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "agent-evaluation",
+          "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "agent-evaluation",
+          "to": "pass-at-k",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "agent-memory",
       "center": {
         "id": "agent-memory",
@@ -8584,18 +9036,25 @@
           "y": 66
         },
         {
+          "id": "execution-feedback",
+          "title": "Execution Feedback",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "hierarchical-rl",
           "title": "Hierarchical RL",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -8603,6 +9062,12 @@
           "from": "context-window",
           "to": "agent-memory",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "agent-memory",
+          "to": "execution-feedback",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -9559,25 +10024,32 @@
           "y": 66
         },
         {
+          "id": "agent-evaluation",
+          "title": "Agent Evaluation",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -9585,6 +10057,12 @@
           "from": "pretraining",
           "to": "benchmark-contamination",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "agent-evaluation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -9734,7 +10212,7 @@
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 103,
           "y": 22
         },
@@ -10228,7 +10706,7 @@
         {
           "id": "denoising-schedule",
           "title": "Denoising Schedule",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -10467,6 +10945,59 @@
       ]
     },
     {
+      "id": "computer-use",
+      "center": {
+        "id": "computer-use",
+        "title": "Computer Use",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "tool-schema",
+          "title": "Tool Schema",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "vision-language-model",
+          "title": "Vision-Language Model",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "sandboxing",
+          "title": "Sandboxing",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "tool-schema",
+          "to": "computer-use",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vision-language-model",
+          "to": "computer-use",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "computer-use",
+          "to": "sandboxing",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "conditional-computation",
       "center": {
         "id": "conditional-computation",
@@ -10630,11 +11161,18 @@
           "y": 66
         },
         {
+          "id": "human-in-the-loop",
+          "title": "Human in the Loop",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "jailbreak",
           "title": "Jailbreak",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -10642,6 +11180,12 @@
           "from": "rlhf",
           "to": "constitutional-ai",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "constitutional-ai",
+          "to": "human-in-the-loop",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -10747,22 +11291,29 @@
           "id": "grounding",
           "title": "Grounding",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "long-horizon-agent",
+          "title": "Long-Horizon Agent",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "rotary-position-embedding",
           "title": "Rotary Position Embedding",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -10793,6 +11344,12 @@
         {
           "from": "context-window",
           "to": "grounding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "long-horizon-agent",
           "type": "adjacent",
           "reviewed": false
         },
@@ -11579,7 +12136,7 @@
       "center": {
         "id": "denoising-schedule",
         "title": "Denoising Schedule",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11656,15 +12213,22 @@
           "id": "k-nearest-neighbors",
           "title": "k-Nearest Neighbors",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "sparse-retrieval",
           "title": "Sparse Retrieval",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "tool-selection",
+          "title": "Tool Selection",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -11701,6 +12265,12 @@
         {
           "from": "dense-retrieval",
           "to": "sparse-retrieval",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "dense-retrieval",
+          "to": "tool-selection",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11819,7 +12389,7 @@
         {
           "id": "denoising-schedule",
           "title": "Denoising Schedule",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -11833,21 +12403,21 @@
         {
           "id": "sampling-steps",
           "title": "Sampling Steps",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "score-matching",
           "title": "Score Matching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 110
         },
         {
           "id": "flow-matching",
           "title": "Flow Matching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -12289,7 +12859,7 @@
         {
           "id": "score-matching",
           "title": "Score Matching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -12366,7 +12936,7 @@
         {
           "id": "normalizing-flow",
           "title": "Normalizing Flow",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -12387,6 +12957,72 @@
         {
           "from": "evidence-lower-bound",
           "to": "normalizing-flow",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "execution-feedback",
+      "center": {
+        "id": "execution-feedback",
+        "title": "Execution Feedback",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "tool-schema",
+          "title": "Tool Schema",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "long-horizon-agent",
+          "title": "Long-Horizon Agent",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "agent-memory",
+          "title": "Agent Memory",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "react",
+          "title": "ReAct",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "tool-schema",
+          "to": "execution-feedback",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "execution-feedback",
+          "to": "long-horizon-agent",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "execution-feedback",
+          "to": "agent-memory",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "execution-feedback",
+          "to": "react",
           "type": "adjacent",
           "reviewed": false
         }
@@ -12898,7 +13534,7 @@
       "center": {
         "id": "flow-matching",
         "title": "Flow Matching",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12906,7 +13542,7 @@
         {
           "id": "score-matching",
           "title": "Score Matching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -12955,14 +13591,21 @@
           "title": "Prompt Injection",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "react",
           "title": "ReAct",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "tool-schema",
+          "title": "Tool Schema",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "constrained-decoding",
@@ -12993,6 +13636,12 @@
         },
         {
           "from": "function-calling",
+          "to": "tool-schema",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "function-calling",
           "to": "constrained-decoding",
           "type": "adjacent",
           "reviewed": false
@@ -13004,7 +13653,7 @@
       "center": {
         "id": "generative-adversarial-network",
         "title": "GAN",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13019,7 +13668,7 @@
         {
           "id": "mode-collapse",
           "title": "Mode Collapse",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -13860,6 +14509,46 @@
       ]
     },
     {
+      "id": "human-in-the-loop",
+      "center": {
+        "id": "human-in-the-loop",
+        "title": "Human in the Loop",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "sandboxing",
+          "title": "Sandboxing",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "constitutional-ai",
+          "title": "Constitutional AI",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "sandboxing",
+          "to": "human-in-the-loop",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "human-in-the-loop",
+          "to": "constitutional-ai",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "hybrid-search",
       "center": {
         "id": "hybrid-search",
@@ -14371,15 +15060,22 @@
           "id": "constitutional-ai",
           "title": "Constitutional AI",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "prompt-injection",
           "title": "Prompt Injection",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "sandboxing",
+          "title": "Sandboxing",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -14410,6 +15106,12 @@
         {
           "from": "jailbreak",
           "to": "prompt-injection",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "jailbreak",
+          "to": "sandboxing",
           "type": "adjacent",
           "reviewed": false
         }
@@ -14694,7 +15396,7 @@
         {
           "id": "sampling-steps",
           "title": "Sampling Steps",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -15080,7 +15782,7 @@
       "center": {
         "id": "likelihood-vs-sample-quality",
         "title": "Likelihood vs Sample Quality",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15088,7 +15790,7 @@
         {
           "id": "mode-collapse",
           "title": "Mode Collapse",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -15212,32 +15914,39 @@
           "y": 66
         },
         {
+          "id": "agent-evaluation",
+          "title": "Agent Evaluation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 22
+        },
+        {
           "id": "counterfactual",
           "title": "Counterfactual",
           "tier": "verified",
-          "x": 48,
-          "y": 22
+          "x": 80,
+          "y": 110
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "self-reflection",
           "title": "Self-Reflection",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -15245,6 +15954,12 @@
           "from": "instruction-tuning",
           "to": "llm-as-judge",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "agent-evaluation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -15347,6 +16062,72 @@
         {
           "from": "logistic-regression",
           "to": "support-vector-machine",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "long-horizon-agent",
+      "center": {
+        "id": "long-horizon-agent",
+        "title": "Long-Horizon Agent",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "execution-feedback",
+          "title": "Execution Feedback",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "agent-evaluation",
+          "title": "Agent Evaluation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "task-decomposition",
+          "title": "Task Decomposition",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "execution-feedback",
+          "to": "long-horizon-agent",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "long-horizon-agent",
+          "to": "agent-evaluation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "long-horizon-agent",
+          "to": "context-window",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "long-horizon-agent",
+          "to": "task-decomposition",
           "type": "adjacent",
           "reviewed": false
         }
@@ -16282,7 +17063,7 @@
       "center": {
         "id": "mode-collapse",
         "title": "Mode Collapse",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16290,14 +17071,14 @@
         {
           "id": "generative-adversarial-network",
           "title": "GAN",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -17023,7 +17804,7 @@
       "center": {
         "id": "normalizing-flow",
         "title": "Normalizing Flow",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17092,7 +17873,7 @@
         {
           "id": "mode-collapse",
           "title": "Mode Collapse",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -17470,6 +18251,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "agent-evaluation",
+          "title": "Agent Evaluation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -17477,6 +18265,12 @@
           "from": "autoregressive-decoding",
           "to": "pass-at-k",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "pass-at-k",
+          "to": "agent-evaluation",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -17588,7 +18382,7 @@
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -18241,21 +19035,35 @@
           "id": "grounding",
           "title": "Grounding",
           "tier": "verified",
-          "x": 60,
+          "x": 40,
           "y": 22
         },
         {
           "id": "jailbreak",
           "title": "Jailbreak",
           "tier": "verified",
+          "x": 80,
+          "y": 110
+        },
+        {
+          "id": "sandboxing",
+          "title": "Sandboxing",
+          "tier": "frontier",
           "x": 120,
+          "y": 22
+        },
+        {
+          "id": "tool-schema",
+          "title": "Tool Schema",
+          "tier": "frontier",
+          "x": 160,
           "y": 110
         },
         {
           "id": "training-data-extraction",
           "title": "Training Data Extraction",
           "tier": "verified",
-          "x": 180,
+          "x": 200,
           "y": 22
         }
       ],
@@ -18275,6 +19083,18 @@
         {
           "from": "prompt-injection",
           "to": "jailbreak",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prompt-injection",
+          "to": "sandboxing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "prompt-injection",
+          "to": "tool-schema",
           "type": "adjacent",
           "reviewed": false
         },
@@ -18867,11 +19687,18 @@
           "y": 88
         },
         {
+          "id": "execution-feedback",
+          "title": "Execution Feedback",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "task-decomposition",
           "title": "Task Decomposition",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -18897,6 +19724,12 @@
           "from": "react",
           "to": "self-reflection",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "react",
+          "to": "execution-feedback",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -18988,8 +19821,15 @@
           "id": "hybrid-search",
           "title": "Hybrid Search",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "tool-selection",
+          "title": "Tool Selection",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -19008,6 +19848,12 @@
         {
           "from": "reranking",
           "to": "hybrid-search",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "reranking",
+          "to": "tool-selection",
           "type": "adjacent",
           "reviewed": false
         }
@@ -19559,7 +20405,7 @@
       "center": {
         "id": "sampling-steps",
         "title": "Sampling Steps",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19602,6 +20448,85 @@
         {
           "from": "sampling-steps",
           "to": "speculative-decoding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "sandboxing",
+      "center": {
+        "id": "sandboxing",
+        "title": "Sandboxing",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "tool-schema",
+          "title": "Tool Schema",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "human-in-the-loop",
+          "title": "Human in the Loop",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "computer-use",
+          "title": "Computer Use",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "jailbreak",
+          "title": "Jailbreak",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "prompt-injection",
+          "title": "Prompt Injection",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "tool-schema",
+          "to": "sandboxing",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sandboxing",
+          "to": "human-in-the-loop",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "sandboxing",
+          "to": "computer-use",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sandboxing",
+          "to": "jailbreak",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sandboxing",
+          "to": "prompt-injection",
           "type": "adjacent",
           "reviewed": false
         }
@@ -19665,7 +20590,7 @@
       "center": {
         "id": "score-matching",
         "title": "Score Matching",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19680,7 +20605,7 @@
         {
           "id": "flow-matching",
           "title": "Flow Matching",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -20585,7 +21510,7 @@
         {
           "id": "sampling-steps",
           "title": "Sampling Steps",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -21085,18 +22010,25 @@
           "y": 66
         },
         {
+          "id": "long-horizon-agent",
+          "title": "Long-Horizon Agent",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "multi-agent-systems",
           "title": "Multi-Agent Systems",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "react",
           "title": "ReAct",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -21110,6 +22042,12 @@
           "from": "task-decomposition",
           "to": "hierarchical-rl",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "task-decomposition",
+          "to": "long-horizon-agent",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -21286,7 +22224,7 @@
         {
           "id": "generative-adversarial-network",
           "title": "GAN",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -21557,6 +22495,151 @@
           "from": "tokenization",
           "to": "token-embedding",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "tool-schema",
+      "center": {
+        "id": "tool-schema",
+        "title": "Tool Schema",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "function-calling",
+          "title": "Function Calling",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "computer-use",
+          "title": "Computer Use",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
+          "id": "execution-feedback",
+          "title": "Execution Feedback",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "sandboxing",
+          "title": "Sandboxing",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "tool-selection",
+          "title": "Tool Selection",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        },
+        {
+          "id": "prompt-injection",
+          "title": "Prompt Injection",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "function-calling",
+          "to": "tool-schema",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "tool-schema",
+          "to": "computer-use",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tool-schema",
+          "to": "execution-feedback",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tool-schema",
+          "to": "sandboxing",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tool-schema",
+          "to": "tool-selection",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "tool-schema",
+          "to": "prompt-injection",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "tool-selection",
+      "center": {
+        "id": "tool-selection",
+        "title": "Tool Selection",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "tool-schema",
+          "title": "Tool Schema",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "dense-retrieval",
+          "title": "Dense Retrieval",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "reranking",
+          "title": "Reranking",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "tool-schema",
+          "to": "tool-selection",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "tool-selection",
+          "to": "dense-retrieval",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "tool-selection",
+          "to": "reranking",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -21970,14 +23053,14 @@
         {
           "id": "generative-adversarial-network",
           "title": "GAN",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "normalizing-flow",
           "title": "Normalizing Flow",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -22150,6 +23233,13 @@
           "tier": "verified",
           "x": 40,
           "y": 88
+        },
+        {
+          "id": "computer-use",
+          "title": "Computer Use",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         }
       ],
       "links": [
@@ -22163,6 +23253,12 @@
           "from": "cross-attention",
           "to": "vision-language-model",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vision-language-model",
+          "to": "computer-use",
+          "type": "unlocks",
           "reviewed": false
         }
       ]

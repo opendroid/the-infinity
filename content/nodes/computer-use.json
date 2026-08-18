@@ -1,0 +1,67 @@
+{
+  "id": "computer-use",
+  "title": "Computer Use",
+  "domain": [
+    "Tools",
+    "Interface"
+  ],
+  "bodies": {
+    "intuition": "Instead of calling an API, drive the screen: look at a screenshot, move the mouse, type. It works on software with no API at all, which is most software, and it is far less reliable than a function call because the interface was designed for hands and eyes rather than for a model.",
+    "engineer": "Grounding is the bottleneck — turning \"the submit button\" into coordinates — and it degrades with resolution, scrolling and anything that moves. Accessibility trees are more reliable than pixels where they exist, which makes them the first thing to try rather than a fallback. Success rates on realistic desktop benchmarks remain far below what the same models achieve on API tasks, and the gap is grounding rather than reasoning.",
+    "math": "A task of n steps completes only if every step does, so end-to-end success is roughly the per-step rate to the nth power: 95% per step is 60% over ten steps and 36% over twenty. That exponent is why recovery matters more than accuracy — an agent that can detect and retry a failed step converts a product into a sum."
+  },
+  "emphasis": {
+    "intuition": "the interface was designed for hands and eyes rather than for a model",
+    "engineer": "the gap is grounding rather than reasoning"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "grounded_steps": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "grounded_steps",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Steps where the target was located correctly against steps where it was not, in steps. Drag the grounding up to watch reliability climb — and note the end-to-end rate is a product of these, not an average."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tool-schema",
+        "reviewed": false
+      },
+      {
+        "id": "vision-language-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "sandboxing",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2404.07972",
+      "title": "OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments",
+      "url": "https://arxiv.org/abs/2404.07972"
+    },
+    {
+      "ref": "arXiv:2307.13854",
+      "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+      "url": "https://arxiv.org/abs/2307.13854"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
