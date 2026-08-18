@@ -1,0 +1,65 @@
+{
+  "id": "quantization-aware-training",
+  "title": "Quantization-Aware Training",
+  "domain": [
+    "Compression",
+    "Optimization"
+  ],
+  "bodies": {
+    "intuition": "Rather than quantise a finished model and hope, train with the rounding in the loop so the model learns weights that survive it. It costs a training run and reaches lower bit widths than post-training methods can — which matters below four bits, where simply rounding a trained model stops working.",
+    "engineer": "Rounding has zero gradient almost everywhere, so training uses a straight-through estimator: quantise on the forward pass, pretend the operation was the identity on the backward one. That is an approximation nobody defends as exact, and it works, which is worth being uncomfortable about. The practical rule is that QAT is worth its cost only when the target precision is below what post-training quantisation already reaches.",
+    "math": "Forward with ŵ = round(w/s)·s, backward with ∂ŵ/∂w ≈ 1 inside the representable range and 0 outside it. The estimator is biased, and the bias is what the model adapts to — training does not remove the rounding error, it finds weights where the error costs less."
+  },
+  "emphasis": {
+    "intuition": "train with the rounding in the loop so the model learns weights that survive it",
+    "engineer": "an approximation nobody defends as exact, and it works, which is worth being uncomfortable about"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 64,
+      "holdout": 0.15,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Loss in full precision against loss once the rounding is applied. Drag the quantisation severity up to watch the two separate — training with the gap in the loop is what pulls the second curve back down."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "quantization",
+        "reviewed": false
+      },
+      {
+        "id": "post-training-quantization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "mixed-precision-training",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2103.13630",
+      "title": "A Survey of Quantization Methods for Efficient Neural Network Inference",
+      "url": "https://arxiv.org/abs/2103.13630"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "id": "low-rank-factorization",
+  "title": "Low-Rank Factorization",
+  "domain": [
+    "Compression",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Replace a big weight matrix with the product of two thin ones. If the original matrix is close to low rank, almost nothing is lost and the parameter count falls sharply. Whether that condition holds is an empirical question about the layer, and the answer differs between attention projections and feed-forward matrices.",
+    "engineer": "This is the same machinery as LoRA used for a different purpose: LoRA adds a low-rank update to a frozen matrix, factorisation replaces the matrix outright. Compression by factorisation is only a speedup when the two thin matrices together do less work than the original, which needs rank below roughly half the smaller dimension — above that it costs more than it saves.",
+    "math": "Approximate W ∈ ℝ^{m×n} by AB with A ∈ ℝ^{m×r}, B ∈ ℝ^{r×n}, cost falling from mn to r(m+n). The optimal such approximation is the truncated SVD, with error equal to the discarded singular values — so how well it works is read directly off the spectrum, and a flat spectrum means it cannot work at all."
+  },
+  "emphasis": {
+    "intuition": "the answer differs between attention projections and feed-forward matrices",
+    "engineer": "above that it costs more than it saves"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "rank_truncation": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "rank_truncation",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "The matrix's singular values, full and truncated. Drag the truncation up to watch the spectrum flatten — a matrix whose spectrum was already flat has nothing to discard, which is when this method fails."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "principal-component-analysis",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "lora",
+        "reviewed": false
+      },
+      {
+        "id": "muon-optimizer",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1902.09574",
+      "title": "The State of Sparsity in Deep Neural Networks",
+      "url": "https://arxiv.org/abs/1902.09574"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

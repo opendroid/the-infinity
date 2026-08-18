@@ -1,0 +1,66 @@
+{
+  "id": "compression-quality-tradeoff",
+  "title": "Compression-Quality Tradeoff",
+  "domain": [
+    "Compression",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "Every compression method has a point past which quality falls off a cliff rather than degrading gently, and the point is different for each. What makes this hard to reason about is that average benchmark scores hide it: a compressed model can match on aggregate while losing a specific capability entirely.",
+    "engineer": "Perplexity is the worst offender — it moves by a fraction of a percent while multi-step reasoning collapses, because the rare tokens that carry a chain of thought contribute almost nothing to an average. Evaluating compression needs the capabilities you care about measured directly, and long-form and multi-step tasks degrade first. Compression methods also compose badly: quantised and pruned is worse than either at matched size.",
+    "math": "Report quality against effective bits per parameter rather than against nominal compression ratio, since methods differ in what they count. The frontier is not convex in general — combining two methods can fall below the lower envelope of each — which is why a claimed ratio from one method does not transfer to a stack of them."
+  },
+  "emphasis": {
+    "intuition": "a compressed model can match on aggregate while losing a specific capability entirely",
+    "engineer": "the rare tokens that carry a chain of thought contribute almost nothing to an average"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "capability_loss": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "capability_loss",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Capability a compressed model has lost against capability an average score still reports as present, in equal units. Drag the loss up to watch the gap open — the aggregate moves last, which is why it is the wrong thing to watch."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "knowledge-distillation",
+        "reviewed": false
+      },
+      {
+        "id": "post-training-quantization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "perplexity",
+        "reviewed": false
+      },
+      {
+        "id": "chain-of-thought",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2103.13630",
+      "title": "A Survey of Quantization Methods for Efficient Neural Network Inference",
+      "url": "https://arxiv.org/abs/2103.13630"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

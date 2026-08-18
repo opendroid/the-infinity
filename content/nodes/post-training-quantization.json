@@ -1,0 +1,63 @@
+{
+  "id": "post-training-quantization",
+  "title": "Post-Training Quantization",
+  "domain": [
+    "Compression",
+    "Inference"
+  ],
+  "bodies": {
+    "intuition": "Take a trained model and store its weights in fewer bits without retraining anything. It is the cheapest possible compression — minutes on one machine — and for large language models it works well enough that four bits is routine. The difficulty is not the average weight but the rare enormous one.",
+    "engineer": "Activation outliers are the whole problem: a handful of channels carry values orders of magnitude larger than the rest, and a scale chosen to fit them destroys the precision of everything else. The two working answers are to keep those channels in higher precision, or to move the difficulty from activations into weights where it is easier to handle. Both are engineering around a distribution, not around a bit width.",
+    "math": "Map w to round(w/s) with a scale s per tensor, channel or group; the error is bounded by s/2, and s is set by the range being covered. One outlier inflates the range for every value sharing that scale, so error is driven by the maximum rather than the typical magnitude — which is why finer granularity helps more than more bits do."
+  },
+  "emphasis": {
+    "intuition": "The difficulty is not the average weight but the rare enormous one.",
+    "engineer": "Both are engineering around a distribution, not around a bit width."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "outlier_range": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "outlier_range",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Numeric range consumed by outlier channels against the range left for everything else, in equal units. Drag the outliers up to watch them take the scale — every other value in the group loses precision to them."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "quantization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "qlora",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2210.17323",
+      "title": "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers",
+      "url": "https://arxiv.org/abs/2210.17323"
+    },
+    {
+      "ref": "arXiv:2211.10438",
+      "title": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models",
+      "url": "https://arxiv.org/abs/2211.10438"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
