@@ -1,0 +1,59 @@
+{
+  "id": "fairness-criteria",
+  "title": "Fairness Criteria",
+  "domain": [
+    "Fairness",
+    "Criteria"
+  ],
+  "bodies": {
+    "intuition": "\"Fair\" is not one thing you can ask a model for. It is a family of specific, formal requirements on how a model's mistakes are distributed across groups — and they say different things, so before anything can be measured someone has to decide which one the system owes people. That decision is not technical, and pretending otherwise is how it gets made by default.",
+    "engineer": "The three that account for most of the literature are all constraints on the same confusion matrix, read per group. Demographic parity requires equal selection rates. Equalised odds requires equal true-positive and false-positive rates. Calibration requires that a given score means the same probability in every group. Each is a sentence a stakeholder can agree or disagree with, which is the useful property — arguments about fairness go better when they are arguments about which sentence.",
+    "math": "Every criterion here is a statement about the confusion matrix at a threshold, so all of them move when the threshold moves and none of them is a property of the model alone. Demographic parity constrains the flagged total; equalised odds constrains two rates conditioned on the truth; calibration constrains the truth conditioned on the score. That last reversal is why calibration and equalised odds pull in different directions rather than being two ways of saying the same thing."
+  },
+  "emphasis": {
+    "intuition": "That decision is not technical, and pretending otherwise is how it gets made by default.",
+    "math": "none of them is a property of the model alone"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.6,
+      "threshold": 0.4,
+      "base_rate": 0.3
+    },
+    "param_controls": [
+      {
+        "name": "threshold",
+        "min": -2.5,
+        "max": 3.5,
+        "step": 0.25
+      }
+    ],
+    "caption": "One group's scores, with the decision cut through them. Drag the cut to watch every criterion move at once — the flagged total, the two rates conditioned on the truth, and the share of the flagged who should have been. No criterion survives the threshold being someone's choice."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1610.02413",
+      "title": "Equality of Opportunity in Supervised Learning",
+      "url": "https://arxiv.org/abs/1610.02413"
+    },
+    {
+      "ref": "arXiv:1811.07867",
+      "title": "Prediction-Based Decisions and Fairness: A Catalogue of Choices, Assumptions, and Definitions",
+      "url": "https://arxiv.org/abs/1811.07867"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

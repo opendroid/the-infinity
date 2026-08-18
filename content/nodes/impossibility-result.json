@@ -1,0 +1,64 @@
+{
+  "id": "impossibility-result",
+  "title": "Impossibility Result",
+  "domain": [
+    "Fairness",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "You cannot have all of them. The fairness criteria people most want simultaneously turn out to be mathematically incompatible whenever the groups have different base rates — which is nearly always, since differing base rates are usually the trace of the historical unfairness that prompted the question. This is not a limitation of current methods. It is a theorem, and no amount of engineering removes it.",
+    "engineer": "The practical consequence is that a fairness argument which begins \"the model should be calibrated AND have equal error rates\" has already ended, and nobody in the room realises. What is available is a choice about which failure to accept, made explicitly and written down. The ProPublica–Northpointe dispute is the canonical case: both sides were right about their own criterion, and the disagreement was never resolvable by looking harder at the model.",
+    "math": "Chouldechova's identity makes it exact. With prevalence p, false-negative rate FNR and positive predictive value PPV, the false-positive rate is forced: FPR = (p/(1−p))·((1−PPV)/PPV)·(1−FNR). Hold PPV equal across two groups whose p differs, and FPR and FNR cannot both match — the identity determines the third quantity from the other two. Kleinberg, Mullainathan and Raghavan prove the parallel result for score calibration with balance in both classes: the three hold together only when prediction is perfect or the base rates are equal."
+  },
+  "emphasis": {
+    "intuition": "It is a theorem, and no amount of engineering removes it.",
+    "math": "the identity determines the third quantity from the other two"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 2.0,
+      "threshold": 0.6,
+      "base_rate": 0.1
+    },
+    "param_controls": [
+      {
+        "name": "base_rate",
+        "min": 0.02,
+        "max": 0.9,
+        "step": 0.02
+      }
+    ],
+    "caption": "The same detector at the same cut, with only the base rate changing. Drag it to watch precision move while the scores and the threshold stay exactly where they were — that dependence is the whole mechanism, and it is why two groups with different prevalence cannot match on everything at once."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fairness-criteria",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1609.05807",
+      "title": "Inherent Trade-Offs in the Fair Determination of Risk Scores",
+      "url": "https://arxiv.org/abs/1609.05807"
+    },
+    {
+      "ref": "arXiv:1703.00056",
+      "title": "Fair prediction with disparate impact: A study of bias in recidivism prediction instruments",
+      "url": "https://arxiv.org/abs/1703.00056"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
