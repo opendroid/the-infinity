@@ -1,0 +1,65 @@
+{
+  "id": "time-series-forecasting",
+  "title": "Time Series Forecasting",
+  "domain": [
+    "Sequence",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Predict what a measured quantity does next — demand, load, price, temperature. What makes it its own problem rather than regression with a clock is that the training and test sets are separated by time rather than by sampling, so every mistake about what stays the same is a mistake the model cannot see until it is deployed.",
+    "engineer": "Evaluation is where most of the errors live. Shuffling the split leaks the future into training, a model tuned on one period silently absorbs its regime, and the naive baseline — predict the last value — beats a surprising fraction of published deep models. The 2022 result that a single linear layer matched several transformer architectures on the standard benchmarks was less about transformers than about how weak those benchmarks were.",
+    "math": "Fit ŷ_{t+1:t+h} = f(y_{1:t}) with the split ordered rather than random, so validation must roll forward rather than sample. Error grows with the horizon h for any model, because uncertainty compounds — which is why a comparison at one horizon says little about another, and why reporting a single number for a multi-step forecast hides where it failed."
+  },
+  "emphasis": {
+    "intuition": "a mistake the model cannot see until it is deployed",
+    "engineer": "the naive baseline — predict the last value — beats a surprising fraction of published deep models"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 64,
+      "holdout": 0.2,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Training error against error on a period the model never saw. Drag the regime shift up to watch the second curve leave the first — the split here is time, so this gap is the only honest estimate of how it will do."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      },
+      {
+        "id": "shortcut-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2205.13504",
+      "title": "Are Transformers Effective for Time Series Forecasting?",
+      "url": "https://arxiv.org/abs/2205.13504"
+    },
+    {
+      "ref": "arXiv:2012.07436",
+      "title": "Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting",
+      "url": "https://arxiv.org/abs/2012.07436"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

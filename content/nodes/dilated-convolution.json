@@ -1,0 +1,64 @@
+{
+  "id": "dilated-convolution",
+  "title": "Dilated Convolution",
+  "domain": [
+    "Sequence",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "A convolution sees a few neighbouring steps. Skip steps between the taps and it sees a wider span at the same cost, and stacking layers whose skips double each time gives a view that grows exponentially with depth. It is how convolutions reached long sequences before attention did, and it is still how most audio models see.",
+    "engineer": "Receptive field is a design calculation rather than something learned: with kernel size k and dilations doubling, L layers reach roughly k·2^L steps. The failure mode is gridding — with a fixed dilation, some input positions are never read by any tap, so the doubling schedule is load-bearing rather than a convention. Causal padding keeps it usable for forecasting and generation.",
+    "math": "y_t = Σ_i w_i · x_{t − d·i} for dilation d. Stacking layers with d = 1, 2, 4, … 2^{L−1} gives a receptive field of (k−1)(2^L − 1) + 1, exponential in depth at linear cost. Every position in that span is covered exactly when the dilation schedule doubles; skip a factor and the coverage develops holes."
+  },
+  "emphasis": {
+    "intuition": "stacking layers whose skips double each time gives a view that grows exponentially with depth",
+    "engineer": "some input positions are never read by any tap"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 14,
+      "lookahead": 0,
+      "heads": 1,
+      "decay": 0.5
+    },
+    "param_controls": [
+      {
+        "name": "decay",
+        "min": 0,
+        "max": 2.4,
+        "step": 0.2
+      }
+    ],
+    "caption": "One position's view over the past, under a penalty on distance. Drag the penalty up to watch the view collapse onto the last few steps — stacking dilated layers is how a convolution buys that span back without paying for every step in between."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "time-series-forecasting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "causal-masking",
+        "reviewed": false
+      },
+      {
+        "id": "text-to-speech",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1803.01271",
+      "title": "An Empirical Evaluation of Generic Convolutional and Recurrent Networks for Sequence Modeling",
+      "url": "https://arxiv.org/abs/1803.01271"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

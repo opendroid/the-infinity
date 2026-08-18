@@ -345,6 +345,12 @@
             "title": "Softmax",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "state-space-model",
+            "title": "State Space Model",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -767,6 +773,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "probabilistic-forecasting",
+            "title": "Probabilistic Forecasting",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "rlhf",
             "title": "RLHF",
             "tier": "verified",
@@ -896,6 +908,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "dilated-convolution",
+            "title": "Dilated Convolution",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "streaming-asr",
             "title": "Streaming ASR",
@@ -1243,6 +1261,12 @@
             "id": "grounding",
             "title": "Grounding",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "long-range-dependency",
+            "title": "Long-Range Dependency",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -1735,6 +1759,37 @@
       }
     },
     {
+      "id": "dilated-convolution",
+      "title": "Dilated Convolution",
+      "domain": "Sequence / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "time-series-forecasting",
+            "title": "Time Series Forecasting",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "causal-masking",
+            "title": "Causal Masking",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "text-to-speech",
+            "title": "Text to Speech",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "direct-preference-optimization",
       "title": "DPO",
       "domain": "Alignment / Preference",
@@ -2094,6 +2149,18 @@
             "title": "Kernel Fusion",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "long-range-dependency",
+            "title": "Long-Range Dependency",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "selective-state-space",
+            "title": "Selective State Space",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -2156,6 +2223,12 @@
             "id": "flash-attention",
             "title": "FlashAttention",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "selective-state-space",
+            "title": "Selective State Space",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2945,6 +3018,12 @@
             "title": "Chain of Thought",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "state-space-model",
+            "title": "State Space Model",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3186,6 +3265,37 @@
           {
             "id": "support-vector-machine",
             "title": "Support Vector Machine",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "long-range-dependency",
+      "title": "Long-Range Dependency",
+      "domain": "Sequence / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "state-space-model",
+            "title": "State Space Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "flash-attention",
+            "title": "FlashAttention",
             "tier": "verified",
             "reviewed": false
           }
@@ -3963,6 +4073,12 @@
             "title": "Minimum Description Length",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "time-series-forecasting",
+            "title": "Time Series Forecasting",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -4320,6 +4436,37 @@
           {
             "id": "manifold-hypothesis",
             "title": "Manifold Hypothesis",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "trend-decomposition",
+            "title": "Trend Decomposition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "probabilistic-forecasting",
+      "title": "Probabilistic Forecasting",
+      "domain": "Sequence / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "time-series-forecasting",
+            "title": "Time Series Forecasting",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
             "tier": "verified",
             "reviewed": false
           }
@@ -4968,6 +5115,62 @@
       }
     },
     {
+      "id": "seasonality",
+      "title": "Seasonality",
+      "domain": "Sequence / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "trend-decomposition",
+            "title": "Trend Decomposition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "spectrogram",
+            "title": "Spectrogram",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "selective-state-space",
+      "title": "Selective State Space",
+      "domain": "Sequence / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "state-space-model",
+            "title": "State Space Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "flash-attention",
+            "title": "FlashAttention",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "gpu-memory-hierarchy",
+            "title": "GPU Memory Hierarchy",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "self-attention",
       "title": "Self-Attention",
       "domain": "Attention / Core",
@@ -5131,6 +5334,12 @@
             "id": "benchmark-contamination",
             "title": "Benchmark Contamination",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "time-series-forecasting",
+            "title": "Time Series Forecasting",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -5304,6 +5513,12 @@
             "title": "Patch Embedding",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "seasonality",
+            "title": "Seasonality",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -5375,6 +5590,50 @@
           {
             "id": "vector-quantization",
             "title": "Vector Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "state-space-model",
+      "title": "State Space Model",
+      "domain": "Sequence / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "time-series-forecasting",
+            "title": "Time Series Forecasting",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "long-range-dependency",
+            "title": "Long-Range Dependency",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "selective-state-space",
+            "title": "Selective State Space",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "attention",
+            "title": "Attention",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "kv-cache",
+            "title": "KV Cache",
             "tier": "verified",
             "reviewed": false
           }
@@ -5621,6 +5880,61 @@
             "title": "Diffusion Model",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "dilated-convolution",
+            "title": "Dilated Convolution",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "time-series-forecasting",
+      "title": "Time Series Forecasting",
+      "domain": "Sequence / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "dilated-convolution",
+            "title": "Dilated Convolution",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "probabilistic-forecasting",
+            "title": "Probabilistic Forecasting",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "state-space-model",
+            "title": "State Space Model",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "trend-decomposition",
+            "title": "Trend Decomposition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -5801,6 +6115,38 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "trend-decomposition",
+      "title": "Trend Decomposition",
+      "domain": "Sequence / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "time-series-forecasting",
+            "title": "Time Series Forecasting",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "seasonality",
+            "title": "Seasonality",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "principal-component-analysis",
+            "title": "Principal Component Analysis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -6631,22 +6977,29 @@
           "id": "graph-neural-network",
           "title": "Graph Neural Network",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "softmax",
           "title": "Softmax",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "state-space-model",
+          "title": "State Space Model",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -6689,6 +7042,12 @@
         {
           "from": "attention",
           "to": "softmax",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "attention",
+          "to": "state-space-model",
           "type": "adjacent",
           "reviewed": false
         }
@@ -7437,18 +7796,25 @@
           "y": 66
         },
         {
+          "id": "probabilistic-forecasting",
+          "title": "Probabilistic Forecasting",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -7456,6 +7822,12 @@
           "from": "softmax",
           "to": "calibration",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "probabilistic-forecasting",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -7650,11 +8022,18 @@
           "y": 106
         },
         {
+          "id": "dilated-convolution",
+          "title": "Dilated Convolution",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "streaming-asr",
           "title": "Streaming ASR",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -7686,6 +8065,12 @@
           "from": "causal-masking",
           "to": "kv-cache",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-masking",
+          "to": "dilated-convolution",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -8230,15 +8615,22 @@
           "id": "grounding",
           "title": "Grounding",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "long-range-dependency",
+          "title": "Long-Range Dependency",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "rotary-position-embedding",
           "title": "Rotary Position Embedding",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -8269,6 +8661,12 @@
         {
           "from": "context-window",
           "to": "grounding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "long-range-dependency",
           "type": "adjacent",
           "reviewed": false
         },
@@ -9150,6 +9548,59 @@
       ]
     },
     {
+      "id": "dilated-convolution",
+      "center": {
+        "id": "dilated-convolution",
+        "title": "Dilated Convolution",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "time-series-forecasting",
+          "title": "Time Series Forecasting",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "causal-masking",
+          "title": "Causal Masking",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "text-to-speech",
+          "title": "Text to Speech",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "time-series-forecasting",
+          "to": "dilated-convolution",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "dilated-convolution",
+          "to": "causal-masking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "dilated-convolution",
+          "to": "text-to-speech",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "direct-preference-optimization",
       "center": {
         "id": "direct-preference-optimization",
@@ -9740,14 +10191,28 @@
           "id": "gpu-memory-hierarchy",
           "title": "GPU Memory Hierarchy",
           "tier": "verified",
-          "x": 80,
+          "x": 48,
           "y": 22
         },
         {
           "id": "kernel-fusion",
           "title": "Kernel Fusion",
           "tier": "verified",
-          "x": 160,
+          "x": 96,
+          "y": 110
+        },
+        {
+          "id": "long-range-dependency",
+          "title": "Long-Range Dependency",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "selective-state-space",
+          "title": "Selective State Space",
+          "tier": "frontier",
+          "x": 192,
           "y": 110
         }
       ],
@@ -9767,6 +10232,18 @@
         {
           "from": "flash-attention",
           "to": "kernel-fusion",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "flash-attention",
+          "to": "long-range-dependency",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "flash-attention",
+          "to": "selective-state-space",
           "type": "adjacent",
           "reviewed": false
         }
@@ -9859,8 +10336,15 @@
           "id": "flash-attention",
           "title": "FlashAttention",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "selective-state-space",
+          "title": "Selective State Space",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -9873,6 +10357,12 @@
         {
           "from": "gpu-memory-hierarchy",
           "to": "flash-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "gpu-memory-hierarchy",
+          "to": "selective-state-space",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11186,8 +11676,15 @@
           "id": "chain-of-thought",
           "title": "Chain of Thought",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "state-space-model",
+          "title": "State Space Model",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -11236,6 +11733,12 @@
         {
           "from": "kv-cache",
           "to": "chain-of-thought",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "kv-cache",
+          "to": "state-space-model",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11659,6 +12162,59 @@
         {
           "from": "logistic-regression",
           "to": "support-vector-machine",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "long-range-dependency",
+      "center": {
+        "id": "long-range-dependency",
+        "title": "Long-Range Dependency",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "state-space-model",
+          "title": "State Space Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "flash-attention",
+          "title": "FlashAttention",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "state-space-model",
+          "to": "long-range-dependency",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "long-range-dependency",
+          "to": "context-window",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "long-range-dependency",
+          "to": "flash-attention",
           "type": "adjacent",
           "reviewed": false
         }
@@ -12975,15 +13531,22 @@
           "id": "decision-tree",
           "title": "Decision Tree",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "time-series-forecasting",
+          "title": "Time Series Forecasting",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -13020,6 +13583,12 @@
         {
           "from": "overfitting",
           "to": "minimum-description-length",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "time-series-forecasting",
           "type": "adjacent",
           "reviewed": false
         }
@@ -13615,15 +14184,22 @@
           "id": "autoencoder",
           "title": "Autoencoder",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "manifold-hypothesis",
           "title": "Manifold Hypothesis",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "trend-decomposition",
+          "title": "Trend Decomposition",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -13642,6 +14218,52 @@
         {
           "from": "principal-component-analysis",
           "to": "manifold-hypothesis",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "principal-component-analysis",
+          "to": "trend-decomposition",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "probabilistic-forecasting",
+      "center": {
+        "id": "probabilistic-forecasting",
+        "title": "Probabilistic Forecasting",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "time-series-forecasting",
+          "title": "Time Series Forecasting",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "time-series-forecasting",
+          "to": "probabilistic-forecasting",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "probabilistic-forecasting",
+          "to": "calibration",
           "type": "adjacent",
           "reviewed": false
         }
@@ -14759,6 +15381,99 @@
       ]
     },
     {
+      "id": "seasonality",
+      "center": {
+        "id": "seasonality",
+        "title": "Seasonality",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "trend-decomposition",
+          "title": "Trend Decomposition",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "spectrogram",
+          "title": "Spectrogram",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "trend-decomposition",
+          "to": "seasonality",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "seasonality",
+          "to": "spectrogram",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "selective-state-space",
+      "center": {
+        "id": "selective-state-space",
+        "title": "Selective State Space",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "state-space-model",
+          "title": "State Space Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "flash-attention",
+          "title": "FlashAttention",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "gpu-memory-hierarchy",
+          "title": "GPU Memory Hierarchy",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "state-space-model",
+          "to": "selective-state-space",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "selective-state-space",
+          "to": "flash-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "selective-state-space",
+          "to": "gpu-memory-hierarchy",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "self-attention",
       "center": {
         "id": "self-attention",
@@ -15024,8 +15739,15 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "time-series-forecasting",
+          "title": "Time Series Forecasting",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -15044,6 +15766,12 @@
         {
           "from": "shortcut-learning",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "shortcut-learning",
+          "to": "time-series-forecasting",
           "type": "adjacent",
           "reviewed": false
         }
@@ -15328,8 +16056,15 @@
           "id": "patch-embedding",
           "title": "Patch Embedding",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "seasonality",
+          "title": "Seasonality",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -15360,6 +16095,12 @@
         {
           "from": "spectrogram",
           "to": "patch-embedding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "spectrogram",
+          "to": "seasonality",
           "type": "adjacent",
           "reviewed": false
         }
@@ -15492,6 +16233,85 @@
         {
           "from": "speech-representation-learning",
           "to": "vector-quantization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "state-space-model",
+      "center": {
+        "id": "state-space-model",
+        "title": "State Space Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "time-series-forecasting",
+          "title": "Time Series Forecasting",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "long-range-dependency",
+          "title": "Long-Range Dependency",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "selective-state-space",
+          "title": "Selective State Space",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "attention",
+          "title": "Attention",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "kv-cache",
+          "title": "KV Cache",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "time-series-forecasting",
+          "to": "state-space-model",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "state-space-model",
+          "to": "long-range-dependency",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "state-space-model",
+          "to": "selective-state-space",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "state-space-model",
+          "to": "attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "state-space-model",
+          "to": "kv-cache",
           "type": "adjacent",
           "reviewed": false
         }
@@ -15876,15 +16696,22 @@
           "id": "autoregressive-decoding",
           "title": "Autoregressive Decoding",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "diffusion-model",
           "title": "Diffusion Model",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "dilated-convolution",
+          "title": "Dilated Convolution",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -15903,6 +16730,104 @@
         {
           "from": "text-to-speech",
           "to": "diffusion-model",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "text-to-speech",
+          "to": "dilated-convolution",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "time-series-forecasting",
+      "center": {
+        "id": "time-series-forecasting",
+        "title": "Time Series Forecasting",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "dilated-convolution",
+          "title": "Dilated Convolution",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
+          "id": "probabilistic-forecasting",
+          "title": "Probabilistic Forecasting",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "state-space-model",
+          "title": "State Space Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "trend-decomposition",
+          "title": "Trend Decomposition",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        },
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "time-series-forecasting",
+          "to": "dilated-convolution",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "time-series-forecasting",
+          "to": "probabilistic-forecasting",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "time-series-forecasting",
+          "to": "state-space-model",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "time-series-forecasting",
+          "to": "trend-decomposition",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "time-series-forecasting",
+          "to": "overfitting",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "time-series-forecasting",
+          "to": "shortcut-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -16233,6 +17158,59 @@
           "from": "transformer-block",
           "to": "vision-transformer",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "trend-decomposition",
+      "center": {
+        "id": "trend-decomposition",
+        "title": "Trend Decomposition",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "time-series-forecasting",
+          "title": "Time Series Forecasting",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "seasonality",
+          "title": "Seasonality",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "principal-component-analysis",
+          "title": "Principal Component Analysis",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "time-series-forecasting",
+          "to": "trend-decomposition",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "trend-decomposition",
+          "to": "seasonality",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "trend-decomposition",
+          "to": "principal-component-analysis",
+          "type": "adjacent",
           "reviewed": false
         }
       ]

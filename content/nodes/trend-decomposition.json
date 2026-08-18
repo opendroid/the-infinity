@@ -1,0 +1,58 @@
+{
+  "id": "trend-decomposition",
+  "title": "Trend Decomposition",
+  "domain": [
+    "Sequence",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Split a series into the slow part, the repeating part, and what is left. The slow part is trend, the repeating part is seasonality, and the remainder is what a model actually has to work for. Doing this first is old, unglamorous, and still competitive — much of what a forecasting model learns is the part you could have subtracted.",
+    "engineer": "A moving average estimates the trend, subtracting it leaves seasonality plus noise, and averaging over periods estimates the season. Modern architectures fold this in rather than replacing it: DLinear's whole contribution was decomposing and fitting each piece with one linear layer, which is why beating it is a real bar rather than a formality. Additive decomposition assumes the season does not scale with the level, which for anything growing is usually false.",
+    "math": "y_t = T_t + S_t + R_t additively, or y_t = T_t·S_t·R_t multiplicatively, the second being the first applied to log y. The choice is a modelling assumption about whether seasonal swings grow with the level; taking logs first is the cheapest way to find out, since a multiplicative series becomes additive under it."
+  },
+  "emphasis": {
+    "intuition": "much of what a forecasting model learns is the part you could have subtracted",
+    "engineer": "beating it is a real bar rather than a formality"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "structured": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "structured",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Variance carried by trend and season together against the residual left for a model to explain, in equal units. Drag the structure up to watch the remainder shrink to the part that actually needs learning."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "time-series-forecasting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "principal-component-analysis",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2205.13504",
+      "title": "Are Transformers Effective for Time Series Forecasting?",
+      "url": "https://arxiv.org/abs/2205.13504"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

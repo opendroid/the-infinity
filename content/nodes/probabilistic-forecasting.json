@@ -1,0 +1,58 @@
+{
+  "id": "probabilistic-forecasting",
+  "title": "Probabilistic Forecasting",
+  "domain": [
+    "Sequence",
+    "Objectives"
+  ],
+  "bodies": {
+    "intuition": "A single predicted number is almost never what a decision needs. Stocking a warehouse needs to know how bad the bad case is; scheduling a grid needs the same. Probabilistic forecasting predicts a distribution rather than a point, and the useful part is usually the width rather than the middle.",
+    "engineer": "Train against a likelihood or a quantile loss rather than squared error, and evaluate with a proper scoring rule — CRPS or pinball — because RMSE on the median rewards a confidently wrong forecast the same as a hedged one. Calibration is the property that matters and is checked separately from sharpness: intervals should contain the truth as often as they claim, and the narrowest calibrated interval is the goal.",
+    "math": "Predict p(y_{t+h} | y_{1:t}) and score it with CRPS = ∫ (F(z) − 1{z ≥ y})² dz, which is minimised only by the true distribution. Uncertainty grows with h because errors compound, so a well-calibrated model's intervals must widen with the horizon — an interval that does not widen is miscalibrated somewhere, whatever its coverage on average says."
+  },
+  "emphasis": {
+    "intuition": "the useful part is usually the width rather than the middle",
+    "engineer": "RMSE on the median rewards a confidently wrong forecast the same as a hedged one"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "horizon": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "horizon",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "The predictive distribution over outcomes, one step ahead and further out. Drag the horizon up to watch it spread toward uninformative — an interval that fails to widen with distance is miscalibrated, whatever its average coverage reports."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "time-series-forecasting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1704.04110",
+      "title": "DeepAR: Probabilistic Forecasting with Autoregressive Recurrent Networks",
+      "url": "https://arxiv.org/abs/1704.04110"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

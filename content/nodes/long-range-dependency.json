@@ -1,0 +1,62 @@
+{
+  "id": "long-range-dependency",
+  "title": "Long-Range Dependency",
+  "domain": [
+    "Sequence",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Some sequences need information from thousands of steps back — a variable defined at the top of a file, a motif that recurs across a piece of music, a load pattern that repeats yearly. Architectures differ less in whether they can represent such a dependency than in whether gradient descent ever finds it.",
+    "engineer": "Every family has a different failure. Recurrent networks vanish the gradient over long spans, convolutions need depth proportional to the log of the span, and attention represents it in one hop but pays quadratically to do so. Benchmarks that claim to measure this often do not: several long-context evaluations are solvable by retrieving one span, which is a different capability from integrating across many.",
+    "math": "For a recurrence the gradient across k steps carries a factor of the Jacobian product, which vanishes or explodes geometrically unless the spectrum is controlled — the reason gating and orthogonal initialisation exist. Attention removes the factor entirely, at O(L²) cost, so the choice is a trade between how far information travels per layer and what a layer costs."
+  },
+  "emphasis": {
+    "intuition": "whether gradient descent ever finds it",
+    "engineer": "solvable by retrieving one span, which is a different capability from integrating across many"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 10,
+      "lookahead": 64
+    },
+    "param_controls": [
+      {
+        "name": "tokens",
+        "min": 4,
+        "max": 24,
+        "step": 2
+      }
+    ],
+    "caption": "Positions against the positions they may read, nothing masked. Drag the sequence length up to watch the grid grow quadratically — attention reaches any distance in one hop and pays for it in every cell shown."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "state-space-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      },
+      {
+        "id": "flash-attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2111.00396",
+      "title": "Efficiently Modeling Long Sequences with Structured State Spaces",
+      "url": "https://arxiv.org/abs/2111.00396"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
