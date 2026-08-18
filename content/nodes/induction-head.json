@@ -1,0 +1,64 @@
+{
+  "id": "induction-head",
+  "title": "Induction Head",
+  "domain": [
+    "Interpretability",
+    "Circuits"
+  ],
+  "bodies": {
+    "intuition": "A pair of attention heads that together do something simple and powerful: find where the current token appeared before, and predict whatever followed it last time. It is copying with a lookup. It also appears abruptly during training rather than gradually, at the same moment a model's in-context learning ability jumps.",
+    "engineer": "Two heads composed. A previous-token head writes the identity of position i−1 into position i; the induction head matches the current token against those writes and attends to the token just after the match. It is the most completely characterised circuit in a language model, and it is why in-context learning has a mechanism attached to it rather than only a benchmark curve.",
+    "math": "Attention from query position t concentrates on position s+1 where the token at s matches the token at t — a match implemented in the QK circuit against the previous-token head's write, and a copy implemented in the OV circuit. The abruptness shows up as a visible bump in the training loss exactly where the two heads compose."
+  },
+  "emphasis": {
+    "intuition": "appears abruptly during training rather than gradually",
+    "engineer": "the most completely characterised circuit in a language model"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 12,
+      "lookahead": 0,
+      "heads": 1,
+      "decay": 0.4
+    },
+    "param_controls": [
+      {
+        "name": "decay",
+        "min": 0,
+        "max": 2.4,
+        "step": 0.2
+      }
+    ],
+    "caption": "One head's attention over a causal window, under a penalty on distance. Drag the penalty up to watch the head collapse onto the token it just passed — an induction head is the opposite of this, ignoring distance to land on a match far behind it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "multi-head-attention",
+        "reviewed": false
+      },
+      {
+        "id": "in-context-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "activation-patching",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2209.11895",
+      "title": "In-context Learning and Induction Heads",
+      "url": "https://arxiv.org/abs/2209.11895"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

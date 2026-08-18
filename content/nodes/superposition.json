@@ -1,0 +1,53 @@
+{
+  "id": "superposition",
+  "title": "Superposition",
+  "domain": [
+    "Interpretability",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "A network has fewer dimensions than it has things worth representing, and it stores them anyway — packed at angles that are nearly, but not quite, orthogonal. The cost is interference: every feature slightly contaminates every other. The benefit is that a small model carries far more features than it has neurons, which is why a single neuron so often means several unrelated things at once.",
+    "engineer": "Superposition is what makes a neuron polysemantic, and it is a strategy rather than a defect: when features are sparse, storing more of them at the cost of a little interference beats storing fewer cleanly. It also explains why reading a model off its neurons fails — the basis the features live in is not the neuron basis, which is the whole motivation for sparse dictionary learning.",
+    "math": "n features in d dimensions with n > d cannot all be orthogonal, so the Gram matrix carries off-diagonal mass and that mass is the interference. Sparsity is what makes the trade pay: if only k of the n are active at once, expected interference scales with k/d rather than n/d, so a sparse enough feature set packs far past the dimension count."
+  },
+  "emphasis": {
+    "intuition": "a single neuron so often means several unrelated things at once",
+    "engineer": "the basis the features live in is not the neuron basis"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "features": 32,
+      "share_rest": 48
+    },
+    "param_controls": [
+      {
+        "name": "features",
+        "min": 0,
+        "max": 512,
+        "step": 16
+      }
+    ],
+    "caption": "Features a layer is asked to hold against the dimensions it has to hold them in. Drag the feature count up to watch representation outrun the space available — past parity nothing can stay orthogonal, and the excess is carried as interference."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "token-embedding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2209.10652",
+      "title": "Toy Models of Superposition",
+      "url": "https://arxiv.org/abs/2209.10652"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

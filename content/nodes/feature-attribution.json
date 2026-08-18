@@ -1,0 +1,68 @@
+{
+  "id": "feature-attribution",
+  "title": "Feature Attribution",
+  "domain": [
+    "Interpretability",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Which parts of the input were responsible for this output? Attribution methods answer with one number per input feature, and they are the oldest and most used family in interpretability. They are also the most easily misread: a heatmap over pixels or tokens looks like an explanation whether or not it is one.",
+    "engineer": "Gradient-times-input is the cheap version and is noisy. Integrated gradients accumulates gradients along a path from a baseline, which buys axioms — completeness and sensitivity — at the price of choosing that baseline, a modelling decision people routinely skip. Sanity checks matter here more than anywhere else: some published saliency maps survive randomising the model's own weights, which means they were showing edges in the image rather than anything the model did.",
+    "math": "IG_i = (x_i − x′_i)·∫ ∂F(x′ + α(x − x′))/∂x_i dα over α from 0 to 1, approximated by a Riemann sum of 20 to 300 steps. Completeness says the attributions sum to F(x) − F(x′), which is exactly why the baseline x′ is not a detail: it decides what the explanation is relative to."
+  },
+  "emphasis": {
+    "intuition": "looks like an explanation whether or not it is one",
+    "engineer": "some published saliency maps survive randomising the model's own weights"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "smoothing_samples": 8,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "smoothing_samples",
+        "min": 0,
+        "max": 100,
+        "step": 4
+      }
+    ],
+    "caption": "Attribution mass across input tokens, raw and after averaging over noisy copies of the input. Drag the smoothing up to watch the spikes spread into their neighbours — calmer to look at, and no longer pointing at one token."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "backpropagation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "mechanistic-interpretability",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.01365",
+      "title": "Axiomatic Attribution for Deep Networks",
+      "url": "https://arxiv.org/abs/1703.01365"
+    },
+    {
+      "ref": "arXiv:1706.03825",
+      "title": "SmoothGrad: removing noise by adding noise",
+      "url": "https://arxiv.org/abs/1706.03825"
+    },
+    {
+      "ref": "arXiv:1810.03292",
+      "title": "Sanity Checks for Saliency Maps",
+      "url": "https://arxiv.org/abs/1810.03292"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "id": "sparse-autoencoder",
+  "title": "Sparse Autoencoder",
+  "domain": [
+    "Interpretability",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "If features are packed into a space too small for them, widen the space. A sparse autoencoder projects activations into a much larger dictionary and forces almost all of it to zero, so each surviving direction can stand for one thing. It is a decoding step bolted onto a frozen model, not a change to the model.",
+    "engineer": "Train a wide over-complete encoder and decoder on cached activations, with an L1 penalty on the code so reconstruction competes against sparsity. The dial between those two terms is the entire design: too much sparsity and the reconstruction stops carrying the model's behaviour, too little and the code goes dense and polysemantic again — which is the state it was extracted from.",
+    "math": "Minimise ‖x − W_d f(W_e x + b)‖² + λ‖f‖_1 with the dictionary far wider than x. λ sets the average number of features active per token, and that count is the quantity actually being tuned — report it rather than λ, whose meaning moves with the activation scale of the layer it was fitted on."
+  },
+  "emphasis": {
+    "intuition": "each surviving direction can stand for one thing",
+    "engineer": "too little and the code goes dense and polysemantic again"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "reconstruction_weight": 0.15,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "reconstruction_weight",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Dictionary activations on one token, as the sparsity penalty leaves them and as reconstruction pressure grows against it. Drag the reconstruction weight up to watch the code fill in — a dense code is the polysemantic state this was built to undo."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoencoder",
+        "reviewed": false
+      },
+      {
+        "id": "superposition",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "vector-quantization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2309.08600",
+      "title": "Sparse Autoencoders Find Highly Interpretable Features in Language Models",
+      "url": "https://arxiv.org/abs/2309.08600"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "activation-steering",
+  "title": "Activation Steering",
+  "domain": [
+    "Interpretability",
+    "Control"
+  ],
+  "bodies": {
+    "intuition": "If a direction in activation space corresponds to a concept, adding that direction should push the model toward it. Steering does exactly that: take the difference between activations on contrasting prompts, then add a multiple of it at inference. No training and no weights changed — it works often enough to be interesting and fails often enough to be a research topic.",
+    "engineer": "The vector is usually a difference in means over paired prompts, injected at one layer with a coefficient. Being cheap and reversible makes it a useful test of a feature claim: if a direction is what you say it is, steering along it should produce the behaviour you predicted. Push the coefficient far enough and fluency collapses before the behaviour saturates, which bounds how much of the output this can actually control.",
+    "math": "h_ℓ ← h_ℓ + c·v with v = mean(h_ℓ | positive prompts) − mean(h_ℓ | negative prompts). The useful range of c is narrow and layer-dependent: too small does nothing, and too large moves the residual stream off the distribution the later layers were trained to read."
+  },
+  "emphasis": {
+    "intuition": "fails often enough to be a research topic",
+    "engineer": "fluency collapses before the behaviour saturates"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "steering_strength": 6,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "steering_strength",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "The injected direction's contribution to the residual stream against what the model put there itself, in equal units. Drag the coefficient up to watch the injection take over the stream — past a point it is no longer the distribution the later layers were trained to read."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "mechanistic-interpretability",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "classifier-free-guidance",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2308.10248",
+      "title": "Steering Language Models With Activation Engineering",
+      "url": "https://arxiv.org/abs/2308.10248"
+    },
+    {
+      "ref": "arXiv:2310.01405",
+      "title": "Representation Engineering: A Top-Down Approach to AI Transparency",
+      "url": "https://arxiv.org/abs/2310.01405"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
