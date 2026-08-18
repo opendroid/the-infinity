@@ -1,0 +1,66 @@
+{
+  "id": "grokking",
+  "title": "Grokking",
+  "domain": [
+    "Landscape",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "A network fits the training set perfectly, sits at chance on held-out data for thousands of steps, and then abruptly generalises. Nothing about the training loss predicts the moment. It was found on small algorithmic tasks and it is the clearest evidence that memorising and understanding are different states a model passes between.",
+    "engineer": "Weight decay is usually necessary for it, which is the strongest clue about mechanism: the memorising solution is reachable first and the generalising one is smaller, so a pressure toward smaller weights eventually moves the model from one to the other. Runs that never grok are often runs with too little regularisation rather than too few steps.",
+    "math": "Training loss reaches zero early while test loss remains at chance, so the two curves separate for a long interval and then close — the reverse of the overfitting shape. Under weight decay the model continues moving after the training loss saturates, because the loss is flat but the regulariser is not, which is the only force acting during the plateau."
+  },
+  "emphasis": {
+    "intuition": "memorising and understanding are different states a model passes between",
+    "engineer": "Runs that never grok are often runs with too little regularisation rather than too few steps."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "generalising_weight": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "generalising_weight",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Weight on the generalising circuit against weight on the memorised lookup, in equal units. Drag the generalising share up to watch the transition happen — during the plateau this bar is moving while the training loss is not."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      },
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "emergent-abilities",
+        "reviewed": false
+      },
+      {
+        "id": "double-descent",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2201.02177",
+      "title": "Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets",
+      "url": "https://arxiv.org/abs/2201.02177"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

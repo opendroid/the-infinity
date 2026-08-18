@@ -1,0 +1,62 @@
+{
+  "id": "saddle-point",
+  "title": "Saddle Point",
+  "domain": [
+    "Landscape",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "The old worry about non-convex optimisation was getting stuck in a bad local minimum. In high dimensions that worry was misplaced: almost every critical point is a saddle, curving down in some directions and up in others, because a point is a minimum only if all million directions curve up at once.",
+    "engineer": "Saddles slow training rather than stopping it — gradients are small near one and the escape direction exists but is weak — which is a large part of why momentum helps and why plateaus appear in loss curves. This is also why local minima are rarely the explanation for a stalled run, and why looking for one is usually the wrong diagnosis.",
+    "math": "At a critical point the Hessian's eigenvalue signs decide the type, and a minimum requires all d to be positive. If signs were independent with probability p of being positive, minima would have probability p^d — vanishing in d — and the loss at the rare true minima concentrates near the global value, which is the second half of the result."
+  },
+  "emphasis": {
+    "intuition": "a point is a minimum only if all million directions curve up at once",
+    "engineer": "looking for one is usually the wrong diagnosis"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "descending_directions": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "descending_directions",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Directions curving downward at a critical point against directions curving up, in dimensions. Drag the descending directions up to watch it stop being a minimum — one is enough, which is why minima are rare and saddles are not."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-landscape",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "momentum",
+        "reviewed": false
+      },
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1406.2572",
+      "title": "Identifying and attacking the saddle point problem in high-dimensional non-convex optimization",
+      "url": "https://arxiv.org/abs/1406.2572"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

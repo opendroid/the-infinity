@@ -1,0 +1,62 @@
+{
+  "id": "double-descent",
+  "title": "Double Descent",
+  "domain": [
+    "Landscape",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "Test error falls as a model grows, then rises around the point where it can just barely fit the training data, then falls again — and keeps falling. The classical U-shaped curve is real and is only the left half of the picture. Bigger past the peak is better, which is the opposite of what parameter counting predicts.",
+    "engineer": "The peak sits at the interpolation threshold, where capacity roughly equals dataset size, and it is the worst place to be — a model just large enough to fit the data has exactly one way to do it and no freedom to pick a good one. The same shape appears in epochs as well as parameters, which is why training longer can pass through a worse region before improving.",
+    "math": "Past the interpolation threshold many zero-training-error solutions exist, and the optimiser's implicit bias selects among them — so error falls again for the same reason `implicit-regularization` describes. At the threshold that freedom vanishes, which is why the peak is there rather than anywhere else."
+  },
+  "emphasis": {
+    "intuition": "The classical U-shaped curve is real and is only the left half of the picture.",
+    "engineer": "a model just large enough to fit the data has exactly one way to do it and no freedom to pick a good one"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "capacity_beyond_threshold": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "capacity_beyond_threshold",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Capacity past the point where the data can just be fitted against the capacity needed to fit it, in equal units. Drag past the threshold to watch the freedom to choose a good solution appear — at zero there is exactly one way to fit, and it is a bad one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "implicit-regularization",
+        "reviewed": false
+      },
+      {
+        "id": "bias-variance-tradeoff",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "scaling-laws",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1912.02292",
+      "title": "Deep Double Descent: Where Bigger Models and More Data Hurt",
+      "url": "https://arxiv.org/abs/1912.02292"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

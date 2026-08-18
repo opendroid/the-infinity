@@ -57,7 +57,7 @@
           {
             "id": "memory-planning",
             "title": "Memory Planning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -486,7 +486,7 @@
           {
             "id": "operator-fusion-pass",
             "title": "Operator Fusion Pass",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -504,7 +504,7 @@
           {
             "id": "tiling",
             "title": "Tiling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -779,13 +779,13 @@
       "id": "autotuning",
       "title": "Autotuning",
       "domain": "Compilers / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "tiling",
             "title": "Tiling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -793,7 +793,7 @@
           {
             "id": "compilation-cache",
             "title": "Compilation Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -939,6 +939,12 @@
             "title": "Neighborhood Sampling",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "sharpness",
+            "title": "Sharpness",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -1030,7 +1036,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "double-descent",
+            "title": "Double Descent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "causal-inference",
@@ -1634,19 +1647,19 @@
       "id": "compilation-cache",
       "title": "Compilation Cache",
       "domain": "Compilers / Systems",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "autotuning",
             "title": "Autotuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "shape-specialization",
             "title": "Shape Specialization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2066,7 +2079,7 @@
           {
             "id": "compilation-cache",
             "title": "Compilation Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2078,7 +2091,7 @@
           {
             "id": "shape-specialization",
             "title": "Shape Specialization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2379,7 +2392,7 @@
       "id": "custom-kernel",
       "title": "Custom Kernel",
       "domain": "Compilers / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -2391,7 +2404,7 @@
           {
             "id": "tiling",
             "title": "Tiling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2987,6 +3000,43 @@
       }
     },
     {
+      "id": "double-descent",
+      "title": "Double Descent",
+      "domain": "Landscape / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "bias-variance-tradeoff",
+            "title": "Bias-Variance Tradeoff",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "implicit-regularization",
+            "title": "Implicit Regularization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "grokking",
+            "title": "Grokking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "scaling-laws",
+            "title": "Scaling Laws",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "dp-sgd",
       "title": "DP-SGD",
       "domain": "Privacy / Optimization",
@@ -3047,6 +3097,43 @@
           {
             "id": "weight-decay",
             "title": "Weight Decay",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "edge-of-stability",
+      "title": "Edge of Stability",
+      "domain": "Landscape / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "learning-rate",
+            "title": "Learning Rate",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sharpness",
+            "title": "Sharpness",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "gradient-clipping",
+            "title": "Gradient Clipping",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "warmup",
+            "title": "Warmup",
             "tier": "verified",
             "reviewed": false
           }
@@ -3136,7 +3223,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "grokking",
+            "title": "Grokking",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3383,7 +3477,7 @@
           {
             "id": "autotuning",
             "title": "Autotuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3693,7 +3787,7 @@
           {
             "id": "custom-kernel",
             "title": "Custom Kernel",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3723,7 +3817,7 @@
           {
             "id": "tiling",
             "title": "Tiling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3847,13 +3941,13 @@
           {
             "id": "memory-planning",
             "title": "Memory Planning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "tiling",
             "title": "Tiling",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3949,6 +4043,12 @@
             "title": "DP-SGD",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "edge-of-stability",
+            "title": "Edge of Stability",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3993,6 +4093,12 @@
             "reviewed": false
           },
           {
+            "id": "loss-landscape",
+            "title": "Loss Landscape",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "policy-gradient",
             "title": "Policy Gradient",
             "tier": "verified",
@@ -4022,6 +4128,12 @@
             "id": "adversarial-training",
             "title": "Adversarial Training",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "saddle-point",
+            "title": "Saddle Point",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -4100,26 +4212,26 @@
       "id": "graph-capture",
       "title": "Graph Capture",
       "domain": "Compilers / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "memory-planning",
             "title": "Memory Planning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "operator-fusion-pass",
             "title": "Operator Fusion Pass",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "shape-specialization",
             "title": "Shape Specialization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4259,6 +4371,43 @@
           {
             "id": "vision-transformer",
             "title": "Vision Transformer",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "grokking",
+      "title": "Grokking",
+      "domain": "Landscape / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "double-descent",
+            "title": "Double Descent",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "emergent-abilities",
+            "title": "Emergent Abilities",
             "tier": "verified",
             "reviewed": false
           }
@@ -4494,6 +4643,50 @@
           {
             "id": "noise-contrastive-estimation",
             "title": "Noise-Contrastive Estimation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "implicit-regularization",
+      "title": "Implicit Regularization",
+      "domain": "Landscape / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-landscape",
+            "title": "Loss Landscape",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "double-descent",
+            "title": "Double Descent",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "stochastic-gradient-descent",
+            "title": "Stochastic Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
             "tier": "verified",
             "reviewed": false
           }
@@ -4873,13 +5066,13 @@
           {
             "id": "custom-kernel",
             "title": "Custom Kernel",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "operator-fusion-pass",
             "title": "Operator Fusion Pass",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4893,7 +5086,7 @@
           {
             "id": "graph-capture",
             "title": "Graph Capture",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5162,6 +5355,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "edge-of-stability",
+            "title": "Edge of Stability",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "learning-rate-schedule",
             "title": "Learning-Rate Schedule",
@@ -5553,6 +5752,56 @@
       }
     },
     {
+      "id": "loss-landscape",
+      "title": "Loss Landscape",
+      "domain": "Landscape / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "implicit-regularization",
+            "title": "Implicit Regularization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "mode-connectivity",
+            "title": "Mode Connectivity",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "saddle-point",
+            "title": "Saddle Point",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "sharpness",
+            "title": "Sharpness",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "principal-component-analysis",
+            "title": "Principal Component Analysis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "lottery-ticket-hypothesis",
       "title": "Lottery Ticket Hypothesis",
       "domain": "Compression / Foundations",
@@ -5568,6 +5817,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "mode-connectivity",
+            "title": "Mode Connectivity",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "overfitting",
             "title": "Overfitting",
@@ -5897,7 +6152,7 @@
       "id": "memory-planning",
       "title": "Memory Planning",
       "domain": "Compilers / Systems",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5909,7 +6164,7 @@
           {
             "id": "graph-capture",
             "title": "Graph Capture",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6152,6 +6407,31 @@
       }
     },
     {
+      "id": "mode-connectivity",
+      "title": "Mode Connectivity",
+      "domain": "Landscape / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-landscape",
+            "title": "Loss Landscape",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "lottery-ticket-hypothesis",
+            "title": "Lottery Ticket Hypothesis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "model-based-rl",
       "title": "Model-Based RL",
       "domain": "Planning / Methods",
@@ -6254,7 +6534,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "saddle-point",
+            "title": "Saddle Point",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -6276,7 +6563,7 @@
           {
             "id": "autotuning",
             "title": "Autotuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6720,13 +7007,13 @@
       "id": "operator-fusion-pass",
       "title": "Operator Fusion Pass",
       "domain": "Compilers / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "graph-capture",
             "title": "Graph Capture",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6797,6 +7084,18 @@
             "id": "cross-validation",
             "title": "Cross-Validation",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "grokking",
+            "title": "Grokking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "implicit-regularization",
+            "title": "Implicit Regularization",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -6896,7 +7195,7 @@
           {
             "id": "memory-planning",
             "title": "Memory Planning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7194,7 +7493,7 @@
           {
             "id": "shape-specialization",
             "title": "Shape Specialization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7294,6 +7593,12 @@
             "id": "autoencoder",
             "title": "Autoencoder",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "loss-landscape",
+            "title": "Loss Landscape",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -8206,6 +8511,37 @@
       }
     },
     {
+      "id": "saddle-point",
+      "title": "Saddle Point",
+      "domain": "Landscape / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-landscape",
+            "title": "Loss Landscape",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "gradient-descent",
+            "title": "Gradient Descent",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "momentum",
+            "title": "Momentum",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "safety-envelope",
       "title": "Safety Envelope",
       "domain": "Robotics / Safety",
@@ -8357,6 +8693,12 @@
             "title": "Data Mixing",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "double-descent",
+            "title": "Double Descent",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -8468,7 +8810,7 @@
           {
             "id": "custom-kernel",
             "title": "Custom Kernel",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8627,13 +8969,13 @@
       "id": "shape-specialization",
       "title": "Shape Specialization",
       "domain": "Compilers / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "graph-capture",
             "title": "Graph Capture",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8641,7 +8983,7 @@
           {
             "id": "compilation-cache",
             "title": "Compilation Cache",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8655,6 +8997,44 @@
           {
             "id": "prefill-and-decode",
             "title": "Prefill and Decode",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "sharpness",
+      "title": "Sharpness",
+      "domain": "Landscape / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-landscape",
+            "title": "Loss Landscape",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "edge-of-stability",
+            "title": "Edge of Stability",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "batch-size",
+            "title": "Batch Size",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
             "tier": "verified",
             "reviewed": false
           }
@@ -9148,6 +9528,12 @@
         ],
         "adjacent": [
           {
+            "id": "implicit-regularization",
+            "title": "Implicit Regularization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "neighborhood-sampling",
             "title": "Neighborhood Sampling",
             "tier": "verified",
@@ -9541,7 +9927,7 @@
       "id": "tiling",
       "title": "Tiling",
       "domain": "Compilers / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9555,13 +9941,13 @@
           {
             "id": "autotuning",
             "title": "Autotuning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "custom-kernel",
             "title": "Custom Kernel",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10300,6 +10686,12 @@
             "reviewed": false
           },
           {
+            "id": "edge-of-stability",
+            "title": "Edge of Stability",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "layer-normalization",
             "title": "Layer Normalization",
             "tier": "verified",
@@ -10328,6 +10720,12 @@
             "title": "AdamW",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "grokking",
+            "title": "Grokking",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -10344,6 +10742,12 @@
             "reviewed": false
           },
           {
+            "id": "implicit-regularization",
+            "title": "Implicit Regularization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "minimum-description-length",
             "title": "Minimum Description Length",
             "tier": "verified",
@@ -10353,6 +10757,12 @@
             "id": "pruning",
             "title": "Pruning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sharpness",
+            "title": "Sharpness",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -10533,7 +10943,7 @@
         {
           "id": "memory-planning",
           "title": "Memory Planning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -11274,7 +11684,7 @@
         {
           "id": "operator-fusion-pass",
           "title": "Operator Fusion Pass",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
@@ -11295,7 +11705,7 @@
         {
           "id": "tiling",
           "title": "Tiling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -11843,7 +12253,7 @@
       "center": {
         "id": "autotuning",
         "title": "Autotuning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11851,14 +12261,14 @@
         {
           "id": "tiling",
           "title": "Tiling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "compilation-cache",
           "title": "Compilation Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -12084,22 +12494,29 @@
           "id": "continuous-batching",
           "title": "Continuous Batching",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "dp-sgd",
           "title": "DP-SGD",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "neighborhood-sampling",
           "title": "Neighborhood Sampling",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "sharpness",
+          "title": "Sharpness",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -12136,6 +12553,12 @@
         {
           "from": "batch-size",
           "to": "neighborhood-sampling",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "batch-size",
+          "to": "sharpness",
           "type": "adjacent",
           "reviewed": false
         }
@@ -12291,6 +12714,13 @@
           "y": 66
         },
         {
+          "id": "double-descent",
+          "title": "Double Descent",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "causal-inference",
           "title": "Causal Inference",
           "tier": "verified",
@@ -12324,6 +12754,12 @@
           "from": "overfitting",
           "to": "bias-variance-tradeoff",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "double-descent",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -13373,7 +13809,7 @@
       "center": {
         "id": "compilation-cache",
         "title": "Compilation Cache",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13381,14 +13817,14 @@
         {
           "id": "autotuning",
           "title": "Autotuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "shape-specialization",
           "title": "Shape Specialization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -14109,7 +14545,7 @@
         {
           "id": "compilation-cache",
           "title": "Compilation Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -14123,7 +14559,7 @@
         {
           "id": "shape-specialization",
           "title": "Shape Specialization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -14705,7 +15141,7 @@
       "center": {
         "id": "custom-kernel",
         "title": "Custom Kernel",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14720,7 +15156,7 @@
         {
           "id": "tiling",
           "title": "Tiling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -15795,6 +16231,72 @@
       ]
     },
     {
+      "id": "double-descent",
+      "center": {
+        "id": "double-descent",
+        "title": "Double Descent",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "bias-variance-tradeoff",
+          "title": "Bias-Variance Tradeoff",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "implicit-regularization",
+          "title": "Implicit Regularization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "grokking",
+          "title": "Grokking",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "scaling-laws",
+          "title": "Scaling Laws",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "double-descent",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "implicit-regularization",
+          "to": "double-descent",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "double-descent",
+          "to": "grokking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "double-descent",
+          "to": "scaling-laws",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "dp-sgd",
       "center": {
         "id": "dp-sgd",
@@ -15908,6 +16410,72 @@
         {
           "from": "dropout",
           "to": "weight-decay",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "edge-of-stability",
+      "center": {
+        "id": "edge-of-stability",
+        "title": "Edge of Stability",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "learning-rate",
+          "title": "Learning Rate",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "sharpness",
+          "title": "Sharpness",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "gradient-clipping",
+          "title": "Gradient Clipping",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "warmup",
+          "title": "Warmup",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "learning-rate",
+          "to": "edge-of-stability",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sharpness",
+          "to": "edge-of-stability",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "edge-of-stability",
+          "to": "gradient-clipping",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "edge-of-stability",
+          "to": "warmup",
           "type": "adjacent",
           "reviewed": false
         }
@@ -16048,6 +16616,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "grokking",
+          "title": "Grokking",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -16055,6 +16630,12 @@
           "from": "scaling-laws",
           "to": "emergent-abilities",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "emergent-abilities",
+          "to": "grokking",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -16469,7 +17050,7 @@
         {
           "id": "autotuning",
           "title": "Autotuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
@@ -17041,7 +17622,7 @@
         {
           "id": "custom-kernel",
           "title": "Custom Kernel",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 34,
           "y": 22
         },
@@ -17076,7 +17657,7 @@
         {
           "id": "tiling",
           "title": "Tiling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 206,
           "y": 110
         }
@@ -17318,14 +17899,14 @@
         {
           "id": "memory-planning",
           "title": "Memory Planning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "tiling",
           "title": "Tiling",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -17491,8 +18072,15 @@
           "id": "dp-sgd",
           "title": "DP-SGD",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "edge-of-stability",
+          "title": "Edge of Stability",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -17505,6 +18093,12 @@
         {
           "from": "gradient-clipping",
           "to": "dp-sgd",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-clipping",
+          "to": "edge-of-stability",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17532,63 +18126,77 @@
           "title": "Diffusion Model",
           "tier": "verified",
           "x": 200,
-          "y": 15
+          "y": 13
         },
         {
           "id": "gradient-boosting",
           "title": "Gradient Boosting",
           "tier": "verified",
           "x": 200,
-          "y": 29
+          "y": 26
         },
         {
           "id": "learning-rate",
           "title": "Learning Rate",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 40
         },
         {
           "id": "linear-regression",
           "title": "Linear Regression",
           "tier": "verified",
           "x": 200,
-          "y": 59
+          "y": 53
+        },
+        {
+          "id": "loss-landscape",
+          "title": "Loss Landscape",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "policy-gradient",
           "title": "Policy Gradient",
           "tier": "verified",
           "x": 200,
-          "y": 73
+          "y": 79
         },
         {
           "id": "proximal-policy-optimization",
           "title": "PPO",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 92
         },
         {
           "id": "stochastic-gradient-descent",
           "title": "Stochastic Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 103
+          "y": 106
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
           "x": 200,
-          "y": 117
+          "y": 119
         },
         {
           "id": "adversarial-training",
           "title": "Adversarial Training",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "saddle-point",
+          "title": "Saddle Point",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -17624,6 +18232,12 @@
         },
         {
           "from": "gradient-descent",
+          "to": "loss-landscape",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
           "to": "policy-gradient",
           "type": "unlocks",
           "reviewed": false
@@ -17649,6 +18263,12 @@
         {
           "from": "gradient-descent",
           "to": "adversarial-training",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-descent",
+          "to": "saddle-point",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17778,7 +18398,7 @@
       "center": {
         "id": "graph-capture",
         "title": "Graph Capture",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17786,21 +18406,21 @@
         {
           "id": "memory-planning",
           "title": "Memory Planning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "operator-fusion-pass",
           "title": "Operator Fusion Pass",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "shape-specialization",
           "title": "Shape Specialization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -18059,6 +18679,72 @@
         {
           "from": "graph-transformer",
           "to": "vision-transformer",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "grokking",
+      "center": {
+        "id": "grokking",
+        "title": "Grokking",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "double-descent",
+          "title": "Double Descent",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "emergent-abilities",
+          "title": "Emergent Abilities",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "overfitting",
+          "to": "grokking",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
+          "to": "grokking",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "grokking",
+          "to": "double-descent",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "grokking",
+          "to": "emergent-abilities",
           "type": "adjacent",
           "reviewed": false
         }
@@ -18469,6 +19155,85 @@
         {
           "from": "implicit-feedback",
           "to": "noise-contrastive-estimation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "implicit-regularization",
+      "center": {
+        "id": "implicit-regularization",
+        "title": "Implicit Regularization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-landscape",
+          "title": "Loss Landscape",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "double-descent",
+          "title": "Double Descent",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "stochastic-gradient-descent",
+          "title": "Stochastic Gradient Descent",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-landscape",
+          "to": "implicit-regularization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "implicit-regularization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "implicit-regularization",
+          "to": "double-descent",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "implicit-regularization",
+          "to": "stochastic-gradient-descent",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "implicit-regularization",
+          "to": "weight-decay",
           "type": "adjacent",
           "reviewed": false
         }
@@ -19115,14 +19880,14 @@
         {
           "id": "custom-kernel",
           "title": "Custom Kernel",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "operator-fusion-pass",
           "title": "Operator Fusion Pass",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -19136,7 +19901,7 @@
         {
           "id": "graph-capture",
           "title": "Graph Capture",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -19652,11 +20417,18 @@
           "y": 66
         },
         {
+          "id": "edge-of-stability",
+          "title": "Edge of Stability",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "learning-rate-schedule",
           "title": "Learning-Rate Schedule",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         }
       ],
       "links": [
@@ -19664,6 +20436,12 @@
           "from": "gradient-descent",
           "to": "learning-rate",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "learning-rate",
+          "to": "edge-of-stability",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -20360,6 +21138,98 @@
       ]
     },
     {
+      "id": "loss-landscape",
+      "center": {
+        "id": "loss-landscape",
+        "title": "Loss Landscape",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "implicit-regularization",
+          "title": "Implicit Regularization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 26
+        },
+        {
+          "id": "mode-connectivity",
+          "title": "Mode Connectivity",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
+        },
+        {
+          "id": "saddle-point",
+          "title": "Saddle Point",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
+        },
+        {
+          "id": "sharpness",
+          "title": "Sharpness",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        },
+        {
+          "id": "principal-component-analysis",
+          "title": "Principal Component Analysis",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "gradient-descent",
+          "to": "loss-landscape",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "loss-landscape",
+          "to": "implicit-regularization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-landscape",
+          "to": "mode-connectivity",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-landscape",
+          "to": "saddle-point",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-landscape",
+          "to": "sharpness",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-landscape",
+          "to": "principal-component-analysis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "lottery-ticket-hypothesis",
       "center": {
         "id": "lottery-ticket-hypothesis",
@@ -20377,11 +21247,18 @@
           "y": 66
         },
         {
+          "id": "mode-connectivity",
+          "title": "Mode Connectivity",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "overfitting",
           "title": "Overfitting",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -20389,6 +21266,12 @@
           "from": "pruning",
           "to": "lottery-ticket-hypothesis",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "lottery-ticket-hypothesis",
+          "to": "mode-connectivity",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20959,7 +21842,7 @@
       "center": {
         "id": "memory-planning",
         "title": "Memory Planning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -20974,7 +21857,7 @@
         {
           "id": "graph-capture",
           "title": "Graph Capture",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -21404,6 +22287,46 @@
       ]
     },
     {
+      "id": "mode-connectivity",
+      "center": {
+        "id": "mode-connectivity",
+        "title": "Mode Connectivity",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-landscape",
+          "title": "Loss Landscape",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "lottery-ticket-hypothesis",
+          "title": "Lottery Ticket Hypothesis",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-landscape",
+          "to": "mode-connectivity",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "mode-connectivity",
+          "to": "lottery-ticket-hypothesis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "model-based-rl",
       "center": {
         "id": "model-based-rl",
@@ -21565,6 +22488,13 @@
           "tier": "verified",
           "x": 200,
           "y": 88
+        },
+        {
+          "id": "saddle-point",
+          "title": "Saddle Point",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -21584,6 +22514,12 @@
           "from": "momentum",
           "to": "muon-optimizer",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "momentum",
+          "to": "saddle-point",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -21608,7 +22544,7 @@
         {
           "id": "autotuning",
           "title": "Autotuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -22399,7 +23335,7 @@
       "center": {
         "id": "operator-fusion-pass",
         "title": "Operator Fusion Pass",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -22407,7 +23343,7 @@
         {
           "id": "graph-capture",
           "title": "Graph Capture",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -22509,28 +23445,42 @@
           "title": "Bias-Variance Tradeoff",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 19
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 38
+        },
+        {
+          "id": "grokking",
+          "title": "Grokking",
+          "tier": "frontier",
+          "x": 200,
+          "y": 57
+        },
+        {
+          "id": "implicit-regularization",
+          "title": "Implicit Regularization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 75
         },
         {
           "id": "membership-inference",
           "title": "Membership Inference",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 94
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 113
         },
         {
           "id": "decision-tree",
@@ -22584,6 +23534,18 @@
         {
           "from": "overfitting",
           "to": "cross-validation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "grokking",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "implicit-regularization",
           "type": "unlocks",
           "reviewed": false
         },
@@ -22698,7 +23660,7 @@
         {
           "id": "memory-planning",
           "title": "Memory Planning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -23220,7 +24182,7 @@
         {
           "id": "shape-specialization",
           "title": "Shape Specialization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -23411,29 +24373,36 @@
           "id": "autoencoder",
           "title": "Autoencoder",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
+        },
+        {
+          "id": "loss-landscape",
+          "title": "Loss Landscape",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
         },
         {
           "id": "manifold-hypothesis",
           "title": "Manifold Hypothesis",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "matrix-factorization",
           "title": "Matrix Factorization",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "trend-decomposition",
           "title": "Trend Decomposition",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -23452,6 +24421,12 @@
         {
           "from": "principal-component-analysis",
           "to": "autoencoder",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "principal-component-analysis",
+          "to": "loss-landscape",
           "type": "adjacent",
           "reviewed": false
         },
@@ -25047,6 +26022,59 @@
       ]
     },
     {
+      "id": "saddle-point",
+      "center": {
+        "id": "saddle-point",
+        "title": "Saddle Point",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-landscape",
+          "title": "Loss Landscape",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "gradient-descent",
+          "title": "Gradient Descent",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "momentum",
+          "title": "Momentum",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-landscape",
+          "to": "saddle-point",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "saddle-point",
+          "to": "gradient-descent",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "saddle-point",
+          "to": "momentum",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "safety-envelope",
       "center": {
         "id": "safety-envelope",
@@ -25286,8 +26314,15 @@
           "id": "data-mixing",
           "title": "Data Mixing",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "double-descent",
+          "title": "Double Descent",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -25318,6 +26353,12 @@
         {
           "from": "scaling-laws",
           "to": "data-mixing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "scaling-laws",
+          "to": "double-descent",
           "type": "adjacent",
           "reviewed": false
         }
@@ -25489,7 +26530,7 @@
         {
           "id": "custom-kernel",
           "title": "Custom Kernel",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -25778,7 +26819,7 @@
       "center": {
         "id": "shape-specialization",
         "title": "Shape Specialization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -25786,14 +26827,14 @@
         {
           "id": "graph-capture",
           "title": "Graph Capture",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "compilation-cache",
           "title": "Compilation Cache",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -25834,6 +26875,72 @@
         {
           "from": "shape-specialization",
           "to": "prefill-and-decode",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "sharpness",
+      "center": {
+        "id": "sharpness",
+        "title": "Sharpness",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-landscape",
+          "title": "Loss Landscape",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "edge-of-stability",
+          "title": "Edge of Stability",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "batch-size",
+          "title": "Batch Size",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-landscape",
+          "to": "sharpness",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sharpness",
+          "to": "edge-of-stability",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "sharpness",
+          "to": "batch-size",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sharpness",
+          "to": "weight-decay",
           "type": "adjacent",
           "reviewed": false
         }
@@ -26701,11 +27808,18 @@
           "y": 106
         },
         {
+          "id": "implicit-regularization",
+          "title": "Implicit Regularization",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "neighborhood-sampling",
           "title": "Neighborhood Sampling",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -26737,6 +27851,12 @@
           "from": "stochastic-gradient-descent",
           "to": "momentum",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "stochastic-gradient-descent",
+          "to": "implicit-regularization",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -27413,7 +28533,7 @@
       "center": {
         "id": "tiling",
         "title": "Tiling",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -27428,14 +28548,14 @@
         {
           "id": "autotuning",
           "title": "Autotuning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "custom-kernel",
           "title": "Custom Kernel",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -28760,15 +29880,22 @@
           "id": "curriculum",
           "title": "Curriculum",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "edge-of-stability",
+          "title": "Edge of Stability",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "layer-normalization",
           "title": "Layer Normalization",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -28781,6 +29908,12 @@
         {
           "from": "warmup",
           "to": "curriculum",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "warmup",
+          "to": "edge-of-stability",
           "type": "adjacent",
           "reviewed": false
         },
@@ -28814,34 +29947,55 @@
           "title": "AdamW",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "grokking",
+          "title": "Grokking",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "dropout",
           "title": "Dropout",
           "tier": "verified",
-          "x": 48,
+          "x": 34,
           "y": 22
         },
         {
           "id": "elastic-weight-consolidation",
           "title": "Elastic Weight Consolidation",
           "tier": "verified",
-          "x": 96,
+          "x": 69,
           "y": 110
+        },
+        {
+          "id": "implicit-regularization",
+          "title": "Implicit Regularization",
+          "tier": "frontier",
+          "x": 103,
+          "y": 22
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 137,
+          "y": 110
         },
         {
           "id": "pruning",
           "title": "Pruning",
           "tier": "verified",
-          "x": 192,
+          "x": 171,
+          "y": 22
+        },
+        {
+          "id": "sharpness",
+          "title": "Sharpness",
+          "tier": "frontier",
+          "x": 206,
           "y": 110
         }
       ],
@@ -28860,6 +30014,12 @@
         },
         {
           "from": "weight-decay",
+          "to": "grokking",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
           "to": "dropout",
           "type": "adjacent",
           "reviewed": false
@@ -28872,6 +30032,12 @@
         },
         {
           "from": "weight-decay",
+          "to": "implicit-regularization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
           "to": "minimum-description-length",
           "type": "adjacent",
           "reviewed": false
@@ -28879,6 +30045,12 @@
         {
           "from": "weight-decay",
           "to": "pruning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
+          "to": "sharpness",
           "type": "adjacent",
           "reviewed": false
         }
