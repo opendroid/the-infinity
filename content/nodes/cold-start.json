@@ -41,6 +41,10 @@
       {
         "id": "exploration-exploitation",
         "reviewed": false
+      },
+      {
+        "id": "implicit-feedback",
+        "reviewed": false
       }
     ]
   },

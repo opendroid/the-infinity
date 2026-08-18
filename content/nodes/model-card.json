@@ -41,6 +41,10 @@
       {
         "id": "safety-benchmark-validity",
         "reviewed": false
+      },
+      {
+        "id": "open-weights",
+        "reviewed": false
       }
     ]
   },

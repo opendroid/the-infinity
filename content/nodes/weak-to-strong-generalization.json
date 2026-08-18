@@ -41,6 +41,10 @@
       {
         "id": "knowledge-distillation",
         "reviewed": false
+      },
+      {
+        "id": "rlhf",
+        "reviewed": false
       }
     ]
   },

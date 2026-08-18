@@ -41,6 +41,10 @@
       {
         "id": "mechanistic-interpretability",
         "reviewed": false
+      },
+      {
+        "id": "knowledge-graph",
+        "reviewed": false
       }
     ]
   },

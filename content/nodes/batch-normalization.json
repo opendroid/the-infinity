@@ -41,6 +41,10 @@
       {
         "id": "batch-size",
         "reviewed": false
+      },
+      {
+        "id": "training-serving-skew",
+        "reviewed": false
       }
     ]
   },

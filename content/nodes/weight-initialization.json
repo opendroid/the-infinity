@@ -41,6 +41,10 @@
       {
         "id": "residual-connection",
         "reviewed": false
+      },
+      {
+        "id": "activation-function",
+        "reviewed": false
       }
     ]
   },

@@ -41,6 +41,10 @@
       {
         "id": "activation-checkpointing",
         "reviewed": false
+      },
+      {
+        "id": "long-context-training",
+        "reviewed": false
       }
     ]
   },

@@ -42,6 +42,10 @@
       {
         "id": "dilated-convolution",
         "reviewed": false
+      },
+      {
+        "id": "feature-pyramid",
+        "reviewed": false
       }
     ]
   },

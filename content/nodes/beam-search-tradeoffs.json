@@ -41,6 +41,10 @@
       {
         "id": "structured-output",
         "reviewed": false
+      },
+      {
+        "id": "grammar-constrained-decoding",
+        "reviewed": false
       }
     ]
   },

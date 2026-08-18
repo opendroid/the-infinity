@@ -41,6 +41,10 @@
       {
         "id": "residual-connection",
         "reviewed": false
+      },
+      {
+        "id": "message-passing",
+        "reviewed": false
       }
     ]
   },

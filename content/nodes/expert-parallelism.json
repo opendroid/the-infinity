@@ -39,7 +39,12 @@
         "reviewed": false
       }
     ],
-    "adjacent": []
+    "adjacent": [
+      {
+        "id": "collective-communication",
+        "reviewed": false
+      }
+    ]
   },
   "citations": [
     {

@@ -41,6 +41,10 @@
       {
         "id": "model-based-rl",
         "reviewed": false
+      },
+      {
+        "id": "manipulation",
+        "reviewed": false
       }
     ]
   },
