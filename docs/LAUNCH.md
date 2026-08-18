@@ -105,14 +105,15 @@ gcloud logging read 'resource.type=cloud_run_revision AND logName:"stdout"' \
 - [x] Every node validates against the schema, and every citation resolves
 - [ ] **Citations checked for *identity*, not just resolvability.** `check:citations`
       answers "does this URL load", which a real-but-wrong paper passes — and that is by
-      far the most common defect across nine verification batches, sixteen times so far.
+      far the most common defect across every verification batch run so far.
       Twice it was the node's own `emphasis` that carried the unsourced claim
 - [ ] **Every figure read against its caption.** A separate class from the text and found
       much later (#177): eleven nodes had a slider that moved nothing, and four had a
       figure that showed something other than what its caption promised. A node is not
       only its prose
-- [x] 86 of 89 nodes verified. The three that are not are the frontier, and the landing
-      page says so
+- [x] The corpus is verified but for the current frontier batch, and the landing page says
+      so in gold and teal. A count belongs in #61, which is maintained, rather than here,
+      where it was "86 of 89" long after it was 400-odd (#319)
 
 ## 7. Read it cold
 

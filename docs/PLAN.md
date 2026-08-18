@@ -23,6 +23,10 @@
 
 ## 2. Design system (from mockups, `/docs/design/`)
 
+> Superseded in practice: `mockups.html` was replaced by
+> [`/docs/design/handoff-v1/`](design/handoff-v1), which specifies all five routes at
+> implementation fidelity. §8 records why. The palette below is still correct.
+
 - **Palette:** void `#0B0E1A` · nebula `#151A2E` / `#1C2240` · starlight `#E9EBF8` · dust `#8B91B3` · thread (interactive) `#8F7BFF` · verified `#E5B54A` · frontier `#5FD4C4`
 - **Type:** Unbounded (display, sparingly) · Schibsted Grotesk (body) · JetBrains Mono (labels, data, edges)
 - **Signature:** the thread — one continuous line through landing lemniscate, trail ribbon, shared-trail page
@@ -109,9 +113,15 @@ Per issue: `branch → plan → implement → unit tests → review subagent on 
 
 ## 8. What actually happened
 
-Written at 86 of 89 nodes verified, with the site live on the real domain. The plan above
-is left as it was predicted; this is the reconciliation, because the gap between the two is
-the interesting part.
+**At 482 concepts — 473 verified, 9 frontier — across 47 domains and 800 resolving
+citations, as of 2026-08-18, with the site live on the real domain.** §§1–7 above are a
+prediction and are deliberately left wrong; this section is the reconciliation, because the
+gap between the two is the interesting part.
+
+A figure written into a document goes stale the moment the next batch lands — this one said
+"89 nodes" for a long while, in the file every session is told to read first (#319). The
+maintained count lives in [#61](https://github.com/opendroid/the-infinity/issues/61); treat
+the numbers here as a snapshot with a date on it and that one as current.
 
 ### The phases held; the estimates did not
 
@@ -159,10 +169,16 @@ there and watching CI stay green.
 ### Milestones
 
 - **M1 — met.** Walking skeleton live end to end, CI/CD green.
-- **M2 — met.** Three templates, **five** viz primitives against the "2+" asked for,
-  trails, mini-map, search, and 54 verified nodes against "~50".
-- **M3 — partial.** Domain live and analytics decided; the corpus is 89 nodes against
-  "~300", which is the one substantial thing outstanding (#61).
+- **M2 — met.** Three templates, **six** viz primitives against the "2+" asked for —
+  `threshold-sweep` was added later and on its own evidence
+  ([ADR-0014](adr/0014-threshold-sweep-primitive.md)) — plus trails, mini-map, search, and
+  54 verified nodes against "~50".
+- **M3 — met, and the target was the wrong thing to track.** Domain live, analytics
+  decided, and the corpus passed "~300" without anyone noticing the milestone go by. What
+  replaced it as the constraint is not a count at all: the tier design assumes perpetual
+  growth, so verifying the last frontier batch empties the landing page's teal lobe and
+  breaks the build (#283). Seeding and verification are both blocked on that decision;
+  structural work — #315, #317 — is not.
 
 ### What the plan did not anticipate at all
 
@@ -170,8 +186,8 @@ there and watching CI stay green.
 as a step at the end of a batch — a formality between writing and merging. It is the
 larger half, and it is the half that finds things.
 
-Nine verification passes over 89 nodes. The defects sort into three places, and only the
-first was expected:
+Dozens of verification passes now, and roughly two thirds of them find something. The
+defects sort into three places, and only the first was expected:
 
 **In the citations.** The most common defect by a wide margin: a citation that resolves and
 sources nothing on its page, or a claim carrying no source at all. Ten instances across the
@@ -188,13 +204,30 @@ engineer body and "sixteen times" in its math body — **one node contradicting 
 between two depths of the same concept.** A graph makes this class both more likely and
 more findable: every node is a claim adjacent to other claims.
 
-**In the figures**, which nothing anticipated. Eleven nodes shipped a slider that did
+**In the figures**, which nothing anticipated, and which has kept producing new classes
+long after the first three were mechanized. Eleven nodes shipped a slider that did
 nothing — three of the five viz primitives filter `viz.params` through a typed reader that
 silently drops unrecognised keys, and six of the eleven were already `verified`. Four more
 had a figure that disagreed with its caption: two `budget-split` bars that grew while the
 caption said the quantity shrank, a primitive used in the direction its own documentation
 forbids, and a heatmap promising a diagonal while drawing uniform noise (#177). **A node is
 not only its text**, and reading the JSON is not the same as looking at the page.
+
+Three more classes surfaced later, each invisible to every check then in place. **A caption
+that names the control's CAUSE rather than the control** — "drag the context length" over a
+slider counting cache bytes; the reader is asked to bridge two different quantities.
+**Units overclaimed in a caption** — a bar whose remainder was twenty under a sentence
+saying "against the single number explaining them"; making it literally one then produced a
+figure that saturated instantly and was caught by the dead-tail check, which forced a better
+answer than either. And **a primitive's direction misread** — `loss-curve`'s `decay` is
+learning-rate decay, so a caption claiming the regularised run settles *higher* had the
+picture exactly backwards, and 9,635 tests passed.
+
+Two of those three stay rules for a person rather than checks, and that was measured rather
+than assumed: a caption-vs-control word check flags 75 of 392 and a citation-title check 193
+of 702, almost all correctly. Only 2 of 33 `loss-curve` captions use a direction word at
+all, so checking those would cover nothing. The measurements live in
+[`/content/schema/README.md`](../content/schema/README.md) so nobody rebuilds them.
 
 **Tests passing is not the same as the feature working.** Four defects have now shipped
 green: a trace field in the wrong encoding, a correlation feature that emitted nothing on a
