@@ -1,0 +1,67 @@
+{
+  "id": "image-generation-evaluation",
+  "title": "Image Generation Evaluation",
+  "domain": [
+    "Multimodal",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "How do you score a picture nobody asked for and nothing can mark? There is no reference to compare against, so the standard answer compares distributions instead: generate a lot of images and ask whether the set looks like the set of real ones. That works better than it sounds and is blind to things a person notices immediately.",
+    "engineer": "The dominant metric embeds both sets with a fixed pretrained network and compares the two Gaussians fitted to those features. It is sensitive to blur, to artefacts, and to a generator that ignores part of the distribution — but it says nothing about whether an individual image is good, nothing about whether it matches its prompt, and it moves when the embedding network changes. Prompt fidelity needs a separate measure, and both keep getting overruled by human preference studies.",
+    "math": "Comparing distributions rather than samples has a specific consequence: a generator that memorises the training set scores perfectly. The metric asks whether the generated distribution matches, and a copy matches exactly, so novelty is not measured at all by construction. It also depends on sample count, biased downward as the count rises, which means two numbers computed at different sample sizes are not comparable — and papers report the count for exactly that reason."
+  },
+  "emphasis": {
+    "intuition": "blind to things a person notices immediately",
+    "math": "a generator that memorises the training set scores perfectly"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "memorised_samples": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "memorised_samples",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Generated images copied from training data, against genuinely novel ones, in images. Drag the memorisation up and watch a distribution metric stay perfectly happy — it asks whether the set matches, and a copy matches exactly."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "likelihood-vs-sample-quality",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "memorisation",
+        "reviewed": false
+      },
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.08500",
+      "title": "GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium",
+      "url": "https://arxiv.org/abs/1706.08500"
+    },
+    {
+      "ref": "arXiv:2311.15127",
+      "title": "Stable Video Diffusion: Scaling Latent Video Diffusion Models to Large Datasets",
+      "url": "https://arxiv.org/abs/2311.15127"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

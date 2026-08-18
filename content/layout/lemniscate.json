@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "memorisation",
+      "id": "video-generation",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "carbon-accounting",
+      "id": "modality-fusion",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "data-provenance",
+      "id": "document-understanding",
       "t": 0.8,
       "label": true
     }

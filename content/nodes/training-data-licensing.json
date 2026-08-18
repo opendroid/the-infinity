@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Text excluded by a licence restriction, against the permissively-licensed remainder, in equal units. Drag the restriction tighter to watch most of the corpus go — the excluded distribution is not a random sample of the rest, so the loss does not shrink with scale."
+    "caption": "Text excluded by a licence restriction, against the permissively-licensed remainder, in equal units. Drag the excluded share up to watch most of the corpus go — the excluded distribution is not a random sample of the rest, so the loss does not shrink with scale."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

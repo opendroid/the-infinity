@@ -1,0 +1,63 @@
+{
+  "id": "document-understanding",
+  "title": "Document Understanding",
+  "domain": [
+    "Multimodal",
+    "Applications"
+  ],
+  "bodies": {
+    "intuition": "An invoice, a form, a scientific paper: the words matter and so does where they sit. A total in the bottom right of a table means something different from the same number in a paragraph, and a model reading the text in reading order has thrown away the layout that made it interpretable.",
+    "engineer": "The fix is to give position on the page the same status as position in the sequence — a two-dimensional coordinate embedding alongside the ordinary one — so the model can attend to what is above a cell as easily as to what precedes it. Where the source has markup rather than pixels, the tree structure serves the same purpose and is cleaner, which is why HTML documents and scanned ones get different treatments rather than one pipeline.",
+    "math": "Reading order is a lossy projection of a two-dimensional arrangement, and the loss is concentrated exactly where documents are most structured. A paragraph loses nothing; a table loses the column relationships entirely, because linearising a grid puts cells adjacent that were never near each other. So the share of a document whose meaning survives linearisation falls as the document becomes more tabular, which is the opposite of what a text pipeline assumes."
+  },
+  "emphasis": {
+    "intuition": "a model reading the text in reading order has thrown away the layout that made it interpretable",
+    "math": "the share of a document whose meaning survives linearisation falls as the document becomes more tabular"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "tabular_content": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "tabular_content",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Document content whose meaning depends on two-dimensional position, against content that survives reading order, in equal units. Drag the tabular share up to watch linearisation lose the document — a paragraph loses nothing, a grid loses its columns."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "patch-embedding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "vision-language-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1912.13318",
+      "title": "LayoutLM: Pre-training of Text and Layout for Document Image Understanding",
+      "url": "https://arxiv.org/abs/1912.13318"
+    },
+    {
+      "ref": "arXiv:2110.08518",
+      "title": "MarkupLM: Pre-training of Text and Markup Language for Visually-rich Document Understanding",
+      "url": "https://arxiv.org/abs/2110.08518"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -28,7 +28,7 @@
         "step": 25
       }
     ],
-    "caption": "Energy spent serving a model, against the one-off energy of training it, in equal units. Drag the traffic up to watch serving overtake training and keep going — the two lines cross exactly once, and for a widely deployed model they cross early."
+    "caption": "Energy spent serving a model, against the one-off energy of training it, in equal units. Drag the cumulative serving energy up to watch it overtake training and keep going — the two lines cross exactly once, and for a widely deployed model they cross early."
   },
   "edges": {
     "requires": [
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
