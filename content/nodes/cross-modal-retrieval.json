@@ -1,0 +1,67 @@
+{
+  "id": "cross-modal-retrieval",
+  "title": "Cross-Modal Retrieval",
+  "domain": [
+    "Multimodal",
+    "Retrieval"
+  ],
+  "bodies": {
+    "intuition": "Search images with a sentence, or find the caption that matches a picture. It needs the two modalities to live in one space where distance means the same thing across them — which is a stronger requirement than either modality having a good space of its own, and it is what the training has to produce.",
+    "engineer": "`clip` is one way to get that space and not the only one; the retrieval question is what you do with it. The serving shape matters more than the objective: encoding each side independently lets the image side be precomputed and indexed, which is what makes search over millions of images possible, while a model that attends across both at scoring time is more accurate and can only rerank. Almost every deployed system is the first stage feeding the second.",
+    "math": "A shared space is only as good as the alignment between the two distributions in it, and there is a specific failure worth naming: the modality gap. Trained image and text embeddings occupy separate cones rather than interleaving, so a text query is closer to every other text than to any image, and retrieval works only because the ranking within the image set is still correct. The absolute similarities are therefore not comparable across modalities, and thresholding on them rather than ranking is the mistake this invites."
+  },
+  "emphasis": {
+    "intuition": "distance means the same thing across them",
+    "math": "thresholding on them rather than ranking is the mistake this invites"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "indexed_side": 20,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "indexed_side",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Work precomputed on the indexed modality, against the work each query still costs, in equal units. Drag the index size up to watch the query become the small part — which is why deployed search encodes the two sides separately even though joint scoring is more accurate."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "clip",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "approximate-nearest-neighbor",
+        "reviewed": false
+      },
+      {
+        "id": "reranking",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2103.00020",
+      "title": "Learning Transferable Visual Models From Natural Language Supervision",
+      "url": "https://arxiv.org/abs/2103.00020"
+    },
+    {
+      "ref": "arXiv:2301.12597",
+      "title": "BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models",
+      "url": "https://arxiv.org/abs/2301.12597"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

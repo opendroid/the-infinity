@@ -1,0 +1,63 @@
+{
+  "id": "any-to-any-model",
+  "title": "Any-to-Any Model",
+  "domain": [
+    "Multimodal",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "One model that takes any mixture of text, images and audio and produces any mixture back, rather than a text model with an image encoder bolted on. The appeal is that a single sequence of tokens makes no distinction between reading an image and writing one — the same machinery does both, and interleaving them costs nothing extra.",
+    "engineer": "It requires every modality to become discrete tokens, so images pass through a vector quantiser and audio through a codec, and the model is then an ordinary autoregressive transformer over a mixed vocabulary. The difficulty is training stability: mixed-modal sequences have very different token statistics per modality, and the standard recipe needs normalisation and initialisation changes that a text-only model does not.",
+    "math": "The tokenisation is where the cost sits. An image at useful resolution is hundreds to thousands of tokens against a sentence's tens, so a mixed sequence is dominated by whichever modality tokenises most expensively — and it is not the one carrying most of the meaning. That imbalance drives the sequence length, and through the quadratic in attention it drives the compute, which is why every practical system compresses the image side before the model sees it."
+  },
+  "emphasis": {
+    "intuition": "the same machinery does both",
+    "math": "it is not the one carrying most of the meaning"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "image_tokens": 40,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "image_tokens",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Tokens an image contributes to a mixed sequence, against the tokens of the text beside it, in tokens. Drag the image token count up to watch pixels take the sequence — and with it the quadratic attention cost, which is why the image side gets compressed first."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "vector-quantization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "modality-fusion",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2405.09818",
+      "title": "Chameleon: Mixed-Modal Early-Fusion Foundation Models",
+      "url": "https://arxiv.org/abs/2405.09818"
+    },
+    {
+      "ref": "arXiv:2301.12597",
+      "title": "BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models",
+      "url": "https://arxiv.org/abs/2301.12597"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

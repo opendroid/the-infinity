@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Corpus documents whose origin was never recorded, against the ones with a known source, in documents. Drag the crawl size up to watch the unattributed share take over — provenance is recorded at collection or not at all, so this bar only moves one way."
+    "caption": "Corpus documents whose origin was never recorded, against the ones with a known source, in documents. Drag the unattributed count up to watch it take over — provenance is recorded at collection or not at all, so this bar only moves one way."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

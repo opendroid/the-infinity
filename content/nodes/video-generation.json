@@ -1,0 +1,63 @@
+{
+  "id": "video-generation",
+  "title": "Video Generation",
+  "domain": [
+    "Multimodal",
+    "Generation"
+  ],
+  "bodies": {
+    "intuition": "Generating a video is not generating many images. Each frame has to be plausible and the sequence has to be consistent — the same person, the same room, objects that move the way objects move. A model that produces excellent frames independently produces a flickering mess, and fixing that is the entire problem.",
+    "engineer": "The approach that works is to take an image model and add temporal layers, then fine-tune on video, which reuses everything the image model learned about appearance and spends the new capacity on motion. Latent-space generation is essential rather than optional here: at pixel resolution the tensors are too large to attend over, so the compression that made image diffusion practical is what makes video diffusion possible at all.",
+    "math": "The cost scales with frames and with the temporal attention between them, so a clip is far more than its frame count times an image. Consistency is the term that does not amortise — checking that frame fifty matches frame one requires attention across the whole clip, which is quadratic in length, so doubling the duration more than doubles the work. That is why generated clips are short, and why extending them is done by conditioning on the previous clip rather than by generating longer."
+  },
+  "emphasis": {
+    "intuition": "A model that produces excellent frames independently produces a flickering mess",
+    "math": "Consistency is the term that does not amortise"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "temporal_attention": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "temporal_attention",
+        "min": 0,
+        "max": 500,
+        "step": 20
+      }
+    ],
+    "caption": "Compute spent relating frames to each other, against the compute of generating them independently, in equal units. Drag the temporal attention up to watch consistency take the budget — it is quadratic in duration, which is why clips are short and extended by conditioning."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "latent-diffusion",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "video-understanding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2311.15127",
+      "title": "Stable Video Diffusion: Scaling Latent Video Diffusion Models to Large Datasets",
+      "url": "https://arxiv.org/abs/2311.15127"
+    },
+    {
+      "ref": "arXiv:2304.08818",
+      "title": "Align your Latents: High-Resolution Video Synthesis with Latent Diffusion Models",
+      "url": "https://arxiv.org/abs/2304.08818"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

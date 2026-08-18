@@ -1,0 +1,63 @@
+{
+  "id": "modality-imbalance",
+  "title": "Modality Imbalance",
+  "domain": [
+    "Multimodal",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Train a model on two modalities and one of them usually wins. If text alone predicts the label well enough, the model learns to read and stops looking at the image — not because vision is useless but because it was slower to help, and gradient descent takes the shortcut it finds first.",
+    "engineer": "It shows up as a multimodal model that barely degrades when a modality is removed at test time, which is the diagnostic worth running and rarely is. The mitigations all slow the dominant modality down or speed the other up: separate learning rates per encoder, dropping a modality at random during training, or pretraining the weaker encoder alone before joining. Each is an admission that joint training does not balance itself.",
+    "math": "The mechanism is convergence rate rather than capacity. Whichever modality reduces the loss fastest early gets the gradient, and once the shared layers are organised around it the other modality's features arrive into a representation already shaped against them — so the advantage compounds instead of evening out. That is why the imbalance grows with training rather than washing out, and why the interventions have to act early to act at all."
+  },
+  "emphasis": {
+    "intuition": "gradient descent takes the shortcut it finds first",
+    "math": "the advantage compounds instead of evening out"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "dominant_modality_gradient": 20,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "dominant_modality_gradient",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Gradient signal flowing through the faster-converging modality, against the signal reaching the other, in equal units. Drag the dominant share up to watch the weaker modality starve — the lead compounds with training rather than evening out."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "modality-fusion",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "shortcut-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2104.11178",
+      "title": "VATT: Transformers for Multimodal Self-Supervised Learning from Raw Video, Audio and Text",
+      "url": "https://arxiv.org/abs/2104.11178"
+    },
+    {
+      "ref": "arXiv:2204.14198",
+      "title": "Flamingo: a Visual Language Model for Few-Shot Learning",
+      "url": "https://arxiv.org/abs/2204.14198"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

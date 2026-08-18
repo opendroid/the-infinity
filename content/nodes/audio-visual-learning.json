@@ -1,0 +1,67 @@
+{
+  "id": "audio-visual-learning",
+  "title": "Audio-Visual Learning",
+  "domain": [
+    "Multimodal",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Video comes with its own soundtrack, and the two are aligned for free — nobody had to label anything for the audio at a moment to correspond to the pixels at that moment. That correspondence is supervision lying around in enormous quantity, and it is what makes audio-visual pretraining possible without annotation.",
+    "engineer": "The standard objective is correspondence: does this audio clip belong to this video clip. Negatives are other clips, so the difficulty is set by how they are chosen — clips from different videos are easy, clips from the same video at a different time are hard, and the hard ones are where the useful representation comes from. The failure to watch for is a shortcut, where the model learns to match on recording conditions rather than on content.",
+    "math": "The supervision is free but not unlimited, because much of a video's audio is uninformative about its pixels — a music track, a voiceover, ambient noise. So the share of a corpus where the correspondence actually carries signal is well below the share where it exists, and it is that first number that bounds what the objective can teach. A larger video corpus with the same proportion of ambient soundtracks adds hours and not much supervision."
+  },
+  "emphasis": {
+    "intuition": "supervision lying around in enormous quantity",
+    "math": "adds hours and not much supervision"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "uninformative_audio": 20,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "uninformative_audio",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Video whose audio says nothing about its pixels, against video where the correspondence carries signal, in hours. Drag the ambient share up to watch the useful supervision shrink — the pairing is free everywhere and informative in a fraction of it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "self-supervised-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      },
+      {
+        "id": "video-understanding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2104.11178",
+      "title": "VATT: Transformers for Multimodal Self-Supervised Learning from Raw Video, Audio and Text",
+      "url": "https://arxiv.org/abs/2104.11178"
+    },
+    {
+      "ref": "arXiv:2103.00020",
+      "title": "Learning Transferable Visual Models From Natural Language Supervision",
+      "url": "https://arxiv.org/abs/2103.00020"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

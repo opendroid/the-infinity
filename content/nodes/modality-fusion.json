@@ -1,0 +1,67 @@
+{
+  "id": "modality-fusion",
+  "title": "Modality Fusion",
+  "domain": [
+    "Multimodal",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Two streams of information have to become one prediction, and where they meet decides most of what the system can do. Join them at the input and the model can relate a pixel to a word from the first layer. Join them at the output and each stream is processed in ignorance of the other, then reconciled by a vote.",
+    "engineer": "Late fusion is cheapest and is what a two-tower retrieval system does — each side encodes independently, so both can be precomputed. Early fusion tokenises every modality into one sequence and lets ordinary attention do the work, which is the most capable and the most expensive because nothing can be cached. Cross-attention sits between: one modality stays a sequence and the other is attended into it, which is how most vision-language models are built and why they can reuse a frozen image encoder.",
+    "math": "The cost separates them. Late fusion computes each stream once and combines with something cheap, so cost is additive in the modalities. Early fusion concatenates into one sequence, and attention is quadratic in its length, so joining a thousand image tokens to a thousand text tokens costs four times what either did alone rather than twice. That factor is why early fusion arrived last and why it arrived with a compression step in front of it."
+  },
+  "emphasis": {
+    "intuition": "where they meet decides most of what the system can do",
+    "math": "costs four times what either did alone rather than twice"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "cross_modal_pairs": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "cross_modal_pairs",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Attention pairs that span the two modalities, against pairs inside one of them, in pairs. Drag the cross-modal share up to watch joining dominate the cost — concatenating two equal sequences quadruples the attention rather than doubling it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "cross-attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "vision-language-model",
+        "reviewed": false
+      },
+      {
+        "id": "any-to-any-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2204.14198",
+      "title": "Flamingo: a Visual Language Model for Few-Shot Learning",
+      "url": "https://arxiv.org/abs/2204.14198"
+    },
+    {
+      "ref": "arXiv:2301.12597",
+      "title": "BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models",
+      "url": "https://arxiv.org/abs/2301.12597"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

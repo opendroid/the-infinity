@@ -29,7 +29,7 @@
         "step": 0.25
       }
     ],
-    "caption": "Watermarked outputs against unwatermarked ones, by the detector's score. Drag the output length up to watch them separate — power grows with the square root of the token count, so a sentence sits in the overlap and a page does not."
+    "caption": "Watermarked outputs against unwatermarked ones, by the detector's score. Drag the separation up to watch them pull apart — power grows with the square root of the token count, so a sentence sits in the overlap and a page does not."
   },
   "edges": {
     "requires": [
@@ -58,7 +58,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
