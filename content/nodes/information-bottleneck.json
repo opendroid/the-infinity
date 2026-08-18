@@ -41,6 +41,10 @@
       {
         "id": "manifold-hypothesis",
         "reviewed": false
+      },
+      {
+        "id": "rate-distortion",
+        "reviewed": false
       }
     ]
   },

@@ -43,7 +43,12 @@
         "reviewed": false
       }
     ],
-    "adjacent": []
+    "adjacent": [
+      {
+        "id": "length-extrapolation",
+        "reviewed": false
+      }
+    ]
   },
   "citations": [
     {
@@ -52,7 +57,7 @@
       "url": "https://arxiv.org/abs/2309.17453"
     }
   ],
-  "updated_at": "2026-08-02",
+  "updated_at": "2026-08-18",
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

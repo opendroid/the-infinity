@@ -41,6 +41,10 @@
       {
         "id": "task-decomposition",
         "reviewed": false
+      },
+      {
+        "id": "agent-evaluation",
+        "reviewed": false
       }
     ]
   },
@@ -51,7 +55,7 @@
       "url": "https://arxiv.org/abs/2308.08155"
     }
   ],
-  "updated_at": "2026-08-04",
+  "updated_at": "2026-08-18",
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

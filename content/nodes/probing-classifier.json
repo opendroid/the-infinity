@@ -44,6 +44,10 @@
       {
         "id": "mechanistic-interpretability",
         "reviewed": false
+      },
+      {
+        "id": "superposition",
+        "reviewed": false
       }
     ]
   },

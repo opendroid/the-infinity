@@ -41,6 +41,10 @@
       {
         "id": "classifier-free-guidance",
         "reviewed": false
+      },
+      {
+        "id": "sampling-steps",
+        "reviewed": false
       }
     ]
   },

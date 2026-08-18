@@ -40,6 +40,10 @@
       {
         "id": "k-nearest-neighbors",
         "reviewed": false
+      },
+      {
+        "id": "vector-quantization",
+        "reviewed": false
       }
     ]
   },
@@ -50,7 +54,7 @@
       "url": "https://arxiv.org/abs/1702.08734"
     }
   ],
-  "updated_at": "2026-08-13",
+  "updated_at": "2026-08-18",
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-13"
