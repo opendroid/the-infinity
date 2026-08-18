@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "threshold-sweep",
     "params": {
-      "separation": 2.4,
+      "separation": 0.75,
       "threshold": 1.0,
       "base_rate": 0.5
     },
