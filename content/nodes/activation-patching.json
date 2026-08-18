@@ -1,0 +1,63 @@
+{
+  "id": "activation-patching",
+  "title": "Activation Patching",
+  "domain": [
+    "Interpretability",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "To find out whether a component causes a behaviour, replace its activations with the ones it had on a different input and see whether the answer changes. It is the closest thing interpretability has to an experiment: not \"this correlates with the output\" but \"change this and the output changes\".",
+    "engineer": "Run a clean prompt and a corrupted one, cache both, splice one component's activations from the first into the second, and measure how much of the logit difference comes back. Sweeping that over every layer and position is what produces the map that localises a behaviour. The failure to keep in view is that patching finds components sufficient to restore a behaviour, which is not the same as the components the model uses to produce it.",
+    "math": "With clean run c and corrupted run c′, patch component h and report (D(c′ with h←c) − D(c′)) / (D(c) − D(c′)), where D is the logit difference between the right answer and a distractor. One is full recovery and zero is none; the denominator is what makes the number comparable across prompts of different difficulty."
+  },
+  "emphasis": {
+    "intuition": "change this and the output changes",
+    "engineer": "sufficient to restore a behaviour, which is not the same as the components the model uses"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "patched_components": 4,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "patched_components",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Components spliced back in from the clean run against those still carrying the corrupted ones, in components. Drag the patch up to watch the behaviour return — restoring it shows the set was enough, not that the model used it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "mechanistic-interpretability",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "induction-head",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2202.05262",
+      "title": "Locating and Editing Factual Associations in GPT",
+      "url": "https://arxiv.org/abs/2202.05262"
+    },
+    {
+      "ref": "arXiv:2211.00593",
+      "title": "Interpretability in the Wild: a Circuit for Indirect Object Identification in GPT-2 small",
+      "url": "https://arxiv.org/abs/2211.00593"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

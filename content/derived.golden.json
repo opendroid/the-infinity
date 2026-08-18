@@ -33,6 +33,56 @@
       }
     },
     {
+      "id": "activation-patching",
+      "title": "Activation Patching",
+      "domain": "Interpretability / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "mechanistic-interpretability",
+            "title": "Mechanistic Interpretability",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "induction-head",
+            "title": "Induction Head",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "activation-steering",
+      "title": "Activation Steering",
+      "domain": "Interpretability / Control",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "mechanistic-interpretability",
+            "title": "Mechanistic Interpretability",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "classifier-free-guidance",
+            "title": "Classifier-Free Guidance",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "actor-critic",
       "title": "Actor-Critic",
       "domain": "Reinforcement / Methods",
@@ -273,6 +323,12 @@
         ],
         "adjacent": [
           {
+            "id": "mechanistic-interpretability",
+            "title": "Mechanistic Interpretability",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "softmax",
             "title": "Softmax",
             "tier": "verified",
@@ -323,6 +379,12 @@
           {
             "id": "neural-audio-codec",
             "title": "Neural Audio Codec",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "sparse-autoencoder",
+            "title": "Sparse Autoencoder",
             "tier": "frontier",
             "reviewed": false
           },
@@ -504,6 +566,12 @@
             "id": "autoencoder",
             "title": "Autoencoder",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "feature-attribution",
+            "title": "Feature Attribution",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -811,7 +879,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "activation-steering",
+            "title": "Activation Steering",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1629,6 +1704,31 @@
       }
     },
     {
+      "id": "feature-attribution",
+      "title": "Feature Attribution",
+      "domain": "Interpretability / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "mechanistic-interpretability",
+            "title": "Mechanistic Interpretability",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "feed-forward-network",
       "title": "Feed-Forward Network",
       "domain": "Architecture / Blocks",
@@ -2042,6 +2142,12 @@
             "title": "Chain of Thought",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "induction-head",
+            "title": "Induction Head",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -2049,6 +2155,37 @@
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "induction-head",
+      "title": "Induction Head",
+      "domain": "Interpretability / Circuits",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "in-context-learning",
+            "title": "In-Context Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "multi-head-attention",
+            "title": "Multi-Head Attention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "activation-patching",
+            "title": "Activation Patching",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2445,7 +2582,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "probing-classifier",
+            "title": "Probing Classifier",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "linear-regression",
@@ -2634,6 +2778,49 @@
       }
     },
     {
+      "id": "mechanistic-interpretability",
+      "title": "Mechanistic Interpretability",
+      "domain": "Interpretability / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "activation-patching",
+            "title": "Activation Patching",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "activation-steering",
+            "title": "Activation Steering",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "attention",
+            "title": "Attention",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "feature-attribution",
+            "title": "Feature Attribution",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "probing-classifier",
+            "title": "Probing Classifier",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "mixed-precision-training",
       "title": "Mixed-Precision Training",
       "domain": "Systems / Training",
@@ -2760,6 +2947,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "induction-head",
+            "title": "Induction Head",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "multi-query-attention",
             "title": "Multi-Query Attention",
@@ -3292,6 +3485,31 @@
             "id": "manifold-hypothesis",
             "title": "Manifold Hypothesis",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "probing-classifier",
+      "title": "Probing Classifier",
+      "domain": "Interpretability / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "logistic-regression",
+            "title": "Logistic Regression",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "mechanistic-interpretability",
+            "title": "Mechanistic Interpretability",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -4057,6 +4275,37 @@
       }
     },
     {
+      "id": "sparse-autoencoder",
+      "title": "Sparse Autoencoder",
+      "domain": "Interpretability / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "autoencoder",
+            "title": "Autoencoder",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "superposition",
+            "title": "Superposition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "vector-quantization",
+            "title": "Vector Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "sparse-retrieval",
       "title": "Sparse Retrieval",
       "domain": "Retrieval / Representation",
@@ -4254,6 +4503,31 @@
       }
     },
     {
+      "id": "superposition",
+      "title": "Superposition",
+      "domain": "Interpretability / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "sparse-autoencoder",
+            "title": "Sparse Autoencoder",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "token-embedding",
+            "title": "Token Embedding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "support-vector-machine",
       "title": "Support Vector Machine",
       "domain": "Foundations / Supervised",
@@ -4437,7 +4711,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "superposition",
+            "title": "Superposition",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -4657,6 +4938,12 @@
             "id": "latent-diffusion",
             "title": "Latent Diffusion",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sparse-autoencoder",
+            "title": "Sparse Autoencoder",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -4885,6 +5172,86 @@
         {
           "from": "activation-checkpointing",
           "to": "sequence-parallelism",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "activation-patching",
+      "center": {
+        "id": "activation-patching",
+        "title": "Activation Patching",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mechanistic-interpretability",
+          "title": "Mechanistic Interpretability",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "induction-head",
+          "title": "Induction Head",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "mechanistic-interpretability",
+          "to": "activation-patching",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "activation-patching",
+          "to": "induction-head",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "activation-steering",
+      "center": {
+        "id": "activation-steering",
+        "title": "Activation Steering",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "mechanistic-interpretability",
+          "title": "Mechanistic Interpretability",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "classifier-free-guidance",
+          "title": "Classifier-Free Guidance",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "mechanistic-interpretability",
+          "to": "activation-steering",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "activation-steering",
+          "to": "classifier-free-guidance",
           "type": "adjacent",
           "reviewed": false
         }
@@ -5280,11 +5647,18 @@
           "y": 99
         },
         {
+          "id": "mechanistic-interpretability",
+          "title": "Mechanistic Interpretability",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "softmax",
           "title": "Softmax",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -5304,6 +5678,12 @@
           "from": "attention",
           "to": "self-attention",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "attention",
+          "to": "mechanistic-interpretability",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -5376,21 +5756,28 @@
           "title": "Neural Audio Codec",
           "tier": "frontier",
           "x": 200,
-          "y": 33
+          "y": 26
+        },
+        {
+          "id": "sparse-autoencoder",
+          "title": "Sparse Autoencoder",
+          "tier": "frontier",
+          "x": 200,
+          "y": 53
         },
         {
           "id": "variational-autoencoder",
           "title": "Variational Autoencoder",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 79
         },
         {
           "id": "vector-quantization",
           "title": "Vector Quantization",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         },
         {
           "id": "principal-component-analysis",
@@ -5410,6 +5797,12 @@
         {
           "from": "autoencoder",
           "to": "neural-audio-codec",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autoencoder",
+          "to": "sparse-autoencoder",
           "type": "unlocks",
           "reviewed": false
         },
@@ -5704,35 +6097,42 @@
           "title": "Activation Checkpointing",
           "tier": "verified",
           "x": 200,
-          "y": 22
+          "y": 19
         },
         {
           "id": "autoencoder",
           "title": "Autoencoder",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 38
+        },
+        {
+          "id": "feature-attribution",
+          "title": "Feature Attribution",
+          "tier": "frontier",
+          "x": 200,
+          "y": 57
         },
         {
           "id": "gradient-clipping",
           "title": "Gradient Clipping",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 75
         },
         {
           "id": "gradient-descent",
           "title": "Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 94
         },
         {
           "id": "mixed-precision-training",
           "title": "Mixed-Precision Training",
           "tier": "verified",
           "x": 200,
-          "y": 110
+          "y": 113
         }
       ],
       "links": [
@@ -5751,6 +6151,12 @@
         {
           "from": "backpropagation",
           "to": "autoencoder",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "feature-attribution",
           "type": "unlocks",
           "reviewed": false
         },
@@ -6241,6 +6647,13 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "activation-steering",
+          "title": "Activation Steering",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -6248,6 +6661,12 @@
           "from": "diffusion-model",
           "to": "classifier-free-guidance",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "classifier-free-guidance",
+          "to": "activation-steering",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -7668,6 +8087,46 @@
       ]
     },
     {
+      "id": "feature-attribution",
+      "center": {
+        "id": "feature-attribution",
+        "title": "Feature Attribution",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "mechanistic-interpretability",
+          "title": "Mechanistic Interpretability",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "feature-attribution",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "feature-attribution",
+          "to": "mechanistic-interpretability",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "feed-forward-network",
       "center": {
         "id": "feed-forward-network",
@@ -8371,7 +8830,14 @@
           "title": "Chain of Thought",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "induction-head",
+          "title": "Induction Head",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "retrieval-augmented-generation",
@@ -8402,7 +8868,66 @@
         },
         {
           "from": "in-context-learning",
+          "to": "induction-head",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "in-context-learning",
           "to": "retrieval-augmented-generation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "induction-head",
+      "center": {
+        "id": "induction-head",
+        "title": "Induction Head",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "in-context-learning",
+          "title": "In-Context Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "multi-head-attention",
+          "title": "Multi-Head Attention",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "activation-patching",
+          "title": "Activation Patching",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "in-context-learning",
+          "to": "induction-head",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multi-head-attention",
+          "to": "induction-head",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "induction-head",
+          "to": "activation-patching",
           "type": "adjacent",
           "reviewed": false
         }
@@ -9081,6 +9606,13 @@
           "y": 88
         },
         {
+          "id": "probing-classifier",
+          "title": "Probing Classifier",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "linear-regression",
           "title": "Linear Regression",
           "tier": "verified",
@@ -9106,6 +9638,12 @@
           "from": "softmax",
           "to": "logistic-regression",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "logistic-regression",
+          "to": "probing-classifier",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -9427,6 +9965,85 @@
       ]
     },
     {
+      "id": "mechanistic-interpretability",
+      "center": {
+        "id": "mechanistic-interpretability",
+        "title": "Mechanistic Interpretability",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "activation-patching",
+          "title": "Activation Patching",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "activation-steering",
+          "title": "Activation Steering",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "attention",
+          "title": "Attention",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "feature-attribution",
+          "title": "Feature Attribution",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "probing-classifier",
+          "title": "Probing Classifier",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "mechanistic-interpretability",
+          "to": "activation-patching",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "mechanistic-interpretability",
+          "to": "activation-steering",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "mechanistic-interpretability",
+          "to": "attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "mechanistic-interpretability",
+          "to": "feature-attribution",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "mechanistic-interpretability",
+          "to": "probing-classifier",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "mixed-precision-training",
       "center": {
         "id": "mixed-precision-training",
@@ -9630,18 +10247,25 @@
           "y": 66
         },
         {
+          "id": "induction-head",
+          "title": "Induction Head",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "multi-query-attention",
           "title": "Multi-Query Attention",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "transformer-block",
           "title": "Transformer Block",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         }
       ],
       "links": [
@@ -9649,6 +10273,12 @@
           "from": "self-attention",
           "to": "multi-head-attention",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multi-head-attention",
+          "to": "induction-head",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -10560,6 +11190,46 @@
         {
           "from": "principal-component-analysis",
           "to": "manifold-hypothesis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "probing-classifier",
+      "center": {
+        "id": "probing-classifier",
+        "title": "Probing Classifier",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "logistic-regression",
+          "title": "Logistic Regression",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "mechanistic-interpretability",
+          "title": "Mechanistic Interpretability",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "logistic-regression",
+          "to": "probing-classifier",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "probing-classifier",
+          "to": "mechanistic-interpretability",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11888,6 +12558,59 @@
       ]
     },
     {
+      "id": "sparse-autoencoder",
+      "center": {
+        "id": "sparse-autoencoder",
+        "title": "Sparse Autoencoder",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autoencoder",
+          "title": "Autoencoder",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "superposition",
+          "title": "Superposition",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "vector-quantization",
+          "title": "Vector Quantization",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "autoencoder",
+          "to": "sparse-autoencoder",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "superposition",
+          "to": "sparse-autoencoder",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sparse-autoencoder",
+          "to": "vector-quantization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "sparse-retrieval",
       "center": {
         "id": "sparse-retrieval",
@@ -12232,6 +12955,46 @@
       ]
     },
     {
+      "id": "superposition",
+      "center": {
+        "id": "superposition",
+        "title": "Superposition",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "sparse-autoencoder",
+          "title": "Sparse Autoencoder",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "token-embedding",
+          "title": "Token Embedding",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "superposition",
+          "to": "sparse-autoencoder",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "superposition",
+          "to": "token-embedding",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "support-vector-machine",
       "center": {
         "id": "support-vector-machine",
@@ -12520,6 +13283,13 @@
           "tier": "verified",
           "x": 200,
           "y": 99
+        },
+        {
+          "id": "superposition",
+          "title": "Superposition",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -12545,6 +13315,12 @@
           "from": "token-embedding",
           "to": "prompt-tuning",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "token-embedding",
+          "to": "superposition",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -12920,15 +13696,22 @@
           "id": "latent-diffusion",
           "title": "Latent Diffusion",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "sparse-autoencoder",
+          "title": "Sparse Autoencoder",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "frontier",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -12947,6 +13730,12 @@
         {
           "from": "vector-quantization",
           "to": "latent-diffusion",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "vector-quantization",
+          "to": "sparse-autoencoder",
           "type": "adjacent",
           "reviewed": false
         },

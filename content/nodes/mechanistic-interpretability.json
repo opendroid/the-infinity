@@ -1,0 +1,53 @@
+{
+  "id": "mechanistic-interpretability",
+  "title": "Mechanistic Interpretability",
+  "domain": [
+    "Interpretability",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Most interpretability asks what a model attended to, or which inputs mattered. Mechanistic interpretability asks a harder question: what algorithm is the network actually running? The bet is that trained networks contain human-legible structure — circuits that do a specific job — and that finding it is difficult rather than hopeless.",
+    "engineer": "The unit of explanation is a circuit: a subgraph of components that together implement a behaviour, identified by intervening rather than by correlating. The methodological line that matters is causal — ablate it, patch it, see whether the behaviour moves — because a component that merely correlates with a behaviour is not doing it. The field's honest problem is that fully characterised circuits are small and the models are not.",
+    "math": "A claim has the form: behaviour B is implemented by component set C. It is tested by intervention — replace C's activations with those from a run where B does not occur, and measure the change in the output logit difference. If the behaviour survives the replacement, C was not what produced it."
+  },
+  "emphasis": {
+    "intuition": "what algorithm is the network actually running?",
+    "engineer": "a component that merely correlates with a behaviour is not doing it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "explained_components": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "explained_components",
+        "min": 0,
+        "max": 120,
+        "step": 4
+      }
+    ],
+    "caption": "Components a circuit account covers against those it leaves unexplained, in components. Drag the coverage up to watch the account grow over the model it is an account of."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2404.14082",
+      "title": "Mechanistic Interpretability for AI Safety -- A Review",
+      "url": "https://arxiv.org/abs/2404.14082"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

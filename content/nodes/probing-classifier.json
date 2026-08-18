@@ -1,0 +1,66 @@
+{
+  "id": "probing-classifier",
+  "title": "Probing Classifier",
+  "domain": [
+    "Interpretability",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Train a small classifier on a model's internal activations to predict some property — part of speech, sentiment, whether a position is winning. If it succeeds, the property is available in there. The catch, which took the field a while to take seriously, is that a powerful enough probe can learn the property itself rather than find it.",
+    "engineer": "The remedy is a control task: the same probe, same capacity, trained on randomised labels. A probe that scores well on real labels and badly on random ones read something; one that scores well on both merely memorised. Selectivity — the gap between the two — is the number to report, and reporting accuracy alone is why early probing results overstated what models encode.",
+    "math": "Probe accuracy bounds nothing on its own: with enough capacity it approaches the label entropy whatever the representation contains. Selectivity = accuracy(real) − accuracy(control) restores the comparison by holding capacity fixed across both runs, which is the only reason the difference carries information about the representation rather than about the probe."
+  },
+  "emphasis": {
+    "intuition": "a powerful enough probe can learn the property itself rather than find it",
+    "engineer": "Selectivity — the gap between the two — is the number to report"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "lr": 0.002,
+      "batch": 64,
+      "holdout": 0.3,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "params",
+        "min": 0.05,
+        "max": 40,
+        "step": 0.05
+      }
+    ],
+    "caption": "A probe's loss against the same probe measured on data it did not fit. Drag the probe capacity up to watch it drive the fitted curve down while the held-out line trails it — that gap is what separates a probe that read the representation from one that learned the task."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "logistic-regression",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "mechanistic-interpretability",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1909.03368",
+      "title": "Designing and Interpreting Probes with Control Tasks",
+      "url": "https://arxiv.org/abs/1909.03368"
+    },
+    {
+      "ref": "arXiv:2102.12452",
+      "title": "Probing Classifiers: Promises, Shortcomings, and Advances",
+      "url": "https://arxiv.org/abs/2102.12452"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
