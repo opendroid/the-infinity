@@ -1,0 +1,63 @@
+{
+  "id": "entity-linking",
+  "title": "Entity Linking",
+  "domain": [
+    "Knowledge",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "\"Paris\" in a sentence has to become a specific node in a graph — the city, the person, or the one in Texas. Entity linking is that decision, and it is the join between unstructured text and any structured store, which makes it the step everything downstream inherits its errors from.",
+    "engineer": "It splits into finding the mention, generating candidates for it, and ranking them in context. Candidate generation is usually a cheap alias lookup with high recall, and the ranker does the work — which means the failure mode is an entity whose surface form nobody recorded, where recall is zero and no ranker recovers it. The long tail of rare entities is where systems differ, and aggregate accuracy hides it because the head is enormous.",
+    "math": "Errors compound through the pipeline rather than averaging. A downstream traversal is correct only if every link in it was, so a two-hop answer over links at 95% accuracy is right about 90% of the time and a four-hop one about 81% — before the traversal itself is wrong about anything. That multiplication is why linking accuracy matters more than its own number suggests, and why deep traversals over automatically-linked graphs disappoint."
+  },
+  "emphasis": {
+    "intuition": "the step everything downstream inherits its errors from",
+    "math": "Errors compound through the pipeline rather than averaging."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "broken_chains": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "broken_chains",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Traversals broken by at least one wrong link, against the ones where every hop was right, in traversals. Drag the broken count up to watch depth turn a good per-link accuracy into a poor end-to-end one — 95% per hop is 81% at four."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "knowledge-graph",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2002.00388",
+      "title": "A Survey on Knowledge Graphs: Representation, Acquisition and Applications",
+      "url": "https://arxiv.org/abs/2002.00388"
+    },
+    {
+      "ref": "arXiv:1904.09537",
+      "title": "PullNet: Open Domain Question Answering with Iterative Retrieval on Knowledge Bases and Text",
+      "url": "https://arxiv.org/abs/1904.09537"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

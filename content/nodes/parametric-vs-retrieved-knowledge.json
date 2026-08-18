@@ -1,0 +1,63 @@
+{
+  "id": "parametric-vs-retrieved-knowledge",
+  "title": "Parametric vs Retrieved Knowledge",
+  "domain": [
+    "Knowledge",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "A model knows things two ways: baked into its weights during training, and handed to it in the prompt. They behave completely differently. Parametric knowledge is instant, free at inference, impossible to update and impossible to cite. Retrieved knowledge is current, attributable, editable, and costs a lookup and a chunk of context every single time.",
+    "engineer": "The design question is which facts go where, and the useful split is by rate of change and by how much attribution matters. Stable, high-frequency facts belong in the weights — retrieving what the model already knows spends context to no purpose. Volatile or auditable facts belong in a store, because the alternative is retraining to fix a date. Systems that put everything in one place are usually paying for it in the other.",
+    "math": "Retrieved knowledge costs context, and context is quadratic, so the cost of retrieving is superlinear in how much you retrieve while the cost of parametric knowledge is zero at inference and paid once at training. That asymmetry is what makes the split an optimisation rather than a preference — and it moves with the volatility of the domain, since a fact that changes weekly can never be amortised into weights at all."
+  },
+  "emphasis": {
+    "intuition": "impossible to update and impossible to cite",
+    "math": "a fact that changes weekly can never be amortised into weights at all"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "retrieved_tokens": 30,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "retrieved_tokens",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Context spent on retrieved facts, against the context left for the question and the answer, in tokens. Drag the retrieved share up to watch it crowd the window — parametric knowledge costs nothing here, which is the whole reason the split is worth designing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "retrieval-augmented-generation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1909.01066",
+      "title": "Language Models as Knowledge Bases?",
+      "url": "https://arxiv.org/abs/1909.01066"
+    },
+    {
+      "ref": "arXiv:2306.08302",
+      "title": "Unifying Large Language Models and Knowledge Graphs: A Roadmap",
+      "url": "https://arxiv.org/abs/2306.08302"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

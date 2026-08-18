@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "video-generation",
+      "id": "knowledge-graph",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "modality-fusion",
+      "id": "neuro-symbolic",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "document-understanding",
+      "id": "entity-linking",
       "t": 0.8,
       "label": true
     }
