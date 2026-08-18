@@ -1,0 +1,71 @@
+{
+  "id": "recurrent-neural-network",
+  "title": "Recurrent Neural Network",
+  "domain": [
+    "Foundations",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "Process a sequence one element at a time, carrying a hidden state forward. The state is the network's memory of everything it has read, compressed into a fixed-size vector — which is both the elegance and the limit, because everything from a thousand steps ago has to fit in the same vector as the thing you just read.",
+    "engineer": "This was how sequences were modelled for a quarter of a century and the reason it lost is not accuracy. Each step depends on the one before, so the computation cannot be parallelised across the sequence during training — a transformer processes a thousand positions at once and a recurrent network processes them one after another. When compute became the binding constraint, an architecture that could not use it lost to one that could, whatever their per-parameter merits.",
+    "math": "The fixed-size state is an information bottleneck that does not grow with the input, so the bits available to describe the past are constant while the past itself grows — every long sequence is compressed into the same budget, and what gets discarded is decided by the training rather than by the reader. Attention removed exactly this constraint by keeping every position addressable, at the cost of a cost quadratic in the length, which is the trade the two architectures represent."
+  },
+  "emphasis": {
+    "intuition": "everything from a thousand steps ago has to fit in the same vector as the thing you just read",
+    "math": "the bits available to describe the past are constant while the past itself grows"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "sequence_length": 8,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "sequence_length",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "History a recurrent state is asked to hold, against the fixed vector holding it, in equal units. Drag the sequence length up to watch the demand outgrow the budget — the state does not get larger, which is the constraint attention removed."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "backpropagation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "state-space-model",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1409.3215",
+      "title": "Sequence to Sequence Learning with Neural Networks",
+      "url": "https://arxiv.org/abs/1409.3215"
+    },
+    {
+      "ref": "arXiv:1211.5063",
+      "title": "On the difficulty of training Recurrent Neural Networks",
+      "url": "https://arxiv.org/abs/1211.5063"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Elman 1990",
+      "title": "Finding Structure in Time",
+      "venue": "Cognitive Science 14(2)",
+      "doi": "10.1207/s15516709cog1402_1"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

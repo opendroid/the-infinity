@@ -1,0 +1,71 @@
+{
+  "id": "long-short-term-memory",
+  "title": "Long Short-Term Memory",
+  "domain": [
+    "Foundations",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "A recurrent cell with a deliberate path for information to travel a long way unchanged. Rather than rewriting its state at every step, it keeps a running cell state and uses learned gates to decide what to forget, what to add, and what to expose — so remembering something for a thousand steps is the default rather than an accident that survives.",
+    "engineer": "The gates are the design and the cell state is the point. A plain recurrent network multiplies its state by a matrix at every step, which is exactly the repeated multiplication that destroys the gradient; the cell state is added to instead, so the path back through time has a multiplier near one. The simplified variants that merged the gates work nearly as well on most tasks, which suggests the specific gating was less important than having a linear path at all.",
+    "math": "The forget gate sets the multiplier on the carried state, so a gate near one gives a near-identity path and the gradient survives an arbitrary number of steps along it. That converts an exponential decay into something the network controls — which is the same trick a residual connection plays in depth, arrived at four years earlier and in time rather than in layers. Neither removes the problem; both give the optimiser a route around it."
+  },
+  "emphasis": {
+    "intuition": "remembering something for a thousand steps is the default rather than an accident that survives",
+    "math": "the same trick a residual connection plays in depth, arrived at four years earlier and in time rather than in layers"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "gated_path": 6,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "gated_path",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Steps over which the carried state passes near-unchanged, against the steps where it is rewritten, in steps. Drag the gated path up to watch memory survive the sequence — a forget gate near one is a near-identity route the gradient can travel."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "recurrent-neural-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "residual-connection",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1406.1078",
+      "title": "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation",
+      "url": "https://arxiv.org/abs/1406.1078"
+    },
+    {
+      "ref": "arXiv:1211.5063",
+      "title": "On the difficulty of training Recurrent Neural Networks",
+      "url": "https://arxiv.org/abs/1211.5063"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Hochreiter & Schmidhuber 1997",
+      "title": "Long Short-Term Memory",
+      "venue": "Neural Computation 9(8)",
+      "doi": "10.1162/neco.1997.9.8.1735"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

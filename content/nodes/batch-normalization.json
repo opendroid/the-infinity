@@ -1,0 +1,63 @@
+{
+  "id": "batch-normalization",
+  "title": "Batch Normalization",
+  "domain": [
+    "Foundations",
+    "Optimization"
+  ],
+  "bodies": {
+    "intuition": "Normalise each feature across the examples in the batch, so every layer sees inputs with a stable scale however the layers below have drifted. It made deep networks trainable at depths that had not worked before, and it did so for reasons that are still argued about — the original explanation has largely been abandoned and the technique has not.",
+    "engineer": "The difference from `layer-normalization` is the axis, and everything follows from it. Normalising across the batch means each example's output depends on the other examples in its batch, which is fine in training and impossible at inference — so it keeps a running average to use instead, and that average is a second set of state that can be wrong. It also degrades as the batch shrinks, and fails at a batch of one. Layer normalisation crosses features within one example, has no batch dependence, and is why the transformer uses it.",
+    "math": "The batch statistics are estimates, so their error scales as one over the square root of the batch size — which is why small batches destabilise it and why the training-time and inference-time computations genuinely differ rather than merely being implemented differently. That gap is the source of most batch-norm bugs: a model in the wrong mode is not slightly off, it is normalising by the wrong numbers entirely."
+  },
+  "emphasis": {
+    "intuition": "the original explanation has largely been abandoned and the technique has not",
+    "math": "a model in the wrong mode is not slightly off, it is normalising by the wrong numbers entirely"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "batch_estimate_error": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "batch_estimate_error",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Error in the batch's statistics, against the signal they are meant to describe, in equal units. Drag the estimate error up to watch normalisation become noise — it falls as one over the root of the batch size, which is why this fails at a batch of one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "layer-normalization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "batch-size",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1502.03167",
+      "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+      "url": "https://arxiv.org/abs/1502.03167"
+    },
+    {
+      "ref": "arXiv:1607.06450",
+      "title": "Layer Normalization",
+      "url": "https://arxiv.org/abs/1607.06450"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

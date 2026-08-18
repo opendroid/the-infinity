@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "hallucination",
+      "id": "recurrent-neural-network",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "guardrail",
+      "id": "vanishing-gradient",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "foundation-model",
+      "id": "activation-function",
       "t": 0.8,
       "label": true
     }
