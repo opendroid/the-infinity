@@ -1,0 +1,67 @@
+{
+  "id": "context-compression",
+  "title": "Context Compression",
+  "domain": [
+    "Context",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "If the window is expensive and much of what goes into it is redundant, spend some compute shortening the context before the model reads it. Summarise old turns, drop passages the query does not touch, replace verbatim documents with extracted facts. The context that arrives is smaller and, if the compression was any good, says the same things.",
+    "engineer": "The methods split by what they throw away and when. Extractive selection keeps original tokens and drops the rest, which is safe and coarse. Abstractive summarisation rewrites, which is compact and can silently invent. Learned soft-prompt compression maps a span to a handful of vectors, which is the most compact and the least inspectable — you cannot read what was kept. Which risk is acceptable depends entirely on whether a wrong answer is recoverable downstream.",
+    "math": "Compression is lossy against the query, not against the text, and that is the distinction methods get wrong. A summariser optimising for coverage of the document discards exactly the incidental detail a specific question turns on, and it does so more aggressively the harder it compresses. So the useful measure is not a compression ratio but the share of questions still answerable afterwards — which falls faster than the ratio does, because the questions lost are not a random sample."
+  },
+  "emphasis": {
+    "engineer": "you cannot read what was kept",
+    "math": "Compression is lossy against the query, not against the text"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "discarded_tokens": 30,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "discarded_tokens",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Context tokens compression discards, against the ones it keeps, in tokens. Drag the compression up to watch most of the context go — and note that the questions it makes unanswerable are the specific ones, not a random sample of them."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "chunking",
+        "reviewed": false
+      },
+      {
+        "id": "retrieval-augmented-generation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2402.10171",
+      "title": "Data Engineering for Scaling Language Models to 128K Context",
+      "url": "https://arxiv.org/abs/2402.10171"
+    },
+    {
+      "ref": "arXiv:2307.03172",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

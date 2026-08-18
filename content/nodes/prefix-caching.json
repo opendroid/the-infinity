@@ -1,0 +1,67 @@
+{
+  "id": "prefix-caching",
+  "title": "Prefix Caching",
+  "domain": [
+    "Context",
+    "Serving"
+  ],
+  "bodies": {
+    "intuition": "Many requests to the same system start identically — the same system prompt, the same tool definitions, the same document. Computing that prefix again for every request is work already done. Prefix caching keeps the attention state for a shared prefix and starts each request from where the shared part ended.",
+    "engineer": "The distinction from `kv-cache` is the scope. That cache exists within one generation so each new token does not re-read the whole sequence; this one persists across requests so a prefix computed for one user serves the next. It needs the prefix to match exactly from the first token, which is why the ordering of a prompt is a serving decision — putting the variable part first destroys every hit, and moving it last costs nothing and recovers them all.",
+    "math": "The saving is bounded by the prefix's share of the total prompt, so it is largest exactly where prompts are long and mostly shared — a long system prompt with a short user turn — and negligible where the prompt is mostly the user's. Multiply by the hit rate, which is a property of traffic rather than of the model: a thousand users of one agent share almost everything, and a thousand unrelated queries share nothing."
+  },
+  "emphasis": {
+    "engineer": "putting the variable part first destroys every hit",
+    "math": "a property of traffic rather than of the model"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "shared_prefix": 30,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "shared_prefix",
+        "min": 0,
+        "max": 500,
+        "step": 20
+      }
+    ],
+    "caption": "Prompt tokens shared across requests and served from cache, against the per-request tokens that must be computed, in tokens. Drag the shared prefix up to watch prefill become almost free — and multiply by a hit rate that depends on the traffic, not the model."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "kv-cache",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "prefill-and-decode",
+        "reviewed": false
+      },
+      {
+        "id": "compilation-cache",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2309.17453",
+      "title": "Efficient Streaming Language Models with Attention Sinks",
+      "url": "https://arxiv.org/abs/2309.17453"
+    },
+    {
+      "ref": "arXiv:2402.10171",
+      "title": "Data Engineering for Scaling Language Models to 128K Context",
+      "url": "https://arxiv.org/abs/2402.10171"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

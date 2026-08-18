@@ -1,0 +1,63 @@
+{
+  "id": "lost-in-the-middle",
+  "title": "Lost in the Middle",
+  "domain": [
+    "Context",
+    "Behaviour"
+  ],
+  "bodies": {
+    "intuition": "Put the answer at the start of a long context and the model finds it. Put it at the end and the model finds it. Put it in the middle and accuracy drops sharply — sometimes below what the model achieves with no context at all. The window is not uniform, and where you place information matters as much as whether you include it.",
+    "engineer": "This has a direct consequence for anything that assembles a context: retrieval-augmented systems that rank passages by relevance and concatenate them are putting their best material wherever the ranking happens to land it. Reordering so the strongest passages sit at the two ends is a change with no model cost, and it is a change most pipelines do not make because the U-shape is not obvious unless you have measured it.",
+    "math": "Accuracy against position is U-shaped rather than flat or monotonic, which means an average over positions describes no position. A system reporting one long-context accuracy number is reporting the mean of a curve whose ends and middle differ by more than most model-to-model gaps — so two systems with the same average can behave completely differently, and the number cannot distinguish them."
+  },
+  "emphasis": {
+    "intuition": "sometimes below what the model achieves with no context at all",
+    "math": "an average over positions describes no position"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "middle_positions": 20,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "middle_positions",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Context positions in the degraded middle, against the ends where retrieval still works, in positions. Drag the context length up to watch the middle take almost all of it — the region that grows fastest is the one the model reads worst."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "retrieval-augmented-generation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2307.03172",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172"
+    },
+    {
+      "ref": "arXiv:2406.17419",
+      "title": "Leave No Document Behind: Benchmarking Long-Context LLMs with Extended Multi-Doc QA",
+      "url": "https://arxiv.org/abs/2406.17419"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

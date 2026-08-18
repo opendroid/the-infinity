@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Generate many candidate answers and train a second model to say which one is right. It works for the same reason marking is easier than solving: checking a chain of reasoning is a different and usually simpler task than producing one, so a verifier can be smaller than the generator and still beat it at telling good from bad.",
     "engineer": "Best-of-n with a verifier reliably beats majority voting once n grows, because voting can only pick the modal answer while a verifier can pick a correct answer that only one sample found. The failure mode is the one every learned scorer has: optimise hard enough against the verifier and you find the answers it likes rather than the answers that are right, so the gains flatten and then reverse as n grows past where the verifier's judgement holds.",
-    "math": "This is a detection problem, and the base rate is where it bites. If the generator is right one time in twenty, then even a verifier that accepts 90% of correct answers and 10% of wrong ones is picking a wrong answer more often than a right one — and the ranking that best-of-n depends on is only as good as that separation. Which is why verifier quality, not sample count, is what bounds the whole approach."
+    "math": "This is a detection problem, and the base rate is where it bites. If the generator is right one time in twenty, then a verifier accepting 90% of correct answers and 10% of wrong ones lets through two wrong for every right one. Best-of-n takes the top-ranked candidate rather than thresholding, but it inherits the same pressure from the other end: the more wrong candidates there are, the better the odds that one of them outscores every correct one. Which is why verifier quality, not sample count, is what bounds the whole approach."
   },
   "emphasis": {
     "intuition": "checking a chain of reasoning is a different and usually simpler task than producing one",
@@ -58,7 +58,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

@@ -1,0 +1,63 @@
+{
+  "id": "effective-context-length",
+  "title": "Effective Context Length",
+  "domain": [
+    "Context",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "The advertised context is the length the model will accept without erroring. The effective context is the length over which it still works. These are different numbers, often by a large factor, and only the first one appears in the announcement.",
+    "engineer": "The gap opens because accepting a length is an architectural property and using it is a learned one. A model whose positions have been interpolated to 128k tokens will process 128k tokens; whether it can retrieve, compare or aggregate across them is a separate question that only evaluation answers. Benchmarks designed to measure this find effective lengths well below advertised ones across the board, and the ranking by effective length is not the ranking by advertised length.",
+    "math": "The honest way to state a context length is as the longest input at which performance stays within some margin of the short-context baseline — which makes it a threshold on a curve rather than a constant, and therefore dependent on the task and the margin chosen. That dependence is not a flaw in the definition. It is the reason a single number was always going to mislead, and stating the task and margin alongside it is what makes the number mean anything."
+  },
+  "emphasis": {
+    "intuition": "These are different numbers, often by a large factor",
+    "math": "a single number was always going to mislead"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unusable_context": 24,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "unusable_context",
+        "min": 0,
+        "max": 400,
+        "step": 16
+      }
+    ],
+    "caption": "Advertised context the model accepts but cannot use, against the length over which it still performs, in equal units. Drag the advertised length up to watch the unusable share dominate — capacity to accept a length and capacity to use it are separate properties."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "lost-in-the-middle",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2404.06654",
+      "title": "RULER: What's the Real Context Size of Your Long-Context Language Models?",
+      "url": "https://arxiv.org/abs/2404.06654"
+    },
+    {
+      "ref": "arXiv:2406.17419",
+      "title": "Leave No Document Behind: Benchmarking Long-Context LLMs with Extended Multi-Doc QA",
+      "url": "https://arxiv.org/abs/2406.17419"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
