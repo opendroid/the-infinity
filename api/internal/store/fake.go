@@ -232,6 +232,7 @@ func cloneConcept(c *Concept) *Concept {
 	out.Edges.Unlocks = slices.Clone(c.Edges.Unlocks)
 	out.Edges.Adjacent = slices.Clone(c.Edges.Adjacent)
 	out.Citations = slices.Clone(c.Citations)
+	out.Origin = slices.Clone(c.Origin)
 	return &out
 }
 

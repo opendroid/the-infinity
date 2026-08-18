@@ -46,6 +46,14 @@
       "url": "https://arxiv.org/abs/2207.08815"
     }
   ],
+  "origin": [
+    {
+      "ref": "Hyafil & Rivest 1976",
+      "title": "Constructing Optimal Binary Decision Trees is NP-complete",
+      "venue": "Information Processing Letters 5(1)",
+      "doi": "10.1016/0020-0190(76)90095-8"
+    }
+  ],
   "updated_at": "2026-08-05",
   "review": {
     "reviewed_by": "opendroid",

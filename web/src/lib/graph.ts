@@ -32,6 +32,20 @@ export interface Citation {
   url: string;
 }
 
+/**
+ * A primary source that predates arXiv and cannot be fetched (ADR-0013).
+ *
+ * No `url`, deliberately — see the ADR. `doi` is an identifier a reader can
+ * paste somewhere that can resolve it, not a link this project follows, which
+ * is why `check:citations` never sees this array.
+ */
+export interface Origin {
+  ref: string;
+  title: string;
+  venue?: string;
+  doi?: string;
+}
+
 export interface AuthoredNode {
   id: string;
   title: string;
@@ -48,6 +62,7 @@ export interface AuthoredNode {
   };
   edges: { requires: AuthoredEdge[]; adjacent: AuthoredEdge[] };
   citations: Citation[];
+  origin?: Origin[];
   review?: { reviewed_by: string; reviewed_at: string };
   provenance?: { drafted_at: string };
   updated_at: string;

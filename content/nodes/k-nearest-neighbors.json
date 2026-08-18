@@ -50,6 +50,20 @@
       "url": "https://arxiv.org/abs/1603.09320"
     }
   ],
+  "origin": [
+    {
+      "ref": "Cover & Hart 1967",
+      "title": "Nearest Neighbor Pattern Classification",
+      "venue": "IEEE Transactions on Information Theory 13(1)",
+      "doi": "10.1109/TIT.1967.1053964"
+    },
+    {
+      "ref": "Beyer et al. 1999",
+      "title": "When Is “Nearest Neighbor” Meaningful?",
+      "venue": "ICDT 1999",
+      "doi": "10.1007/3-540-49257-7_15"
+    }
+  ],
   "updated_at": "2026-08-05",
   "review": {
     "reviewed_by": "opendroid",

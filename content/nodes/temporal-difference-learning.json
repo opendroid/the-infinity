@@ -46,6 +46,14 @@
       "url": "https://arxiv.org/abs/cs/9605103"
     }
   ],
+  "origin": [
+    {
+      "ref": "Sutton 1988",
+      "title": "Learning to Predict by the Methods of Temporal Differences",
+      "venue": "Machine Learning 3(1)",
+      "doi": "10.1007/BF00115009"
+    }
+  ],
   "updated_at": "2026-08-17",
   "review": {
     "reviewed_by": "opendroid",

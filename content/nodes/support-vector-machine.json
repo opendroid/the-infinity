@@ -56,6 +56,14 @@
       "url": "https://arxiv.org/abs/1806.07572"
     }
   ],
+  "origin": [
+    {
+      "ref": "Cortes & Vapnik 1995",
+      "title": "Support-Vector Networks",
+      "venue": "Machine Learning 20(3)",
+      "doi": "10.1007/BF00994018"
+    }
+  ],
   "updated_at": "2026-08-05",
   "review": {
     "reviewed_by": "opendroid",

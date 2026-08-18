@@ -534,6 +534,24 @@ components:
               ref: { type: string }
               title: { type: string }
               url: { type: string, format: uri }
+        origin:
+          type: array
+          description: >-
+            Primary sources predating arXiv, which cannot be fetched (ADR-0013).
+            Absent on most concepts. Deliberately has no url property: these are
+            named, not linked, and are never checked for resolvability the way
+            `citations` are.
+          minItems: 1
+          items:
+            type: object
+            required: [ref, title]
+            properties:
+              ref: { type: string }
+              title: { type: string }
+              venue: { type: string }
+              doi:
+                type: string
+                description: An identifier, not a link. Never dereferenced.
         review:
           description: Present on verified concepts, null on frontier ones.
           oneOf:

@@ -124,7 +124,13 @@ Scopes: `web` · `api` · `content` · `infra` · `docs`.
 
 - Node `id` is a kebab-case slug and is the URL: `speculative-decoding` → `/c/speculative-decoding`.
 - Edges may only reference node ids that exist or are planned in the same PR.
-- Citations are real, resolvable links (arXiv, papers, primary sources). No invented references.
+- `citations` are real, resolvable links, and `check:citations` fetches every one. No
+  invented references.
+- A primary source that predates arXiv goes in `origin`, not `citations`
+  ([ADR-0013](docs/adr/0013-primary-sources-that-predate-arxiv.md)). It carries no URL — a
+  DOI is an identifier, not a link — and it is never fetched. `origin` names where an idea
+  came from; `citations` is what a reader can go and read today, and every node still needs
+  at least one of those.
 
 ---
 

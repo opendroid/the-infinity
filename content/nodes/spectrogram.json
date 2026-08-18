@@ -51,6 +51,14 @@
       "url": "https://arxiv.org/abs/1904.08779"
     }
   ],
+  "origin": [
+    {
+      "ref": "Griffin & Lim 1984",
+      "title": "Signal Estimation from Modified Short-Time Fourier Transform",
+      "venue": "IEEE Transactions on Acoustics, Speech, and Signal Processing 32(2)",
+      "doi": "10.1109/TASSP.1984.1164317"
+    }
+  ],
   "updated_at": "2026-08-17",
   "provenance": {
     "drafted_at": "2026-08-17"
