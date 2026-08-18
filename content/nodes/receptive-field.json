@@ -1,0 +1,64 @@
+{
+  "id": "receptive-field",
+  "title": "Receptive Field",
+  "domain": [
+    "Vision",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "How much of the input a single unit deep in the network can see. A first-layer unit looking through a three-pixel window sees three pixels; the unit above it sees five, because it looks at three units that each saw three. Depth is how a convolutional network gets a wide view, one small window at a time.",
+    "engineer": "This is why architecture decisions that look local are not. Stacking small kernels grows the field linearly with depth; striding or pooling grows it multiplicatively and throws away resolution; dilating spaces the kernel out and grows it exponentially while keeping resolution, which is exactly why `dilated-convolution` exists. Each is a different point on the same trade between how far a unit sees and how precisely.",
+    "math": "The theoretical field and the effective one differ, and the difference is the useful finding. Contributions from the edge of the field pass through fewer paths than those from the centre, so influence falls off roughly as a Gaussian and the effective field is far smaller than the arithmetic suggests — it grows with the square root of depth rather than linearly. A network whose nominal field covers the image may in practice be looking at a fraction of it."
+  },
+  "emphasis": {
+    "intuition": "Depth is how a convolutional network gets a wide view, one small window at a time.",
+    "math": "A network whose nominal field covers the image may in practice be looking at a fraction of it."
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 12,
+      "keys": 12,
+      "decay": 0.5
+    },
+    "param_controls": [
+      {
+        "name": "decay",
+        "min": 0,
+        "max": 3,
+        "step": 0.25
+      }
+    ],
+    "caption": "One unit's view over its input, weighted by how many paths reach each position. Drag the decay up to watch influence concentrate at the centre — the effective field is smaller than the nominal one, and grows with the square root of depth rather than with depth."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "convolutional-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "dilated-convolution",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1701.04128",
+      "title": "Understanding the Effective Receptive Field in Deep Convolutional Neural Networks",
+      "url": "https://arxiv.org/abs/1701.04128"
+    },
+    {
+      "ref": "arXiv:1512.00567",
+      "title": "Rethinking the Inception Architecture for Computer Vision",
+      "url": "https://arxiv.org/abs/1512.00567"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "transfer-learning",
+  "title": "Transfer Learning",
+  "domain": [
+    "Foundations",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "Learn something on one problem and reuse it on another. It is the reason nobody trains from scratch: the features a network learns on a large general task turn out to be most of what a small specific task needs, so the small task supplies only the last part.",
+    "engineer": "What transfers is layered, and knowing which layer is the practical skill. Early layers learn general structure — edges, textures, syntax — and transfer almost anywhere. Late layers learn the specific task and transfer badly. So the decision is how far up to freeze, and it is set by how much target data you have and how far the target is from the source: little data and a near task means freeze most of it; plenty of data and a distant task means fine-tune everything and the pretrained weights are only an initialisation.",
+    "math": "The gain is largest where target data is scarcest and shrinks as it grows, because what transfer supplies is a prior and data overwhelms a prior. It can also go negative: transferring from a source whose structure conflicts with the target is worse than starting fresh, and the conflict is not visible from the source task's own accuracy. That is why transfer is measured on the target and never argued from how good the source model was."
+  },
+  "emphasis": {
+    "engineer": "the pretrained weights are only an initialisation",
+    "math": "It can also go negative"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "layers_frozen": 4,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "layers_frozen",
+        "min": 0,
+        "max": 240,
+        "step": 10
+      }
+    ],
+    "caption": "Layers kept from the source task, against the layers the target retrains, in layers. Drag the frozen count up to watch the target task supply less and less — which is right when its data is scarce and wrong when the two tasks disagree, and the source's accuracy does not tell you which."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      },
+      {
+        "id": "catastrophic-forgetting",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1411.1792",
+      "title": "How transferable are features in deep neural networks?",
+      "url": "https://arxiv.org/abs/1411.1792"
+    },
+    {
+      "ref": "arXiv:1910.10683",
+      "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+      "url": "https://arxiv.org/abs/1910.10683"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

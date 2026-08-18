@@ -1,0 +1,67 @@
+{
+  "id": "sequence-to-sequence",
+  "title": "Sequence to Sequence",
+  "domain": [
+    "Foundations",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "Read a whole input sequence, then produce a whole output sequence of a different length. Translation is the case that motivated it, and the framing was the contribution: once any task is a sequence in and a sequence out, summarising, answering and translating are the same problem with different data.",
+    "engineer": "The original shape reads the input into a single fixed vector and generates from it. That vector is the entire connection between the two halves, which is elegant and is a bottleneck — everything about a fifty-word sentence has to survive in the same width as everything about a five-word one. Attention was introduced to remove exactly this, by letting the decoder look back at every input position rather than at one summary of them.",
+    "math": "The bottleneck is a fixed-capacity channel carrying a payload that grows with the input, so the bits per input token fall as the input lengthens — which predicts, correctly, that quality degrades with source length and that the degradation is not gradual near the capacity. Attention makes the channel grow with the input instead, at the cost of a quadratic term, and every architecture since has taken that trade."
+  },
+  "emphasis": {
+    "intuition": "the framing was the contribution",
+    "math": "the bits per input token fall as the input lengthens"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "input_length": 8,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "input_length",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Input the fixed summary vector is asked to carry, against the capacity carrying it, in equal units. Drag the input length up to watch demand outgrow the channel — the vector does not widen, which is the bottleneck attention was introduced to remove."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "encoder-decoder",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "cross-attention",
+        "reviewed": false
+      },
+      {
+        "id": "recurrent-neural-network",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1409.3215",
+      "title": "Sequence to Sequence Learning with Neural Networks",
+      "url": "https://arxiv.org/abs/1409.3215"
+    },
+    {
+      "ref": "arXiv:1409.0473",
+      "title": "Neural Machine Translation by Jointly Learning to Align and Translate",
+      "url": "https://arxiv.org/abs/1409.0473"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

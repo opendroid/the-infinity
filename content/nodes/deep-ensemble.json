@@ -33,7 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "bias-variance-tradeoff",
+        "id": "ensemble-methods",
         "reviewed": false
       }
     ],

@@ -1,0 +1,63 @@
+{
+  "id": "teacher-forcing",
+  "title": "Teacher Forcing",
+  "domain": [
+    "Foundations",
+    "Training"
+  ],
+  "bodies": {
+    "intuition": "During training, feed the model the correct previous tokens rather than the ones it just produced. It learns much faster this way — every position gets a clean prefix instead of compounding its own mistakes — and it never once practises the situation it will actually be in.",
+    "engineer": "It is also what makes training parallelisable. Because the whole correct sequence is known in advance, every position can be predicted at once rather than one after another, which is the property that lets a transformer train on a thousand positions in a single forward pass. Sequential generation at inference is not an oversight; it is the price of a training procedure that was never sequential.",
+    "math": "The model is fit to p(x_t | x_{<t}) with x_{<t} drawn from the data, and used to sample from p(x_t | x̂_{<t}) with x̂_{<t} drawn from itself. Those are different conditioning distributions, so the model is evaluated off the distribution it was fit on from the second token onward — and the gap widens with every step, because each sampled token moves the prefix further from anything the training set contained."
+  },
+  "emphasis": {
+    "intuition": "it never once practises the situation it will actually be in",
+    "math": "the gap widens with every step"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "self_generated_prefix": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "self_generated_prefix",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Prefix tokens the model produced itself, against the ground-truth tokens it was trained on, in tokens. Drag the self-generated share up to watch the conditioning leave the training distribution — it does so from the second token, and never comes back."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "autoregressive-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "sequence-to-sequence",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1506.03099",
+      "title": "Scheduled Sampling for Sequence Prediction with Recurrent Neural Networks",
+      "url": "https://arxiv.org/abs/1506.03099"
+    },
+    {
+      "ref": "arXiv:1409.3215",
+      "title": "Sequence to Sequence Learning with Neural Networks",
+      "url": "https://arxiv.org/abs/1409.3215"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

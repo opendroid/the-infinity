@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "maximum-likelihood",
+      "id": "teacher-forcing",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "word-embedding",
+      "id": "self-play",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "bayesian-inference",
+      "id": "transfer-learning",
       "t": 0.8,
       "label": true
     }
