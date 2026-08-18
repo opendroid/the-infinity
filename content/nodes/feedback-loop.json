@@ -1,0 +1,66 @@
+{
+  "id": "feedback-loop",
+  "title": "Feedback Loop",
+  "domain": [
+    "Recommenders",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "A recommender trains on what people clicked, and people click on what it recommended. The data is a product of the model, so any bias it has gets confirmed by the next round of training. Left alone this narrows what a system will ever show, and it happens without anyone choosing it.",
+    "engineer": "This is the concrete case of the general problem `causal-inference` describes — a model used to decide changes the distribution it is measured on. Logging propensities at serving time is what makes correction possible later, and it must be done then rather than reconstructed afterwards. A system that did not log them cannot be debiased, whatever method is applied.",
+    "math": "Training on logged interactions estimates p(click | shown) while the quantity of interest is p(click | shown by an unbiased policy), and the two differ by the logging policy. Inverse propensity weighting corrects it if propensities were recorded — weighting each example by 1/p(shown) — at the cost of variance that grows as propensities approach zero, which is why clipping is standard."
+  },
+  "emphasis": {
+    "intuition": "it happens without anyone choosing it",
+    "engineer": "A system that did not log them cannot be debiased, whatever method is applied."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "policy_shaped": 8,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "policy_shaped",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Training signal produced by what the model chose to show against signal from anything else, in interactions. Drag the loop up to watch the data become a mirror — the model is now learning from its own past decisions."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "collaborative-filtering",
+        "reviewed": false
+      },
+      {
+        "id": "causal-inference",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "reward-hacking",
+        "reviewed": false
+      },
+      {
+        "id": "confounding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1902.10730",
+      "title": "Degenerate Feedback Loops in Recommender Systems",
+      "url": "https://arxiv.org/abs/1902.10730"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

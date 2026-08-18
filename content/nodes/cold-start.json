@@ -1,0 +1,58 @@
+{
+  "id": "cold-start",
+  "title": "Cold Start",
+  "domain": [
+    "Recommenders",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "A new user has no history and a new item has no audience, so the method that works by finding similar behaviour has nothing to work from. Every catalogue has a long tail of items in this state permanently, and a system that only recommends what it has evidence for will never gather evidence about anything else.",
+    "engineer": "The fix is to fall back on content — text, images, categories — which is why hybrid systems exist rather than being an improvement on pure collaborative filtering. The subtler problem is that cold start is self-reinforcing: an item never shown gathers no interactions, so exploration has to be deliberate and paid for, at a measurable cost in short-term engagement.",
+    "math": "With no interactions, a collaborative model's item factor is at its prior, so the score is uninformative rather than low — the model has no opinion and the ranking treats that as an opinion. Content features supply an initial estimate; the alternative is an exploration bonus that decays with interaction count, which buys evidence at a known price."
+  },
+  "emphasis": {
+    "intuition": "a system that only recommends what it has evidence for will never gather evidence about anything else",
+    "engineer": "exploration has to be deliberate and paid for"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "exploration_slots": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "exploration_slots",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Slots given to items with no history against slots given to items with evidence, in slots. Drag the exploration up to watch the catalogue get a chance — every slot spent here costs measured engagement today."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "collaborative-filtering",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "exploration-exploitation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1606.07792",
+      "title": "Wide & Deep Learning for Recommender Systems",
+      "url": "https://arxiv.org/abs/1606.07792"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

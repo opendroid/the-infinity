@@ -1,0 +1,70 @@
+{
+  "id": "matrix-factorization",
+  "title": "Matrix Factorization",
+  "domain": [
+    "Recommenders",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Give every user and every item a short vector, and predict an interaction by their dot product. Fit the vectors so the products match what was observed. It won the Netflix Prize, it is still a strong baseline, and it is the same low-rank idea that appears everywhere else in this graph — here applied to a matrix of behaviour rather than of weights.",
+    "engineer": "The bias terms do more work than the factors on real data: a per-user and per-item offset captures that some people rate generously and some items are broadly liked, and fitting factors without them makes the factors absorb that instead. A careful implementation with bias terms and regularisation beats many neural replacements, which a well-known reproducibility study found repeatedly.",
+    "math": "Predict r̂_{ui} = μ + b_u + b_i + p_u·q_i and minimise squared error over observed entries plus λ(‖p_u‖² + ‖q_i‖²), which is the same objective as a regularised truncated SVD restricted to what was observed. Regularisation is not optional here — with most entries missing, the unregularised optimum fits the observed few exactly and generalises to nothing."
+  },
+  "emphasis": {
+    "intuition": "it is the same low-rank idea that appears everywhere else in this graph",
+    "engineer": "The bias terms do more work than the factors on real data"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "rank_truncation": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "rank_truncation",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Singular values of the interaction matrix, full and truncated to the factors kept. Drag the truncation up to watch the spectrum flatten — how far you can push this before recommendations degrade is the question the whole method rests on."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "collaborative-filtering",
+        "reviewed": false
+      },
+      {
+        "id": "low-rank-factorization",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "principal-component-analysis",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1708.05031",
+      "title": "Neural Collaborative Filtering",
+      "url": "https://arxiv.org/abs/1708.05031"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Koren et al. 2009",
+      "title": "Matrix Factorization Techniques for Recommender Systems",
+      "venue": "IEEE Computer 42(8)",
+      "doi": "10.1109/MC.2009.263"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
