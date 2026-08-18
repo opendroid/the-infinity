@@ -1,0 +1,62 @@
+{
+  "id": "task-interference",
+  "title": "Task Interference",
+  "domain": [
+    "Continual",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Training on several things at once is not always better than training on each. Tasks can help each other, and they can pull the shared parameters in opposing directions — the same mechanism that makes multi-task learning attractive makes it fail, and which one happens depends on the tasks rather than on the setup.",
+    "engineer": "The diagnostic is gradient conflict: when per-task gradients point in opposing directions, the update serves neither. Methods that project one gradient off another help modestly and cost a backward pass per task. The larger lever is usually capacity — interference falls when tasks are given somewhere separate to live, which is what adapters and mixtures of experts do without calling it that.",
+    "math": "Two tasks conflict at a point when the cosine between their gradients is negative, so the summed step increases at least one loss. Conflict is not a property of a task pair but of a point in parameter space, which is why it appears and disappears during training and why measuring it once says little."
+  },
+  "emphasis": {
+    "intuition": "which one happens depends on the tasks rather than on the setup",
+    "engineer": "interference falls when tasks are given somewhere separate to live"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "conflicting_gradients": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "conflicting_gradients",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Update directions where the tasks disagree against directions where they agree, in equal units. Drag the conflict up to watch the shared step stop serving either — capacity is what buys the disagreement somewhere to go."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "continual-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "mixture-of-experts",
+        "reviewed": false
+      },
+      {
+        "id": "lora",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.08840",
+      "title": "Gradient Episodic Memory for Continual Learning",
+      "url": "https://arxiv.org/abs/1706.08840"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

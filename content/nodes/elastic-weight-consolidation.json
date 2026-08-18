@@ -1,0 +1,62 @@
+{
+  "id": "elastic-weight-consolidation",
+  "title": "Elastic Weight Consolidation",
+  "domain": [
+    "Continual",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "If some weights mattered a lot for the old task, make them expensive to move. EWC estimates that importance and adds a spring pulling each weight back toward its old value, stiff where the weight mattered and slack where it did not. The model can still learn — it just has to route around what it needs to keep.",
+    "engineer": "Importance is estimated from the diagonal of the Fisher information, which is cheap and assumes the weights are independent — an assumption that is false and is why the method degrades over long task sequences. Penalties also accumulate: after many tasks the model is stiff everywhere and stops learning, which is the stability-plasticity trade appearing as a concrete failure rather than a principle.",
+    "math": "Add Σ_i (λ/2)·F_i·(θ_i − θ*_i)² where F_i is the Fisher diagonal at the old solution. This is a Laplace approximation to the old task's posterior — a Gaussian centred on θ* with precision F — so EWC is doing Bayesian updating with a very rough posterior, and the roughness is the diagonal assumption."
+  },
+  "emphasis": {
+    "intuition": "stiff where the weight mattered and slack where it did not",
+    "engineer": "after many tasks the model is stiff everywhere and stops learning"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "penalty_weight": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "penalty_weight",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Weight on staying near the old solution against weight on fitting the new task, in equal units. Drag the penalty up to watch stability take over — at the far right the model keeps everything and learns nothing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "catastrophic-forgetting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      },
+      {
+        "id": "kl-divergence",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1612.00796",
+      "title": "Overcoming catastrophic forgetting in neural networks",
+      "url": "https://arxiv.org/abs/1612.00796"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

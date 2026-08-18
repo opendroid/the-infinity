@@ -1,0 +1,62 @@
+{
+  "id": "stability-plasticity",
+  "title": "Stability-Plasticity",
+  "domain": [
+    "Continual",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "A system that never changes cannot learn; a system that changes freely cannot remember. Every continual learning method is a position on that line, and there is no setting that gives both — which is why the field's methods look so different while performing so similarly.",
+    "engineer": "The practical reading is that a method should be described by where it sits rather than by whether it works. A penalty that prevents forgetting also prevents learning; a replay buffer large enough to preserve everything is a training set. Reporting only average accuracy across tasks hides the position entirely, which is why backward and forward transfer are reported separately.",
+    "math": "Measure backward transfer — how much earlier tasks changed after later ones — and forward transfer separately, since average accuracy is a sum that cancels them. A method can post the same mean while forgetting nothing and learning nothing, or learning well and forgetting badly, and those are opposite systems."
+  },
+  "emphasis": {
+    "intuition": "there is no setting that gives both",
+    "engineer": "a replay buffer large enough to preserve everything is a training set"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "stability": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "stability",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "How much the system resists change against how much it admits, in equal units. Drag the stability up to watch memory improve and learning stop — no position on this bar escapes the other end."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "continual-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "bias-variance-tradeoff",
+        "reviewed": false
+      },
+      {
+        "id": "robustness-accuracy-tradeoff",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1802.07569",
+      "title": "Continual Lifelong Learning with Neural Networks: A Review",
+      "url": "https://arxiv.org/abs/1802.07569"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

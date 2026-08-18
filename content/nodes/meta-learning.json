@@ -1,0 +1,58 @@
+{
+  "id": "meta-learning",
+  "title": "Meta-Learning",
+  "domain": [
+    "Continual",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Learn something that makes learning the next thing faster. Rather than fitting one task, fit an initialisation, or an update rule, or a representation, such that a handful of examples is enough afterwards. It is training for adaptability rather than for performance.",
+    "engineer": "MAML's version optimises through the inner update, which needs second derivatives and is expensive enough that first-order approximations are the default in practice. The uncomfortable result is that much of the benefit comes from feature reuse rather than rapid adaptation — the learned initialisation is a good representation, and freezing most of it and training a head recovers most of the gain.",
+    "math": "Minimise the loss after one or more gradient steps: min_θ Σ_tasks L(θ − α∇L_task(θ)). Differentiating through that inner step gives a Hessian-vector product, which first-order variants drop entirely — and they lose little, which is itself evidence about where the benefit comes from."
+  },
+  "emphasis": {
+    "intuition": "It is training for adaptability rather than for performance.",
+    "engineer": "much of the benefit comes from feature reuse rather than rapid adaptation"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "adaptation_steps": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "adaptation_steps",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Gradient steps taken at adaptation time against the single step the meta-objective is trained through, in steps. Drag the inner loop up to watch adaptation dominate — and the cost of differentiating through it dominate with it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "in-context-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.03400",
+      "title": "Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks",
+      "url": "https://arxiv.org/abs/1703.03400"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
