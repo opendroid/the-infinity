@@ -1211,13 +1211,13 @@
           {
             "id": "mutual-information",
             "title": "Mutual Information",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "noise-contrastive-estimation",
             "title": "Noise-Contrastive Estimation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1341,7 +1341,7 @@
           {
             "id": "entropy",
             "title": "Entropy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1688,32 +1688,32 @@
       "id": "entropy",
       "title": "Entropy",
       "domain": "Information / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "kl-divergence",
             "title": "KL Divergence",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "minimum-description-length",
             "title": "Minimum Description Length",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "mutual-information",
             "title": "Mutual Information",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "rate-distortion",
             "title": "Rate-Distortion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1737,13 +1737,13 @@
       "id": "evidence-lower-bound",
       "title": "ELBO",
       "domain": "Information / Objectives",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "kl-divergence",
             "title": "KL Divergence",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2462,13 +2462,13 @@
       "id": "information-bottleneck",
       "title": "Information Bottleneck",
       "domain": "Information / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "mutual-information",
             "title": "Mutual Information",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2609,13 +2609,13 @@
       "id": "kl-divergence",
       "title": "KL Divergence",
       "domain": "Information / Divergence",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "entropy",
             "title": "Entropy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2623,7 +2623,7 @@
           {
             "id": "evidence-lower-bound",
             "title": "ELBO",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3040,7 +3040,7 @@
           {
             "id": "information-bottleneck",
             "title": "Information Bottleneck",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3210,13 +3210,13 @@
       "id": "minimum-description-length",
       "title": "Minimum Description Length",
       "domain": "Information / Generalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "entropy",
             "title": "Entropy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3453,13 +3453,13 @@
       "id": "mutual-information",
       "title": "Mutual Information",
       "domain": "Information / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "entropy",
             "title": "Entropy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3467,13 +3467,13 @@
           {
             "id": "information-bottleneck",
             "title": "Information Bottleneck",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "noise-contrastive-estimation",
             "title": "Noise-Contrastive Estimation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3549,7 +3549,7 @@
           {
             "id": "rate-distortion",
             "title": "Rate-Distortion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3565,13 +3565,13 @@
       "id": "noise-contrastive-estimation",
       "title": "Noise-Contrastive Estimation",
       "domain": "Information / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "mutual-information",
             "title": "Mutual Information",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3698,7 +3698,7 @@
           {
             "id": "minimum-description-length",
             "title": "Minimum Description Length",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3835,7 +3835,7 @@
           {
             "id": "entropy",
             "title": "Entropy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4269,7 +4269,7 @@
           {
             "id": "rate-distortion",
             "title": "Rate-Distortion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4304,13 +4304,13 @@
       "id": "rate-distortion",
       "title": "Rate-Distortion",
       "domain": "Information / Compression",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "entropy",
             "title": "Entropy",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4612,7 +4612,7 @@
           {
             "id": "kl-divergence",
             "title": "KL Divergence",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4882,7 +4882,7 @@
           {
             "id": "noise-contrastive-estimation",
             "title": "Noise-Contrastive Estimation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5068,7 +5068,7 @@
           {
             "id": "noise-contrastive-estimation",
             "title": "Noise-Contrastive Estimation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5551,7 +5551,7 @@
           {
             "id": "evidence-lower-bound",
             "title": "ELBO",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5565,7 +5565,7 @@
           {
             "id": "kl-divergence",
             "title": "KL Divergence",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5734,7 +5734,7 @@
           {
             "id": "minimum-description-length",
             "title": "Minimum Description Length",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7869,14 +7869,14 @@
         {
           "id": "mutual-information",
           "title": "Mutual Information",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
         {
           "id": "noise-contrastive-estimation",
           "title": "Noise-Contrastive Estimation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -8100,7 +8100,7 @@
         {
           "id": "entropy",
           "title": "Entropy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -8749,7 +8749,7 @@
       "center": {
         "id": "entropy",
         "title": "Entropy",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8757,28 +8757,28 @@
         {
           "id": "kl-divergence",
           "title": "KL Divergence",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
         {
           "id": "mutual-information",
           "title": "Mutual Information",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
         {
           "id": "rate-distortion",
           "title": "Rate-Distortion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -8841,7 +8841,7 @@
       "center": {
         "id": "evidence-lower-bound",
         "title": "ELBO",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8849,7 +8849,7 @@
         {
           "id": "kl-divergence",
           "title": "KL Divergence",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -10086,7 +10086,7 @@
       "center": {
         "id": "information-bottleneck",
         "title": "Information Bottleneck",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10094,7 +10094,7 @@
         {
           "id": "mutual-information",
           "title": "Mutual Information",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -10338,7 +10338,7 @@
       "center": {
         "id": "kl-divergence",
         "title": "KL Divergence",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10346,14 +10346,14 @@
         {
           "id": "entropy",
           "title": "Entropy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "evidence-lower-bound",
           "title": "ELBO",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -11098,7 +11098,7 @@
         {
           "id": "information-bottleneck",
           "title": "Information Bottleneck",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -11407,7 +11407,7 @@
       "center": {
         "id": "minimum-description-length",
         "title": "Minimum Description Length",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11415,7 +11415,7 @@
         {
           "id": "entropy",
           "title": "Entropy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -11818,7 +11818,7 @@
       "center": {
         "id": "mutual-information",
         "title": "Mutual Information",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -11826,21 +11826,21 @@
         {
           "id": "entropy",
           "title": "Entropy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "information-bottleneck",
           "title": "Information Bottleneck",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "noise-contrastive-estimation",
           "title": "Noise-Contrastive Estimation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -11966,7 +11966,7 @@
         {
           "id": "rate-distortion",
           "title": "Rate-Distortion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -12016,7 +12016,7 @@
       "center": {
         "id": "noise-contrastive-estimation",
         "title": "Noise-Contrastive Estimation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12024,7 +12024,7 @@
         {
           "id": "mutual-information",
           "title": "Mutual Information",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -12224,7 +12224,7 @@
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -12462,7 +12462,7 @@
         {
           "id": "entropy",
           "title": "Entropy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -13204,7 +13204,7 @@
         {
           "id": "rate-distortion",
           "title": "Rate-Distortion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -13287,7 +13287,7 @@
       "center": {
         "id": "rate-distortion",
         "title": "Rate-Distortion",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13295,7 +13295,7 @@
         {
           "id": "entropy",
           "title": "Entropy",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -13799,7 +13799,7 @@
         {
           "id": "kl-divergence",
           "title": "KL Divergence",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -14275,7 +14275,7 @@
         {
           "id": "noise-contrastive-estimation",
           "title": "Noise-Contrastive Estimation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 92
         },
@@ -14611,7 +14611,7 @@
         {
           "id": "noise-contrastive-estimation",
           "title": "Noise-Contrastive Estimation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         },
@@ -15481,7 +15481,7 @@
         {
           "id": "evidence-lower-bound",
           "title": "ELBO",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -15495,7 +15495,7 @@
         {
           "id": "kl-divergence",
           "title": "KL Divergence",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -15786,7 +15786,7 @@
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
