@@ -125,6 +125,40 @@ export function validateContent() {
     if (errors.length) failures.push({ file, errors });
   }
 
+  // A PAIR OF CONCEPTS HAS EXACTLY ONE RELATIONSHIP, and the loop above cannot
+  // see a violation split across two files. A says `adjacent: B` while B says
+  // `requires: A`: each file is internally consistent, the per-node check that
+  // rejects naming an id in two of your own groups sees nothing, and the pair is
+  // related twice.
+  //
+  // `api/internal/publish` already rejects this and is how it was caught both
+  // times it happened — superposition/sparse-autoencoder in #208 and
+  // graph-expressivity/graph-transformer in the graph batch. But that surfaces
+  // the error at `make golden`, away from every other content error and only for
+  // whoever runs Go. Content mistakes should fail where content is checked.
+  const claims = new Map();
+  for (const { node } of nodes) {
+    for (const type of ['requires', 'adjacent']) {
+      for (const edge of node.edges?.[type] ?? []) {
+        // Undirected key, because requires and unlocks are the same edge seen
+        // from the two ends — that is the whole reason this can be missed.
+        const key = [node.id, edge.id].sort().join('\u0000');
+        const seen = claims.get(key);
+        if (seen && (seen.type !== type || type === 'requires')) {
+          failures.push({
+            file: `${node.id}.json`,
+            errors: [
+              `${node.id} and ${edge.id} are related in two ways at once ` +
+                `(${seen.from} says ${seen.type}, ${node.id} says ${type})`,
+            ],
+          });
+        } else if (!seen) {
+          claims.set(key, { type, from: node.id });
+        }
+      }
+    }
+  }
+
   return failures;
 }
 

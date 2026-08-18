@@ -1,0 +1,64 @@
+{
+  "id": "graph-transformer",
+  "title": "Graph Transformer",
+  "domain": [
+    "Graphs",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "If message passing is limited by the edges it is given, let every node attend to every other and put the structure back in as a bias on the scores. A graph transformer does that: full attention, with the graph entering through how far apart two nodes are rather than through whether they are connected at all.",
+    "engineer": "Structure arrives as encodings rather than as masking — shortest-path distance added to the attention score, edge features along that path, degree folded into the input. This escapes the WL bound and the oversmoothing ceiling in one move, and pays for both in quadratic cost, which is why it wins on molecules with tens of atoms and struggles on graphs with millions of nodes.",
+    "math": "Score(u,v) = (h_u W_Q)(h_v W_K)^T/√d + b_{φ(u,v)} where φ is the shortest-path distance and b is a learned scalar per distance. Because b is learned rather than fixed at −∞ for non-edges, a pair with no edge is discouraged rather than forbidden — the difference between a bias and a mask, and the whole reason the architecture is more expressive."
+  },
+  "emphasis": {
+    "intuition": "the graph entering through how far apart two nodes are rather than through whether they are connected",
+    "engineer": "pays for both in quadratic cost"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 12,
+      "lookahead": 64,
+      "heads": 1,
+      "sink": 0.2
+    },
+    "param_controls": [
+      {
+        "name": "sink",
+        "min": 0,
+        "max": 0.9,
+        "step": 0.05
+      }
+    ],
+    "caption": "Every node against every other, plus one virtual node joined to all of them. Drag the virtual node's pull up to watch traffic route through it — a graph transformer adds exactly such a node, which is how two distant nodes reach each other in a single hop."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "graph-attention",
+        "reviewed": false
+      },
+      {
+        "id": "graph-expressivity",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "vision-transformer",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2106.05234",
+      "title": "Do Transformers Really Perform Bad for Graph Representation?",
+      "url": "https://arxiv.org/abs/2106.05234"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

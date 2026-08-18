@@ -1,0 +1,58 @@
+{
+  "id": "oversmoothing",
+  "title": "Oversmoothing",
+  "domain": [
+    "Graphs",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Stack enough graph layers and every node ends up looking the same. Each round averages a node with its neighbours, and repeated averaging is exactly how you erase differences — so the representations that were supposed to distinguish nodes converge to a single point. It is why most graph networks are two or three layers deep while everything else in this graph got deeper.",
+    "engineer": "The tension is real and not merely a tuning problem: reach requires depth and depth destroys the signal. Residual connections, initial-residual mixing and normalisation all push the ceiling up rather than removing it, because the smoothing is what the aggregation does rather than a side effect of it. A model that needs eight hops of reach is a model that probably wants a different architecture.",
+    "math": "Repeated multiplication by the normalised propagation matrix converges toward its dominant eigenvector, so H^{(l)} tends to a rank-one limit determined by degree rather than by features. Distinguishability falls roughly geometrically in depth, at a rate set by the spectral gap — a well-connected graph smooths faster, which is the opposite of the intuition that more edges means more information."
+  },
+  "emphasis": {
+    "intuition": "repeated averaging is exactly how you erase differences",
+    "engineer": "the smoothing is what the aggregation does rather than a side effect of it"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "layers": 2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "layers",
+        "min": 0,
+        "max": 16,
+        "step": 1
+      }
+    ],
+    "caption": "Node representations across a neighbourhood, as given and after this many rounds of averaging. Drag the depth up to watch them collapse onto each other — the reach you gained is paid for in the differences you lost."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "graph-convolution",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "residual-connection",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1801.07606",
+      "title": "Deeper Insights into Graph Convolutional Networks for Semi-Supervised Learning",
+      "url": "https://arxiv.org/abs/1801.07606"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

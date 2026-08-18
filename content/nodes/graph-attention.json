@@ -1,0 +1,63 @@
+{
+  "id": "graph-attention",
+  "title": "Graph Attention",
+  "domain": [
+    "Graphs",
+    "Attention"
+  ],
+  "bodies": {
+    "intuition": "A graph convolution treats every neighbour as equally worth listening to. Graph attention learns the weights instead, so a node can lean on the two neighbours that matter and ignore the forty that do not. It is the same idea as attention in a transformer, restricted to the edges the graph actually has.",
+    "engineer": "Attention here is masked by adjacency: scores are computed only for real edges, so cost scales with edges rather than with nodes squared. That restriction is the whole difference from a transformer over nodes, and it is why graph attention stays cheap on sparse graphs and why it inherits the graph's blind spots — a pair with no edge gets no score, however related they are.",
+    "math": "α_{uv} = softmax_u(LeakyReLU(a^T[Wh_v ‖ Wh_u])) over u ∈ N(v), then h_v' = σ(Σ_u α_{uv} W h_u). The softmax runs over the neighbourhood rather than the whole graph, so attention mass a node has to spend is fixed at one and divided among however many neighbours it has — more neighbours means less each, before any learning."
+  },
+  "emphasis": {
+    "intuition": "a node can lean on the two neighbours that matter and ignore the forty that do not",
+    "engineer": "a pair with no edge gets no score, however related they are"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 8,
+      "keys": 10,
+      "lookahead": 64
+    },
+    "param_controls": [
+      {
+        "name": "keys",
+        "min": 4,
+        "max": 24,
+        "step": 2
+      }
+    ],
+    "caption": "Nodes against the neighbours they attend over, nothing masked within the neighbourhood. Drag the neighbour count up to watch each node's fixed attention budget spread thinner — the softmax sums to one however many arrive."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "graph-convolution",
+        "reviewed": false
+      },
+      {
+        "id": "attention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "multi-head-attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1710.10903",
+      "title": "Graph Attention Networks",
+      "url": "https://arxiv.org/abs/1710.10903"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

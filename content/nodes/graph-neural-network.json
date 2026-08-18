@@ -1,0 +1,53 @@
+{
+  "id": "graph-neural-network",
+  "title": "Graph Neural Network",
+  "domain": [
+    "Graphs",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Some data is not a sequence and not a grid — molecules, road networks, citations, social graphs. A graph neural network takes the structure as given rather than making the model discover it, and computes each node's representation from its neighbours. The graph is a hard constraint on what can influence what, which is both the strength and the ceiling.",
+    "engineer": "The design is a relational inductive bias: you hand the model the edges, and in exchange it needs far less data than a model that must infer which pairs relate. That bias is also the failure mode — a graph built from the wrong assumption cannot be unlearned, because it is not a parameter. Permutation equivariance falls out for free, which is why node ordering never appears anywhere in the architecture.",
+    "math": "A layer maps node features H^{(l)} to H^{(l+1)} using only each node's neighbourhood, so the whole network is equivariant to relabelling: permuting the nodes permutes the output identically. After L layers a node's representation depends on exactly its L-hop neighbourhood and nothing beyond it — a receptive field defined by the graph rather than by a kernel size."
+  },
+  "emphasis": {
+    "intuition": "The graph is a hard constraint on what can influence what",
+    "engineer": "a graph built from the wrong assumption cannot be unlearned, because it is not a parameter"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "edges_given": 24,
+      "share_rest": 48
+    },
+    "param_controls": [
+      {
+        "name": "edges_given",
+        "min": 0,
+        "max": 512,
+        "step": 16
+      }
+    ],
+    "caption": "Pairs the graph declares related against pairs the model would have to work out for itself, in pairs. Drag the edges up to watch structure replace inference — every edge given is a relationship nobody has to learn."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "attention",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1806.01261",
+      "title": "Relational inductive biases, deep learning, and graph networks",
+      "url": "https://arxiv.org/abs/1806.01261"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

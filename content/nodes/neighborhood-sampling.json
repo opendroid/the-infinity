@@ -1,0 +1,64 @@
+{
+  "id": "neighborhood-sampling",
+  "title": "Neighborhood Sampling",
+  "domain": [
+    "Graphs",
+    "Systems"
+  ],
+  "bodies": {
+    "intuition": "A node's two-hop neighbourhood on a social graph can be most of the graph, so computing one node's representation exactly can mean touching millions. Sampling fixes a budget instead: take a handful of neighbours per hop, accept that the answer is an estimate, and get a model that trains on graphs too large to hold at once.",
+    "engineer": "This is what makes graph learning inductive rather than transductive — the model learns an aggregator rather than an embedding per node, so it can be applied to nodes it never saw. The cost is variance: every gradient is computed from a sampled subgraph, and the fewer neighbours sampled the noisier the estimate. Sampling is also why the same node gets slightly different representations on different passes.",
+    "math": "Sampling S neighbours per hop over L hops bounds the work per node at S^L rather than the true neighbourhood size, which is what turns an intractable expectation into a Monte Carlo estimate. The estimator is unbiased for mean aggregation and the variance falls as 1/S, so doubling the sample buys a factor of √2 in noise — the same exchange rate batch size buys everywhere else."
+  },
+  "emphasis": {
+    "intuition": "accept that the answer is an estimate",
+    "engineer": "the fewer neighbours sampled the noisier the estimate"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 4,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "batch",
+        "min": 1,
+        "max": 512,
+        "step": 1
+      }
+    ],
+    "caption": "Training loss under sampled neighbourhoods. Drag the sample size up to watch the run steady — every gradient here is an estimate from a subgraph, and the noise is the price of never touching the whole thing."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "message-passing",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "batch-size",
+        "reviewed": false
+      },
+      {
+        "id": "stochastic-gradient-descent",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.02216",
+      "title": "Inductive Representation Learning on Large Graphs",
+      "url": "https://arxiv.org/abs/1706.02216"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

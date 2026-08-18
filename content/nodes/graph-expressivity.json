@@ -1,0 +1,53 @@
+{
+  "id": "graph-expressivity",
+  "title": "Graph Expressivity",
+  "domain": [
+    "Graphs",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "There are pairs of graphs a message-passing network simply cannot tell apart — not because it was trained badly, but because no amount of training would help. Two different molecules can produce identical computations at every node. Knowing which pairs those are tells you when the architecture is the ceiling rather than the data.",
+    "engineer": "Standard message passing is at most as discriminative as the one-dimensional Weisfeiler–Leman colour refinement test, and that bound is tight — with an injective aggregator you reach it, and with mean or max you fall short of it. The practical repairs all add something WL cannot see: random node identifiers, distance encodings, subgraph counts. Each buys expressivity and gives up some of the permutation equivariance that made the architecture attractive.",
+    "math": "If 1-WL assigns two graphs the same colour multiset, no message-passing network can separate them. Sum aggregation with an injective φ achieves the bound, which is the result GIN is built on: h_v = MLP((1+ε)·h_v + Σ_{u ∈ N(v)} h_u). Regular graphs of the same degree are the standard counterexample — every node sees the identical picture forever."
+  },
+  "emphasis": {
+    "intuition": "no amount of training would help",
+    "engineer": "Each buys expressivity and gives up some of the permutation equivariance"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "separable_pairs": 12,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "separable_pairs",
+        "min": 0,
+        "max": 288,
+        "step": 12
+      }
+    ],
+    "caption": "Graph pairs the architecture can tell apart against pairs it provably cannot, in pairs. Drag the expressivity up to watch the blind spot shrink — it does not reach zero, and the remainder is not a training problem."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "message-passing",
+        "reviewed": false
+      }
+    ],
+    "adjacent": []
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1810.00826",
+      "title": "How Powerful are Graph Neural Networks?",
+      "url": "https://arxiv.org/abs/1810.00826"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

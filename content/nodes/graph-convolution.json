@@ -1,0 +1,58 @@
+{
+  "id": "graph-convolution",
+  "title": "Graph Convolution",
+  "domain": [
+    "Graphs",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "The simplest useful graph layer: average each node's neighbours, mix in the node itself, multiply by a weight matrix. It is a convolution in the sense that the same weights apply everywhere, but the neighbourhood is whatever the graph says rather than a fixed window. Two or three layers is usually the whole model.",
+    "engineer": "The averaging is degree-normalised, which keeps high-degree nodes from dominating and is why the symmetric normalisation appears in the formula rather than a plain mean. The self-loop matters more than it looks: without mixing the node's own features back in, a node is defined entirely by its neighbours, and after a couple of layers everything that shares a neighbourhood becomes indistinguishable.",
+    "math": "H^{(l+1)} = σ(D̂^{−1/2} Â D̂^{−1/2} H^{(l)} W^{(l)}) with Â = A + I adding the self-loop and D̂ its degree matrix. The symmetric normalisation gives the propagation matrix eigenvalues in [−1,1], which bounds what repeated application can do — and is exactly why repeated application drives features together."
+  },
+  "emphasis": {
+    "intuition": "the neighbourhood is whatever the graph says rather than a fixed window",
+    "engineer": "a node is defined entirely by its neighbours"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "neighbour_weight": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "neighbour_weight",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Weight the layer puts on the neighbourhood against the weight it keeps on the node itself, in equal units. Drag the neighbour weight up to watch a node stop being anything of its own."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "message-passing",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "layer-normalization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1609.02907",
+      "title": "Semi-Supervised Classification with Graph Convolutional Networks",
+      "url": "https://arxiv.org/abs/1609.02907"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
