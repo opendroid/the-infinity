@@ -1,0 +1,63 @@
+{
+  "id": "parsing",
+  "title": "Parsing",
+  "domain": [
+    "Structure",
+    "Inference"
+  ],
+  "bodies": {
+    "intuition": "Recover the structure behind a string: which words group together, what modifies what. Every natural sentence has more than one structure consistent with its words — \"I saw the man with the telescope\" has two, and both are grammatical — so parsing is not decoding a signal but choosing among readings, and the choice needs information the grammar does not contain.",
+    "engineer": "Classical parsers built a chart of every partial analysis over every span and combined them bottom-up, which handles ambiguity by representing all of it and scoring afterwards. Neural parsers mostly predict the structure directly instead, from an encoder that has already resolved much of the ambiguity by context. The chart has not disappeared — it is still what you use when you need every analysis rather than the best one, which is most of the time in a compiler and rarely in an NLP pipeline.",
+    "math": "The number of binary trees over n items is the Catalan number, which grows faster than exponentially — so enumeration is out at any interesting length, and a chart representing all of them in polynomial space is the trick that makes ambiguity tractable rather than fatal. The ambiguous share grows with sentence length faster than the sentence does, which is why parse quality falls off with length in a way per-word accuracy does not predict."
+  },
+  "emphasis": {
+    "intuition": "parsing is not decoding a signal but choosing among readings",
+    "math": "The number of binary trees over n items is the Catalan number"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "ambiguous_spans": 8,
+      "share_rest": 30
+    },
+    "param_controls": [
+      {
+        "name": "ambiguous_spans",
+        "min": 0,
+        "max": 210,
+        "step": 10
+      }
+    ],
+    "caption": "Spans with more than one grammatical analysis, against the ones with a single reading, in spans. Drag the sentence length up to watch ambiguity dominate — the count of possible trees is Catalan in the length, which is why the chart represents them all rather than listing them."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "dynamic-programming-inference",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "structured-output",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1409.0473",
+      "title": "Neural Machine Translation by Jointly Learning to Align and Translate",
+      "url": "https://arxiv.org/abs/1409.0473"
+    },
+    {
+      "ref": "arXiv:2305.13971",
+      "title": "Grammar-Constrained Decoding for Structured NLP Tasks without Finetuning",
+      "url": "https://arxiv.org/abs/2305.13971"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

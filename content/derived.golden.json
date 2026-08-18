@@ -349,7 +349,7 @@
           {
             "id": "agentic-coding",
             "title": "Agentic Coding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -420,7 +420,7 @@
       "id": "agentic-coding",
       "title": "Agentic Coding",
       "domain": "Code / Agents",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -441,7 +441,7 @@
           {
             "id": "execution-verification",
             "title": "Execution Verification",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -950,6 +950,12 @@
             "reviewed": false
           },
           {
+            "id": "structured-output",
+            "title": "Structured Output",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "top-k-sampling",
             "title": "Top-k Sampling",
             "tier": "verified",
@@ -1191,8 +1197,47 @@
             "reviewed": false
           }
         ],
+        "unlocks": [
+          {
+            "id": "beam-search-tradeoffs",
+            "title": "Beam Search Tradeoffs",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "dynamic-programming-inference",
+            "title": "Dynamic Programming Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "beam-search-tradeoffs",
+      "title": "Beam Search Tradeoffs",
+      "domain": "Structure / Decoding",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "beam-search",
+            "title": "Beam Search",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "structured-output",
+            "title": "Structured Output",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1708,7 +1753,7 @@
           {
             "id": "fill-in-the-middle",
             "title": "Fill in the Middle",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1937,7 +1982,7 @@
       "id": "code-generation",
       "title": "Code Generation",
       "domain": "Code / Generation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1952,13 +1997,13 @@
           {
             "id": "execution-verification",
             "title": "Execution Verification",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "fill-in-the-middle",
             "title": "Fill in the Middle",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1968,7 +2013,7 @@
       "id": "code-search",
       "title": "Code Search",
       "domain": "Code / Retrieval",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1983,7 +2028,7 @@
           {
             "id": "repository-context",
             "title": "Repository Context",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2300,6 +2345,37 @@
       }
     },
     {
+      "id": "conditional-random-field",
+      "title": "Conditional Random Field",
+      "domain": "Structure / Labelling",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "dynamic-programming-inference",
+            "title": "Dynamic Programming Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "sequence-labelling",
+            "title": "Sequence Labelling",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "conformal-prediction",
       "title": "Conformal Prediction",
       "domain": "Uncertainty / Methods",
@@ -2394,7 +2470,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "dynamic-programming-inference",
+            "title": "Dynamic Programming Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "automatic-speech-recognition",
@@ -2456,7 +2539,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "grammar-constrained-decoding",
+            "title": "Grammar-Constrained Decoding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "function-calling",
@@ -2528,7 +2618,7 @@
           {
             "id": "repository-context",
             "title": "Repository Context",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3540,7 +3630,7 @@
           {
             "id": "code-search",
             "title": "Code Search",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3992,6 +4082,44 @@
       }
     },
     {
+      "id": "dynamic-programming-inference",
+      "title": "Dynamic Programming Inference",
+      "domain": "Structure / Inference",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "connectionist-temporal-classification",
+            "title": "CTC",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "conditional-random-field",
+            "title": "Conditional Random Field",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "parsing",
+            "title": "Parsing",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "beam-search",
+            "title": "Beam Search",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "edge-of-stability",
       "title": "Edge of Stability",
       "domain": "Landscape / Regimes",
@@ -4399,7 +4527,7 @@
           {
             "id": "execution-verification",
             "title": "Execution Verification",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4429,7 +4557,7 @@
       "id": "execution-verification",
       "title": "Execution Verification",
       "domain": "Code / Verification",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4443,13 +4571,13 @@
           {
             "id": "program-repair",
             "title": "Program Repair",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "test-generation",
             "title": "Test Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4457,13 +4585,13 @@
           {
             "id": "agentic-coding",
             "title": "Agentic Coding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "code-generation",
             "title": "Code Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4896,7 +5024,7 @@
       "id": "fill-in-the-middle",
       "title": "Fill in the Middle",
       "domain": "Code / Generation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4911,13 +5039,13 @@
           {
             "id": "code-generation",
             "title": "Code Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "repository-context",
             "title": "Repository Context",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5140,6 +5268,12 @@
             "id": "constrained-decoding",
             "title": "Constrained Decoding",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "grammar-constrained-decoding",
+            "title": "Grammar-Constrained Decoding",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -5437,6 +5571,44 @@
             "id": "secure-aggregation",
             "title": "Secure Aggregation",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "grammar-constrained-decoding",
+      "title": "Grammar-Constrained Decoding",
+      "domain": "Structure / Decoding",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "constrained-decoding",
+            "title": "Constrained Decoding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "schema-conformance",
+            "title": "Schema Conformance",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "function-calling",
+            "title": "Function Calling",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "structured-output",
+            "title": "Structured Output",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -7145,7 +7317,7 @@
           {
             "id": "agentic-coding",
             "title": "Agentic Coding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9225,6 +9397,31 @@
       }
     },
     {
+      "id": "parsing",
+      "title": "Parsing",
+      "domain": "Structure / Inference",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "dynamic-programming-inference",
+            "title": "Dynamic Programming Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "structured-output",
+            "title": "Structured Output",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "pass-at-k",
       "title": "pass@k",
       "domain": "Evaluation / Metrics",
@@ -9242,7 +9439,7 @@
           {
             "id": "code-generation",
             "title": "Code Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9256,7 +9453,7 @@
           {
             "id": "execution-verification",
             "title": "Execution Verification",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -9786,13 +9983,13 @@
       "id": "program-repair",
       "title": "Program Repair",
       "domain": "Code / Verification",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "execution-verification",
             "title": "Execution Verification",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9807,7 +10004,7 @@
           {
             "id": "test-generation",
             "title": "Test Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10414,7 +10611,7 @@
       "id": "repository-context",
       "title": "Repository Context",
       "domain": "Code / Context",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10429,13 +10626,13 @@
           {
             "id": "code-search",
             "title": "Code Search",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "fill-in-the-middle",
             "title": "Fill in the Middle",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10608,7 +10805,7 @@
           {
             "id": "repository-context",
             "title": "Repository Context",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10645,7 +10842,7 @@
           {
             "id": "program-repair",
             "title": "Program Repair",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11017,7 +11214,7 @@
           {
             "id": "execution-verification",
             "title": "Execution Verification",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11085,6 +11282,37 @@
           {
             "id": "double-descent",
             "title": "Double Descent",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "schema-conformance",
+      "title": "Schema Conformance",
+      "domain": "Structure / Decoding",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "grammar-constrained-decoding",
+            "title": "Grammar-Constrained Decoding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "structured-output",
+            "title": "Structured Output",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "tool-schema",
+            "title": "Tool Schema",
             "tier": "verified",
             "reviewed": false
           }
@@ -11423,6 +11651,31 @@
             "id": "instance-segmentation",
             "title": "Instance Segmentation",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "sequence-labelling",
+      "title": "Sequence Labelling",
+      "domain": "Structure / Labelling",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "structured-output",
+            "title": "Structured Output",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "conditional-random-field",
+            "title": "Conditional Random Field",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -11775,6 +12028,12 @@
             "reviewed": false
           },
           {
+            "id": "conditional-random-field",
+            "title": "Conditional Random Field",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "numerical-stability",
             "title": "Numerical Stability",
             "tier": "verified",
@@ -11833,7 +12092,7 @@
           {
             "id": "code-search",
             "title": "Code Search",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -12337,6 +12596,56 @@
       }
     },
     {
+      "id": "structured-output",
+      "title": "Structured Output",
+      "domain": "Structure / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "autoregressive-decoding",
+            "title": "Autoregressive Decoding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "sequence-labelling",
+            "title": "Sequence Labelling",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "beam-search-tradeoffs",
+            "title": "Beam Search Tradeoffs",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "grammar-constrained-decoding",
+            "title": "Grammar-Constrained Decoding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "parsing",
+            "title": "Parsing",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "schema-conformance",
+            "title": "Schema Conformance",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "structured-sparsity",
       "title": "Structured Sparsity",
       "domain": "Compression / Methods",
@@ -12746,13 +13055,13 @@
       "id": "test-generation",
       "title": "Test Generation",
       "domain": "Code / Verification",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "execution-verification",
             "title": "Execution Verification",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12761,7 +13070,7 @@
           {
             "id": "program-repair",
             "title": "Program Repair",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -13120,6 +13429,12 @@
             "id": "prompt-injection",
             "title": "Prompt Injection",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "schema-conformance",
+            "title": "Schema Conformance",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -14600,7 +14915,7 @@
         {
           "id": "agentic-coding",
           "title": "Agentic Coding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 22
         },
@@ -14743,7 +15058,7 @@
       "center": {
         "id": "agentic-coding",
         "title": "Agentic Coding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -14765,7 +15080,7 @@
         {
           "id": "execution-verification",
           "title": "Execution Verification",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -15623,56 +15938,63 @@
           "title": "Beam Search",
           "tier": "verified",
           "x": 200,
-          "y": 15
+          "y": 13
         },
         {
           "id": "constrained-decoding",
           "title": "Constrained Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 29
+          "y": 26
         },
         {
           "id": "continuous-batching",
           "title": "Continuous Batching",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 40
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 59
+          "y": 53
         },
         {
           "id": "pass-at-k",
           "title": "pass@k",
           "tier": "verified",
           "x": 200,
-          "y": 73
+          "y": 66
         },
         {
           "id": "prefill-and-decode",
           "title": "Prefill and Decode",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 79
         },
         {
           "id": "speculative-decoding",
           "title": "Speculative Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 103
+          "y": 92
+        },
+        {
+          "id": "structured-output",
+          "title": "Structured Output",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 117
+          "y": 119
         },
         {
           "id": "text-to-speech",
@@ -15734,6 +16056,12 @@
         {
           "from": "autoregressive-decoding",
           "to": "speculative-decoding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "autoregressive-decoding",
+          "to": "structured-output",
           "type": "unlocks",
           "reviewed": false
         },
@@ -16149,6 +16477,20 @@
           "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "beam-search-tradeoffs",
+          "title": "Beam Search Tradeoffs",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "dynamic-programming-inference",
+          "title": "Dynamic Programming Inference",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -16156,6 +16498,58 @@
           "from": "autoregressive-decoding",
           "to": "beam-search",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "beam-search",
+          "to": "beam-search-tradeoffs",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "beam-search",
+          "to": "dynamic-programming-inference",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "beam-search-tradeoffs",
+      "center": {
+        "id": "beam-search-tradeoffs",
+        "title": "Beam Search Tradeoffs",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "beam-search",
+          "title": "Beam Search",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "structured-output",
+          "title": "Structured Output",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "beam-search",
+          "to": "beam-search-tradeoffs",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "beam-search-tradeoffs",
+          "to": "structured-output",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -17082,7 +17476,7 @@
         {
           "id": "fill-in-the-middle",
           "title": "Fill in the Middle",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -17508,7 +17902,7 @@
       "center": {
         "id": "code-generation",
         "title": "Code Generation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17523,14 +17917,14 @@
         {
           "id": "execution-verification",
           "title": "Execution Verification",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "fill-in-the-middle",
           "title": "Fill in the Middle",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -17561,7 +17955,7 @@
       "center": {
         "id": "code-search",
         "title": "Code Search",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17576,7 +17970,7 @@
         {
           "id": "repository-context",
           "title": "Repository Context",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -18139,6 +18533,59 @@
       ]
     },
     {
+      "id": "conditional-random-field",
+      "center": {
+        "id": "conditional-random-field",
+        "title": "Conditional Random Field",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "dynamic-programming-inference",
+          "title": "Dynamic Programming Inference",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "sequence-labelling",
+          "title": "Sequence Labelling",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "dynamic-programming-inference",
+          "to": "conditional-random-field",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "conditional-random-field",
+          "to": "sequence-labelling",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "conditional-random-field",
+          "to": "softmax",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "conformal-prediction",
       "center": {
         "id": "conformal-prediction",
@@ -18295,6 +18742,13 @@
           "y": 88
         },
         {
+          "id": "dynamic-programming-inference",
+          "title": "Dynamic Programming Inference",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "automatic-speech-recognition",
           "title": "Speech Recognition",
           "tier": "verified",
@@ -18313,6 +18767,12 @@
           "from": "spectrogram",
           "to": "connectionist-temporal-classification",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "connectionist-temporal-classification",
+          "to": "dynamic-programming-inference",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -18401,6 +18861,13 @@
           "y": 88
         },
         {
+          "id": "grammar-constrained-decoding",
+          "title": "Grammar-Constrained Decoding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "function-calling",
           "title": "Function Calling",
           "tier": "verified",
@@ -18419,6 +18886,12 @@
           "from": "softmax",
           "to": "constrained-decoding",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "constrained-decoding",
+          "to": "grammar-constrained-decoding",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -18510,7 +18983,7 @@
         {
           "id": "repository-context",
           "title": "Repository Context",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -20377,7 +20850,7 @@
         {
           "id": "code-search",
           "title": "Code Search",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -21220,6 +21693,72 @@
       ]
     },
     {
+      "id": "dynamic-programming-inference",
+      "center": {
+        "id": "dynamic-programming-inference",
+        "title": "Dynamic Programming Inference",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "connectionist-temporal-classification",
+          "title": "CTC",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "conditional-random-field",
+          "title": "Conditional Random Field",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "parsing",
+          "title": "Parsing",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "beam-search",
+          "title": "Beam Search",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "connectionist-temporal-classification",
+          "to": "dynamic-programming-inference",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "dynamic-programming-inference",
+          "to": "conditional-random-field",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "dynamic-programming-inference",
+          "to": "parsing",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "dynamic-programming-inference",
+          "to": "beam-search",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "edge-of-stability",
       "center": {
         "id": "edge-of-stability",
@@ -21938,7 +22477,7 @@
         {
           "id": "execution-verification",
           "title": "Execution Verification",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -22002,7 +22541,7 @@
       "center": {
         "id": "execution-verification",
         "title": "Execution Verification",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -22017,28 +22556,28 @@
         {
           "id": "program-repair",
           "title": "Program Repair",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "test-generation",
           "title": "Test Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "agentic-coding",
           "title": "Agentic Coding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
         {
           "id": "code-generation",
           "title": "Code Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -22833,7 +23372,7 @@
       "center": {
         "id": "fill-in-the-middle",
         "title": "Fill in the Middle",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -22848,14 +23387,14 @@
         {
           "id": "code-generation",
           "title": "Code Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "repository-context",
           "title": "Repository Context",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -23264,8 +23803,15 @@
           "id": "constrained-decoding",
           "title": "Constrained Decoding",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "grammar-constrained-decoding",
+          "title": "Grammar-Constrained Decoding",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -23296,6 +23842,12 @@
         {
           "from": "function-calling",
           "to": "constrained-decoding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "function-calling",
+          "to": "grammar-constrained-decoding",
           "type": "adjacent",
           "reviewed": false
         }
@@ -23836,6 +24388,72 @@
         {
           "from": "gradient-leakage",
           "to": "secure-aggregation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "grammar-constrained-decoding",
+      "center": {
+        "id": "grammar-constrained-decoding",
+        "title": "Grammar-Constrained Decoding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "constrained-decoding",
+          "title": "Constrained Decoding",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "schema-conformance",
+          "title": "Schema Conformance",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "function-calling",
+          "title": "Function Calling",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "structured-output",
+          "title": "Structured Output",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "constrained-decoding",
+          "to": "grammar-constrained-decoding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "grammar-constrained-decoding",
+          "to": "schema-conformance",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "grammar-constrained-decoding",
+          "to": "function-calling",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "grammar-constrained-decoding",
+          "to": "structured-output",
           "type": "adjacent",
           "reviewed": false
         }
@@ -26850,7 +27468,7 @@
         {
           "id": "agentic-coding",
           "title": "Agentic Coding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -30546,6 +31164,46 @@
       ]
     },
     {
+      "id": "parsing",
+      "center": {
+        "id": "parsing",
+        "title": "Parsing",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "dynamic-programming-inference",
+          "title": "Dynamic Programming Inference",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "structured-output",
+          "title": "Structured Output",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "dynamic-programming-inference",
+          "to": "parsing",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "parsing",
+          "to": "structured-output",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "pass-at-k",
       "center": {
         "id": "pass-at-k",
@@ -30565,7 +31223,7 @@
         {
           "id": "code-generation",
           "title": "Code Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -30579,7 +31237,7 @@
         {
           "id": "execution-verification",
           "title": "Execution Verification",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -31564,7 +32222,7 @@
       "center": {
         "id": "program-repair",
         "title": "Program Repair",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31572,7 +32230,7 @@
         {
           "id": "execution-verification",
           "title": "Execution Verification",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -31586,7 +32244,7 @@
         {
           "id": "test-generation",
           "title": "Test Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -32661,7 +33319,7 @@
       "center": {
         "id": "repository-context",
         "title": "Repository Context",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -32676,14 +33334,14 @@
         {
           "id": "code-search",
           "title": "Code Search",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
         {
           "id": "fill-in-the-middle",
           "title": "Fill in the Middle",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -32981,7 +33639,7 @@
         {
           "id": "repository-context",
           "title": "Repository Context",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -33059,7 +33717,7 @@
         {
           "id": "program-repair",
           "title": "Program Repair",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -33719,7 +34377,7 @@
         {
           "id": "execution-verification",
           "title": "Execution Verification",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
@@ -33877,6 +34535,59 @@
         {
           "from": "scaling-laws",
           "to": "double-descent",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "schema-conformance",
+      "center": {
+        "id": "schema-conformance",
+        "title": "Schema Conformance",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "grammar-constrained-decoding",
+          "title": "Grammar-Constrained Decoding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "structured-output",
+          "title": "Structured Output",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "tool-schema",
+          "title": "Tool Schema",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "grammar-constrained-decoding",
+          "to": "schema-conformance",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "schema-conformance",
+          "to": "structured-output",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "schema-conformance",
+          "to": "tool-schema",
           "type": "adjacent",
           "reviewed": false
         }
@@ -34465,6 +35176,46 @@
       ]
     },
     {
+      "id": "sequence-labelling",
+      "center": {
+        "id": "sequence-labelling",
+        "title": "Sequence Labelling",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "structured-output",
+          "title": "Structured Output",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "conditional-random-field",
+          "title": "Conditional Random Field",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "structured-output",
+          "to": "sequence-labelling",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sequence-labelling",
+          "to": "conditional-random-field",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "sequence-parallelism",
       "center": {
         "id": "sequence-parallelism",
@@ -35029,15 +35780,22 @@
           "id": "attention",
           "title": "Attention",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "conditional-random-field",
+          "title": "Conditional Random Field",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "numerical-stability",
           "title": "Numerical Stability",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -35098,6 +35856,12 @@
         {
           "from": "softmax",
           "to": "attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "conditional-random-field",
           "type": "adjacent",
           "reviewed": false
         },
@@ -35182,7 +35946,7 @@
         {
           "id": "code-search",
           "title": "Code Search",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -36099,6 +36863,98 @@
       ]
     },
     {
+      "id": "structured-output",
+      "center": {
+        "id": "structured-output",
+        "title": "Structured Output",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "autoregressive-decoding",
+          "title": "Autoregressive Decoding",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "sequence-labelling",
+          "title": "Sequence Labelling",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "beam-search-tradeoffs",
+          "title": "Beam Search Tradeoffs",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
+          "id": "grammar-constrained-decoding",
+          "title": "Grammar-Constrained Decoding",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
+        },
+        {
+          "id": "parsing",
+          "title": "Parsing",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "schema-conformance",
+          "title": "Schema Conformance",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "autoregressive-decoding",
+          "to": "structured-output",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "structured-output",
+          "to": "sequence-labelling",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "structured-output",
+          "to": "beam-search-tradeoffs",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "structured-output",
+          "to": "grammar-constrained-decoding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "structured-output",
+          "to": "parsing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "structured-output",
+          "to": "schema-conformance",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "structured-sparsity",
       "center": {
         "id": "structured-sparsity",
@@ -36816,7 +37672,7 @@
       "center": {
         "id": "test-generation",
         "title": "Test Generation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -36824,14 +37680,14 @@
         {
           "id": "execution-verification",
           "title": "Execution Verification",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "program-repair",
           "title": "Program Repair",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -37478,8 +38334,15 @@
           "id": "prompt-injection",
           "title": "Prompt Injection",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "schema-conformance",
+          "title": "Schema Conformance",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -37516,6 +38379,12 @@
         {
           "from": "tool-schema",
           "to": "prompt-injection",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "tool-schema",
+          "to": "schema-conformance",
           "type": "adjacent",
           "reviewed": false
         }

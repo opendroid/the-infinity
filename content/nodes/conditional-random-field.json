@@ -1,0 +1,63 @@
+{
+  "id": "conditional-random-field",
+  "title": "Conditional Random Field",
+  "domain": [
+    "Structure",
+    "Labelling"
+  ],
+  "bodies": {
+    "intuition": "A classifier that tags each token independently will cheerfully produce a sequence that cannot exist — an inside tag with no beginning before it. A CRF fixes this by scoring the whole sequence at once, adding a learned cost for each pair of adjacent labels, so impossible transitions simply lose.",
+    "engineer": "In a modern stack it is a thin layer on top of a neural encoder, and it is thin on purpose: the encoder supplies the per-token evidence and the CRF supplies only the transition structure. That division is why it survived the move to neural models when most of the classical apparatus did not — the part it contributes is the part a token-wise softmax genuinely cannot express, and it costs one small matrix.",
+    "math": "The score of a sequence is the sum of per-token scores plus a transition score for each adjacent pair, normalised over all sequences — and that normaliser is exactly what the forward algorithm computes, which is why a CRF is trainable at all. Its gain over independent classification is concentrated on the errors that violate transitions, so a task where nearly every label pair is legal gets almost nothing from it, and a task with tight structure gets a great deal."
+  },
+  "emphasis": {
+    "engineer": "the part it contributes is the part a token-wise softmax genuinely cannot express",
+    "math": "a task where nearly every label pair is legal gets almost nothing from it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "transition_errors": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "transition_errors",
+        "min": 0,
+        "max": 240,
+        "step": 10
+      }
+    ],
+    "caption": "Errors that break a legal label transition, which a CRF can remove, against errors inside a single token's evidence, which it cannot. Drag the structural share up to watch the transition layer's value grow — a task with no illegal pairs gets nothing from it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "dynamic-programming-inference",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1508.01991",
+      "title": "Bidirectional LSTM-CRF Models for Sequence Tagging",
+      "url": "https://arxiv.org/abs/1508.01991"
+    },
+    {
+      "ref": "arXiv:1603.01360",
+      "title": "Neural Architectures for Named Entity Recognition",
+      "url": "https://arxiv.org/abs/1603.01360"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

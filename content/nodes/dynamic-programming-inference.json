@@ -1,0 +1,63 @@
+{
+  "id": "dynamic-programming-inference",
+  "title": "Dynamic Programming Inference",
+  "domain": [
+    "Structure",
+    "Inference"
+  ],
+  "bodies": {
+    "intuition": "Finding the best label sequence looks like it needs checking every sequence, and there are exponentially many. It does not, because the sequences share their beginnings: once you know the best way to reach a given state at a given position, every sequence passing through it reuses that answer. Filling a table of those answers is the whole idea, and it is what made structured prediction tractable decades before anything was learned.",
+    "engineer": "Two algorithms on the same table. Viterbi keeps the best score reaching each cell and recovers the single best sequence; the forward algorithm sums instead of maximising, giving the total probability of all sequences — which is what a CRF needs to normalise and what `connectionist-temporal-classification` uses to sum over every alignment consistent with a transcript. Same table, one operator different, two entirely different questions answered.",
+    "math": "The table has one cell per position per state, and filling each cell looks at every state at the previous position, so the cost is the sequence length times the square of the state count. That replaces an exponential in the length with something linear in it — the exponential does not become large, it stops existing, because the shared prefixes were never enumerated separately in the first place."
+  },
+  "emphasis": {
+    "intuition": "the sequences share their beginnings",
+    "math": "the exponential does not become large, it stops existing"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 10,
+      "keys": 5
+    },
+    "param_controls": [
+      {
+        "name": "keys",
+        "min": 2,
+        "max": 20,
+        "step": 1
+      }
+    ],
+    "caption": "Each row a position in the sequence, each column a state the label could take; brightness is the best score reaching that cell. Drag the state count up to watch the table widen — cost per row grows with the square of the states, and that is what replaced the exponential."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "connectionist-temporal-classification",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "beam-search",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1603.01360",
+      "title": "Neural Architectures for Named Entity Recognition",
+      "url": "https://arxiv.org/abs/1603.01360"
+    },
+    {
+      "ref": "arXiv:1409.0473",
+      "title": "Neural Machine Translation by Jointly Learning to Align and Translate",
+      "url": "https://arxiv.org/abs/1409.0473"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
