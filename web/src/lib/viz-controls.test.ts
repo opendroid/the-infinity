@@ -251,13 +251,29 @@ describe('viz controls reach the primitive', () => {
    * phrased, so up is what a reader tries first. A caption that means down has
    * to say down, which is the same conversation that assertion started.
    *
-   * COVERAGE IS PARTIAL AND DELIBERATELY SO. Only `budget-split` and
-   * `update-spectrum` are checked — 113 of the corpus's figures — because only
-   * they have a single scalar that honestly means "how far along is the
-   * picture". A heatmap's peak, a loss curve's floor and a threshold sweep's
-   * four counts are not that, and asserting on them would measure something
-   * other than what a reader sees. The uncovered four are named here rather
-   * than skipped silently.
+   * COVERAGE IS PARTIAL AND DELIBERATELY SO, and `threshold-sweep` has since
+   * joined it (#309). The original reasoning was that only `budget-split` and
+   * `update-spectrum` have "a single scalar that honestly means how far along
+   * the picture is", and that a threshold sweep's four counts are not that.
+   *
+   * That is right about the single scalar and wrong about the conclusion. The
+   * reader watches those counts, so the checkable question is whether ANY of
+   * them moved — which is why `visible` now returns a list and the assertion
+   * asks that at least one entry travel. Sweeping the corpus at a threshold of
+   * 10 flags exactly ONE of the 22 sweeps, `output-watermarking`, which opened
+   * at separation 2.4 under a caption promising that "a sentence sits in the
+   * overlap" — the populations had already pulled apart before the reader
+   * touched anything. Fixed here by opening at 0.75. One finding in 22, with
+   * the other 21 honest, is what a real check looks like.
+   *
+   * `loss-curve`, `attention-heatmap` and `router-dispatch` stay uncovered, and
+   * UNCHECKED_PRIMITIVES below names them so a NEW primitive cannot join them by
+   * default — which is what let this gap sit unnoticed. A loss curve's floor and
+   * a heatmap's peak still are not "how far along", and the direction a loss
+   * curve's counterfactual falls is not checkable from prose: only 2 of its 33
+   * captions use a direction word at all, so a check on them would cover
+   * nothing. That one is a rule for a person, like the two in
+   * content/schema/README.md.
    *
    * THE THRESHOLD IS 10 BECAUSE NOTHING HONEST SITS BELOW 14. It shipped at 5,
    * which was as far as the evidence went at the time — #203 held the nine
@@ -278,24 +294,53 @@ describe('viz controls reach the primitive', () => {
    * bar "is read, not measured", and a fractional threshold would pass figures
    * that move by less than the bar can draw.
    */
-  function visible(node: Node, control: Control, value: number): number | null {
+  /**
+   * The primitives with no honest "how far along" number, named rather than
+   * reached by falling off the end of `visible`. A primitive added to the enum
+   * without an entry here fails the guard below, so the next one cannot opt out
+   * of this check by being unrecognised — which is exactly how `threshold-sweep`
+   * went unchecked through 22 nodes.
+   */
+  const UNCHECKED_PRIMITIVES = ['loss-curve', 'attention-heatmap', 'router-dispatch'];
+  const PRIMITIVES_WITH_A_SCALAR = ['budget-split', 'update-spectrum', 'threshold-sweep'];
+
+  function visible(node: Node, control: Control, value: number): number[] | null {
     const live = { ...node.viz.params, [control.name]: value };
     if (node.viz.primitive === 'budget-split') {
-      return percent(split(value, live.share_rest ?? 0).share);
+      return [percent(split(value, live.share_rest ?? 0).share)];
     }
     if (node.viz.primitive === 'update-spectrum') {
       const f = spectrum(node.id, live.bars ?? 8, progress(value, control.min, control.max));
       const base = spread(f.baseline);
-      return base === 0 ? 0 : Math.round((1 - spread(f.transformed) / base) * 100);
+      return [base === 0 ? 0 : Math.round((1 - spread(f.transformed) / base) * 100)];
+    }
+    if (node.viz.primitive === 'threshold-sweep') {
+      // The two the reader is told to watch. Recall carries `threshold` and
+      // `separation`; precision is what a `base_rate` control moves, and it
+      // moves recall not at all — so requiring one number would have made the
+      // base-rate nodes look broken for behaving correctly.
+      const f = sweep(sweepShapeFrom(live));
+      return [percent(f.recall), percent(f.precision)];
     }
     return null;
   }
+
+  it('scores every primitive, or names it as unscored', () => {
+    const unscored = [...new Set(nodes.map((n) => n.viz.primitive))].filter(
+      (p) => !PRIMITIVES_WITH_A_SCALAR.includes(p),
+    );
+    expect(unscored.sort()).toEqual([...UNCHECKED_PRIMITIVES].sort());
+  });
 
   it.each(draggable)('$id · $control.name moves visibly, or says it does not', ({ node, control }) => {
     const open = visible(node, control, node.viz.params[control.name]!);
     if (open === null) return;
     const end = visible(node, control, SAYS_DOWN.test(node.viz.caption) ? control.min : control.max)!;
     if (SAYS_IT_STAYS.test(node.viz.caption)) return;
-    expect(Math.abs(end - open)).toBeGreaterThanOrEqual(MIN_TRAVEL);
+    // At least one of the numbers a reader watches has to move. Demanding all of
+    // them would fail a base-rate control for leaving recall alone, which is the
+    // correct behaviour rather than a defect.
+    const travelled = open.map((v, i) => Math.abs(end[i]! - v));
+    expect(Math.max(...travelled)).toBeGreaterThanOrEqual(MIN_TRAVEL);
   });
 });
