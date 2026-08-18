@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "For a conversation, speech has to start before the sentence is finished. That rules out any method needing the whole text — which includes most of what makes synthesis sound good, because prosody depends on where the sentence is going. Streaming synthesis is the art of committing to a reading before knowing the ending.",
     "engineer": "The number that matters is time to first audio, not total generation time, and they trade against each other: chunking the text lowers the first and raises the second through repeated setup. Prosody suffers at chunk boundaries because the model cannot see across them, so chunk boundaries are placed at syntactic breaks where a human would pause anyway.",
-    "math": "With chunk length c, first audio arrives after synthesising c units rather than the whole utterance, so latency falls roughly linearly in c while boundary artefacts rise with the number of boundaries. The optimum is not a value of c but a placement rule — a boundary at a clause break costs nothing, one mid-phrase costs a great deal."
+    "math": "With chunk length c, first audio arrives after synthesising c units rather than the whole utterance, so latency is proportional to c rather than to the utterance, rising as the chunk grows while boundary artefacts fall with the number of boundaries. The optimum is not a value of c but a placement rule — a boundary at a clause break costs nothing, one mid-phrase costs a great deal."
   },
   "emphasis": {
     "intuition": "committing to a reading before knowing the ending",
@@ -56,7 +56,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

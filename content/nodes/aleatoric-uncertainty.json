@@ -1,0 +1,62 @@
+{
+  "id": "aleatoric-uncertainty",
+  "title": "Aleatoric Uncertainty",
+  "domain": [
+    "Uncertainty",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "The uncertainty that is in the data itself. Two radiologists disagree about the same scan; the same sentence has two reasonable translations; the coin does not care how much you have studied it. No amount of extra data or a larger model removes this, because it is not a fact about the model — it is a fact about the world the labels came from.",
+    "engineer": "Worth measuring because it sets the ceiling. If your labels disagree with each other 8% of the time, a model at 92% has finished, and the next month of work buys nothing. Heteroscedastic regression estimates it directly by predicting a variance alongside the mean, which also reweights the loss — noisy examples stop dominating the gradient, and the model stops trying to fit what nobody could.",
+    "math": "Total error splits into a part the model could remove and a part it could not, and the irreducible share is noise/(noise+reducible). As label noise grows that share saturates toward the whole: past a point every remaining mistake belongs to the label rather than the model, and the curve flattens well before it gets there — which is why a benchmark near its noise floor stops ranking methods and starts ranking overfitting to its test set."
+  },
+  "emphasis": {
+    "intuition": "it is not a fact about the model — it is a fact about the world the labels came from",
+    "engineer": "a model at 92% has finished, and the next month of work buys nothing"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "label_noise": 2,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "label_noise",
+        "min": 0,
+        "max": 120,
+        "step": 6
+      }
+    ],
+    "caption": "Error the labels themselves carry, against error a better model could still remove, in equal units. Drag the label noise up to watch the irreducible share swallow the rest — the point past which a benchmark ranks overfitting rather than methods."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "loss-function",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "epistemic-uncertainty",
+        "reviewed": false
+      },
+      {
+        "id": "annotation-quality",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.04977",
+      "title": "What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?",
+      "url": "https://arxiv.org/abs/1703.04977"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

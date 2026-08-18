@@ -1,0 +1,67 @@
+{
+  "id": "epistemic-uncertainty",
+  "title": "Epistemic Uncertainty",
+  "domain": [
+    "Uncertainty",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "The uncertainty that comes from not having seen enough. Ask a model about a region of input space it has three examples of and it should hedge — not because the answer is inherently random, but because the model does not know it yet. This is the part of uncertainty that goes away if you go and collect more data, which makes it the actionable half.",
+    "engineer": "A single softmax cannot express it. A point-estimate network gives one confident answer per input whether it has seen a million neighbours or none, because nothing in the forward pass carries how much evidence sits behind the weights. Getting at epistemic uncertainty means holding several plausible models at once — an ensemble, a posterior, a dropout mask resampled — and reading the disagreement between them.",
+    "math": "Bayesian shrinkage makes the shape concrete: with a Gaussian prior and n observations, the posterior precision is the prior precision plus n times the likelihood precision, so the data's share of what the posterior believes is n/(n+κ) for a prior worth κ observations. It rises steeply at first and then crawls — the tenth example moves the posterior far more than the thousandth, which is why active learning pays and why the last of the epistemic uncertainty is the expensive part."
+  },
+  "emphasis": {
+    "intuition": "This is the part of uncertainty that goes away if you go and collect more data",
+    "engineer": "nothing in the forward pass carries how much evidence sits behind the weights"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "observations": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "observations",
+        "min": 0,
+        "max": 104,
+        "step": 4
+      }
+    ],
+    "caption": "The share of the posterior the data has bought, against the share still held by a prior worth twenty observations. Drag the observations up to watch evidence take over — steeply at first, then barely, which is why the last of this uncertainty costs the most."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "entropy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "aleatoric-uncertainty",
+        "reviewed": false
+      },
+      {
+        "id": "data-scaling-laws",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.04977",
+      "title": "What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?",
+      "url": "https://arxiv.org/abs/1703.04977"
+    },
+    {
+      "ref": "arXiv:1612.01474",
+      "title": "Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles",
+      "url": "https://arxiv.org/abs/1612.01474"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

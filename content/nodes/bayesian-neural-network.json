@@ -1,0 +1,81 @@
+{
+  "id": "bayesian-neural-network",
+  "title": "Bayesian Neural Network",
+  "domain": [
+    "Uncertainty",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Instead of one number per weight, keep a distribution over each. Predicting means sampling several networks from that distribution and looking at how much they disagree — so uncertainty is not bolted on afterwards, it falls out of the same object that makes the prediction. The idea is older than deep learning and has never quite become practical at scale.",
+    "engineer": "Exact inference is hopeless, so everything shipped is an approximation: variational families that assume the weights are independent, Laplace approximations around a trained point, or Monte Carlo dropout, which reinterprets a regulariser you were already using as a posterior sample. Each approximation is cheap in a different way and wrong in a different way, and the disagreement between them is why the field has no default.",
+    "math": "The posterior can be tempered — raised to a power 1/T — and the empirical finding is awkward: deep networks work better at T well below 1, a sharpened posterior rather than the true one. Raising T flattens the posterior toward the prior and performance degrades, so the Bayes posterior that theory prescribes is not the one that works. Whether that indicts the prior, the likelihood, or the data augmentation is still open."
+  },
+  "emphasis": {
+    "intuition": "it falls out of the same object that makes the prediction",
+    "math": "the Bayes posterior that theory prescribes is not the one that works"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "temperature": 0.3,
+      "bars": 10
+    },
+    "param_controls": [
+      {
+        "name": "temperature",
+        "min": 0.1,
+        "max": 4,
+        "step": 0.1
+      }
+    ],
+    "caption": "A posterior over weights, and the same posterior tempered. Drag the temperature up to watch it flatten toward the prior — the direction theory points, and the direction that measurably makes deep networks worse."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "evidence-lower-bound",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "dropout",
+        "reviewed": false
+      },
+      {
+        "id": "epistemic-uncertainty",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1506.02142",
+      "title": "Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning",
+      "url": "https://arxiv.org/abs/1506.02142"
+    },
+    {
+      "ref": "arXiv:2002.02405",
+      "title": "How Good is the Bayes Posterior in Deep Neural Networks Really?",
+      "url": "https://arxiv.org/abs/2002.02405"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "MacKay 1992",
+      "title": "A Practical Bayesian Framework for Backpropagation Networks",
+      "venue": "Neural Computation 4(3)",
+      "doi": "10.1162/neco.1992.4.3.448"
+    },
+    {
+      "ref": "Neal 1996",
+      "title": "Bayesian Learning for Neural Networks",
+      "venue": "Lecture Notes in Statistics 118, Springer",
+      "doi": "10.1007/978-1-4612-0745-0"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -241,6 +241,12 @@
         ],
         "adjacent": [
           {
+            "id": "out-of-distribution-detection",
+            "title": "Out-of-Distribution Detection",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
             "tier": "verified",
@@ -362,6 +368,37 @@
       }
     },
     {
+      "id": "aleatoric-uncertainty",
+      "title": "Aleatoric Uncertainty",
+      "domain": "Uncertainty / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "loss-function",
+            "title": "Loss Function",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "annotation-quality",
+            "title": "Annotation Quality",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "epistemic-uncertainty",
+            "title": "Epistemic Uncertainty",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "alibi",
       "title": "ALiBi",
       "domain": "Attention / Position",
@@ -396,6 +433,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "aleatoric-uncertainty",
+            "title": "Aleatoric Uncertainty",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "calibration",
             "title": "Calibration",
             "tier": "verified",
@@ -416,7 +459,7 @@
           {
             "id": "synthesis-evaluation",
             "title": "Synthesis Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -611,13 +654,13 @@
       "id": "audio-generation",
       "title": "Audio Generation",
       "domain": "Synthesis / Generation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "speech-tokenization",
             "title": "Speech Tokenization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -993,6 +1036,37 @@
       }
     },
     {
+      "id": "bayesian-neural-network",
+      "title": "Bayesian Neural Network",
+      "domain": "Uncertainty / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "evidence-lower-bound",
+            "title": "ELBO",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "dropout",
+            "title": "Dropout",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "epistemic-uncertainty",
+            "title": "Epistemic Uncertainty",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "beam-search",
       "title": "Beam Search",
       "domain": "Inference / Decoding",
@@ -1081,6 +1155,12 @@
         ],
         "unlocks": [
           {
+            "id": "deep-ensemble",
+            "title": "Deep Ensemble",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "double-descent",
             "title": "Double Descent",
             "tier": "verified",
@@ -1141,7 +1221,7 @@
           {
             "id": "speech-tokenization",
             "title": "Speech Tokenization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1161,7 +1241,20 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "conformal-prediction",
+            "title": "Conformal Prediction",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "selective-prediction",
+            "title": "Selective Prediction",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "annotation-quality",
@@ -1185,6 +1278,12 @@
             "id": "likelihood-vs-sample-quality",
             "title": "Likelihood vs Sample Quality",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "out-of-distribution-detection",
+            "title": "Out-of-Distribution Detection",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -1557,7 +1656,7 @@
           {
             "id": "prosody-control",
             "title": "Prosody Control",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1882,6 +1981,37 @@
             "title": "Feed-Forward Network",
             "tier": "verified",
             "reviewed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "conformal-prediction",
+      "title": "Conformal Prediction",
+      "domain": "Uncertainty / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "distribution-shift",
+            "title": "Distribution Shift",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "selective-prediction",
+            "title": "Selective Prediction",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -2239,7 +2369,7 @@
           {
             "id": "speaker-embedding",
             "title": "Speaker Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2785,6 +2915,12 @@
             "reviewed": false
           },
           {
+            "id": "epistemic-uncertainty",
+            "title": "Epistemic Uncertainty",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "language-imbalance",
             "title": "Language Imbalance",
             "tier": "frontier",
@@ -2907,6 +3043,37 @@
             "id": "training-data-extraction",
             "title": "Training Data Extraction",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "deep-ensemble",
+      "title": "Deep Ensemble",
+      "domain": "Uncertainty / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "bias-variance-tradeoff",
+            "title": "Bias-Variance Tradeoff",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "distribution-shift",
+            "title": "Distribution Shift",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "epistemic-uncertainty",
+            "title": "Epistemic Uncertainty",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -3179,6 +3346,56 @@
       }
     },
     {
+      "id": "distribution-shift",
+      "title": "Distribution Shift",
+      "domain": "Uncertainty / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "out-of-distribution-detection",
+            "title": "Out-of-Distribution Detection",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "conformal-prediction",
+            "title": "Conformal Prediction",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "deep-ensemble",
+            "title": "Deep Ensemble",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "epistemic-uncertainty",
+            "title": "Epistemic Uncertainty",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "double-descent",
       "title": "Double Descent",
       "domain": "Landscape / Generalization",
@@ -3267,6 +3484,12 @@
         "requires": [],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "bayesian-neural-network",
+            "title": "Bayesian Neural Network",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "pruning",
             "title": "Pruning",
@@ -3465,6 +3688,12 @@
         "requires": [],
         "unlocks": [
           {
+            "id": "epistemic-uncertainty",
+            "title": "Epistemic Uncertainty",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "kl-divergence",
             "title": "KL Divergence",
             "tier": "verified",
@@ -3512,6 +3741,55 @@
       }
     },
     {
+      "id": "epistemic-uncertainty",
+      "title": "Epistemic Uncertainty",
+      "domain": "Uncertainty / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "entropy",
+            "title": "Entropy",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "aleatoric-uncertainty",
+            "title": "Aleatoric Uncertainty",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "bayesian-neural-network",
+            "title": "Bayesian Neural Network",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "data-scaling-laws",
+            "title": "Data Scaling Laws",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "deep-ensemble",
+            "title": "Deep Ensemble",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "distribution-shift",
+            "title": "Distribution Shift",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "evidence-lower-bound",
       "title": "ELBO",
       "domain": "Information / Objectives",
@@ -3531,7 +3809,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "bayesian-neural-network",
+            "title": "Bayesian Neural Network",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "normalizing-flow",
@@ -4121,7 +4406,7 @@
           {
             "id": "vocoder",
             "title": "Vocoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4729,6 +5014,12 @@
             "id": "safety-envelope",
             "title": "Safety Envelope",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "selective-prediction",
+            "title": "Selective Prediction",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -5544,7 +5835,7 @@
           {
             "id": "audio-generation",
             "title": "Audio Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5681,7 +5972,7 @@
           {
             "id": "audio-generation",
             "title": "Audio Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5798,7 +6089,7 @@
           {
             "id": "synthesis-evaluation",
             "title": "Synthesis Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5975,6 +6266,12 @@
       "edges": {
         "requires": [],
         "unlocks": [
+          {
+            "id": "aleatoric-uncertainty",
+            "title": "Aleatoric Uncertainty",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "backpropagation",
             "title": "Backpropagation",
@@ -6499,7 +6796,7 @@
           {
             "id": "speaker-embedding",
             "title": "Speaker Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7212,7 +7509,7 @@
           {
             "id": "speech-tokenization",
             "title": "Speech Tokenization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7480,6 +7777,37 @@
       }
     },
     {
+      "id": "out-of-distribution-detection",
+      "title": "Out-of-Distribution Detection",
+      "domain": "Uncertainty / Detection",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "distribution-shift",
+            "title": "Distribution Shift",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "adversarial-example",
+            "title": "Adversarial Example",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "overfitting",
       "title": "Overfitting",
       "domain": "Optimization / Generalization",
@@ -7504,6 +7832,12 @@
             "id": "cross-validation",
             "title": "Cross-Validation",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "distribution-shift",
+            "title": "Distribution Shift",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -7919,7 +8253,7 @@
           {
             "id": "streaming-synthesis",
             "title": "Streaming Synthesis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8219,7 +8553,7 @@
       "id": "prosody-control",
       "title": "Prosody Control",
       "domain": "Synthesis / Control",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9280,6 +9614,37 @@
       }
     },
     {
+      "id": "selective-prediction",
+      "title": "Selective Prediction",
+      "domain": "Uncertainty / Decisions",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "conformal-prediction",
+            "title": "Conformal Prediction",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "human-in-the-loop",
+            "title": "Human in the Loop",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "selective-state-space",
       "title": "Selective State Space",
       "domain": "Sequence / Architecture",
@@ -9565,6 +9930,12 @@
             "reviewed": false
           },
           {
+            "id": "distribution-shift",
+            "title": "Distribution Shift",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "manipulation",
             "title": "Manipulation",
             "tier": "verified",
@@ -9768,7 +10139,7 @@
       "id": "speaker-embedding",
       "title": "Speaker Embedding",
       "domain": "Synthesis / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9788,7 +10159,7 @@
           {
             "id": "voice-conversion",
             "title": "Voice Conversion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9837,7 +10208,7 @@
           {
             "id": "vocoder",
             "title": "Vocoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9912,7 +10283,7 @@
           {
             "id": "speaker-embedding",
             "title": "Speaker Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9954,7 +10325,7 @@
       "id": "speech-tokenization",
       "title": "Speech Tokenization",
       "domain": "Synthesis / Representation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9974,7 +10345,7 @@
           {
             "id": "audio-generation",
             "title": "Audio Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -10150,7 +10521,7 @@
           {
             "id": "streaming-synthesis",
             "title": "Streaming Synthesis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -10160,7 +10531,7 @@
       "id": "streaming-synthesis",
       "title": "Streaming Synthesis",
       "domain": "Synthesis / Serving",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10272,7 +10643,7 @@
       "id": "synthesis-evaluation",
       "title": "Synthesis Evaluation",
       "domain": "Synthesis / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10561,25 +10932,25 @@
           {
             "id": "prosody-control",
             "title": "Prosody Control",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "streaming-synthesis",
             "title": "Streaming Synthesis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "synthesis-evaluation",
             "title": "Synthesis Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "vocoder",
             "title": "Vocoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11249,7 +11620,7 @@
           {
             "id": "voice-conversion",
             "title": "Voice Conversion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -11285,7 +11656,7 @@
           {
             "id": "speech-tokenization",
             "title": "Speech Tokenization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11428,7 +11799,7 @@
       "id": "vocoder",
       "title": "Vocoder",
       "domain": "Synthesis / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -11448,7 +11819,7 @@
           {
             "id": "voice-conversion",
             "title": "Voice Conversion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11466,19 +11837,19 @@
       "id": "voice-conversion",
       "title": "Voice Conversion",
       "domain": "Synthesis / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "speaker-embedding",
             "title": "Speaker Embedding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "vocoder",
             "title": "Vocoder",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11616,7 +11987,7 @@
           {
             "id": "synthesis-evaluation",
             "title": "Synthesis Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12096,11 +12467,18 @@
           "y": 99
         },
         {
+          "id": "out-of-distribution-detection",
+          "title": "Out-of-Distribution Detection",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -12120,6 +12498,12 @@
           "from": "adversarial-example",
           "to": "jailbreak",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "adversarial-example",
+          "to": "out-of-distribution-detection",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -12329,6 +12713,59 @@
       ]
     },
     {
+      "id": "aleatoric-uncertainty",
+      "center": {
+        "id": "aleatoric-uncertainty",
+        "title": "Aleatoric Uncertainty",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "loss-function",
+          "title": "Loss Function",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "annotation-quality",
+          "title": "Annotation Quality",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "epistemic-uncertainty",
+          "title": "Epistemic Uncertainty",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "loss-function",
+          "to": "aleatoric-uncertainty",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "aleatoric-uncertainty",
+          "to": "annotation-quality",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "aleatoric-uncertainty",
+          "to": "epistemic-uncertainty",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "alibi",
       "center": {
         "id": "alibi",
@@ -12373,39 +12810,46 @@
           "y": 66
         },
         {
+          "id": "aleatoric-uncertainty",
+          "title": "Aleatoric Uncertainty",
+          "tier": "frontier",
+          "x": 34,
+          "y": 22
+        },
+        {
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 40,
-          "y": 22
+          "x": 69,
+          "y": 110
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 80,
-          "y": 110
+          "x": 103,
+          "y": 22
         },
         {
           "id": "low-resource-language",
           "title": "Low-Resource Language",
           "tier": "frontier",
-          "x": 120,
-          "y": 22
+          "x": 137,
+          "y": 110
         },
         {
           "id": "synthesis-evaluation",
           "title": "Synthesis Evaluation",
-          "tier": "frontier",
-          "x": 160,
-          "y": 110
+          "tier": "verified",
+          "x": 171,
+          "y": 22
         },
         {
           "id": "teleoperation-data",
           "title": "Teleoperation Data",
           "tier": "verified",
-          "x": 200,
-          "y": 22
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -12413,6 +12857,12 @@
           "from": "data-filtering",
           "to": "annotation-quality",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "annotation-quality",
+          "to": "aleatoric-uncertainty",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -12781,7 +13231,7 @@
       "center": {
         "id": "audio-generation",
         "title": "Audio Generation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12789,7 +13239,7 @@
         {
           "id": "speech-tokenization",
           "title": "Speech Tokenization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -13487,6 +13937,59 @@
       ]
     },
     {
+      "id": "bayesian-neural-network",
+      "center": {
+        "id": "bayesian-neural-network",
+        "title": "Bayesian Neural Network",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "evidence-lower-bound",
+          "title": "ELBO",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "dropout",
+          "title": "Dropout",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "epistemic-uncertainty",
+          "title": "Epistemic Uncertainty",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "evidence-lower-bound",
+          "to": "bayesian-neural-network",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "bayesian-neural-network",
+          "to": "dropout",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "bayesian-neural-network",
+          "to": "epistemic-uncertainty",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "beam-search",
       "center": {
         "id": "beam-search",
@@ -13636,11 +14139,18 @@
           "y": 66
         },
         {
+          "id": "deep-ensemble",
+          "title": "Deep Ensemble",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "double-descent",
           "title": "Double Descent",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "causal-inference",
@@ -13676,6 +14186,12 @@
           "from": "overfitting",
           "to": "bias-variance-tradeoff",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "deep-ensemble",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -13737,7 +14253,7 @@
         {
           "id": "speech-tokenization",
           "title": "Speech Tokenization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -13781,53 +14297,74 @@
           "y": 66
         },
         {
+          "id": "conformal-prediction",
+          "title": "Conformal Prediction",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "selective-prediction",
+          "title": "Selective Prediction",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 30,
+          "x": 27,
           "y": 22
         },
         {
           "id": "certified-robustness",
           "title": "Certified Robustness",
           "tier": "verified",
-          "x": 60,
+          "x": 53,
           "y": 110
         },
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
           "tier": "verified",
-          "x": 90,
+          "x": 80,
           "y": 22
         },
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
           "tier": "verified",
-          "x": 120,
+          "x": 107,
           "y": 110
+        },
+        {
+          "id": "out-of-distribution-detection",
+          "title": "Out-of-Distribution Detection",
+          "tier": "frontier",
+          "x": 133,
+          "y": 22
         },
         {
           "id": "probabilistic-forecasting",
           "title": "Probabilistic Forecasting",
           "tier": "verified",
-          "x": 150,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 180,
-          "y": 110
+          "x": 187,
+          "y": 22
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 210,
-          "y": 22
+          "x": 213,
+          "y": 110
         }
       ],
       "links": [
@@ -13835,6 +14372,18 @@
           "from": "softmax",
           "to": "calibration",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "conformal-prediction",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "selective-prediction",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -13858,6 +14407,12 @@
         {
           "from": "calibration",
           "to": "likelihood-vs-sample-quality",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "out-of-distribution-detection",
           "type": "adjacent",
           "reviewed": false
         },
@@ -14482,7 +15037,7 @@
         {
           "id": "prosody-control",
           "title": "Prosody Control",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -15067,6 +15622,59 @@
           "to": "feed-forward-network",
           "type": "adjacent",
           "reviewed": true
+        }
+      ]
+    },
+    {
+      "id": "conformal-prediction",
+      "center": {
+        "id": "conformal-prediction",
+        "title": "Conformal Prediction",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "distribution-shift",
+          "title": "Distribution Shift",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "selective-prediction",
+          "title": "Selective Prediction",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "calibration",
+          "to": "conformal-prediction",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "conformal-prediction",
+          "to": "distribution-shift",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "conformal-prediction",
+          "to": "selective-prediction",
+          "type": "adjacent",
+          "reviewed": false
         }
       ]
     },
@@ -15672,7 +16280,7 @@
         {
           "id": "speaker-embedding",
           "title": "Speaker Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -16678,15 +17286,22 @@
           "id": "compute-optimal-training",
           "title": "Compute-Optimal Training",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "epistemic-uncertainty",
+          "title": "Epistemic Uncertainty",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "language-imbalance",
           "title": "Language Imbalance",
           "tier": "frontier",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -16705,6 +17320,12 @@
         {
           "from": "data-scaling-laws",
           "to": "compute-optimal-training",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-scaling-laws",
+          "to": "epistemic-uncertainty",
           "type": "adjacent",
           "reviewed": false
         },
@@ -16922,6 +17543,59 @@
         {
           "from": "deduplication",
           "to": "training-data-extraction",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "deep-ensemble",
+      "center": {
+        "id": "deep-ensemble",
+        "title": "Deep Ensemble",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "bias-variance-tradeoff",
+          "title": "Bias-Variance Tradeoff",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "distribution-shift",
+          "title": "Distribution Shift",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "epistemic-uncertainty",
+          "title": "Epistemic Uncertainty",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "deep-ensemble",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "deep-ensemble",
+          "to": "distribution-shift",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "deep-ensemble",
+          "to": "epistemic-uncertainty",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17415,6 +18089,98 @@
       ]
     },
     {
+      "id": "distribution-shift",
+      "center": {
+        "id": "distribution-shift",
+        "title": "Distribution Shift",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "out-of-distribution-detection",
+          "title": "Out-of-Distribution Detection",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "conformal-prediction",
+          "title": "Conformal Prediction",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
+          "id": "deep-ensemble",
+          "title": "Deep Ensemble",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
+        },
+        {
+          "id": "epistemic-uncertainty",
+          "title": "Epistemic Uncertainty",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "verified",
+          "x": 192,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "overfitting",
+          "to": "distribution-shift",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "distribution-shift",
+          "to": "out-of-distribution-detection",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "distribution-shift",
+          "to": "conformal-prediction",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "distribution-shift",
+          "to": "deep-ensemble",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "distribution-shift",
+          "to": "epistemic-uncertainty",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "distribution-shift",
+          "to": "shortcut-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "double-descent",
       "center": {
         "id": "double-descent",
@@ -17570,21 +18336,34 @@
       },
       "nodes": [
         {
+          "id": "bayesian-neural-network",
+          "title": "Bayesian Neural Network",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "pruning",
           "title": "Pruning",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
+        {
+          "from": "dropout",
+          "to": "bayesian-neural-network",
+          "type": "adjacent",
+          "reviewed": false
+        },
         {
           "from": "dropout",
           "to": "pruning",
@@ -17914,32 +18693,39 @@
       },
       "nodes": [
         {
+          "id": "epistemic-uncertainty",
+          "title": "Epistemic Uncertainty",
+          "tier": "frontier",
+          "x": 200,
+          "y": 22
+        },
+        {
           "id": "kl-divergence",
           "title": "KL Divergence",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 44
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 66
         },
         {
           "id": "mutual-information",
           "title": "Mutual Information",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 88
         },
         {
           "id": "rate-distortion",
           "title": "Rate-Distortion",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         },
         {
           "id": "cross-entropy-loss",
@@ -17964,6 +18750,12 @@
         }
       ],
       "links": [
+        {
+          "from": "entropy",
+          "to": "epistemic-uncertainty",
+          "type": "unlocks",
+          "reviewed": false
+        },
         {
           "from": "entropy",
           "to": "kl-divergence",
@@ -18009,6 +18801,98 @@
       ]
     },
     {
+      "id": "epistemic-uncertainty",
+      "center": {
+        "id": "epistemic-uncertainty",
+        "title": "Epistemic Uncertainty",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "entropy",
+          "title": "Entropy",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "aleatoric-uncertainty",
+          "title": "Aleatoric Uncertainty",
+          "tier": "frontier",
+          "x": 40,
+          "y": 22
+        },
+        {
+          "id": "bayesian-neural-network",
+          "title": "Bayesian Neural Network",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
+        },
+        {
+          "id": "data-scaling-laws",
+          "title": "Data Scaling Laws",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        },
+        {
+          "id": "deep-ensemble",
+          "title": "Deep Ensemble",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        },
+        {
+          "id": "distribution-shift",
+          "title": "Distribution Shift",
+          "tier": "frontier",
+          "x": 200,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "entropy",
+          "to": "epistemic-uncertainty",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "epistemic-uncertainty",
+          "to": "aleatoric-uncertainty",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "epistemic-uncertainty",
+          "to": "bayesian-neural-network",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "epistemic-uncertainty",
+          "to": "data-scaling-laws",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "epistemic-uncertainty",
+          "to": "deep-ensemble",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "epistemic-uncertainty",
+          "to": "distribution-shift",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "evidence-lower-bound",
       "center": {
         "id": "evidence-lower-bound",
@@ -18033,6 +18917,13 @@
           "y": 88
         },
         {
+          "id": "bayesian-neural-network",
+          "title": "Bayesian Neural Network",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "normalizing-flow",
           "title": "Normalizing Flow",
           "tier": "verified",
@@ -18051,6 +18942,12 @@
           "from": "variational-autoencoder",
           "to": "evidence-lower-bound",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "evidence-lower-bound",
+          "to": "bayesian-neural-network",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -19083,7 +19980,7 @@
         {
           "id": "vocoder",
           "title": "Vocoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -20153,15 +21050,22 @@
           "id": "constitutional-ai",
           "title": "Constitutional AI",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "safety-envelope",
           "title": "Safety Envelope",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "selective-prediction",
+          "title": "Selective Prediction",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -20180,6 +21084,12 @@
         {
           "from": "human-in-the-loop",
           "to": "safety-envelope",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "human-in-the-loop",
+          "to": "selective-prediction",
           "type": "adjacent",
           "reviewed": false
         }
@@ -21622,7 +22532,7 @@
         {
           "id": "audio-generation",
           "title": "Audio Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -21866,7 +22776,7 @@
         {
           "id": "audio-generation",
           "title": "Audio Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -22047,7 +22957,7 @@
         {
           "id": "synthesis-evaluation",
           "title": "Synthesis Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 213,
           "y": 110
         }
@@ -22410,53 +23320,60 @@
       },
       "nodes": [
         {
+          "id": "aleatoric-uncertainty",
+          "title": "Aleatoric Uncertainty",
+          "tier": "frontier",
+          "x": 200,
+          "y": 15
+        },
+        {
           "id": "backpropagation",
           "title": "Backpropagation",
           "tier": "verified",
           "x": 200,
-          "y": 17
+          "y": 29
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 44
         },
         {
           "id": "diffusion-model",
           "title": "Diffusion Model",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 59
         },
         {
           "id": "linear-regression",
           "title": "Linear Regression",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 73
         },
         {
           "id": "overfitting",
           "title": "Overfitting",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 88
         },
         {
           "id": "scaling-laws",
           "title": "Scaling Laws",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 103
         },
         {
           "id": "support-vector-machine",
           "title": "Support Vector Machine",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 117
         },
         {
           "id": "invariant-risk-minimization",
@@ -22467,6 +23384,12 @@
         }
       ],
       "links": [
+        {
+          "from": "loss-function",
+          "to": "aleatoric-uncertainty",
+          "type": "unlocks",
+          "reviewed": false
+        },
         {
           "from": "loss-function",
           "to": "backpropagation",
@@ -23330,7 +24253,7 @@
         {
           "id": "speaker-embedding",
           "title": "Speaker Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -24578,7 +25501,7 @@
         {
           "id": "speech-tokenization",
           "title": "Speech Tokenization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -25067,6 +25990,59 @@
       ]
     },
     {
+      "id": "out-of-distribution-detection",
+      "center": {
+        "id": "out-of-distribution-detection",
+        "title": "Out-of-Distribution Detection",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "distribution-shift",
+          "title": "Distribution Shift",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "adversarial-example",
+          "title": "Adversarial Example",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "distribution-shift",
+          "to": "out-of-distribution-detection",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "out-of-distribution-detection",
+          "to": "adversarial-example",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "out-of-distribution-detection",
+          "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "overfitting",
       "center": {
         "id": "overfitting",
@@ -25088,42 +26064,49 @@
           "title": "Bias-Variance Tradeoff",
           "tier": "verified",
           "x": 200,
-          "y": 19
+          "y": 17
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
           "x": 200,
-          "y": 38
+          "y": 33
+        },
+        {
+          "id": "distribution-shift",
+          "title": "Distribution Shift",
+          "tier": "frontier",
+          "x": 200,
+          "y": 50
         },
         {
           "id": "grokking",
           "title": "Grokking",
           "tier": "verified",
           "x": 200,
-          "y": 57
+          "y": 66
         },
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
           "tier": "verified",
           "x": 200,
-          "y": 75
+          "y": 83
         },
         {
           "id": "membership-inference",
           "title": "Membership Inference",
           "tier": "verified",
           "x": 200,
-          "y": 94
+          "y": 99
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
           "x": 200,
-          "y": 113
+          "y": 116
         },
         {
           "id": "decision-tree",
@@ -25177,6 +26160,12 @@
         {
           "from": "overfitting",
           "to": "cross-validation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "distribution-shift",
           "type": "unlocks",
           "reviewed": false
         },
@@ -25832,7 +26821,7 @@
         {
           "id": "streaming-synthesis",
           "title": "Streaming Synthesis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -26402,7 +27391,7 @@
       "center": {
         "id": "prosody-control",
         "title": "Prosody Control",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -28273,6 +29262,59 @@
       ]
     },
     {
+      "id": "selective-prediction",
+      "center": {
+        "id": "selective-prediction",
+        "title": "Selective Prediction",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "conformal-prediction",
+          "title": "Conformal Prediction",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "human-in-the-loop",
+          "title": "Human in the Loop",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "calibration",
+          "to": "selective-prediction",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "selective-prediction",
+          "to": "conformal-prediction",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "selective-prediction",
+          "to": "human-in-the-loop",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "selective-state-space",
       "center": {
         "id": "selective-state-space",
@@ -28736,43 +29778,50 @@
           "id": "adversarial-example",
           "title": "Adversarial Example",
           "tier": "verified",
-          "x": 34,
+          "x": 30,
           "y": 22
         },
         {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 69,
+          "x": 60,
           "y": 110
+        },
+        {
+          "id": "distribution-shift",
+          "title": "Distribution Shift",
+          "tier": "frontier",
+          "x": 90,
+          "y": 22
         },
         {
           "id": "manipulation",
           "title": "Manipulation",
           "tier": "verified",
-          "x": 103,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "offline-online-gap",
           "title": "Offline-Online Gap",
           "tier": "verified",
-          "x": 137,
-          "y": 110
+          "x": 150,
+          "y": 22
         },
         {
           "id": "offline-rl",
           "title": "Offline RL",
           "tier": "verified",
-          "x": 171,
-          "y": 22
+          "x": 180,
+          "y": 110
         },
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
           "tier": "verified",
-          "x": 206,
-          "y": 110
+          "x": 210,
+          "y": 22
         }
       ],
       "links": [
@@ -28797,6 +29846,12 @@
         {
           "from": "shortcut-learning",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "shortcut-learning",
+          "to": "distribution-shift",
           "type": "adjacent",
           "reviewed": false
         },
@@ -29147,7 +30202,7 @@
       "center": {
         "id": "speaker-embedding",
         "title": "Speaker Embedding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -29169,7 +30224,7 @@
         {
           "id": "voice-conversion",
           "title": "Voice Conversion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -29249,7 +30304,7 @@
         {
           "id": "vocoder",
           "title": "Vocoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 110
         },
@@ -29393,7 +30448,7 @@
         {
           "id": "speaker-embedding",
           "title": "Speaker Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -29489,7 +30544,7 @@
       "center": {
         "id": "speech-tokenization",
         "title": "Speech Tokenization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -29511,7 +30566,7 @@
         {
           "id": "audio-generation",
           "title": "Audio Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -29821,7 +30876,7 @@
         {
           "id": "streaming-synthesis",
           "title": "Streaming Synthesis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -29858,7 +30913,7 @@
       "center": {
         "id": "streaming-synthesis",
         "title": "Streaming Synthesis",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -30044,7 +31099,7 @@
       "center": {
         "id": "synthesis-evaluation",
         "title": "Synthesis Evaluation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -30547,28 +31602,28 @@
         {
           "id": "prosody-control",
           "title": "Prosody Control",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 26
         },
         {
           "id": "streaming-synthesis",
           "title": "Streaming Synthesis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 53
         },
         {
           "id": "synthesis-evaluation",
           "title": "Synthesis Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
         {
           "id": "vocoder",
           "title": "Vocoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 106
         },
@@ -31780,7 +32835,7 @@
         {
           "id": "voice-conversion",
           "title": "Voice Conversion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -31870,7 +32925,7 @@
         {
           "id": "speech-tokenization",
           "title": "Speech Tokenization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -32138,7 +33193,7 @@
       "center": {
         "id": "vocoder",
         "title": "Vocoder",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -32160,7 +33215,7 @@
         {
           "id": "voice-conversion",
           "title": "Voice Conversion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -32204,7 +33259,7 @@
       "center": {
         "id": "voice-conversion",
         "title": "Voice Conversion",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -32212,14 +33267,14 @@
         {
           "id": "speaker-embedding",
           "title": "Speaker Embedding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "vocoder",
           "title": "Vocoder",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -32469,7 +33524,7 @@
         {
           "id": "synthesis-evaluation",
           "title": "Synthesis Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },

@@ -1,0 +1,67 @@
+{
+  "id": "selective-prediction",
+  "title": "Selective Prediction",
+  "domain": [
+    "Uncertainty",
+    "Decisions"
+  ],
+  "bodies": {
+    "intuition": "Give the model the option to say nothing. A classifier that answers everything at 92% may be less useful than one that answers four fifths of the time at 99% and hands the rest to a person — if the escalation is cheap enough. The design question is not how accurate the model is but where the threshold goes, and that is a question about the cost of being wrong rather than about the model.",
+    "engineer": "Rank inputs by any confidence score, then abstain below a cutoff, and plot risk against coverage as the cutoff moves. The curve is the deliverable, not any single point on it: it tells the operator what accuracy is available at each level of automation, which is the number a deployment actually needs. A model with worse accuracy can have a better risk–coverage curve, and then it is the better model.",
+    "math": "Coverage and risk fall together, but not at the same rate. The first examples you drop are the ones the model was least sure about, which are disproportionately the ones it got wrong, so early abstention buys a lot of accuracy for very little coverage — and the trade decays from there. The curve is only as good as the ranking underneath it, so a badly ordered confidence score produces a nearly straight line and no useful operating point anywhere on it."
+  },
+  "emphasis": {
+    "intuition": "that is a question about the cost of being wrong rather than about the model",
+    "engineer": "A model with worse accuracy can have a better risk–coverage curve, and then it is the better model."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "answered": 10,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "answered",
+        "min": 0,
+        "max": 160,
+        "step": 5
+      }
+    ],
+    "caption": "Inputs the model answers itself, against a fixed human review capacity of forty. Drag the automated volume up to watch the reviewed share shrink toward nothing — every input added is one the model was less sure of than the last, so the accuracy lives at the left of this drag."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "human-in-the-loop",
+        "reviewed": false
+      },
+      {
+        "id": "conformal-prediction",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1705.08500",
+      "title": "Selective Classification for Deep Neural Networks",
+      "url": "https://arxiv.org/abs/1705.08500"
+    },
+    {
+      "ref": "arXiv:1901.09192",
+      "title": "SelectiveNet: A Deep Neural Network with an Integrated Reject Option",
+      "url": "https://arxiv.org/abs/1901.09192"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

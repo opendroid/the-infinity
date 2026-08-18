@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "voice-conversion",
+      "id": "machine-translation",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "vocoder",
+      "id": "cross-lingual-transfer",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "audio-generation",
+      "id": "multilingual-model",
       "t": 0.8,
       "label": true
     }
