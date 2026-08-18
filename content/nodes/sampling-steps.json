@@ -1,0 +1,60 @@
+{
+  "id": "sampling-steps",
+  "title": "Sampling Steps",
+  "domain": [
+    "Generative",
+    "Inference"
+  ],
+  "bodies": {
+    "intuition": "Every iterative generator trades quality against how many times it runs the network. A thousand steps was the original recipe and four is now common for images — the gap is not better hardware, it is better paths and better solvers. Knowing where a model sits on that curve is most of knowing what it costs to serve.",
+    "engineer": "Distillation collapses many steps into few by training a student to jump where the teacher walked, which is a different mechanism from a better sampler and composes with it. The reason to care is operational: at four steps a diffusion model is interactive and at a thousand it is a batch job, and the same weights can be either.",
+    "math": "With an ODE formulation the sampler is a numerical integrator, so error falls with step count at the solver's order — a second-order method reaching a given error in roughly the square root of the steps a first-order one needs. Straightening the path lowers the constant in front, which is why path design and solver order multiply rather than add."
+  },
+  "emphasis": {
+    "intuition": "the gap is not better hardware, it is better paths and better solvers",
+    "engineer": "at four steps a diffusion model is interactive and at a thousand it is a batch job"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 1000,
+      "lr": 0.002,
+      "batch": 64,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "params",
+        "min": 0.05,
+        "max": 40,
+        "step": 0.05
+      }
+    ],
+    "caption": "Sample error as the model gets larger at a fixed step count. Drag the model size up to watch the floor drop — and note it is a floor: past it, more capacity buys nothing that more sampling steps would."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "diffusion-model",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "speculative-decoding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2011.13456",
+      "title": "Score-Based Generative Modeling through Stochastic Differential Equations",
+      "url": "https://arxiv.org/abs/2011.13456"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

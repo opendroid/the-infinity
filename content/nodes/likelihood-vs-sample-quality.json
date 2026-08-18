@@ -1,0 +1,62 @@
+{
+  "id": "likelihood-vs-sample-quality",
+  "title": "Likelihood vs Sample Quality",
+  "domain": [
+    "Generative",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "A model can assign excellent probability to the data and produce terrible samples, or produce beautiful samples while assigning the data almost no probability. The two are close to independent in high dimensions, which means a paper reporting one has told you little about the other.",
+    "engineer": "This is why generative evaluation is a mess rather than merely difficult. FID measures distance between feature statistics and is sensitive to the feature extractor and the sample count; likelihood is measured in bits per dimension and is dominated by imperceptible low-level structure. Reporting both, with sample counts and extractors stated, is the minimum — and neither answers whether the model covers the data.",
+    "math": "In high dimensions log-likelihood is dominated by the many dimensions carrying little perceptual content, so a model can gain bits by fitting texture noise while losing nothing measurable in samples. Conversely a mixture placing tiny mass on the data and the rest on good-looking samples scores well perceptually and arbitrarily badly in likelihood — the two orderings can be made to disagree by construction."
+  },
+  "emphasis": {
+    "intuition": "a paper reporting one has told you little about the other",
+    "engineer": "neither answers whether the model covers the data"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "perceptual_dims": 6,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "perceptual_dims",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Dimensions a viewer would notice against dimensions the likelihood is mostly measuring, in dimensions. Drag the perceptual share up to watch the two metrics start agreeing — in a real image they do not."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "mode-collapse",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "perplexity",
+        "reviewed": false
+      },
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1511.01844",
+      "title": "A note on the evaluation of generative models",
+      "url": "https://arxiv.org/abs/1511.01844"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

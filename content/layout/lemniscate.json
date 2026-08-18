@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "differential-privacy",
+      "id": "adversarial-example",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "membership-inference",
+      "id": "red-teaming",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "federated-learning",
+      "id": "jailbreak",
       "t": 0.8,
       "label": true
     }

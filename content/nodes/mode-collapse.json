@@ -1,0 +1,63 @@
+{
+  "id": "mode-collapse",
+  "title": "Mode Collapse",
+  "domain": [
+    "Generative",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "A generator discovers that one convincing output fools the discriminator and stops producing anything else. Every sample looks good and the set of them covers a fraction of the data. It is the failure that sample quality metrics are worst at detecting, because each individual sample is fine.",
+    "engineer": "The objective permits it: nothing in the minimax game rewards covering the data, only fooling a discriminator that sees samples one at a time. Minibatch discrimination, unrolled updates and Wasserstein losses all attack this from different angles. The evaluation lesson generalises beyond GANs — any metric computed per sample is blind to diversity, which is why coverage and quality are reported separately.",
+    "math": "The generator's optimum against a fixed discriminator can place all mass on the single point maximising D, and the game's equilibrium does not forbid the trajectory passing through such points. Precision and recall against the data distribution separate the two failures: high precision with low recall is exactly this, and a single number combining them hides which one occurred."
+  },
+  "emphasis": {
+    "intuition": "each individual sample is fine",
+    "engineer": "any metric computed per sample is blind to diversity"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "modes_abandoned": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "modes_abandoned",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Modes of the data the generator has stopped producing against modes it still covers, in modes. Drag the collapse up to watch coverage disappear — every sample that remains still passes the discriminator, which is why quality metrics do not notice."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "generative-adversarial-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "nucleus-sampling",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1701.07875",
+      "title": "Wasserstein GAN",
+      "url": "https://arxiv.org/abs/1701.07875"
+    },
+    {
+      "ref": "arXiv:1711.10337",
+      "title": "Are GANs Created Equal? A Large-Scale Study",
+      "url": "https://arxiv.org/abs/1711.10337"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

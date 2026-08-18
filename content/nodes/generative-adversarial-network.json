@@ -1,0 +1,68 @@
+{
+  "id": "generative-adversarial-network",
+  "title": "GAN",
+  "domain": [
+    "Generative",
+    "Architecture"
+  ],
+  "bodies": {
+    "intuition": "Two networks against each other: one makes samples, the other tries to tell them from real data, and the first improves by fooling the second. There is no likelihood anywhere in it — the objective is a game, not a fit — which is why GANs produced sharp images years before likelihood models did, and why training them was so unreliable.",
+    "engineer": "The instability is structural rather than a tuning problem. The generator's gradient comes from a discriminator that is itself moving, so there is no fixed objective descending; a discriminator that wins too completely gives vanishing gradients, and one that loses gives useless ones. Wasserstein losses and gradient penalties made it survivable, and a large study found most reported architectural gains disappeared under equal tuning budgets.",
+    "math": "min_G max_D E_x[log D(x)] + E_z[log(1 − D(G(z)))]. At the optimal discriminator the generator minimises the Jensen–Shannon divergence, which saturates when the supports do not overlap — the reason early training stalls, and the reason Wasserstein distance, which stays informative for disjoint supports, replaced it."
+  },
+  "emphasis": {
+    "intuition": "the objective is a game, not a fit",
+    "engineer": "most reported architectural gains disappeared under equal tuning budgets"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "discriminator_strength": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "discriminator_strength",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Capacity given to the discriminator against capacity left to the generator, in equal units. Drag the discriminator up to watch it win — and a discriminator that wins completely returns no usable gradient at all."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "variational-autoencoder",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "text-to-speech",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1406.2661",
+      "title": "Generative Adversarial Networks",
+      "url": "https://arxiv.org/abs/1406.2661"
+    },
+    {
+      "ref": "arXiv:1701.07875",
+      "title": "Wasserstein GAN",
+      "url": "https://arxiv.org/abs/1701.07875"
+    },
+    {
+      "ref": "arXiv:1711.10337",
+      "title": "Are GANs Created Equal? A Large-Scale Study",
+      "url": "https://arxiv.org/abs/1711.10337"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
