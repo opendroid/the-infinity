@@ -31,7 +31,12 @@
   },
   "edges": {
     "requires": [],
-    "adjacent": []
+    "adjacent": [
+      {
+        "id": "sparsity-hardware",
+        "reviewed": false
+      }
+    ]
   },
   "citations": [
     {
@@ -49,5 +54,5 @@
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-01"
   },
-  "updated_at": "2026-08-01"
+  "updated_at": "2026-08-18"
 }

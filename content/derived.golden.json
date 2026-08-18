@@ -379,6 +379,12 @@
             "reviewed": false
           },
           {
+            "id": "multi-agent-systems",
+            "title": "Multi-Agent Systems",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "offline-online-gap",
             "title": "Offline-Online Gap",
             "tier": "verified",
@@ -511,6 +517,12 @@
           {
             "id": "length-extrapolation",
             "title": "Length Extrapolation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "rotary-position-embedding",
+            "title": "Rotary Position Embedding",
             "tier": "verified",
             "reviewed": false
           }
@@ -804,7 +816,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "length-extrapolation",
+            "title": "Length Extrapolation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1497,6 +1516,12 @@
           {
             "id": "stability-plasticity",
             "title": "Stability-Plasticity",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "support-vector-machine",
+            "title": "Support Vector Machine",
             "tier": "verified",
             "reviewed": false
           }
@@ -2536,6 +2561,12 @@
             "title": "Feed-Forward Network",
             "tier": "verified",
             "reviewed": true
+          },
+          {
+            "id": "sparsity-hardware",
+            "title": "Sparsity Hardware",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -3164,6 +3195,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "instrumental-variable",
+            "title": "Instrumental Variable",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
@@ -3848,6 +3885,12 @@
         ],
         "adjacent": [
           {
+            "id": "feature-attribution",
+            "title": "Feature Attribution",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "overfitting",
             "title": "Overfitting",
             "tier": "verified",
@@ -3990,6 +4033,12 @@
             "title": "Epistemic Uncertainty",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "gradient-boosting",
+            "title": "Gradient Boosting",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -4013,6 +4062,12 @@
           {
             "id": "classifier-free-guidance",
             "title": "Classifier-Free Guidance",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sampling-steps",
+            "title": "Sampling Steps",
             "tier": "verified",
             "reviewed": false
           }
@@ -4297,6 +4352,12 @@
           {
             "id": "rlhf",
             "title": "RLHF",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sycophancy",
+            "title": "Sycophancy",
             "tier": "verified",
             "reviewed": false
           }
@@ -4750,6 +4811,12 @@
           {
             "id": "grokking",
             "title": "Grokking",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "perplexity",
+            "title": "Perplexity",
             "tier": "verified",
             "reviewed": false
           }
@@ -5364,6 +5431,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "decision-tree",
+            "title": "Decision Tree",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
             "tier": "verified",
@@ -5801,6 +5874,12 @@
             "title": "Diffusion Model",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "normalizing-flow",
+            "title": "Normalizing Flow",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -5994,7 +6073,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "deep-ensemble",
+            "title": "Deep Ensemble",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -6989,6 +7075,12 @@
             "title": "Manifold Hypothesis",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "rate-distortion",
+            "title": "Rate-Distortion",
+            "tier": "verified",
+            "reviewed": false
           }
         ]
       }
@@ -7087,6 +7179,12 @@
           {
             "id": "causal-inference",
             "title": "Causal Inference",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "counterfactual",
+            "title": "Counterfactual",
             "tier": "verified",
             "reviewed": false
           }
@@ -7286,6 +7384,12 @@
           {
             "id": "k-nearest-neighbors",
             "title": "k-Nearest Neighbors",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vector-quantization",
+            "title": "Vector Quantization",
             "tier": "verified",
             "reviewed": false
           }
@@ -7802,6 +7906,12 @@
           {
             "id": "alibi",
             "title": "ALiBi",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "attention-sink",
+            "title": "Attention Sink",
             "tier": "verified",
             "reviewed": false
           },
@@ -9657,6 +9767,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "agent-evaluation",
+            "title": "Agent Evaluation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "task-decomposition",
             "title": "Task Decomposition",
             "tier": "verified",
@@ -9709,6 +9825,12 @@
           {
             "id": "grouped-query-attention",
             "title": "Grouped-Query Attention",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "query-key-value",
+            "title": "Query, Key, Value",
             "tier": "verified",
             "reviewed": false
           }
@@ -10039,6 +10161,12 @@
           {
             "id": "evidence-lower-bound",
             "title": "ELBO",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "flow-matching",
+            "title": "Flow Matching",
             "tier": "verified",
             "reviewed": false
           }
@@ -10766,6 +10894,12 @@
             "reviewed": false
           },
           {
+            "id": "emergent-abilities",
+            "title": "Emergent Abilities",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "entropy",
             "title": "Entropy",
             "tier": "verified",
@@ -11243,6 +11377,12 @@
           {
             "id": "mechanistic-interpretability",
             "title": "Mechanistic Interpretability",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "superposition",
+            "title": "Superposition",
             "tier": "verified",
             "reviewed": false
           }
@@ -11818,7 +11958,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "multi-head-attention",
+            "title": "Multi-Head Attention",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -11837,6 +11984,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "information-bottleneck",
+            "title": "Information Bottleneck",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "neural-audio-codec",
             "title": "Neural Audio Codec",
@@ -12581,6 +12734,12 @@
         ],
         "adjacent": [
           {
+            "id": "alibi",
+            "title": "ALiBi",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "context-window",
             "title": "Context Window",
             "tier": "verified",
@@ -12692,6 +12851,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "denoising-schedule",
+            "title": "Denoising Schedule",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "knowledge-distillation",
             "title": "Knowledge Distillation",
@@ -13764,6 +13929,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "conditional-computation",
+            "title": "Conditional Computation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "pruning",
             "title": "Pruning",
             "tier": "verified",
@@ -14368,6 +14539,12 @@
         ],
         "adjacent": [
           {
+            "id": "probing-classifier",
+            "title": "Probing Classifier",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "token-embedding",
             "title": "Token Embedding",
             "tier": "verified",
@@ -14392,6 +14569,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "bias-variance-tradeoff",
+            "title": "Bias-Variance Tradeoff",
+            "tier": "verified",
+            "reviewed": false
+          },
           {
             "id": "logistic-regression",
             "title": "Logistic Regression",
@@ -14420,6 +14603,12 @@
           {
             "id": "constitutional-ai",
             "title": "Constitutional AI",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "direct-preference-optimization",
+            "title": "DPO",
             "tier": "verified",
             "reviewed": false
           },
@@ -15697,6 +15886,12 @@
         ],
         "adjacent": [
           {
+            "id": "k-means-clustering",
+            "title": "k-Means Clustering",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
             "id": "latent-diffusion",
             "title": "Latent Diffusion",
             "tier": "verified",
@@ -16909,36 +17104,43 @@
           "id": "agentic-coding",
           "title": "Agentic Coding",
           "tier": "verified",
-          "x": 40,
+          "x": 34,
           "y": 22
         },
         {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 80,
+          "x": 69,
           "y": 110
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 120,
+          "x": 103,
           "y": 22
+        },
+        {
+          "id": "multi-agent-systems",
+          "title": "Multi-Agent Systems",
+          "tier": "verified",
+          "x": 137,
+          "y": 110
         },
         {
           "id": "offline-online-gap",
           "title": "Offline-Online Gap",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 171,
+          "y": 22
         },
         {
           "id": "pass-at-k",
           "title": "pass@k",
           "tier": "verified",
-          "x": 200,
-          "y": 22
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -16969,6 +17171,12 @@
         {
           "from": "agent-evaluation",
           "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "agent-evaluation",
+          "to": "multi-agent-systems",
           "type": "adjacent",
           "reviewed": false
         },
@@ -17179,8 +17387,15 @@
           "id": "length-extrapolation",
           "title": "Length Extrapolation",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "rotary-position-embedding",
+          "title": "Rotary Position Embedding",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -17193,6 +17408,12 @@
         {
           "from": "alibi",
           "to": "length-extrapolation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "alibi",
+          "to": "rotary-position-embedding",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17720,6 +17941,13 @@
           "tier": "verified",
           "x": 40,
           "y": 88
+        },
+        {
+          "id": "length-extrapolation",
+          "title": "Length Extrapolation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -17733,6 +17961,12 @@
           "from": "kv-cache",
           "to": "attention-sink",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "attention-sink",
+          "to": "length-extrapolation",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -18943,29 +19177,36 @@
           "id": "causal-inference",
           "title": "Causal Inference",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
         },
         {
           "id": "robustness-accuracy-tradeoff",
           "title": "Robustness-Accuracy Tradeoff",
           "tier": "verified",
-          "x": 144,
+          "x": 120,
           "y": 22
         },
         {
           "id": "stability-plasticity",
           "title": "Stability-Plasticity",
           "tier": "verified",
-          "x": 192,
+          "x": 160,
           "y": 110
+        },
+        {
+          "id": "support-vector-machine",
+          "title": "Support Vector Machine",
+          "tier": "verified",
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -19008,6 +19249,12 @@
         {
           "from": "bias-variance-tradeoff",
           "to": "stability-plasticity",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "support-vector-machine",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20853,8 +21100,15 @@
           "id": "feed-forward-network",
           "title": "Feed-Forward Network",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "sparsity-hardware",
+          "title": "Sparsity Hardware",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -20869,6 +21123,12 @@
           "to": "feed-forward-network",
           "type": "adjacent",
           "reviewed": true
+        },
+        {
+          "from": "conditional-computation",
+          "to": "sparsity-hardware",
+          "type": "adjacent",
+          "reviewed": false
         }
       ]
     },
@@ -22008,11 +22268,18 @@
           "y": 66
         },
         {
+          "id": "instrumental-variable",
+          "title": "Instrumental Variable",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -22020,6 +22287,12 @@
           "from": "intervention",
           "to": "counterfactual",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "counterfactual",
+          "to": "instrumental-variable",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -23246,11 +23519,18 @@
           "y": 66
         },
         {
+          "id": "feature-attribution",
+          "title": "Feature Attribution",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "overfitting",
           "title": "Overfitting",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -23258,6 +23538,12 @@
           "from": "decision-tree",
           "to": "gradient-boosting",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "decision-tree",
+          "to": "feature-attribution",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -23480,15 +23766,22 @@
           "id": "distribution-shift",
           "title": "Distribution Shift",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "epistemic-uncertainty",
           "title": "Epistemic Uncertainty",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "gradient-boosting",
+          "title": "Gradient Boosting",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -23515,6 +23808,12 @@
           "to": "epistemic-uncertainty",
           "type": "adjacent",
           "reviewed": false
+        },
+        {
+          "from": "deep-ensemble",
+          "to": "gradient-boosting",
+          "type": "adjacent",
+          "reviewed": false
         }
       ]
     },
@@ -23539,8 +23838,15 @@
           "id": "classifier-free-guidance",
           "title": "Classifier-Free Guidance",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "sampling-steps",
+          "title": "Sampling Steps",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -23553,6 +23859,12 @@
         {
           "from": "denoising-schedule",
           "to": "classifier-free-guidance",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "denoising-schedule",
+          "to": "sampling-steps",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24065,8 +24377,15 @@
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "sycophancy",
+          "title": "Sycophancy",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -24079,6 +24398,12 @@
         {
           "from": "direct-preference-optimization",
           "to": "rlhf",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "direct-preference-optimization",
+          "to": "sycophancy",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24858,8 +25183,15 @@
           "id": "grokking",
           "title": "Grokking",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "perplexity",
+          "title": "Perplexity",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -24872,6 +25204,12 @@
         {
           "from": "emergent-abilities",
           "to": "grokking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "emergent-abilities",
+          "to": "perplexity",
           "type": "adjacent",
           "reviewed": false
         }
@@ -25962,11 +26300,18 @@
           "y": 66
         },
         {
+          "id": "decision-tree",
+          "title": "Decision Tree",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -25974,6 +26319,12 @@
           "from": "backpropagation",
           "to": "feature-attribution",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "feature-attribution",
+          "to": "decision-tree",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -26755,8 +27106,15 @@
           "id": "diffusion-model",
           "title": "Diffusion Model",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "normalizing-flow",
+          "title": "Normalizing Flow",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -26769,6 +27127,12 @@
         {
           "from": "flow-matching",
           "to": "diffusion-model",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "flow-matching",
+          "to": "normalizing-flow",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27100,6 +27464,13 @@
           "tier": "verified",
           "x": 40,
           "y": 88
+        },
+        {
+          "id": "deep-ensemble",
+          "title": "Deep Ensemble",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -27113,6 +27484,12 @@
           "from": "gradient-descent",
           "to": "gradient-boosting",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-boosting",
+          "to": "deep-ensemble",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -28854,8 +29231,15 @@
           "id": "manifold-hypothesis",
           "title": "Manifold Hypothesis",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "rate-distortion",
+          "title": "Rate-Distortion",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -28868,6 +29252,12 @@
         {
           "from": "information-bottleneck",
           "to": "manifold-hypothesis",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "information-bottleneck",
+          "to": "rate-distortion",
           "type": "adjacent",
           "reviewed": false
         }
@@ -29026,8 +29416,15 @@
           "id": "causal-inference",
           "title": "Causal Inference",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "counterfactual",
+          "title": "Counterfactual",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -29040,6 +29437,12 @@
         {
           "from": "instrumental-variable",
           "to": "causal-inference",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "instrumental-variable",
+          "to": "counterfactual",
           "type": "adjacent",
           "reviewed": false
         }
@@ -29363,15 +29766,22 @@
           "id": "approximate-nearest-neighbor",
           "title": "Approximate Nearest Neighbor",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "k-nearest-neighbors",
           "title": "k-Nearest Neighbors",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "vector-quantization",
+          "title": "Vector Quantization",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -29384,6 +29794,12 @@
         {
           "from": "k-means-clustering",
           "to": "k-nearest-neighbors",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "k-means-clustering",
+          "to": "vector-quantization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -30317,15 +30733,22 @@
           "id": "alibi",
           "title": "ALiBi",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "attention-sink",
+          "title": "Attention Sink",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "position-interpolation",
           "title": "Position Interpolation",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -30338,6 +30761,12 @@
         {
           "from": "length-extrapolation",
           "to": "alibi",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "length-extrapolation",
+          "to": "attention-sink",
           "type": "adjacent",
           "reviewed": false
         },
@@ -33612,11 +34041,18 @@
           "y": 66
         },
         {
+          "id": "agent-evaluation",
+          "title": "Agent Evaluation",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "task-decomposition",
           "title": "Task Decomposition",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -33624,6 +34060,12 @@
           "from": "react",
           "to": "multi-agent-systems",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multi-agent-systems",
+          "to": "agent-evaluation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -33676,15 +34118,22 @@
           "id": "graph-attention",
           "title": "Graph Attention",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "grouped-query-attention",
           "title": "Grouped-Query Attention",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "query-key-value",
+          "title": "Query, Key, Value",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -33721,6 +34170,12 @@
         {
           "from": "multi-head-attention",
           "to": "grouped-query-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "multi-head-attention",
+          "to": "query-key-value",
           "type": "adjacent",
           "reviewed": false
         }
@@ -34288,8 +34743,15 @@
           "id": "evidence-lower-bound",
           "title": "ELBO",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "flow-matching",
+          "title": "Flow Matching",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -34302,6 +34764,12 @@
         {
           "from": "normalizing-flow",
           "to": "evidence-lower-bound",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "normalizing-flow",
+          "to": "flow-matching",
           "type": "adjacent",
           "reviewed": false
         }
@@ -35537,36 +36005,43 @@
           "id": "compression-quality-tradeoff",
           "title": "Compression-Quality Tradeoff",
           "tier": "verified",
-          "x": 40,
+          "x": 34,
           "y": 22
         },
         {
           "id": "data-filtering",
           "title": "Data Filtering",
           "tier": "verified",
-          "x": 80,
+          "x": 69,
           "y": 110
+        },
+        {
+          "id": "emergent-abilities",
+          "title": "Emergent Abilities",
+          "tier": "verified",
+          "x": 103,
+          "y": 22
         },
         {
           "id": "entropy",
           "title": "Entropy",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 137,
+          "y": 110
         },
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 171,
+          "y": 22
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 200,
-          "y": 22
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -35591,6 +36066,12 @@
         {
           "from": "perplexity",
           "to": "data-filtering",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "perplexity",
+          "to": "emergent-abilities",
           "type": "adjacent",
           "reviewed": false
         },
@@ -36438,8 +36919,15 @@
           "id": "mechanistic-interpretability",
           "title": "Mechanistic Interpretability",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "superposition",
+          "title": "Superposition",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -36452,6 +36940,12 @@
         {
           "from": "probing-classifier",
           "to": "mechanistic-interpretability",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "probing-classifier",
+          "to": "superposition",
           "type": "adjacent",
           "reviewed": false
         }
@@ -37444,6 +37938,13 @@
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "multi-head-attention",
+          "title": "Multi-Head Attention",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -37457,6 +37958,12 @@
           "from": "query-key-value",
           "to": "self-attention",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "query-key-value",
+          "to": "multi-head-attention",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -37479,18 +37986,25 @@
           "y": 66
         },
         {
+          "id": "information-bottleneck",
+          "title": "Information Bottleneck",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "quantization",
           "title": "Quantization",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -37498,6 +38012,12 @@
           "from": "entropy",
           "to": "rate-distortion",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "rate-distortion",
+          "to": "information-bottleneck",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -38829,11 +39349,18 @@
           "y": 66
         },
         {
+          "id": "alibi",
+          "title": "ALiBi",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "context-window",
           "title": "Context Window",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -38847,6 +39374,12 @@
           "from": "rotary-position-embedding",
           "to": "position-interpolation",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "rotary-position-embedding",
+          "to": "alibi",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -39021,18 +39554,25 @@
           "y": 66
         },
         {
+          "id": "denoising-schedule",
+          "title": "Denoising Schedule",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "knowledge-distillation",
           "title": "Knowledge Distillation",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "speculative-decoding",
           "title": "Speculative Decoding",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -39040,6 +39580,12 @@
           "from": "diffusion-model",
           "to": "sampling-steps",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sampling-steps",
+          "to": "denoising-schedule",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -40921,18 +41467,25 @@
           "y": 66
         },
         {
+          "id": "conditional-computation",
+          "title": "Conditional Computation",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "pruning",
           "title": "Pruning",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "tensor-core",
           "title": "Tensor Core",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -40940,6 +41493,12 @@
           "from": "structured-sparsity",
           "to": "sparsity-hardware",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sparsity-hardware",
+          "to": "conditional-computation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -42002,11 +42561,18 @@
           "y": 66
         },
         {
+          "id": "probing-classifier",
+          "title": "Probing Classifier",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "token-embedding",
           "title": "Token Embedding",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -42014,6 +42580,12 @@
           "from": "superposition",
           "to": "sparse-autoencoder",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "superposition",
+          "to": "probing-classifier",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -42042,11 +42614,18 @@
           "y": 66
         },
         {
+          "id": "bias-variance-tradeoff",
+          "title": "Bias-Variance Tradeoff",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "logistic-regression",
           "title": "Logistic Regression",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -42054,6 +42633,12 @@
           "from": "loss-function",
           "to": "support-vector-machine",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "support-vector-machine",
+          "to": "bias-variance-tradeoff",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -42085,15 +42670,22 @@
           "id": "constitutional-ai",
           "title": "Constitutional AI",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "direct-preference-optimization",
+          "title": "DPO",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "specification-gaming",
           "title": "Specification Gaming",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -42106,6 +42698,12 @@
         {
           "from": "sycophancy",
           "to": "constitutional-ai",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sycophancy",
+          "to": "direct-preference-optimization",
           "type": "adjacent",
           "reviewed": false
         },
@@ -44382,25 +44980,32 @@
           "y": 99
         },
         {
+          "id": "k-means-clustering",
+          "title": "k-Means Clustering",
+          "tier": "verified",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "latent-diffusion",
           "title": "Latent Diffusion",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "sparse-autoencoder",
           "title": "Sparse Autoencoder",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -44426,6 +45031,12 @@
           "from": "vector-quantization",
           "to": "speech-tokenization",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vector-quantization",
+          "to": "k-means-clustering",
+          "type": "adjacent",
           "reviewed": false
         },
         {

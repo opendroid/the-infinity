@@ -37,7 +37,12 @@
         "reviewed": false
       }
     ],
-    "adjacent": []
+    "adjacent": [
+      {
+        "id": "perplexity",
+        "reviewed": false
+      }
+    ]
   },
   "citations": [
     {
@@ -51,7 +56,7 @@
       "url": "https://arxiv.org/abs/2304.15004"
     }
   ],
-  "updated_at": "2026-08-04",
+  "updated_at": "2026-08-18",
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

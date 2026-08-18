@@ -41,6 +41,10 @@
       {
         "id": "rlhf",
         "reviewed": false
+      },
+      {
+        "id": "sycophancy",
+        "reviewed": false
       }
     ]
   },
@@ -51,7 +55,7 @@
       "url": "https://arxiv.org/abs/2305.18290"
     }
   ],
-  "updated_at": "2026-08-04",
+  "updated_at": "2026-08-18",
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

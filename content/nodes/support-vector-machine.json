@@ -41,6 +41,10 @@
       {
         "id": "logistic-regression",
         "reviewed": false
+      },
+      {
+        "id": "bias-variance-tradeoff",
+        "reviewed": false
       }
     ]
   },
@@ -64,7 +68,7 @@
       "doi": "10.1007/BF00994018"
     }
   ],
-  "updated_at": "2026-08-05",
+  "updated_at": "2026-08-18",
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-13"
