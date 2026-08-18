@@ -1,0 +1,63 @@
+{
+  "id": "secure-aggregation",
+  "title": "Secure Aggregation",
+  "domain": [
+    "Privacy",
+    "Systems"
+  ],
+  "bodies": {
+    "intuition": "Federated learning's promise is that the server never sees your data, but it does see your update — and an update can be inverted. Secure aggregation closes that gap: clients mask their updates so that individual ones are unreadable, while the masks cancel exactly when enough of them are summed. The server learns the total and nothing else.",
+    "engineer": "Pairwise masks that cancel on summation, plus secret sharing so the protocol survives clients dropping out mid-round — which they do constantly on mobile. Cost grows with the number of clients per round rather than model size, so it is practical at the scale federated learning actually runs at. It protects against an honest-but-curious server and composes with differential privacy rather than replacing it.",
+    "math": "Client i adds Σ_j PRG(s_{ij}) with signs chosen so masks cancel: Σ_i (x_i + mask_i) = Σ_i x_i exactly. Dropouts break the cancellation, so shares of each pairwise seed are distributed in advance and reconstructed for whoever fails — the reason the protocol tolerates a fixed fraction leaving mid-round without leaking anything about those who stayed."
+  },
+  "emphasis": {
+    "intuition": "an update can be inverted",
+    "engineer": "It protects against an honest-but-curious server and composes with differential privacy rather than replacing it."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "masked": 16,
+      "share_rest": 16
+    },
+    "param_controls": [
+      {
+        "name": "masked",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Clients whose updates are masked against those contributing in the clear, in clients. Drag the participation up to watch the sum become the only thing readable — the guarantee needs a quorum, not a majority of honest intent."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "federated-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "collective-communication",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1912.04977",
+      "title": "Advances and Open Problems in Federated Learning",
+      "url": "https://arxiv.org/abs/1912.04977"
+    },
+    {
+      "ref": "arXiv:1906.08935",
+      "title": "Deep Leakage from Gradients",
+      "url": "https://arxiv.org/abs/1906.08935"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

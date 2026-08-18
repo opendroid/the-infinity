@@ -1,0 +1,62 @@
+{
+  "id": "gradient-leakage",
+  "title": "Gradient Leakage",
+  "domain": [
+    "Privacy",
+    "Attacks"
+  ],
+  "bodies": {
+    "intuition": "Federated learning sends gradients instead of data on the assumption that a gradient reveals little. It reveals a great deal: from a single update it is often possible to reconstruct the images or text that produced it, pixel by pixel, by optimising a fake input until its gradient matches. The assumption that made the design feel safe was never established.",
+    "engineer": "Reconstruction quality falls with batch size, since a summed gradient over many examples is far more ambiguous than one over a few, and it falls with the noise differential privacy adds. This is why secure aggregation and DP are not optional extras on top of federated learning — they are what makes its central claim true rather than assumed.",
+    "math": "Minimise ‖∇W(x̂, ŷ) − ∇W‖² over a candidate input x̂ initialised at random. The problem is badly determined for large batches, since many inputs produce a similar sum, which is why the practical defence is aggregating more before releasing rather than perturbing more within."
+  },
+  "emphasis": {
+    "intuition": "The assumption that made the design feel safe was never established.",
+    "engineer": "they are what makes its central claim true rather than assumed"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "batch_examples": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "batch_examples",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Examples summed into one released gradient against the single example an attacker wants back, in examples. Drag the batch up to watch the reconstruction lose its target in the sum."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "federated-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "secure-aggregation",
+        "reviewed": false
+      },
+      {
+        "id": "dp-sgd",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1906.08935",
+      "title": "Deep Leakage from Gradients",
+      "url": "https://arxiv.org/abs/1906.08935"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

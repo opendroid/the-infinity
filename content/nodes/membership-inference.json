@@ -1,0 +1,61 @@
+{
+  "id": "membership-inference",
+  "title": "Membership Inference",
+  "domain": [
+    "Privacy",
+    "Attacks"
+  ],
+  "bodies": {
+    "intuition": "Given a trained model and a record, decide whether that record was in the training set. It sounds modest and is not: membership in a medical study is itself the sensitive fact. It is also the attack that operationalises overfitting, because a model that is more confident on data it has seen is a model that answers this question for you.",
+    "engineer": "The signal is usually loss or confidence, calibrated against shadow models trained on data from the same distribution. Average-case accuracy is a poor way to report it — an attack that is barely better than chance overall can be nearly certain on the most vulnerable records, and those are the ones that matter. Reporting true positive rate at low false positive rate is the fix the field converged on.",
+    "math": "The attacker distinguishes p(loss | member) from p(loss | non-member), and the gap between them is bounded by the model's generalisation gap — which is why overfitting and privacy leakage are the same quantity seen from two sides. Differential privacy bounds this attack's advantage directly, at e^ε, which is what makes ε interpretable as something other than a knob."
+  },
+  "emphasis": {
+    "intuition": "membership in a medical study is itself the sensitive fact",
+    "engineer": "an attack that is barely better than chance overall can be nearly certain on the most vulnerable records"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 64,
+      "holdout": 0.15,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Loss on records the model trained on against loss on records it never saw. Drag the generalisation gap up to watch the two curves part — that gap is exactly what a membership attack reads, which is why overfitting and leakage are one quantity."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "differential-privacy",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1610.05820",
+      "title": "Membership Inference Attacks against Machine Learning Models",
+      "url": "https://arxiv.org/abs/1610.05820"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

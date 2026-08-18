@@ -1,0 +1,61 @@
+{
+  "id": "differential-privacy",
+  "title": "Differential Privacy",
+  "domain": [
+    "Privacy",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "A guarantee about what a released result can reveal: whether or not any single person's record was in the dataset, the output looks nearly the same. It is a promise about the procedure rather than about the data, so it holds against attackers you have not thought of — which is what makes it different from anonymisation, and why anonymisation keeps failing.",
+    "engineer": "The mechanism is calibrated noise, and the amount depends on sensitivity — how much one record can move the answer. ε is a bound on a likelihood ratio, not a probability of being caught, and small ε means strong privacy. The part practitioners get wrong is composition: every query spends budget, so a pipeline that reports ε per query and never sums them has not measured what it claims.",
+    "math": "A mechanism M is (ε, δ)-differentially private when for neighbouring datasets D, D′ differing in one record, P[M(D) ∈ S] ≤ e^ε·P[M(D′) ∈ S] + δ for every S. The guarantee composes: k queries at ε each give kε under basic composition, and roughly √(k)·ε under advanced composition — which is why the accounting method matters as much as the mechanism."
+  },
+  "emphasis": {
+    "intuition": "a promise about the procedure rather than about the data",
+    "engineer": "a pipeline that reports ε per query and never sums them has not measured what it claims"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "spent": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "spent",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Privacy budget already spent by queries answered against the budget still held back, in equal units. Drag the spending up to watch the guarantee run down — it composes across every query, and nothing refills it."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1607.00133",
+      "title": "Deep Learning with Differential Privacy",
+      "url": "https://arxiv.org/abs/1607.00133"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Dwork et al. 2006",
+      "title": "Calibrating Noise to Sensitivity in Private Data Analysis",
+      "venue": "Theory of Cryptography 2006",
+      "doi": "10.1007/11681878_14"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

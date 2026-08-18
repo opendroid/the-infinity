@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "A linear state space model treats every input the same way, which is efficient and also why it cannot decide that one token matters more than another. Making the update depend on the input restores that ability — the model can choose what to keep and what to let pass — and that single change is most of the gap between state space models and attention on language.",
     "engineer": "Input-dependent parameters break the convolutional trick, because the kernel is no longer fixed. The replacement is a hardware-aware parallel scan that keeps the state in fast memory and never materialises it in HBM, which is what makes the method practical rather than merely correct. This is the same lesson as flash-attention: the algorithm changed to fit the memory hierarchy, not the mathematics.",
-    "math": "Making B, C and the step size Δ functions of u_t makes the recurrence time-varying, so y = K * u no longer holds for any fixed K. An associative scan computes the same recurrence in O(L log L) work and O(L) depth, and the win is memory traffic rather than arithmetic — the state never leaves SRAM."
+    "math": "Making B, C and the step size Δ functions of u_t makes the recurrence time-varying, so y = K * u no longer holds for any fixed K. An associative scan computes the same recurrence in O(L) work and O(log L) depth — work-efficient, so the parallelism costs nothing in total arithmetic — and the win on top of that is memory traffic: the state never leaves SRAM."
   },
   "emphasis": {
     "intuition": "the model can choose what to keep and what to let pass",
@@ -56,7 +56,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

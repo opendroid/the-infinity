@@ -1,0 +1,62 @@
+{
+  "id": "training-data-extraction",
+  "title": "Training Data Extraction",
+  "domain": [
+    "Privacy",
+    "Attacks"
+  ],
+  "bodies": {
+    "intuition": "A language model can be made to emit sequences it memorised verbatim — addresses, keys, phone numbers — by prompting for them and filtering the outputs by how confident the model is. It is a stronger failure than membership inference, because it produces the record rather than a yes-or-no about it.",
+    "engineer": "Memorisation rises with model size, with how often a sequence appeared, and with how unusual it is — a duplicated string is far likelier to be recoverable than a common one. Deduplication is the cheapest mitigation and it works well, which makes it the first thing to check when a model is found to regurgitate. Whether memorisation is a defect depends on the string: the same mechanism stores a quotation and a private key.",
+    "math": "Extraction ranks candidate generations by a ratio of the model's likelihood to a reference model's, isolating what this model finds unusually easy rather than what is merely common text. Recoverability scales with duplicate count, so deduplication cuts the attack surface superlinearly relative to the data removed."
+  },
+  "emphasis": {
+    "intuition": "it produces the record rather than a yes-or-no about it",
+    "engineer": "the same mechanism stores a quotation and a private key"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "duplicated": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "duplicated",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Sequences appearing many times in the corpus against those appearing once, in sequences. Drag the duplication up to watch the recoverable fraction grow — deduplication removes more attack surface than it removes data."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "membership-inference",
+        "reviewed": false
+      },
+      {
+        "id": "pretraining",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "prompt-injection",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2012.07805",
+      "title": "Extracting Training Data from Large Language Models",
+      "url": "https://arxiv.org/abs/2012.07805"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "id": "machine-unlearning",
+  "title": "Machine Unlearning",
+  "domain": [
+    "Privacy",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Someone asks you to delete their data. Removing the row is easy; removing its influence on a model already trained on it is not. Machine unlearning is the problem of producing the model you would have had if that record had never been included — and retraining from scratch, which trivially works, is usually unaffordable.",
+    "engineer": "Exact methods restructure training so deletion is cheap: shard the data, train a model per shard, and retraining touches only the shard the record was in. Approximate methods perturb the weights instead and need an argument that the result is indistinguishable from a retrained model — which is a differential-privacy-shaped claim, and as hard to verify. Nothing here removes what already leaked into a deployed model's outputs.",
+    "math": "Exact unlearning asks for a model distributed identically to one trained without the record; approximate unlearning relaxes that to (ε, δ)-indistinguishability, the same relation differential privacy uses. Sharding into S pieces cuts expected retraining cost by roughly S at the price of ensemble accuracy — the trade the whole family is organised around."
+  },
+  "emphasis": {
+    "intuition": "retraining from scratch, which trivially works, is usually unaffordable",
+    "engineer": "Nothing here removes what already leaked into a deployed model's outputs."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "shards": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "shards",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Data held in shards that can be retrained independently against the single model trained on all of it, in equal units. Drag the sharding up to watch deletion get cheap — and the ensemble it leaves behind get weaker."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "differential-privacy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1912.03817",
+      "title": "Machine Unlearning",
+      "url": "https://arxiv.org/abs/1912.03817"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
