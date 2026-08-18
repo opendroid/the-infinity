@@ -691,6 +691,12 @@
             "title": "Cross-Validation",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -711,6 +717,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "causal-inference",
+            "title": "Causal Inference",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "cross-validation",
             "title": "Cross-Validation",
@@ -764,6 +776,80 @@
             "id": "word-error-rate",
             "title": "Word Error Rate",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "causal-discovery",
+      "title": "Causal Discovery",
+      "domain": "Causality / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-inference",
+            "title": "Causal Inference",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "graph-neural-network",
+            "title": "Graph Neural Network",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "graph-expressivity",
+            "title": "Graph Expressivity",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "causal-inference",
+      "title": "Causal Inference",
+      "domain": "Causality / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "causal-discovery",
+            "title": "Causal Discovery",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "confounding",
+            "title": "Confounding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "intervention",
+            "title": "Intervention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "bias-variance-tradeoff",
+            "title": "Bias-Variance Tradeoff",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "instrumental-variable",
+            "title": "Instrumental Variable",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -1007,6 +1093,38 @@
       }
     },
     {
+      "id": "confounding",
+      "title": "Confounding",
+      "domain": "Causality / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-inference",
+            "title": "Causal Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "instrumental-variable",
+            "title": "Instrumental Variable",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "cross-validation",
+            "title": "Cross-Validation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "connectionist-temporal-classification",
       "title": "CTC",
       "domain": "Speech / Objectives",
@@ -1236,6 +1354,31 @@
       }
     },
     {
+      "id": "counterfactual",
+      "title": "Counterfactual",
+      "domain": "Causality / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "intervention",
+            "title": "Intervention",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "cross-attention",
       "title": "Cross-Attention",
       "domain": "Attention / Core",
@@ -1373,6 +1516,12 @@
             "id": "bias-variance-tradeoff",
             "title": "Bias-Variance Tradeoff",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "confounding",
+            "title": "Confounding",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2244,7 +2393,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "causal-discovery",
+            "title": "Causal Discovery",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2255,6 +2411,12 @@
       "edges": {
         "requires": [],
         "unlocks": [
+          {
+            "id": "causal-discovery",
+            "title": "Causal Discovery",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "message-passing",
             "title": "Message Passing",
@@ -2518,6 +2680,88 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "instrumental-variable",
+      "title": "Instrumental Variable",
+      "domain": "Causality / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "confounding",
+            "title": "Confounding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "causal-inference",
+            "title": "Causal Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "intervention",
+      "title": "Intervention",
+      "domain": "Causality / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-inference",
+            "title": "Causal Inference",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "counterfactual",
+            "title": "Counterfactual",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "reward-hacking",
+            "title": "Reward Hacking",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "invariant-risk-minimization",
+      "title": "Invariant Risk Minimization",
+      "domain": "Causality / Objectives",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "loss-function",
+            "title": "Loss Function",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -2884,6 +3128,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "counterfactual",
+            "title": "Counterfactual",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "reward-model",
             "title": "Reward Model",
             "tier": "verified",
@@ -3025,7 +3275,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "invariant-risk-minimization",
+            "title": "Invariant Risk Minimization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -3685,6 +3942,12 @@
             "id": "cross-validation",
             "title": "Cross-Validation",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -4504,6 +4767,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "intervention",
+            "title": "Intervention",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "rlhf",
             "title": "RLHF",
             "tier": "verified",
@@ -4829,6 +5098,38 @@
           {
             "id": "activation-checkpointing",
             "title": "Activation Checkpointing",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "shortcut-learning",
+      "title": "Shortcut Learning",
+      "domain": "Causality / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "invariant-risk-minimization",
+            "title": "Invariant Risk Minimization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
             "tier": "verified",
             "reviewed": false
           }
@@ -7006,8 +7307,15 @@
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -7020,6 +7328,12 @@
         {
           "from": "benchmark-contamination",
           "to": "cross-validation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "shortcut-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -7043,11 +7357,18 @@
           "y": 66
         },
         {
+          "id": "causal-inference",
+          "title": "Causal Inference",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -7055,6 +7376,12 @@
           "from": "overfitting",
           "to": "bias-variance-tradeoff",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "causal-inference",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -7140,6 +7467,138 @@
         {
           "from": "calibration",
           "to": "word-error-rate",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "causal-discovery",
+      "center": {
+        "id": "causal-discovery",
+        "title": "Causal Discovery",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-inference",
+          "title": "Causal Inference",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "graph-neural-network",
+          "title": "Graph Neural Network",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "graph-expressivity",
+          "title": "Graph Expressivity",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-inference",
+          "to": "causal-discovery",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "graph-neural-network",
+          "to": "causal-discovery",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "causal-discovery",
+          "to": "graph-expressivity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "causal-inference",
+      "center": {
+        "id": "causal-inference",
+        "title": "Causal Inference",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-discovery",
+          "title": "Causal Discovery",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "confounding",
+          "title": "Confounding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "intervention",
+          "title": "Intervention",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        },
+        {
+          "id": "bias-variance-tradeoff",
+          "title": "Bias-Variance Tradeoff",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "instrumental-variable",
+          "title": "Instrumental Variable",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-inference",
+          "to": "causal-discovery",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-inference",
+          "to": "confounding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-inference",
+          "to": "intervention",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-inference",
+          "to": "bias-variance-tradeoff",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "causal-inference",
+          "to": "instrumental-variable",
           "type": "adjacent",
           "reviewed": false
         }
@@ -7540,6 +7999,59 @@
           "to": "feed-forward-network",
           "type": "adjacent",
           "reviewed": true
+        }
+      ]
+    },
+    {
+      "id": "confounding",
+      "center": {
+        "id": "confounding",
+        "title": "Confounding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-inference",
+          "title": "Causal Inference",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "instrumental-variable",
+          "title": "Instrumental Variable",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "cross-validation",
+          "title": "Cross-Validation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-inference",
+          "to": "confounding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "confounding",
+          "to": "instrumental-variable",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "confounding",
+          "to": "cross-validation",
+          "type": "adjacent",
+          "reviewed": false
         }
       ]
     },
@@ -7953,6 +8465,46 @@
       ]
     },
     {
+      "id": "counterfactual",
+      "center": {
+        "id": "counterfactual",
+        "title": "Counterfactual",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "intervention",
+          "title": "Intervention",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "intervention",
+          "to": "counterfactual",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "counterfactual",
+          "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "cross-attention",
       "center": {
         "id": "cross-attention",
@@ -8183,15 +8735,22 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "bias-variance-tradeoff",
           "title": "Bias-Variance Tradeoff",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "confounding",
+          "title": "Confounding",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -8210,6 +8769,12 @@
         {
           "from": "cross-validation",
           "to": "bias-variance-tradeoff",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "cross-validation",
+          "to": "confounding",
           "type": "adjacent",
           "reviewed": false
         }
@@ -9706,6 +10271,13 @@
           "tier": "frontier",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "causal-discovery",
+          "title": "Causal Discovery",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -9719,6 +10291,12 @@
           "from": "graph-expressivity",
           "to": "graph-transformer",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "graph-expressivity",
+          "to": "causal-discovery",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -9734,11 +10312,18 @@
       },
       "nodes": [
         {
+          "id": "causal-discovery",
+          "title": "Causal Discovery",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "message-passing",
           "title": "Message Passing",
           "tier": "frontier",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "attention",
@@ -9749,6 +10334,12 @@
         }
       ],
       "links": [
+        {
+          "from": "graph-neural-network",
+          "to": "causal-discovery",
+          "type": "unlocks",
+          "reviewed": false
+        },
         {
           "from": "graph-neural-network",
           "to": "message-passing",
@@ -10183,6 +10774,139 @@
           "from": "instruction-tuning",
           "to": "rlhf",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "instrumental-variable",
+      "center": {
+        "id": "instrumental-variable",
+        "title": "Instrumental Variable",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "confounding",
+          "title": "Confounding",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "causal-inference",
+          "title": "Causal Inference",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "confounding",
+          "to": "instrumental-variable",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "instrumental-variable",
+          "to": "causal-inference",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "intervention",
+      "center": {
+        "id": "intervention",
+        "title": "Intervention",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-inference",
+          "title": "Causal Inference",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "counterfactual",
+          "title": "Counterfactual",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "reward-hacking",
+          "title": "Reward Hacking",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-inference",
+          "to": "intervention",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "intervention",
+          "to": "counterfactual",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "intervention",
+          "to": "reward-hacking",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "invariant-risk-minimization",
+      "center": {
+        "id": "invariant-risk-minimization",
+        "title": "Invariant Risk Minimization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "loss-function",
+          "title": "Loss Function",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "shortcut-learning",
+          "to": "invariant-risk-minimization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "invariant-risk-minimization",
+          "to": "loss-function",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -10813,18 +11537,25 @@
           "y": 66
         },
         {
+          "id": "counterfactual",
+          "title": "Counterfactual",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "self-reflection",
           "title": "Self-Reflection",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -10832,6 +11563,12 @@
           "from": "instruction-tuning",
           "to": "llm-as-judge",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "counterfactual",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -11038,6 +11775,13 @@
           "tier": "verified",
           "x": 200,
           "y": 116
+        },
+        {
+          "id": "invariant-risk-minimization",
+          "title": "Invariant Risk Minimization",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -11081,6 +11825,12 @@
           "from": "loss-function",
           "to": "support-vector-machine",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "loss-function",
+          "to": "invariant-risk-minimization",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -12205,14 +12955,21 @@
           "title": "Bias-Variance Tradeoff",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "decision-tree",
@@ -12245,6 +13002,12 @@
         {
           "from": "overfitting",
           "to": "cross-validation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "shortcut-learning",
           "type": "unlocks",
           "reviewed": false
         },
@@ -13630,11 +14393,18 @@
           "y": 66
         },
         {
+          "id": "intervention",
+          "title": "Intervention",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -13642,6 +14412,12 @@
           "from": "reward-model",
           "to": "reward-hacking",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reward-hacking",
+          "to": "intervention",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -14215,6 +14991,59 @@
         {
           "from": "sequence-parallelism",
           "to": "activation-checkpointing",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "shortcut-learning",
+      "center": {
+        "id": "shortcut-learning",
+        "title": "Shortcut Learning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "invariant-risk-minimization",
+          "title": "Invariant Risk Minimization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "overfitting",
+          "to": "shortcut-learning",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "shortcut-learning",
+          "to": "invariant-risk-minimization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "shortcut-learning",
+          "to": "benchmark-contamination",
           "type": "adjacent",
           "reviewed": false
         }

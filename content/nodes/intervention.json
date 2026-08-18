@@ -1,0 +1,66 @@
+{
+  "id": "intervention",
+  "title": "Intervention",
+  "domain": [
+    "Causality",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "There is a difference between seeing a value and setting it. Observing that a thermostat reads thirty degrees tells you about the room; setting the thermostat to thirty tells you about the thermostat. Intervention is the second — you reach in, fix a variable, and cut it off from whatever used to determine it.",
+    "engineer": "In a causal graph this is surgery: delete the edges into the intervened variable and leave everything else alone. What survives the deletion is what the intervention can affect, which is why the graph is doing real work rather than decorating the argument. A randomised trial is this performed physically; do-calculus is the set of rules for when observational data can stand in for it.",
+    "math": "do(X = x) replaces the structural equation for X with the constant x, deleting incoming edges and leaving the rest of the model untouched. p(y|do(x)) is then computed in the mutilated graph. That the other equations are unchanged is an assumption — modularity — and it is what allows an effect estimated in one setting to transfer to another."
+  },
+  "emphasis": {
+    "intuition": "you reach in, fix a variable, and cut it off from whatever used to determine it",
+    "engineer": "the graph is doing real work rather than decorating the argument"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "interventional": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "interventional",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Samples where the variable was set against samples where it was merely seen, in samples. Drag the interventional data up to watch the assumptions stop carrying the estimate — this is what a randomised trial buys."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "causal-inference",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "reward-hacking",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2002.02770",
+      "title": "A Survey on Causal Inference",
+      "url": "https://arxiv.org/abs/2002.02770"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Pearl 1995",
+      "title": "Causal Diagrams for Empirical Research",
+      "venue": "Biometrika 82(4)",
+      "doi": "10.1093/biomet/82.4.669"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

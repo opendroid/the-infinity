@@ -1,0 +1,66 @@
+{
+  "id": "confounding",
+  "title": "Confounding",
+  "domain": [
+    "Causality",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Ice cream sales and drownings rise together, and neither causes the other — summer causes both. A confounder is a common cause that makes two variables move together without either producing the other, and it is the reason a correlation is not an effect. It can be strong enough to reverse a comparison entirely rather than merely inflate it.",
+    "engineer": "Controlling for a confounder is the standard repair and it is not free: condition on the wrong variable and you create the bias you were avoiding. A collider — something both variables cause — is exactly this trap, and conditioning on one opens a path that was closed. Which variables to adjust for is a question about the graph you assumed, not one the data can answer.",
+    "math": "Simpson's paradox is the extreme case: an association can hold in every subgroup and reverse in the aggregate, so the direction of an effect depends on which variables you conditioned on. Under a back-door adjustment set Z, p(y|do(x)) = Σ_z p(y|x,z)·p(z) — but the validity of Z is an assumption about the graph, and the formula is silent about whether you chose it correctly."
+  },
+  "emphasis": {
+    "intuition": "strong enough to reverse a comparison entirely rather than merely inflate it",
+    "engineer": "condition on the wrong variable and you create the bias you were avoiding"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "confounded": 10,
+      "share_rest": 10
+    },
+    "param_controls": [
+      {
+        "name": "confounded",
+        "min": 0,
+        "max": 160,
+        "step": 5
+      }
+    ],
+    "caption": "Association carried by the common cause against association that is the effect itself, in equal units. Drag the confounding up to watch the measured relationship stop being about the thing you were measuring."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "causal-inference",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "cross-validation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2002.02770",
+      "title": "A Survey on Causal Inference",
+      "url": "https://arxiv.org/abs/2002.02770"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Simpson 1951",
+      "title": "The Interpretation of Interaction in Contingency Tables",
+      "venue": "Journal of the Royal Statistical Society B 13(2)",
+      "doi": "10.1111/j.2517-6161.1951.tb00088.x"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

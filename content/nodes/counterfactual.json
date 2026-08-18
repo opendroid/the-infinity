@@ -1,0 +1,66 @@
+{
+  "id": "counterfactual",
+  "title": "Counterfactual",
+  "domain": [
+    "Causality",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Would this patient have recovered without the drug they in fact took? The question is about a world that did not happen, to a specific individual whose actual outcome you already know. That is strictly harder than asking what happens on average under treatment, and it is the level at which most explanations people want actually sit.",
+    "engineer": "The three-step recipe is abduction, action, prediction: infer the unobserved noise terms from what actually happened, apply the intervention, then recompute. The catch is that counterfactuals are not identified from experimental data alone — two models can agree on every intervention and disagree about individuals — so the answer depends on assumptions no trial can settle. Explanations built on them inherit that.",
+    "math": "p(Y_{x'} = y | X = x, Y = y') asks about Y under x' for units that were observed at x with outcome y'. Abduction updates the noise distribution p(U | x, y'), then the intervention is applied in the model with that updated U. Because the joint over potential outcomes is not identified by interventions, this needs the full structural model rather than the interventional distribution."
+  },
+  "emphasis": {
+    "intuition": "a world that did not happen, to a specific individual whose actual outcome you already know",
+    "engineer": "two models can agree on every intervention and disagree about individuals"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "assumed_structure": 12,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "assumed_structure",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "What the structural model supplies against what any experiment could have told you, in equal units. Drag the assumed structure up to watch the counterfactual rest on things no trial can settle."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "intervention",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.06856",
+      "title": "Counterfactual Fairness",
+      "url": "https://arxiv.org/abs/1703.06856"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Rubin 1974",
+      "title": "Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies",
+      "venue": "Journal of Educational Psychology 66(5)",
+      "doi": "10.1037/h0037350"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
