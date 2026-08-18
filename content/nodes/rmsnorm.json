@@ -37,7 +37,16 @@
         "reviewed": false
       }
     ],
-    "adjacent": []
+    "adjacent": [
+      {
+        "id": "transformer-block",
+        "reviewed": false
+      },
+      {
+        "id": "numerical-stability",
+        "reviewed": false
+      }
+    ]
   },
   "citations": [
     {
@@ -46,7 +55,7 @@
       "url": "https://arxiv.org/abs/1910.07467"
     }
   ],
-  "updated_at": "2026-08-02",
+  "updated_at": "2026-08-18",
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

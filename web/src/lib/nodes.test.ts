@@ -22,6 +22,56 @@ describe('content/nodes', () => {
     expect(nodes.length).toBeGreaterThan(0);
   });
 
+  /**
+   * EVERY PAGE OFFERS SOMEWHERE TO GO THAT IS NOT BACK.
+   *
+   * CLAUDE.md's third principle is that the graph never dead-ends. A page with
+   * ONE link satisfies that in letter and fails it in practice: a reader arrived
+   * from somewhere, and if the only thread to pull is the one they arrived by,
+   * the page is a cul-de-sac with a return path.
+   *
+   * REACHABILITY IS UNDIRECTED, WHICH IS EASY TO GET WRONG. `graph.ts` inverts
+   * `requires` into `unlocks` and symmetrises `adjacent`, so every authored edge
+   * puts each endpoint on the other's page. Counting authored direction instead
+   * suggests 103 nodes "nothing points at", and that number is an artefact — all
+   * 103 are reachable. This counts both ends of each edge, which is what a reader
+   * can actually click.
+   *
+   * THE DISTRIBUTION AT 401 NODES AND 892 EDGES, so the next person to raise this
+   * floor has the measurement rather than a guess:
+   *
+   *     1 link     2 nodes   <- rmsnorm, grouped-query-attention (#277, fixed)
+   *     2 links   54
+   *     3 links  117
+   *     4 links   82
+   *     5 links   54
+   *     6+       111
+   *    14 links    1
+   *
+   * THE FLOOR IS TWO AND THE ARGUMENT FOR THREE IS REAL. Two is where a page
+   * always offers at least one thread that is not the way back. Three would mean
+   * two onward threads whichever way you arrived, and raising the corpus to it
+   * would touch 56 nodes — a bigger decision than a regression guard should make
+   * on its own. #277 records those 56 rather than letting them pass silently.
+   *
+   * This is a guard, not a discovery: it passed the moment the two nodes above
+   * gained honest neighbours, and it exists so the next node cannot ship with one.
+   */
+  it('gives every concept at least two links a reader can follow', () => {
+    const degree = new Map<string, number>();
+    const bump = (id: string) => degree.set(id, (degree.get(id) ?? 0) + 1);
+    for (const { node } of nodes) {
+      for (const type of ['requires', 'adjacent'] as const) {
+        for (const edge of node.edges[type]) {
+          bump(node.id);
+          bump(edge.id);
+        }
+      }
+    }
+    const lonely = nodes.map(({ node }) => node.id).filter((id) => (degree.get(id) ?? 0) < 2);
+    expect(lonely).toEqual([]);
+  });
+
   describe.each(nodes)('$file', ({ file, node }) => {
     it('id matches the filename, because the id is the URL', () => {
       expect(node.id).toBe(basename(file, '.json'));
