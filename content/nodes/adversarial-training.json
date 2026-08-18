@@ -1,0 +1,58 @@
+{
+  "id": "adversarial-training",
+  "title": "Adversarial Training",
+  "domain": [
+    "Adversarial",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "If a model fails on inputs an attacker constructs, train it on those inputs. Each step generates the worst perturbation it can find and learns from that instead of the clean example. It is the only defence that has held up across a decade of papers, and it costs several times an ordinary training run.",
+    "engineer": "The cost is structural: generating each adversarial example needs its own inner optimisation, so a k-step attack multiplies training cost by roughly k. Weaker attacks train faster and produce models that only look robust — gradient masking makes the attack fail rather than the model succeed, which is why any defence should be evaluated against attacks stronger than the ones it trained on.",
+    "math": "Minimise E[max over ‖δ‖ ≤ ε of L(f(x+δ), y)] — a saddle-point problem where the inner maximisation is approximated by projected gradient ascent. The approximation quality is the defence's quality: an inner maximiser that finds a poor δ gives an outer objective that was never adversarial in the first place."
+  },
+  "emphasis": {
+    "intuition": "It is the only defence that has held up across a decade of papers",
+    "engineer": "gradient masking makes the attack fail rather than the model succeed"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "attack_steps": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "attack_steps",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Compute spent generating the attack against compute spent on the update it feeds, in equal units. Drag the attack steps up to watch the inner loop dominate — this is why robust training costs a multiple of ordinary training."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "adversarial-example",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "gradient-descent",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.06083",
+      "title": "Towards Deep Learning Models Resistant to Adversarial Attacks",
+      "url": "https://arxiv.org/abs/1706.06083"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
