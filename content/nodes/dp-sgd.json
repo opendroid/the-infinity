@@ -1,0 +1,73 @@
+{
+  "id": "dp-sgd",
+  "title": "DP-SGD",
+  "domain": [
+    "Privacy",
+    "Optimization"
+  ],
+  "bodies": {
+    "intuition": "Train a model with a privacy guarantee by doing two things to every gradient step: clip each example's gradient so no single record can push far, then add noise to the sum. The result is a model whose weights carry a bounded amount about any one person, at the cost of accuracy and a great deal of compute.",
+    "engineer": "Clipping is per-example rather than per-batch, which is what breaks the usual efficiency of batched autodiff and makes the method expensive. The noise multiplier and the clipping norm interact — tighter clipping means less noise needed for the same ε but more bias in the direction of the update — and large batches help, because the noise added is per-step while the signal grows with batch size.",
+    "math": "Clip each per-example gradient to norm at most C, sum, add Gaussian noise of scale σC, and divide by the batch size. Privacy accounting over T steps at sampling rate q gives ε growing roughly as q√(T log(1/δ))/σ, so the signal-to-noise ratio improves with batch size while the privacy cost does not — the reason DP training uses batches far larger than ordinary training."
+  },
+  "emphasis": {
+    "intuition": "a model whose weights carry a bounded amount about any one person",
+    "engineer": "the noise added is per-step while the signal grows with batch size"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 4,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "batch",
+        "min": 1,
+        "max": 512,
+        "step": 1
+      }
+    ],
+    "caption": "Training loss under per-example clipping and added noise. Drag the batch size up to watch the run steady — noise is added once per step whatever the batch, so the signal grows with it and the privacy cost does not."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "differential-privacy",
+        "reviewed": false
+      },
+      {
+        "id": "stochastic-gradient-descent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "gradient-clipping",
+        "reviewed": false
+      },
+      {
+        "id": "batch-size",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1607.00133",
+      "title": "Deep Learning with Differential Privacy",
+      "url": "https://arxiv.org/abs/1607.00133"
+    },
+    {
+      "ref": "arXiv:2007.14191",
+      "title": "Tempered Sigmoid Activations for Deep Learning with Differential Privacy",
+      "url": "https://arxiv.org/abs/2007.14191"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

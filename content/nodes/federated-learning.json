@@ -1,0 +1,67 @@
+{
+  "id": "federated-learning",
+  "title": "Federated Learning",
+  "domain": [
+    "Privacy",
+    "Systems"
+  ],
+  "bodies": {
+    "intuition": "Train a shared model without collecting the data. Each device trains locally on what it holds, sends an update rather than examples, and a server averages the updates into a new global model. The data never moves, which is the point — and the updates still carry information about it, which is the catch.",
+    "engineer": "The hard parts are statistical and operational rather than cryptographic. Client data is not identically distributed — one phone's typing is not a sample from the population — so local steps drift toward local optima and averaging them is not the same as training centrally. Add unreliable clients, wildly varying hardware, and a communication budget that dominates compute, and the algorithm is mostly about how many local steps to take before averaging.",
+    "math": "FedAvg runs E local epochs on each of a sampled fraction of clients, then averages weights in proportion to client data size. Larger E cuts communication rounds and increases client drift, and under non-IID data the averaged model can be worse than any client's — which is why E is the knob that decides whether the method works on a given deployment."
+  },
+  "emphasis": {
+    "intuition": "the updates still carry information about it, which is the catch",
+    "engineer": "one phone's typing is not a sample from the population"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "local_steps": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "local_steps",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Work done locally between rounds against the round of communication that follows it, in equal units. Drag the local steps up to watch communication stop being the cost — and client drift start being it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "differential-privacy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "data-parallelism",
+        "reviewed": false
+      },
+      {
+        "id": "collective-communication",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1602.05629",
+      "title": "Communication-Efficient Learning of Deep Networks from Decentralized Data",
+      "url": "https://arxiv.org/abs/1602.05629"
+    },
+    {
+      "ref": "arXiv:1912.04977",
+      "title": "Advances and Open Problems in Federated Learning",
+      "url": "https://arxiv.org/abs/1912.04977"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
