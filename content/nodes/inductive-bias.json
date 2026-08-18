@@ -1,0 +1,67 @@
+{
+  "id": "inductive-bias",
+  "title": "Inductive Bias",
+  "domain": [
+    "Foundations",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "The assumptions a model makes before it sees any data. Every architecture prefers some explanations to others, and that preference is what lets it generalise from finitely many examples at all — a model with no preferences could fit the training set in endlessly many ways and would have no reason to choose the one that works on the next example.",
+    "engineer": "The practical question is whether yours matches the problem, and the trade is unusually legible. A convolution assumes that position does not change meaning and that nearby pixels belong together, which is enormously right for images and lets it learn from far less data. A transformer assumes almost nothing of the kind, which makes it worse than a convolutional network on small image datasets and better on large ones. The assumption you did not build in has to be paid for in examples.",
+    "math": "The trade is between how large the hypothesis space is and how much data is needed to pick within it. A stronger bias means a smaller space, so fewer examples pin the answer down — and a larger floor on the error if the truth is not in that space. The crossover with dataset size is therefore real rather than a matter of taste: below it the bias saves more than its floor costs, above it the floor dominates and the weaker assumption wins, and no amount of data moves a floor."
+  },
+  "emphasis": {
+    "engineer": "The assumption you did not build in has to be paid for in examples.",
+    "math": "no amount of data moves a floor"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "assumption_error": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "assumption_error",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Error a wrong assumption puts a floor under, against error that comes from having too few examples, in equal units. Drag the assumption's error up to watch it take over — where it does is the crossover, and dataset size is what carries a problem across it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "bias-variance-tradeoff",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "convolutional-network",
+        "reviewed": false
+      },
+      {
+        "id": "vision-transformer",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1806.01261",
+      "title": "Relational inductive biases, deep learning, and graph networks",
+      "url": "https://arxiv.org/abs/1806.01261"
+    },
+    {
+      "ref": "arXiv:2010.11929",
+      "title": "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",
+      "url": "https://arxiv.org/abs/2010.11929"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

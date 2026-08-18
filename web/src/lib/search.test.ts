@@ -98,9 +98,14 @@ describe('ranking is by where the match landed', () => {
     expect(hits[0]!.id).toBe('attention');
   });
 
+  // THE DOMAIN-ONLY TERM HAS TO BE ONE NO CONCEPT WILL EVER BE TITLED. This was
+  // `regularization`, which was domain-only until a node called Regularization
+  // was seeded (#308) — then the query scored as a title hit and the assertion
+  // failed on content rather than on ranking. `Regimes` is a shelf label, not a
+  // concept, so it cannot be claimed the same way; 23 nodes are filed under it.
   it('scores a title hit above an id-only hit', () => {
     const [title] = search(index, 'dropout', 50);
-    const [domain] = search(index, 'regularization', 50);
+    const [domain] = search(index, 'regimes', 50);
     expect(title!.score).toBeGreaterThan(domain!.score);
   });
 

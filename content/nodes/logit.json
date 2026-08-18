@@ -1,0 +1,67 @@
+{
+  "id": "logit",
+  "title": "Logit",
+  "domain": [
+    "Foundations",
+    "Functions"
+  ],
+  "bodies": {
+    "intuition": "The raw score before it becomes a probability. A model's last layer emits one unbounded number per option, meaning nothing on its own, and softmax turns the gaps between them into a distribution. The word gets used constantly and it only ever means this: the numbers before the squashing.",
+    "engineer": "Two properties explain most of the behaviour around them. Only differences matter, so implementations subtract the largest logit before exponentiating — that is a numerical safeguard and not a modelling choice, and it is why an absolute logit value is uninterpretable. And they are unbounded, so cross-entropy keeps rewarding a wider gap long after the ranking has settled, which is where overconfidence comes from and why calibration is a separate problem from accuracy.",
+    "math": "Softmax is invariant to a constant shift: adding c to every logit multiplies numerator and denominator by exp(c), which cancels. So a vector of n logits carries only n-1 degrees of freedom, and any claim about one logit's magnitude is really a claim about an arbitrary offset unless it is stated as a difference. That single fact explains the max-subtraction trick, the uninterpretability of a raw score, and why temperature — which divides the whole vector — changes the distribution without ever changing the ranking."
+  },
+  "emphasis": {
+    "intuition": "the numbers before the squashing",
+    "math": "a vector of n logits carries only n-1 degrees of freedom"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "top_logit_gap": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "top_logit_gap",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Probability mass the top option holds, against everything else, in equal units. Drag the top logit's gap up to watch its share saturate without ever reaching one — and note that shifting every logit by the same amount moves nothing here, because only differences survive the softmax."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "softmax",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      },
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1706.04599",
+      "title": "On Calibration of Modern Neural Networks",
+      "url": "https://arxiv.org/abs/1706.04599"
+    },
+    {
+      "ref": "arXiv:1503.02531",
+      "title": "Distilling the Knowledge in a Neural Network",
+      "url": "https://arxiv.org/abs/1503.02531"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

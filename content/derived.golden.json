@@ -50,6 +50,12 @@
         ],
         "adjacent": [
           {
+            "id": "flops",
+            "title": "FLOPs",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "interconnect-topology",
             "title": "Interconnect Topology",
             "tier": "verified",
@@ -59,6 +65,12 @@
             "id": "straggler",
             "title": "Straggler",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "throughput",
+            "title": "Throughput",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -872,6 +884,12 @@
       "edges": {
         "requires": [
           {
+            "id": "flops",
+            "title": "FLOPs",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "gpu-memory-hierarchy",
             "title": "GPU Memory Hierarchy",
             "tier": "verified",
@@ -1430,6 +1448,12 @@
             "reviewed": false
           },
           {
+            "id": "straight-through-estimator",
+            "title": "Straight-Through Estimator",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "vanishing-gradient",
             "title": "Vanishing Gradient",
             "tier": "verified",
@@ -1882,6 +1906,12 @@
             "title": "Ensemble Methods",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "inductive-bias",
+            "title": "Inductive Bias",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -2046,9 +2076,21 @@
             "reviewed": false
           },
           {
+            "id": "logit",
+            "title": "Logit",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "out-of-distribution-detection",
             "title": "Out-of-Distribution Detection",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "precision-and-recall",
+            "title": "Precision and Recall",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -2937,6 +2979,12 @@
             "title": "Energy Cost of Training",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "flops",
+            "title": "FLOPs",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3482,6 +3530,12 @@
             "title": "Tail Latency",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "throughput",
+            "title": "Throughput",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -3675,6 +3729,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "inductive-bias",
+            "title": "Inductive Bias",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "vision-transformer",
             "title": "Vision Transformer",
@@ -3896,6 +3956,12 @@
             "id": "entropy",
             "title": "Entropy",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "logit",
+            "title": "Logit",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -5309,6 +5375,12 @@
             "id": "pruning",
             "title": "Pruning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "regularization",
+            "title": "Regularization",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -6899,6 +6971,37 @@
       }
     },
     {
+      "id": "flops",
+      "title": "FLOPs",
+      "domain": "Hardware / Compute",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "arithmetic-intensity",
+            "title": "Arithmetic Intensity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "accelerator-utilization",
+            "title": "Accelerator Utilization",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "compute-optimal-training",
+            "title": "Compute-Optimal Training",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "flow-matching",
       "title": "Flow Matching",
       "domain": "Generative / Objectives",
@@ -8236,6 +8339,37 @@
           {
             "id": "activation-patching",
             "title": "Activation Patching",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "inductive-bias",
+      "title": "Inductive Bias",
+      "domain": "Foundations / Generalization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "bias-variance-tradeoff",
+            "title": "Bias-Variance Tradeoff",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "convolutional-network",
+            "title": "Convolutional Network",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vision-transformer",
+            "title": "Vision Transformer",
             "tier": "verified",
             "reviewed": false
           }
@@ -9585,6 +9719,44 @@
           {
             "id": "support-vector-machine",
             "title": "Support Vector Machine",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "logit",
+      "title": "Logit",
+      "domain": "Foundations / Functions",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "softmax",
+            "title": "Softmax",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "sampling-temperature",
+            "title": "Sampling Temperature",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
             "tier": "verified",
             "reviewed": false
           }
@@ -11974,6 +12146,12 @@
             "reviewed": false
           },
           {
+            "id": "sampling-temperature",
+            "title": "Sampling Temperature",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "top-k-sampling",
             "title": "Top-k Sampling",
             "tier": "verified",
@@ -12507,6 +12685,12 @@
             "reviewed": false
           },
           {
+            "id": "regularization",
+            "title": "Regularization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "shortcut-learning",
             "title": "Shortcut Learning",
             "tier": "verified",
@@ -13028,6 +13212,36 @@
             "id": "qlora",
             "title": "QLoRA",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "precision-and-recall",
+      "title": "Precision and Recall",
+      "domain": "Evaluation / Metrics",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "selective-prediction",
+            "title": "Selective Prediction",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "statistical-significance",
+            "title": "Statistical Significance",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -13908,6 +14122,12 @@
             "title": "Rate-Distortion",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "straight-through-estimator",
+            "title": "Straight-Through Estimator",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -14329,6 +14549,37 @@
           {
             "id": "prompt-engineering",
             "title": "Prompt Engineering",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "regularization",
+      "title": "Regularization",
+      "domain": "Optimization / Regularization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "dropout",
+            "title": "Dropout",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
             "tier": "verified",
             "reviewed": false
           }
@@ -15102,6 +15353,37 @@
       }
     },
     {
+      "id": "sampling-temperature",
+      "title": "Sampling Temperature",
+      "domain": "Inference / Decoding",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "logit",
+            "title": "Logit",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "nucleus-sampling",
+            "title": "Nucleus Sampling",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "top-k-sampling",
+            "title": "Top-k Sampling",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "sandboxing",
       "title": "Sandboxing",
       "domain": "Tools / Safety",
@@ -15464,6 +15746,12 @@
             "id": "human-in-the-loop",
             "title": "Human in the Loop",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "precision-and-recall",
+            "title": "Precision and Recall",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -16199,6 +16487,12 @@
             "reviewed": false
           },
           {
+            "id": "logit",
+            "title": "Logit",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "noise-contrastive-estimation",
             "title": "Noise-Contrastive Estimation",
             "tier": "verified",
@@ -16701,6 +16995,12 @@
             "title": "Benchmark Contamination",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "precision-and-recall",
+            "title": "Precision and Recall",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -16798,6 +17098,37 @@
           {
             "id": "tail-latency",
             "title": "Tail Latency",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "straight-through-estimator",
+      "title": "Straight-Through Estimator",
+      "domain": "Optimization / Training",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "quantization",
+            "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vector-quantization",
+            "title": "Vector Quantization",
             "tier": "verified",
             "reviewed": false
           }
@@ -17226,6 +17557,12 @@
             "id": "straggler",
             "title": "Straggler",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "throughput",
+            "title": "Throughput",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -17682,6 +18019,37 @@
       }
     },
     {
+      "id": "throughput",
+      "title": "Throughput",
+      "domain": "Systems / Operations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "continuous-batching",
+            "title": "Continuous Batching",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "accelerator-utilization",
+            "title": "Accelerator Utilization",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "tail-latency",
+            "title": "Tail Latency",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "tiling",
       "title": "Tiling",
       "domain": "Compilers / Methods",
@@ -18053,6 +18421,12 @@
             "id": "nucleus-sampling",
             "title": "Nucleus Sampling",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sampling-temperature",
+            "title": "Sampling Temperature",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -18614,6 +18988,12 @@
             "title": "Speech Representation Learning",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "straight-through-estimator",
+            "title": "Straight-Through Estimator",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -18864,6 +19244,12 @@
             "title": "Graph Transformer",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "inductive-bias",
+            "title": "Inductive Bias",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -19093,6 +19479,12 @@
             "id": "pruning",
             "title": "Pruning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "regularization",
+            "title": "Regularization",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -19346,17 +19738,31 @@
           "y": 66
         },
         {
+          "id": "flops",
+          "title": "FLOPs",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "interconnect-topology",
           "title": "Interconnect Topology",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "straggler",
           "title": "Straggler",
           "tier": "verified",
-          "x": 160,
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "throughput",
+          "title": "Throughput",
+          "tier": "frontier",
+          "x": 192,
           "y": 110
         }
       ],
@@ -19375,6 +19781,12 @@
         },
         {
           "from": "accelerator-utilization",
+          "to": "flops",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "accelerator-utilization",
           "to": "interconnect-topology",
           "type": "adjacent",
           "reviewed": false
@@ -19382,6 +19794,12 @@
         {
           "from": "accelerator-utilization",
           "to": "straggler",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "accelerator-utilization",
+          "to": "throughput",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20823,11 +21241,18 @@
       },
       "nodes": [
         {
+          "id": "flops",
+          "title": "FLOPs",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
           "id": "gpu-memory-hierarchy",
           "title": "GPU Memory Hierarchy",
           "tier": "verified",
           "x": 40,
-          "y": 66
+          "y": 88
         },
         {
           "id": "accelerator-utilization",
@@ -20894,6 +21319,12 @@
         }
       ],
       "links": [
+        {
+          "from": "flops",
+          "to": "arithmetic-intensity",
+          "type": "requires",
+          "reviewed": false
+        },
         {
           "from": "gpu-memory-hierarchy",
           "to": "arithmetic-intensity",
@@ -21754,70 +22185,77 @@
           "title": "Activation Checkpointing",
           "tier": "verified",
           "x": 200,
-          "y": 12
+          "y": 11
         },
         {
           "id": "activation-function",
           "title": "Activation Function",
           "tier": "verified",
           "x": 200,
-          "y": 24
+          "y": 22
         },
         {
           "id": "autoencoder",
           "title": "Autoencoder",
           "tier": "verified",
           "x": 200,
-          "y": 36
+          "y": 33
         },
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
           "tier": "verified",
           "x": 200,
-          "y": 48
+          "y": 44
         },
         {
           "id": "feature-attribution",
           "title": "Feature Attribution",
           "tier": "verified",
           "x": 200,
-          "y": 60
+          "y": 55
         },
         {
           "id": "gradient-clipping",
           "title": "Gradient Clipping",
           "tier": "verified",
           "x": 200,
-          "y": 72
+          "y": 66
         },
         {
           "id": "gradient-descent",
           "title": "Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 84
+          "y": 77
         },
         {
           "id": "mixed-precision-training",
           "title": "Mixed-Precision Training",
           "tier": "verified",
           "x": 200,
-          "y": 96
+          "y": 88
         },
         {
           "id": "recurrent-neural-network",
           "title": "Recurrent Neural Network",
           "tier": "verified",
           "x": 200,
-          "y": 108
+          "y": 99
+        },
+        {
+          "id": "straight-through-estimator",
+          "title": "Straight-Through Estimator",
+          "tier": "frontier",
+          "x": 200,
+          "y": 110
         },
         {
           "id": "vanishing-gradient",
           "title": "Vanishing Gradient",
           "tier": "verified",
           "x": 200,
-          "y": 120
+          "y": 121
         }
       ],
       "links": [
@@ -21878,6 +22316,12 @@
         {
           "from": "backpropagation",
           "to": "recurrent-neural-network",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "straight-through-estimator",
           "type": "unlocks",
           "reviewed": false
         },
@@ -22662,14 +23106,21 @@
           "title": "Double Descent",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "ensemble-methods",
           "title": "Ensemble Methods",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "inductive-bias",
+          "title": "Inductive Bias",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "causal-inference",
@@ -22723,6 +23174,12 @@
         {
           "from": "bias-variance-tradeoff",
           "to": "ensemble-methods",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "inductive-bias",
           "type": "unlocks",
           "reviewed": false
         },
@@ -22860,98 +23317,112 @@
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 16,
+          "x": 14,
           "y": 22
         },
         {
           "id": "certified-robustness",
           "title": "Certified Robustness",
           "tier": "verified",
-          "x": 32,
+          "x": 28,
           "y": 110
         },
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
           "tier": "verified",
-          "x": 48,
+          "x": 42,
           "y": 22
         },
         {
           "id": "early-exit",
           "title": "Early Exit",
           "tier": "verified",
-          "x": 64,
+          "x": 56,
           "y": 110
         },
         {
           "id": "hallucination",
           "title": "Hallucination",
           "tier": "verified",
-          "x": 80,
+          "x": 71,
           "y": 22
         },
         {
           "id": "impossibility-result",
           "title": "Impossibility Result",
           "tier": "verified",
-          "x": 96,
+          "x": 85,
           "y": 110
         },
         {
           "id": "knowledge-conflict",
           "title": "Knowledge Conflict",
           "tier": "verified",
-          "x": 112,
+          "x": 99,
           "y": 22
         },
         {
           "id": "label-smoothing",
           "title": "Label Smoothing",
           "tier": "verified",
-          "x": 128,
+          "x": 113,
           "y": 110
         },
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
           "tier": "verified",
-          "x": 144,
+          "x": 127,
           "y": 22
+        },
+        {
+          "id": "logit",
+          "title": "Logit",
+          "tier": "frontier",
+          "x": 141,
+          "y": 110
         },
         {
           "id": "out-of-distribution-detection",
           "title": "Out-of-Distribution Detection",
           "tier": "verified",
-          "x": 160,
+          "x": 155,
+          "y": 22
+        },
+        {
+          "id": "precision-and-recall",
+          "title": "Precision and Recall",
+          "tier": "frontier",
+          "x": 169,
           "y": 110
         },
         {
           "id": "probabilistic-forecasting",
           "title": "Probabilistic Forecasting",
           "tier": "verified",
-          "x": 176,
+          "x": 184,
           "y": 22
         },
         {
           "id": "production-monitoring",
           "title": "Production Monitoring",
           "tier": "verified",
-          "x": 192,
+          "x": 198,
           "y": 110
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 208,
+          "x": 212,
           "y": 22
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 224,
+          "x": 226,
           "y": 110
         }
       ],
@@ -23042,7 +23513,19 @@
         },
         {
           "from": "calibration",
+          "to": "logit",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
           "to": "out-of-distribution-detection",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "precision-and-recall",
           "type": "adjacent",
           "reviewed": false
         },
@@ -24564,22 +25047,29 @@
           "id": "carbon-accounting",
           "title": "Carbon Accounting",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "data-scaling-laws",
           "title": "Data Scaling Laws",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "energy-cost-of-training",
           "title": "Energy Cost of Training",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "flops",
+          "title": "FLOPs",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -24610,6 +25100,12 @@
         {
           "from": "compute-optimal-training",
           "to": "energy-cost-of-training",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "compute-optimal-training",
+          "to": "flops",
           "type": "adjacent",
           "reviewed": false
         }
@@ -25572,14 +26068,21 @@
           "title": "Batch Inference",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "tail-latency",
           "title": "Tail Latency",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "throughput",
+          "title": "Throughput",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "batch-size",
@@ -25626,6 +26129,12 @@
         {
           "from": "continuous-batching",
           "to": "tail-latency",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "continuous-batching",
+          "to": "throughput",
           "type": "unlocks",
           "reviewed": false
         },
@@ -25931,11 +26440,18 @@
           "y": 116
         },
         {
+          "id": "inductive-bias",
+          "title": "Inductive Bias",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "vision-transformer",
           "title": "Vision Transformer",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -25985,6 +26501,12 @@
           "from": "convolutional-network",
           "to": "video-understanding",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "convolutional-network",
+          "to": "inductive-bias",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -26323,8 +26845,15 @@
           "id": "entropy",
           "title": "Entropy",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "logit",
+          "title": "Logit",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -26397,6 +26926,12 @@
         {
           "from": "cross-entropy-loss",
           "to": "entropy",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "logit",
           "type": "adjacent",
           "reviewed": false
         }
@@ -28944,22 +29479,29 @@
           "id": "bayesian-neural-network",
           "title": "Bayesian Neural Network",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "pruning",
           "title": "Pruning",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "regularization",
+          "title": "Regularization",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -28972,6 +29514,12 @@
         {
           "from": "dropout",
           "to": "pruning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "dropout",
+          "to": "regularization",
           "type": "adjacent",
           "reviewed": false
         },
@@ -31806,6 +32354,59 @@
       ]
     },
     {
+      "id": "flops",
+      "center": {
+        "id": "flops",
+        "title": "FLOPs",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "arithmetic-intensity",
+          "title": "Arithmetic Intensity",
+          "tier": "verified",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "accelerator-utilization",
+          "title": "Accelerator Utilization",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "compute-optimal-training",
+          "title": "Compute-Optimal Training",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "flops",
+          "to": "arithmetic-intensity",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "flops",
+          "to": "accelerator-utilization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "flops",
+          "to": "compute-optimal-training",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "flow-matching",
       "center": {
         "id": "flow-matching",
@@ -34188,6 +34789,59 @@
         {
           "from": "induction-head",
           "to": "activation-patching",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "inductive-bias",
+      "center": {
+        "id": "inductive-bias",
+        "title": "Inductive Bias",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "bias-variance-tradeoff",
+          "title": "Bias-Variance Tradeoff",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "convolutional-network",
+          "title": "Convolutional Network",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "vision-transformer",
+          "title": "Vision Transformer",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "bias-variance-tradeoff",
+          "to": "inductive-bias",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "inductive-bias",
+          "to": "convolutional-network",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "inductive-bias",
+          "to": "vision-transformer",
           "type": "adjacent",
           "reviewed": false
         }
@@ -36625,6 +37279,72 @@
         {
           "from": "logistic-regression",
           "to": "support-vector-machine",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "logit",
+      "center": {
+        "id": "logit",
+        "title": "Logit",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "softmax",
+          "title": "Softmax",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "sampling-temperature",
+          "title": "Sampling Temperature",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "softmax",
+          "to": "logit",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "logit",
+          "to": "sampling-temperature",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "logit",
+          "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "logit",
+          "to": "cross-entropy-loss",
           "type": "adjacent",
           "reviewed": false
         }
@@ -40797,22 +41517,29 @@
           "id": "exploration-exploitation",
           "title": "Exploration and Exploitation",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "mode-collapse",
           "title": "Mode Collapse",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "sampling-temperature",
+          "title": "Sampling Temperature",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -40843,6 +41570,12 @@
         {
           "from": "nucleus-sampling",
           "to": "mode-collapse",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "nucleus-sampling",
+          "to": "sampling-temperature",
           "type": "adjacent",
           "reviewed": false
         },
@@ -41670,63 +42403,70 @@
           "title": "Bias-Variance Tradeoff",
           "tier": "verified",
           "x": 200,
-          "y": 13
+          "y": 12
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 24
         },
         {
           "id": "data-augmentation",
           "title": "Data Augmentation",
           "tier": "verified",
           "x": 200,
-          "y": 40
+          "y": 36
         },
         {
           "id": "distribution-shift",
           "title": "Distribution Shift",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 48
         },
         {
           "id": "early-stopping",
           "title": "Early Stopping",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 60
         },
         {
           "id": "grokking",
           "title": "Grokking",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 72
         },
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
           "tier": "verified",
           "x": 200,
-          "y": 92
+          "y": 84
         },
         {
           "id": "membership-inference",
           "title": "Membership Inference",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 96
+        },
+        {
+          "id": "regularization",
+          "title": "Regularization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 108
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
           "x": 200,
-          "y": 119
+          "y": 120
         },
         {
           "id": "decision-tree",
@@ -41816,6 +42556,12 @@
         {
           "from": "overfitting",
           "to": "membership-inference",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "regularization",
           "type": "unlocks",
           "reviewed": false
         },
@@ -42710,6 +43456,59 @@
         {
           "from": "post-training-quantization",
           "to": "qlora",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "precision-and-recall",
+      "center": {
+        "id": "precision-and-recall",
+        "title": "Precision and Recall",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "selective-prediction",
+          "title": "Selective Prediction",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "statistical-significance",
+          "title": "Statistical Significance",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "precision-and-recall",
+          "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "precision-and-recall",
+          "to": "selective-prediction",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "precision-and-recall",
+          "to": "statistical-significance",
           "type": "adjacent",
           "reviewed": false
         }
@@ -44194,50 +44993,57 @@
           "id": "arithmetic-intensity",
           "title": "Arithmetic Intensity",
           "tier": "verified",
-          "x": 30,
+          "x": 27,
           "y": 22
         },
         {
           "id": "energy-cost-of-inference",
           "title": "Energy Cost of Inference",
           "tier": "verified",
-          "x": 60,
+          "x": 53,
           "y": 110
         },
         {
           "id": "inference-accelerator",
           "title": "Inference Accelerator",
           "tier": "verified",
-          "x": 90,
+          "x": 80,
           "y": 22
         },
         {
           "id": "neural-audio-codec",
           "title": "Neural Audio Codec",
           "tier": "verified",
-          "x": 120,
+          "x": 107,
           "y": 110
         },
         {
           "id": "number-format",
           "title": "Number Format",
           "tier": "verified",
-          "x": 150,
+          "x": 133,
           "y": 22
         },
         {
           "id": "quantized-kv-cache",
           "title": "Quantized KV Cache",
           "tier": "verified",
-          "x": 180,
+          "x": 160,
           "y": 110
         },
         {
           "id": "rate-distortion",
           "title": "Rate-Distortion",
           "tier": "verified",
-          "x": 210,
+          "x": 187,
           "y": 22
+        },
+        {
+          "id": "straight-through-estimator",
+          "title": "Straight-Through Estimator",
+          "tier": "frontier",
+          "x": 213,
+          "y": 110
         }
       ],
       "links": [
@@ -44304,6 +45110,12 @@
         {
           "from": "quantization",
           "to": "rate-distortion",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "straight-through-estimator",
           "type": "adjacent",
           "reviewed": false
         }
@@ -45044,6 +45856,59 @@
         {
           "from": "regression-suite",
           "to": "prompt-engineering",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "regularization",
+      "center": {
+        "id": "regularization",
+        "title": "Regularization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "dropout",
+          "title": "Dropout",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "overfitting",
+          "to": "regularization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "regularization",
+          "to": "dropout",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "regularization",
+          "to": "weight-decay",
           "type": "adjacent",
           "reviewed": false
         }
@@ -46458,6 +47323,59 @@
       ]
     },
     {
+      "id": "sampling-temperature",
+      "center": {
+        "id": "sampling-temperature",
+        "title": "Sampling Temperature",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "logit",
+          "title": "Logit",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "nucleus-sampling",
+          "title": "Nucleus Sampling",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "top-k-sampling",
+          "title": "Top-k Sampling",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "logit",
+          "to": "sampling-temperature",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sampling-temperature",
+          "to": "nucleus-sampling",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sampling-temperature",
+          "to": "top-k-sampling",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "sandboxing",
       "center": {
         "id": "sandboxing",
@@ -47059,22 +47977,29 @@
           "id": "conformal-prediction",
           "title": "Conformal Prediction",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "early-exit",
           "title": "Early Exit",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "human-in-the-loop",
           "title": "Human in the Loop",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "precision-and-recall",
+          "title": "Precision and Recall",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -47099,6 +48024,12 @@
         {
           "from": "selective-prediction",
           "to": "human-in-the-loop",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "selective-prediction",
+          "to": "precision-and-recall",
           "type": "adjacent",
           "reviewed": false
         }
@@ -48333,63 +49264,70 @@
           "title": "Autoregressive Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 13
+          "y": 12
         },
         {
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 24
         },
         {
           "id": "constrained-decoding",
           "title": "Constrained Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 40
+          "y": 36
         },
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 48
         },
         {
           "id": "cross-entropy-loss",
           "title": "Cross-Entropy Loss",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 60
         },
         {
           "id": "logistic-regression",
           "title": "Logistic Regression",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 72
+        },
+        {
+          "id": "logit",
+          "title": "Logit",
+          "tier": "frontier",
+          "x": 200,
+          "y": 84
         },
         {
           "id": "noise-contrastive-estimation",
           "title": "Noise-Contrastive Estimation",
           "tier": "verified",
           "x": 200,
-          "y": 92
+          "y": 96
         },
         {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 108
         },
         {
           "id": "top-k-sampling",
           "title": "Top-k Sampling",
           "tier": "verified",
           "x": 200,
-          "y": 119
+          "y": 120
         },
         {
           "id": "attention",
@@ -48447,6 +49385,12 @@
         {
           "from": "softmax",
           "to": "logistic-regression",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "softmax",
+          "to": "logit",
           "type": "unlocks",
           "reviewed": false
         },
@@ -49287,15 +50231,22 @@
           "id": "ablation",
           "title": "Ablation",
           "tier": "frontier",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "precision-and-recall",
+          "title": "Precision and Recall",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -49314,6 +50265,12 @@
         {
           "from": "statistical-significance",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "statistical-significance",
+          "to": "precision-and-recall",
           "type": "adjacent",
           "reviewed": false
         }
@@ -49498,6 +50455,59 @@
         {
           "from": "straggler",
           "to": "tail-latency",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "straight-through-estimator",
+      "center": {
+        "id": "straight-through-estimator",
+        "title": "Straight-Through Estimator",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "vector-quantization",
+          "title": "Vector Quantization",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "straight-through-estimator",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "straight-through-estimator",
+          "to": "quantization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "straight-through-estimator",
+          "to": "vector-quantization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -50223,22 +51233,29 @@
           "id": "disaggregated-serving",
           "title": "Disaggregated Serving",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "model-routing",
           "title": "Model Routing",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "straggler",
           "title": "Straggler",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "throughput",
+          "title": "Throughput",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -50263,6 +51280,12 @@
         {
           "from": "tail-latency",
           "to": "straggler",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "tail-latency",
+          "to": "throughput",
           "type": "adjacent",
           "reviewed": false
         }
@@ -51073,6 +52096,59 @@
       ]
     },
     {
+      "id": "throughput",
+      "center": {
+        "id": "throughput",
+        "title": "Throughput",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "continuous-batching",
+          "title": "Continuous Batching",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "accelerator-utilization",
+          "title": "Accelerator Utilization",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "tail-latency",
+          "title": "Tail Latency",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "continuous-batching",
+          "to": "throughput",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "throughput",
+          "to": "accelerator-utilization",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "throughput",
+          "to": "tail-latency",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "tiling",
       "center": {
         "id": "tiling",
@@ -51744,8 +52820,15 @@
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "sampling-temperature",
+          "title": "Sampling Temperature",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -51764,6 +52847,12 @@
         {
           "from": "top-k-sampling",
           "to": "nucleus-sampling",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "top-k-sampling",
+          "to": "sampling-temperature",
           "type": "adjacent",
           "reviewed": false
         }
@@ -52707,29 +53796,36 @@
           "id": "k-means-clustering",
           "title": "k-Means Clustering",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "latent-diffusion",
           "title": "Latent Diffusion",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
         },
         {
           "id": "sparse-autoencoder",
           "title": "Sparse Autoencoder",
           "tier": "verified",
-          "x": 144,
+          "x": 120,
           "y": 22
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
-          "x": 192,
+          "x": 160,
           "y": 110
+        },
+        {
+          "id": "straight-through-estimator",
+          "title": "Straight-Through Estimator",
+          "tier": "frontier",
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -52778,6 +53874,12 @@
         {
           "from": "vector-quantization",
           "to": "speech-representation-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "vector-quantization",
+          "to": "straight-through-estimator",
           "type": "adjacent",
           "reviewed": false
         }
@@ -53187,15 +54289,22 @@
           "id": "convolutional-network",
           "title": "Convolutional Network",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "graph-transformer",
           "title": "Graph Transformer",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "inductive-bias",
+          "title": "Inductive Bias",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -53226,6 +54335,12 @@
         {
           "from": "vision-transformer",
           "to": "graph-transformer",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "vision-transformer",
+          "to": "inductive-bias",
           "type": "adjacent",
           "reviewed": false
         }
@@ -53544,50 +54659,57 @@
           "id": "dropout",
           "title": "Dropout",
           "tier": "verified",
-          "x": 30,
+          "x": 27,
           "y": 22
         },
         {
           "id": "early-stopping",
           "title": "Early Stopping",
           "tier": "verified",
-          "x": 60,
+          "x": 53,
           "y": 110
         },
         {
           "id": "elastic-weight-consolidation",
           "title": "Elastic Weight Consolidation",
           "tier": "verified",
-          "x": 90,
+          "x": 80,
           "y": 22
         },
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
           "tier": "verified",
-          "x": 120,
+          "x": 107,
           "y": 110
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
           "tier": "verified",
-          "x": 150,
+          "x": 133,
           "y": 22
         },
         {
           "id": "pruning",
           "title": "Pruning",
           "tier": "verified",
-          "x": 180,
+          "x": 160,
           "y": 110
+        },
+        {
+          "id": "regularization",
+          "title": "Regularization",
+          "tier": "frontier",
+          "x": 187,
+          "y": 22
         },
         {
           "id": "sharpness",
           "title": "Sharpness",
           "tier": "verified",
-          "x": 210,
-          "y": 22
+          "x": 213,
+          "y": 110
         }
       ],
       "links": [
@@ -53642,6 +54764,12 @@
         {
           "from": "weight-decay",
           "to": "pruning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
+          "to": "regularization",
           "type": "adjacent",
           "reviewed": false
         },

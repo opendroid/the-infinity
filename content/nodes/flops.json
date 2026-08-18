@@ -1,0 +1,62 @@
+{
+  "id": "flops",
+  "title": "FLOPs",
+  "domain": [
+    "Hardware",
+    "Compute"
+  ],
+  "bodies": {
+    "intuition": "A count of arithmetic operations — the currency compute is budgeted in. Scaling laws are stated in it, training runs are costed in it, and it is deliberately a count rather than a duration, because a duration depends on the machine and a count does not.",
+    "engineer": "The gap between the count and the wall clock is the thing to watch, and it is large. A model's FLOP count is fixed by its shape; the fraction of the machine's peak actually delivered is not, and large training runs land somewhere between a third and two thirds. So the count says what a job costs in principle and utilisation says what it costs in practice, and quoting either alone hides the other. Note also the two senses, constantly conflated: FLOPs the count of operations, and FLOP/s the rate a machine sustains.",
+    "math": "For a transformer the forward pass costs roughly 2 FLOPs per parameter per token — a multiply and an add — and the backward pass roughly twice that, so training costs about 6ND for N parameters and D tokens. That approximation is what makes a compute budget tractable at all, and it is where the compute-optimal result comes from: fix 6ND and ask how to split it between N and D, and the answer is an interior optimum rather than an endpoint, which is why neither the largest model nor the most data wins."
+  },
+  "emphasis": {
+    "engineer": "the count says what a job costs in principle and utilisation says what it costs in practice",
+    "math": "training costs about 6ND for N parameters and D tokens"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "delivered_flops": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "delivered_flops",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Arithmetic the accelerator actually delivered, against the peak it did not, in equal units. Drag the delivered share up to watch utilisation approach peak — large training runs sit between a third and two thirds of it, and a FLOP count alone never says where."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "compute-optimal-training",
+        "reviewed": false
+      },
+      {
+        "id": "accelerator-utilization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2001.08361",
+      "title": "Scaling Laws for Neural Language Models",
+      "url": "https://arxiv.org/abs/2001.08361"
+    },
+    {
+      "ref": "arXiv:2203.15556",
+      "title": "Training Compute-Optimal Large Language Models",
+      "url": "https://arxiv.org/abs/2203.15556"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

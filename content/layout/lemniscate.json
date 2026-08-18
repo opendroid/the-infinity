@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "bellman-equation",
+      "id": "regularization",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "ablation",
+      "id": "logit",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "elo-rating",
+      "id": "throughput",
       "t": 0.8,
       "label": true
     }
