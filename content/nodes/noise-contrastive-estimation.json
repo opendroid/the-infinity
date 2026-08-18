@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Fitting a probability distribution normally means computing a sum over every possible outcome, which is hopeless when the outcomes are all possible sentences or images. Noise-contrastive estimation sidesteps it: instead of asking how likely this sample is, ask the model to tell this sample apart from noise. Classification is cheap, and the classifier that wins has learned the distribution anyway.",
     "engineer": "This is the machinery under every contrastive objective in this graph — word2vec's negative sampling, CPC, SimCLR, wav2vec 2.0. What varies is where the negatives come from, and it matters more than the loss does: negatives drawn from the same utterance or the same image make a harder and more informative problem than negatives drawn at random, which is why in-batch negatives and batch size keep appearing as the tuning knob.",
-    "math": "Discriminate one positive from K noise samples with a softmax over similarity scores; the optimum of that classifier recovers the log density up to a constant. As InfoNCE it bounds mutual information from below by log K − L, so the bound and the batch size are the same quantity — no representation can push the estimate past log K."
+    "math": "Discriminate one positive from K noise samples with a softmax over similarity scores; the optimum of that classifier recovers the log density up to a constant. As InfoNCE it bounds mutual information from below by log K − L, so the ceiling on that bound and the batch size are the same knob — no representation can push the estimate past log K."
   },
   "emphasis": {
     "intuition": "the classifier that wins has learned the distribution anyway",
@@ -60,7 +60,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

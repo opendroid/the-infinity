@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "entropy",
+      "id": "graph-neural-network",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "mutual-information",
+      "id": "message-passing",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "kl-divergence",
+      "id": "oversmoothing",
       "t": 0.8,
       "label": true
     }
