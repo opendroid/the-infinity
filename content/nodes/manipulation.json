@@ -1,0 +1,66 @@
+{
+  "id": "manipulation",
+  "title": "Manipulation",
+  "domain": [
+    "Robotics",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Picking things up is the problem that has stayed hard. A policy that folds one towel reliably will often fail on a different towel, because what changed is not the task but the object — and the space of objects is not something a training set covers.",
+    "engineer": "Generalisation is measured across objects, positions, lighting and distractors, and a paper reporting a success rate without saying which of those varied has reported very little. The practical divide is between quasi-static tasks, where the robot can stop and think, and dynamic ones, where it cannot — and almost all published success is on the first kind.",
+    "math": "Success is evaluated over a distribution of object instances rather than repeated trials on one, so the standard error depends on the number of distinct objects and not on trial count. Ten trials on one object is a measurement of that object; ten objects once each is a measurement of the policy, and the two are reported in the same units."
+  },
+  "emphasis": {
+    "intuition": "what changed is not the task but the object",
+    "engineer": "almost all published success is on the first kind"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.002,
+      "batch": 64,
+      "holdout": 0.2,
+      "params": 1
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "Error on the objects the policy was trained with against error on objects it has never seen. Drag the object shift up to watch the second curve leave the first — a success rate that does not say which objects varied is reporting the first curve alone."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "imitation-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "shortcut-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2212.06817",
+      "title": "RT-1: Robotics Transformer for Real-World Control at Scale",
+      "url": "https://arxiv.org/abs/2212.06817"
+    },
+    {
+      "ref": "arXiv:1808.00177",
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "url": "https://arxiv.org/abs/1808.00177"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "action-chunking",
+  "title": "Action Chunking",
+  "domain": [
+    "Robotics",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Instead of deciding one action at a time, predict the next half-second of motion at once and execute it. This cuts the number of decisions in a task, and with it the compounding error that makes long horizons fail — the same exponent `long-horizon-agent` describes, attacked by shortening the exponent rather than raising the base.",
+    "engineer": "It also smooths the motion, because a chunk is internally consistent in a way a sequence of independent decisions is not, and it hides inference latency: the robot executes chunk k while the model computes chunk k+1. The cost is reactivity — a chunk committed to is a plan that ignores what happens during it — so the chunk length is a direct trade between smoothness and responsiveness.",
+    "math": "With chunk length k, a horizon of T steps needs T/k decisions, so compounding error falls from p^T toward p^{T/k}. The overlap between successive chunks decides how much the policy can revise: executing a chunk fully is open-loop within it, while re-planning every step with temporal ensembling recovers reactivity at more inference."
+  },
+  "emphasis": {
+    "intuition": "attacked by shortening the exponent rather than raising the base",
+    "engineer": "a chunk committed to is a plan that ignores what happens during it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "chunk_steps": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "chunk_steps",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Steps executed per decision against the decision that produced them, in steps. Drag the chunk up to watch decisions become rare — and the robot's ability to react to anything inside a chunk disappear with them."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "manipulation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "long-horizon-agent",
+        "reviewed": false
+      },
+      {
+        "id": "model-predictive-control",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2304.13705",
+      "title": "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware",
+      "url": "https://arxiv.org/abs/2304.13705"
+    },
+    {
+      "ref": "arXiv:2303.04137",
+      "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+      "url": "https://arxiv.org/abs/2303.04137"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "id": "contact-dynamics",
+  "title": "Contact Dynamics",
+  "domain": [
+    "Robotics",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Everything a robot does that matters involves touching something, and touching is where the physics stops being smooth. A gripper either holds an object or drops it; a foot either sticks or slips. These discontinuities are why simulators disagree with reality most exactly where the task happens.",
+    "engineer": "Contact makes gradients unreliable, so gradient-based trajectory optimisation struggles precisely at the interesting moments, and it makes simulation results sensitive to solver choices that have nothing to do with the task. This is the specific mechanism behind the sim-to-real gap rather than a general claim about fidelity — the smooth parts transfer well and the contacts do not.",
+    "math": "Contact introduces complementarity constraints — force is zero or the gap is zero, never both nonzero — which makes the dynamics non-smooth and the derivative undefined at the switch. Simulators relax this with softening parameters, and the relaxation is a modelling choice that changes the answer, which is why two simulators disagree on the same scene."
+  },
+  "emphasis": {
+    "intuition": "simulators disagree with reality most exactly where the task happens",
+    "engineer": "the smooth parts transfer well and the contacts do not"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "contact_steps": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "contact_steps",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Timesteps involving contact against timesteps of free motion, in steps. Drag the contact up to watch the non-smooth fraction grow — it is small in most trajectories and it is where all the difficulty lives."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "sim-to-real",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "model-based-rl",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1808.00177",
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "url": "https://arxiv.org/abs/1808.00177"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

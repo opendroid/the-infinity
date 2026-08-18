@@ -2,6 +2,37 @@
   "_note": "DERIVED, NOT AUTHORED. Regenerate with `cd api && make golden`. Checked by api/internal/publish (Go) and web/src/lib/golden.test.ts (TypeScript) so the served graph and the pre-rendered graph cannot drift apart.",
   "concepts": [
     {
+      "id": "action-chunking",
+      "title": "Action Chunking",
+      "domain": "Robotics / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "manipulation",
+            "title": "Manipulation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "long-horizon-agent",
+            "title": "Long-Horizon Agent",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "model-predictive-control",
+            "title": "Model Predictive Control",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "activation-checkpointing",
       "title": "Activation Checkpointing",
       "domain": "Systems / Memory",
@@ -374,6 +405,12 @@
             "id": "llm-as-judge",
             "title": "LLM as Judge",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "teleoperation-data",
+            "title": "Teleoperation Data",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -1016,7 +1053,7 @@
           {
             "id": "stability-plasticity",
             "title": "Stability-Plasticity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1149,7 +1186,7 @@
       "id": "catastrophic-forgetting",
       "title": "Catastrophic Forgetting",
       "domain": "Continual / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1163,13 +1200,13 @@
           {
             "id": "continual-learning",
             "title": "Continual Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "elastic-weight-consolidation",
             "title": "Elastic Weight Consolidation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1874,6 +1911,31 @@
       }
     },
     {
+      "id": "contact-dynamics",
+      "title": "Contact Dynamics",
+      "domain": "Robotics / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "sim-to-real",
+            "title": "Sim-to-Real",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "model-based-rl",
+            "title": "Model-Based RL",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "context-window",
       "title": "Context Window",
       "domain": "Inference / Memory",
@@ -1939,13 +2001,13 @@
       "id": "continual-learning",
       "title": "Continual Learning",
       "domain": "Continual / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "catastrophic-forgetting",
             "title": "Catastrophic Forgetting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1953,19 +2015,19 @@
           {
             "id": "experience-replay",
             "title": "Experience Replay",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "stability-plasticity",
             "title": "Stability-Plasticity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "task-interference",
             "title": "Task Interference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1973,7 +2035,7 @@
           {
             "id": "meta-learning",
             "title": "Meta-Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2066,7 +2128,7 @@
           {
             "id": "few-shot-learning",
             "title": "Few-Shot Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2401,6 +2463,12 @@
             "id": "perplexity",
             "title": "Perplexity",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "teleoperation-data",
+            "title": "Teleoperation Data",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -2989,13 +3057,13 @@
       "id": "elastic-weight-consolidation",
       "title": "Elastic Weight Consolidation",
       "domain": "Continual / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "catastrophic-forgetting",
             "title": "Catastrophic Forgetting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3010,6 +3078,43 @@
           {
             "id": "weight-decay",
             "title": "Weight Decay",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "embodiment-gap",
+      "title": "Embodiment Gap",
+      "domain": "Robotics / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "teleoperation-data",
+            "title": "Teleoperation Data",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vision-language-action",
+            "title": "Vision-Language-Action Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "sim-to-real",
+            "title": "Sim-to-Real",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "task-interference",
+            "title": "Task Interference",
             "tier": "verified",
             "reviewed": false
           }
@@ -3200,13 +3305,13 @@
       "id": "experience-replay",
       "title": "Experience Replay",
       "domain": "Continual / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "continual-learning",
             "title": "Continual Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3456,7 +3561,7 @@
       "id": "few-shot-learning",
       "title": "Few-Shot Learning",
       "domain": "Continual / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3468,7 +3573,7 @@
           {
             "id": "meta-learning",
             "title": "Meta-Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3507,7 +3612,7 @@
           {
             "id": "catastrophic-forgetting",
             "title": "Catastrophic Forgetting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3531,7 +3636,7 @@
           {
             "id": "meta-learning",
             "title": "Meta-Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4236,6 +4341,12 @@
             "title": "Agent Memory",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "proprioception",
+            "title": "Proprioception",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -4260,6 +4371,12 @@
             "id": "constitutional-ai",
             "title": "Constitutional AI",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "safety-envelope",
+            "title": "Safety Envelope",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -4316,7 +4433,26 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "manipulation",
+            "title": "Manipulation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "teleoperation-data",
+            "title": "Teleoperation Data",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vision-language-action",
+            "title": "Vision-Language-Action Model",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "offline-rl",
@@ -4402,13 +4538,13 @@
           {
             "id": "few-shot-learning",
             "title": "Few-Shot Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "meta-learning",
             "title": "Meta-Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4514,7 +4650,7 @@
           {
             "id": "catastrophic-forgetting",
             "title": "Catastrophic Forgetting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -4687,7 +4823,7 @@
           {
             "id": "few-shot-learning",
             "title": "Few-Shot Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4801,7 +4937,7 @@
           {
             "id": "elastic-weight-consolidation",
             "title": "Elastic Weight Consolidation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5260,6 +5396,12 @@
         ],
         "adjacent": [
           {
+            "id": "action-chunking",
+            "title": "Action Chunking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "context-window",
             "title": "Context Window",
             "tier": "verified",
@@ -5343,7 +5485,7 @@
           {
             "id": "task-interference",
             "title": "Task Interference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5522,6 +5664,50 @@
           {
             "id": "principal-component-analysis",
             "title": "Principal Component Analysis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "manipulation",
+      "title": "Manipulation",
+      "domain": "Robotics / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "imitation-learning",
+            "title": "Imitation Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "action-chunking",
+            "title": "Action Chunking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "proprioception",
+            "title": "Proprioception",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "safety-envelope",
+            "title": "Safety Envelope",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
             "tier": "verified",
             "reviewed": false
           }
@@ -5792,7 +5978,7 @@
       "id": "meta-learning",
       "title": "Meta-Learning",
       "domain": "Continual / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5806,7 +5992,7 @@
           {
             "id": "few-shot-learning",
             "title": "Few-Shot Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5814,7 +6000,7 @@
           {
             "id": "continual-learning",
             "title": "Continual Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5921,7 +6107,7 @@
           {
             "id": "task-interference",
             "title": "Task Interference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5995,6 +6181,12 @@
         ],
         "adjacent": [
           {
+            "id": "contact-dynamics",
+            "title": "Contact Dynamics",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "temporal-difference-learning",
             "title": "Temporal Difference Learning",
             "tier": "verified",
@@ -6019,6 +6211,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "action-chunking",
+            "title": "Action Chunking",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "speculative-decoding",
             "title": "Speculative Decoding",
@@ -6500,7 +6698,7 @@
           {
             "id": "experience-replay",
             "title": "Experience Replay",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7250,6 +7448,37 @@
       }
     },
     {
+      "id": "proprioception",
+      "title": "Proprioception",
+      "domain": "Robotics / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "manipulation",
+            "title": "Manipulation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "hierarchical-rl",
+            "title": "Hierarchical RL",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "streaming-asr",
+            "title": "Streaming ASR",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "proximal-policy-optimization",
       "title": "PPO",
       "domain": "Alignment / Preference",
@@ -7872,7 +8101,7 @@
           {
             "id": "catastrophic-forgetting",
             "title": "Catastrophic Forgetting",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7945,7 +8174,7 @@
           {
             "id": "stability-plasticity",
             "title": "Stability-Plasticity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -7970,6 +8199,37 @@
           {
             "id": "context-window",
             "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "safety-envelope",
+      "title": "Safety Envelope",
+      "domain": "Robotics / Safety",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "manipulation",
+            "title": "Manipulation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "human-in-the-loop",
+            "title": "Human in the Loop",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sandboxing",
+            "title": "Sandboxing",
             "tier": "verified",
             "reviewed": false
           }
@@ -8046,6 +8306,12 @@
             "id": "prompt-injection",
             "title": "Prompt Injection",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "safety-envelope",
+            "title": "Safety Envelope",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -8431,6 +8697,12 @@
             "reviewed": false
           },
           {
+            "id": "manipulation",
+            "title": "Manipulation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "offline-online-gap",
             "title": "Offline-Online Gap",
             "tier": "verified",
@@ -8465,12 +8737,31 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "contact-dynamics",
+            "title": "Contact Dynamics",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
+          {
+            "id": "embodiment-gap",
+            "title": "Embodiment Gap",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "overfitting",
             "title": "Overfitting",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vision-language-action",
+            "title": "Vision-Language-Action Model",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -8744,13 +9035,13 @@
       "id": "stability-plasticity",
       "title": "Stability-Plasticity",
       "domain": "Continual / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "continual-learning",
             "title": "Continual Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8886,6 +9177,12 @@
             "title": "Causal Masking",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "proprioception",
+            "title": "Proprioception",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -8996,7 +9293,7 @@
           {
             "id": "experience-replay",
             "title": "Experience Replay",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9056,18 +9353,24 @@
       "id": "task-interference",
       "title": "Task Interference",
       "domain": "Continual / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "continual-learning",
             "title": "Continual Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "embodiment-gap",
+            "title": "Embodiment Gap",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "lora",
             "title": "LoRA",
@@ -9077,6 +9380,44 @@
           {
             "id": "mixture-of-experts",
             "title": "Mixture-of-Experts",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "teleoperation-data",
+      "title": "Teleoperation Data",
+      "domain": "Robotics / Data",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "imitation-learning",
+            "title": "Imitation Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "embodiment-gap",
+            "title": "Embodiment Gap",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "annotation-quality",
+            "title": "Annotation Quality",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "data-filtering",
+            "title": "Data Filtering",
             "tier": "verified",
             "reviewed": false
           }
@@ -9824,6 +10165,44 @@
       }
     },
     {
+      "id": "vision-language-action",
+      "title": "Vision-Language-Action Model",
+      "domain": "Robotics / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "imitation-learning",
+            "title": "Imitation Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vision-language-model",
+            "title": "Vision-Language Model",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "embodiment-gap",
+            "title": "Embodiment Gap",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "sim-to-real",
+            "title": "Sim-to-Real",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "vision-language-model",
       "title": "Vision-Language Model",
       "domain": "Multimodal / Models",
@@ -9848,6 +10227,12 @@
             "id": "computer-use",
             "title": "Computer Use",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vision-language-action",
+            "title": "Vision-Language-Action Model",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -9955,7 +10340,7 @@
           {
             "id": "elastic-weight-consolidation",
             "title": "Elastic Weight Consolidation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10068,6 +10453,59 @@
     }
   ],
   "neighborhoods": [
+    {
+      "id": "action-chunking",
+      "center": {
+        "id": "action-chunking",
+        "title": "Action Chunking",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "manipulation",
+          "title": "Manipulation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "long-horizon-agent",
+          "title": "Long-Horizon Agent",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "model-predictive-control",
+          "title": "Model Predictive Control",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "manipulation",
+          "to": "action-chunking",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "action-chunking",
+          "to": "long-horizon-agent",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "action-chunking",
+          "to": "model-predictive-control",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
     {
       "id": "activation-checkpointing",
       "center": {
@@ -10685,15 +11123,22 @@
           "id": "calibration",
           "title": "Calibration",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "teleoperation-data",
+          "title": "Teleoperation Data",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -10712,6 +11157,12 @@
         {
           "from": "annotation-quality",
           "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "annotation-quality",
+          "to": "teleoperation-data",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11863,7 +12314,7 @@
         {
           "id": "stability-plasticity",
           "title": "Stability-Plasticity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -12130,7 +12581,7 @@
       "center": {
         "id": "catastrophic-forgetting",
         "title": "Catastrophic Forgetting",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -12145,14 +12596,14 @@
         {
           "id": "continual-learning",
           "title": "Continual Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "elastic-weight-consolidation",
           "title": "Elastic Weight Consolidation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -13395,6 +13846,46 @@
       ]
     },
     {
+      "id": "contact-dynamics",
+      "center": {
+        "id": "contact-dynamics",
+        "title": "Contact Dynamics",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "sim-to-real",
+          "title": "Sim-to-Real",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "model-based-rl",
+          "title": "Model-Based RL",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "sim-to-real",
+          "to": "contact-dynamics",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "contact-dynamics",
+          "to": "model-based-rl",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "context-window",
       "center": {
         "id": "context-window",
@@ -13517,7 +14008,7 @@
       "center": {
         "id": "continual-learning",
         "title": "Continual Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13525,35 +14016,35 @@
         {
           "id": "catastrophic-forgetting",
           "title": "Catastrophic Forgetting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "experience-replay",
           "title": "Experience Replay",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "stability-plasticity",
           "title": "Stability-Plasticity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "task-interference",
           "title": "Task Interference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
         {
           "id": "meta-learning",
           "title": "Meta-Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -13718,7 +14209,7 @@
         {
           "id": "few-shot-learning",
           "title": "Few-Shot Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 34,
           "y": 22
         },
@@ -14331,8 +14822,15 @@
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "teleoperation-data",
+          "title": "Teleoperation Data",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -14375,6 +14873,12 @@
         {
           "from": "data-filtering",
           "to": "perplexity",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-filtering",
+          "to": "teleoperation-data",
           "type": "adjacent",
           "reviewed": false
         }
@@ -15414,7 +15918,7 @@
       "center": {
         "id": "elastic-weight-consolidation",
         "title": "Elastic Weight Consolidation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15422,7 +15926,7 @@
         {
           "id": "catastrophic-forgetting",
           "title": "Catastrophic Forgetting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -15457,6 +15961,72 @@
         {
           "from": "elastic-weight-consolidation",
           "to": "weight-decay",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "embodiment-gap",
+      "center": {
+        "id": "embodiment-gap",
+        "title": "Embodiment Gap",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "teleoperation-data",
+          "title": "Teleoperation Data",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "vision-language-action",
+          "title": "Vision-Language-Action Model",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "sim-to-real",
+          "title": "Sim-to-Real",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "task-interference",
+          "title": "Task Interference",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "teleoperation-data",
+          "to": "embodiment-gap",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vision-language-action",
+          "to": "embodiment-gap",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "embodiment-gap",
+          "to": "sim-to-real",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "embodiment-gap",
+          "to": "task-interference",
           "type": "adjacent",
           "reviewed": false
         }
@@ -15784,7 +16354,7 @@
       "center": {
         "id": "experience-replay",
         "title": "Experience Replay",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15792,7 +16362,7 @@
         {
           "id": "continual-learning",
           "title": "Continual Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -16233,7 +16803,7 @@
       "center": {
         "id": "few-shot-learning",
         "title": "Few-Shot Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16248,7 +16818,7 @@
         {
           "id": "meta-learning",
           "title": "Meta-Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -16314,7 +16884,7 @@
         {
           "id": "catastrophic-forgetting",
           "title": "Catastrophic Forgetting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 17
         },
@@ -16342,7 +16912,7 @@
         {
           "id": "meta-learning",
           "title": "Meta-Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 83
         },
@@ -17602,8 +18172,15 @@
           "id": "agent-memory",
           "title": "Agent Memory",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "proprioception",
+          "title": "Proprioception",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -17622,6 +18199,12 @@
         {
           "from": "hierarchical-rl",
           "to": "agent-memory",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "hierarchical-rl",
+          "to": "proprioception",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17648,8 +18231,15 @@
           "id": "constitutional-ai",
           "title": "Constitutional AI",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "safety-envelope",
+          "title": "Safety Envelope",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -17662,6 +18252,12 @@
         {
           "from": "human-in-the-loop",
           "to": "constitutional-ai",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "human-in-the-loop",
+          "to": "safety-envelope",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17751,6 +18347,27 @@
           "y": 66
         },
         {
+          "id": "manipulation",
+          "title": "Manipulation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "teleoperation-data",
+          "title": "Teleoperation Data",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "vision-language-action",
+          "title": "Vision-Language-Action Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        },
+        {
           "id": "offline-rl",
           "title": "Offline RL",
           "tier": "verified",
@@ -17770,6 +18387,24 @@
           "from": "fine-tuning",
           "to": "imitation-learning",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "imitation-learning",
+          "to": "manipulation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "imitation-learning",
+          "to": "teleoperation-data",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "imitation-learning",
+          "to": "vision-language-action",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -17880,14 +18515,14 @@
         {
           "id": "few-shot-learning",
           "title": "Few-Shot Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
         {
           "id": "meta-learning",
           "title": "Meta-Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -18078,7 +18713,7 @@
         {
           "id": "catastrophic-forgetting",
           "title": "Catastrophic Forgetting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -18394,7 +19029,7 @@
         {
           "id": "few-shot-learning",
           "title": "Few-Shot Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -18586,7 +19221,7 @@
         {
           "id": "elastic-weight-consolidation",
           "title": "Elastic Weight Consolidation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -19420,18 +20055,25 @@
           "y": 66
         },
         {
+          "id": "action-chunking",
+          "title": "Action Chunking",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "context-window",
           "title": "Context Window",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "task-decomposition",
           "title": "Task Decomposition",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -19445,6 +20087,12 @@
           "from": "long-horizon-agent",
           "to": "agent-evaluation",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "long-horizon-agent",
+          "to": "action-chunking",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -19555,7 +20203,7 @@
         {
           "id": "task-interference",
           "title": "Task Interference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -19905,6 +20553,85 @@
         {
           "from": "manifold-hypothesis",
           "to": "principal-component-analysis",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "manipulation",
+      "center": {
+        "id": "manipulation",
+        "title": "Manipulation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "imitation-learning",
+          "title": "Imitation Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "action-chunking",
+          "title": "Action Chunking",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
+          "id": "proprioception",
+          "title": "Proprioception",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "safety-envelope",
+          "title": "Safety Envelope",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
+        },
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "imitation-learning",
+          "to": "manipulation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "manipulation",
+          "to": "action-chunking",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "manipulation",
+          "to": "proprioception",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "manipulation",
+          "to": "safety-envelope",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "manipulation",
+          "to": "shortcut-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -20377,7 +21104,7 @@
       "center": {
         "id": "meta-learning",
         "title": "Meta-Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -20392,14 +21119,14 @@
         {
           "id": "few-shot-learning",
           "title": "Few-Shot Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "continual-learning",
           "title": "Continual Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -20578,7 +21305,7 @@
         {
           "id": "task-interference",
           "title": "Task Interference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -20708,11 +21435,18 @@
           "y": 66
         },
         {
+          "id": "contact-dynamics",
+          "title": "Contact Dynamics",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "temporal-difference-learning",
           "title": "Temporal Difference Learning",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -20732,6 +21466,12 @@
           "from": "model-based-rl",
           "to": "model-predictive-control",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "model-based-rl",
+          "to": "contact-dynamics",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20760,11 +21500,18 @@
           "y": 66
         },
         {
+          "id": "action-chunking",
+          "title": "Action Chunking",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "speculative-decoding",
           "title": "Speculative Decoding",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -20772,6 +21519,12 @@
           "from": "model-based-rl",
           "to": "model-predictive-control",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-predictive-control",
+          "to": "action-chunking",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -21595,7 +22348,7 @@
         {
           "id": "experience-replay",
           "title": "Experience Replay",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -22948,6 +23701,59 @@
       ]
     },
     {
+      "id": "proprioception",
+      "center": {
+        "id": "proprioception",
+        "title": "Proprioception",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "manipulation",
+          "title": "Manipulation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "hierarchical-rl",
+          "title": "Hierarchical RL",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "streaming-asr",
+          "title": "Streaming ASR",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "manipulation",
+          "to": "proprioception",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "proprioception",
+          "to": "hierarchical-rl",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "proprioception",
+          "to": "streaming-asr",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "proximal-policy-optimization",
       "center": {
         "id": "proximal-policy-optimization",
@@ -24018,7 +24824,7 @@
         {
           "id": "catastrophic-forgetting",
           "title": "Catastrophic Forgetting",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 69,
           "y": 110
         },
@@ -24174,7 +24980,7 @@
         {
           "id": "stability-plasticity",
           "title": "Stability-Plasticity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -24235,6 +25041,59 @@
         {
           "from": "rotary-position-embedding",
           "to": "context-window",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "safety-envelope",
+      "center": {
+        "id": "safety-envelope",
+        "title": "Safety Envelope",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "manipulation",
+          "title": "Manipulation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "human-in-the-loop",
+          "title": "Human in the Loop",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "sandboxing",
+          "title": "Sandboxing",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "manipulation",
+          "to": "safety-envelope",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "safety-envelope",
+          "to": "human-in-the-loop",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "safety-envelope",
+          "to": "sandboxing",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24321,22 +25180,29 @@
           "id": "computer-use",
           "title": "Computer Use",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "jailbreak",
           "title": "Jailbreak",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "prompt-injection",
           "title": "Prompt Injection",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "safety-envelope",
+          "title": "Safety Envelope",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -24367,6 +25233,12 @@
         {
           "from": "sandboxing",
           "to": "prompt-injection",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sandboxing",
+          "to": "safety-envelope",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24995,36 +25867,43 @@
           "id": "adversarial-example",
           "title": "Adversarial Example",
           "tier": "verified",
-          "x": 40,
+          "x": 34,
           "y": 22
         },
         {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 80,
+          "x": 69,
           "y": 110
+        },
+        {
+          "id": "manipulation",
+          "title": "Manipulation",
+          "tier": "frontier",
+          "x": 103,
+          "y": 22
         },
         {
           "id": "offline-online-gap",
           "title": "Offline-Online Gap",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 137,
+          "y": 110
         },
         {
           "id": "offline-rl",
           "title": "Offline RL",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 171,
+          "y": 22
         },
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
           "tier": "verified",
-          "x": 200,
-          "y": 22
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -25049,6 +25928,12 @@
         {
           "from": "shortcut-learning",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "shortcut-learning",
+          "to": "manipulation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -25090,10 +25975,31 @@
           "y": 66
         },
         {
+          "id": "contact-dynamics",
+          "title": "Contact Dynamics",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "embodiment-gap",
+          "title": "Embodiment Gap",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "overfitting",
           "title": "Overfitting",
           "tier": "verified",
           "x": 120,
+          "y": 110
+        },
+        {
+          "id": "vision-language-action",
+          "title": "Vision-Language-Action Model",
+          "tier": "frontier",
+          "x": 180,
           "y": 22
         }
       ],
@@ -25106,7 +26012,25 @@
         },
         {
           "from": "sim-to-real",
+          "to": "contact-dynamics",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "sim-to-real",
+          "to": "embodiment-gap",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sim-to-real",
           "to": "overfitting",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sim-to-real",
+          "to": "vision-language-action",
           "type": "adjacent",
           "reviewed": false
         }
@@ -25604,7 +26528,7 @@
       "center": {
         "id": "stability-plasticity",
         "title": "Stability-Plasticity",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -25612,7 +26536,7 @@
         {
           "id": "continual-learning",
           "title": "Continual Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -25844,8 +26768,15 @@
           "id": "causal-masking",
           "title": "Causal Masking",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "proprioception",
+          "title": "Proprioception",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -25858,6 +26789,12 @@
         {
           "from": "streaming-asr",
           "to": "causal-masking",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "streaming-asr",
+          "to": "proprioception",
           "type": "adjacent",
           "reviewed": false
         }
@@ -26023,7 +26960,7 @@
         {
           "id": "experience-replay",
           "title": "Experience Replay",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -26146,7 +27083,7 @@
       "center": {
         "id": "task-interference",
         "title": "Task Interference",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -26154,23 +27091,30 @@
         {
           "id": "continual-learning",
           "title": "Continual Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
+        },
+        {
+          "id": "embodiment-gap",
+          "title": "Embodiment Gap",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
         },
         {
           "id": "lora",
           "title": "LoRA",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "mixture-of-experts",
           "title": "Mixture-of-Experts",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -26182,6 +27126,12 @@
         },
         {
           "from": "task-interference",
+          "to": "embodiment-gap",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "task-interference",
           "to": "lora",
           "type": "adjacent",
           "reviewed": false
@@ -26189,6 +27139,72 @@
         {
           "from": "task-interference",
           "to": "mixture-of-experts",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "teleoperation-data",
+      "center": {
+        "id": "teleoperation-data",
+        "title": "Teleoperation Data",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "imitation-learning",
+          "title": "Imitation Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "embodiment-gap",
+          "title": "Embodiment Gap",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "annotation-quality",
+          "title": "Annotation Quality",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "data-filtering",
+          "title": "Data Filtering",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "imitation-learning",
+          "to": "teleoperation-data",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "teleoperation-data",
+          "to": "embodiment-gap",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "teleoperation-data",
+          "to": "annotation-quality",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "teleoperation-data",
+          "to": "data-filtering",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27526,6 +28542,72 @@
       ]
     },
     {
+      "id": "vision-language-action",
+      "center": {
+        "id": "vision-language-action",
+        "title": "Vision-Language-Action Model",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "imitation-learning",
+          "title": "Imitation Learning",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "vision-language-model",
+          "title": "Vision-Language Model",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "embodiment-gap",
+          "title": "Embodiment Gap",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "sim-to-real",
+          "title": "Sim-to-Real",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "imitation-learning",
+          "to": "vision-language-action",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vision-language-model",
+          "to": "vision-language-action",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vision-language-action",
+          "to": "embodiment-gap",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vision-language-action",
+          "to": "sim-to-real",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "vision-language-model",
       "center": {
         "id": "vision-language-model",
@@ -27554,7 +28636,14 @@
           "title": "Computer Use",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "vision-language-action",
+          "title": "Vision-Language-Action Model",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         }
       ],
       "links": [
@@ -27573,6 +28662,12 @@
         {
           "from": "vision-language-model",
           "to": "computer-use",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vision-language-model",
+          "to": "vision-language-action",
           "type": "unlocks",
           "reviewed": false
         }
@@ -27731,7 +28826,7 @@
         {
           "id": "elastic-weight-consolidation",
           "title": "Elastic Weight Consolidation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
