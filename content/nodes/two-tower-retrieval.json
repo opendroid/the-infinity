@@ -1,0 +1,70 @@
+{
+  "id": "two-tower-retrieval",
+  "title": "Two-Tower Retrieval",
+  "domain": [
+    "Recommenders",
+    "Systems"
+  ],
+  "bodies": {
+    "intuition": "Encode the user with one network and the item with another, and let the score be a dot product. Because the item side does not depend on the user, every item embedding can be computed in advance and searched with a nearest-neighbour index — which is what makes retrieval over millions of items possible in milliseconds.",
+    "engineer": "The architecture's constraint is exactly its advantage: no interaction between user and item features before the dot product, so anything requiring their combination has to wait for the ranking stage. Training uses in-batch negatives, which introduces a popularity bias that has to be corrected — popular items appear as negatives more often and get pushed down for everyone.",
+    "math": "Score s(u,i) = f(u)·g(i), so g can be precomputed and indexed. In-batch softmax makes the negative distribution proportional to item frequency, biasing scores by roughly log p(i); correcting with a logQ subtraction restores the intended objective, and omitting it systematically demotes exactly the items most users want."
+  },
+  "emphasis": {
+    "intuition": "every item embedding can be computed in advance",
+    "engineer": "popular items appear as negatives more often and get pushed down for everyone"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "precomputed": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "precomputed",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Work done offline on item embeddings against work left for request time, in equal units. Drag the precomputation up to watch the request-time cost vanish — this shape is why the two towers may not talk to each other."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "candidate-generation",
+        "reviewed": false
+      },
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "noise-contrastive-estimation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1906.00091",
+      "title": "Deep Learning Recommendation Model for Personalization and Recommendation Systems",
+      "url": "https://arxiv.org/abs/1906.00091"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Yi et al. 2019",
+      "title": "Sampling-Bias-Corrected Neural Modeling for Large Corpus Item Recommendations",
+      "venue": "RecSys 2019",
+      "doi": "10.1145/3298689.3346996"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

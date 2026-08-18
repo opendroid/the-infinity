@@ -1,0 +1,62 @@
+{
+  "id": "implicit-feedback",
+  "title": "Implicit Feedback",
+  "domain": [
+    "Recommenders",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Nobody rates things, but everybody clicks. Implicit feedback is what you learn from behaviour rather than from opinions, and its defining difficulty is that you never see a negative: a video you did not watch might be one you would have hated, or one you were never shown.",
+    "engineer": "Treating unobserved as negative is wrong and works anyway, which is why negative sampling strategy matters more than the model. Popularity-biased sampling makes popular items easy negatives and teaches the model popularity; uniform sampling teaches it less and generalises further. The evaluation trap is the same one: sampling a hundred negatives to rank against produces numbers that do not survive ranking the full catalogue.",
+    "math": "Optimise a pairwise objective — maximise σ(x̂_{ui} − x̂_{uj}) for an observed i and a sampled unobserved j — rather than a pointwise loss over a label that does not exist. The estimator's quality depends entirely on the sampling distribution of j, so the negative sampler is part of the objective rather than an implementation detail."
+  },
+  "emphasis": {
+    "intuition": "you never see a negative",
+    "engineer": "sampling a hundred negatives to rank against produces numbers that do not survive ranking the full catalogue"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "sampled_negatives": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "sampled_negatives",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Negatives sampled per positive against the single positive they are ranked against, in items. Drag the negatives up to watch the comparison get harder — and note the catalogue is larger than any number on this bar."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "collaborative-filtering",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "noise-contrastive-estimation",
+        "reviewed": false
+      },
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1205.2618",
+      "title": "BPR: Bayesian Personalized Ranking from Implicit Feedback",
+      "url": "https://arxiv.org/abs/1205.2618"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

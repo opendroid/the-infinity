@@ -1,0 +1,66 @@
+{
+  "id": "collaborative-filtering",
+  "title": "Collaborative Filtering",
+  "domain": [
+    "Recommenders",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Recommend to you what people like you liked. No understanding of the items is required — the pattern of who interacted with what is enough, and it works better than describing the items usually does. The whole approach rests on there being enough overlap between users to infer from, which is exactly what it lacks for anything new.",
+    "engineer": "The practical divide is not algorithmic but between explicit and implicit signal. Ratings are scarce, biased toward the extremes, and largely absent; clicks and plays are abundant and mean something weaker. Almost every deployed system is implicit, which changes the problem from regression on observed ratings to ranking under an unobserved negative set.",
+    "math": "Represent the interaction matrix R with users as rows and items as columns, overwhelmingly unobserved — densities below 1% are normal. Predict the missing entries from the observed ones under an assumption that R is approximately low rank, meaning a small number of latent factors explain most of who interacts with what."
+  },
+  "emphasis": {
+    "intuition": "the pattern of who interacted with what is enough",
+    "engineer": "Almost every deployed system is implicit"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "observed": 4,
+      "share_rest": 48
+    },
+    "param_controls": [
+      {
+        "name": "observed",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "Interactions actually observed against the pairs never seen, in equal units. Drag the density up to watch the matrix fill — a real one sits at the far left, under one percent observed."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1708.05031",
+      "title": "Neural Collaborative Filtering",
+      "url": "https://arxiv.org/abs/1708.05031"
+    },
+    {
+      "ref": "arXiv:1907.06902",
+      "title": "Are We Really Making Much Progress? A Worrying Analysis of Recent Neural Recommendation Approaches",
+      "url": "https://arxiv.org/abs/1907.06902"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Koren et al. 2009",
+      "title": "Matrix Factorization Techniques for Recommender Systems",
+      "venue": "IEEE Computer 42(8)",
+      "doi": "10.1109/MC.2009.263"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

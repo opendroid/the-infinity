@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "knowledge-distillation",
+      "id": "computer-use",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "lottery-ticket-hypothesis",
+      "id": "tool-schema",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "pruning",
+      "id": "sandboxing",
       "t": 0.8,
       "label": true
     }

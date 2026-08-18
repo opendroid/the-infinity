@@ -273,6 +273,12 @@
             "reviewed": false
           },
           {
+            "id": "offline-online-gap",
+            "title": "Offline-Online Gap",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "pass-at-k",
             "title": "pass@k",
             "tier": "verified",
@@ -351,6 +357,12 @@
           }
         ],
         "unlocks": [
+          {
+            "id": "candidate-generation",
+            "title": "Candidate Generation",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "retrieval-augmented-generation",
             "title": "Retrieval-Augmented Generation",
@@ -979,6 +991,50 @@
       }
     },
     {
+      "id": "candidate-generation",
+      "title": "Candidate Generation",
+      "domain": "Recommenders / Systems",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "approximate-nearest-neighbor",
+            "title": "Approximate Nearest Neighbor",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "collaborative-filtering",
+            "title": "Collaborative Filtering",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "two-tower-retrieval",
+            "title": "Two-Tower Retrieval",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "hybrid-search",
+            "title": "Hybrid Search",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "reranking",
+            "title": "Reranking",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "causal-discovery",
       "title": "Causal Discovery",
       "domain": "Causality / Methods",
@@ -1027,6 +1083,12 @@
             "id": "confounding",
             "title": "Confounding",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "feedback-loop",
+            "title": "Feedback Loop",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -1165,7 +1227,7 @@
           {
             "id": "compression-quality-tradeoff",
             "title": "Compression-Quality Tradeoff",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1265,6 +1327,80 @@
       }
     },
     {
+      "id": "cold-start",
+      "title": "Cold Start",
+      "domain": "Recommenders / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "collaborative-filtering",
+            "title": "Collaborative Filtering",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "exploration-exploitation",
+            "title": "Exploration and Exploitation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "collaborative-filtering",
+      "title": "Collaborative Filtering",
+      "domain": "Recommenders / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "candidate-generation",
+            "title": "Candidate Generation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "cold-start",
+            "title": "Cold Start",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "feedback-loop",
+            "title": "Feedback Loop",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "implicit-feedback",
+            "title": "Implicit Feedback",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "matrix-factorization",
+            "title": "Matrix Factorization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "dense-retrieval",
+            "title": "Dense Retrieval",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "collective-communication",
       "title": "Collective Communication",
       "domain": "Systems / Distributed",
@@ -1306,19 +1442,19 @@
       "id": "compression-quality-tradeoff",
       "title": "Compression-Quality Tradeoff",
       "domain": "Compression / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "knowledge-distillation",
             "title": "Knowledge Distillation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "post-training-quantization",
             "title": "Post-Training Quantization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1440,6 +1576,12 @@
             "id": "cross-validation",
             "title": "Cross-Validation",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "feedback-loop",
+            "title": "Feedback Loop",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -1673,6 +1815,12 @@
         ],
         "adjacent": [
           {
+            "id": "implicit-feedback",
+            "title": "Implicit Feedback",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "mutual-information",
             "title": "Mutual Information",
             "tier": "verified",
@@ -1804,7 +1952,7 @@
           {
             "id": "knowledge-distillation",
             "title": "Knowledge Distillation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2081,9 +2229,21 @@
             "title": "Reranking",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "two-tower-retrieval",
+            "title": "Two-Tower Retrieval",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
+          {
+            "id": "collaborative-filtering",
+            "title": "Collaborative Filtering",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "k-nearest-neighbors",
             "title": "k-Nearest Neighbors",
@@ -2333,7 +2493,7 @@
           {
             "id": "pruning",
             "title": "Pruning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2574,6 +2734,12 @@
         ],
         "adjacent": [
           {
+            "id": "cold-start",
+            "title": "Cold Start",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "nucleus-sampling",
             "title": "Nucleus Sampling",
             "tier": "verified",
@@ -2695,6 +2861,50 @@
       }
     },
     {
+      "id": "feedback-loop",
+      "title": "Feedback Loop",
+      "domain": "Recommenders / Regimes",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "causal-inference",
+            "title": "Causal Inference",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "collaborative-filtering",
+            "title": "Collaborative Filtering",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "offline-online-gap",
+            "title": "Offline-Online Gap",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "confounding",
+            "title": "Confounding",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "reward-hacking",
+            "title": "Reward Hacking",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "fine-tuning",
       "title": "Fine-Tuning",
       "domain": "Optimization / Regimes",
@@ -2750,7 +2960,7 @@
           {
             "id": "knowledge-distillation",
             "title": "Knowledge Distillation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2937,7 +3147,7 @@
           {
             "id": "structured-sparsity",
             "title": "Structured Sparsity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3420,6 +3630,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "candidate-generation",
+            "title": "Candidate Generation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "reranking",
             "title": "Reranking",
             "tier": "verified",
@@ -3453,6 +3669,37 @@
           {
             "id": "rlhf",
             "title": "RLHF",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "implicit-feedback",
+      "title": "Implicit Feedback",
+      "domain": "Recommenders / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "collaborative-filtering",
+            "title": "Collaborative Filtering",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "noise-contrastive-estimation",
+            "title": "Noise-Contrastive Estimation",
             "tier": "verified",
             "reviewed": false
           }
@@ -3813,7 +4060,7 @@
           {
             "id": "structured-sparsity",
             "title": "Structured Sparsity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3843,7 +4090,7 @@
           {
             "id": "knowledge-distillation",
             "title": "Knowledge Distillation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3867,7 +4114,7 @@
       "id": "knowledge-distillation",
       "title": "Knowledge Distillation",
       "domain": "Compression / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3887,7 +4134,7 @@
           {
             "id": "compression-quality-tradeoff",
             "title": "Compression-Quality Tradeoff",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4356,7 +4603,7 @@
           {
             "id": "low-rank-factorization",
             "title": "Low-Rank Factorization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4433,13 +4680,13 @@
       "id": "lottery-ticket-hypothesis",
       "title": "Lottery Ticket Hypothesis",
       "domain": "Compression / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "pruning",
             "title": "Pruning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4458,7 +4705,7 @@
       "id": "low-rank-factorization",
       "title": "Low-Rank Factorization",
       "domain": "Compression / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4468,7 +4715,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "matrix-factorization",
+            "title": "Matrix Factorization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "lora",
@@ -4607,6 +4861,37 @@
           {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "matrix-factorization",
+      "title": "Matrix Factorization",
+      "domain": "Recommenders / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "collaborative-filtering",
+            "title": "Collaborative Filtering",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "low-rank-factorization",
+            "title": "Low-Rank Factorization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "principal-component-analysis",
+            "title": "Principal Component Analysis",
             "tier": "verified",
             "reviewed": false
           }
@@ -4789,7 +5074,7 @@
           {
             "id": "quantization-aware-training",
             "title": "Quantization-Aware Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5102,7 +5387,7 @@
           {
             "id": "low-rank-factorization",
             "title": "Low-Rank Factorization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5249,9 +5534,21 @@
             "reviewed": false
           },
           {
+            "id": "implicit-feedback",
+            "title": "Implicit Feedback",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "two-tower-retrieval",
+            "title": "Two-Tower Retrieval",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -5319,6 +5616,37 @@
           {
             "id": "top-k-sampling",
             "title": "Top-k Sampling",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "offline-online-gap",
+      "title": "Offline-Online Gap",
+      "domain": "Recommenders / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "feedback-loop",
+            "title": "Feedback Loop",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "agent-evaluation",
+            "title": "Agent Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "shortcut-learning",
+            "title": "Shortcut Learning",
             "tier": "verified",
             "reviewed": false
           }
@@ -5431,7 +5759,7 @@
           {
             "id": "lottery-ticket-hypothesis",
             "title": "Lottery Ticket Hypothesis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5593,7 +5921,7 @@
           {
             "id": "compression-quality-tradeoff",
             "title": "Compression-Quality Tradeoff",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5726,7 +6054,7 @@
       "id": "post-training-quantization",
       "title": "Post-Training Quantization",
       "domain": "Compression / Inference",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -5740,13 +6068,13 @@
           {
             "id": "compression-quality-tradeoff",
             "title": "Compression-Quality Tradeoff",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "quantization-aware-training",
             "title": "Quantization-Aware Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5870,7 +6198,7 @@
           {
             "id": "low-rank-factorization",
             "title": "Low-Rank Factorization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -5885,6 +6213,12 @@
             "id": "manifold-hypothesis",
             "title": "Manifold Hypothesis",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "matrix-factorization",
+            "title": "Matrix Factorization",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -6068,20 +6402,20 @@
       "id": "pruning",
       "title": "Pruning",
       "domain": "Compression / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "lottery-ticket-hypothesis",
             "title": "Lottery Ticket Hypothesis",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "structured-sparsity",
             "title": "Structured Sparsity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6158,7 +6492,7 @@
           {
             "id": "post-training-quantization",
             "title": "Post-Training Quantization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6182,7 +6516,7 @@
           {
             "id": "post-training-quantization",
             "title": "Post-Training Quantization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6194,7 +6528,7 @@
           {
             "id": "quantization-aware-training",
             "title": "Quantization-Aware Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6224,13 +6558,13 @@
       "id": "quantization-aware-training",
       "title": "Quantization-Aware Training",
       "domain": "Compression / Optimization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "post-training-quantization",
             "title": "Post-Training Quantization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6411,6 +6745,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "candidate-generation",
+            "title": "Candidate Generation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "hybrid-search",
             "title": "Hybrid Search",
             "tier": "verified",
@@ -6522,6 +6862,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "feedback-loop",
+            "title": "Feedback Loop",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "intervention",
             "title": "Intervention",
@@ -6748,7 +7094,7 @@
           {
             "id": "knowledge-distillation",
             "title": "Knowledge Distillation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7124,6 +7470,12 @@
             "id": "benchmark-contamination",
             "title": "Benchmark Contamination",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "offline-online-gap",
+            "title": "Offline-Online Gap",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -7553,13 +7905,13 @@
       "id": "structured-sparsity",
       "title": "Structured Sparsity",
       "domain": "Compression / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "pruning",
             "title": "Pruning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8165,6 +8517,37 @@
       }
     },
     {
+      "id": "two-tower-retrieval",
+      "title": "Two-Tower Retrieval",
+      "domain": "Recommenders / Systems",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "candidate-generation",
+            "title": "Candidate Generation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "dense-retrieval",
+            "title": "Dense Retrieval",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "noise-contrastive-estimation",
+            "title": "Noise-Contrastive Estimation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "value-function",
       "title": "Value Function",
       "domain": "Reinforcement / Foundations",
@@ -8440,7 +8823,7 @@
           {
             "id": "pruning",
             "title": "Pruning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8973,22 +9356,29 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "offline-online-gap",
+          "title": "Offline-Online Gap",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "pass-at-k",
           "title": "pass@k",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -9007,6 +9397,12 @@
         {
           "from": "agent-evaluation",
           "to": "llm-as-judge",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "agent-evaluation",
+          "to": "offline-online-gap",
           "type": "adjacent",
           "reviewed": false
         },
@@ -9129,11 +9525,18 @@
           "y": 66
         },
         {
+          "id": "candidate-generation",
+          "title": "Candidate Generation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
           "id": "retrieval-augmented-generation",
           "title": "Retrieval-Augmented Generation",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 88
         },
         {
           "id": "k-means-clustering",
@@ -9155,6 +9558,12 @@
           "from": "dense-retrieval",
           "to": "approximate-nearest-neighbor",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "approximate-nearest-neighbor",
+          "to": "candidate-generation",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -10284,6 +10693,85 @@
       ]
     },
     {
+      "id": "candidate-generation",
+      "center": {
+        "id": "candidate-generation",
+        "title": "Candidate Generation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "approximate-nearest-neighbor",
+          "title": "Approximate Nearest Neighbor",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "collaborative-filtering",
+          "title": "Collaborative Filtering",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "two-tower-retrieval",
+          "title": "Two-Tower Retrieval",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "hybrid-search",
+          "title": "Hybrid Search",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "reranking",
+          "title": "Reranking",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "approximate-nearest-neighbor",
+          "to": "candidate-generation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "collaborative-filtering",
+          "to": "candidate-generation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "candidate-generation",
+          "to": "two-tower-retrieval",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "candidate-generation",
+          "to": "hybrid-search",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "candidate-generation",
+          "to": "reranking",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "causal-discovery",
       "center": {
         "id": "causal-discovery",
@@ -10351,21 +10839,28 @@
           "title": "Causal Discovery",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "confounding",
           "title": "Confounding",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
+        },
+        {
+          "id": "feedback-loop",
+          "title": "Feedback Loop",
+          "tier": "frontier",
+          "x": 200,
+          "y": 79
         },
         {
           "id": "intervention",
           "title": "Intervention",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         },
         {
           "id": "bias-variance-tradeoff",
@@ -10392,6 +10887,12 @@
         {
           "from": "causal-inference",
           "to": "confounding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "causal-inference",
+          "to": "feedback-loop",
           "type": "unlocks",
           "reviewed": false
         },
@@ -10594,7 +11095,7 @@
         {
           "id": "compression-quality-tradeoff",
           "title": "Compression-Quality Tradeoff",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -10786,6 +11287,138 @@
       ]
     },
     {
+      "id": "cold-start",
+      "center": {
+        "id": "cold-start",
+        "title": "Cold Start",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "collaborative-filtering",
+          "title": "Collaborative Filtering",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "exploration-exploitation",
+          "title": "Exploration and Exploitation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "collaborative-filtering",
+          "to": "cold-start",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "cold-start",
+          "to": "exploration-exploitation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "collaborative-filtering",
+      "center": {
+        "id": "collaborative-filtering",
+        "title": "Collaborative Filtering",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "candidate-generation",
+          "title": "Candidate Generation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 22
+        },
+        {
+          "id": "cold-start",
+          "title": "Cold Start",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "feedback-loop",
+          "title": "Feedback Loop",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "implicit-feedback",
+          "title": "Implicit Feedback",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "matrix-factorization",
+          "title": "Matrix Factorization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 110
+        },
+        {
+          "id": "dense-retrieval",
+          "title": "Dense Retrieval",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "collaborative-filtering",
+          "to": "candidate-generation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "collaborative-filtering",
+          "to": "cold-start",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "collaborative-filtering",
+          "to": "feedback-loop",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "collaborative-filtering",
+          "to": "implicit-feedback",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "collaborative-filtering",
+          "to": "matrix-factorization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "collaborative-filtering",
+          "to": "dense-retrieval",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "collective-communication",
       "center": {
         "id": "collective-communication",
@@ -10856,7 +11489,7 @@
       "center": {
         "id": "compression-quality-tradeoff",
         "title": "Compression-Quality Tradeoff",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10864,14 +11497,14 @@
         {
           "id": "knowledge-distillation",
           "title": "Knowledge Distillation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
         {
           "id": "post-training-quantization",
           "title": "Post-Training Quantization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 88
         },
@@ -11065,8 +11698,15 @@
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "feedback-loop",
+          "title": "Feedback Loop",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -11085,6 +11725,12 @@
         {
           "from": "confounding",
           "to": "cross-validation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "confounding",
+          "to": "feedback-loop",
           "type": "adjacent",
           "reviewed": false
         }
@@ -11466,32 +12112,39 @@
           "y": 88
         },
         {
+          "id": "implicit-feedback",
+          "title": "Implicit Feedback",
+          "tier": "frontier",
+          "x": 40,
+          "y": 22
+        },
+        {
           "id": "mutual-information",
           "title": "Mutual Information",
           "tier": "verified",
-          "x": 48,
-          "y": 22
+          "x": 80,
+          "y": 110
         },
         {
           "id": "noise-contrastive-estimation",
           "title": "Noise-Contrastive Estimation",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -11523,6 +12176,12 @@
           "from": "contrastive-learning",
           "to": "dense-retrieval",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "contrastive-learning",
+          "to": "implicit-feedback",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -11711,7 +12370,7 @@
         {
           "id": "knowledge-distillation",
           "title": "Knowledge Distillation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 50
         },
@@ -12193,42 +12852,56 @@
           "title": "Approximate Nearest Neighbor",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
         },
         {
           "id": "hybrid-search",
           "title": "Hybrid Search",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 53
         },
         {
           "id": "reranking",
           "title": "Reranking",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 79
+        },
+        {
+          "id": "two-tower-retrieval",
+          "title": "Two-Tower Retrieval",
+          "tier": "frontier",
+          "x": 200,
+          "y": 106
+        },
+        {
+          "id": "collaborative-filtering",
+          "title": "Collaborative Filtering",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
         },
         {
           "id": "k-nearest-neighbors",
           "title": "k-Nearest Neighbors",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "sparse-retrieval",
           "title": "Sparse Retrieval",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "tool-selection",
           "title": "Tool Selection",
           "tier": "frontier",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -12254,6 +12927,18 @@
           "from": "dense-retrieval",
           "to": "reranking",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "dense-retrieval",
+          "to": "two-tower-retrieval",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "dense-retrieval",
+          "to": "collaborative-filtering",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -12684,7 +13369,7 @@
         {
           "id": "pruning",
           "title": "Pruning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -13093,18 +13778,25 @@
           "y": 66
         },
         {
+          "id": "cold-start",
+          "title": "Cold Start",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "nucleus-sampling",
           "title": "Nucleus Sampling",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "q-learning",
           "title": "Q-Learning",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -13118,6 +13810,12 @@
           "from": "exploration-exploitation",
           "to": "monte-carlo-tree-search",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "exploration-exploitation",
+          "to": "cold-start",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -13320,6 +14018,85 @@
       ]
     },
     {
+      "id": "feedback-loop",
+      "center": {
+        "id": "feedback-loop",
+        "title": "Feedback Loop",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "causal-inference",
+          "title": "Causal Inference",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "collaborative-filtering",
+          "title": "Collaborative Filtering",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "offline-online-gap",
+          "title": "Offline-Online Gap",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "confounding",
+          "title": "Confounding",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "reward-hacking",
+          "title": "Reward Hacking",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "causal-inference",
+          "to": "feedback-loop",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "collaborative-filtering",
+          "to": "feedback-loop",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "feedback-loop",
+          "to": "offline-online-gap",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "feedback-loop",
+          "to": "confounding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "feedback-loop",
+          "to": "reward-hacking",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "fine-tuning",
       "center": {
         "id": "fine-tuning",
@@ -13381,7 +14158,7 @@
         {
           "id": "knowledge-distillation",
           "title": "Knowledge Distillation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -13735,7 +14512,7 @@
         {
           "id": "structured-sparsity",
           "title": "Structured Sparsity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -14573,11 +15350,18 @@
           "y": 88
         },
         {
+          "id": "candidate-generation",
+          "title": "Candidate Generation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "reranking",
           "title": "Reranking",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -14591,6 +15375,12 @@
           "from": "sparse-retrieval",
           "to": "hybrid-search",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "hybrid-search",
+          "to": "candidate-generation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -14649,6 +15439,59 @@
         {
           "from": "imitation-learning",
           "to": "rlhf",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "implicit-feedback",
+      "center": {
+        "id": "implicit-feedback",
+        "title": "Implicit Feedback",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "collaborative-filtering",
+          "title": "Collaborative Filtering",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "noise-contrastive-estimation",
+          "title": "Noise-Contrastive Estimation",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "collaborative-filtering",
+          "to": "implicit-feedback",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "implicit-feedback",
+          "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "implicit-feedback",
+          "to": "noise-contrastive-estimation",
           "type": "adjacent",
           "reviewed": false
         }
@@ -15250,7 +16093,7 @@
         {
           "id": "structured-sparsity",
           "title": "Structured Sparsity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -15303,7 +16146,7 @@
         {
           "id": "knowledge-distillation",
           "title": "Knowledge Distillation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -15360,7 +16203,7 @@
       "center": {
         "id": "knowledge-distillation",
         "title": "Knowledge Distillation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -15382,7 +16225,7 @@
         {
           "id": "compression-quality-tradeoff",
           "title": "Compression-Quality Tradeoff",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -16213,7 +17056,7 @@
         {
           "id": "low-rank-factorization",
           "title": "Low-Rank Factorization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -16375,7 +17218,7 @@
       "center": {
         "id": "lottery-ticket-hypothesis",
         "title": "Lottery Ticket Hypothesis",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16383,7 +17226,7 @@
         {
           "id": "pruning",
           "title": "Pruning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -16415,7 +17258,7 @@
       "center": {
         "id": "low-rank-factorization",
         "title": "Low-Rank Factorization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -16425,6 +17268,13 @@
           "title": "Principal Component Analysis",
           "tier": "verified",
           "x": 40,
+          "y": 66
+        },
+        {
+          "id": "matrix-factorization",
+          "title": "Matrix Factorization",
+          "tier": "frontier",
+          "x": 200,
           "y": 66
         },
         {
@@ -16447,6 +17297,12 @@
           "from": "principal-component-analysis",
           "to": "low-rank-factorization",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "low-rank-factorization",
+          "to": "matrix-factorization",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -16683,6 +17539,59 @@
         {
           "from": "masked-language-modeling",
           "to": "speech-representation-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "matrix-factorization",
+      "center": {
+        "id": "matrix-factorization",
+        "title": "Matrix Factorization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "collaborative-filtering",
+          "title": "Collaborative Filtering",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "low-rank-factorization",
+          "title": "Low-Rank Factorization",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "principal-component-analysis",
+          "title": "Principal Component Analysis",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "collaborative-filtering",
+          "to": "matrix-factorization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "low-rank-factorization",
+          "to": "matrix-factorization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "matrix-factorization",
+          "to": "principal-component-analysis",
           "type": "adjacent",
           "reviewed": false
         }
@@ -16979,7 +17888,7 @@
         {
           "id": "quantization-aware-training",
           "title": "Quantization-Aware Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -17509,7 +18418,7 @@
         {
           "id": "low-rank-factorization",
           "title": "Low-Rank Factorization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -17761,14 +18670,28 @@
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
-          "x": 80,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "implicit-feedback",
+          "title": "Implicit Feedback",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
-          "x": 160,
+          "x": 144,
+          "y": 22
+        },
+        {
+          "id": "two-tower-retrieval",
+          "title": "Two-Tower Retrieval",
+          "tier": "frontier",
+          "x": 192,
           "y": 110
         }
       ],
@@ -17793,7 +18716,19 @@
         },
         {
           "from": "noise-contrastive-estimation",
+          "to": "implicit-feedback",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "noise-contrastive-estimation",
           "to": "speech-representation-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "noise-contrastive-estimation",
+          "to": "two-tower-retrieval",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17913,6 +18848,59 @@
         {
           "from": "nucleus-sampling",
           "to": "top-k-sampling",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "offline-online-gap",
+      "center": {
+        "id": "offline-online-gap",
+        "title": "Offline-Online Gap",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "feedback-loop",
+          "title": "Feedback Loop",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "agent-evaluation",
+          "title": "Agent Evaluation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "shortcut-learning",
+          "title": "Shortcut Learning",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "feedback-loop",
+          "to": "offline-online-gap",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "offline-online-gap",
+          "to": "agent-evaluation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "offline-online-gap",
+          "to": "shortcut-learning",
           "type": "adjacent",
           "reviewed": false
         }
@@ -18066,7 +19054,7 @@
         {
           "id": "lottery-ticket-hypothesis",
           "title": "Lottery Ticket Hypothesis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 110
         },
@@ -18368,7 +19356,7 @@
         {
           "id": "compression-quality-tradeoff",
           "title": "Compression-Quality Tradeoff",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
@@ -18623,7 +19611,7 @@
       "center": {
         "id": "post-training-quantization",
         "title": "Post-Training Quantization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -18638,14 +19626,14 @@
         {
           "id": "compression-quality-tradeoff",
           "title": "Compression-Quality Tradeoff",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "quantization-aware-training",
           "title": "Quantization-Aware Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -18875,7 +19863,7 @@
         {
           "id": "low-rank-factorization",
           "title": "Low-Rank Factorization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -18883,22 +19871,29 @@
           "id": "autoencoder",
           "title": "Autoencoder",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "manifold-hypothesis",
           "title": "Manifold Hypothesis",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "matrix-factorization",
+          "title": "Matrix Factorization",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "trend-decomposition",
           "title": "Trend Decomposition",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -18923,6 +19918,12 @@
         {
           "from": "principal-component-analysis",
           "to": "manifold-hypothesis",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "principal-component-analysis",
+          "to": "matrix-factorization",
           "type": "adjacent",
           "reviewed": false
         },
@@ -19230,7 +20231,7 @@
       "center": {
         "id": "pruning",
         "title": "Pruning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19238,14 +20239,14 @@
         {
           "id": "lottery-ticket-hypothesis",
           "title": "Lottery Ticket Hypothesis",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "structured-sparsity",
           "title": "Structured Sparsity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -19371,7 +20372,7 @@
         {
           "id": "post-training-quantization",
           "title": "Post-Training Quantization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -19417,7 +20418,7 @@
         {
           "id": "post-training-quantization",
           "title": "Post-Training Quantization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -19431,7 +20432,7 @@
         {
           "id": "quantization-aware-training",
           "title": "Quantization-Aware Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -19507,7 +20508,7 @@
       "center": {
         "id": "quantization-aware-training",
         "title": "Quantization-Aware Training",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19515,7 +20516,7 @@
         {
           "id": "post-training-quantization",
           "title": "Post-Training Quantization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -19818,18 +20819,25 @@
           "y": 88
         },
         {
+          "id": "candidate-generation",
+          "title": "Candidate Generation",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "hybrid-search",
           "title": "Hybrid Search",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "tool-selection",
           "title": "Tool Selection",
           "tier": "frontier",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -19843,6 +20851,12 @@
           "from": "transformer-block",
           "to": "reranking",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reranking",
+          "to": "candidate-generation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20022,18 +21036,25 @@
           "y": 66
         },
         {
+          "id": "feedback-loop",
+          "title": "Feedback Loop",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "intervention",
           "title": "Intervention",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -20041,6 +21062,12 @@
           "from": "reward-model",
           "to": "reward-hacking",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reward-hacking",
+          "to": "feedback-loop",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20420,7 +21447,7 @@
         {
           "id": "knowledge-distillation",
           "title": "Knowledge Distillation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -21050,29 +22077,36 @@
           "id": "adversarial-example",
           "title": "Adversarial Example",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
+        },
+        {
+          "id": "offline-online-gap",
+          "title": "Offline-Online Gap",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         },
         {
           "id": "offline-rl",
           "title": "Offline RL",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -21097,6 +22131,12 @@
         {
           "from": "shortcut-learning",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "shortcut-learning",
+          "to": "offline-online-gap",
           "type": "adjacent",
           "reviewed": false
         },
@@ -21857,7 +22897,7 @@
       "center": {
         "id": "structured-sparsity",
         "title": "Structured Sparsity",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -21865,7 +22905,7 @@
         {
           "id": "pruning",
           "title": "Pruning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -22948,6 +23988,59 @@
       ]
     },
     {
+      "id": "two-tower-retrieval",
+      "center": {
+        "id": "two-tower-retrieval",
+        "title": "Two-Tower Retrieval",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "candidate-generation",
+          "title": "Candidate Generation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "dense-retrieval",
+          "title": "Dense Retrieval",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "noise-contrastive-estimation",
+          "title": "Noise-Contrastive Estimation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "candidate-generation",
+          "to": "two-tower-retrieval",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "dense-retrieval",
+          "to": "two-tower-retrieval",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "two-tower-retrieval",
+          "to": "noise-contrastive-estimation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "value-function",
       "center": {
         "id": "value-function",
@@ -23410,7 +24503,7 @@
         {
           "id": "pruning",
           "title": "Pruning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }

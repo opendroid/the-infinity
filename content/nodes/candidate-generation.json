@@ -1,0 +1,74 @@
+{
+  "id": "candidate-generation",
+  "title": "Candidate Generation",
+  "domain": [
+    "Recommenders",
+    "Systems"
+  ],
+  "bodies": {
+    "intuition": "You cannot score ten million items for every request. Recommenders are built in stages: a cheap retrieval step proposes a few hundred candidates, an expensive model ranks those. Almost every recommendation you have ever seen was chosen by the cheap step, because the good model only ever saw what retrieval handed it.",
+    "engineer": "Recall at the retrieval stage is the ceiling on everything downstream, and it is routinely under-measured because offline metrics are computed over the candidates rather than the catalogue. Multiple retrieval sources — collaborative, content-based, recently-trending — are unioned precisely because each has a different blind spot, and the union is cheaper than making any one of them better.",
+    "math": "With retrieval recall@k = r and a perfect ranker, end-to-end quality is capped at r however good the ranker is. That makes the ranker's measured gains contingent on the candidate set: a ranker improvement measured against a fixed candidate set is a claim about that set, not about the catalogue."
+  },
+  "emphasis": {
+    "intuition": "the good model only ever saw what retrieval handed it",
+    "engineer": "Recall at the retrieval stage is the ceiling on everything downstream"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "retrieved": 6,
+      "share_rest": 48
+    },
+    "param_controls": [
+      {
+        "name": "retrieved",
+        "min": 0,
+        "max": 384,
+        "step": 12
+      }
+    ],
+    "caption": "Items reaching the ranker against the catalogue left behind, in items. Drag the candidate set up to watch coverage grow — and note the ranker's quality is invisible for everything on the right of this bar."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "collaborative-filtering",
+        "reviewed": false
+      },
+      {
+        "id": "approximate-nearest-neighbor",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "reranking",
+        "reviewed": false
+      },
+      {
+        "id": "hybrid-search",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1906.00091",
+      "title": "Deep Learning Recommendation Model for Personalization and Recommendation Systems",
+      "url": "https://arxiv.org/abs/1906.00091"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Covington et al. 2016",
+      "title": "Deep Neural Networks for YouTube Recommendations",
+      "venue": "RecSys 2016",
+      "doi": "10.1145/2959100.2959190"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
