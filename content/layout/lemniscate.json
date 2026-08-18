@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "text-to-speech",
+      "id": "superposition",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "spectrogram",
+      "id": "activation-patching",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "automatic-speech-recognition",
+      "id": "sparse-autoencoder",
       "t": 0.8,
       "label": true
     }
