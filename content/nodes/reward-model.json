@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "agreed_pairs": 72,
+      "agreed_pairs": 40,
       "share_rest": 28
     },
     "param_controls": [
@@ -28,7 +28,7 @@
         "step": 2
       }
     ],
-    "caption": "Pairs the model ranks in the human's order against those it gets backwards, out of a hundred. Drag the agreement to watch the signal every later stage inherits get cleaner."
+    "caption": "Pairs the model ranks in the human's order against those it gets backwards. Drag the agreement up to watch the signal every later stage inherits get cleaner."
   },
   "edges": {
     "requires": [

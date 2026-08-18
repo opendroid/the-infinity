@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "added_steps": 9,
+      "added_steps": 3,
       "share_rest": 1
     },
     "param_controls": [

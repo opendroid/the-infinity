@@ -18,8 +18,8 @@
     "primitive": "budget-split",
     "params": {
       "d_model": 512,
-      "d_ff": 2048,
-      "share_rest": 1024
+      "d_ff": 1024,
+      "share_rest": 2048
     },
     "param_controls": [
       {
@@ -29,7 +29,7 @@
         "step": 512
       }
     ],
-    "caption": "How a block's parameters divide between the feed-forward layer and the attention beside it. Drag d_ff to the conventional 4× d_model and the feed-forward side takes two thirds."
+    "caption": "How a block's parameters divide between the feed-forward layer and the attention beside it. Drag d_ff up to the conventional 4× d_model and the feed-forward side takes two thirds."
   },
   "edges": {
     "requires": [

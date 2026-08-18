@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "vocab": 32000,
+      "vocab": 8000,
       "d_model": 4096,
       "share_rest": 4096
     },

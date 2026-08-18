@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "prompt": 512,
+      "prompt": 128,
       "share_rest": 128
     },
     "param_controls": [

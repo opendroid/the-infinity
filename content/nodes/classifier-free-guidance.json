@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "beyond_conditional": 6.5,
+      "beyond_conditional": 2,
       "share_rest": 1
     },
     "param_controls": [
