@@ -1,0 +1,67 @@
+{
+  "id": "long-horizon-agent",
+  "title": "Long-Horizon Agent",
+  "domain": [
+    "Tools",
+    "Regimes"
+  ],
+  "bodies": {
+    "intuition": "Tasks that take fifty steps fail differently from tasks that take five. Per-step reliability compounds, context fills with history that is mostly irrelevant, and an error made early is carried forward as an assumption. The interesting engineering is not making steps better but making the run recoverable.",
+    "engineer": "Three things help and none of them are the model: checkpointing so a failed branch can be abandoned rather than reasoned around, summarising history so the useful part survives the context window, and verification steps that catch an error near where it happened. Benchmarks that report only final success hide which of the three was missing.",
+    "math": "With per-step success p, end-to-end success is p^n — at p = 0.99 a fifty-step task succeeds 61% of the time, and at p = 0.95 it succeeds 8%. Recovery changes the exponent into a sum over attempts, which is why a system that detects failure at 90% reliability beats one that avoids failure at 99%."
+  },
+  "emphasis": {
+    "intuition": "an error made early is carried forward as an assumption",
+    "engineer": "Benchmarks that report only final success hide which of the three was missing."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "recoverable_steps": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "recoverable_steps",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Steps the system can detect and retry against steps that are silently final, in steps. Drag the recoverability up to watch the run stop being a product of its steps — this matters more than raising any single step's accuracy."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "execution-feedback",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "task-decomposition",
+        "reviewed": false
+      },
+      {
+        "id": "context-window",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "url": "https://arxiv.org/abs/2310.06770"
+    },
+    {
+      "ref": "arXiv:2308.03688",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "url": "https://arxiv.org/abs/2308.03688"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

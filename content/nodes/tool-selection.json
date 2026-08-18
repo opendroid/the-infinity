@@ -1,0 +1,67 @@
+{
+  "id": "tool-selection",
+  "title": "Tool Selection",
+  "domain": [
+    "Tools",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Given fifty tools and a request, which one — and is the answer none of them? Selection is a retrieval problem before it is a reasoning one, and it degrades in a specific way: past a few dozen tools the model stops reading them all carefully and starts pattern-matching on names.",
+    "engineer": "The scaling fix is the same as everywhere else in this graph — retrieve a shortlist, then decide among it — which turns tool selection into a `dense-retrieval` problem over descriptions. The harder failure is the negative case: a model that always picks something will pick wrongly rather than say no tool applies, and that behaviour has to be trained or prompted for rather than assumed.",
+    "math": "With n tools in context the selection is an n-way choice whose difficulty grows with description similarity rather than with n itself: two tools that differ in one clause are harder to separate than twenty that do different things. Retrieval reduces n to k before the choice, so accuracy depends on recall@k — a tool that is not shortlisted cannot be selected however well the model reasons."
+  },
+  "emphasis": {
+    "intuition": "the model stops reading them all carefully and starts pattern-matching on names",
+    "engineer": "a model that always picks something will pick wrongly rather than say no tool applies"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "tools_in_context": 12,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "tools_in_context",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Tools placed in context against the room left for the task itself, in equal units. Drag the catalogue up to watch the tools crowd out the request — which is the reason to retrieve a shortlist rather than paste the list."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tool-schema",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "dense-retrieval",
+        "reviewed": false
+      },
+      {
+        "id": "reranking",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.15334",
+      "title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "url": "https://arxiv.org/abs/2305.15334"
+    },
+    {
+      "ref": "arXiv:2308.03688",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "url": "https://arxiv.org/abs/2308.03688"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

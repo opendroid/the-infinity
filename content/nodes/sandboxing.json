@@ -1,0 +1,62 @@
+{
+  "id": "sandboxing",
+  "title": "Sandboxing",
+  "domain": [
+    "Tools",
+    "Safety"
+  ],
+  "bodies": {
+    "intuition": "An agent that can run code can run any code, including code a web page talked it into running. Sandboxing is the assumption that this will happen and the containment that makes it survivable — a bounded filesystem, no ambient credentials, a network policy, a timeout, and a way to throw the whole environment away.",
+    "engineer": "The boundary that matters is capability rather than intent: an agent cannot leak a token it was never given, and no amount of prompting substitutes for that. The specific failure to design against is the confused deputy — the agent has legitimate authority and is induced to use it on someone else's behalf, which no filter on the model's outputs can catch because the action is one it is allowed to take.",
+    "math": "Contain by capability: the reachable set of effects is the intersection of what the tools expose and what the environment permits, and only the second is enforceable. Every credential in scope enlarges that set for every prompt the agent will ever see, so the useful question is not whether an action is intended but whether it is reachable."
+  },
+  "emphasis": {
+    "intuition": "including code a web page talked it into running",
+    "engineer": "no amount of prompting substitutes for that"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "granted_capability": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "granted_capability",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Capability the environment grants against capability it withholds, in equal units. Drag the grant up to watch the reachable set grow — every increment is available to every prompt the agent will ever be given."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "tool-schema",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "prompt-injection",
+        "reviewed": false
+      },
+      {
+        "id": "jailbreak",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2404.07972",
+      "title": "OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments",
+      "url": "https://arxiv.org/abs/2404.07972"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

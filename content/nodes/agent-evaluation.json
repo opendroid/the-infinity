@@ -1,0 +1,71 @@
+{
+  "id": "agent-evaluation",
+  "title": "Agent Evaluation",
+  "domain": [
+    "Tools",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "Scoring an agent is harder than scoring an answer, because the same task has many valid trajectories and the thing you care about is whether the world ended up right. Grading the transcript rewards agents that look industrious; grading the end state rewards agents that finished.",
+    "engineer": "State-based grading — did the test pass, is the row in the database, does the file exist — is the only kind that resists gaming, and it requires an environment you can inspect. The second requirement is isolation, since an agent that can reach the internet can reach the answer. Reporting pass@1 alongside pass@k matters here more than elsewhere: an agent allowed to retry is a different system from one that is not.",
+    "math": "Report success against a state predicate rather than a transcript similarity, and state the attempt budget, since success rises with attempts exactly as it does for jailbreaks. Variance is high at realistic task counts: a suite of a hundred tasks gives a standard error near 5 points, so a three-point difference between agents is noise unless it is repeated."
+  },
+  "emphasis": {
+    "intuition": "Grading the transcript rewards agents that look industrious",
+    "engineer": "an agent that can reach the internet can reach the answer"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "state_checked": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "state_checked",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Outcomes graded by inspecting the world against outcomes graded by reading the transcript, in tasks. Drag the state-based share up to watch the suite become harder to game — and more expensive to build, which is why it usually is not."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "long-horizon-agent",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      },
+      {
+        "id": "pass-at-k",
+        "reviewed": false
+      },
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2406.12045",
+      "title": "tau-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+      "url": "https://arxiv.org/abs/2406.12045"
+    },
+    {
+      "ref": "arXiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "url": "https://arxiv.org/abs/2310.06770"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

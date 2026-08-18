@@ -1,0 +1,58 @@
+{
+  "id": "human-in-the-loop",
+  "title": "Human in the Loop",
+  "domain": [
+    "Tools",
+    "Safety"
+  ],
+  "bodies": {
+    "intuition": "Some actions should not happen without a person saying yes — sending money, deleting data, emailing a customer. The design question is not whether to ask but when, because an agent that asks about everything is a slow way to do the task yourself, and one that asks about nothing is a liability.",
+    "engineer": "Gate on reversibility and blast radius rather than on model confidence, which is not calibrated for this and never has been. Batching approvals defeats the purpose — a person clicking through twenty prompts is not reviewing them — so the rate of asking is itself a safety property. Approval fatigue is the failure mode, and it is caused by asking too often rather than too rarely.",
+    "math": "An approval is worth its cost when the expected harm avoided exceeds the interruption, so the threshold should track harm rather than uncertainty. Since attention degrades with frequency, the value of each approval falls as the rate rises — meaning a system asking twice as often does not deliver twice the oversight, and past some rate delivers less in total."
+  },
+  "emphasis": {
+    "intuition": "an agent that asks about everything is a slow way to do the task yourself",
+    "engineer": "Approval fatigue is the failure mode, and it is caused by asking too often rather than too rarely."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "gated_actions": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "gated_actions",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Actions requiring a person's approval against actions taken autonomously, in actions. Drag the gating up to watch oversight grow on paper — the attention behind each approval is falling as it does."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "sandboxing",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "constitutional-ai",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2406.12045",
+      "title": "tau-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+      "url": "https://arxiv.org/abs/2406.12045"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

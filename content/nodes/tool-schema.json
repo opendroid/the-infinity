@@ -1,0 +1,63 @@
+{
+  "id": "tool-schema",
+  "title": "Tool Schema",
+  "domain": [
+    "Tools",
+    "Interface"
+  ],
+  "bodies": {
+    "intuition": "A tool is only usable by a model if the model can be told what it does, what it needs, and what it returns. The schema is that description, and it is the entire interface — the model never sees the implementation. Most tool-calling failures are schema failures: an ambiguous name, an unstated unit, a required field the description did not mention.",
+    "engineer": "The description field does more work than the type signature does, because types constrain shape and prose constrains intent. Enumerations beat free strings wherever the set is known, and returning a structured error the model can read beats raising one it cannot. The schema is also the security boundary: anything the schema permits, a model that has been talked into it will eventually call.",
+    "math": "The schema defines the space of syntactically valid calls; the model's job is choosing within it, and every unconstrained field multiplies that space. Constraining a parameter to an enumeration of k values replaces an unbounded string with a k-way choice, which is the difference between a decision the model can be evaluated on and one it can fail in unlimited ways."
+  },
+  "emphasis": {
+    "intuition": "Most tool-calling failures are schema failures",
+    "engineer": "The schema is also the security boundary"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "constrained_fields": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "constrained_fields",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Parameters constrained to a known set against parameters left free-form, in parameters. Drag the constraint up to watch the space of possible calls collapse onto choices you can actually evaluate."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "function-calling",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "prompt-injection",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.15334",
+      "title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "url": "https://arxiv.org/abs/2305.15334"
+    },
+    {
+      "ref": "arXiv:2302.04761",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "url": "https://arxiv.org/abs/2302.04761"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
