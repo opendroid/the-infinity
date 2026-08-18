@@ -179,26 +179,26 @@
       "id": "adversarial-example",
       "title": "Adversarial Example",
       "domain": "Adversarial / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
           {
             "id": "adversarial-training",
             "title": "Adversarial Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "certified-robustness",
             "title": "Certified Robustness",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "jailbreak",
             "title": "Jailbreak",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -216,13 +216,13 @@
       "id": "adversarial-training",
       "title": "Adversarial Training",
       "domain": "Adversarial / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "adversarial-example",
             "title": "Adversarial Example",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -230,7 +230,7 @@
           {
             "id": "robustness-accuracy-tradeoff",
             "title": "Robustness-Accuracy Tradeoff",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -638,13 +638,13 @@
       "id": "backdoor-attack",
       "title": "Backdoor Attack",
       "domain": "Adversarial / Attacks",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "data-poisoning",
             "title": "Data Poisoning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -807,7 +807,7 @@
           {
             "id": "red-teaming",
             "title": "Red Teaming",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -850,7 +850,7 @@
           {
             "id": "robustness-accuracy-tradeoff",
             "title": "Robustness-Accuracy Tradeoff",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -893,7 +893,7 @@
           {
             "id": "certified-robustness",
             "title": "Certified Robustness",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1063,13 +1063,13 @@
       "id": "certified-robustness",
       "title": "Certified Robustness",
       "domain": "Adversarial / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "adversarial-example",
             "title": "Adversarial Example",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -1113,6 +1113,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "compression-quality-tradeoff",
+            "title": "Compression-Quality Tradeoff",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "kv-cache",
             "title": "KV Cache",
@@ -1248,6 +1254,43 @@
       }
     },
     {
+      "id": "compression-quality-tradeoff",
+      "title": "Compression-Quality Tradeoff",
+      "domain": "Compression / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "knowledge-distillation",
+            "title": "Knowledge Distillation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "post-training-quantization",
+            "title": "Post-Training Quantization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "chain-of-thought",
+            "title": "Chain of Thought",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "perplexity",
+            "title": "Perplexity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "compute-optimal-training",
       "title": "Compute-Optimal Training",
       "domain": "Optimization / Generalization",
@@ -1372,7 +1415,7 @@
           {
             "id": "jailbreak",
             "title": "Jailbreak",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -1667,6 +1710,12 @@
             "reviewed": false
           },
           {
+            "id": "knowledge-distillation",
+            "title": "Knowledge Distillation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "logistic-regression",
             "title": "Logistic Regression",
             "tier": "verified",
@@ -1786,7 +1835,7 @@
       "id": "data-poisoning",
       "title": "Data Poisoning",
       "domain": "Adversarial / Attacks",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1800,7 +1849,7 @@
           {
             "id": "backdoor-attack",
             "title": "Backdoor Attack",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2184,6 +2233,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "pruning",
+            "title": "Pruning",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "weight-decay",
             "title": "Weight Decay",
             "tier": "verified",
@@ -2553,6 +2608,12 @@
           {
             "id": "backdoor-attack",
             "title": "Backdoor Attack",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "knowledge-distillation",
+            "title": "Knowledge Distillation",
             "tier": "frontier",
             "reviewed": false
           },
@@ -2730,6 +2791,12 @@
             "title": "Selective State Space",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "structured-sparsity",
+            "title": "Structured Sparsity",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -2876,7 +2943,7 @@
           {
             "id": "adversarial-training",
             "title": "Adversarial Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3448,13 +3515,13 @@
       "id": "jailbreak",
       "title": "Jailbreak",
       "domain": "Adversarial / Alignment",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "adversarial-example",
             "title": "Adversarial Example",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3468,7 +3535,7 @@
           {
             "id": "red-teaming",
             "title": "Red Teaming",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3569,6 +3636,12 @@
             "title": "FlashAttention",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "structured-sparsity",
+            "title": "Structured Sparsity",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3593,6 +3666,12 @@
             "title": "ELBO",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "knowledge-distillation",
+            "title": "Knowledge Distillation",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -3606,6 +3685,50 @@
             "id": "variational-autoencoder",
             "title": "Variational Autoencoder",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "knowledge-distillation",
+      "title": "Knowledge Distillation",
+      "domain": "Compression / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "cross-entropy-loss",
+            "title": "Cross-Entropy Loss",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "kl-divergence",
+            "title": "KL Divergence",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "compression-quality-tradeoff",
+            "title": "Compression-Quality Tradeoff",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "fine-tuning",
+            "title": "Fine-Tuning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "sampling-steps",
+            "title": "Sampling Steps",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -3897,7 +4020,7 @@
           {
             "id": "red-teaming",
             "title": "Red Teaming",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4014,6 +4137,12 @@
         ],
         "adjacent": [
           {
+            "id": "low-rank-factorization",
+            "title": "Low-Rank Factorization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "prompt-tuning",
             "title": "Prompt Tuning",
             "tier": "verified",
@@ -4077,6 +4206,62 @@
           {
             "id": "invariant-risk-minimization",
             "title": "Invariant Risk Minimization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "lottery-ticket-hypothesis",
+      "title": "Lottery Ticket Hypothesis",
+      "domain": "Compression / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pruning",
+            "title": "Pruning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "low-rank-factorization",
+      "title": "Low-Rank Factorization",
+      "domain": "Compression / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "principal-component-analysis",
+            "title": "Principal Component Analysis",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "lora",
+            "title": "LoRA",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "muon-optimizer",
+            "title": "Muon",
             "tier": "verified",
             "reviewed": false
           }
@@ -4383,7 +4568,14 @@
             "reviewed": false
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "quantization-aware-training",
+            "title": "Quantization-Aware Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -4688,6 +4880,12 @@
             "id": "adamw",
             "title": "AdamW",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "low-rank-factorization",
+            "title": "Low-Rank Factorization",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -5014,6 +5212,12 @@
             "reviewed": false
           },
           {
+            "id": "lottery-ticket-hypothesis",
+            "title": "Lottery Ticket Hypothesis",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "minimum-description-length",
             "title": "Minimum Description Length",
             "tier": "verified",
@@ -5163,6 +5367,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "compression-quality-tradeoff",
+            "title": "Compression-Quality Tradeoff",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "entropy",
             "title": "Entropy",
             "tier": "verified",
@@ -5289,6 +5499,44 @@
       }
     },
     {
+      "id": "post-training-quantization",
+      "title": "Post-Training Quantization",
+      "domain": "Compression / Inference",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "quantization",
+            "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "compression-quality-tradeoff",
+            "title": "Compression-Quality Tradeoff",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "quantization-aware-training",
+            "title": "Quantization-Aware Training",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "qlora",
+            "title": "QLoRA",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "prefill-and-decode",
       "title": "Prefill and Decode",
       "domain": "Inference / Serving",
@@ -5349,7 +5597,7 @@
           {
             "id": "data-poisoning",
             "title": "Data Poisoning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5394,7 +5642,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "low-rank-factorization",
+            "title": "Low-Rank Factorization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "autoencoder",
@@ -5492,7 +5747,7 @@
           {
             "id": "jailbreak",
             "title": "Jailbreak",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5574,6 +5829,43 @@
       }
     },
     {
+      "id": "pruning",
+      "title": "Pruning",
+      "domain": "Compression / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [],
+        "unlocks": [
+          {
+            "id": "lottery-ticket-hypothesis",
+            "title": "Lottery Ticket Hypothesis",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "structured-sparsity",
+            "title": "Structured Sparsity",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "dropout",
+            "title": "Dropout",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "q-learning",
       "title": "Q-Learning",
       "domain": "Reinforcement / Methods",
@@ -5626,7 +5918,14 @@
           }
         ],
         "unlocks": [],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "post-training-quantization",
+            "title": "Post-Training Quantization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -5645,9 +5944,21 @@
         ],
         "unlocks": [
           {
+            "id": "post-training-quantization",
+            "title": "Post-Training Quantization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "qlora",
             "title": "QLoRA",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "quantization-aware-training",
+            "title": "Quantization-Aware Training",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -5667,6 +5978,37 @@
           {
             "id": "rate-distortion",
             "title": "Rate-Distortion",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "quantization-aware-training",
+      "title": "Quantization-Aware Training",
+      "domain": "Compression / Optimization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "post-training-quantization",
+            "title": "Post-Training Quantization",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "quantization",
+            "title": "Quantization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "mixed-precision-training",
+            "title": "Mixed-Precision Training",
             "tier": "verified",
             "reviewed": false
           }
@@ -5777,13 +6119,13 @@
       "id": "red-teaming",
       "title": "Red Teaming",
       "domain": "Adversarial / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "jailbreak",
             "title": "Jailbreak",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6033,7 +6375,7 @@
           {
             "id": "jailbreak",
             "title": "Jailbreak",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6093,13 +6435,13 @@
       "id": "robustness-accuracy-tradeoff",
       "title": "Robustness-Accuracy Tradeoff",
       "domain": "Adversarial / Regimes",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "adversarial-training",
             "title": "Adversarial Training",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6155,6 +6497,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "knowledge-distillation",
+            "title": "Knowledge Distillation",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "speculative-decoding",
             "title": "Speculative Decoding",
@@ -6477,7 +6825,7 @@
           {
             "id": "adversarial-example",
             "title": "Adversarial Example",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -6910,6 +7258,37 @@
       }
     },
     {
+      "id": "structured-sparsity",
+      "title": "Structured Sparsity",
+      "domain": "Compression / Methods",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "pruning",
+            "title": "Pruning",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "gpu-memory-hierarchy",
+            "title": "GPU Memory Hierarchy",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "kernel-fusion",
+            "title": "Kernel Fusion",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "superposition",
       "title": "Superposition",
       "domain": "Interpretability / Representation",
@@ -7295,7 +7674,7 @@
           {
             "id": "data-poisoning",
             "title": "Data Poisoning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7670,6 +8049,12 @@
             "id": "minimum-description-length",
             "title": "Minimum Description Length",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "pruning",
+            "title": "Pruning",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -8067,7 +8452,7 @@
       "center": {
         "id": "adversarial-example",
         "title": "Adversarial Example",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8075,21 +8460,21 @@
         {
           "id": "adversarial-training",
           "title": "Adversarial Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
         {
           "id": "certified-robustness",
           "title": "Certified Robustness",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "jailbreak",
           "title": "Jailbreak",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -8133,7 +8518,7 @@
       "center": {
         "id": "adversarial-training",
         "title": "Adversarial Training",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8141,14 +8526,14 @@
         {
           "id": "adversarial-example",
           "title": "Adversarial Example",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "robustness-accuracy-tradeoff",
           "title": "Robustness-Accuracy Tradeoff",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -8897,7 +9282,7 @@
       "center": {
         "id": "backdoor-attack",
         "title": "Backdoor Attack",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -8905,7 +9290,7 @@
         {
           "id": "data-poisoning",
           "title": "Data Poisoning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -9183,7 +9568,7 @@
         {
           "id": "red-teaming",
           "title": "Red Teaming",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -9256,7 +9641,7 @@
         {
           "id": "robustness-accuracy-tradeoff",
           "title": "Robustness-Accuracy Tradeoff",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -9335,7 +9720,7 @@
         {
           "id": "certified-robustness",
           "title": "Certified Robustness",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 34,
           "y": 22
         },
@@ -9662,7 +10047,7 @@
       "center": {
         "id": "certified-robustness",
         "title": "Certified Robustness",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -9670,7 +10055,7 @@
         {
           "id": "adversarial-example",
           "title": "Adversarial Example",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -9729,11 +10114,18 @@
           "y": 88
         },
         {
+          "id": "compression-quality-tradeoff",
+          "title": "Compression-Quality Tradeoff",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "kv-cache",
           "title": "KV Cache",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -9753,6 +10145,12 @@
           "from": "chain-of-thought",
           "to": "task-decomposition",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "chain-of-thought",
+          "to": "compression-quality-tradeoff",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -9976,6 +10374,72 @@
       ]
     },
     {
+      "id": "compression-quality-tradeoff",
+      "center": {
+        "id": "compression-quality-tradeoff",
+        "title": "Compression-Quality Tradeoff",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "knowledge-distillation",
+          "title": "Knowledge Distillation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "post-training-quantization",
+          "title": "Post-Training Quantization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "chain-of-thought",
+          "title": "Chain of Thought",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "perplexity",
+          "title": "Perplexity",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "knowledge-distillation",
+          "to": "compression-quality-tradeoff",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "post-training-quantization",
+          "to": "compression-quality-tradeoff",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "compression-quality-tradeoff",
+          "to": "chain-of-thought",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "compression-quality-tradeoff",
+          "to": "perplexity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "compute-optimal-training",
       "center": {
         "id": "compute-optimal-training",
@@ -10168,7 +10632,7 @@
         {
           "id": "jailbreak",
           "title": "Jailbreak",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -10678,42 +11142,49 @@
           "title": "CTC",
           "tier": "verified",
           "x": 200,
-          "y": 19
+          "y": 17
         },
         {
           "id": "contrastive-learning",
           "title": "Contrastive Learning",
           "tier": "verified",
           "x": 200,
-          "y": 38
+          "y": 33
+        },
+        {
+          "id": "knowledge-distillation",
+          "title": "Knowledge Distillation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 50
         },
         {
           "id": "logistic-regression",
           "title": "Logistic Regression",
           "tier": "verified",
           "x": 200,
-          "y": 57
+          "y": 66
         },
         {
           "id": "perplexity",
           "title": "Perplexity",
           "tier": "verified",
           "x": 200,
-          "y": 75
+          "y": 83
         },
         {
           "id": "pretraining",
           "title": "Pretraining",
           "tier": "verified",
           "x": 200,
-          "y": 94
+          "y": 99
         },
         {
           "id": "reward-model",
           "title": "Reward Model",
           "tier": "verified",
           "x": 200,
-          "y": 113
+          "y": 116
         },
         {
           "id": "entropy",
@@ -10745,6 +11216,12 @@
         {
           "from": "cross-entropy-loss",
           "to": "contrastive-learning",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "cross-entropy-loss",
+          "to": "knowledge-distillation",
           "type": "unlocks",
           "reviewed": false
         },
@@ -10930,7 +11407,7 @@
       "center": {
         "id": "data-poisoning",
         "title": "Data Poisoning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -10945,7 +11422,7 @@
         {
           "id": "backdoor-attack",
           "title": "Backdoor Attack",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -11635,14 +12112,27 @@
       },
       "nodes": [
         {
+          "id": "pruning",
+          "title": "Pruning",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "weight-decay",
           "title": "Weight Decay",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
+        {
+          "from": "dropout",
+          "to": "pruning",
+          "type": "adjacent",
+          "reviewed": false
+        },
         {
           "from": "dropout",
           "to": "weight-decay",
@@ -12248,16 +12738,23 @@
         {
           "id": "backdoor-attack",
           "title": "Backdoor Attack",
-          "tier": "frontier",
-          "x": 80,
+          "tier": "verified",
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "knowledge-distillation",
+          "title": "Knowledge Distillation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "machine-unlearning",
           "title": "Machine Unlearning",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -12300,6 +12797,12 @@
         {
           "from": "fine-tuning",
           "to": "backdoor-attack",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "fine-tuning",
+          "to": "knowledge-distillation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -12570,15 +13073,22 @@
           "id": "flash-attention",
           "title": "FlashAttention",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "selective-state-space",
           "title": "Selective State Space",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "structured-sparsity",
+          "title": "Structured Sparsity",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -12597,6 +13107,12 @@
         {
           "from": "gpu-memory-hierarchy",
           "to": "selective-state-space",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "gpu-memory-hierarchy",
+          "to": "structured-sparsity",
           "type": "adjacent",
           "reviewed": false
         }
@@ -12798,7 +13314,7 @@
         {
           "id": "adversarial-training",
           "title": "Adversarial Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -13825,7 +14341,7 @@
       "center": {
         "id": "jailbreak",
         "title": "Jailbreak",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -13833,7 +14349,7 @@
         {
           "id": "adversarial-example",
           "title": "Adversarial Example",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -13847,7 +14363,7 @@
         {
           "id": "red-teaming",
           "title": "Red Teaming",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -14026,8 +14542,15 @@
           "id": "flash-attention",
           "title": "FlashAttention",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "structured-sparsity",
+          "title": "Structured Sparsity",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -14040,6 +14563,12 @@
         {
           "from": "kernel-fusion",
           "to": "flash-attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "kernel-fusion",
+          "to": "structured-sparsity",
           "type": "adjacent",
           "reviewed": false
         }
@@ -14067,7 +14596,14 @@
           "title": "ELBO",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "knowledge-distillation",
+          "title": "Knowledge Distillation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "rlhf",
@@ -14099,6 +14635,12 @@
         },
         {
           "from": "kl-divergence",
+          "to": "knowledge-distillation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "kl-divergence",
           "to": "rlhf",
           "type": "adjacent",
           "reviewed": false
@@ -14106,6 +14648,85 @@
         {
           "from": "kl-divergence",
           "to": "variational-autoencoder",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "knowledge-distillation",
+      "center": {
+        "id": "knowledge-distillation",
+        "title": "Knowledge Distillation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "cross-entropy-loss",
+          "title": "Cross-Entropy Loss",
+          "tier": "verified",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "kl-divergence",
+          "title": "KL Divergence",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "compression-quality-tradeoff",
+          "title": "Compression-Quality Tradeoff",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "fine-tuning",
+          "title": "Fine-Tuning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "sampling-steps",
+          "title": "Sampling Steps",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "cross-entropy-loss",
+          "to": "knowledge-distillation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "kl-divergence",
+          "to": "knowledge-distillation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-distillation",
+          "to": "compression-quality-tradeoff",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-distillation",
+          "to": "fine-tuning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-distillation",
+          "to": "sampling-steps",
           "type": "adjacent",
           "reviewed": false
         }
@@ -14600,7 +15221,7 @@
         {
           "id": "red-teaming",
           "title": "Red Teaming",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -14809,11 +15430,18 @@
           "y": 66
         },
         {
+          "id": "low-rank-factorization",
+          "title": "Low-Rank Factorization",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "prompt-tuning",
           "title": "Prompt Tuning",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -14827,6 +15455,12 @@
           "from": "lora",
           "to": "qlora",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "lora",
+          "to": "low-rank-factorization",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -14950,6 +15584,99 @@
         {
           "from": "loss-function",
           "to": "invariant-risk-minimization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "lottery-ticket-hypothesis",
+      "center": {
+        "id": "lottery-ticket-hypothesis",
+        "title": "Lottery Ticket Hypothesis",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pruning",
+          "title": "Pruning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "pruning",
+          "to": "lottery-ticket-hypothesis",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "lottery-ticket-hypothesis",
+          "to": "overfitting",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "low-rank-factorization",
+      "center": {
+        "id": "low-rank-factorization",
+        "title": "Low-Rank Factorization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "principal-component-analysis",
+          "title": "Principal Component Analysis",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "lora",
+          "title": "LoRA",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "muon-optimizer",
+          "title": "Muon",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "principal-component-analysis",
+          "to": "low-rank-factorization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "low-rank-factorization",
+          "to": "lora",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "low-rank-factorization",
+          "to": "muon-optimizer",
           "type": "adjacent",
           "reviewed": false
         }
@@ -15467,6 +16194,13 @@
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "quantization-aware-training",
+          "title": "Quantization-Aware Training",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -15480,6 +16214,12 @@
           "from": "mixed-precision-training",
           "to": "quantization",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "mixed-precision-training",
+          "to": "quantization-aware-training",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -15982,8 +16722,15 @@
           "id": "adamw",
           "title": "AdamW",
           "tier": "verified",
-          "x": 120,
+          "x": 80,
           "y": 22
+        },
+        {
+          "id": "low-rank-factorization",
+          "title": "Low-Rank Factorization",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -15996,6 +16743,12 @@
         {
           "from": "muon-optimizer",
           "to": "adamw",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "muon-optimizer",
+          "to": "low-rank-factorization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -16526,29 +17279,36 @@
           "id": "decision-tree",
           "title": "Decision Tree",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
+        },
+        {
+          "id": "lottery-ticket-hypothesis",
+          "title": "Lottery Ticket Hypothesis",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "sim-to-real",
           "title": "Sim-to-Real",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "time-series-forecasting",
           "title": "Time Series Forecasting",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -16585,6 +17345,12 @@
         {
           "from": "overfitting",
           "to": "decision-tree",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "lottery-ticket-hypothesis",
           "type": "adjacent",
           "reviewed": false
         },
@@ -16806,25 +17572,32 @@
           "y": 88
         },
         {
+          "id": "compression-quality-tradeoff",
+          "title": "Compression-Quality Tradeoff",
+          "tier": "frontier",
+          "x": 48,
+          "y": 22
+        },
+        {
           "id": "entropy",
           "title": "Entropy",
           "tier": "verified",
-          "x": 60,
-          "y": 22
+          "x": 96,
+          "y": 110
         },
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
           "tier": "frontier",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -16838,6 +17611,12 @@
           "from": "tokenization",
           "to": "perplexity",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "perplexity",
+          "to": "compression-quality-tradeoff",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -17046,6 +17825,72 @@
       ]
     },
     {
+      "id": "post-training-quantization",
+      "center": {
+        "id": "post-training-quantization",
+        "title": "Post-Training Quantization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "compression-quality-tradeoff",
+          "title": "Compression-Quality Tradeoff",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "quantization-aware-training",
+          "title": "Quantization-Aware Training",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "qlora",
+          "title": "QLoRA",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "quantization",
+          "to": "post-training-quantization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "post-training-quantization",
+          "to": "compression-quality-tradeoff",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "post-training-quantization",
+          "to": "quantization-aware-training",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "post-training-quantization",
+          "to": "qlora",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "prefill-and-decode",
       "center": {
         "id": "prefill-and-decode",
@@ -17132,7 +17977,7 @@
         {
           "id": "data-poisoning",
           "title": "Data Poisoning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 38
         },
@@ -17234,6 +18079,13 @@
           "y": 66
         },
         {
+          "id": "low-rank-factorization",
+          "title": "Low-Rank Factorization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "autoencoder",
           "title": "Autoencoder",
           "tier": "verified",
@@ -17260,6 +18112,12 @@
           "from": "linear-regression",
           "to": "principal-component-analysis",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "principal-component-analysis",
+          "to": "low-rank-factorization",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -17389,7 +18247,7 @@
         {
           "id": "jailbreak",
           "title": "Jailbreak",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -17548,6 +18406,72 @@
       ]
     },
     {
+      "id": "pruning",
+      "center": {
+        "id": "pruning",
+        "title": "Pruning",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "lottery-ticket-hypothesis",
+          "title": "Lottery Ticket Hypothesis",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "structured-sparsity",
+          "title": "Structured Sparsity",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "dropout",
+          "title": "Dropout",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "pruning",
+          "to": "lottery-ticket-hypothesis",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pruning",
+          "to": "structured-sparsity",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "pruning",
+          "to": "dropout",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "pruning",
+          "to": "weight-decay",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "q-learning",
       "center": {
         "id": "q-learning",
@@ -17623,6 +18547,13 @@
           "tier": "verified",
           "x": 40,
           "y": 88
+        },
+        {
+          "id": "post-training-quantization",
+          "title": "Post-Training Quantization",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -17636,6 +18567,12 @@
           "from": "quantization",
           "to": "qlora",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "qlora",
+          "to": "post-training-quantization",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -17658,11 +18595,25 @@
           "y": 66
         },
         {
+          "id": "post-training-quantization",
+          "title": "Post-Training Quantization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "qlora",
           "title": "QLoRA",
           "tier": "verified",
           "x": 200,
           "y": 66
+        },
+        {
+          "id": "quantization-aware-training",
+          "title": "Quantization-Aware Training",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "arithmetic-intensity",
@@ -17695,7 +18646,19 @@
         },
         {
           "from": "quantization",
+          "to": "post-training-quantization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
           "to": "qlora",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "quantization-aware-training",
           "type": "unlocks",
           "reviewed": false
         },
@@ -17714,6 +18677,59 @@
         {
           "from": "quantization",
           "to": "rate-distortion",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "quantization-aware-training",
+      "center": {
+        "id": "quantization-aware-training",
+        "title": "Quantization-Aware Training",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "post-training-quantization",
+          "title": "Post-Training Quantization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 44
+        },
+        {
+          "id": "quantization",
+          "title": "Quantization",
+          "tier": "verified",
+          "x": 40,
+          "y": 88
+        },
+        {
+          "id": "mixed-precision-training",
+          "title": "Mixed-Precision Training",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "post-training-quantization",
+          "to": "quantization-aware-training",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "quantization",
+          "to": "quantization-aware-training",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "quantization-aware-training",
+          "to": "mixed-precision-training",
           "type": "adjacent",
           "reviewed": false
         }
@@ -17896,7 +18912,7 @@
       "center": {
         "id": "red-teaming",
         "title": "Red Teaming",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17904,7 +18920,7 @@
         {
           "id": "jailbreak",
           "title": "Jailbreak",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -18328,7 +19344,7 @@
         {
           "id": "jailbreak",
           "title": "Jailbreak",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -18463,7 +19479,7 @@
       "center": {
         "id": "robustness-accuracy-tradeoff",
         "title": "Robustness-Accuracy Tradeoff",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -18471,7 +19487,7 @@
         {
           "id": "adversarial-training",
           "title": "Adversarial Training",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -18556,11 +19572,18 @@
           "y": 66
         },
         {
+          "id": "knowledge-distillation",
+          "title": "Knowledge Distillation",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "speculative-decoding",
           "title": "Speculative Decoding",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -18568,6 +19591,12 @@
           "from": "diffusion-model",
           "to": "sampling-steps",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sampling-steps",
+          "to": "knowledge-distillation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -19095,7 +20124,7 @@
         {
           "id": "adversarial-example",
           "title": "Adversarial Example",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
@@ -19899,6 +20928,59 @@
       ]
     },
     {
+      "id": "structured-sparsity",
+      "center": {
+        "id": "structured-sparsity",
+        "title": "Structured Sparsity",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "pruning",
+          "title": "Pruning",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "gpu-memory-hierarchy",
+          "title": "GPU Memory Hierarchy",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "kernel-fusion",
+          "title": "Kernel Fusion",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "pruning",
+          "to": "structured-sparsity",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "structured-sparsity",
+          "to": "gpu-memory-hierarchy",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "structured-sparsity",
+          "to": "kernel-fusion",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "superposition",
       "center": {
         "id": "superposition",
@@ -20559,7 +21641,7 @@
         {
           "id": "data-poisoning",
           "title": "Data Poisoning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -21219,15 +22301,22 @@
           "id": "dropout",
           "title": "Dropout",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "pruning",
+          "title": "Pruning",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -21252,6 +22341,12 @@
         {
           "from": "weight-decay",
           "to": "minimum-description-length",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
+          "to": "pruning",
           "type": "adjacent",
           "reviewed": false
         }

@@ -1,0 +1,62 @@
+{
+  "id": "pruning",
+  "title": "Pruning",
+  "domain": [
+    "Compression",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Most weights in a trained network can be set to zero without hurting it. Pruning finds them and removes them — usually by magnitude, sometimes by a saliency estimate — and then fine-tunes to recover what was lost. Networks tolerate this to a degree that is still not fully explained.",
+    "engineer": "Unstructured pruning gives the best accuracy per weight removed and no speedup at all on ordinary hardware, because a sparse matrix with arbitrary zeros is slower than a dense one. That mismatch is the entire practical story: the literature reports compression ratios and deployments need latency, and the two only meet under structured sparsity. Iterative prune-and-retrain beats one-shot pruning at the same final sparsity.",
+    "math": "Rank weights by |w| (or by an estimate of ∂L/∂w·w), zero the smallest fraction, fine-tune, repeat. Magnitude works better than it should because training already drives unimportant weights toward zero — so the criterion is partly reading off a decision the optimiser already made."
+  },
+  "emphasis": {
+    "intuition": "Networks tolerate this to a degree that is still not fully explained.",
+    "engineer": "the literature reports compression ratios and deployments need latency"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "pruned": 8,
+      "share_rest": 8
+    },
+    "param_controls": [
+      {
+        "name": "pruned",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Weights removed against weights kept, in equal units. Drag the sparsity up to watch most of the network go — and note that on ordinary hardware none of this is a speedup until the zeros line up."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      },
+      {
+        "id": "dropout",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1902.09574",
+      "title": "The State of Sparsity in Deep Neural Networks",
+      "url": "https://arxiv.org/abs/1902.09574"
+    },
+    {
+      "ref": "arXiv:2005.07683",
+      "title": "Movement Pruning: Adaptive Sparsity by Fine-Tuning",
+      "url": "https://arxiv.org/abs/2005.07683"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

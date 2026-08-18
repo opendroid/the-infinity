@@ -1,0 +1,58 @@
+{
+  "id": "lottery-ticket-hypothesis",
+  "title": "Lottery Ticket Hypothesis",
+  "domain": [
+    "Compression",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Inside a randomly initialised network there may already be a small subnetwork that, trained alone from those same initial values, matches the full network's accuracy. Training the big network is then partly a search for that subnetwork. The claim is striking and the evidence is real; how far it extends is still argued.",
+    "engineer": "Finding a ticket requires training the full network first, so it is not a route to cheaper training — which is the misreading to guard against. At larger scales the original recipe stops working and needs rewinding to an early checkpoint rather than to initialisation, which weakens the claim in an interesting direction: what matters may be the first few hundred steps rather than the initial draw.",
+    "math": "Train, prune the smallest weights, reset the survivors to their values at step 0 (or at an early step k), retrain. The finding is that this beats the same architecture initialised freshly at the same sparsity — so the mask and the initialisation are coupled, and neither alone accounts for the result."
+  },
+  "emphasis": {
+    "intuition": "Training the big network is then partly a search for that subnetwork.",
+    "engineer": "what matters may be the first few hundred steps rather than the initial draw"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "ticket_size": 6,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "ticket_size",
+        "min": 0,
+        "max": 256,
+        "step": 8
+      }
+    ],
+    "caption": "The winning subnetwork against the network it was found inside, in equal units. Drag the ticket size up to watch it approach the whole — the surprise is how far left it can sit and still match."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pruning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1803.03635",
+      "title": "The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks",
+      "url": "https://arxiv.org/abs/1803.03635"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

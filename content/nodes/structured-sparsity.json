@@ -1,0 +1,62 @@
+{
+  "id": "structured-sparsity",
+  "title": "Structured Sparsity",
+  "domain": [
+    "Compression",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Zeros only help if the hardware can skip them. Removing whole channels, heads or blocks produces a smaller dense model that runs faster on anything; removing scattered individual weights produces a model that is smaller on paper and no faster in practice. Structure is what converts compression into latency.",
+    "engineer": "The cost is accuracy per parameter removed: a structured constraint throws away useful weights alongside useless ones because they share a group. Hardware meets it partway — 2:4 sparsity, where two of every four adjacent weights are zero, is supported directly by recent tensor cores, and it is a compromise between arbitrary sparsity and whole-channel removal rather than a solution to either.",
+    "math": "Impose the sparsity pattern as a constraint on groups rather than on individual weights: minimise L subject to whole rows, channels or 2:4 blocks being zero. The achievable accuracy at a given zero fraction is strictly worse than unstructured, and the achievable speedup is strictly better — the two curves cross wherever the deployment's bottleneck actually is."
+  },
+  "emphasis": {
+    "intuition": "Structure is what converts compression into latency.",
+    "engineer": "a structured constraint throws away useful weights alongside useless ones because they share a group"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "realised_speedup": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "realised_speedup",
+        "min": 0,
+        "max": 192,
+        "step": 6
+      }
+    ],
+    "caption": "Compression that turns into latency against compression that stays on paper, in equal units. Drag the structure up to watch the saving become real — unstructured sparsity sits at the far left of this bar however high its zero count."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "pruning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "kernel-fusion",
+        "reviewed": false
+      },
+      {
+        "id": "gpu-memory-hierarchy",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1608.03665",
+      "title": "Learning Structured Sparsity in Deep Neural Networks",
+      "url": "https://arxiv.org/abs/1608.03665"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

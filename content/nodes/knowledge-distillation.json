@@ -1,0 +1,62 @@
+{
+  "id": "knowledge-distillation",
+  "title": "Knowledge Distillation",
+  "domain": [
+    "Compression",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Train a small model to copy a large one's outputs rather than the original labels. The large model's full distribution over classes says more than a single correct answer does — that this dog is somewhat wolf-like and not at all a truck — and the small model learns faster from that than from the label alone.",
+    "engineer": "The temperature on the teacher's softmax is the main knob: raise it and the small logits carry usable information, leave it at one and almost all the signal is in the argmax. What actually transfers is contested — some of the gain is the extra information and some is regularisation from a smoother target — and distilling from a teacher's intermediate features rather than its outputs is a different method with different failure modes.",
+    "math": "Minimise a weighted sum of cross-entropy against the labels and KL divergence against the teacher's softened distribution: L = α·CE(y, σ(z_s)) + (1−α)·T²·KL(σ(z_t/T) ‖ σ(z_s/T)). The T² factor is not decorative — softening scales the gradients by 1/T², so without it the distillation term's weight would change every time the temperature moved."
+  },
+  "emphasis": {
+    "intuition": "that this dog is somewhat wolf-like and not at all a truck",
+    "engineer": "some of the gain is the extra information and some is regularisation from a smoother target"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "temperature": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "temperature",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "The teacher's distribution over classes, as produced and as softened. Drag the temperature up to watch the small probabilities rise into view — those are the signal the student learns from, and at temperature one they are invisible."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      },
+      {
+        "id": "kl-divergence",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "fine-tuning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1503.02531",
+      "title": "Distilling the Knowledge in a Neural Network",
+      "url": "https://arxiv.org/abs/1503.02531"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

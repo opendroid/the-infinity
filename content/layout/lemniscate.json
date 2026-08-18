@@ -52,17 +52,17 @@
   ],
   "right": [
     {
-      "id": "adversarial-example",
+      "id": "generative-adversarial-network",
       "t": 0.2,
       "label": true
     },
     {
-      "id": "red-teaming",
+      "id": "mode-collapse",
       "t": 0.5,
       "label": false
     },
     {
-      "id": "jailbreak",
+      "id": "flow-matching",
       "t": 0.8,
       "label": true
     }

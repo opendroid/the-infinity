@@ -43,6 +43,10 @@
       {
         "id": "speculative-decoding",
         "reviewed": false
+      },
+      {
+        "id": "knowledge-distillation",
+        "reviewed": false
       }
     ]
   },
