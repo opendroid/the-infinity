@@ -1,0 +1,63 @@
+{
+  "id": "video-understanding",
+  "title": "Video Understanding",
+  "domain": [
+    "Vision",
+    "Video"
+  ],
+  "bodies": {
+    "intuition": "A video is a stack of images, but treating it as one wastes almost everything: consecutive frames are nearly identical, so most of that data is redundant, while the thing you actually want — what is happening — lives in the differences. Recognising an action needs motion at a fine time resolution and appearance at a fine spatial one, and those are different requirements.",
+    "engineer": "The design that made this concrete runs two pathways at different frame rates: a slow one, sampling few frames but with many channels, which carries what things look like; and a fast one, sampling many frames with few channels, which carries how they move. Lateral connections let them share. It works because the two kinds of information genuinely have different sampling requirements, so spending equally on both was always the wrong split.",
+    "math": "The fast pathway can be cheap because channels and frame rate multiply. Running it at eight times the frame rate with an eighth of the channels costs about what one pathway costs, so temporal resolution is bought with channel width rather than with compute. That trade only works because motion is low-dimensional compared with appearance — you need many samples of it but not many features per sample, which is the observation the whole architecture rests on."
+  },
+  "emphasis": {
+    "intuition": "the thing you actually want — what is happening — lives in the differences",
+    "math": "temporal resolution is bought with channel width rather than with compute"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "fast_pathway": 5,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "fast_pathway",
+        "min": 0,
+        "max": 220,
+        "step": 10
+      }
+    ],
+    "caption": "Compute in the high-frame-rate pathway that carries motion, against the high-channel pathway that carries appearance, in equal units. Drag the temporal sampling up to watch motion take the budget — cheap only while its channel count falls to pay for it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "convolutional-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "optical-flow",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1812.03982",
+      "title": "SlowFast Networks for Video Recognition",
+      "url": "https://arxiv.org/abs/1812.03982"
+    },
+    {
+      "ref": "arXiv:1709.01507",
+      "title": "Squeeze-and-Excitation Networks",
+      "url": "https://arxiv.org/abs/1709.01507"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

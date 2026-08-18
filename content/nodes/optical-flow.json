@@ -1,0 +1,71 @@
+{
+  "id": "optical-flow",
+  "title": "Optical Flow",
+  "domain": [
+    "Vision",
+    "Motion"
+  ],
+  "bodies": {
+    "intuition": "For every pixel in one frame, where did it go in the next? The answer is a dense field of little arrows, and it is the raw material for tracking, video compression, frame interpolation and stabilisation. It sounds like a matching problem and it is, but with a catch: a pixel on a smooth surface looks exactly like its neighbours, so matching alone cannot decide.",
+    "engineer": "Modern methods build a correlation volume — every pixel of the first frame scored against candidate positions in the second — and then iterate a refinement over it rather than reading off the best match. Iteration matters because the first estimate is unreliable in exactly the regions where the appearance is ambiguous, and a few passes of refinement propagate confident matches from textured regions into flat ones.",
+    "math": "Brightness constancy gives one equation per pixel and the flow has two components, so the problem is underdetermined at every single pixel — the aperture problem, and it is a statement about the data rather than about any method. Every approach therefore imposes a second constraint, historically a smoothness prior and now a learned one. The correlation volume's cost is the other half of the arithmetic: it grows as the square of the search radius, which is why nobody searches wide and everybody searches coarse-to-fine."
+  },
+  "emphasis": {
+    "intuition": "a pixel on a smooth surface looks exactly like its neighbours, so matching alone cannot decide",
+    "math": "it is a statement about the data rather than about any method"
+  },
+  "viz": {
+    "primitive": "attention-heatmap",
+    "params": {
+      "tokens": 10,
+      "keys": 6
+    },
+    "param_controls": [
+      {
+        "name": "keys",
+        "min": 2,
+        "max": 24,
+        "step": 1
+      }
+    ],
+    "caption": "Each row a pixel in the first frame, each column a candidate position in the second; the bright cell is where it matched. Drag the search range up to watch the volume grow — the cost is quadratic in the radius, which is why every method searches coarse-to-fine instead of wide."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "convolutional-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "video-understanding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2003.12039",
+      "title": "RAFT: Recurrent All-Pairs Field Transforms for Optical Flow",
+      "url": "https://arxiv.org/abs/2003.12039"
+    },
+    {
+      "ref": "arXiv:1709.02371",
+      "title": "PWC-Net: CNNs for Optical Flow Using Pyramid, Warping, and Cost Volume",
+      "url": "https://arxiv.org/abs/1709.02371"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Horn & Schunck 1981",
+      "title": "Determining Optical Flow",
+      "venue": "Artificial Intelligence 17",
+      "doi": "10.1016/0004-3702(81)90024-2"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

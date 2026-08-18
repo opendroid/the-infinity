@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "In a synchronous run every worker must finish its step before any of them can start the next, so the whole cluster runs at the speed of its slowest member. One accelerator that has thermally throttled, or one host with a degraded network link, quietly taxes every other machine in the job for as long as nobody notices.",
     "engineer": "Stragglers are harder to find than failures because nothing errors. The job keeps producing steps, just fewer of them, and the loss curve looks fine. Finding them means per-rank timing — how long each worker spent computing versus waiting at the barrier — and the giveaway is a rank whose wait time is near zero while everyone else's is large. Large-cluster reports describe exactly this instrumentation, because at ten thousand accelerators there is essentially always one that is slow.",
-    "math": "The cost is the expected maximum, not the expected time. Step time is the slowest of n draws, so even modest per-worker variance turns into a large gap as n grows: the mean barely moves while the maximum keeps climbing. That is why straggler mitigation gets more valuable with scale rather than less, and why averaging per-worker utilisation hides the problem completely — the average looks healthy precisely because most workers are idle waiting."
+    "math": "The cost is the expected maximum, not the expected time. Step time is the slowest of n draws, so even modest per-worker variance turns into a large gap as n grows: the mean barely moves while the maximum keeps climbing. That is why straggler mitigation gets more valuable with scale rather than less, and why reporting the mean step time across workers hides it completely — the mean is held down by the many that finished early, while the one that finished late is what sets the pace."
   },
   "emphasis": {
     "intuition": "the whole cluster runs at the speed of its slowest member",
@@ -28,7 +28,7 @@
         "step": 5
       }
     ],
-    "caption": "Seconds a step spends with workers idle at the barrier, against the seconds they spend computing. Drag the straggler's lateness up to watch waiting take the step — and note that per-worker utilisation would read as healthy the whole way, because idle workers are exactly what it averages."
+    "caption": "Seconds a step spends with workers idle at the barrier, against the seconds they spend computing. Drag the straggler's lateness up to watch waiting take the step — and note that the mean step time across workers barely moves the whole way, because the maximum is what sets the pace and the mean is what gets reported."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

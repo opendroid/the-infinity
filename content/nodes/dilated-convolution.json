@@ -35,6 +35,10 @@
   "edges": {
     "requires": [
       {
+        "id": "convolutional-network",
+        "reviewed": false
+      },
+      {
         "id": "time-series-forecasting",
         "reviewed": false
       }

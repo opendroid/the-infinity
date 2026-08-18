@@ -1,0 +1,63 @@
+{
+  "id": "instance-segmentation",
+  "title": "Instance Segmentation",
+  "domain": [
+    "Vision",
+    "Dense Prediction"
+  ],
+  "bodies": {
+    "intuition": "Semantic segmentation says these pixels are all 'person'. Instance segmentation says these are person one and those are person two, which is the difference between a picture that can be described and one that can be counted. Every application that needs a number — cells in a slide, items on a belt, people in a crowd — needs this and not the other.",
+    "engineer": "The dominant approach bolts a mask head onto a detector: find boxes, then predict a binary mask inside each one. It works because the per-instance problem is easy once the instance has been isolated — the hard part was separating them, and the detector already did that. The detail that mattered was fixing the coordinate rounding between the feature grid and the box, which had been quietly discarding the alignment the masks depend on.",
+    "math": "The cost structure follows from that design and is worth seeing plainly: the backbone runs once per image, and the mask head runs once per detection. On a photograph with three objects the backbone is nearly all the compute; on a crowd scene with a hundred, the mask heads are. So the same model has a per-image cost on some inputs and a per-object cost on others, which is a genuinely awkward property to serve behind a latency target."
+  },
+  "emphasis": {
+    "intuition": "the difference between a picture that can be described and one that can be counted",
+    "math": "the same model has a per-image cost on some inputs and a per-object cost on others"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "mask_heads": 6,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "mask_heads",
+        "min": 0,
+        "max": 240,
+        "step": 10
+      }
+    ],
+    "caption": "Compute in the per-instance mask heads, against the backbone that runs once for the whole image, in equal units. Drag the object count up to watch the per-object cost overtake the per-image one — the same model, two different cost models, decided by the photograph."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "object-detection",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "promptable-segmentation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1703.06870",
+      "title": "Mask R-CNN",
+      "url": "https://arxiv.org/abs/1703.06870"
+    },
+    {
+      "ref": "arXiv:1405.0312",
+      "title": "Microsoft COCO: Common Objects in Context",
+      "url": "https://arxiv.org/abs/1405.0312"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
