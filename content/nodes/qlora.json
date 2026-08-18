@@ -28,7 +28,7 @@
         "step": 1
       }
     ],
-    "caption": "Memory held by the frozen base against the trainable adapters beside it, in equal units. Drag the base precision to watch it dominate at any width — which is why quantizing the base, not shrinking the adapter, is what moves the total."
+    "caption": "Memory held by the frozen base against the trainable adapters beside it, in equal units. Drag the base precision and watch the base stay the majority at every setting — which is why quantizing it, not shrinking the adapter, is what moves the total."
   },
   "edges": {
     "requires": [

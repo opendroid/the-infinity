@@ -184,8 +184,19 @@ describe('viz controls reach the primitive', () => {
    * picture". A heatmap's peak and a loss curve's floor are not that, and
    * asserting on them would measure something other than what a reader sees.
    * The uncovered three are named here rather than skipped silently.
+   *
+   * THE THRESHOLD IS 10 BECAUSE NOTHING HONEST SITS BELOW 14. It shipped at 5,
+   * which was as far as the evidence went at the time — #203 held the nine
+   * figures in the 6-14 band pending a decision on each. Classifying them found
+   * two that were not borderline at all: `reward-model` promised "out of a
+   * hundred" from a split whose whole runs to 128, and `feed-forward-network`
+   * told the reader to drag to 4x d_model for two thirds while the arithmetic
+   * gave four fifths there. With those repaired and seven defaults moved off
+   * the flat tail, the lowest figure not claiming immobility is `muon-optimizer`
+   * at 14. Ten sits clear of it with room for honest authoring, rather than
+   * tightening to the current corpus and failing the next node written.
    */
-  const MIN_TRAVEL = 5;
+  const MIN_TRAVEL = 10;
   /** Captions whose point IS that the figure barely moves. */
   const SAYS_IT_STAYS = /\b(stays?|negligible|rounding error|saturat\w*|barely|hardly|never quite)\b/i;
   const SAYS_DOWN = /drag[^.]*?\b(down|lower)\b/i;

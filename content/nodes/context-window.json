@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "budget-split",
     "params": {
-      "tokens_used": 3000,
+      "tokens_used": 1024,
       "share_rest": 1096
     },
     "param_controls": [
@@ -28,7 +28,7 @@
         "step": 64
       }
     ],
-    "caption": "Tokens already in the window against the room left in it. Drag the usage to the wall — everything past it is not deprioritised, it is invisible."
+    "caption": "Tokens of conversation already in the window against the reserve held back for the reply. Drag the usage up to watch the conversation crowd everything else out — what no longer fits is not deprioritised, it is invisible."
   },
   "edges": {
     "requires": [

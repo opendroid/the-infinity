@@ -1,7 +1,10 @@
 {
   "id": "feed-forward-network",
   "title": "Feed-Forward Network",
-  "domain": ["Architecture", "Blocks"],
+  "domain": [
+    "Architecture",
+    "Blocks"
+  ],
   "bodies": {
     "intuition": "Attention decides which tokens a position should look at. The feed-forward network is what the position does with what it found — a small two-layer network applied to each position independently. Attention moves information between positions; the feed-forward block thinks about it in place.",
     "engineer": "Two linear projections with a non-linearity between them, applied identically at every position: up-project from d_model to d_ff, activate, project back down. d_ff is conventionally 4·d_model, which puts roughly two thirds of a transformer's parameters in a block that never looks sideways. Because it is position-wise, it is embarrassingly parallel and the natural seam at which to introduce sparsity.",
@@ -13,14 +16,30 @@
   },
   "viz": {
     "primitive": "budget-split",
-    "params": { "d_model": 512, "d_ff": 2048, "share_rest": 1024 },
-    "param_controls": [{ "name": "d_ff", "min": 512, "max": 4096, "step": 512 }],
-    "caption": "Share of a transformer block's parameters held by the feed-forward layer, against the attention it sits beside. Drag d_ff to the conventional 4× d_model and the block takes two thirds of the budget.",
+    "params": {
+      "d_model": 512,
+      "d_ff": 1024,
+      "share_rest": 2048
+    },
+    "param_controls": [
+      {
+        "name": "d_ff",
+        "min": 512,
+        "max": 4096,
+        "step": 512
+      }
+    ],
+    "caption": "Share of a transformer block's parameters held by the feed-forward layer, against the attention it sits beside. Drag d_ff up to the conventional 4× d_model and the feed-forward side takes two thirds of the block.",
     "caption_engineer": "Attention costs about 4·d_model² in projections; the feed-forward layer costs about 2·d_model·d_ff. The split is d_ff / (d_ff + 2·d_model) — at d_ff = 4·d_model that is exactly 4/6, which is where the two-thirds figure comes from."
   },
   "edges": {
     "requires": [],
-    "adjacent": [{ "id": "conditional-computation", "reviewed": true }]
+    "adjacent": [
+      {
+        "id": "conditional-computation",
+        "reviewed": true
+      }
+    ]
   },
   "citations": [
     {
@@ -34,6 +53,9 @@
       "url": "https://arxiv.org/abs/2002.05202"
     }
   ],
-  "review": { "reviewed_by": "opendroid", "reviewed_at": "2026-08-01" },
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-01"
+  },
   "updated_at": "2026-08-01"
 }
