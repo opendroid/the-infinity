@@ -344,7 +344,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "dangerous-capability-evaluation",
+            "title": "Dangerous Capability Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "agentic-coding",
@@ -1031,7 +1038,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "deceptive-alignment",
+            "title": "Deceptive Alignment",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "fine-tuning",
@@ -1261,7 +1275,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "safety-benchmark-validity",
+            "title": "Safety Benchmark Validity",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "agent-evaluation",
@@ -1279,6 +1300,12 @@
             "id": "deduplication",
             "title": "Deduplication",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "model-written-evaluation",
+            "title": "Model-Written Evaluation",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -2566,6 +2593,12 @@
             "title": "Jailbreak",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "sycophancy",
+            "title": "Sycophancy",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3283,6 +3316,37 @@
       }
     },
     {
+      "id": "dangerous-capability-evaluation",
+      "title": "Dangerous Capability Evaluation",
+      "domain": "Alignment / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "agent-evaluation",
+            "title": "Agent Evaluation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "red-teaming",
+            "title": "Red Teaming",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "safety-benchmark-validity",
+            "title": "Safety Benchmark Validity",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "data-filtering",
       "title": "Data Filtering",
       "domain": "Data / Methods",
@@ -3532,6 +3596,37 @@
       }
     },
     {
+      "id": "deceptive-alignment",
+      "title": "Deceptive Alignment",
+      "domain": "Alignment / Research",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backdoor-attack",
+            "title": "Backdoor Attack",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "mechanistic-interpretability",
+            "title": "Mechanistic Interpretability",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "red-teaming",
+            "title": "Red Teaming",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "decision-tree",
       "title": "Decision Tree",
       "domain": "Foundations / Supervised",
@@ -3668,7 +3763,7 @@
           {
             "id": "merge-vs-ensemble",
             "title": "Merge vs Ensemble",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4345,7 +4440,7 @@
           {
             "id": "fisher-weighted-merging",
             "title": "Fisher-Weighted Merging",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5298,13 +5393,13 @@
       "id": "fisher-weighted-merging",
       "title": "Fisher-Weighted Merging",
       "domain": "Weights / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "merge-interference",
             "title": "Merge Interference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6171,6 +6266,12 @@
             "id": "safety-envelope",
             "title": "Safety Envelope",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "scalable-oversight",
+            "title": "Scalable Oversight",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -7043,6 +7144,12 @@
             "title": "Sampling Steps",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "weak-to-strong-generalization",
+            "title": "Weak-to-Strong Generalization",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -7434,7 +7541,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "model-written-evaluation",
+            "title": "Model-Written Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "agent-evaluation",
@@ -7687,7 +7801,7 @@
           {
             "id": "task-arithmetic",
             "title": "Task Arithmetic",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7796,7 +7910,7 @@
           {
             "id": "model-merging",
             "title": "Model Merging",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8266,6 +8380,12 @@
             "reviewed": false
           },
           {
+            "id": "deceptive-alignment",
+            "title": "Deceptive Alignment",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "feature-attribution",
             "title": "Feature Attribution",
             "tier": "verified",
@@ -8390,13 +8510,13 @@
       "id": "merge-interference",
       "title": "Merge Interference",
       "domain": "Weights / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "task-arithmetic",
             "title": "Task Arithmetic",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8404,7 +8524,7 @@
           {
             "id": "fisher-weighted-merging",
             "title": "Fisher-Weighted Merging",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8412,7 +8532,7 @@
           {
             "id": "model-soup",
             "title": "Model Soup",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8422,7 +8542,7 @@
       "id": "merge-vs-ensemble",
       "title": "Merge vs Ensemble",
       "domain": "Weights / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -8437,13 +8557,13 @@
           {
             "id": "model-merging",
             "title": "Model Merging",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "model-soup",
             "title": "Model Soup",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8706,7 +8826,7 @@
           {
             "id": "permutation-symmetry",
             "title": "Permutation Symmetry",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8768,7 +8888,7 @@
       "id": "model-merging",
       "title": "Model Merging",
       "domain": "Weights / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -8782,13 +8902,13 @@
           {
             "id": "model-soup",
             "title": "Model Soup",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "task-arithmetic",
             "title": "Task Arithmetic",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8796,13 +8916,13 @@
           {
             "id": "merge-vs-ensemble",
             "title": "Merge vs Ensemble",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "permutation-symmetry",
             "title": "Permutation Symmetry",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8843,13 +8963,13 @@
       "id": "model-soup",
       "title": "Model Soup",
       "domain": "Weights / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "model-merging",
             "title": "Model Merging",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8858,19 +8978,19 @@
           {
             "id": "merge-interference",
             "title": "Merge Interference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "merge-vs-ensemble",
             "title": "Merge vs Ensemble",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "weight-averaging",
             "title": "Weight Averaging",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8905,6 +9025,31 @@
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "model-written-evaluation",
+      "title": "Model-Written Evaluation",
+      "domain": "Alignment / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "llm-as-judge",
+            "title": "LLM as Judge",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -10003,7 +10148,7 @@
       "id": "permutation-symmetry",
       "title": "Permutation Symmetry",
       "domain": "Weights / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10018,7 +10163,7 @@
           {
             "id": "model-merging",
             "title": "Model Merging",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11274,6 +11419,18 @@
             "reviewed": false
           },
           {
+            "id": "dangerous-capability-evaluation",
+            "title": "Dangerous Capability Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "deceptive-alignment",
+            "title": "Deceptive Alignment",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "llm-as-judge",
             "title": "LLM as Judge",
             "tier": "verified",
@@ -11537,7 +11694,14 @@
             "reviewed": false
           }
         ],
-        "unlocks": [],
+        "unlocks": [
+          {
+            "id": "specification-gaming",
+            "title": "Specification Gaming",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
         "adjacent": [
           {
             "id": "feedback-loop",
@@ -11612,6 +11776,12 @@
             "reviewed": false
           },
           {
+            "id": "sycophancy",
+            "title": "Sycophancy",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "verifier-model",
             "title": "Verifier Model",
             "tier": "verified",
@@ -11665,6 +11835,12 @@
             "id": "jailbreak",
             "title": "Jailbreak",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "scalable-oversight",
+            "title": "Scalable Oversight",
+            "tier": "frontier",
             "reviewed": false
           }
         ],
@@ -11852,6 +12028,31 @@
       }
     },
     {
+      "id": "safety-benchmark-validity",
+      "title": "Safety Benchmark Validity",
+      "domain": "Alignment / Evaluation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "benchmark-contamination",
+            "title": "Benchmark Contamination",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "dangerous-capability-evaluation",
+            "title": "Dangerous Capability Evaluation",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "safety-envelope",
       "title": "Safety Envelope",
       "domain": "Robotics / Safety",
@@ -11963,6 +12164,38 @@
           {
             "id": "safety-envelope",
             "title": "Safety Envelope",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "scalable-oversight",
+      "title": "Scalable Oversight",
+      "domain": "Alignment / Research",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "rlhf",
+            "title": "RLHF",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "weak-to-strong-generalization",
+            "title": "Weak-to-Strong Generalization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "human-in-the-loop",
+            "title": "Human in the Loop",
             "tier": "verified",
             "reviewed": false
           }
@@ -12599,7 +12832,7 @@
           {
             "id": "weight-averaging",
             "title": "Weight Averaging",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12973,6 +13206,31 @@
             "id": "membership-inference",
             "title": "Membership Inference",
             "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "specification-gaming",
+      "title": "Specification Gaming",
+      "domain": "Alignment / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "reward-hacking",
+            "title": "Reward Hacking",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "sycophancy",
+            "title": "Sycophancy",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -13539,6 +13797,37 @@
       }
     },
     {
+      "id": "sycophancy",
+      "title": "Sycophancy",
+      "domain": "Alignment / Behaviour",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "reward-model",
+            "title": "Reward Model",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "constitutional-ai",
+            "title": "Constitutional AI",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "specification-gaming",
+            "title": "Specification Gaming",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "synthesis-evaluation",
       "title": "Synthesis Evaluation",
       "domain": "Synthesis / Evaluation",
@@ -13622,13 +13911,13 @@
       "id": "task-arithmetic",
       "title": "Task Arithmetic",
       "domain": "Weights / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "model-merging",
             "title": "Model Merging",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -13636,7 +13925,7 @@
           {
             "id": "merge-interference",
             "title": "Merge Interference",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -15075,10 +15364,35 @@
       }
     },
     {
+      "id": "weak-to-strong-generalization",
+      "title": "Weak-to-Strong Generalization",
+      "domain": "Alignment / Research",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "scalable-oversight",
+            "title": "Scalable Oversight",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "knowledge-distillation",
+            "title": "Knowledge Distillation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "weight-averaging",
       "title": "Weight Averaging",
       "domain": "Weights / Methods",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -15093,7 +15407,7 @@
           {
             "id": "model-soup",
             "title": "Model Soup",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -15862,6 +16176,13 @@
           "y": 66
         },
         {
+          "id": "dangerous-capability-evaluation",
+          "title": "Dangerous Capability Evaluation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "agentic-coding",
           "title": "Agentic Coding",
           "tier": "verified",
@@ -15902,6 +16223,12 @@
           "from": "long-horizon-agent",
           "to": "agent-evaluation",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "agent-evaluation",
+          "to": "dangerous-capability-evaluation",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -17125,6 +17452,13 @@
           "y": 66
         },
         {
+          "id": "deceptive-alignment",
+          "title": "Deceptive Alignment",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
@@ -17137,6 +17471,12 @@
           "from": "data-poisoning",
           "to": "backdoor-attack",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "backdoor-attack",
+          "to": "deceptive-alignment",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -17534,60 +17874,74 @@
           "y": 66
         },
         {
+          "id": "safety-benchmark-validity",
+          "title": "Safety Benchmark Validity",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
-          "x": 27,
+          "x": 24,
           "y": 22
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
-          "x": 53,
+          "x": 48,
           "y": 110
         },
         {
           "id": "deduplication",
           "title": "Deduplication",
           "tier": "verified",
-          "x": 80,
+          "x": 72,
           "y": 22
+        },
+        {
+          "id": "model-written-evaluation",
+          "title": "Model-Written Evaluation",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "needle-in-a-haystack",
           "title": "Needle in a Haystack",
           "tier": "verified",
-          "x": 107,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "red-teaming",
           "title": "Red Teaming",
           "tier": "verified",
-          "x": 133,
-          "y": 22
+          "x": 144,
+          "y": 110
         },
         {
           "id": "regression-suite",
           "title": "Regression Suite",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 168,
+          "y": 22
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
-          "x": 187,
-          "y": 22
+          "x": 192,
+          "y": 110
         },
         {
           "id": "training-corpus-contamination",
           "title": "Training Corpus Contamination",
           "tier": "verified",
-          "x": 213,
-          "y": 110
+          "x": 216,
+          "y": 22
         }
       ],
       "links": [
@@ -17595,6 +17949,12 @@
           "from": "pretraining",
           "to": "benchmark-contamination",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "safety-benchmark-validity",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -17612,6 +17972,12 @@
         {
           "from": "benchmark-contamination",
           "to": "deduplication",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "benchmark-contamination",
+          "to": "model-written-evaluation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -19857,15 +20223,22 @@
           "id": "human-in-the-loop",
           "title": "Human in the Loop",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "jailbreak",
           "title": "Jailbreak",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "sycophancy",
+          "title": "Sycophancy",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -19884,6 +20257,12 @@
         {
           "from": "constitutional-ai",
           "to": "jailbreak",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "constitutional-ai",
+          "to": "sycophancy",
           "type": "adjacent",
           "reviewed": false
         }
@@ -21205,6 +21584,59 @@
       ]
     },
     {
+      "id": "dangerous-capability-evaluation",
+      "center": {
+        "id": "dangerous-capability-evaluation",
+        "title": "Dangerous Capability Evaluation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "agent-evaluation",
+          "title": "Agent Evaluation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "red-teaming",
+          "title": "Red Teaming",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "safety-benchmark-validity",
+          "title": "Safety Benchmark Validity",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "agent-evaluation",
+          "to": "dangerous-capability-evaluation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "dangerous-capability-evaluation",
+          "to": "red-teaming",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "dangerous-capability-evaluation",
+          "to": "safety-benchmark-validity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "data-filtering",
       "center": {
         "id": "data-filtering",
@@ -21665,6 +22097,59 @@
       ]
     },
     {
+      "id": "deceptive-alignment",
+      "center": {
+        "id": "deceptive-alignment",
+        "title": "Deceptive Alignment",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backdoor-attack",
+          "title": "Backdoor Attack",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "mechanistic-interpretability",
+          "title": "Mechanistic Interpretability",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "red-teaming",
+          "title": "Red Teaming",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "backdoor-attack",
+          "to": "deceptive-alignment",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "deceptive-alignment",
+          "to": "mechanistic-interpretability",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "deceptive-alignment",
+          "to": "red-teaming",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "decision-tree",
       "center": {
         "id": "decision-tree",
@@ -21895,7 +22380,7 @@
         {
           "id": "merge-vs-ensemble",
           "title": "Merge vs Ensemble",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -23108,7 +23593,7 @@
         {
           "id": "fisher-weighted-merging",
           "title": "Fisher-Weighted Merging",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -24845,7 +25330,7 @@
       "center": {
         "id": "fisher-weighted-merging",
         "title": "Fisher-Weighted Merging",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -24853,7 +25338,7 @@
         {
           "id": "merge-interference",
           "title": "Merge Interference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -26366,22 +26851,29 @@
           "id": "constitutional-ai",
           "title": "Constitutional AI",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "safety-envelope",
           "title": "Safety Envelope",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "scalable-oversight",
+          "title": "Scalable Oversight",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "selective-prediction",
           "title": "Selective Prediction",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -26400,6 +26892,12 @@
         {
           "from": "human-in-the-loop",
           "to": "safety-envelope",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "human-in-the-loop",
+          "to": "scalable-oversight",
           "type": "adjacent",
           "reviewed": false
         },
@@ -27892,15 +28390,22 @@
           "id": "fine-tuning",
           "title": "Fine-Tuning",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "sampling-steps",
           "title": "Sampling Steps",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "weak-to-strong-generalization",
+          "title": "Weak-to-Strong Generalization",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -27937,6 +28442,12 @@
         {
           "from": "knowledge-distillation",
           "to": "sampling-steps",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-distillation",
+          "to": "weak-to-strong-generalization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -28632,6 +29143,13 @@
           "y": 66
         },
         {
+          "id": "model-written-evaluation",
+          "title": "Model-Written Evaluation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "agent-evaluation",
           "title": "Agent Evaluation",
           "tier": "verified",
@@ -28693,6 +29211,12 @@
           "from": "instruction-tuning",
           "to": "llm-as-judge",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "llm-as-judge",
+          "to": "model-written-evaluation",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -29076,7 +29600,7 @@
         {
           "id": "task-arithmetic",
           "title": "Task Arithmetic",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -29292,7 +29816,7 @@
         {
           "id": "model-merging",
           "title": "Model Merging",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -30118,22 +30642,29 @@
           "id": "attention",
           "title": "Attention",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
+        },
+        {
+          "id": "deceptive-alignment",
+          "title": "Deceptive Alignment",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
         },
         {
           "id": "feature-attribution",
           "title": "Feature Attribution",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 144,
+          "y": 22
         },
         {
           "id": "probing-classifier",
           "title": "Probing Classifier",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -30152,6 +30683,12 @@
         {
           "from": "mechanistic-interpretability",
           "to": "attention",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "mechanistic-interpretability",
+          "to": "deceptive-alignment",
           "type": "adjacent",
           "reviewed": false
         },
@@ -30359,7 +30896,7 @@
       "center": {
         "id": "merge-interference",
         "title": "Merge Interference",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -30367,21 +30904,21 @@
         {
           "id": "task-arithmetic",
           "title": "Task Arithmetic",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "fisher-weighted-merging",
           "title": "Fisher-Weighted Merging",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "model-soup",
           "title": "Model Soup",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -30412,7 +30949,7 @@
       "center": {
         "id": "merge-vs-ensemble",
         "title": "Merge vs Ensemble",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -30427,14 +30964,14 @@
         {
           "id": "model-merging",
           "title": "Model Merging",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "model-soup",
           "title": "Model Soup",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -30902,7 +31439,7 @@
         {
           "id": "permutation-symmetry",
           "title": "Permutation Symmetry",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -31019,7 +31556,7 @@
       "center": {
         "id": "model-merging",
         "title": "Model Merging",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31034,28 +31571,28 @@
         {
           "id": "model-soup",
           "title": "Model Soup",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
         {
           "id": "task-arithmetic",
           "title": "Task Arithmetic",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
         {
           "id": "merge-vs-ensemble",
           "title": "Merge vs Ensemble",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
         {
           "id": "permutation-symmetry",
           "title": "Permutation Symmetry",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -31151,7 +31688,7 @@
       "center": {
         "id": "model-soup",
         "title": "Model Soup",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -31159,28 +31696,28 @@
         {
           "id": "model-merging",
           "title": "Model Merging",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "merge-interference",
           "title": "Merge Interference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
         {
           "id": "merge-vs-ensemble",
           "title": "Merge vs Ensemble",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
         {
           "id": "weight-averaging",
           "title": "Weight Averaging",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -31261,6 +31798,46 @@
           "from": "model-versioning",
           "to": "rollback",
           "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "model-written-evaluation",
+      "center": {
+        "id": "model-written-evaluation",
+        "title": "Model-Written Evaluation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "llm-as-judge",
+          "title": "LLM as Judge",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "llm-as-judge",
+          "to": "model-written-evaluation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "model-written-evaluation",
+          "to": "benchmark-contamination",
+          "type": "adjacent",
           "reviewed": false
         }
       ]
@@ -33185,7 +33762,7 @@
       "center": {
         "id": "permutation-symmetry",
         "title": "Permutation Symmetry",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -33200,7 +33777,7 @@
         {
           "id": "model-merging",
           "title": "Model Merging",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -35431,14 +36008,28 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 80,
+          "x": 48,
+          "y": 22
+        },
+        {
+          "id": "dangerous-capability-evaluation",
+          "title": "Dangerous Capability Evaluation",
+          "tier": "frontier",
+          "x": 96,
+          "y": 110
+        },
+        {
+          "id": "deceptive-alignment",
+          "title": "Deceptive Alignment",
+          "tier": "frontier",
+          "x": 144,
           "y": 22
         },
         {
           "id": "llm-as-judge",
           "title": "LLM as Judge",
           "tier": "verified",
-          "x": 160,
+          "x": 192,
           "y": 110
         }
       ],
@@ -35452,6 +36043,18 @@
         {
           "from": "red-teaming",
           "to": "benchmark-contamination",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "red-teaming",
+          "to": "dangerous-capability-evaluation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "red-teaming",
+          "to": "deceptive-alignment",
           "type": "adjacent",
           "reviewed": false
         },
@@ -35916,6 +36519,13 @@
           "y": 66
         },
         {
+          "id": "specification-gaming",
+          "title": "Specification Gaming",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
           "id": "feedback-loop",
           "title": "Feedback Loop",
           "tier": "verified",
@@ -35956,6 +36566,12 @@
           "from": "reward-model",
           "to": "reward-hacking",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "reward-hacking",
+          "to": "specification-gaming",
+          "type": "unlocks",
           "reviewed": false
         },
         {
@@ -36019,28 +36635,35 @@
           "title": "DPO",
           "tier": "verified",
           "x": 200,
-          "y": 26
+          "y": 22
         },
         {
           "id": "reward-hacking",
           "title": "Reward Hacking",
           "tier": "verified",
           "x": 200,
-          "y": 53
+          "y": 44
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
           "x": 200,
-          "y": 79
+          "y": 66
+        },
+        {
+          "id": "sycophancy",
+          "title": "Sycophancy",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "verifier-model",
           "title": "Verifier Model",
           "tier": "verified",
           "x": 200,
-          "y": 106
+          "y": 110
         },
         {
           "id": "llm-as-judge",
@@ -36078,6 +36701,12 @@
         {
           "from": "reward-model",
           "to": "rlhf",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "reward-model",
+          "to": "sycophancy",
           "type": "unlocks",
           "reviewed": false
         },
@@ -36131,14 +36760,21 @@
           "title": "Constitutional AI",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
         },
         {
           "id": "jailbreak",
           "title": "Jailbreak",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 66
+        },
+        {
+          "id": "scalable-oversight",
+          "title": "Scalable Oversight",
+          "tier": "frontier",
+          "x": 200,
+          "y": 99
         },
         {
           "id": "calibration",
@@ -36211,6 +36847,12 @@
         {
           "from": "rlhf",
           "to": "jailbreak",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "rlhf",
+          "to": "scalable-oversight",
           "type": "unlocks",
           "reviewed": false
         },
@@ -36492,6 +37134,46 @@
       ]
     },
     {
+      "id": "safety-benchmark-validity",
+      "center": {
+        "id": "safety-benchmark-validity",
+        "title": "Safety Benchmark Validity",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "benchmark-contamination",
+          "title": "Benchmark Contamination",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "dangerous-capability-evaluation",
+          "title": "Dangerous Capability Evaluation",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "benchmark-contamination",
+          "to": "safety-benchmark-validity",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "safety-benchmark-validity",
+          "to": "dangerous-capability-evaluation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "safety-envelope",
       "center": {
         "id": "safety-envelope",
@@ -36697,6 +37379,59 @@
         {
           "from": "sandboxing",
           "to": "safety-envelope",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "scalable-oversight",
+      "center": {
+        "id": "scalable-oversight",
+        "title": "Scalable Oversight",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "rlhf",
+          "title": "RLHF",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "weak-to-strong-generalization",
+          "title": "Weak-to-Strong Generalization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "human-in-the-loop",
+          "title": "Human in the Loop",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "rlhf",
+          "to": "scalable-oversight",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "scalable-oversight",
+          "to": "weak-to-strong-generalization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "scalable-oversight",
+          "to": "human-in-the-loop",
           "type": "adjacent",
           "reviewed": false
         }
@@ -37774,7 +38509,7 @@
         {
           "id": "weight-averaging",
           "title": "Weight Averaging",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 88
         },
@@ -38479,6 +39214,46 @@
         {
           "from": "speaker-embedding",
           "to": "membership-inference",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "specification-gaming",
+      "center": {
+        "id": "specification-gaming",
+        "title": "Specification Gaming",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "reward-hacking",
+          "title": "Reward Hacking",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "sycophancy",
+          "title": "Sycophancy",
+          "tier": "frontier",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "reward-hacking",
+          "to": "specification-gaming",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "specification-gaming",
+          "to": "sycophancy",
           "type": "adjacent",
           "reviewed": false
         }
@@ -39487,6 +40262,59 @@
       ]
     },
     {
+      "id": "sycophancy",
+      "center": {
+        "id": "sycophancy",
+        "title": "Sycophancy",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "reward-model",
+          "title": "Reward Model",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "constitutional-ai",
+          "title": "Constitutional AI",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "specification-gaming",
+          "title": "Specification Gaming",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "reward-model",
+          "to": "sycophancy",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "sycophancy",
+          "to": "constitutional-ai",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "sycophancy",
+          "to": "specification-gaming",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "synthesis-evaluation",
       "center": {
         "id": "synthesis-evaluation",
@@ -39636,7 +40464,7 @@
       "center": {
         "id": "task-arithmetic",
         "title": "Task Arithmetic",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -39644,14 +40472,14 @@
         {
           "id": "model-merging",
           "title": "Model Merging",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
         {
           "id": "merge-interference",
           "title": "Merge Interference",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -42254,11 +43082,51 @@
       ]
     },
     {
+      "id": "weak-to-strong-generalization",
+      "center": {
+        "id": "weak-to-strong-generalization",
+        "title": "Weak-to-Strong Generalization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "scalable-oversight",
+          "title": "Scalable Oversight",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "knowledge-distillation",
+          "title": "Knowledge Distillation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "scalable-oversight",
+          "to": "weak-to-strong-generalization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "weak-to-strong-generalization",
+          "to": "knowledge-distillation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "weight-averaging",
       "center": {
         "id": "weight-averaging",
         "title": "Weight Averaging",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -42273,7 +43141,7 @@
         {
           "id": "model-soup",
           "title": "Model Soup",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }

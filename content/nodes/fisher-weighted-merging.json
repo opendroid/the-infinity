@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Weights a contributing model cannot afford to move, against the ones it is indifferent to, in weights. Drag the curvature threshold up to watch the constrained set grow — a uniform average is the assumption that this bar never moves at all."
+    "caption": "Weights a contributing model cannot afford to move, against the ones it is indifferent to, in weights. Drag the count of high-curvature weights up to watch the constrained set dominate — a uniform average is the assumption that this bar never moves at all."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

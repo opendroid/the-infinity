@@ -1,0 +1,63 @@
+{
+  "id": "scalable-oversight",
+  "title": "Scalable Oversight",
+  "domain": [
+    "Alignment",
+    "Research"
+  ],
+  "bodies": {
+    "intuition": "Every method that trains a model on human judgement assumes a human who can judge. That holds while the task is one a person can check — is this summary faithful, is this answer polite — and stops holding the moment the model is doing something the supervisor cannot evaluate. Scalable oversight is the problem of supervising a system on tasks you cannot check yourself.",
+    "engineer": "The proposals share a shape: use the model to help the human judge. Ask it to critique its own output, to debate another copy of itself with a human deciding, or to decompose a task until the pieces are checkable. Measuring whether any of this works is harder than proposing it, because the interesting case — supervision of something genuinely beyond the supervisor — is exactly the case that cannot be scored. Studies use a sandwich instead: a weak supervisor, a strong model, and a ground truth the researchers hold back.",
+    "math": "The share of a system's outputs a supervisor can verify falls as capability rises, and that is the whole difficulty stated as a quantity. While it is high, ordinary preference learning works and the unverifiable remainder is a rounding error; as it falls, the training signal comes to rest on judgements nobody checked. Nothing about the methods changes at the crossing — what changes is that the assumption underneath them stops being true, silently."
+  },
+  "emphasis": {
+    "intuition": "the problem of supervising a system on tasks you cannot check yourself",
+    "math": "the assumption underneath them stops being true, silently"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unverifiable_outputs": 12,
+      "share_rest": 60
+    },
+    "param_controls": [
+      {
+        "name": "unverifiable_outputs",
+        "min": 0,
+        "max": 500,
+        "step": 20
+      }
+    ],
+    "caption": "Outputs a human supervisor cannot check, against the ones they can, in outputs. Drag the capability up to watch the unverifiable share take over — preference learning does not fail at any point on this drag, it just stops being trained on anything anyone confirmed."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "rlhf",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "human-in-the-loop",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2211.03540",
+      "title": "Measuring Progress on Scalable Oversight for Large Language Models",
+      "url": "https://arxiv.org/abs/2211.03540"
+    },
+    {
+      "ref": "arXiv:1811.07871",
+      "title": "Scalable agent alignment via reward modeling: a research direction",
+      "url": "https://arxiv.org/abs/1811.07871"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

@@ -28,7 +28,7 @@
         "step": 10
       }
     ],
-    "caption": "Run-to-run variance that averaging cancels, against the part every run shares and averaging cannot touch, in equal units. Drag the number of runs up to watch cancellation saturate — it stops where the runs stop differing, which is why a soup of near-identical runs is one run."
+    "caption": "Run-to-run variance that averaging cancels, against the part every run shares and averaging cannot touch, in equal units. Drag the cancelled share up to watch it approach its ceiling — it stops where the runs stop differing, which is why a soup of near-identical runs is one run."
   },
   "edges": {
     "requires": [
@@ -61,7 +61,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }

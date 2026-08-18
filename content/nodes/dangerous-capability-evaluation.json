@@ -1,0 +1,68 @@
+{
+  "id": "dangerous-capability-evaluation",
+  "title": "Dangerous Capability Evaluation",
+  "domain": [
+    "Alignment",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "Before deploying a model, test whether it can do the specific things that would be harmful if it could — not whether it will, but whether it is able to. It is a different question from alignment, and a more tractable one, because capability is demonstrable in a way that intent is not.",
+    "engineer": "The evaluations are adversarial by construction: the model is given tools, scaffolding and multiple attempts, because a deployed system will have those and an evaluation that withholds them measures the wrong thing. The hard part is the negative result — showing a model cannot do something requires having elicited it properly, and a failed elicitation is indistinguishable from an absent capability. This is why elicitation effort is reported alongside the score, and why the score alone means little.",
+    "math": "A negative result is a statement about the elicitation, not about the model, and its strength scales with how hard anyone tried. So the useful reading is the highest capability found by the best attempt, treated as a lower bound that later attempts can only raise — a bound that gets tighter with effort and never becomes a ceiling. Reporting it as a ceiling is the error the framing exists to prevent."
+  },
+  "emphasis": {
+    "intuition": "not whether it will, but whether it is able to",
+    "math": "a lower bound that later attempts can only raise"
+  },
+  "viz": {
+    "primitive": "threshold-sweep",
+    "params": {
+      "separation": 1.6,
+      "threshold": 0.8,
+      "base_rate": 0.15
+    },
+    "param_controls": [
+      {
+        "name": "separation",
+        "min": 0,
+        "max": 5,
+        "step": 0.25
+      }
+    ],
+    "caption": "Models that genuinely hold a capability, against ones that do not, scored by an evaluation. Drag the elicitation effort up to watch them separate — at the left a negative result says the attempt was weak, and cannot be told apart from an absent capability."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "agent-evaluation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "red-teaming",
+        "reviewed": false
+      },
+      {
+        "id": "safety-benchmark-validity",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2403.13793",
+      "title": "Evaluating Frontier Models for Dangerous Capabilities",
+      "url": "https://arxiv.org/abs/2403.13793"
+    },
+    {
+      "ref": "arXiv:2212.09251",
+      "title": "Discovering Language Model Behaviors with Model-Written Evaluations",
+      "url": "https://arxiv.org/abs/2212.09251"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

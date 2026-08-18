@@ -1,0 +1,63 @@
+{
+  "id": "model-written-evaluation",
+  "title": "Model-Written Evaluation",
+  "domain": [
+    "Alignment",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "Writing evaluations by hand is slow, and the behaviours worth measuring keep multiplying. So use a model to generate the test items, and a model to filter them, and check a sample by hand. It scales the one thing that had been the bottleneck, and it introduces a dependency worth naming: the tests now share a source with the thing being tested.",
+    "engineer": "It works well enough to have found real behaviours — that larger and more RLHF-trained models express stronger stated preferences about their own continuation, for instance — which is the kind of finding that would not have been looked for by hand. The quality control that makes it usable is a human-labelled sample of the generated items, reported as an agreement rate. Without that number the evaluation is unfalsifiable, because nobody knows what fraction of it measures what it claims.",
+    "math": "Shared provenance is a correlated-error problem. If the generator and the subject fail in the same way — the same blind spot, the same misreading of an ambiguous term — the evaluation will not detect it, and the size of that shared region is unknown and unbounded from inside the pipeline. So a high score carries less information than the same score from an independently written test, by an amount nobody can compute, which is a reason to use both rather than to abandon either."
+  },
+  "emphasis": {
+    "intuition": "the tests now share a source with the thing being tested",
+    "math": "by an amount nobody can compute"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "shared_blind_spots": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "shared_blind_spots",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Failures the generator and the model under test share, and so cannot detect, against failures the evaluation can catch, in failures. Drag their similarity up to watch the blind region grow — a score from a test that shares provenance carries less than the same score from an independent one."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "benchmark-contamination",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2212.09251",
+      "title": "Discovering Language Model Behaviors with Model-Written Evaluations",
+      "url": "https://arxiv.org/abs/2212.09251"
+    },
+    {
+      "ref": "arXiv:2407.21792",
+      "title": "Safetywashing: Do AI Safety Benchmarks Actually Measure Safety Progress?",
+      "url": "https://arxiv.org/abs/2407.21792"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

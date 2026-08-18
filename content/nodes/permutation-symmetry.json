@@ -28,7 +28,7 @@
         "step": 10
       }
     ],
-    "caption": "Weight-space points that are one function written in a different order, against genuinely distinct solutions, in points. Drag the layer width up to watch reorderings swamp the distinct ones — the count grows factorially, which a share can only show as saturation."
+    "caption": "Weight-space points that are one function written in a different order, against genuinely distinct solutions, in points. Drag the count of equivalent orderings up to watch them swamp the distinct solutions — it grows factorially with layer width, which a share can only show as saturation."
   },
   "edges": {
     "requires": [
@@ -57,7 +57,8 @@
     }
   ],
   "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-18"
   }
 }
