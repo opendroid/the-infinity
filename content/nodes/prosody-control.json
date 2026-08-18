@@ -1,0 +1,58 @@
+{
+  "id": "prosody-control",
+  "title": "Prosody Control",
+  "domain": [
+    "Synthesis",
+    "Control"
+  ],
+  "bodies": {
+    "intuition": "Prosody is the rhythm, stress and intonation that make speech mean something beyond its words. A synthesiser that gets phonemes right and prosody wrong sounds like a machine reading, and the reason is that the text underdetermines it — the same sentence has many correct readings and nothing in the writing says which.",
+    "engineer": "Explicit control predicts duration, pitch and energy as separate quantities, which makes them editable and makes the model deterministic enough to debug. Implicit control samples a latent prosody variable, which sounds more natural and is harder to direct. The choice is between a system a user can steer and one that sounds better unattended, and it is not obvious which a product wants.",
+    "math": "This is the multimodality `text-to-speech` describes, made concrete: p(prosody | text) has many modes, so predicting its mean gives the flat reading. Predicting duration, pitch and energy explicitly conditions the acoustic model on a chosen mode rather than averaging over them, which is why the flatness disappears when they are supplied."
+  },
+  "emphasis": {
+    "intuition": "the same sentence has many correct readings and nothing in the writing says which",
+    "engineer": "between a system a user can steer and one that sounds better unattended"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "explicit_control": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "explicit_control",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Prosody supplied explicitly against prosody left to the model to choose, in equal units. Drag the explicit share up to watch the output become steerable — and stop surprising you in the ways that sounded natural."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "text-to-speech",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "classifier-free-guidance",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2304.09116",
+      "title": "NaturalSpeech 2: Latent Diffusion Models are Natural and Zero-Shot Speech and Singing Synthesizers",
+      "url": "https://arxiv.org/abs/2304.09116"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

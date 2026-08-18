@@ -1,0 +1,62 @@
+{
+  "id": "streaming-synthesis",
+  "title": "Streaming Synthesis",
+  "domain": [
+    "Synthesis",
+    "Serving"
+  ],
+  "bodies": {
+    "intuition": "For a conversation, speech has to start before the sentence is finished. That rules out any method needing the whole text — which includes most of what makes synthesis sound good, because prosody depends on where the sentence is going. Streaming synthesis is the art of committing to a reading before knowing the ending.",
+    "engineer": "The number that matters is time to first audio, not total generation time, and they trade against each other: chunking the text lowers the first and raises the second through repeated setup. Prosody suffers at chunk boundaries because the model cannot see across them, so chunk boundaries are placed at syntactic breaks where a human would pause anyway.",
+    "math": "With chunk length c, first audio arrives after synthesising c units rather than the whole utterance, so latency falls roughly linearly in c while boundary artefacts rise with the number of boundaries. The optimum is not a value of c but a placement rule — a boundary at a clause break costs nothing, one mid-phrase costs a great deal."
+  },
+  "emphasis": {
+    "intuition": "committing to a reading before knowing the ending",
+    "engineer": "The number that matters is time to first audio, not total generation time"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "chunk_units": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "chunk_units",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Text units synthesised per chunk against the unit that must arrive before audio starts, in units. Drag the chunk up to watch prosody improve and the first sound arrive later — the placement of the boundary matters more than its size."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "text-to-speech",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "streaming-asr",
+        "reviewed": false
+      },
+      {
+        "id": "prefill-and-decode",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2305.09636",
+      "title": "SoundStorm: Efficient Parallel Audio Generation",
+      "url": "https://arxiv.org/abs/2305.09636"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

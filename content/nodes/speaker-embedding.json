@@ -1,0 +1,62 @@
+{
+  "id": "speaker-embedding",
+  "title": "Speaker Embedding",
+  "domain": [
+    "Synthesis",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "A fixed-length vector that captures who is speaking rather than what they said. The same vector recognises a speaker across utterances and conditions a synthesiser to sound like them, which is why one representation serves verification and cloning at once — a duality worth noticing before building either.",
+    "engineer": "Trained with a margin-based classification loss over speakers, then used for utterances from speakers never seen in training, which works because the space is organised by voice rather than by identity list. That generalisation is exactly what makes a few seconds of audio enough to clone a voice, so the capability and the misuse come from the same property rather than from a design choice.",
+    "math": "Pool frame-level features over time into a single vector, and train so that same-speaker pairs are closer than different-speaker pairs by a margin. Verification thresholds a cosine similarity, and the equal-error rate is where false accepts and false rejects cross — one number that hides which of the two a deployment can tolerate."
+  },
+  "emphasis": {
+    "intuition": "one representation serves verification and cloning at once",
+    "engineer": "the capability and the misuse come from the same property rather than from a design choice"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "enrolment_seconds": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "enrolment_seconds",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Seconds of enrolment audio against the single utterance being matched, in seconds. Drag the enrolment up to watch the estimate steady — a few seconds is enough, which is the whole security problem in one bar."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      },
+      {
+        "id": "speech-representation-learning",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "membership-inference",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2301.02111",
+      "title": "Neural Codec Language Models are Zero-Shot Text to Speech Synthesizers",
+      "url": "https://arxiv.org/abs/2301.02111"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

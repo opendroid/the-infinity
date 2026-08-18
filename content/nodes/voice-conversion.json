@@ -1,0 +1,62 @@
+{
+  "id": "voice-conversion",
+  "title": "Voice Conversion",
+  "domain": [
+    "Synthesis",
+    "Methods"
+  ],
+  "bodies": {
+    "intuition": "Keep what was said and change who said it. That requires separating content from speaker identity in a representation where they are thoroughly entangled — the same phoneme sounds different in every voice, and the difference is precisely what you are trying to move.",
+    "engineer": "The working recipe is a bottleneck that is too narrow to carry speaker identity, so content survives and voice does not, plus a speaker embedding supplied separately at synthesis. Getting the bottleneck wrong fails in both directions: too wide and the source voice leaks through, too narrow and the content degrades. Prosody is the part that leaks most stubbornly, because rhythm is content and identity at once.",
+    "math": "Factor an utterance into content c and speaker s, then synthesise from (c, s′). The factorisation is not identifiable in general — many splits explain the same audio — so every method imposes it by architecture rather than discovering it, which is why the bottleneck width is the design and not a hyperparameter."
+  },
+  "emphasis": {
+    "intuition": "the difference is precisely what you are trying to move",
+    "engineer": "rhythm is content and identity at once"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "bottleneck_width": 6,
+      "share_rest": 6
+    },
+    "param_controls": [
+      {
+        "name": "bottleneck_width",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Capacity in the content bottleneck against the capacity a speaker embedding supplies, in equal units. Drag the bottleneck wider to watch identity leak back through the channel meant to carry only words."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "speaker-embedding",
+        "reviewed": false
+      },
+      {
+        "id": "vocoder",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "variational-autoencoder",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2106.06103",
+      "title": "Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech",
+      "url": "https://arxiv.org/abs/2106.06103"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

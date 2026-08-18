@@ -1,0 +1,66 @@
+{
+  "id": "synthesis-evaluation",
+  "title": "Synthesis Evaluation",
+  "domain": [
+    "Synthesis",
+    "Evaluation"
+  ],
+  "bodies": {
+    "intuition": "There is no word error rate for how good speech sounds. The field's standard is a mean opinion score — people rating samples one to five — which is slow, expensive, and not comparable between papers because the raters and instructions differ every time.",
+    "engineer": "Automatic proxies exist and are used because they are cheap: predicted opinion scores, speaker similarity via embeddings, and intelligibility measured by running an ASR system over the output and reporting word error rate. That last one is genuinely useful and genuinely narrow — a synthesiser can be perfectly intelligible and sound wrong, and a WER of near zero says nothing about prosody.",
+    "math": "Opinion scores are ordinal, so averaging them is already a modelling choice, and the confidence interval depends on rater count rather than sample count — twenty raters on ten samples is a different measurement from ten raters on twenty. Papers reporting a mean without the rater count and the interval have reported one number and no way to compare it."
+  },
+  "emphasis": {
+    "intuition": "not comparable between papers because the raters and instructions differ every time",
+    "engineer": "a synthesiser can be perfectly intelligible and sound wrong"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "human_ratings": 4,
+      "share_rest": 28
+    },
+    "param_controls": [
+      {
+        "name": "human_ratings",
+        "min": 0,
+        "max": 224,
+        "step": 8
+      }
+    ],
+    "caption": "Judgements from human raters against judgements from automatic proxies, in ratings. Drag the human share up to watch the measurement become trustworthy and expensive at the same rate."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "text-to-speech",
+        "reviewed": false
+      },
+      {
+        "id": "word-error-rate",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "llm-as-judge",
+        "reviewed": false
+      },
+      {
+        "id": "annotation-quality",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2304.09116",
+      "title": "NaturalSpeech 2: Latent Diffusion Models are Natural and Zero-Shot Speech and Singing Synthesizers",
+      "url": "https://arxiv.org/abs/2304.09116"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
