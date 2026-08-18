@@ -1,0 +1,63 @@
+{
+  "id": "mutual-information",
+  "title": "Mutual Information",
+  "domain": [
+    "Information",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "How much does knowing one thing tell you about another? Mutual information measures the reduction in surprise about Y once you have seen X, in bits. Unlike correlation it catches any dependence at all, linear or not — which makes it the natural thing to want, and notoriously hard to actually compute in high dimensions.",
+    "engineer": "Estimating it from samples is the whole difficulty: the number of samples needed grows exponentially with the value being estimated, so any bound reported above a few bits should be read as a lower bound the estimator happened to reach rather than a measurement. InfoNCE is the estimator most of this graph relies on without saying so — every contrastive objective is a bound on mutual information, capped by log of the batch size.",
+    "math": "I(X;Y) = H(X) − H(X|Y) = D_KL(p(x,y)‖p(x)p(y)), symmetric in its arguments and zero exactly when X and Y are independent. The InfoNCE bound is I ≥ log K − L for a batch of K, which is why contrastive learning wants large batches: the bound it optimises cannot exceed log K however good the representation is."
+  },
+  "emphasis": {
+    "intuition": "it catches any dependence at all, linear or not",
+    "engineer": "every contrastive objective is a bound on mutual information, capped by log of the batch size"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "shared_bits": 4,
+      "share_rest": 12
+    },
+    "param_controls": [
+      {
+        "name": "shared_bits",
+        "min": 0,
+        "max": 96,
+        "step": 4
+      }
+    ],
+    "caption": "Bits the two variables hold in common against the bits one of them holds alone, in bits. Drag the shared information up to watch dependence take over what had been private to each."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "entropy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1801.04062",
+      "title": "MINE: Mutual Information Neural Estimation",
+      "url": "https://arxiv.org/abs/1801.04062"
+    },
+    {
+      "ref": "arXiv:1807.03748",
+      "title": "Representation Learning with Contrastive Predictive Coding",
+      "url": "https://arxiv.org/abs/1807.03748"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

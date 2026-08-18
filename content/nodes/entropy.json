@@ -1,0 +1,65 @@
+{
+  "id": "entropy",
+  "title": "Entropy",
+  "domain": [
+    "Information",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "How surprised should you expect to be? Entropy measures that in bits: a fair coin costs one bit per flip, a coin that always lands heads costs nothing, and a language model's entropy is how many bits it needs on average to say what comes next. Every compression bound and every training loss in this graph is a statement about it.",
+    "engineer": "Entropy is the floor on lossless compression: no code can average fewer bits per symbol than the source's entropy, and arithmetic coding gets arbitrarily close. That is why a language model is a compressor — its cross-entropy on held-out text is a measured code length, in bits per token, and improving the model is literally shrinking the file.",
+    "math": "H(X) = −Σ_x p(x)·log_2 p(x), in bits. It is maximal for the uniform distribution over n outcomes, at log_2 n, and zero when one outcome is certain. Cross-entropy H(p,q) = −Σ_x p(x)·log_2 q(x) is what you actually pay for coding p's symbols with q's code, and it is never less than H(p) — the excess is exactly the KL divergence."
+  },
+  "emphasis": {
+    "intuition": "Every compression bound and every training loss in this graph is a statement about it.",
+    "engineer": "improving the model is literally shrinking the file"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "uniformity": 0.2,
+      "bars": 16
+    },
+    "param_controls": [
+      {
+        "name": "uniformity",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
+    ],
+    "caption": "A distribution over symbols, as given and as it is pushed toward uniform. Drag the uniformity up to watch the entropy climb — a flat distribution is the most expensive one to describe, and a certain one is free."
+  },
+  "edges": {
+    "requires": [],
+    "adjacent": [
+      {
+        "id": "cross-entropy-loss",
+        "reviewed": false
+      },
+      {
+        "id": "perplexity",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2309.10668",
+      "title": "Language Modeling Is Compression",
+      "url": "https://arxiv.org/abs/2309.10668"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Shannon 1948",
+      "title": "A Mathematical Theory of Communication",
+      "venue": "Bell System Technical Journal 27",
+      "doi": "10.1002/j.1538-7305.1948.tb01338.x"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

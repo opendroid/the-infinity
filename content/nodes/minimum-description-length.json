@@ -1,0 +1,70 @@
+{
+  "id": "minimum-description-length",
+  "title": "Minimum Description Length",
+  "domain": [
+    "Information",
+    "Generalization"
+  ],
+  "bodies": {
+    "intuition": "The best model of some data is the one that lets you write the data down in the fewest bits — counting the model itself as part of the message. It turns Occam's razor into arithmetic, and it explains why a model with a billion parameters can still generalise: what matters is not how many parameters there are but how many bits it takes to specify them.",
+    "engineer": "This is why weight decay, quantisation and low-rank adapters all look like the same move from a distance — each shortens the description of the model. It is also the cleanest account of why a language model that compresses text well is doing something more than memorising: the model's own size is in the bill, so a lookup table pays for itself and wins nothing.",
+    "math": "Choose the hypothesis minimising L(H) + L(D|H) — the bits to describe the model plus the bits to describe the data given it. The second term is the negative log-likelihood, which is why maximum likelihood is MDL with a free model: drop L(H) and you have removed the only thing penalising complexity."
+  },
+  "emphasis": {
+    "intuition": "what matters is not how many parameters there are but how many bits it takes to specify them",
+    "engineer": "the model's own size is in the bill, so a lookup table pays for itself and wins nothing"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "model_bits": 8,
+      "share_rest": 24
+    },
+    "param_controls": [
+      {
+        "name": "model_bits",
+        "min": 0,
+        "max": 192,
+        "step": 8
+      }
+    ],
+    "caption": "Bits spent describing the model against the bits it then saves on the data, in bits. Drag the model description up to watch it consume the saving it was bought for."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "entropy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      },
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2309.10668",
+      "title": "Language Modeling Is Compression",
+      "url": "https://arxiv.org/abs/2309.10668"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Rissanen 1978",
+      "title": "Modeling by Shortest Data Description",
+      "venue": "Automatica 14(5)",
+      "doi": "10.1016/0005-1098(78)90005-5"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

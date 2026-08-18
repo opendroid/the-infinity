@@ -1,0 +1,68 @@
+{
+  "id": "information-bottleneck",
+  "title": "Information Bottleneck",
+  "domain": [
+    "Information",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "A good representation keeps what is useful and throws away everything else. The information bottleneck states that as an objective: squeeze the input through a channel that keeps as little of it as possible while still predicting the label. Compression is not a side effect here — it is what the representation is for.",
+    "engineer": "The claim that made it famous in deep learning is that training has two phases: a short fitting phase and a long compression phase where representations discard input information while holding accuracy. That claim is contested — later work found the compression phase depends on the activation function and on how mutual information was estimated in a deterministic network, where it is strictly speaking infinite. The objective remains useful; the empirical story about training dynamics did not survive replication cleanly.",
+    "math": "Minimise I(X;T) − β·I(T;Y) over encoders T of X. β sets the exchange rate between compression and prediction: at β = 0 the best T is constant, and as β grows T is allowed to keep more of X in order to say more about Y. The frontier this traces is the same curve rate-distortion theory draws, with prediction in place of fidelity."
+  },
+  "emphasis": {
+    "intuition": "Compression is not a side effect here — it is what the representation is for.",
+    "engineer": "the empirical story about training dynamics did not survive replication cleanly"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "kept_input_bits": 8,
+      "share_rest": 16
+    },
+    "param_controls": [
+      {
+        "name": "kept_input_bits",
+        "min": 0,
+        "max": 128,
+        "step": 4
+      }
+    ],
+    "caption": "Bits of the input the representation keeps against the bits it holds about the label, in bits. Drag the retained input up to watch the representation stop being a bottleneck at all."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "mutual-information",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "manifold-hypothesis",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:physics/0004057",
+      "title": "The information bottleneck method",
+      "url": "https://arxiv.org/abs/physics/0004057"
+    },
+    {
+      "ref": "arXiv:1703.00810",
+      "title": "Opening the Black Box of Deep Neural Networks via Information",
+      "url": "https://arxiv.org/abs/1703.00810"
+    },
+    {
+      "ref": "arXiv:1503.02406",
+      "title": "Deep Learning and the Information Bottleneck Principle",
+      "url": "https://arxiv.org/abs/1503.02406"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

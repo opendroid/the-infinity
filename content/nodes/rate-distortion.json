@@ -1,0 +1,62 @@
+{
+  "id": "rate-distortion",
+  "title": "Rate-Distortion",
+  "domain": [
+    "Information",
+    "Compression"
+  ],
+  "bodies": {
+    "intuition": "Lossless compression has a floor. Lossy compression has a curve: for every budget of bits there is a best achievable error, and for every error you will tolerate there is a smallest number of bits. Rate-distortion theory is that curve, and every codec — audio, image, or the quantiser inside a neural one — is an attempt to sit on it.",
+    "engineer": "The practical lesson is that rate and distortion are not the whole story. A reconstruction can score well on squared error and sound or look wrong, because low distortion and high realism are different objectives that trade against each other — which is why neural codecs train against a discriminator rather than only a reconstruction loss, and why their outputs beat classical codecs at bitrates where the squared error is worse.",
+    "math": "R(D) = min I(X;X̂) over reconstructions with E[d(X,X̂)] ≤ D — the fewest bits per symbol achieving distortion D. It is convex and decreasing, meeting the entropy at D = 0. Adding a perception constraint moves the whole curve: at fixed rate, requiring the output distribution to match the source's costs distortion, and that cost is provably non-zero."
+  },
+  "emphasis": {
+    "intuition": "every codec — audio, image, or the quantiser inside a neural one — is an attempt to sit on it",
+    "engineer": "low distortion and high realism are different objectives that trade against each other"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "rate_bits": 6,
+      "share_rest": 18
+    },
+    "param_controls": [
+      {
+        "name": "rate_bits",
+        "min": 0,
+        "max": 144,
+        "step": 6
+      }
+    ],
+    "caption": "Bits spent on the code against the bits of detail given up as distortion, in bits. Drag the rate up to watch the loss shrink — and note how the last bits buy far less than the first, which is the curve being convex."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "entropy",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "neural-audio-codec",
+        "reviewed": false
+      },
+      {
+        "id": "quantization",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1901.07821",
+      "title": "Rethinking Lossy Compression: The Rate-Distortion-Perception Tradeoff",
+      "url": "https://arxiv.org/abs/1901.07821"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
