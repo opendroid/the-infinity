@@ -28,7 +28,7 @@
         "step": 0.0005
       }
     ],
-    "caption": "Training loss over boosting rounds. Drag the shrinkage to watch small steps and many trees beat large steps and few."
+    "caption": "Training loss over a fixed thousand boosting rounds. Drag the shrinkage up to watch each round carry further, until the steps grow large enough to destabilise the run — smaller shrinkage needs more rounds to catch up, and the round count here does not move."
   },
   "edges": {
     "requires": [

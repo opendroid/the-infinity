@@ -28,7 +28,7 @@
         "step": 1
       }
     ],
-    "caption": "One head's attention pattern at a time. Drag the head count to see the same budget split into more, narrower views of the sequence."
+    "caption": "One head's attention pattern at a time. Drag the head count to see the same budget split into more, narrower views — each sharper than the single head that had the whole width to itself."
   },
   "edges": {
     "requires": [
