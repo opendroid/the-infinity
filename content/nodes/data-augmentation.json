@@ -1,0 +1,67 @@
+{
+  "id": "data-augmentation",
+  "title": "Data Augmentation",
+  "domain": [
+    "Foundations",
+    "Supervised"
+  ],
+  "bodies": {
+    "intuition": "Make more training data out of the data you have, by changing it in ways that do not change the answer. A cat flipped left-to-right is still a cat, so a flipped image is a free extra example. It is the cheapest regularisation there is and for a long time it was the difference between a vision model that generalised and one that memorised.",
+    "engineer": "Every transformation encodes an invariance you are asserting, and the assertion can be wrong. Horizontal flips are safe for cats and destroy handwritten digits, where a mirrored 2 is not a 2. Rotation is safe for satellite imagery and not for road signs. Learned augmentation policies search the space of transformations instead of guessing, which works and mostly discovers what a domain expert would have chosen. Interpolating between examples is the odd one out — it augments the labels too, and there is no invariance being asserted at all.",
+    "math": "Augmentation adds examples and not information: the extra ones are deterministic functions of the originals, so the effective sample size grows far more slowly than the count does. What it does buy is the invariance itself, which the model would otherwise have to learn from data — so its value is largest where the invariance is real and the data is small, and it falls toward nothing as the corpus grows past the point where that invariance was the binding constraint."
+  },
+  "emphasis": {
+    "engineer": "a mirrored 2 is not a 2",
+    "math": "Augmentation adds examples and not information"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "augmented_copies": 8,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "augmented_copies",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Training examples produced by transforming an original, against the originals themselves, in examples. Drag the augmented copies up to watch them dominate the count — the effective sample size does not follow, because each is a deterministic function of one you already had."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "synthetic-data",
+        "reviewed": false
+      },
+      {
+        "id": "contrastive-learning",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1710.09412",
+      "title": "mixup: Beyond Empirical Risk Minimization",
+      "url": "https://arxiv.org/abs/1710.09412"
+    },
+    {
+      "ref": "arXiv:1805.09501",
+      "title": "AutoAugment: Learning Augmentation Policies from Data",
+      "url": "https://arxiv.org/abs/1805.09501"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

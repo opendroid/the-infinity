@@ -120,6 +120,37 @@
       }
     },
     {
+      "id": "activation-function",
+      "title": "Activation Function",
+      "domain": "Foundations / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "feed-forward-network",
+            "title": "Feed-Forward Network",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vanishing-gradient",
+            "title": "Vanishing Gradient",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "activation-patching",
       "title": "Activation Patching",
       "domain": "Interpretability / Methods",
@@ -1030,7 +1061,7 @@
           {
             "id": "hallucination",
             "title": "Hallucination",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1172,6 +1203,12 @@
             "reviewed": false
           },
           {
+            "id": "activation-function",
+            "title": "Activation Function",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "autoencoder",
             "title": "Autoencoder",
             "tier": "verified",
@@ -1206,9 +1243,46 @@
             "title": "Mixed-Precision Training",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "recurrent-neural-network",
+            "title": "Recurrent Neural Network",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "vanishing-gradient",
+            "title": "Vanishing Gradient",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": []
+      }
+    },
+    {
+      "id": "batch-normalization",
+      "title": "Batch Normalization",
+      "domain": "Foundations / Optimization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "layer-normalization",
+            "title": "Layer Normalization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "batch-size",
+            "title": "Batch Size",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
       }
     },
     {
@@ -1240,6 +1314,12 @@
           }
         ],
         "adjacent": [
+          {
+            "id": "batch-normalization",
+            "title": "Batch Normalization",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "continuous-batching",
             "title": "Continuous Batching",
@@ -1596,7 +1676,7 @@
           {
             "id": "guardrail",
             "title": "Guardrail",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1628,7 +1708,7 @@
           {
             "id": "hallucination",
             "title": "Hallucination",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2764,7 +2844,7 @@
           {
             "id": "guardrail",
             "title": "Guardrail",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2942,7 +3022,7 @@
           {
             "id": "system-prompt",
             "title": "System Prompt",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -3130,6 +3210,12 @@
             "id": "audio-visual-learning",
             "title": "Audio-Visual Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "data-augmentation",
+            "title": "Data Augmentation",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -3495,6 +3581,12 @@
             "title": "Confounding",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "early-stopping",
+            "title": "Early Stopping",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -3586,7 +3678,7 @@
           {
             "id": "open-weights",
             "title": "Open Weights",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3598,6 +3690,37 @@
           {
             "id": "safety-benchmark-validity",
             "title": "Safety Benchmark Validity",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "data-augmentation",
+      "title": "Data Augmentation",
+      "domain": "Foundations / Supervised",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "contrastive-learning",
+            "title": "Contrastive Learning",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "synthetic-data",
+            "title": "Synthetic Data",
             "tier": "verified",
             "reviewed": false
           }
@@ -3834,7 +3957,7 @@
           {
             "id": "model-card",
             "title": "Model Card",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -4684,6 +4807,37 @@
           {
             "id": "beam-search",
             "title": "Beam Search",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "early-stopping",
+      "title": "Early Stopping",
+      "domain": "Foundations / Supervised",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "overfitting",
+            "title": "Overfitting",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "cross-validation",
+            "title": "Cross-Validation",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "weight-decay",
+            "title": "Weight Decay",
             "tier": "verified",
             "reviewed": false
           }
@@ -5647,6 +5801,12 @@
         ],
         "adjacent": [
           {
+            "id": "activation-function",
+            "title": "Activation Function",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "conditional-computation",
             "title": "Conditional Computation",
             "tier": "verified",
@@ -5859,7 +6019,7 @@
           {
             "id": "foundation-model",
             "title": "Foundation Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -5998,7 +6158,7 @@
       "id": "foundation-model",
       "title": "Foundation Model",
       "domain": "Behaviour / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -6012,7 +6172,7 @@
           {
             "id": "open-weights",
             "title": "Open Weights",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -6258,6 +6418,12 @@
             "id": "edge-of-stability",
             "title": "Edge of Stability",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vanishing-gradient",
+            "title": "Vanishing Gradient",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -6759,7 +6925,7 @@
       "id": "guardrail",
       "title": "Guardrail",
       "domain": "Behaviour / Deployment",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -6780,7 +6946,7 @@
           {
             "id": "refusal",
             "title": "Refusal",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -6790,7 +6956,7 @@
       "id": "hallucination",
       "title": "Hallucination",
       "domain": "Behaviour / Failure",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -7151,7 +7317,7 @@
           {
             "id": "prompt-engineering",
             "title": "Prompt Engineering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7545,7 +7711,7 @@
           {
             "id": "refusal",
             "title": "Refusal",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7798,7 +7964,7 @@
           {
             "id": "hallucination",
             "title": "Hallucination",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -8105,6 +8271,12 @@
       "edges": {
         "requires": [],
         "unlocks": [
+          {
+            "id": "batch-normalization",
+            "title": "Batch Normalization",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "rmsnorm",
             "title": "RMSNorm",
@@ -8590,6 +8762,31 @@
           {
             "id": "long-context-training",
             "title": "Long-Context Training",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "long-short-term-memory",
+      "title": "Long Short-Term Memory",
+      "domain": "Foundations / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "recurrent-neural-network",
+            "title": "Recurrent Neural Network",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "residual-connection",
+            "title": "Residual Connection",
             "tier": "verified",
             "reviewed": false
           }
@@ -9864,7 +10061,7 @@
       "id": "model-card",
       "title": "Model Card",
       "domain": "Behaviour / Access",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -10869,13 +11066,13 @@
       "id": "open-weights",
       "title": "Open Weights",
       "domain": "Behaviour / Access",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "foundation-model",
             "title": "Foundation Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -11073,9 +11270,21 @@
             "reviewed": false
           },
           {
+            "id": "data-augmentation",
+            "title": "Data Augmentation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "distribution-shift",
             "title": "Distribution Shift",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "early-stopping",
+            "title": "Early Stopping",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -11690,7 +11899,7 @@
           {
             "id": "system-prompt",
             "title": "System Prompt",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -11744,7 +11953,7 @@
           {
             "id": "foundation-model",
             "title": "Foundation Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -12003,7 +12212,7 @@
       "id": "prompt-engineering",
       "title": "Prompt Engineering",
       "domain": "Behaviour / Interface",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -12024,7 +12233,7 @@
           {
             "id": "system-prompt",
             "title": "System Prompt",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -12067,7 +12276,7 @@
           {
             "id": "system-prompt",
             "title": "System Prompt",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -12665,6 +12874,38 @@
       }
     },
     {
+      "id": "recurrent-neural-network",
+      "title": "Recurrent Neural Network",
+      "domain": "Foundations / Architecture",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "long-short-term-memory",
+            "title": "Long Short-Term Memory",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "state-space-model",
+            "title": "State Space Model",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "red-teaming",
       "title": "Red Teaming",
       "domain": "Adversarial / Evaluation",
@@ -12711,7 +12952,7 @@
       "id": "refusal",
       "title": "Refusal",
       "domain": "Behaviour / Deployment",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -12726,7 +12967,7 @@
           {
             "id": "guardrail",
             "title": "Guardrail",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -12763,7 +13004,7 @@
           {
             "id": "prompt-engineering",
             "title": "Prompt Engineering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -12915,6 +13156,12 @@
             "reviewed": false
           },
           {
+            "id": "long-short-term-memory",
+            "title": "Long Short-Term Memory",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "message-passing",
             "title": "Message Passing",
             "tier": "verified",
@@ -12924,6 +13171,18 @@
             "id": "oversmoothing",
             "title": "Oversmoothing",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "vanishing-gradient",
+            "title": "Vanishing Gradient",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "weight-initialization",
+            "title": "Weight Initialization",
+            "tier": "frontier",
             "reviewed": false
           }
         ]
@@ -13169,7 +13428,7 @@
           {
             "id": "refusal",
             "title": "Refusal",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13406,7 +13665,7 @@
           {
             "id": "model-card",
             "title": "Model Card",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -14889,6 +15148,12 @@
             "title": "KV Cache",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "recurrent-neural-network",
+            "title": "Recurrent Neural Network",
+            "tier": "frontier",
+            "reviewed": false
           }
         ]
       }
@@ -15301,6 +15566,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "data-augmentation",
+            "title": "Data Augmentation",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "experience-replay",
             "title": "Experience Replay",
             "tier": "verified",
@@ -15331,7 +15602,7 @@
       "id": "system-prompt",
       "title": "System Prompt",
       "domain": "Behaviour / Interface",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -15352,7 +15623,7 @@
           {
             "id": "prompt-engineering",
             "title": "Prompt Engineering",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -16233,7 +16504,7 @@
           {
             "id": "open-weights",
             "title": "Open Weights",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -16451,6 +16722,50 @@
           {
             "id": "monte-carlo-tree-search",
             "title": "Monte Carlo Tree Search",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "vanishing-gradient",
+      "title": "Vanishing Gradient",
+      "domain": "Foundations / Optimization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "weight-initialization",
+            "title": "Weight Initialization",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "activation-function",
+            "title": "Activation Function",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "gradient-clipping",
+            "title": "Gradient Clipping",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "residual-connection",
+            "title": "Residual Connection",
             "tier": "verified",
             "reviewed": false
           }
@@ -17023,6 +17338,12 @@
             "reviewed": false
           },
           {
+            "id": "early-stopping",
+            "title": "Early Stopping",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "elastic-weight-consolidation",
             "title": "Elastic Weight Consolidation",
             "tier": "verified",
@@ -17049,6 +17370,31 @@
           {
             "id": "sharpness",
             "title": "Sharpness",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "weight-initialization",
+      "title": "Weight Initialization",
+      "domain": "Foundations / Optimization",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "vanishing-gradient",
+            "title": "Vanishing Gradient",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "residual-connection",
+            "title": "Residual Connection",
             "tier": "verified",
             "reviewed": false
           }
@@ -17369,6 +17715,59 @@
         {
           "from": "activation-checkpointing",
           "to": "sequence-parallelism",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "activation-function",
+      "center": {
+        "id": "activation-function",
+        "title": "Activation Function",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "feed-forward-network",
+          "title": "Feed-Forward Network",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "vanishing-gradient",
+          "title": "Vanishing Gradient",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "activation-function",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "activation-function",
+          "to": "feed-forward-network",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "activation-function",
+          "to": "vanishing-gradient",
           "type": "adjacent",
           "reviewed": false
         }
@@ -18978,7 +19377,7 @@
         {
           "id": "hallucination",
           "title": "Hallucination",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 48
         },
@@ -19254,49 +19653,70 @@
           "title": "Activation Checkpointing",
           "tier": "verified",
           "x": 200,
-          "y": 17
+          "y": 12
+        },
+        {
+          "id": "activation-function",
+          "title": "Activation Function",
+          "tier": "frontier",
+          "x": 200,
+          "y": 24
         },
         {
           "id": "autoencoder",
           "title": "Autoencoder",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 36
         },
         {
           "id": "convolutional-network",
           "title": "Convolutional Network",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 48
         },
         {
           "id": "feature-attribution",
           "title": "Feature Attribution",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 60
         },
         {
           "id": "gradient-clipping",
           "title": "Gradient Clipping",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 72
         },
         {
           "id": "gradient-descent",
           "title": "Gradient Descent",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 84
         },
         {
           "id": "mixed-precision-training",
           "title": "Mixed-Precision Training",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 96
+        },
+        {
+          "id": "recurrent-neural-network",
+          "title": "Recurrent Neural Network",
+          "tier": "frontier",
+          "x": 200,
+          "y": 108
+        },
+        {
+          "id": "vanishing-gradient",
+          "title": "Vanishing Gradient",
+          "tier": "frontier",
+          "x": 200,
+          "y": 120
         }
       ],
       "links": [
@@ -19309,6 +19729,12 @@
         {
           "from": "backpropagation",
           "to": "activation-checkpointing",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "activation-function",
           "type": "unlocks",
           "reviewed": false
         },
@@ -19347,6 +19773,58 @@
           "to": "mixed-precision-training",
           "type": "unlocks",
           "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "recurrent-neural-network",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "backpropagation",
+          "to": "vanishing-gradient",
+          "type": "unlocks",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "batch-normalization",
+      "center": {
+        "id": "batch-normalization",
+        "title": "Batch Normalization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "layer-normalization",
+          "title": "Layer Normalization",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "batch-size",
+          "title": "Batch Size",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "layer-normalization",
+          "to": "batch-normalization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "batch-normalization",
+          "to": "batch-size",
+          "type": "adjacent",
+          "reviewed": false
         }
       ]
     },
@@ -19382,32 +19860,39 @@
           "y": 88
         },
         {
+          "id": "batch-normalization",
+          "title": "Batch Normalization",
+          "tier": "frontier",
+          "x": 40,
+          "y": 22
+        },
+        {
           "id": "continuous-batching",
           "title": "Continuous Batching",
           "tier": "verified",
-          "x": 48,
-          "y": 22
+          "x": 80,
+          "y": 110
         },
         {
           "id": "dp-sgd",
           "title": "DP-SGD",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "neighborhood-sampling",
           "title": "Neighborhood Sampling",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "sharpness",
           "title": "Sharpness",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -19427,6 +19912,12 @@
           "from": "batch-size",
           "to": "gradient-accumulation",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "batch-size",
+          "to": "batch-normalization",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -20029,7 +20520,7 @@
         {
           "id": "guardrail",
           "title": "Guardrail",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -20064,7 +20555,7 @@
         {
           "id": "hallucination",
           "title": "Hallucination",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 74,
           "y": 110
         },
@@ -22137,7 +22628,7 @@
         {
           "id": "guardrail",
           "title": "Guardrail",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
@@ -22430,7 +22921,7 @@
         {
           "id": "system-prompt",
           "title": "System Prompt",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 113
         },
@@ -22791,50 +23282,57 @@
           "id": "audio-visual-learning",
           "title": "Audio-Visual Learning",
           "tier": "verified",
-          "x": 30,
+          "x": 27,
           "y": 22
+        },
+        {
+          "id": "data-augmentation",
+          "title": "Data Augmentation",
+          "tier": "frontier",
+          "x": 53,
+          "y": 110
         },
         {
           "id": "few-shot-learning",
           "title": "Few-Shot Learning",
           "tier": "verified",
-          "x": 60,
-          "y": 110
+          "x": 80,
+          "y": 22
         },
         {
           "id": "implicit-feedback",
           "title": "Implicit Feedback",
           "tier": "verified",
-          "x": 90,
-          "y": 22
+          "x": 107,
+          "y": 110
         },
         {
           "id": "mutual-information",
           "title": "Mutual Information",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 133,
+          "y": 22
         },
         {
           "id": "noise-contrastive-estimation",
           "title": "Noise-Contrastive Estimation",
           "tier": "verified",
-          "x": 150,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "self-supervised-learning",
           "title": "Self-Supervised Learning",
           "tier": "verified",
-          "x": 180,
-          "y": 110
+          "x": 187,
+          "y": 22
         },
         {
           "id": "speech-representation-learning",
           "title": "Speech Representation Learning",
           "tier": "verified",
-          "x": 210,
-          "y": 22
+          "x": 213,
+          "y": 110
         }
       ],
       "links": [
@@ -22877,6 +23375,12 @@
         {
           "from": "contrastive-learning",
           "to": "audio-visual-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "contrastive-learning",
+          "to": "data-augmentation",
           "type": "adjacent",
           "reviewed": false
         },
@@ -23478,22 +23982,29 @@
           "id": "benchmark-contamination",
           "title": "Benchmark Contamination",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "bias-variance-tradeoff",
           "title": "Bias-Variance Tradeoff",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "confounding",
           "title": "Confounding",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "early-stopping",
+          "title": "Early Stopping",
+          "tier": "frontier",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -23518,6 +24029,12 @@
         {
           "from": "cross-validation",
           "to": "confounding",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "cross-validation",
+          "to": "early-stopping",
           "type": "adjacent",
           "reviewed": false
         }
@@ -23662,7 +24179,7 @@
         {
           "id": "open-weights",
           "title": "Open Weights",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -23703,6 +24220,59 @@
         {
           "from": "dangerous-capability-evaluation",
           "to": "safety-benchmark-validity",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "data-augmentation",
+      "center": {
+        "id": "data-augmentation",
+        "title": "Data Augmentation",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "contrastive-learning",
+          "title": "Contrastive Learning",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "synthetic-data",
+          "title": "Synthetic Data",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "overfitting",
+          "to": "data-augmentation",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "data-augmentation",
+          "to": "contrastive-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "data-augmentation",
+          "to": "synthetic-data",
           "type": "adjacent",
           "reviewed": false
         }
@@ -24122,7 +24692,7 @@
         {
           "id": "model-card",
           "title": "Model Card",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -25678,6 +26248,59 @@
         {
           "from": "dynamic-programming-inference",
           "to": "beam-search",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "early-stopping",
+      "center": {
+        "id": "early-stopping",
+        "title": "Early Stopping",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "overfitting",
+          "title": "Overfitting",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "cross-validation",
+          "title": "Cross-Validation",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "weight-decay",
+          "title": "Weight Decay",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "overfitting",
+          "to": "early-stopping",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "early-stopping",
+          "to": "cross-validation",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "early-stopping",
+          "to": "weight-decay",
           "type": "adjacent",
           "reviewed": false
         }
@@ -27364,11 +27987,18 @@
           "y": 99
         },
         {
+          "id": "activation-function",
+          "title": "Activation Function",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "conditional-computation",
           "title": "Conditional Computation",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -27388,6 +28018,12 @@
           "from": "feed-forward-network",
           "to": "transformer-block",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "feed-forward-network",
+          "to": "activation-function",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -27712,7 +28348,7 @@
         {
           "id": "foundation-model",
           "title": "Foundation Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -28034,7 +28670,7 @@
       "center": {
         "id": "foundation-model",
         "title": "Foundation Model",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -28049,7 +28685,7 @@
         {
           "id": "open-weights",
           "title": "Open Weights",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -28466,15 +29102,22 @@
           "id": "dp-sgd",
           "title": "DP-SGD",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "edge-of-stability",
           "title": "Edge of Stability",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "vanishing-gradient",
+          "title": "Vanishing Gradient",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -28499,6 +29142,12 @@
         {
           "from": "gradient-clipping",
           "to": "edge-of-stability",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "gradient-clipping",
+          "to": "vanishing-gradient",
           "type": "adjacent",
           "reviewed": false
         }
@@ -29380,7 +30029,7 @@
       "center": {
         "id": "guardrail",
         "title": "Guardrail",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -29402,7 +30051,7 @@
         {
           "id": "refusal",
           "title": "Refusal",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -29433,7 +30082,7 @@
       "center": {
         "id": "hallucination",
         "title": "Hallucination",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -30050,7 +30699,7 @@
         {
           "id": "prompt-engineering",
           "title": "Prompt Engineering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -30731,7 +31380,7 @@
         {
           "id": "refusal",
           "title": "Refusal",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -31210,7 +31859,7 @@
         {
           "id": "hallucination",
           "title": "Hallucination",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -31786,18 +32435,25 @@
       },
       "nodes": [
         {
+          "id": "batch-normalization",
+          "title": "Batch Normalization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 33
+        },
+        {
           "id": "rmsnorm",
           "title": "RMSNorm",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 66
         },
         {
           "id": "transformer-block",
           "title": "Transformer Block",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "graph-convolution",
@@ -31822,6 +32478,12 @@
         }
       ],
       "links": [
+        {
+          "from": "layer-normalization",
+          "to": "batch-normalization",
+          "type": "unlocks",
+          "reviewed": false
+        },
         {
           "from": "layer-normalization",
           "to": "rmsnorm",
@@ -32666,6 +33328,46 @@
         {
           "from": "long-range-dependency",
           "to": "long-context-training",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "long-short-term-memory",
+      "center": {
+        "id": "long-short-term-memory",
+        "title": "Long Short-Term Memory",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "recurrent-neural-network",
+          "title": "Recurrent Neural Network",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "residual-connection",
+          "title": "Residual Connection",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "recurrent-neural-network",
+          "to": "long-short-term-memory",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "long-short-term-memory",
+          "to": "residual-connection",
           "type": "adjacent",
           "reviewed": false
         }
@@ -34919,7 +35621,7 @@
       "center": {
         "id": "model-card",
         "title": "Model Card",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -36676,7 +37378,7 @@
       "center": {
         "id": "open-weights",
         "title": "Open Weights",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -36684,7 +37386,7 @@
         {
           "id": "foundation-model",
           "title": "Foundation Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -36998,49 +37700,63 @@
           "title": "Bias-Variance Tradeoff",
           "tier": "verified",
           "x": 200,
-          "y": 17
+          "y": 13
         },
         {
           "id": "cross-validation",
           "title": "Cross-Validation",
           "tier": "verified",
           "x": 200,
-          "y": 33
+          "y": 26
+        },
+        {
+          "id": "data-augmentation",
+          "title": "Data Augmentation",
+          "tier": "frontier",
+          "x": 200,
+          "y": 40
         },
         {
           "id": "distribution-shift",
           "title": "Distribution Shift",
           "tier": "verified",
           "x": 200,
-          "y": 50
+          "y": 53
+        },
+        {
+          "id": "early-stopping",
+          "title": "Early Stopping",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "grokking",
           "title": "Grokking",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 79
         },
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
           "tier": "verified",
           "x": 200,
-          "y": 83
+          "y": 92
         },
         {
           "id": "membership-inference",
           "title": "Membership Inference",
           "tier": "verified",
           "x": 200,
-          "y": 99
+          "y": 106
         },
         {
           "id": "shortcut-learning",
           "title": "Shortcut Learning",
           "tier": "verified",
           "x": 200,
-          "y": 116
+          "y": 119
         },
         {
           "id": "decision-tree",
@@ -37099,7 +37815,19 @@
         },
         {
           "from": "overfitting",
+          "to": "data-augmentation",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
           "to": "distribution-shift",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "overfitting",
+          "to": "early-stopping",
           "type": "unlocks",
           "reviewed": false
         },
@@ -38117,7 +38845,7 @@
         {
           "id": "system-prompt",
           "title": "System Prompt",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -38204,7 +38932,7 @@
         {
           "id": "foundation-model",
           "title": "Foundation Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 55
         },
@@ -38707,7 +39435,7 @@
       "center": {
         "id": "prompt-engineering",
         "title": "Prompt Engineering",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -38729,7 +39457,7 @@
         {
           "id": "system-prompt",
           "title": "System Prompt",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -38796,7 +39524,7 @@
         {
           "id": "system-prompt",
           "title": "System Prompt",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 137,
           "y": 110
         },
@@ -39878,6 +40606,59 @@
       ]
     },
     {
+      "id": "recurrent-neural-network",
+      "center": {
+        "id": "recurrent-neural-network",
+        "title": "Recurrent Neural Network",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "long-short-term-memory",
+          "title": "Long Short-Term Memory",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "state-space-model",
+          "title": "State Space Model",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "recurrent-neural-network",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "recurrent-neural-network",
+          "to": "long-short-term-memory",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "recurrent-neural-network",
+          "to": "state-space-model",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "red-teaming",
       "center": {
         "id": "red-teaming",
@@ -39961,7 +40742,7 @@
       "center": {
         "id": "refusal",
         "title": "Refusal",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -39976,7 +40757,7 @@
         {
           "id": "guardrail",
           "title": "Guardrail",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -40036,7 +40817,7 @@
         {
           "id": "prompt-engineering",
           "title": "Prompt Engineering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -40307,22 +41088,43 @@
           "id": "layer-normalization",
           "title": "Layer Normalization",
           "tier": "verified",
-          "x": 60,
+          "x": 34,
           "y": 22
+        },
+        {
+          "id": "long-short-term-memory",
+          "title": "Long Short-Term Memory",
+          "tier": "frontier",
+          "x": 69,
+          "y": 110
         },
         {
           "id": "message-passing",
           "title": "Message Passing",
           "tier": "verified",
-          "x": 120,
-          "y": 110
+          "x": 103,
+          "y": 22
         },
         {
           "id": "oversmoothing",
           "title": "Oversmoothing",
           "tier": "verified",
-          "x": 180,
+          "x": 137,
+          "y": 110
+        },
+        {
+          "id": "vanishing-gradient",
+          "title": "Vanishing Gradient",
+          "tier": "frontier",
+          "x": 171,
           "y": 22
+        },
+        {
+          "id": "weight-initialization",
+          "title": "Weight Initialization",
+          "tier": "frontier",
+          "x": 206,
+          "y": 110
         }
       ],
       "links": [
@@ -40340,6 +41142,12 @@
         },
         {
           "from": "residual-connection",
+          "to": "long-short-term-memory",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "residual-connection",
           "to": "message-passing",
           "type": "adjacent",
           "reviewed": false
@@ -40347,6 +41155,18 @@
         {
           "from": "residual-connection",
           "to": "oversmoothing",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "residual-connection",
+          "to": "vanishing-gradient",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "residual-connection",
+          "to": "weight-initialization",
           "type": "adjacent",
           "reviewed": false
         }
@@ -40780,7 +41600,7 @@
         {
           "id": "refusal",
           "title": "Refusal",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -41220,7 +42040,7 @@
         {
           "id": "model-card",
           "title": "Model Card",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -43840,15 +44660,22 @@
           "id": "attention",
           "title": "Attention",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
         },
         {
           "id": "kv-cache",
           "title": "KV Cache",
           "tier": "verified",
-          "x": 160,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "recurrent-neural-network",
+          "title": "Recurrent Neural Network",
+          "tier": "frontier",
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -43879,6 +44706,12 @@
         {
           "from": "state-space-model",
           "to": "kv-cache",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "state-space-model",
+          "to": "recurrent-neural-network",
           "type": "adjacent",
           "reviewed": false
         }
@@ -44595,32 +45428,39 @@
           "y": 88
         },
         {
+          "id": "data-augmentation",
+          "title": "Data Augmentation",
+          "tier": "frontier",
+          "x": 40,
+          "y": 22
+        },
+        {
           "id": "experience-replay",
           "title": "Experience Replay",
           "tier": "verified",
-          "x": 48,
-          "y": 22
+          "x": 80,
+          "y": 110
         },
         {
           "id": "low-resource-language",
           "title": "Low-Resource Language",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "mode-collapse",
           "title": "Mode Collapse",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "output-watermarking",
           "title": "Output Watermarking",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -44634,6 +45474,12 @@
           "from": "knowledge-distillation",
           "to": "synthetic-data",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "synthetic-data",
+          "to": "data-augmentation",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -44667,7 +45513,7 @@
       "center": {
         "id": "system-prompt",
         "title": "System Prompt",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -44689,7 +45535,7 @@
         {
           "id": "prompt-engineering",
           "title": "Prompt Engineering",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },
@@ -46289,7 +47135,7 @@
         {
           "id": "open-weights",
           "title": "Open Weights",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -46699,6 +47545,85 @@
         {
           "from": "value-function",
           "to": "monte-carlo-tree-search",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "vanishing-gradient",
+      "center": {
+        "id": "vanishing-gradient",
+        "title": "Vanishing Gradient",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "weight-initialization",
+          "title": "Weight Initialization",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "activation-function",
+          "title": "Activation Function",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
+          "id": "gradient-clipping",
+          "title": "Gradient Clipping",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "residual-connection",
+          "title": "Residual Connection",
+          "tier": "verified",
+          "x": 180,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "backpropagation",
+          "to": "vanishing-gradient",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "vanishing-gradient",
+          "to": "weight-initialization",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "vanishing-gradient",
+          "to": "activation-function",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "vanishing-gradient",
+          "to": "gradient-clipping",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "vanishing-gradient",
+          "to": "residual-connection",
           "type": "adjacent",
           "reviewed": false
         }
@@ -47688,43 +48613,50 @@
           "id": "dropout",
           "title": "Dropout",
           "tier": "verified",
-          "x": 34,
+          "x": 30,
           "y": 22
+        },
+        {
+          "id": "early-stopping",
+          "title": "Early Stopping",
+          "tier": "frontier",
+          "x": 60,
+          "y": 110
         },
         {
           "id": "elastic-weight-consolidation",
           "title": "Elastic Weight Consolidation",
           "tier": "verified",
-          "x": 69,
-          "y": 110
+          "x": 90,
+          "y": 22
         },
         {
           "id": "implicit-regularization",
           "title": "Implicit Regularization",
           "tier": "verified",
-          "x": 103,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "minimum-description-length",
           "title": "Minimum Description Length",
           "tier": "verified",
-          "x": 137,
-          "y": 110
+          "x": 150,
+          "y": 22
         },
         {
           "id": "pruning",
           "title": "Pruning",
           "tier": "verified",
-          "x": 171,
-          "y": 22
+          "x": 180,
+          "y": 110
         },
         {
           "id": "sharpness",
           "title": "Sharpness",
           "tier": "verified",
-          "x": 206,
-          "y": 110
+          "x": 210,
+          "y": 22
         }
       ],
       "links": [
@@ -47749,6 +48681,12 @@
         {
           "from": "weight-decay",
           "to": "dropout",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "weight-decay",
+          "to": "early-stopping",
           "type": "adjacent",
           "reviewed": false
         },
@@ -47779,6 +48717,46 @@
         {
           "from": "weight-decay",
           "to": "sharpness",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "weight-initialization",
+      "center": {
+        "id": "weight-initialization",
+        "title": "Weight Initialization",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "vanishing-gradient",
+          "title": "Vanishing Gradient",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "residual-connection",
+          "title": "Residual Connection",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "vanishing-gradient",
+          "to": "weight-initialization",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "weight-initialization",
+          "to": "residual-connection",
           "type": "adjacent",
           "reviewed": false
         }

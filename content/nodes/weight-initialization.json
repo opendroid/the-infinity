@@ -1,0 +1,63 @@
+{
+  "id": "weight-initialization",
+  "title": "Weight Initialization",
+  "domain": [
+    "Foundations",
+    "Optimization"
+  ],
+  "bodies": {
+    "intuition": "The numbers a network starts with, before it has seen anything. It sounds arbitrary and is not: initialise too small and the signal fades as it passes through the layers, too large and it blows up, and either way a deep network fails to train at all. For years this was the difference between depth working and not.",
+    "engineer": "The schemes all set the scale from the layer's width, so the variance of the output matches the variance of the input and the forward pass neither shrinks nor grows. Rectifiers need a factor of two over the symmetric case, because they zero half their inputs and the surviving half must carry the variance. Modern architectures depend on this less than they used to — residual connections and normalisation both stabilise what initialisation was protecting — but the dependence is reduced rather than removed, and very deep stacks still need it.",
+    "math": "The condition is that the per-layer gain sits at one, because the forward signal is multiplied by it at each of L layers and anything else is exponential in depth. That is the same product that governs the backward pass, so an initialisation chosen to preserve the forward signal preserves the gradient too — one condition, both directions, which is why a single scale factor buys as much as it does."
+  },
+  "emphasis": {
+    "intuition": "For years this was the difference between depth working and not.",
+    "math": "one condition, both directions"
+  },
+  "viz": {
+    "primitive": "update-spectrum",
+    "params": {
+      "init_scale": 0.4,
+      "bars": 10
+    },
+    "param_controls": [
+      {
+        "name": "init_scale",
+        "min": 0,
+        "max": 4,
+        "step": 0.25
+      }
+    ],
+    "caption": "Activation magnitudes across a layer at initialisation, before and after the scale is applied. Drag the init scale up to watch the spread flatten out — the gain that keeps this neither collapsing nor exploding is set by the layer's width, in both directions at once."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "vanishing-gradient",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "residual-connection",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1502.01852",
+      "title": "Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification",
+      "url": "https://arxiv.org/abs/1502.01852"
+    },
+    {
+      "ref": "arXiv:1502.03167",
+      "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+      "url": "https://arxiv.org/abs/1502.03167"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

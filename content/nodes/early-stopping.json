@@ -1,0 +1,78 @@
+{
+  "id": "early-stopping",
+  "title": "Early Stopping",
+  "domain": [
+    "Foundations",
+    "Supervised"
+  ],
+  "bodies": {
+    "intuition": "Watch performance on data the model is not training on, and stop when it stops improving. It is the simplest regularisation available and it costs nothing — no extra term, no hyperparameter to search, just a decision about when to quit — which is why it is in almost every training loop whether or not anyone calls it that.",
+    "engineer": "The trap is what happens to the data you stopped on. Choosing the stopping point using a validation set makes that set part of the fitting procedure, so its score is no longer an unbiased estimate of anything — and it is optimistic by exactly the amount you selected for. A run that stops at the best of two hundred evaluated checkpoints has taken the maximum of two hundred noisy numbers, and reporting that maximum as performance is the error, not the stopping.",
+    "math": "The bias is a maximum over evaluations, so it grows with how often you check rather than with how long you train — check every step and you select harder than checking every epoch, on the same run. That is why a third split exists: validation chooses the checkpoint, test estimates the performance, and a system that reports the validation number has reported the thing it optimised."
+  },
+  "emphasis": {
+    "intuition": "a decision about when to quit",
+    "math": "a system that reports the validation number has reported the thing it optimised"
+  },
+  "viz": {
+    "primitive": "loss-curve",
+    "params": {
+      "steps": 2000,
+      "lr": 0.005,
+      "batch": 128,
+      "params": 10,
+      "holdout": 0.15
+    },
+    "param_controls": [
+      {
+        "name": "holdout",
+        "min": 0,
+        "max": 0.9,
+        "step": 0.05
+      }
+    ],
+    "caption": "A run scored on its training data and on data held back from it. Drag the holdout up to watch the second curve turn upward while the first keeps falling — the crossing is where stopping pays, and the number you read there is not an unbiased estimate of anything."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "overfitting",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "cross-validation",
+        "reviewed": false
+      },
+      {
+        "id": "weight-decay",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1611.03530",
+      "title": "Understanding deep learning requires rethinking generalization",
+      "url": "https://arxiv.org/abs/1611.03530"
+    },
+    {
+      "ref": "arXiv:1710.09412",
+      "title": "mixup: Beyond Empirical Risk Minimization",
+      "url": "https://arxiv.org/abs/1710.09412"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  },
+  "origin": [
+    {
+      "ref": "Prechelt 1998",
+      "title": "Early Stopping — But When?",
+      "venue": "Neural Networks: Tricks of the Trade, LNCS 1524, Springer",
+      "doi": "10.1007/3-540-49430-8_3"
+    }
+  ]
+}

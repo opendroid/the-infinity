@@ -1,0 +1,75 @@
+{
+  "id": "vanishing-gradient",
+  "title": "Vanishing Gradient",
+  "domain": [
+    "Foundations",
+    "Optimization"
+  ],
+  "bodies": {
+    "intuition": "Train a deep network and the early layers barely move. The signal that tells them how to change has to travel back through every layer above, being multiplied at each one, and if those multipliers are typically below one the signal is exponentially small by the time it arrives. The network is not stuck — it is learning at a rate that would take longer than anyone has.",
+    "engineer": "This is why several things in the corpus exist and it explains them better than they explain themselves. Residual connections give the gradient a path that skips the multiplication. Gating in recurrent networks gives it a path along which the multiplier is near one by construction. Careful initialisation sets the multipliers near one to begin with, and normalisation keeps them there. Each is an answer to the same arithmetic, which is why they arrived together and why a network usually needs more than one.",
+    "math": "Backpropagation through L layers multiplies L Jacobians, so the gradient's magnitude scales like the product of their norms — roughly r^L for a typical factor r. Anything below one collapses exponentially in depth and anything above one explodes, and the window where neither happens is narrow. That exponent is why the problem is qualitatively different from slow learning: doubling the depth does not double the difficulty, it squares it."
+  },
+  "emphasis": {
+    "intuition": "it is learning at a rate that would take longer than anyone has",
+    "math": "doubling the depth does not double the difficulty, it squares it"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "attenuated_layers": 4,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "attenuated_layers",
+        "min": 0,
+        "max": 300,
+        "step": 20
+      }
+    ],
+    "caption": "Depth over which the gradient has effectively vanished, against the layers still receiving a usable signal, in layers. Drag the attenuated depth up to watch the trainable part shrink to the top of the stack — the collapse is exponential in depth, not linear."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "backpropagation",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "residual-connection",
+        "reviewed": false
+      },
+      {
+        "id": "gradient-clipping",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1211.5063",
+      "title": "On the difficulty of training Recurrent Neural Networks",
+      "url": "https://arxiv.org/abs/1211.5063"
+    },
+    {
+      "ref": "arXiv:1502.01852",
+      "title": "Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification",
+      "url": "https://arxiv.org/abs/1502.01852"
+    }
+  ],
+  "origin": [
+    {
+      "ref": "Bengio, Simard & Frasconi 1994",
+      "title": "Learning Long-Term Dependencies with Gradient Descent is Difficult",
+      "venue": "IEEE Transactions on Neural Networks 5(2)",
+      "doi": "10.1109/72.279181"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
