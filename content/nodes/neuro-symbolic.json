@@ -1,0 +1,63 @@
+{
+  "id": "neuro-symbolic",
+  "title": "Neuro-Symbolic",
+  "domain": [
+    "Knowledge",
+    "Reasoning"
+  ],
+  "bodies": {
+    "intuition": "Neural networks are good at perception and bad at guarantees; symbolic systems are the reverse. Neuro-symbolic methods try to keep both — a network turns pixels or text into symbols, and a symbolic engine reasons over them with rules that hold exactly. The appeal is obvious and the difficulty is where the two meet.",
+    "engineer": "The join is the whole problem, because gradients do not pass through a discrete symbol. The approaches all relax something: make the logic probabilistic so its output is differentiable, treat the symbolic step as a non-differentiable action and train it with reinforcement, or keep the two entirely separate and accept that only one half learns. Each relaxation gives up part of what made the symbolic side attractive, which is why the field keeps producing systems that work on a benchmark and not on a domain.",
+    "math": "Where a differentiable relaxation is used, the cost is that inference sums over proofs rather than finding one, and the number of proofs grows with the size of the rule base. That is the practical ceiling: an exact probabilistic-logic system is exponential in the program, so every deployed version approximates, and the approximation is where the exactness the symbolic side was supposed to provide quietly goes."
+  },
+  "emphasis": {
+    "engineer": "gradients do not pass through a discrete symbol",
+    "math": "where the exactness the symbolic side was supposed to provide quietly goes"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "proofs_enumerated": 20,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "proofs_enumerated",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Proofs an exact probabilistic-logic inference must sum over, against the ones an approximation keeps, in proofs. Drag the enumerated count up to watch exactness become intractable — every deployed system sits on the other side of that line."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "logical-constraint",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "mechanistic-interpretability",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1904.12584",
+      "title": "The Neuro-Symbolic Concept Learner: Interpreting Scenes, Words, and Sentences From Natural Supervision",
+      "url": "https://arxiv.org/abs/1904.12584"
+    },
+    {
+      "ref": "arXiv:1805.10872",
+      "title": "DeepProbLog: Neural Probabilistic Logic Programming",
+      "url": "https://arxiv.org/abs/1805.10872"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

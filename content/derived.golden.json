@@ -601,7 +601,7 @@
       "id": "any-to-any-model",
       "title": "Any-to-Any Model",
       "domain": "Multimodal / Architecture",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -616,7 +616,7 @@
           {
             "id": "modality-fusion",
             "title": "Modality Fusion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -654,7 +654,7 @@
           {
             "id": "cross-modal-retrieval",
             "title": "Cross-Modal Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -861,7 +861,7 @@
       "id": "audio-visual-learning",
       "title": "Audio-Visual Learning",
       "domain": "Multimodal / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -1620,6 +1620,12 @@
             "reviewed": false
           },
           {
+            "id": "knowledge-conflict",
+            "title": "Knowledge Conflict",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "likelihood-vs-sample-quality",
             "title": "Likelihood vs Sample Quality",
             "tier": "verified",
@@ -2023,6 +2029,12 @@
             "reviewed": false
           },
           {
+            "id": "multi-hop-question-answering",
+            "title": "Multi-Hop Question Answering",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "test-time-compute",
             "title": "Test-Time Compute",
             "tier": "verified",
@@ -2161,7 +2173,7 @@
           {
             "id": "cross-modal-retrieval",
             "title": "Cross-Modal Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -2778,6 +2790,12 @@
             "title": "Grammar-Constrained Decoding",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "logical-constraint",
+            "title": "Logical Constraint",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -2921,6 +2939,12 @@
             "id": "long-range-dependency",
             "title": "Long-Range Dependency",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "parametric-vs-retrieved-knowledge",
+            "title": "Parametric vs Retrieved Knowledge",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -3075,7 +3099,7 @@
           {
             "id": "audio-visual-learning",
             "title": "Audio-Visual Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3246,7 +3270,7 @@
           {
             "id": "modality-fusion",
             "title": "Modality Fusion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3381,7 +3405,7 @@
       "id": "cross-modal-retrieval",
       "title": "Cross-Modal Retrieval",
       "domain": "Multimodal / Retrieval",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4128,6 +4152,12 @@
             "reviewed": false
           },
           {
+            "id": "entity-linking",
+            "title": "Entity Linking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "k-nearest-neighbors",
             "title": "k-Nearest Neighbors",
             "tier": "verified",
@@ -4449,7 +4479,7 @@
       "id": "document-understanding",
       "title": "Document Understanding",
       "domain": "Multimodal / Applications",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -4930,6 +4960,38 @@
           {
             "id": "compute-optimal-training",
             "title": "Compute-Optimal Training",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "entity-linking",
+      "title": "Entity Linking",
+      "domain": "Knowledge / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "knowledge-graph",
+            "title": "Knowledge Graph",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "multi-hop-question-answering",
+            "title": "Multi-Hop Question Answering",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "dense-retrieval",
+            "title": "Dense Retrieval",
             "tier": "verified",
             "reviewed": false
           }
@@ -6436,6 +6498,12 @@
             "reviewed": false
           },
           {
+            "id": "knowledge-graph",
+            "title": "Knowledge Graph",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "message-passing",
             "title": "Message Passing",
             "tier": "verified",
@@ -6728,7 +6796,7 @@
       "id": "image-generation-evaluation",
       "title": "Image Generation Evaluation",
       "domain": "Multimodal / Evaluation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -7552,6 +7620,31 @@
       }
     },
     {
+      "id": "knowledge-conflict",
+      "title": "Knowledge Conflict",
+      "domain": "Knowledge / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "parametric-vs-retrieved-knowledge",
+            "title": "Parametric vs Retrieved Knowledge",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "calibration",
+            "title": "Calibration",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "knowledge-distillation",
       "title": "Knowledge Distillation",
       "domain": "Compression / Methods",
@@ -7601,6 +7694,69 @@
           {
             "id": "weak-to-strong-generalization",
             "title": "Weak-to-Strong Generalization",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "knowledge-graph",
+      "title": "Knowledge Graph",
+      "domain": "Knowledge / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "graph-neural-network",
+            "title": "Graph Neural Network",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "entity-linking",
+            "title": "Entity Linking",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
+            "id": "knowledge-graph-embedding",
+            "title": "Knowledge Graph Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "retrieval-augmented-generation",
+            "title": "Retrieval-Augmented Generation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "knowledge-graph-embedding",
+      "title": "Knowledge Graph Embedding",
+      "domain": "Knowledge / Representation",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "knowledge-graph",
+            "title": "Knowledge Graph",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "token-embedding",
+            "title": "Token Embedding",
             "tier": "verified",
             "reviewed": false
           }
@@ -7761,7 +7917,7 @@
           {
             "id": "video-generation",
             "title": "Video Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -7942,7 +8098,7 @@
           {
             "id": "image-generation-evaluation",
             "title": "Image Generation Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -8050,7 +8206,7 @@
           {
             "id": "image-generation-evaluation",
             "title": "Image Generation Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8080,6 +8236,38 @@
           {
             "id": "synthesis-evaluation",
             "title": "Synthesis Evaluation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "logical-constraint",
+      "title": "Logical Constraint",
+      "domain": "Knowledge / Reasoning",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "constrained-decoding",
+            "title": "Constrained Decoding",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "neuro-symbolic",
+            "title": "Neuro-Symbolic",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "schema-conformance",
+            "title": "Schema Conformance",
             "tier": "verified",
             "reviewed": false
           }
@@ -8883,6 +9071,12 @@
             "reviewed": false
           },
           {
+            "id": "neuro-symbolic",
+            "title": "Neuro-Symbolic",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "probing-classifier",
             "title": "Probing Classifier",
             "tier": "verified",
@@ -8979,7 +9173,7 @@
           {
             "id": "image-generation-evaluation",
             "title": "Image Generation Evaluation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9333,7 +9527,7 @@
       "id": "modality-fusion",
       "title": "Modality Fusion",
       "domain": "Multimodal / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9347,7 +9541,7 @@
           {
             "id": "modality-imbalance",
             "title": "Modality Imbalance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9355,7 +9549,7 @@
           {
             "id": "any-to-any-model",
             "title": "Any-to-Any Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9371,13 +9565,13 @@
       "id": "modality-imbalance",
       "title": "Modality Imbalance",
       "domain": "Multimodal / Foundations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
             "id": "modality-fusion",
             "title": "Modality Fusion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -9838,6 +10032,37 @@
       }
     },
     {
+      "id": "multi-hop-question-answering",
+      "title": "Multi-Hop Question Answering",
+      "domain": "Knowledge / Reasoning",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "entity-linking",
+            "title": "Entity Linking",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "chain-of-thought",
+            "title": "Chain of Thought",
+            "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "search-over-thoughts",
+            "title": "Search Over Thoughts",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "multi-query-attention",
       "title": "Multi-Query Attention",
       "domain": "Attention / Efficiency",
@@ -10087,6 +10312,31 @@
           {
             "id": "speech-representation-learning",
             "title": "Speech Representation Learning",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "neuro-symbolic",
+      "title": "Neuro-Symbolic",
+      "domain": "Knowledge / Reasoning",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "logical-constraint",
+            "title": "Logical Constraint",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [],
+        "adjacent": [
+          {
+            "id": "mechanistic-interpretability",
+            "title": "Mechanistic Interpretability",
             "tier": "verified",
             "reviewed": false
           }
@@ -10728,6 +10978,38 @@
       }
     },
     {
+      "id": "parametric-vs-retrieved-knowledge",
+      "title": "Parametric vs Retrieved Knowledge",
+      "domain": "Knowledge / Foundations",
+      "tier": "frontier",
+      "edges": {
+        "requires": [
+          {
+            "id": "retrieval-augmented-generation",
+            "title": "Retrieval-Augmented Generation",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "knowledge-conflict",
+            "title": "Knowledge Conflict",
+            "tier": "frontier",
+            "reviewed": false
+          }
+        ],
+        "adjacent": [
+          {
+            "id": "context-window",
+            "title": "Context Window",
+            "tier": "verified",
+            "reviewed": false
+          }
+        ]
+      }
+    },
+    {
       "id": "parsing",
       "title": "Parsing",
       "domain": "Structure / Inference",
@@ -10814,7 +11096,7 @@
           {
             "id": "document-understanding",
             "title": "Document Understanding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -12290,7 +12572,7 @@
           {
             "id": "cross-modal-retrieval",
             "title": "Cross-Modal Retrieval",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -12371,6 +12653,12 @@
             "title": "Grounding",
             "tier": "verified",
             "reviewed": false
+          },
+          {
+            "id": "parametric-vs-retrieved-knowledge",
+            "title": "Parametric vs Retrieved Knowledge",
+            "tier": "frontier",
+            "reviewed": false
           }
         ],
         "adjacent": [
@@ -12390,6 +12678,12 @@
             "id": "in-context-learning",
             "title": "In-Context Learning",
             "tier": "verified",
+            "reviewed": false
+          },
+          {
+            "id": "knowledge-graph",
+            "title": "Knowledge Graph",
+            "tier": "frontier",
             "reviewed": false
           },
           {
@@ -13033,6 +13327,12 @@
         "unlocks": [],
         "adjacent": [
           {
+            "id": "logical-constraint",
+            "title": "Logical Constraint",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "structured-output",
             "title": "Structured Output",
             "tier": "verified",
@@ -13126,6 +13426,12 @@
         ],
         "unlocks": [],
         "adjacent": [
+          {
+            "id": "multi-hop-question-answering",
+            "title": "Multi-Hop Question Answering",
+            "tier": "frontier",
+            "reviewed": false
+          },
           {
             "id": "verifier-model",
             "title": "Verifier Model",
@@ -13388,7 +13694,7 @@
           {
             "id": "audio-visual-learning",
             "title": "Audio-Visual Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13666,7 +13972,7 @@
           {
             "id": "modality-imbalance",
             "title": "Modality Imbalance",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -15248,6 +15554,12 @@
         ],
         "adjacent": [
           {
+            "id": "knowledge-graph-embedding",
+            "title": "Knowledge Graph Embedding",
+            "tier": "frontier",
+            "reviewed": false
+          },
+          {
             "id": "superposition",
             "title": "Superposition",
             "tier": "verified",
@@ -15868,7 +16180,7 @@
           {
             "id": "any-to-any-model",
             "title": "Any-to-Any Model",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -15960,7 +16272,7 @@
       "id": "video-generation",
       "title": "Video Generation",
       "domain": "Multimodal / Generation",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -16000,7 +16312,7 @@
           {
             "id": "audio-visual-learning",
             "title": "Audio-Visual Learning",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -16012,7 +16324,7 @@
           {
             "id": "video-generation",
             "title": "Video Generation",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -16094,13 +16406,13 @@
           {
             "id": "document-understanding",
             "title": "Document Understanding",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
             "id": "modality-fusion",
             "title": "Modality Fusion",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -17555,7 +17867,7 @@
       "center": {
         "id": "any-to-any-model",
         "title": "Any-to-Any Model",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -17570,7 +17882,7 @@
         {
           "id": "modality-fusion",
           "title": "Modality Fusion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         }
@@ -17624,7 +17936,7 @@
         {
           "id": "cross-modal-retrieval",
           "title": "Cross-Modal Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -18029,7 +18341,7 @@
       "center": {
         "id": "audio-visual-learning",
         "title": "Audio-Visual Learning",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -19355,71 +19667,78 @@
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 22,
+          "x": 20,
           "y": 22
         },
         {
           "id": "certified-robustness",
           "title": "Certified Robustness",
           "tier": "verified",
-          "x": 44,
+          "x": 40,
           "y": 110
         },
         {
           "id": "differential-privacy",
           "title": "Differential Privacy",
           "tier": "verified",
-          "x": 65,
+          "x": 60,
           "y": 22
         },
         {
           "id": "impossibility-result",
           "title": "Impossibility Result",
           "tier": "verified",
-          "x": 87,
+          "x": 80,
           "y": 110
+        },
+        {
+          "id": "knowledge-conflict",
+          "title": "Knowledge Conflict",
+          "tier": "frontier",
+          "x": 100,
+          "y": 22
         },
         {
           "id": "likelihood-vs-sample-quality",
           "title": "Likelihood vs Sample Quality",
           "tier": "verified",
-          "x": 109,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "out-of-distribution-detection",
           "title": "Out-of-Distribution Detection",
           "tier": "verified",
-          "x": 131,
-          "y": 110
+          "x": 140,
+          "y": 22
         },
         {
           "id": "probabilistic-forecasting",
           "title": "Probabilistic Forecasting",
           "tier": "verified",
-          "x": 153,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "production-monitoring",
           "title": "Production Monitoring",
           "tier": "verified",
-          "x": 175,
-          "y": 110
+          "x": 180,
+          "y": 22
         },
         {
           "id": "rlhf",
           "title": "RLHF",
           "tier": "verified",
-          "x": 196,
-          "y": 22
+          "x": 200,
+          "y": 110
         },
         {
           "id": "word-error-rate",
           "title": "Word Error Rate",
           "tier": "verified",
-          "x": 218,
-          "y": 110
+          "x": 220,
+          "y": 22
         }
       ],
       "links": [
@@ -19468,6 +19787,12 @@
         {
           "from": "calibration",
           "to": "impossibility-result",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "calibration",
+          "to": "knowledge-conflict",
           "type": "adjacent",
           "reviewed": false
         },
@@ -20112,22 +20437,29 @@
           "id": "compression-quality-tradeoff",
           "title": "Compression-Quality Tradeoff",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "kv-cache",
           "title": "KV Cache",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
+        },
+        {
+          "id": "multi-hop-question-answering",
+          "title": "Multi-Hop Question Answering",
+          "tier": "frontier",
+          "x": 144,
+          "y": 22
         },
         {
           "id": "test-time-compute",
           "title": "Test-Time Compute",
           "tier": "verified",
-          "x": 180,
-          "y": 22
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -20170,6 +20502,12 @@
         {
           "from": "chain-of-thought",
           "to": "kv-cache",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "chain-of-thought",
+          "to": "multi-hop-question-answering",
           "type": "adjacent",
           "reviewed": false
         },
@@ -20393,7 +20731,7 @@
         {
           "id": "cross-modal-retrieval",
           "title": "Cross-Modal Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -21478,7 +21816,14 @@
           "title": "Grammar-Constrained Decoding",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "logical-constraint",
+          "title": "Logical Constraint",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "function-calling",
@@ -21504,6 +21849,12 @@
         {
           "from": "constrained-decoding",
           "to": "grammar-constrained-decoding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "constrained-decoding",
+          "to": "logical-constraint",
           "type": "unlocks",
           "reviewed": false
         },
@@ -21671,43 +22022,50 @@
           "id": "effective-context-length",
           "title": "Effective Context Length",
           "tier": "verified",
-          "x": 34,
+          "x": 30,
           "y": 22
         },
         {
           "id": "grounding",
           "title": "Grounding",
           "tier": "verified",
-          "x": 69,
+          "x": 60,
           "y": 110
         },
         {
           "id": "long-horizon-agent",
           "title": "Long-Horizon Agent",
           "tier": "verified",
-          "x": 103,
+          "x": 90,
           "y": 22
         },
         {
           "id": "long-range-dependency",
           "title": "Long-Range Dependency",
           "tier": "verified",
-          "x": 137,
+          "x": 120,
           "y": 110
+        },
+        {
+          "id": "parametric-vs-retrieved-knowledge",
+          "title": "Parametric vs Retrieved Knowledge",
+          "tier": "frontier",
+          "x": 150,
+          "y": 22
         },
         {
           "id": "rotary-position-embedding",
           "title": "Rotary Position Embedding",
           "tier": "verified",
-          "x": 171,
-          "y": 22
+          "x": 180,
+          "y": 110
         },
         {
           "id": "tokenizer-fairness",
           "title": "Tokenizer Fairness",
           "tier": "verified",
-          "x": 206,
-          "y": 110
+          "x": 210,
+          "y": 22
         }
       ],
       "links": [
@@ -21774,6 +22132,12 @@
         {
           "from": "context-window",
           "to": "long-range-dependency",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "context-window",
+          "to": "parametric-vs-retrieved-knowledge",
           "type": "adjacent",
           "reviewed": false
         },
@@ -22004,7 +22368,7 @@
         {
           "id": "audio-visual-learning",
           "title": "Audio-Visual Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 30,
           "y": 22
         },
@@ -22344,7 +22708,7 @@
         {
           "id": "modality-fusion",
           "title": "Modality Fusion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 79
         },
@@ -22623,7 +22987,7 @@
       "center": {
         "id": "cross-modal-retrieval",
         "title": "Cross-Modal Retrieval",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -23926,29 +24290,36 @@
           "id": "collaborative-filtering",
           "title": "Collaborative Filtering",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
+        },
+        {
+          "id": "entity-linking",
+          "title": "Entity Linking",
+          "tier": "frontier",
+          "x": 80,
+          "y": 110
         },
         {
           "id": "k-nearest-neighbors",
           "title": "k-Nearest Neighbors",
           "tier": "verified",
-          "x": 96,
-          "y": 110
+          "x": 120,
+          "y": 22
         },
         {
           "id": "sparse-retrieval",
           "title": "Sparse Retrieval",
           "tier": "verified",
-          "x": 144,
-          "y": 22
+          "x": 160,
+          "y": 110
         },
         {
           "id": "tool-selection",
           "title": "Tool Selection",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -23991,6 +24362,12 @@
         {
           "from": "dense-retrieval",
           "to": "collaborative-filtering",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "dense-retrieval",
+          "to": "entity-linking",
           "type": "adjacent",
           "reviewed": false
         },
@@ -24559,7 +24936,7 @@
       "center": {
         "id": "document-understanding",
         "title": "Document Understanding",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -25408,6 +25785,59 @@
         {
           "from": "energy-cost-of-training",
           "to": "compute-optimal-training",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "entity-linking",
+      "center": {
+        "id": "entity-linking",
+        "title": "Entity Linking",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "knowledge-graph",
+          "title": "Knowledge Graph",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "multi-hop-question-answering",
+          "title": "Multi-Hop Question Answering",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "dense-retrieval",
+          "title": "Dense Retrieval",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "knowledge-graph",
+          "to": "entity-linking",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "entity-linking",
+          "to": "multi-hop-question-answering",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "entity-linking",
+          "to": "dense-retrieval",
           "type": "adjacent",
           "reviewed": false
         }
@@ -28115,14 +28545,21 @@
           "title": "Causal Discovery",
           "tier": "verified",
           "x": 200,
-          "y": 44
+          "y": 33
+        },
+        {
+          "id": "knowledge-graph",
+          "title": "Knowledge Graph",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
         },
         {
           "id": "message-passing",
           "title": "Message Passing",
           "tier": "verified",
           "x": 200,
-          "y": 88
+          "y": 99
         },
         {
           "id": "attention",
@@ -28136,6 +28573,12 @@
         {
           "from": "graph-neural-network",
           "to": "causal-discovery",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "graph-neural-network",
+          "to": "knowledge-graph",
           "type": "unlocks",
           "reviewed": false
         },
@@ -28634,7 +29077,7 @@
       "center": {
         "id": "image-generation-evaluation",
         "title": "Image Generation Evaluation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -30095,6 +30538,46 @@
       ]
     },
     {
+      "id": "knowledge-conflict",
+      "center": {
+        "id": "knowledge-conflict",
+        "title": "Knowledge Conflict",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "parametric-vs-retrieved-knowledge",
+          "title": "Parametric vs Retrieved Knowledge",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "calibration",
+          "title": "Calibration",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "parametric-vs-retrieved-knowledge",
+          "to": "knowledge-conflict",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-conflict",
+          "to": "calibration",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "knowledge-distillation",
       "center": {
         "id": "knowledge-distillation",
@@ -30194,6 +30677,112 @@
         {
           "from": "knowledge-distillation",
           "to": "weak-to-strong-generalization",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "knowledge-graph",
+      "center": {
+        "id": "knowledge-graph",
+        "title": "Knowledge Graph",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "graph-neural-network",
+          "title": "Graph Neural Network",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "entity-linking",
+          "title": "Entity Linking",
+          "tier": "frontier",
+          "x": 200,
+          "y": 44
+        },
+        {
+          "id": "knowledge-graph-embedding",
+          "title": "Knowledge Graph Embedding",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
+        },
+        {
+          "id": "retrieval-augmented-generation",
+          "title": "Retrieval-Augmented Generation",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "graph-neural-network",
+          "to": "knowledge-graph",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-graph",
+          "to": "entity-linking",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-graph",
+          "to": "knowledge-graph-embedding",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-graph",
+          "to": "retrieval-augmented-generation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "knowledge-graph-embedding",
+      "center": {
+        "id": "knowledge-graph-embedding",
+        "title": "Knowledge Graph Embedding",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "knowledge-graph",
+          "title": "Knowledge Graph",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "token-embedding",
+          "title": "Token Embedding",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "knowledge-graph",
+          "to": "knowledge-graph-embedding",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "knowledge-graph-embedding",
+          "to": "token-embedding",
           "type": "adjacent",
           "reviewed": false
         }
@@ -30475,7 +31064,7 @@
         {
           "id": "video-generation",
           "title": "Video Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -30798,7 +31387,7 @@
         {
           "id": "image-generation-evaluation",
           "title": "Image Generation Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -30971,7 +31560,7 @@
         {
           "id": "image-generation-evaluation",
           "title": "Image Generation Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -31075,6 +31664,59 @@
         {
           "from": "llm-as-judge",
           "to": "synthesis-evaluation",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "logical-constraint",
+      "center": {
+        "id": "logical-constraint",
+        "title": "Logical Constraint",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "constrained-decoding",
+          "title": "Constrained Decoding",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "neuro-symbolic",
+          "title": "Neuro-Symbolic",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "schema-conformance",
+          "title": "Schema Conformance",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "constrained-decoding",
+          "to": "logical-constraint",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "logical-constraint",
+          "to": "neuro-symbolic",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "logical-constraint",
+          "to": "schema-conformance",
           "type": "adjacent",
           "reviewed": false
         }
@@ -32466,29 +33108,36 @@
           "id": "attention",
           "title": "Attention",
           "tier": "verified",
-          "x": 48,
+          "x": 40,
           "y": 22
         },
         {
           "id": "deceptive-alignment",
           "title": "Deceptive Alignment",
           "tier": "verified",
-          "x": 96,
+          "x": 80,
           "y": 110
         },
         {
           "id": "feature-attribution",
           "title": "Feature Attribution",
           "tier": "verified",
-          "x": 144,
+          "x": 120,
           "y": 22
+        },
+        {
+          "id": "neuro-symbolic",
+          "title": "Neuro-Symbolic",
+          "tier": "frontier",
+          "x": 160,
+          "y": 110
         },
         {
           "id": "probing-classifier",
           "title": "Probing Classifier",
           "tier": "verified",
-          "x": 192,
-          "y": 110
+          "x": 200,
+          "y": 22
         }
       ],
       "links": [
@@ -32519,6 +33168,12 @@
         {
           "from": "mechanistic-interpretability",
           "to": "feature-attribution",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "mechanistic-interpretability",
+          "to": "neuro-symbolic",
           "type": "adjacent",
           "reviewed": false
         },
@@ -32669,7 +33324,7 @@
         {
           "id": "image-generation-evaluation",
           "title": "Image Generation Evaluation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -33301,7 +33956,7 @@
       "center": {
         "id": "modality-fusion",
         "title": "Modality Fusion",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -33316,14 +33971,14 @@
         {
           "id": "modality-imbalance",
           "title": "Modality Imbalance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
         {
           "id": "any-to-any-model",
           "title": "Any-to-Any Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -33367,7 +34022,7 @@
       "center": {
         "id": "modality-imbalance",
         "title": "Modality Imbalance",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -33375,7 +34030,7 @@
         {
           "id": "modality-fusion",
           "title": "Modality Fusion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -34182,6 +34837,59 @@
       ]
     },
     {
+      "id": "multi-hop-question-answering",
+      "center": {
+        "id": "multi-hop-question-answering",
+        "title": "Multi-Hop Question Answering",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "entity-linking",
+          "title": "Entity Linking",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "chain-of-thought",
+          "title": "Chain of Thought",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
+          "id": "search-over-thoughts",
+          "title": "Search Over Thoughts",
+          "tier": "verified",
+          "x": 160,
+          "y": 110
+        }
+      ],
+      "links": [
+        {
+          "from": "entity-linking",
+          "to": "multi-hop-question-answering",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "multi-hop-question-answering",
+          "to": "chain-of-thought",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "multi-hop-question-answering",
+          "to": "search-over-thoughts",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "multi-query-attention",
       "center": {
         "id": "multi-query-attention",
@@ -34625,6 +35333,46 @@
         {
           "from": "neural-audio-codec",
           "to": "speech-representation-learning",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "id": "neuro-symbolic",
+      "center": {
+        "id": "neuro-symbolic",
+        "title": "Neuro-Symbolic",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "logical-constraint",
+          "title": "Logical Constraint",
+          "tier": "frontier",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "mechanistic-interpretability",
+          "title": "Mechanistic Interpretability",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "logical-constraint",
+          "to": "neuro-symbolic",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "neuro-symbolic",
+          "to": "mechanistic-interpretability",
           "type": "adjacent",
           "reviewed": false
         }
@@ -35753,6 +36501,59 @@
       ]
     },
     {
+      "id": "parametric-vs-retrieved-knowledge",
+      "center": {
+        "id": "parametric-vs-retrieved-knowledge",
+        "title": "Parametric vs Retrieved Knowledge",
+        "tier": "frontier",
+        "x": 120,
+        "y": 66
+      },
+      "nodes": [
+        {
+          "id": "retrieval-augmented-generation",
+          "title": "Retrieval-Augmented Generation",
+          "tier": "verified",
+          "x": 40,
+          "y": 66
+        },
+        {
+          "id": "knowledge-conflict",
+          "title": "Knowledge Conflict",
+          "tier": "frontier",
+          "x": 200,
+          "y": 66
+        },
+        {
+          "id": "context-window",
+          "title": "Context Window",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
+        }
+      ],
+      "links": [
+        {
+          "from": "retrieval-augmented-generation",
+          "to": "parametric-vs-retrieved-knowledge",
+          "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "parametric-vs-retrieved-knowledge",
+          "to": "knowledge-conflict",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "parametric-vs-retrieved-knowledge",
+          "to": "context-window",
+          "type": "adjacent",
+          "reviewed": false
+        }
+      ]
+    },
+    {
       "id": "parsing",
       "center": {
         "id": "parsing",
@@ -35885,7 +36686,7 @@
         {
           "id": "document-understanding",
           "title": "Document Understanding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 44
         },
@@ -38517,7 +39318,7 @@
         {
           "id": "cross-modal-retrieval",
           "title": "Cross-Modal Retrieval",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 96,
           "y": 110
         },
@@ -38670,49 +39471,63 @@
           "title": "Grounding",
           "tier": "verified",
           "x": 200,
-          "y": 66
+          "y": 44
+        },
+        {
+          "id": "parametric-vs-retrieved-knowledge",
+          "title": "Parametric vs Retrieved Knowledge",
+          "tier": "frontier",
+          "x": 200,
+          "y": 88
         },
         {
           "id": "agent-memory",
           "title": "Agent Memory",
           "tier": "verified",
-          "x": 34,
+          "x": 30,
           "y": 22
         },
         {
           "id": "context-compression",
           "title": "Context Compression",
           "tier": "verified",
-          "x": 69,
+          "x": 60,
           "y": 110
         },
         {
           "id": "in-context-learning",
           "title": "In-Context Learning",
           "tier": "verified",
-          "x": 103,
+          "x": 90,
           "y": 22
+        },
+        {
+          "id": "knowledge-graph",
+          "title": "Knowledge Graph",
+          "tier": "frontier",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "lost-in-the-middle",
           "title": "Lost in the Middle",
           "tier": "verified",
-          "x": 137,
-          "y": 110
+          "x": 150,
+          "y": 22
         },
         {
           "id": "repository-context",
           "title": "Repository Context",
           "tier": "verified",
-          "x": 171,
-          "y": 22
+          "x": 180,
+          "y": 110
         },
         {
           "id": "training-data-licensing",
           "title": "Training Data Licensing",
           "tier": "verified",
-          "x": 206,
-          "y": 110
+          "x": 210,
+          "y": 22
         }
       ],
       "links": [
@@ -38736,6 +39551,12 @@
         },
         {
           "from": "retrieval-augmented-generation",
+          "to": "parametric-vs-retrieved-knowledge",
+          "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "retrieval-augmented-generation",
           "to": "agent-memory",
           "type": "adjacent",
           "reviewed": false
@@ -38749,6 +39570,12 @@
         {
           "from": "retrieval-augmented-generation",
           "to": "in-context-learning",
+          "type": "adjacent",
+          "reviewed": false
+        },
+        {
+          "from": "retrieval-augmented-generation",
+          "to": "knowledge-graph",
           "type": "adjacent",
           "reviewed": false
         },
@@ -39883,18 +40710,25 @@
           "y": 66
         },
         {
+          "id": "logical-constraint",
+          "title": "Logical Constraint",
+          "tier": "frontier",
+          "x": 60,
+          "y": 22
+        },
+        {
           "id": "structured-output",
           "title": "Structured Output",
           "tier": "verified",
-          "x": 80,
-          "y": 22
+          "x": 120,
+          "y": 110
         },
         {
           "id": "tool-schema",
           "title": "Tool Schema",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -39902,6 +40736,12 @@
           "from": "grammar-constrained-decoding",
           "to": "schema-conformance",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "schema-conformance",
+          "to": "logical-constraint",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -40042,11 +40882,18 @@
           "y": 66
         },
         {
+          "id": "multi-hop-question-answering",
+          "title": "Multi-Hop Question Answering",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "verifier-model",
           "title": "Verifier Model",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -40054,6 +40901,12 @@
           "from": "monte-carlo-tree-search",
           "to": "search-over-thoughts",
           "type": "requires",
+          "reviewed": false
+        },
+        {
+          "from": "search-over-thoughts",
+          "to": "multi-hop-question-answering",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -40494,7 +41347,7 @@
         {
           "id": "audio-visual-learning",
           "title": "Audio-Visual Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -40952,7 +41805,7 @@
         {
           "id": "modality-imbalance",
           "title": "Modality Imbalance",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 22
         },
@@ -43821,11 +44674,18 @@
           "y": 99
         },
         {
+          "id": "knowledge-graph-embedding",
+          "title": "Knowledge Graph Embedding",
+          "tier": "frontier",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "superposition",
           "title": "Superposition",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -43851,6 +44711,12 @@
           "from": "token-embedding",
           "to": "prompt-tuning",
           "type": "unlocks",
+          "reviewed": false
+        },
+        {
+          "from": "token-embedding",
+          "to": "knowledge-graph-embedding",
+          "type": "adjacent",
           "reviewed": false
         },
         {
@@ -44961,7 +45827,7 @@
         {
           "id": "any-to-any-model",
           "title": "Any-to-Any Model",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 33
         },
@@ -45143,7 +46009,7 @@
       "center": {
         "id": "video-generation",
         "title": "Video Generation",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -45198,7 +46064,7 @@
         {
           "id": "audio-visual-learning",
           "title": "Audio-Visual Learning",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -45212,7 +46078,7 @@
         {
           "id": "video-generation",
           "title": "Video Generation",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -45351,14 +46217,14 @@
         {
           "id": "document-understanding",
           "title": "Document Understanding",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
         {
           "id": "modality-fusion",
           "title": "Modality Fusion",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 120,
           "y": 110
         },

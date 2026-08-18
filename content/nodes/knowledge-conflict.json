@@ -1,0 +1,63 @@
+{
+  "id": "knowledge-conflict",
+  "title": "Knowledge Conflict",
+  "domain": [
+    "Knowledge",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "You retrieve a document saying the population is nine million; the model learned eight. Which wins? The answer is not a policy anybody chose — it is whatever the model happens to do, and what it happens to do varies with how the two are phrased, how confident the parameters are, and where in the context the retrieved fact sits.",
+    "engineer": "Measured directly by substituting an entity in a retrieved passage and seeing whether the answer follows the passage or the parameters. Models follow the context more often when the substituted fact is plausible and less often when it contradicts something they hold strongly — which is reasonable behaviour and is not the instructed behaviour, because nobody instructed any. A system that retrieves in order to be current is silently relying on the context winning.",
+    "math": "This is a competition between two evidence sources with no arbiter, so the outcome is set by their relative strength rather than by their correctness. The share of cases where the retrieved fact wins rises with how weakly the parameters hold the alternative — which means the conflicts a system gets wrong are concentrated on exactly the facts it was most confident about, and those are the ones a reader is least likely to check."
+  },
+  "emphasis": {
+    "intuition": "it is whatever the model happens to do",
+    "math": "the conflicts a system gets wrong are concentrated on exactly the facts it was most confident about"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "context_wins": 20,
+      "share_rest": 40
+    },
+    "param_controls": [
+      {
+        "name": "context_wins",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Conflicts resolved in favour of the retrieved passage, against ones resolved in favour of the weights, in conflicts. Drag the context's share up to watch retrieval take over — no rule decides this, so where the bar sits is a measurement rather than a setting."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "parametric-vs-retrieved-knowledge",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "calibration",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2109.05052",
+      "title": "Entity-Based Knowledge Conflicts in Question Answering",
+      "url": "https://arxiv.org/abs/2109.05052"
+    },
+    {
+      "ref": "arXiv:1909.01066",
+      "title": "Language Models as Knowledge Bases?",
+      "url": "https://arxiv.org/abs/1909.01066"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

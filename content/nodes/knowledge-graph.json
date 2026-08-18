@@ -1,0 +1,63 @@
+{
+  "id": "knowledge-graph",
+  "title": "Knowledge Graph",
+  "domain": [
+    "Knowledge",
+    "Foundations"
+  ],
+  "bodies": {
+    "intuition": "Facts written as triples — subject, relation, object — so that \"Ada Lovelace\" and \"born in\" and \"London\" become an edge a machine can traverse. It is the oldest idea in this corpus and the one a reader is most likely to have met outside it, because a great deal of the structured web is one.",
+    "engineer": "What it buys over free text is that a query is a traversal rather than a search: the answer to a two-step question is a path, and the path is auditable. What it costs is that everything has to be extracted and typed first, and that the schema someone chose is now load-bearing — a relation your ontology does not have is a fact your graph cannot hold, however plainly the source states it.",
+    "math": "Real graphs are extremely sparse, and this is the fact that governs everything built on them. With n entities and r relation types there are r·n² possible triples and the number asserted is a vanishing fraction of that, so absence carries almost no information. Treating an unasserted triple as false — the closed-world assumption — is therefore wrong at scale, and every method here either makes an open-world assumption or samples negatives it has no right to call negative."
+  },
+  "emphasis": {
+    "engineer": "a relation your ontology does not have is a fact your graph cannot hold",
+    "math": "absence carries almost no information"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "unasserted_triples": 40,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "unasserted_triples",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Triples the schema permits and nobody asserted, against the ones actually in the graph, in equal units. Drag the unasserted count up to watch it dominate — which is why treating a missing edge as a false fact is wrong rather than merely conservative."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "graph-neural-network",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "retrieval-augmented-generation",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:2002.00388",
+      "title": "A Survey on Knowledge Graphs: Representation, Acquisition and Applications",
+      "url": "https://arxiv.org/abs/2002.00388"
+    },
+    {
+      "ref": "arXiv:1503.00759",
+      "title": "A Review of Relational Machine Learning for Knowledge Graphs",
+      "url": "https://arxiv.org/abs/1503.00759"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

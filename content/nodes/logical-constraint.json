@@ -1,0 +1,63 @@
+{
+  "id": "logical-constraint",
+  "title": "Logical Constraint",
+  "domain": [
+    "Knowledge",
+    "Reasoning"
+  ],
+  "bodies": {
+    "intuition": "Some things must never be output: a schedule with two events in one room, a molecule that violates valence, an answer contradicting a rule the domain guarantees. A logical constraint is that requirement expressed so a learned system respects it — and the interesting question is whether it is enforced or merely encouraged.",
+    "engineer": "Two ways, and they are not interchangeable. Add the violation to the loss and the model learns to avoid it usually, which is cheap, differentiable and provides no guarantee. Or enforce it at decoding, where the constraint is checked against partial output and violating continuations are removed, which guarantees the property and costs a checker in the inner loop. `constrained-decoding` is the second applied to output SHAPE; this is the same machinery applied to output CONTENT, which is harder because content constraints are rarely prefix-checkable.",
+    "math": "Prefix-checkability is the property that decides which method is available. A constraint you can evaluate on a partial output can be enforced by masking, because you know at each step whether a continuation is still viable. A constraint that can only be evaluated on a complete output cannot — you would have to generate first and reject after, which turns a guarantee into a retry loop whose expected cost grows as the satisfying fraction shrinks."
+  },
+  "emphasis": {
+    "intuition": "whether it is enforced or merely encouraged",
+    "math": "Prefix-checkability is the property that decides which method is available."
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "rejected_generations": 8,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "rejected_generations",
+        "min": 0,
+        "max": 400,
+        "step": 20
+      }
+    ],
+    "caption": "Complete outputs generated and thrown away for violating a constraint, against the ones accepted, in outputs. Drag the rejected count up to watch a guarantee become a retry loop — which is what happens whenever the constraint is not prefix-checkable."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "constrained-decoding",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "schema-conformance",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1805.10872",
+      "title": "DeepProbLog: Neural Probabilistic Logic Programming",
+      "url": "https://arxiv.org/abs/1805.10872"
+    },
+    {
+      "ref": "arXiv:2306.08302",
+      "title": "Unifying Large Language Models and Knowledge Graphs: A Roadmap",
+      "url": "https://arxiv.org/abs/2306.08302"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

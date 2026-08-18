@@ -1,0 +1,63 @@
+{
+  "id": "knowledge-graph-embedding",
+  "title": "Knowledge Graph Embedding",
+  "domain": [
+    "Knowledge",
+    "Representation"
+  ],
+  "bodies": {
+    "intuition": "Give every entity and every relation a vector, and score a triple by how well the three fit together. The point is not compression: it is that a scoring function trained on the edges you have will assign high scores to edges you do not, which is link prediction — filling in a graph from its own shape.",
+    "engineer": "The families differ in what their scoring function can express. Translation-style scores treat a relation as a shift and cannot represent a symmetric relation without collapsing it. Bilinear scores handle symmetry and struggle with antisymmetry. Rotation in complex space handles symmetry, antisymmetry, inversion and composition together, which is why it became the reference point — the argument was never about accuracy first, it was about which patterns the algebra permits.",
+    "math": "Expressiveness is the checkable property. A relation is symmetric if scoring (h, r, t) equals scoring (t, r, h) for all pairs, and a scoring function either can satisfy that for a chosen relation while violating it for another, or it cannot. So the right question of any model here is which of the four patterns it can hold simultaneously, and the answer is a property of the function rather than of the training — no amount of data teaches a model to represent something its algebra forbids."
+  },
+  "emphasis": {
+    "intuition": "filling in a graph from its own shape",
+    "math": "no amount of data teaches a model to represent something its algebra forbids"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "inexpressible_patterns": 4,
+      "share_rest": 4
+    },
+    "param_controls": [
+      {
+        "name": "inexpressible_patterns",
+        "min": 0,
+        "max": 60,
+        "step": 4
+      }
+    ],
+    "caption": "Relational patterns a scoring function cannot represent, against the ones it can, in patterns. Drag the inexpressible count up to watch the model's reach shrink — this is a property of the algebra, so training data does not move it."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "knowledge-graph",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "token-embedding",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1902.10197",
+      "title": "RotatE: Knowledge Graph Embedding by Relational Rotation in Complex Space",
+      "url": "https://arxiv.org/abs/1902.10197"
+    },
+    {
+      "ref": "arXiv:1707.01476",
+      "title": "Convolutional 2D Knowledge Graph Embeddings",
+      "url": "https://arxiv.org/abs/1707.01476"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}

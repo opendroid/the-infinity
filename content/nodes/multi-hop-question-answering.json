@@ -1,0 +1,67 @@
+{
+  "id": "multi-hop-question-answering",
+  "title": "Multi-Hop Question Answering",
+  "domain": [
+    "Knowledge",
+    "Reasoning"
+  ],
+  "bodies": {
+    "intuition": "\"Who directed the film that won Best Picture the year Ada was born?\" needs three facts joined in order, and no single passage contains the answer. It is the question type that separates retrieval from reasoning, because retrieving the right documents is necessary and visibly not sufficient.",
+    "engineer": "Two shapes of system. Traverse a graph, which gives an auditable path and fails wherever the graph is incomplete. Or retrieve iteratively over text, re-querying with what the last step found, which handles anything written down and produces no path anyone can check. Hybrid systems pull a subgraph and its supporting text together, which is where the deployed ones landed, and the interesting engineering is in deciding what to pull rather than in the reasoning.",
+    "math": "The search space grows with the branching factor to the power of the hops, so a three-hop question over entities with fifty relations each is a hundred and twenty-five thousand paths before any pruning. That is why every practical system prunes at each step, and why pruning is where the answers are lost — a correct path discarded at hop one cannot be recovered at hop three, and the metric that would catch it is recall at each step rather than accuracy at the end."
+  },
+  "emphasis": {
+    "intuition": "retrieving the right documents is necessary and visibly not sufficient",
+    "math": "a correct path discarded at hop one cannot be recovered at hop three"
+  },
+  "viz": {
+    "primitive": "budget-split",
+    "params": {
+      "pruned_paths": 20,
+      "share_rest": 20
+    },
+    "param_controls": [
+      {
+        "name": "pruned_paths",
+        "min": 0,
+        "max": 700,
+        "step": 25
+      }
+    ],
+    "caption": "Candidate paths pruned before the next hop, against the ones carried forward, in paths. Drag the pruned count up to watch search become tractable — and note that a correct path cut here is gone, which is why per-step recall is the metric and end accuracy is not."
+  },
+  "edges": {
+    "requires": [
+      {
+        "id": "entity-linking",
+        "reviewed": false
+      }
+    ],
+    "adjacent": [
+      {
+        "id": "chain-of-thought",
+        "reviewed": false
+      },
+      {
+        "id": "search-over-thoughts",
+        "reviewed": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "ref": "arXiv:1904.09537",
+      "title": "PullNet: Open Domain Question Answering with Iterative Retrieval on Knowledge Bases and Text",
+      "url": "https://arxiv.org/abs/1904.09537"
+    },
+    {
+      "ref": "arXiv:2202.13296",
+      "title": "Subgraph Retrieval Enhanced Model for Multi-hop Knowledge Base Question Answering",
+      "url": "https://arxiv.org/abs/2202.13296"
+    }
+  ],
+  "updated_at": "2026-08-18",
+  "provenance": {
+    "drafted_at": "2026-08-18"
+  }
+}
