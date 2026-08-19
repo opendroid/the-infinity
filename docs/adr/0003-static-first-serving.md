@@ -121,3 +121,38 @@ families, and revisited if the index grows.
 **Deliberately not decided here.** `/changelog` is referenced twice in the handoff's data
 model and specified nowhere; it is **out of scope for v1** until it has a route spec. Node
 authoring, tier derivation, and the review queue are ADR-0002.
+
+---
+
+## Measured since — 2026-08-18, at 482 nodes
+
+This decision rests on a size estimate made before any content existed. The corpus is now
+60% past the "~300 nodes" the estimate was written for, so the number was re-measured
+rather than assumed (#321).
+
+| | predicted | measured |
+|---|---|---|
+| corpus | ~300 nodes | **482** |
+| search index, gzipped | ~30 KB | **9.4 KB** (51 KB raw) |
+| per node, gzipped | ~100 B implied | **19.5 B** |
+
+**The estimate was pessimistic by roughly 5x per node.** Projecting forward at the measured
+rate: ~20 KB at 1,000 nodes, ~98 KB at 5,000. The revisit trigger above — "roughly 5–10k
+nodes, where index size stops being free" — is therefore well placed and nothing about the
+decision needs revisiting yet. **The trigger is a rate, not a count**: re-measure if bytes
+per node moves, since that is what would invalidate the projection.
+
+One recorded cost turned out never to be paid. *"Shipping a 30 KB index to every visitor is
+a real cost paid by people who never search"* describes an eager load, and `SearchPanel.tsx`
+fetches the index **when search opens, never on page load** — its own comment says so, and
+`fallbacks.test.ts` asserts the fetch exists. A visitor who never opens search never pays
+anything. The accepted cost was real when written and the implementation improved on it.
+
+One thing this section asked for **does not exist**: *"worth a post-deploy assertion that
+the index node count matches the published node count."* `deploy.yml` has no such check, so
+a half-failed deploy can still leave a stale index behind fresh pages, and the failure is
+silent: a stale index is valid JSON, renders a populated panel, and answers "no results"
+for a new concept — the same answer as one that does not exist. Filed as #322 rather than
+left in a paragraph.
+
+The decision stands. Only the numbers under it have moved, and they moved in its favour.
