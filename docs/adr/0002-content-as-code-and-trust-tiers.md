@@ -1,6 +1,7 @@
 # 0002 — Content-as-code and trust tiers
 
-- **Status:** proposed
+- **Status:** accepted — shipped; the schema rejects `tier`, `nodes.test.ts` asserts its
+  absence, and `api/internal/publish` derives it. 482 nodes authored against it.
 - **Date:** 2026-08-01
 
 ## Context
