@@ -28,26 +28,36 @@
     "the numbers were here so a jump would be visible while every one of them was null \u2014",
     "measured each run, printed to the console, and stored nowhere.",
     "",
-    "/concepts IS THE ONE THAT MOVES: 33.6 KB gzipped at 417 concepts, against 6.7 KB for the",
-    "heaviest concept page and 2.1 KB for the landing page. It lists every node, so it grows",
-    "about 80 B gzipped per concept.",
+    "/concepts IS THE ONE THAT MOVES: 37,446 B gzipped at 482 concepts, against 8,363 B for the",
+    "heaviest concept page and 2,144 B for the landing page. It lists every node, so it grows",
+    "with the graph. The 80 B per concept this line used to assert is NOT a measurement \u2014 it",
+    "predates any second data point. `measured_on` and `html_gzip_measured` now move together on",
+    "every `--update`, so the next refresh gives a real rate between two dated points.",
     "",
-    "RAISING A BUDGET IS A DECISION. `npm run perf -- --update` rewrites these, and the commit",
-    "message has to say what the extra weight bought."
+    "RAISING A BUDGET IS A DECISION, AND `--update` NO LONGER MAKES IT (#327). `--update`",
+    "refreshes `html_gzip_measured` and leaves every `js_gzip` exactly where the last person to",
+    "think about it put it. `npm run perf -- --set-budgets` is the one that moves them, and the",
+    "commit message has to say what the extra weight bought.",
+    "",
+    "WHY THE SPLIT. `--update` used to do both, so refreshing a stale measurement also flattened",
+    "every budget to exactly what it measured \u2014 deleting the ~5% headroom on all seven routes at",
+    "once, silently, and the next 2 KB then turned CI red for a reason nobody chose. Note the",
+    "direction: `--set-budgets` LOWERS a budget that still has slack. The danger is not a budget",
+    "creeping up, it is the slack quietly disappearing."
   ],
-  "measured_on": "2026-08-03",
+  "measured_on": "2026-08-19",
   "routes": {
     "/": {
       "js_gzip": 0,
       "html_gzip": null,
       "note": "No islands. Zero is the budget; adding one is a decision.",
-      "html_gzip_measured": 2142
+      "html_gzip_measured": 2144
     },
     "/concepts": {
       "js_gzip": 67000,
       "html_gzip": null,
       "note": "Search overlay and trail count only. HTML grows with the graph.",
-      "html_gzip_measured": 36505
+      "html_gzip_measured": 37446
     },
     "/search": {
       "js_gzip": 67000,
@@ -71,7 +81,7 @@
       "js_gzip": 76000,
       "html_gzip": null,
       "note": "The heaviest route, and the worst concept page is the one measured. Depth toggle, viz primitive, mini-map, trail ribbon, trail count, search, review actions.",
-      "html_gzip_measured": 7776
+      "html_gzip_measured": 8363
     },
     "/t/*": {
       "js_gzip": 70500,
