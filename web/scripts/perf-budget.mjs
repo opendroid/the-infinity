@@ -137,14 +137,29 @@ export function measureRoutes() {
 
 function main() {
   const update = process.argv.includes('--update');
+  // TWO FLAGS, BECAUSE THEY ARE TWO DECISIONS (#327). Refreshing the record is
+  // routine and safe; raising a budget is a decision the file itself says has to
+  // be justified in a commit message. `--update` used to do both, so the only way
+  // to refresh a stale measurement was to also flatten every js_gzip to exactly
+  // what it measured — deleting the ~5% headroom on all seven routes at once,
+  // silently. The next 2 KB then turned CI red for a reason nobody chose.
+  //
+  // The care already existed one line below, for HTML: "--update must not quietly
+  // turn a note into a limit." It was never applied to the field that gates CI.
+  // Named for what it does. It SETS each budget to what that route measures now,
+  // which LOWERS every one that still has headroom — the danger is not a budget
+  // creeping up, it is the slack quietly disappearing.
+  const setBudgets = process.argv.includes('--set-budgets');
   const { results: measured, uncovered } = measureRoutes();
   const budget = JSON.parse(readFileSync(BUDGET_PATH, 'utf8'));
 
-  if (update) {
+  if (update || setBudgets) {
     for (const row of measured) {
       const entry = budget.routes[row.id];
       if (!entry) continue;
-      entry.js_gzip = row.js;
+      // Only when asked. The default leaves every budget exactly where the last
+      // person to think about it put it.
+      if (setBudgets) entry.js_gzip = row.js;
       // A route whose HTML is recorded rather than enforced stays that way:
       // --update must not quietly turn a note into a limit.
       if (typeof entry.html_gzip === 'number') entry.html_gzip = row.html;
@@ -157,8 +172,13 @@ function main() {
       // `html_gzip_measured` is the record.
       entry.html_gzip_measured = row.html;
     }
+    budget.measured_on = new Date().toISOString().slice(0, 10);
     writeFileSync(BUDGET_PATH, JSON.stringify(budget, null, 2) + '\n');
-    console.log(`updated ${relative(WEB, BUDGET_PATH)} — commit it, and say in the message why`);
+    console.log(
+      setBudgets
+        ? `set the budgets in ${relative(WEB, BUDGET_PATH)} — commit it, and say in the message what the extra weight bought`
+        : `recorded the measurements in ${relative(WEB, BUDGET_PATH)} — budgets untouched; use --set-budgets to move one`,
+    );
     return;
   }
 
