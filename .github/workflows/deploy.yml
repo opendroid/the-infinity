@@ -129,3 +129,35 @@ jobs:
       - name: Deploy to Firebase Hosting
         working-directory: web
         run: npx --yes firebase-tools@14 deploy --only hosting --project "$PROJECT_ID" --non-interactive
+
+      # 4. The static search index is what makes the API-offline fallback real
+      # rather than aspirational (ADR-0003), and a half-finished deploy can leave
+      # it describing a smaller corpus than the pages in front of it. That failure
+      # is SILENT: a stale index is valid JSON, passes SearchPanel's shape guard,
+      # renders a populated panel, and answers "no results" for a new concept —
+      # the same answer as a concept that does not exist. A reader types a name,
+      # is told it is not there, and leaves.
+      #
+      # ADR-0003 asked for this check in its own "Harder" section and it was
+      # never built (#322).
+      #
+      # THE QUERY STRING IS LOAD-BEARING. The CDN keys on the full URL, so a bare
+      # fetch seconds after a deploy can be answered from the edge copy of the
+      # PREVIOUS index — and a check that passes against a stale cache is a check
+      # that passes for the wrong reason, which is this project's recurring
+      # failure mode. Hosting matches static files on path alone, so the
+      # parameter reaches the right file while defeating the cached entry.
+      #
+      # The .web.app origin rather than the apex domain, so a DNS problem at the
+      # registrar cannot masquerade as a bad deploy. Both serve the same site.
+      - name: The deployed index describes the deployed corpus
+        run: |
+          published=$(ls content/nodes/*.json | wc -l | tr -d ' ')
+          url="https://${PROJECT_ID}.web.app/search-index.json?deploy=${GITHUB_SHA}"
+          deployed=$(curl -fsS --retry 5 --retry-delay 4 --retry-all-errors "$url" | jq 'length')
+          echo "published=$published deployed=$deployed"
+          if [ "$published" != "$deployed" ]; then
+            echo "::error::The deployed search index has $deployed entries; $published nodes were published."
+            echo 'Search would answer "no results" for anything missing from it. Re-run the deploy.'
+            exit 1
+          fi

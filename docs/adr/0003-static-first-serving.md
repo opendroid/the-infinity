@@ -148,11 +148,11 @@ fetches the index **when search opens, never on page load** — its own comment 
 `fallbacks.test.ts` asserts the fetch exists. A visitor who never opens search never pays
 anything. The accepted cost was real when written and the implementation improved on it.
 
-One thing this section asked for **does not exist**: *"worth a post-deploy assertion that
-the index node count matches the published node count."* `deploy.yml` has no such check, so
-a half-failed deploy can still leave a stale index behind fresh pages, and the failure is
+One thing this section asked for did not exist and now does: *"worth a post-deploy
+assertion that the index node count matches the published node count."* Built in #322 —
+`deploy.yml` fetches the deployed index and compares its length against the published node
+count, cache-busting so it cannot pass against a stale edge copy. The failure it catches is
 silent: a stale index is valid JSON, renders a populated panel, and answers "no results"
-for a new concept — the same answer as one that does not exist. Filed as #322 rather than
-left in a paragraph.
+for a new concept — the same answer as one that does not exist.
 
 The decision stands. Only the numbers under it have moved, and they moved in its favour.
