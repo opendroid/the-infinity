@@ -1,6 +1,8 @@
 # 0011 — Analytics is read from request logs, not from a script in the page
 
-- **Status:** proposed
+- **Status:** accepted — the hard part holds: no analytics JavaScript ships on any route.
+  Linking Cloud Logging and adding `make analytics` is outstanding and needs a console
+  step (#64).
 - **Date:** 2026-08-04
 
 ## Context

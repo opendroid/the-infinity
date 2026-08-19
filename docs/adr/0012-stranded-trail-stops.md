@@ -1,6 +1,7 @@
 # 0012 — A deleted concept leaves a tombstone in the trails that visited it
 
-- **Status:** proposed
+- **Status:** accepted — shipped, all three parts: publish names deletions before writing
+  them, the API emits `missing`, and `SharedTrail` renders a tombstone.
 - **Date:** 2026-08-04
 
 ## Context

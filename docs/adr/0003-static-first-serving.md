@@ -1,6 +1,7 @@
 # 0003 — Static-first serving
 
-- **Status:** proposed
+- **Status:** accepted — shipped; pages pre-render, the static index ships, and
+  `GET /v1/search` was not built. Sizing re-measured 2026-08-18, see *Measured since*.
 - **Date:** 2026-08-01
 
 ## Context
