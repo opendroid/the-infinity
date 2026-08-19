@@ -50,18 +50,19 @@
   },
   "citations": [
     {
-      "ref": "arXiv:1904.06991",
-      "title": "Improved Precision and Recall Metric for Assessing Generative Models",
-      "url": "https://arxiv.org/abs/1904.06991"
+      "ref": "arXiv:2007.01905",
+      "title": "The Effect of Class Imbalance on Precision-Recall Curves",
+      "url": "https://arxiv.org/abs/2007.01905"
     },
     {
-      "ref": "arXiv:1706.04599",
-      "title": "On Calibration of Modern Neural Networks",
-      "url": "https://arxiv.org/abs/1706.04599"
+      "ref": "arXiv:2504.02169",
+      "title": "On the Geometry of Receiver Operating Characteristic and Precision-Recall Curves",
+      "url": "https://arxiv.org/abs/2504.02169"
     }
   ],
-  "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "updated_at": "2026-08-19",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-19"
   }
 }
