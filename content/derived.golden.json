@@ -52,7 +52,7 @@
           {
             "id": "flops",
             "title": "FLOPs",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -904,7 +904,7 @@
           {
             "id": "flops",
             "title": "FLOPs",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1474,7 +1474,7 @@
           {
             "id": "straight-through-estimator",
             "title": "Straight-Through Estimator",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -1952,7 +1952,7 @@
           {
             "id": "inductive-bias",
             "title": "Inductive Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -2132,7 +2132,7 @@
           {
             "id": "precision-and-recall",
             "title": "Precision and Recall",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3055,7 +3055,7 @@
           {
             "id": "flops",
             "title": "FLOPs",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -3758,7 +3758,7 @@
       "id": "convexity",
       "title": "Convexity",
       "domain": "Foundations / Optimization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -3847,7 +3847,7 @@
           {
             "id": "inductive-bias",
             "title": "Inductive Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -7173,7 +7173,7 @@
       "id": "flops",
       "title": "FLOPs",
       "domain": "Hardware / Compute",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [
@@ -7536,7 +7536,7 @@
           {
             "id": "convexity",
             "title": "Convexity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -8584,7 +8584,7 @@
       "id": "inductive-bias",
       "title": "Inductive Bias",
       "domain": "Foundations / Generalization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -9966,7 +9966,7 @@
           {
             "id": "convexity",
             "title": "Convexity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -10002,7 +10002,7 @@
           {
             "id": "sampling-temperature",
             "title": "Sampling Temperature",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -12485,7 +12485,7 @@
           {
             "id": "sampling-temperature",
             "title": "Sampling Temperature",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -13589,7 +13589,7 @@
       "id": "precision-and-recall",
       "title": "Precision and Recall",
       "domain": "Evaluation / Metrics",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [],
         "unlocks": [],
@@ -14506,7 +14506,7 @@
           {
             "id": "straight-through-estimator",
             "title": "Straight-Through Estimator",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -15633,7 +15633,7 @@
           {
             "id": "convexity",
             "title": "Convexity",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -15754,7 +15754,7 @@
       "id": "sampling-temperature",
       "title": "Sampling Temperature",
       "domain": "Inference / Decoding",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -16155,7 +16155,7 @@
           {
             "id": "precision-and-recall",
             "title": "Precision and Recall",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -17421,7 +17421,7 @@
           {
             "id": "precision-and-recall",
             "title": "Precision and Recall",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -17530,7 +17530,7 @@
       "id": "straight-through-estimator",
       "title": "Straight-Through Estimator",
       "domain": "Optimization / Training",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -18860,7 +18860,7 @@
           {
             "id": "sampling-temperature",
             "title": "Sampling Temperature",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -19444,7 +19444,7 @@
           {
             "id": "straight-through-estimator",
             "title": "Straight-Through Estimator",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -19706,7 +19706,7 @@
           {
             "id": "inductive-bias",
             "title": "Inductive Bias",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -20210,7 +20210,7 @@
         {
           "id": "flops",
           "title": "FLOPs",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 48,
           "y": 22
         },
@@ -21752,7 +21752,7 @@
         {
           "id": "flops",
           "title": "FLOPs",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 44
         },
@@ -22768,7 +22768,7 @@
         {
           "id": "straight-through-estimator",
           "title": "Straight-Through Estimator",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 110
         },
@@ -23679,7 +23679,7 @@
         {
           "id": "inductive-bias",
           "title": "Inductive Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -23954,7 +23954,7 @@
         {
           "id": "precision-and-recall",
           "title": "Precision and Recall",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 169,
           "y": 110
         },
@@ -25693,7 +25693,7 @@
         {
           "id": "flops",
           "title": "FLOPs",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -27030,7 +27030,7 @@
       "center": {
         "id": "convexity",
         "title": "Convexity",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -27147,7 +27147,7 @@
         {
           "id": "inductive-bias",
           "title": "Inductive Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 80,
           "y": 22
         },
@@ -33245,7 +33245,7 @@
       "center": {
         "id": "flops",
         "title": "FLOPs",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -33880,7 +33880,7 @@
         {
           "id": "convexity",
           "title": "Convexity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 12
         },
@@ -35764,7 +35764,7 @@
       "center": {
         "id": "inductive-bias",
         "title": "Inductive Bias",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -38243,7 +38243,7 @@
         {
           "id": "convexity",
           "title": "Convexity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -38321,7 +38321,7 @@
         {
           "id": "sampling-temperature",
           "title": "Sampling Temperature",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 66
         },
@@ -42716,7 +42716,7 @@
         {
           "id": "sampling-temperature",
           "title": "Sampling Temperature",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -44717,7 +44717,7 @@
       "center": {
         "id": "precision-and-recall",
         "title": "Precision and Recall",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -46318,7 +46318,7 @@
         {
           "id": "straight-through-estimator",
           "title": "Straight-Through Estimator",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 213,
           "y": 110
         }
@@ -48420,7 +48420,7 @@
         {
           "id": "convexity",
           "title": "Convexity",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 60,
           "y": 22
         },
@@ -48643,7 +48643,7 @@
       "center": {
         "id": "sampling-temperature",
         "title": "Sampling Temperature",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -49326,7 +49326,7 @@
         {
           "id": "precision-and-recall",
           "title": "Precision and Recall",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -51612,7 +51612,7 @@
         {
           "id": "precision-and-recall",
           "title": "Precision and Recall",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }
@@ -51833,7 +51833,7 @@
       "center": {
         "id": "straight-through-estimator",
         "title": "Straight-Through Estimator",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -54220,7 +54220,7 @@
         {
           "id": "sampling-temperature",
           "title": "Sampling Temperature",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -55256,7 +55256,7 @@
         {
           "id": "straight-through-estimator",
           "title": "Straight-Through Estimator",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 22
         }
@@ -55748,7 +55748,7 @@
         {
           "id": "inductive-bias",
           "title": "Inductive Bias",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 180,
           "y": 22
         }

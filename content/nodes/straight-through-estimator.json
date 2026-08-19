@@ -28,7 +28,7 @@
         "step": 20
       }
     ],
-    "caption": "Bias the straight-through approximation accepts, against the variance an unbiased sampling estimator would carry instead, in equal units. Drag the bias up to watch it overtake — the trade only pays while it stays the smaller of the two, which is why stacking discrete steps is where it stops."
+    "caption": "Error contributed by the straight-through approximation's bias, against the error an unbiased sampling estimator's variance would contribute instead, in equal units. Drag the bias up to watch it overtake — the trade only pays while it stays the smaller of the two, which is why stacking discrete steps is where it stops."
   },
   "edges": {
     "requires": [
@@ -60,8 +60,9 @@
       "url": "https://arxiv.org/abs/1711.00937"
     }
   ],
-  "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "updated_at": "2026-08-19",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-19"
   }
 }

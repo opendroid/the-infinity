@@ -7,7 +7,7 @@
   ],
   "bodies": {
     "intuition": "A bowl has one bottom. A function is convex if the straight line between any two points on its graph never dips below the graph itself, and one consequence carries the whole idea: every local minimum is the global minimum, so an optimiser that has stopped moving has finished. Almost nothing in deep learning is convex, and most of the field's inherited intuitions were formed when things were.",
-    "engineer": "What matters practically is what you give up. A convex problem comes with a unique answer, convergence rates that do not depend on where you started, and a duality theory that turns hard questions into easier ones. Non-convex optimisation surrenders every one of them, and the working substitute is measurement — run it and look. That is why so much of this field is empirical rather than proved, and why a result about non-convex training almost always describes a regime rather than the problem.",
+    "engineer": "What matters practically is what you give up. A convex problem comes with a unique answer, a guarantee of reaching it from any starting point — the rate still depends on how far away you began, but there is no other basin to be caught in — and a duality theory that turns hard questions into easier ones. Non-convex optimisation surrenders every one of them, and the working substitute is measurement — run it and look. That is why so much of this field is empirical rather than proved, and why a result about non-convex training almost always describes a regime rather than the problem.",
     "math": "The definition quantifies over every pair of points, which is what makes it strong and what makes it rare: the function at a weighted average of two inputs is at most the same weighted average of the two outputs. In second-order terms it is the Hessian being positive semi-definite everywhere — no direction of negative curvature anywhere in the space. A network with a single hidden layer fails this immediately, and for a reason needing no experiment: permuting the hidden units gives a different parameter vector with identical loss, so the surface has many separated minima of equal value, and a convex function cannot have two."
   },
   "emphasis": {
@@ -60,8 +60,9 @@
       "url": "https://arxiv.org/abs/1712.09913"
     }
   ],
-  "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "updated_at": "2026-08-19",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-19"
   }
 }

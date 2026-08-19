@@ -55,8 +55,9 @@
       "url": "https://arxiv.org/abs/2203.15556"
     }
   ],
-  "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "updated_at": "2026-08-19",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-08-19"
   }
 }
