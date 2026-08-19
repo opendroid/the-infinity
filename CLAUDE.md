@@ -229,12 +229,15 @@ frontier badge dots, staggered so they don't beat in unison, inside
 
 ## 7. Commands
 
-*Filled in as tooling lands — each phase adds its row. Anything not listed here does not
-exist yet.*
+*Filled in as tooling lands — each phase adds its row. This is the working set, not an
+inventory: `make help` lists the Makefile's remaining targets (`cover`, `fmt`, `tidy`),
+and `npm run preview` is Astro's own. Everything a session is expected to reach for is
+here.*
 
 | Command | What it does |
 |---|---|
 | `./infra/setup.sh` | Create the GCP project, Firestore, Artifact Registry, runtime service account, and budget alerts. Re-runnable; stops at the two console steps. |
+| `./infra/backups.sh` | Weekly Firestore export to Cloud Storage of `trails`, `concept_requests`, `concept_reviews` — the three collections that exist in Firestore **alone** (ADR-0002). The graph is safe in git; a lost trail is a shared URL that 404s forever. Re-runnable |
 | `./infra/cicd.sh` | Create the workload identity federation CI deploys through, and print the two repository variables to set. Re-runnable. |
 | `cd web && npm install` | Install web dependencies (first run only) |
 | `cd web && npm run dev` | Astro dev server on `:4321`. Regenerates design tokens first. |
