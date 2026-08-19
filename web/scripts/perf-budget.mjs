@@ -7,12 +7,14 @@
  * static-first site stops being one is a hundred reasonable decisions, none of
  * which was the problem.
  *
- *   node scripts/perf-budget.mjs            # measure, compare, exit 1 if over
- *   node scripts/perf-budget.mjs --update   # rewrite the budget to what is measured
+ *   node scripts/perf-budget.mjs                 # measure, compare, exit 1 if over
+ *   node scripts/perf-budget.mjs --update        # refresh the RECORD; budgets untouched
+ *   node scripts/perf-budget.mjs --set-budgets   # move the BUDGETS to what is measured
  *
- * `--update` is deliberately a separate, explicit act. A budget that rewrote
- * itself on every build would record whatever happened rather than what was
- * decided, which is the opposite of a budget.
+ * Both are deliberately separate, explicit acts. A budget that rewrote itself on
+ * every build would record whatever happened rather than what was decided, which
+ * is the opposite of a budget — and until #327 `--update` did exactly that as a
+ * side effect of refreshing a measurement.
  *
  * WHAT IS MEASURED. Per route: the gzipped bytes of the transitive closure of
  * JavaScript modules the page pulls, plus the gzipped HTML. Transitive matters
@@ -217,7 +219,8 @@ function main() {
     for (const line of over) console.error(`  ${line}`);
     console.error(
       '\nRaising a budget is a decision, not a fix. If the weight is worth it, run\n' +
-        '`npm run perf -- --update` and say in the commit message what it bought.',
+        '`npm run perf -- --set-budgets` and say in the commit message what it bought.\n' +
+        'Note it SETS every budget to what it measures, so any headroom elsewhere goes too.',
     );
     process.exit(1);
   }
