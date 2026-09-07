@@ -111,9 +111,10 @@ gcloud logging read 'resource.type=cloud_run_revision AND logName:"stdout"' \
       much later (#177): eleven nodes had a slider that moved nothing, and four had a
       figure that showed something other than what its caption promised. A node is not
       only its prose
-- [x] The corpus is verified but for the current frontier batch, and the landing page says
-      so in gold and teal. A count belongs in #61, which is maintained, rather than here,
-      where it was "86 of 89" long after it was 400-odd (#319)
+- [x] The corpus is verified, all of it, and the landing page says so in gold — the teal
+      lobe is empty because there is nothing on the frontier, which ADR-0015 made a state
+      rather than an error (#283, #346). A count belongs in #61, which is maintained, rather
+      than here, where it was "86 of 89" long after it was 400-odd (#319)
 
 ## 7. Read it cold
 

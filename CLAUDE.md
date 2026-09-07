@@ -195,7 +195,10 @@ Widths are per-route, not global — see the handoff. The concept page is a
 
 **Motion**: exactly one animation ships — a ~3.2s opacity pulse on frontier nodes and
 frontier badge dots, staggered so they don't beat in unison, inside
-`prefers-reduced-motion: no-preference`. Nothing else animates.
+`prefers-reduced-motion: no-preference`. Nothing else animates. Note that nothing currently
+*does*: with every concept verified the pulse has nothing to render on, so the site ships
+still ([ADR-0015](docs/adr/0015-an-empty-frontier-is-a-state.md)). The code is waiting on
+the next seeded node, not broken.
 
 ---
 
