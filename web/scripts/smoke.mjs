@@ -1,0 +1,314 @@
+/**
+ * The browser smoke test (ADR-0016, #357).
+ *
+ * Six assertions, each covering something no other check in this repository can
+ * see: whether an island actually hydrated in a browser. Vitest mounts
+ * components in jsdom, `astro build` proves they compile, and `npm run perf`
+ * weighs the bundles — none of that observes a handler firing.
+ *
+ * The class this exists for is the inert slider: eleven nodes shipped a figure
+ * whose control moved nothing, and six of them were already `verified`. Reading
+ * the JSON is not looking at the page.
+ *
+ * EVERY /api/v1 REQUEST IS STUBBED. The check is about the browser, and one that
+ * also depended on Cloud Run being awake would go red for reasons it is not
+ * about. Stubbing is also the only way to assert the failure path — one route
+ * answers 500 on purpose so the mini-map's documented degradation is observed
+ * rather than assumed.
+ *
+ * Needs a build first, like `npm run perf`. Starts and stops its own preview.
+ */
+import { spawn } from 'node:child_process';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { join, resolve } from 'node:path';
+import { setTimeout as sleep } from 'node:timers/promises';
+import { setTimeout, clearTimeout } from 'node:timers';
+import { chromium } from 'playwright-core';
+
+const WEB = resolve(process.cwd());
+const DIST = join(WEB, 'dist');
+const NODES = join(resolve(WEB, '..'), 'content/nodes');
+const PORT = Number(process.env.SMOKE_PORT ?? 4322);
+const ORIGIN = `http://127.0.0.1:${PORT}`;
+/** A slug no concept will ever claim, so the 404 route is not a race with content. */
+const MISSING = 'smoke-test-no-such-concept';
+
+const failures = [];
+const fail = (what) => failures.push(what);
+
+/** What the script is doing, so the watchdog can say where it stopped. */
+let step = 'starting';
+/** The preview server, so the watchdog can stop it on its way out. */
+let running = null;
+
+/**
+ * The concept page to drive.
+ *
+ * Chosen from content rather than hard-coded, so removing one node cannot
+ * silently turn this into a test of a 404 page. The first node with a viz
+ * control, in id order — which one it is does not matter, only that it has
+ * something to drag.
+ */
+function driveable() {
+  for (const file of readdirSync(NODES).filter((f) => f.endsWith('.json')).sort()) {
+    const node = JSON.parse(readFileSync(join(NODES, file), 'utf8'));
+    if (node.viz?.param_controls?.length) return node;
+  }
+  throw new Error('no concept has a viz control — there is nothing to drag');
+}
+
+/** The 404 body the API really returns, so the island parses what it parses in production. */
+const notFound = (id) => ({
+  error: 'not_found',
+  message: `No concept with id "${id}".`,
+  id,
+  nearest: [
+    { id: 'smoke-alpha', title: 'Smoke Alpha', tier: 'verified' },
+    { id: 'smoke-beta', title: 'Smoke Beta', tier: 'frontier' },
+  ],
+});
+
+/**
+ * Stops the preview and everything it started.
+ *
+ * The server is spawned DETACHED and killed by process GROUP, and neither half
+ * is optional. Through `npx` the shim exits and leaves the real server running;
+ * kill only that pid and the orphan holds the pipes open, and node will not exit
+ * while it does. Not hypothetical: the first version of this script ran all six
+ * assertions, printed its verdict, and then hung forever — which on a laptop is
+ * a stray process and in CI is a job that runs until the runner gives up rather
+ * than a red build.
+ */
+function stop(server) {
+  try {
+    process.kill(-server.pid, 'SIGKILL');
+  } catch {
+    /* already gone */
+  }
+}
+
+async function preview() {
+  if (!existsSync(DIST)) throw new Error(`${DIST} does not exist — run \`npm run build\` first`);
+
+  const astro = join(WEB, 'node_modules/.bin/astro');
+  const server = spawn(astro, ['preview', '--host', '127.0.0.1', '--port', String(PORT)], {
+    cwd: WEB,
+    detached: true,
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  const log = [];
+  server.stdout.on('data', (d) => log.push(String(d)));
+  server.stderr.on('data', (d) => log.push(String(d)));
+
+  for (let i = 0; i < 60; i += 1) {
+    try {
+      const res = await fetch(ORIGIN + '/', { signal: AbortSignal.timeout(1000) });
+      if (res.ok) return server;
+    } catch {
+      /* not up yet */
+    }
+    await sleep(500);
+  }
+  stop(server);
+  throw new Error(`astro preview never answered on ${ORIGIN}:\n${log.join('')}`);
+}
+
+async function main() {
+  step = 'reading content';
+  const node = driveable();
+  step = 'starting astro preview';
+  const server = await preview();
+  running = server;
+
+  // Sandboxes that ship their own Chromium cannot reach Playwright's CDN, and
+  // without this the check is unrunnable exactly where an agent would run it.
+  // CI leaves it unset and uses the browser it installed (ADR-0016).
+  const launch = process.env.SMOKE_CHROMIUM ? { executablePath: process.env.SMOKE_CHROMIUM } : {};
+
+  // The launch is INSIDE the try. It was outside, and a browser that failed to
+  // start took the whole script down before the preview server was stopped —
+  // one leaked server per failed run, from the error path most likely to be hit
+  // on a machine that has not installed a browser.
+  let browser;
+  try {
+    step = 'launching chromium';
+    browser = await chromium.launch(launch);
+
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+
+    await ctx.route('**/api/v1/**', (route) => {
+      const url = route.request().url();
+      if (url.includes(`/concepts/${MISSING}`)) {
+        return route.fulfill({
+          status: 404,
+          contentType: 'application/json',
+          body: JSON.stringify(notFound(MISSING)),
+        });
+      }
+      // Everything else fails on purpose. The mini-map's own route is the one
+      // that matters: ADR-0003 promises the map hides and the page is otherwise
+      // untouched, and this is the only place that claim is exercised.
+      return route.fulfill({
+        status: 500,
+        contentType: 'application/json',
+        body: '{"error":"internal","message":"stubbed failure"}',
+      });
+    });
+
+    const page = await ctx.newPage();
+    // Uncaught exceptions only. Failed resource loads are counted deliberately
+    // NOT: the font stylesheet is a third-party request, and a check that goes
+    // red when fonts.googleapis.com is unreachable is a check about the network.
+    let crashes = [];
+    page.on('pageerror', (e) => crashes.push(e.message));
+
+    // Responses are RECORDED rather than waited for. `waitForResponse` only
+    // watches the future, and a client:idle island has usually already made its
+    // call by the time the navigation settles — so waiting for it would be a
+    // race that passes or fails on machine speed.
+    let seen = [];
+    page.on('response', (r) => seen.push(r.url()));
+
+    const visit = async (path) => {
+      step = `visiting ${path}`;
+      crashes = [];
+      seen = [];
+      await page.goto(ORIGIN + path, { waitUntil: 'load' });
+      // Islands are client:load / client:idle; give them a beat to mount.
+      await page.waitForTimeout(1500);
+    };
+
+    // 1 — the 404 island renders what the API hands it. Nothing else in the
+    //     repository proves this island hydrates at all.
+    await visit(`/c/${MISSING}`);
+    const gap = await page.locator('main').innerText();
+    if (!gap.includes('Smoke Alpha') || !gap.includes('Smoke Beta')) {
+      fail(`/c/${MISSING}: the 404 island did not render the API's suggestions`);
+    }
+    if (crashes.length) fail(`/c/${MISSING} threw: ${crashes.join(' | ')}`);
+
+    // 2 — the control moves the figure. THE INERT-SLIDER ASSERTION: eleven nodes
+    //     shipped one that did not, six of them already verified.
+    //
+    // It reads the figure's own sr-only description rather than the figure's
+    // text, and that distinction is the assertion. Every primitive renders one —
+    // `describeSplit`, `describeCurve`, `describeSweep` — and it states what the
+    // picture SHOWS. The visible text also carries a `name = value` echo of the
+    // control, which moves whether or not the drawing does, so an assertion on
+    // the whole figure passes on a slider that only relabels itself. Verified by
+    // planting exactly that: a BudgetSplit reading `params[control]` instead of
+    // the live value still changed its header, and the first version of this
+    // check called that a pass.
+    await visit(`/c/${node.id}`);
+    const figure = page.locator('figure').first();
+    const described = figure.locator('.sr-only').first();
+    if ((await figure.count()) === 0) fail(`/c/${node.id}: no <figure> — the viz island did not render`);
+    else if ((await described.count()) === 0) {
+      fail(`/c/${node.id}: the figure has no sr-only description to read`);
+    } else {
+      const control = page.locator('input[type="range"]').first();
+      if ((await control.count()) === 0) {
+        fail(`/c/${node.id}: no slider, though the node declares param_controls`);
+      } else {
+        const before = await described.textContent();
+        await control.fill(String(node.viz.param_controls[0].max));
+        await page.waitForTimeout(250);
+        const after = await described.textContent();
+        if (before === after) {
+          fail(`/c/${node.id}: the slider moved and the figure still describes itself as "${before}"`);
+        }
+      }
+    }
+
+    // 3 — the depth toggle swaps the body. The product's central interaction,
+    //     and role="tab", not "button" — a selector written from the wrong role
+    //     would pass while asserting nothing.
+    const math = page.getByRole('tab', { name: /^math$/i }).first();
+    if ((await math.count()) === 0) fail(`/c/${node.id}: no Math tab — the depth toggle did not hydrate`);
+    else {
+      const before = await page.locator('main').innerText();
+      await math.click();
+      await page.waitForTimeout(250);
+      const after = await page.locator('main').innerText();
+      if (before === after) fail(`/c/${node.id}: the Math tab changed nothing`);
+      else if (!after.includes(node.bodies.math.slice(0, 60))) {
+        fail(`/c/${node.id}: the Math tab did not show the node's math body`);
+      }
+    }
+
+    // 4 — the page survives its API, and so does the mini-map.
+    //
+    // THIS ASSERTION WAS WRONG ON ITS FIRST RUN, AND THE BROWSER IS WHY IT IS
+    // RIGHT NOW. It was written from `docs/openapi.yaml`, which said "on failure
+    // the mini-map hides and the page is otherwise untouched", and it failed:
+    // the map is rendered at build time from the same derivation the page uses,
+    // and the fetch only refreshes it. So a dead API costs the reader nothing at
+    // all, which is stronger than hiding and is the whole of static-first. The
+    // document was the thing that was out of date (#357).
+    // Checking that the island actually asked is what gives this teeth: if it
+    // never hydrated, the server-rendered map would still be sitting there and
+    // "the map survived" would pass without anything having happened.
+    const asked = seen.some((u) => u.includes('/neighborhood'));
+    if (!asked) fail(`/c/${node.id}: the mini-map island never called its endpoint — it did not hydrate`);
+    if ((await page.locator('h1').count()) === 0) {
+      fail(`/c/${node.id}: the page lost its heading when the mini-map API failed`);
+    }
+    if (asked && (await page.locator('svg[role="img"]').count()) === 0) {
+      fail(`/c/${node.id}: the build-time mini-map did not survive a 500 from its endpoint`);
+    }
+    if (crashes.length) fail(`/c/${node.id} threw: ${crashes.join(' | ')}`);
+
+    // 5 — search runs client-side off the static index, with the API dead.
+    await visit('/search?q=attention');
+    const found = await page.locator('main').innerText();
+    if (!/\d+ results? for attention/i.test(found)) {
+      fail('/search?q=attention: no result count — the search island did not answer');
+    }
+    if (crashes.length) fail(`/search threw: ${crashes.join(' | ')}`);
+
+    // 6 — the landing page, which ships no JavaScript at all, still paints.
+    await visit('/');
+    const landing = await page.locator('main').innerText();
+    // Anchored to the number. "concepts" alone also appears in the standfirst
+    // above the search field, so the loose version passed with the count line
+    // renamed — found by planting it.
+    if (!/[\d,]+ concepts/.test(landing)) fail('/: the landing page did not render its count');
+    if (crashes.length) fail(`/ threw: ${crashes.join(' | ')}`);
+  } finally {
+    if (browser) await browser.close();
+    stop(server);
+  }
+
+  if (failures.length) {
+    console.error(`\n${failures.length} smoke failure(s):`);
+    for (const f of failures) console.error(`  ✗ ${f}`);
+    return 1;
+  }
+  console.log(`✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, search, landing`);
+  return 0;
+}
+
+/**
+ * A hang has to look like a failure.
+ *
+ * Without this, a browser that never launches or a preview that never answers is
+ * a CI job running until the runner's own timeout: no output, no verdict, and
+ * nothing saying how far it got. The watchdog turns that into a red build naming
+ * the last thing the script was doing.
+ */
+const BUDGET_MS = Number(process.env.SMOKE_TIMEOUT_MS ?? 180_000);
+const watchdog = setTimeout(() => {
+  console.error(`\nsmoke: gave up after ${BUDGET_MS / 1000}s — the last thing it did was "${step}"`);
+  // process.exit skips the finally that would otherwise stop the server, so the
+  // watchdog has to do it itself. Verified by watching it not: the timeout path
+  // left an astro preview behind every time it fired.
+  if (running) stop(running);
+  process.exit(1);
+}, BUDGET_MS);
+watchdog.unref();
+
+const code = await main();
+clearTimeout(watchdog);
+// Explicit, because one stray child of the preview server would otherwise hold
+// the event loop open long after every assertion has answered.
+process.exit(code);

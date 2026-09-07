@@ -147,7 +147,11 @@ paths:
         placement by edge type, no client-side layout, so the map never jitters. Unreviewed
         links are drawn dashed.
 
-        On failure the mini-map hides and the page is otherwise untouched.
+        On failure nothing happens: the map is rendered at build time from the same
+        derivation, and this call only refreshes it. A dead API costs the reader nothing
+        here — it used to say the map hides, which stopped being true when the mini-map
+        became static-first, and a browser check written from that sentence is how it was
+        found (#357).
       operationId: getNeighborhood
       parameters:
         - $ref: '#/components/parameters/ConceptId'

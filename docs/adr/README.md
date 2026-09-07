@@ -44,6 +44,8 @@ point.
 | [0012](0012-stranded-trail-stops.md) | A deleted concept leaves a tombstone in the trails that visited it | proposed |
 | [0013](0013-primary-sources-that-predate-arxiv.md) | Primary sources that predate arXiv go in `origin`, unfetched | **accepted** |
 | [0014](0014-threshold-sweep-primitive.md) | A sixth shape: a cut through two overlapping populations | **accepted** |
+| [0015](0015-an-empty-frontier-is-a-state.md) | An empty frontier is a state the figure has to show | **accepted** |
+| [0016](0016-a-browser-smoke-test.md) | A browser smoke test, and one dependency to run it | **accepted** |
 
 ## Planned
 
