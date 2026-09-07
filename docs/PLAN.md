@@ -113,10 +113,10 @@ Per issue: `branch → plan → implement → unit tests → review subagent on 
 
 ## 8. What actually happened
 
-**At 482 concepts — 473 verified, 9 frontier — across 47 domains and 800 resolving
-citations, as of 2026-08-18, with the site live on the real domain.** §§1–7 above are a
-prediction and are deliberately left wrong; this section is the reconciliation, because the
-gap between the two is the interesting part.
+**At 482 concepts — all 482 verified, none on the frontier — across 47 domains and 800
+resolving citations, as of 2026-09-07, with the site live on the real domain.** §§1–7 above
+are a prediction and are deliberately left wrong; this section is the reconciliation,
+because the gap between the two is the interesting part.
 
 A figure written into a document goes stale the moment the next batch lands — this one said
 "89 nodes" for a long while, in the file every session is told to read first (#319). The
@@ -173,12 +173,17 @@ there and watching CI stay green.
   `threshold-sweep` was added later and on its own evidence
   ([ADR-0014](adr/0014-threshold-sweep-primitive.md)) — plus trails, mini-map, search, and
   54 verified nodes against "~50".
-- **M3 — met, and the target was the wrong thing to track.** Domain live, analytics
-  decided, and the corpus passed "~300" without anyone noticing the milestone go by. What
-  replaced it as the constraint is not a count at all: the tier design assumes perpetual
-  growth, so verifying the last frontier batch empties the landing page's teal lobe and
-  breaks the build (#283). Seeding and verification are both blocked on that decision;
-  structural work — #315, #317 — is not.
+- **M3 — met, and the target was the wrong thing to track.** Domain live, analytics decided,
+  and the corpus passed "~300" without anyone noticing the milestone go by. What replaced it
+  as the constraint was not a count either: the tier design assumed perpetual growth, so
+  verifying the last frontier batch would have emptied the landing page's teal lobe and
+  broken the build (#283). That is settled —
+  [ADR-0015](adr/0015-an-empty-frontier-is-a-state.md) made an empty frontier a state rather
+  than an error, and #346 verified the last three nodes, which is why the count above has no
+  frontier column any more. The constraint that replaced *it* is the one still standing:
+  **the lexical seeding lens is exhausted.** Three sweeps returned 8, 8, and 1 candidates,
+  and reading a candidate's neighbours before drafting killed six more as near-duplicates.
+  Finding the next lens is content work that nothing else is blocked on.
 
 ### What the plan did not anticipate at all
 
