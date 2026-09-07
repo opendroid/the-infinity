@@ -22,6 +22,7 @@ import { spawn } from 'node:child_process';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
+import { setTimeout, clearTimeout } from 'node:timers';
 import { chromium } from 'playwright-core';
 
 const WEB = resolve(process.cwd());
@@ -34,6 +35,11 @@ const MISSING = 'smoke-test-no-such-concept';
 
 const failures = [];
 const fail = (what) => failures.push(what);
+
+/** What the script is doing, so the watchdog can say where it stopped. */
+let step = 'starting';
+/** The preview server, so the watchdog can stop it on its way out. */
+let running = null;
 
 /**
  * The concept page to drive.
@@ -62,11 +68,32 @@ const notFound = (id) => ({
   ],
 });
 
+/**
+ * Stops the preview and everything it started.
+ *
+ * The server is spawned DETACHED and killed by process GROUP, and neither half
+ * is optional. Through `npx` the shim exits and leaves the real server running;
+ * kill only that pid and the orphan holds the pipes open, and node will not exit
+ * while it does. Not hypothetical: the first version of this script ran all six
+ * assertions, printed its verdict, and then hung forever — which on a laptop is
+ * a stray process and in CI is a job that runs until the runner gives up rather
+ * than a red build.
+ */
+function stop(server) {
+  try {
+    process.kill(-server.pid, 'SIGKILL');
+  } catch {
+    /* already gone */
+  }
+}
+
 async function preview() {
   if (!existsSync(DIST)) throw new Error(`${DIST} does not exist — run \`npm run build\` first`);
 
-  const server = spawn('npx', ['astro', 'preview', '--host', '127.0.0.1', '--port', String(PORT)], {
+  const astro = join(WEB, 'node_modules/.bin/astro');
+  const server = spawn(astro, ['preview', '--host', '127.0.0.1', '--port', String(PORT)], {
     cwd: WEB,
+    detached: true,
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   const log = [];
@@ -82,21 +109,31 @@ async function preview() {
     }
     await sleep(500);
   }
-  server.kill();
+  stop(server);
   throw new Error(`astro preview never answered on ${ORIGIN}:\n${log.join('')}`);
 }
 
 async function main() {
+  step = 'reading content';
   const node = driveable();
+  step = 'starting astro preview';
   const server = await preview();
+  running = server;
 
   // Sandboxes that ship their own Chromium cannot reach Playwright's CDN, and
   // without this the check is unrunnable exactly where an agent would run it.
   // CI leaves it unset and uses the browser it installed (ADR-0016).
   const launch = process.env.SMOKE_CHROMIUM ? { executablePath: process.env.SMOKE_CHROMIUM } : {};
-  const browser = await chromium.launch(launch);
 
+  // The launch is INSIDE the try. It was outside, and a browser that failed to
+  // start took the whole script down before the preview server was stopped —
+  // one leaked server per failed run, from the error path most likely to be hit
+  // on a machine that has not installed a browser.
+  let browser;
   try {
+    step = 'launching chromium';
+    browser = await chromium.launch(launch);
+
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 
     await ctx.route('**/api/v1/**', (route) => {
@@ -133,6 +170,7 @@ async function main() {
     page.on('response', (r) => seen.push(r.url()));
 
     const visit = async (path) => {
+      step = `visiting ${path}`;
       crashes = [];
       seen = [];
       await page.goto(ORIGIN + path, { waitUntil: 'load' });
@@ -237,17 +275,40 @@ async function main() {
     if (!/[\d,]+ concepts/.test(landing)) fail('/: the landing page did not render its count');
     if (crashes.length) fail(`/ threw: ${crashes.join(' | ')}`);
   } finally {
-    await browser.close();
-    server.kill();
+    if (browser) await browser.close();
+    stop(server);
   }
 
   if (failures.length) {
     console.error(`\n${failures.length} smoke failure(s):`);
     for (const f of failures) console.error(`  ✗ ${f}`);
-    process.exitCode = 1;
-    return;
+    return 1;
   }
   console.log(`✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, search, landing`);
+  return 0;
 }
 
-await main();
+/**
+ * A hang has to look like a failure.
+ *
+ * Without this, a browser that never launches or a preview that never answers is
+ * a CI job running until the runner's own timeout: no output, no verdict, and
+ * nothing saying how far it got. The watchdog turns that into a red build naming
+ * the last thing the script was doing.
+ */
+const BUDGET_MS = Number(process.env.SMOKE_TIMEOUT_MS ?? 180_000);
+const watchdog = setTimeout(() => {
+  console.error(`\nsmoke: gave up after ${BUDGET_MS / 1000}s — the last thing it did was "${step}"`);
+  // process.exit skips the finally that would otherwise stop the server, so the
+  // watchdog has to do it itself. Verified by watching it not: the timeout path
+  // left an astro preview behind every time it fired.
+  if (running) stop(running);
+  process.exit(1);
+}, BUDGET_MS);
+watchdog.unref();
+
+const code = await main();
+clearTimeout(watchdog);
+// Explicit, because one stray child of the preview server would otherwise hold
+// the event loop open long after every assertion has answered.
+process.exit(code);

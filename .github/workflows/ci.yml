@@ -97,7 +97,12 @@ jobs:
       # After the build, like the perf budget: it drives `astro preview` over
       # web/dist. Every /api/v1 call is stubbed, so this is never red because
       # Cloud Run was cold.
+      # The script has its own watchdog and turns a hang into a failure with a
+      # message. This is the second belt: the first version of it leaked the
+      # preview server and hung AFTER printing its verdict, and the job ran for
+      # twenty minutes with nothing to read.
       - name: Smoke
+        timeout-minutes: 6
         run: npm run smoke
 
   api:
