@@ -253,7 +253,8 @@ here.*
 | `cd api && make test` | Table-driven tests, with the race detector |
 | `cd api && make test-emulator` | The same, plus the Firestore round-trip suite (starts an emulator) |
 | `cd api && make lint` | `go vet`, `gofmt` check, `golangci-lint` |
-| `cd api && make check` | Both — what CI runs |
+| `cd api && make vuln` | Known vulnerabilities in code paths this service actually reaches, via the pinned `govulncheck`. Needs network access to `vuln.go.dev` |
+| `cd api && make check` | Lint and tests together — the gate you can run offline. **Not everything CI runs**: it also runs `make vuln`, the Firestore emulator suite, `go build`, and a docker build of the image |
 | `cd api && make docker-build` | Multi-stage distroless nonroot image |
 | `cd api && make publish` | Sync `/content/nodes` → Firestore (needs `GOOGLE_CLOUD_PROJECT`) |
 | `cd api && make queues` | Print pending flags and concept requests, oldest first. Read-only |
