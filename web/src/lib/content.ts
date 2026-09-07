@@ -42,7 +42,10 @@ export function nodeOrThrow(id: string): ResolvedNode {
 
 /**
  * Landing-page stats. ADR-0003: these ship as build-time values so the pulse
- * line never renders empty; GET /v1/stats refreshes them after hydration.
+ * line never renders empty. The refresh that ADR describes never happens — the
+ * landing page settled at zero JavaScript, so these values are the only ones it
+ * ever shows, and `/` is served must-revalidate so they are never more than one
+ * deploy old (#353).
  */
 export function stats(): { concepts: number; grewThisWeek: number; frontier: number } {
   const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;

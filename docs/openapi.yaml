@@ -167,8 +167,15 @@ paths:
       tags: [concepts]
       summary: Counts for the landing pulse line
       description: |
-        The landing page ships with build-time values inlined, so this never gates a render —
-        it refreshes the number after hydration.
+        The counts behind the landing page's "N concepts" line, published from git by
+        `cmd/publish` alongside the nodes themselves.
+
+        **Nothing on this site calls it.** ADR-0003 designed it as a post-hydration refresh
+        of values the landing page already ships inlined; that page then settled at zero
+        JavaScript, so there is no hydration on it to run a fetch. It does not need one
+        either — `/` is served `max-age=0, must-revalidate`, and the count changes only on
+        the merge that also rebuilds the page (#353). Kept because the API is canonical and
+        the static pages are a build-time cache of it, not because a caller is pending.
       operationId: getStats
       responses:
         '200':
@@ -378,9 +385,10 @@ components:
     RateLimited:
       description: |
         Too many requests. Nothing here is authenticated, so limits are per client with a
-        global daily cap — see issue #5. This applies to the write queues and to
-        `/api/v1/stats`, which is called on every landing-page view and is therefore the
-        highest-volume path in the surface.
+        global daily cap — see issue #5. This applies to the write queues and to every read.
+        The read the limits are shaped around is
+        `/api/v1/concepts/{id}/neighborhood`, which fires on every concept-page hydration
+        and is the deepest read in the surface (#353).
       headers:
         Retry-After:
           description: Seconds to wait before retrying.
