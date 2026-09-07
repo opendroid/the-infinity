@@ -249,6 +249,7 @@ here.*
 | `cd web && npm run lint` | ESLint, zero warnings tolerated |
 | `cd web && npm test` | Vitest — graph derivation, node-shape invariants, schema rejection cases |
 | `cd web && npm run perf` | Gzipped JavaScript per route against [`perf-budget.json`](web/perf-budget.json). Needs a build first. `-- --update` refreshes the recorded measurements and leaves the budgets alone; `-- --set-budgets` moves them, which is a decision the commit message has to justify |
+| `cd web && npm run smoke` | The browser smoke test — drives the built site in Chromium with the API stubbed. Needs a build first, like `perf`. `SMOKE_CHROMIUM=<path>` uses a browser that is already there instead of one Playwright would download ([ADR-0016](docs/adr/0016-a-browser-smoke-test.md)) |
 | `cd web && npm run validate:content` | Nodes against `node.schema.json`, plus the cross-field invariants |
 | `cd web && npm run check:citations` | Every citation resolves. `-- --offline` skips the network and says so — it exits 2 rather than passing when nothing could be reached |
 | `cd web && npm run validate:openapi` | `redocly lint` on `/docs/openapi.yaml` — zero warnings tolerated |

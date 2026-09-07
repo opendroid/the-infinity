@@ -20,12 +20,12 @@ Two things about that configuration are easy to get wrong:
 
 | Job | Steps |
 |---|---|
-| `web` | `npm ci` → `validate:content` → lint → typecheck → test → build → perf budget |
+| `web` | `npm ci` → `validate:content` → lint → typecheck → test → build → perf budget → browser smoke |
 | `api` | `go vet` + `gofmt` → `golangci-lint` → `govulncheck` → `go test -race` (with the Firestore emulator) → `go build` → `docker build` → the image runs |
 | `contracts` | `redocly lint docs/openapi.yaml` |
 | `pr title` | Conventional Commits, on the title that becomes the squash commit |
 
-Three of those deserve a note.
+Four of those deserve a note.
 
 **The emulator.** `internal/publish`'s round-trip tests skip when
 `FIRESTORE_EMULATOR_HOST` is unset, so `go test ./...` stays one command on a
@@ -37,6 +37,15 @@ the job needs neither the SDK nor a credential.
 **`docker build`.** It is here because the daemon is unreachable where the code is
 written. Before this workflow existed, `api/Dockerfile` had never been built by
 anything.
+
+**The browser smoke test.** Six assertions, and the only ones in the repository that
+can see whether an island hydrated — jsdom mounts components, `astro build` proves
+they compile, and the perf budget weighs the bundles, none of which observes a handler
+firing. It drives `astro preview` over `web/dist` with every `/api/v1` call stubbed,
+including one stubbed 500 so the mini-map's degradation is exercised rather than
+assumed. Chromium is installed as the headless shell alone, since that is what
+`chromium.launch()` starts. See [ADR-0016](../../docs/adr/0016-a-browser-smoke-test.md)
+for why this is a plain script on `playwright-core` rather than a second test runner.
 
 **`govulncheck`, and why the web job has no counterpart.** It reports a
 vulnerability only when this service actually *calls* the affected path. On its

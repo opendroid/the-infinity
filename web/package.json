@@ -13,7 +13,8 @@
     "perf": "node scripts/perf-budget.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "check:citations": "node scripts/check-citations.mjs",
-    "validate:openapi": "npx --yes @redocly/cli lint ../docs/openapi.yaml"
+    "validate:openapi": "npx --yes @redocly/cli lint ../docs/openapi.yaml",
+    "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",
@@ -36,6 +37,7 @@
     "eslint": "^10.8.0",
     "eslint-plugin-astro": "^1.7.0",
     "jsdom": "^30.0.1",
+    "playwright-core": "1.63.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.65.0",
     "vitest": "^4.1.10"

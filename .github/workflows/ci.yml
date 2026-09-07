@@ -79,6 +79,27 @@ jobs:
       - name: Performance budget
         run: npm run perf
 
+      # THE ONLY CHECK THAT PUTS A BROWSER IN FRONT OF THE SITE (ADR-0016, #357).
+      # Everything above this line can pass on a page that never hydrates: jsdom
+      # mounts components, `astro build` proves they compile, and the perf budget
+      # weighs the bundles. None of that observes a handler firing, which is how
+      # eleven nodes shipped a slider that moved nothing — six of them already
+      # `verified`.
+      #
+      # `--only-shell` because `chromium.launch()` headless runs the headless
+      # shell; installing full Chrome as well would download a browser nothing
+      # here starts. `--with-deps` because the runner's shared libraries are not
+      # a promise, and a missing one looks like a flaky test rather than a
+      # missing package.
+      - name: Install Chromium
+        run: npx playwright-core install --with-deps chromium --only-shell
+
+      # After the build, like the perf budget: it drives `astro preview` over
+      # web/dist. Every /api/v1 call is stubbed, so this is never red because
+      # Cloud Run was cold.
+      - name: Smoke
+        run: npm run smoke
+
   api:
     name: api
     runs-on: ubuntu-latest
