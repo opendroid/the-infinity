@@ -124,8 +124,24 @@ jobs:
       # developer's PATH, and the two drifted to v2.12.2 against v2.5.0 without
       # anything noticing — so a local lint and the merge gate were different
       # checks wearing one name. One file now feeds both.
+      #
+      # THE PATH IS RELATIVE TO api/, because this job sets a
+      # `defaults.run.working-directory` of `api` (#341). It read
+      # `api/.golangci-version` for a long time, which resolved to
+      # `api/api/...`, and every stage of that failure was silent: `cat` yields
+      # empty inside a command substitution without tripping `bash -e`, the step
+      # goes green, and golangci-lint-action reads an empty version as `latest`.
+      # The log said "Requested golangci-lint 'latest', using 'v2.13.2'" while
+      # the file said v2.12.2 — #263's exact failure, reintroduced.
+      #
+      # The guard is the point. An empty value is now an error rather than a
+      # fallback, so the next person to copy this step gets a red build instead
+      # of a pin that quietly means nothing.
       - id: golangci-version
-        run: echo "value=$(cat api/.golangci-version)" >> "$GITHUB_OUTPUT"
+        run: |
+          version=$(cat .golangci-version)
+          test -n "$version" || { echo "::error::.golangci-version is empty or unreadable"; exit 1; }
+          echo "value=$version" >> "$GITHUB_OUTPUT"
 
       - uses: golangci/golangci-lint-action@v9
         with:
@@ -147,7 +163,10 @@ jobs:
       # Pinned from a file for the reason #263 records: a literal here and a
       # different version on a developer's PATH are two checks wearing one name.
       - id: govulncheck-version
-        run: echo "value=$(cat api/.govulncheck-version)" >> "$GITHUB_OUTPUT"
+        run: |
+          version=$(cat .govulncheck-version)
+          test -n "$version" || { echo "::error::.govulncheck-version is empty or unreadable"; exit 1; }
+          echo "value=$version" >> "$GITHUB_OUTPUT"
 
       - name: Known vulnerabilities
         working-directory: api
