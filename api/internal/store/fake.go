@@ -68,8 +68,8 @@ func (f *Fake) Nearest(_ context.Context, id string, limit int) ([]NearestConcep
 	if f.Err != nil {
 		return nil, f.Err
 	}
-	// Same prefix rule and self-exclusion as Firestore, so a test here proves
-	// something about production.
+	// Same prefix rule, ranking and self-exclusion as Firestore, so a test here
+	// proves something about production.
 	prefix := ConceptPrefix(id)
 	var out []NearestConcept
 	for _, c := range f.Concepts {
@@ -77,11 +77,11 @@ func (f *Fake) Nearest(_ context.Context, id string, limit int) ([]NearestConcep
 			out = append(out, NearestConcept{ID: c.ID, Title: c.Title, Tier: c.Tier})
 		}
 	}
+	// Map iteration is random, so order the input before ranking it: RankNearest
+	// is a stable sort and would otherwise leave equally-close ids in whatever
+	// order the range produced.
 	sort.Slice(out, func(i, j int) bool { return out[i].ID < out[j].ID })
-	if len(out) > limit {
-		out = out[:limit]
-	}
-	return out, nil
+	return RankNearest(id, out, limit), nil
 }
 
 func (f *Fake) Neighborhood(_ context.Context, id string) (*Neighborhood, error) {

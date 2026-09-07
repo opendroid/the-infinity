@@ -113,15 +113,23 @@ paths:
           description: |
             No such concept. The body carries `nearest` so the 404 page can offer somewhere
             to go — the graph never dead-ends.
+
+            `nearest` is a **prefix** match on the first three characters of the id's first
+            segment, ordered by how much of the requested id each candidate agrees with. It
+            is not fuzzy and not semantic: it recovers about 85% of single-character typos
+            and nothing at all from a typo inside those first three characters, where the
+            404 page's own way back into the graph is what carries the reader (#355). An
+            empty array is a legitimate answer.
           content:
             application/json:
               schema: { $ref: '#/components/schemas/ConceptNotFound' }
               example:
                 error: not_found
-                message: No concept with id "liquid-neural-nets".
-                id: liquid-neural-nets
+                message: No concept with id "attentin".
+                id: attentin
                 nearest:
-                  - { id: neural-odes, title: Neural ODEs, tier: verified }
+                  - { id: attention, title: Attention, tier: verified }
+                  - { id: attention-sink, title: Attention Sink, tier: verified }
         '500':
           $ref: '#/components/responses/InternalError'
 

@@ -113,22 +113,104 @@ func TestTrailSlugIsReadableAndStable(t *testing.T) {
 // The prefix drives 404 suggestions. Fake and Firestore once derived it
 // differently, so an id starting with a hyphen matched everything in one and
 // nothing in the other.
+//
+// It is the first SEGMENT truncated to three, not the first three characters of
+// the id — the difference is `kv-cache`, whose segment is shorter than the cap
+// and whose prefix must not run past the hyphen (#355).
 func TestConceptPrefix(t *testing.T) {
 	t.Parallel()
 
-	tests := []struct{ id, want string }{
-		{id: "mixture-of-experts", want: "mixture"},
-		{id: "attention", want: "attention"},
-		{id: "-leading", want: "-leading"}, // no split: index 0 is not > 0
-		{id: "trailing-", want: "trailing"},
-		{id: "", want: ""},
+	tests := []struct{ name, id, want string }{
+		{name: "segment longer than the cap", id: "mixture-of-experts", want: "mix"},
+		{name: "no hyphen at all", id: "attention", want: "att"},
+		{name: "a typo lands in the same bucket", id: "attentin", want: "att"},
+		{name: "segment shorter than the cap stops at the hyphen", id: "kv-cache", want: "kv"},
+		{name: "one-character segment", id: "q-learning", want: "q"},
+		{name: "leading hyphen does not split", id: "-leading", want: "-le"},
+		{name: "trailing hyphen", id: "trailing-", want: "tra"},
+		{name: "empty", id: "", want: ""},
+		{name: "shorter than the cap", id: "ab", want: "ab"},
 	}
 
 	for _, tt := range tests {
-		t.Run(tt.id, func(t *testing.T) {
+		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			if got := store.ConceptPrefix(tt.id); got != tt.want {
 				t.Errorf("ConceptPrefix(%q) = %q, want %q", tt.id, got, tt.want)
+			}
+		})
+	}
+}
+
+// The prefix casts a wide net, so the ORDER is what decides whether a 404 is
+// useful. Before ranking, `mixture-of-expert` offered `mixture-of-depths` first
+// because d sorts before e (#355).
+func TestRankNearest(t *testing.T) {
+	t.Parallel()
+
+	concepts := func(ids ...string) []store.NearestConcept {
+		out := make([]store.NearestConcept, 0, len(ids))
+		for _, id := range ids {
+			out = append(out, store.NearestConcept{ID: id, Title: id, Tier: "verified"})
+		}
+		return out
+	}
+
+	tests := []struct {
+		name  string
+		id    string
+		in    []store.NearestConcept
+		limit int
+		want  []string
+	}{
+		{
+			name:  "the closest match wins over the alphabet",
+			id:    "mixture-of-expert",
+			in:    concepts("mixture-of-depths", "mixture-of-experts"),
+			limit: 3,
+			want:  []string{"mixture-of-experts", "mixture-of-depths"},
+		},
+		{
+			name:  "equally close ids stay alphabetical",
+			id:    "att",
+			in:    concepts("attention-sink", "attention", "attribution"),
+			limit: 3,
+			want:  []string{"attention", "attention-sink", "attribution"},
+		},
+		{
+			name:  "a typo before the hyphen still finds its concept",
+			id:    "attentin",
+			in:    concepts("attention", "attention-sink", "attribution"),
+			limit: 3,
+			want:  []string{"attention", "attention-sink", "attribution"},
+		},
+		{
+			name:  "the limit cuts after ranking, not before",
+			id:    "mixture-of-expert",
+			in:    concepts("mixture-of-agents", "mixture-of-depths", "mixture-of-experts"),
+			limit: 1,
+			want:  []string{"mixture-of-experts"},
+		},
+		{
+			name:  "nothing in, nothing out",
+			id:    "liquid",
+			in:    nil,
+			limit: 3,
+			want:  nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got := store.RankNearest(tt.id, tt.in, tt.limit)
+			if len(got) != len(tt.want) {
+				t.Fatalf("RankNearest(%q) returned %d, want %d: %v", tt.id, len(got), len(tt.want), got)
+			}
+			for i, want := range tt.want {
+				if got[i].ID != want {
+					t.Errorf("RankNearest(%q)[%d] = %q, want %q", tt.id, i, got[i].ID, want)
+				}
 			}
 		})
 	}
