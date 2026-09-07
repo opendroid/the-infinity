@@ -70,7 +70,7 @@
           {
             "id": "throughput",
             "title": "Throughput",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -2120,7 +2120,7 @@
           {
             "id": "logit",
             "title": "Logit",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -3618,7 +3618,7 @@
           {
             "id": "throughput",
             "title": "Throughput",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -4076,7 +4076,7 @@
           {
             "id": "logit",
             "title": "Logit",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -5537,7 +5537,7 @@
           {
             "id": "regularization",
             "title": "Regularization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -9988,7 +9988,7 @@
       "id": "logit",
       "title": "Logit",
       "domain": "Foundations / Functions",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -13036,7 +13036,7 @@
           {
             "id": "regularization",
             "title": "Regularization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -14945,7 +14945,7 @@
       "id": "regularization",
       "title": "Regularization",
       "domain": "Optimization / Regularization",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -15760,7 +15760,7 @@
           {
             "id": "logit",
             "title": "Logit",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ],
@@ -16905,7 +16905,7 @@
           {
             "id": "logit",
             "title": "Logit",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -17990,7 +17990,7 @@
           {
             "id": "throughput",
             "title": "Throughput",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           }
         ]
@@ -18456,7 +18456,7 @@
       "id": "throughput",
       "title": "Throughput",
       "domain": "Systems / Operations",
-      "tier": "frontier",
+      "tier": "verified",
       "edges": {
         "requires": [
           {
@@ -19948,7 +19948,7 @@
           {
             "id": "regularization",
             "title": "Regularization",
-            "tier": "frontier",
+            "tier": "verified",
             "reviewed": false
           },
           {
@@ -20231,7 +20231,7 @@
         {
           "id": "throughput",
           "title": "Throughput",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -23940,7 +23940,7 @@
         {
           "id": "logit",
           "title": "Logit",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 141,
           "y": 110
         },
@@ -26732,7 +26732,7 @@
         {
           "id": "throughput",
           "title": "Throughput",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 99
         },
@@ -27556,7 +27556,7 @@
         {
           "id": "logit",
           "title": "Logit",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 160,
           "y": 110
         }
@@ -30288,7 +30288,7 @@
         {
           "id": "regularization",
           "title": "Regularization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 144,
           "y": 22
         },
@@ -38306,7 +38306,7 @@
       "center": {
         "id": "logit",
         "title": "Logit",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -43669,7 +43669,7 @@
         {
           "id": "regularization",
           "title": "Regularization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 108
         },
@@ -47156,7 +47156,7 @@
       "center": {
         "id": "regularization",
         "title": "Regularization",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -48651,7 +48651,7 @@
         {
           "id": "logit",
           "title": "Logit",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 40,
           "y": 66
         },
@@ -50659,7 +50659,7 @@
         {
           "id": "logit",
           "title": "Logit",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 200,
           "y": 84
         },
@@ -52634,7 +52634,7 @@
         {
           "id": "throughput",
           "title": "Throughput",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 192,
           "y": 110
         }
@@ -53494,7 +53494,7 @@
       "center": {
         "id": "throughput",
         "title": "Throughput",
-        "tier": "frontier",
+        "tier": "verified",
         "x": 120,
         "y": 66
       },
@@ -56159,7 +56159,7 @@
         {
           "id": "regularization",
           "title": "Regularization",
-          "tier": "frontier",
+          "tier": "verified",
           "x": 187,
           "y": 22
         },
