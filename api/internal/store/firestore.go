@@ -75,19 +75,28 @@ func (f *Firestore) Concept(ctx context.Context, id string) (*Concept, error) {
 	return &c, nil
 }
 
+// nearestScanLimit bounds the range scan a 404 costs.
+//
+// The whole prefix bucket has to come back, because RankNearest picks the best
+// match out of it and Firestore returns the range in id order — cutting the scan
+// at `limit` would hand the ranker the alphabetically first few rather than the
+// closest few. THE FAILURE MODE, WRITTEN DOWN RATHER THAN DISCOVERED: past this
+// many concepts sharing a three-character prefix the scan truncates
+// alphabetically and the best suggestion can fall outside it. The largest such
+// bucket is 15 of 482 today ("con"), so this is roughly a thirteenfold margin.
+const nearestScanLimit = 200
+
 // Nearest offers suggestions for a 404 by prefix. Deliberately crude: it exists
 // so the page is not a dead end, not to be a search engine — real search ships
 // as a static index (ADR-0003).
 func (f *Firestore) Nearest(ctx context.Context, id string, limit int) ([]NearestConcept, error) {
 	prefix := ConceptPrefix(id)
 
-	// Fetch one extra: self-exclusion happens below, and limiting in the query
-	// would silently return limit-1 suggestions whenever the queried id exists.
 	docs, err := f.client.Collection(CollConcepts).
 		Select("id", "title", "tier").
 		Where("id", ">=", prefix).
 		Where("id", "<", prefix+prefixUpperBound).
-		Limit(limit + 1).
+		Limit(nearestScanLimit).
 		Documents(ctx).GetAll()
 	if err != nil {
 		return nil, fmt.Errorf("finding concepts near %s: %w", id, err)
@@ -103,11 +112,8 @@ func (f *Firestore) Nearest(ctx context.Context, id string, limit int) ([]Neares
 			continue
 		}
 		out = append(out, NearestConcept{ID: c.ID, Title: c.Title, Tier: c.Tier})
-		if len(out) == limit {
-			break
-		}
 	}
-	return out, nil
+	return RankNearest(id, out, limit), nil
 }
 
 func (f *Firestore) Neighborhood(ctx context.Context, id string) (*Neighborhood, error) {

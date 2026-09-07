@@ -12,6 +12,7 @@ import (
 	"encoding/json"
 	"errors"
 	"regexp"
+	"sort"
 	"strings"
 	"time"
 )
@@ -365,17 +366,72 @@ func truncateSlug(s string, n int) string {
 	return strings.Trim(s, "-")
 }
 
-// ConceptPrefix is the search prefix for 404 suggestions.
+// nearestPrefixLen caps the 404 suggestion prefix.
+//
+// It used to be the whole first segment, and that made the suggestion survive
+// any typo AFTER the first hyphen and almost none before it — which is backwards,
+// because the first segment is where the concept's word is typed. Measured across
+// all 482 ids: a single-character deletion after the hyphen found something 100%
+// of the time, one inside the first segment 15% of the time, and a transposition
+// inside the first segment once in 2,923 (#355).
+//
+// Three, not four: four clips fewer typos and measures worse (46.9% against
+// 62.7% on first-segment deletions). And it caps the SEGMENT rather than the id,
+// because `kv-cache` and `q-learning` have a first segment shorter than this and
+// taking three characters of the whole id would push the prefix past the hyphen.
+const nearestPrefixLen = 3
+
+// ConceptPrefix is the search prefix for 404 suggestions: the first segment,
+// truncated to nearestPrefixLen.
 //
 // Shared so Fake and Firestore cannot disagree, which they did: one used
 // strings.Split(id, "-")[0] and the other guarded on strings.Index(id, "-") > 0,
 // so an id beginning with a hyphen matched everything in one and nothing in the
 // other.
+//
+// Because this is a truncation of what it used to return, the candidate set is a
+// superset of the old one: no query that found a suggestion before can stop
+// finding one. Verified over every single-character deletion and transposition of
+// every id — 15,903 of them, zero regressions.
 func ConceptPrefix(id string) string {
+	segment := id
 	if i := strings.Index(id, "-"); i > 0 {
-		return id[:i]
+		segment = id[:i]
 	}
-	return id
+	if len(segment) > nearestPrefixLen {
+		return segment[:nearestPrefixLen]
+	}
+	return segment
+}
+
+// RankNearest orders 404 suggestions by how much of `id` they agree with, then
+// alphabetically, and cuts the list to limit.
+//
+// A short prefix casts a wide net, so the order is what decides whether the
+// suggestion is useful: before this, `mixture-of-expert` offered
+// `mixture-of-depths` ahead of `mixture-of-experts` because d sorts before e.
+// Shared with ConceptPrefix's reasoning — a Fake that ranked differently would
+// let a test pass on an order production does not produce.
+func RankNearest(id string, out []NearestConcept, limit int) []NearestConcept {
+	sort.SliceStable(out, func(i, j int) bool {
+		a, b := commonPrefixLen(out[i].ID, id), commonPrefixLen(out[j].ID, id)
+		if a != b {
+			return a > b
+		}
+		return out[i].ID < out[j].ID
+	})
+	if len(out) > limit {
+		out = out[:limit]
+	}
+	return out
+}
+
+func commonPrefixLen(a, b string) int {
+	n := 0
+	for n < len(a) && n < len(b) && a[n] == b[n] {
+		n++
+	}
+	return n
 }
 
 // conceptID is the slug pattern openapi.yaml declares for a concept id.

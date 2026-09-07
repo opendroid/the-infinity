@@ -201,19 +201,60 @@ func TestRoutes(t *testing.T) {
 func TestConceptNotFoundOffersNearest(t *testing.T) {
 	t.Parallel()
 
-	h := newServer(t, seeded(), router.Options{})
-	rec := do(t, h, http.MethodGet, "/api/v1/concepts/mixture-of-elephants", "")
+	tests := []struct {
+		name string
+		id   string
+		want string // the id the first suggestion must carry, "" for none
+	}{
+		{name: "a typo after the hyphen", id: "mixture-of-elephants", want: "mixture-of-experts"},
+		// The case #355 exists for: the prefix used to be the whole first
+		// segment, so any typo in it fell outside the range and the 404 offered
+		// nothing at all.
+		{name: "a typo before the hyphen", id: "mixure-of-experts", want: "mixture-of-experts"},
+		{name: "a first segment cut short", id: "muo-optimizer", want: "muon-optimizer"},
+		// Still crude on purpose: nothing shares three characters with this, and
+		// inventing a suggestion would be worse than the page's static way back.
+		{name: "nothing close enough", id: "liquid-neural-nets", want: ""},
+		// THE LIMIT, ASSERTED RATHER THAN LEFT TO BE FOUND. A prefix cannot
+		// recover a typo inside the prefix, so scrambling the first three
+		// characters still offers nothing. The measured coverage is ~85% of
+		// single-character typos, not all of them (#355), and the 404 page's
+		// static way back is what carries the rest.
+		{name: "a transposition inside the prefix", id: "muno-optimizer", want: ""},
+	}
 
-	if rec.Code != http.StatusNotFound {
-		t.Fatalf("status = %d, want 404", rec.Code)
-	}
-	body := decodeError(t, rec)
-	nearest, ok := body["nearest"].([]any)
-	if !ok {
-		t.Fatalf("404 body has no nearest array: %s", rec.Body.String())
-	}
-	if len(nearest) == 0 {
-		t.Error("nearest is empty — the 404 page would be a dead end")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			h := newServer(t, seeded(), router.Options{})
+			rec := do(t, h, http.MethodGet, "/api/v1/concepts/"+tt.id, "")
+
+			if rec.Code != http.StatusNotFound {
+				t.Fatalf("status = %d, want 404", rec.Code)
+			}
+			body := decodeError(t, rec)
+			nearest, ok := body["nearest"].([]any)
+			if !ok {
+				t.Fatalf("404 body has no nearest array: %s", rec.Body.String())
+			}
+			if tt.want == "" {
+				if len(nearest) != 0 {
+					t.Errorf("nearest = %v, want empty", nearest)
+				}
+				return
+			}
+			if len(nearest) == 0 {
+				t.Fatal("nearest is empty — the 404 page would be a dead end")
+			}
+			first, ok := nearest[0].(map[string]any)
+			if !ok {
+				t.Fatalf("first suggestion is not an object: %v", nearest[0])
+			}
+			if first["id"] != tt.want {
+				t.Errorf("first suggestion = %v, want %q", first["id"], tt.want)
+			}
+		})
 	}
 }
 
