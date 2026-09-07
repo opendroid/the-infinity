@@ -1,0 +1,47 @@
+# Dependabot, configured for one reason: its default title cannot merge here.
+#
+# `build(deps): bump x from 1 to 2` fails the `pr title` check on BOTH halves —
+# `build` is not one of CLAUDE.md's eight types, and `deps` is not one of its
+# five scopes. Since `protect-main` requires that check, every Dependabot PR was
+# unmergeable, and two HIGH-SEVERITY SECURITY UPDATES sat open for four and five
+# days before anyone noticed (#335). Nothing was broken and no check was wrong;
+# the patches just sat there.
+#
+# `prefix: chore` gives `chore: bump x from 1 to 2`, which the existing regex
+# accepts — scope is optional, so none has to be invented. A dependency bump is
+# a chore. The alternative was widening the type list to admit `build`, which
+# means changing a convention to suit a bot rather than the other way round.
+#
+# `open-pull-requests-limit: 0` IS LOAD-BEARING, and is why this file does not
+# change what Dependabot does. Without an `updates:` block there is no way to
+# configure commit messages at all, but adding one is also how scheduled version
+# updates get switched on. Zero keeps them off — the config still applies to
+# security updates, which is the traffic this repo actually gets. Raising it is
+# a separate decision about appetite for weekly dependency churn.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /web
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore
+
+  - package-ecosystem: gomod
+    directory: /api
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore
+
+  # The workflows pin actions by major version, so this is the one ecosystem
+  # where an update is a supply-chain question rather than a version bump.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore
