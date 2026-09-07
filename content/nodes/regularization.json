@@ -8,7 +8,7 @@
   "bodies": {
     "intuition": "Anything you do to a model to stop it memorising the training set. Weight decay, dropout, early stopping, data augmentation and label smoothing are all the same move in different clothes — deliberately making the training objective harder to satisfy, so that the easy way out stops being available.",
     "engineer": "The unifying description is that each one removes capacity the model could otherwise spend on the training set specifically. That is also why the classical story of it as a capacity limit is incomplete: a large network can fit pure noise, so it plainly has capacity to spare, and it still generalises when trained on real data. Whatever regularisation is doing is therefore about which solution the optimiser lands on rather than about which solutions exist, and the implicit regularisation of the optimiser itself is often the larger term.",
-    "math": "Every explicit form buys the same thing: some training-set fit is given up in exchange for a smaller gap between training and held-out error. So the training loss is guaranteed to get WORSE and the quantity of interest is not visible on it at all — a regularised run underperforming an unregularised one on training loss is the method working, not failing. The only place the trade can be read is the held-out curve, which is why tuning any of these on training loss silently selects for no regularisation."
+    "math": "Every explicit form buys the same thing: some training-set fit is given up in exchange for a smaller gap between training and held-out error. So the training loss is the currency and not the scoreboard: a regularised run sitting above an unregularised one on training loss is the method working rather than failing, and in the overparameterised regime, where both runs can drive it near zero, it says nothing at all. The only place the trade can be read is the held-out curve, which is why tuning any of these on training loss silently selects for no regularisation."
   },
   "emphasis": {
     "intuition": "the same move in different clothes",
@@ -62,8 +62,9 @@
       "url": "https://arxiv.org/abs/1711.05101"
     }
   ],
-  "updated_at": "2026-08-18",
-  "provenance": {
-    "drafted_at": "2026-08-18"
+  "updated_at": "2026-09-07",
+  "review": {
+    "reviewed_by": "opendroid",
+    "reviewed_at": "2026-09-07"
   }
 }
