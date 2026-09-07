@@ -8,7 +8,7 @@ GOLDEN ?= ../content/derived.golden.json
 
 QUEUE_LIMIT ?= 100
 
-.PHONY: help run publish queues golden test test-emulator cover lint fmt tidy docker-build check
+.PHONY: help run publish queues golden test test-emulator cover lint vuln fmt tidy docker-build check
 .DEFAULT_GOAL := help
 
 help: ## List targets
@@ -82,6 +82,9 @@ $(GOLANGCI_STAMP):
 		|| { echo "could not fetch golangci-lint $(GOLANGCI_VERSION) for $(GOLANGCI_PLATFORM) — check the tag in .golangci-version"; exit 1; }
 	@touch $@
 	@$(GOLANGCI) --version
+
+vuln: ## Known vulnerabilities in code paths this service actually reaches
+	@go run golang.org/x/vuln/cmd/govulncheck@$$(cat .govulncheck-version) ./...
 
 lint: $(GOLANGCI_STAMP) ## go vet, gofmt check, and the pinned golangci-lint
 	go vet ./...

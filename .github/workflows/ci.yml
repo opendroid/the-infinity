@@ -132,6 +132,27 @@ jobs:
           version: ${{ steps.golangci-version.outputs.value }}
           working-directory: api
 
+      # KNOWN VULNERABILITIES, AND WHY THIS ONE BLOCKS WHILE npm audit DOES NOT
+      # (#339). govulncheck does reachability analysis: it reports a
+      # vulnerability only when this service actually calls the affected path.
+      # That is what makes it quiet enough to put in front of a merge — a check
+      # that reddens every open PR over something none of them caused is a check
+      # people learn to ignore.
+      #
+      # `npm audit` has no such analysis, which is why the web job does not gate
+      # on it. Scoping it tight enough to be quiet (--omit=dev --audit-level=high)
+      # would have missed the nanoid advisory that prompted this, because that
+      # one was dev-only (#337).
+      #
+      # Pinned from a file for the reason #263 records: a literal here and a
+      # different version on a developer's PATH are two checks wearing one name.
+      - id: govulncheck-version
+        run: echo "value=$(cat api/.govulncheck-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Known vulnerabilities
+        working-directory: api
+        run: go run golang.org/x/vuln/cmd/govulncheck@${{ steps.govulncheck-version.outputs.value }} ./...
+
       # The jar is fetched directly rather than through `gcloud components
       # install`, so this job needs neither the SDK nor any credential: the
       # emulator authenticates nothing and accepts any project id.
