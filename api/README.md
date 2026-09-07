@@ -259,7 +259,7 @@ Every read carries a `Cache-Control`; nothing else does.
 | Route | Header | Why |
 |---|---|---|
 | `/concepts/{id}`, `/neighborhood` | `public, max-age=60, s-maxage=300` | Changes only when a merge publishes it |
-| `/stats` | `public, max-age=60, s-maxage=300` | Highest-volume path, cheapest thing to be slightly wrong about |
+| `/stats` | `public, max-age=60, s-maxage=300` | Cheapest thing in the surface to be slightly wrong about |
 | `/trails/{slug}` | `public, max-age=600, s-maxage=3600` | Written once, never updated |
 | Everything else | `no-store` | See below |
 

@@ -60,9 +60,13 @@ func DefaultConfig() Config {
 // than something they chose to do.
 //
 // At the write rate a reader gets three requests and then one every ten seconds:
-// landing page (/stats), open a concept (/neighborhood), open another — burst
-// gone, and the fourth navigation inside ten seconds 429s and the mini-map
-// silently hides. That is the product punishing someone for using it.
+// open a concept (/neighborhood), open another, follow an edge — burst gone, and
+// the fourth navigation inside ten seconds 429s and the mini-map silently hides.
+// That is the product punishing someone for using it.
+//
+// /neighborhood is the whole example because it is the only read a visitor
+// generates in volume: the landing page ships zero JavaScript and never calls
+// /stats, whatever the surface docs used to say (#353).
 //
 // 60/min with a burst of 20 covers brisk clicking through the graph with room to
 // spare, and still bounds the cost it exists to bound: sustained, one address
