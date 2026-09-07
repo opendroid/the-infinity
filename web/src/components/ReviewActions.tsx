@@ -93,7 +93,7 @@ export default function ReviewActions({ conceptId }: Props) {
             maxLength={MAX_NOTE}
             required
             autoFocus
-            className="mt-2 w-full rounded-control border border-line bg-void px-3 py-2.5 text-[14px] text-starlight placeholder:text-dust"
+            className="mt-2 w-full rounded-control border border-thread bg-void px-3 py-2.5 text-[14px] text-starlight placeholder:text-dust"
             placeholder="The Newton–Schulz coefficient does not match the cited paper…"
           />
           <div className="mt-2.5 flex flex-wrap items-center gap-2.5">

@@ -136,7 +136,7 @@ export default function RequestConcept() {
             placeholder="Name the concept"
             maxLength={120}
             required
-            className="min-w-0 flex-1 rounded-control border border-line bg-void px-3 py-2.5 text-[14px] text-starlight placeholder:text-dust"
+            className="min-w-0 flex-1 rounded-control border border-thread bg-void px-3 py-2.5 text-[14px] text-starlight placeholder:text-dust"
           />
           <button
             type="submit"
