@@ -7,7 +7,7 @@ import Thread from '../components/Thread.astro';
 import { allNodes, stats } from '../lib/content';
 import { placeLayout, readLayout } from '../lib/layout';
 
-const { concepts, grewThisWeek } = stats();
+const { concepts, grewThisWeek, frontier: awaitingReview } = stats();
 
 // WHICH concepts sit on the thread is a committed decision, not a slice of the
 // alphabet: /content/layout/lemniscate.json, per ADR-0003. That file also says
@@ -107,7 +107,28 @@ const chips = layout.chips;
         <a href="/concepts" class="text-dust underline decoration-line underline-offset-4 hover:text-starlight hover:decoration-thread">
           {concepts.toLocaleString()} concepts
         </a> &middot;{' '}
-        <b class="font-semibold text-frontier">{grewThisWeek} grew on the frontier this week</b>
+        {
+          /*
+            THREE STATES, AND THE FIRST DRAFT OF THIS GOT THEM WRONG (ADR-0015).
+            "0 grew on the frontier this week" is true and says nothing worth
+            saying, and it spends the teal — the colour that means new growth —
+            on the absence of it.
+
+            But `grewThisWeek` counts frontier nodes touched in the last SEVEN
+            DAYS, which is narrower than the frontier existing: it reads zero
+            today while three concepts are awaiting review. Swapping on it would
+            have claimed "every concept reviewed" while three were not. The
+            claim belongs to `frontier === 0`, which is the condition that makes
+            it true.
+          */
+          awaitingReview === 0 ? (
+            <b class="font-semibold text-verified">every concept reviewed</b>
+          ) : grewThisWeek > 0 ? (
+            <b class="font-semibold text-frontier">{grewThisWeek} grew on the frontier this week</b>
+          ) : (
+            <b class="font-semibold text-frontier">{awaitingReview} on the frontier</b>
+          )
+        }
       </p>
     </div>
   </main>

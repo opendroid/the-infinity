@@ -240,23 +240,17 @@ export function validateLayout() {
 
   const errors = [];
 
-  // AN EMPTY FRONTIER FAILS HERE, AND WITHOUT THIS IT FAILS OPAQUELY (#283).
-  // Verifying the last frontier batch makes every right-lobe bead verified, so
-  // the per-bead check below reports three separate "is verified, but this lobe
-  // is frontier" errors and never names the cause. The reader's next move is to
-  // edit the layout, which cannot work: there is nothing frontier to put in it.
+  // AN EMPTY FRONTIER IS A STATE, NOT AN ERROR (ADR-0015, #283). This used to
+  // refuse it, which made verifying the last frontier batch break the build and
+  // forced every verification to arrive with a seed beside it. That coupling
+  // began deciding what got written — batches were seeded because a verification
+  // needed somewhere to put the lobe — and the seeding lens ran out before the
+  // rule did.
   //
-  // This says so once, and points at the open question rather than answering
-  // it — whether an empty frontier should be representable at all is a design
-  // decision about the landing page's signature figure, not a validator's call.
-  const anyFrontier = [...nodes.values()].some((n) => tierOf(n) === 'frontier');
-  if (!anyFrontier) {
-    errors.push(
-      'no concept is frontier, so the lemniscate\'s teal lobe cannot be filled — ' +
-        'the layout is not the problem and editing it will not help. ' +
-        'Seed a batch, or see #283 on whether steady state should be representable.',
-    );
-  }
+  // What the lobes MEAN is unchanged, and still checked below: a bead whose tier
+  // belongs to the other lobe is still wrong. There is simply no floor on how
+  // many beads the right lobe holds. `Thread.astro` defaults `secondary` to []
+  // and renders the stroke without it.
 
   for (const [lobe, tier] of [
     ['left', 'verified'],

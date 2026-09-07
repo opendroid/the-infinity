@@ -44,12 +44,16 @@ export function nodeOrThrow(id: string): ResolvedNode {
  * Landing-page stats. ADR-0003: these ship as build-time values so the pulse
  * line never renders empty; GET /v1/stats refreshes them after hydration.
  */
-export function stats(): { concepts: number; grewThisWeek: number } {
+export function stats(): { concepts: number; grewThisWeek: number; frontier: number } {
   const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  const frontier = allNodes.filter((n) => n.tier === 'frontier');
   return {
     concepts: allNodes.length,
-    grewThisWeek: allNodes.filter(
-      (n) => n.tier === 'frontier' && Date.parse(n.updated_at) >= weekAgo,
-    ).length,
+    // Frontier nodes touched in the last week — new growth that ARRIVED
+    // recently, which is a narrower thing than the frontier existing. Zero here
+    // is routine and does not mean the corpus is fully reviewed; `frontier`
+    // below is the count that does (ADR-0015).
+    grewThisWeek: frontier.filter((n) => Date.parse(n.updated_at) >= weekAgo).length,
+    frontier: frontier.length,
   };
 }

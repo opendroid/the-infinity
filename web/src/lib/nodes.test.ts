@@ -164,25 +164,23 @@ describe('content/nodes', () => {
   });
 
   /**
-   * Both tier colours have a node, so both are exercised.
+   * EVERY TIER IS ONE OF THE TWO, AND AN EMPTY FRONTIER IS ALLOWED (ADR-0015).
    *
-   * THIS IS ONE OF THE TWO PLACES AN EMPTY FRONTIER BREAKS THE BUILD (#283).
-   * The other is the lemniscate check in `validate-content.mjs`. Verifying the
-   * last frontier batch takes the corpus to zero frontier nodes and fails both,
-   * which is why a verification cannot land without a seed beside it.
+   * This used to require BOTH tiers to be present, which — with the lemniscate
+   * check in `validate-content.mjs` — meant verifying the last frontier batch
+   * broke the build, so no verification could land without a seed beside it.
+   * #283 records how that inverted the order: batches got seeded because a
+   * verification needed somewhere to put the lobe.
    *
-   * That coupling is deliberate as far as it goes — the landing page's argument
-   * is reviewed core flowing into new growth, and there is no defined
-   * appearance for the figure with nothing growing. Whether steady state should
-   * be representable is the open question; this assertion is not the place to
-   * settle it, only the place it is felt.
+   * What is worth asserting is that the derivation only ever produces the two
+   * tiers ADR-0002 defines. A third value would be a derivation bug, and that is
+   * the failure this catches — not a fact about how much of the corpus happens
+   * to be reviewed today.
    */
-  it('has at least one node of each tier, so both colours are exercised', () => {
+  it('derives only the two tiers ADR-0002 defines', () => {
     const graph = resolveGraph(nodes.map((n) => n.node));
     const tiers = new Set([...graph.values()].map((n) => n.tier));
-    expect([...tiers].sort(), 'an empty frontier also fails validate:content — see #283').toEqual([
-      'frontier',
-      'verified',
-    ]);
+    expect(tiers.size).toBeGreaterThan(0);
+    for (const tier of tiers) expect(['verified', 'frontier']).toContain(tier);
   });
 });
