@@ -83,7 +83,7 @@ $(GOLANGCI_STAMP):
 	@touch $@
 	@$(GOLANGCI) --version
 
-vuln: ## Known vulnerabilities in code paths this service actually reaches
+vuln: ## Known vulnerabilities in reachable code paths. Needs to reach vuln.go.dev
 	@go run golang.org/x/vuln/cmd/govulncheck@$$(cat .govulncheck-version) ./...
 
 lint: $(GOLANGCI_STAMP) ## go vet, gofmt check, and the pinned golangci-lint
@@ -100,4 +100,4 @@ tidy: ## Prune go.mod
 docker-build: ## Multi-stage distroless nonroot image (amd64 — Cloud Run runs nothing else)
 	docker build --platform linux/amd64 -t $(IMAGE):$(TAG) .
 
-check: lint test ## What CI runs
+check: lint test ## Lint and tests — the offline gate. CI also runs vuln, the emulator suite, build and docker
