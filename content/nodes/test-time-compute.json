@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Why We Think",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2025-05-01-thinking/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

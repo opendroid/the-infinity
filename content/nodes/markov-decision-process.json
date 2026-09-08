@@ -42,6 +42,15 @@
     }
   ],
   "updated_at": "2026-08-17",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Markov Decision Process (MDP)",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_reinforcement-learning/mdp.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-17"

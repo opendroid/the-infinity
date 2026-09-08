@@ -65,10 +65,10 @@
   "explainers": [
     {
       "kind": "read",
-      "scope": "domain",
-      "title": "Dive into Deep Learning",
-      "author": "Zhang, Lipton, Li & Smola",
-      "url": "https://d2l.ai/index.html"
+      "scope": "concept",
+      "title": "Learning with not Enough Data Part 1: Semi-Supervised Learning",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2021-12-05-semi-supervised/"
     }
   ],
   "review": {

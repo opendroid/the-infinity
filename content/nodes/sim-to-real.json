@@ -52,6 +52,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Domain Randomization for Sim2Real Transfer",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2019-05-05-domain-randomization/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

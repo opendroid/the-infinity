@@ -56,6 +56,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "AI Agents Course",
+      "author": "Hugging Face",
+      "url": "https://huggingface.co/learn/agents-course"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"
