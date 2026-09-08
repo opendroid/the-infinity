@@ -131,6 +131,13 @@ const bodies = DEPTHS.map((depth) => {
                   {node.explainers.map((e) => (
                     <li class="font-mono text-[11.5px] text-dust">
                       <a href={e.url} class="text-thread no-underline hover:underline">{e.title}</a> — {e.author}
+                      {/*
+                        ADR-0018. A domain-scoped entry is NOT about this concept,
+                        and the reader is told before they click rather than after.
+                        Same rule ADR-0013 applies to origin: a broader source
+                        presented as a narrower one is the misrepresentation.
+                      */}
+                      {e.scope === 'domain' && <span> · on {node.domain[0]}</span>}
                     </li>
                   ))}
                 </ul>
@@ -194,6 +201,13 @@ const bodies = DEPTHS.map((depth) => {
                   {node.explainers.map((e) => (
                     <li class="font-mono text-[11.5px] text-dust">
                       <a href={e.url} class="text-thread no-underline hover:underline">{e.title}</a> — {e.author}
+                      {/*
+                        ADR-0018. A domain-scoped entry is NOT about this concept,
+                        and the reader is told before they click rather than after.
+                        Same rule ADR-0013 applies to origin: a broader source
+                        presented as a narrower one is the misrepresentation.
+                      */}
+                      {e.scope === 'domain' && <span> · on {node.domain[0]}</span>}
                     </li>
                   ))}
                 </ul>

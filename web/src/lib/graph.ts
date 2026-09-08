@@ -56,7 +56,9 @@ export interface Origin {
  * rendering them as links is honest.
  */
 export interface Explainer {
-  kind: 'video' | 'course';
+  kind: 'video' | 'read';
+  /** Whether this covers the concept, or only its domain (ADR-0018). */
+  scope: 'concept' | 'domain';
   title: string;
   author: string;
   url: string;

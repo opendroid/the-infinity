@@ -18,9 +18,9 @@
  * else's name fails because the names disagree. Neither is catchable by asking
  * whether a URL loads.
  *
- * A `read` entry has no such endpoint and gets the HEAD-then-GET treatment
- * from check-citations.mjs — which exists for non-arXiv hosts and, against a
- * corpus that is 800/800 arXiv, has never once been exercised.
+ * A `read` entry has no oEmbed, so it is fetched and its page title is compared
+ * against the recorded one. That is the same question asked a weaker way: is the
+ * thing at this URL the thing this node says is there.
  *
  * Like its neighbour, this NEVER reports success for work it did not do. If
  * every entry failed the same way the network is the explanation, and it says so
@@ -109,6 +109,14 @@ export function structuralProblems(explainers) {
       continue;
     }
 
+    // Duplicated from the schema for the same reason as the host table: this
+    // script has to be right when run on its own, and an entry with no scope is
+    // one whose page cannot say what it covers.
+    if (e.scope !== 'concept' && e.scope !== 'domain') {
+      problems.push(`${where}: scope is "${e.scope}" — must be "concept" or "domain"`);
+      continue;
+    }
+
     if (e.kind === 'video' && !videoId(e.url)) {
       problems.push(`${where}: no video id in ${e.url} — oEmbed has nothing to ask about`);
     }
@@ -129,23 +137,56 @@ export function structuralProblems(explainers) {
   return problems;
 }
 
-/** Reachability only, for a `read`. Same HEAD-then-GET as check-citations.mjs. */
-async function resolves(url) {
-  for (const method of ['HEAD', 'GET']) {
-    try {
-      const res = await fetch(url, {
-        method,
-        redirect: 'follow',
-        headers: method === 'GET' ? { Range: 'bytes=0-0' } : {},
-        signal: AbortSignal.timeout(20_000),
-      });
-      if (res.status === 405 || res.status === 501) continue;
-      return { ok: res.ok, status: res.status };
-    } catch (err) {
-      return { ok: false, status: 0, error: err instanceof Error ? err.message : String(err) };
-    }
+/** The handful of entities that turn up in a page title. */
+const unescape = (s) =>
+  s
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&(amp|quot|apos|nbsp|ndash|mdash|lsquo|rsquo|ldquo|rdquo);/g, ' ');
+
+/** The page's own <title>, or null if it has none. */
+export function titleOf(html) {
+  const m = /<title[^>]*>([\s\S]*?)<\/title>/i.exec(html);
+  return m ? unescape(m[1]) : null;
+}
+
+/**
+ * Existence AND identity, for a `read`.
+ *
+ * A GET alone proves only that SOMETHING answers at that URL, which is exactly
+ * the weakness of check:citations that ADR-0017 set out not to inherit — a
+ * moved post, a domain that changed hands, a 200-serving error page all pass it.
+ * So the page's own <title> has to contain the recorded title.
+ *
+ * Substring rather than equality, because a title carries the site with it:
+ * "The Illustrated Transformer – Jay Alammar – Visualizing machine learning one
+ * concept at a time." and "11.5. Multi-Head Attention — Dive into Deep Learning
+ * 1.0.3 documentation" both have to match what a reader would sensibly write
+ * down (ADR-0018).
+ */
+async function verifyRead(e) {
+  let res;
+  try {
+    res = await fetch(e.url, { redirect: 'follow', signal: AbortSignal.timeout(20_000) });
+  } catch (err) {
+    return { ok: false, status: 0, error: err instanceof Error ? err.message : String(err) };
   }
-  return { ok: false, status: 0, error: 'HEAD and GET both refused' };
+  if (!res.ok) return { ok: false, status: res.status };
+
+  let body;
+  try {
+    body = await res.text();
+  } catch (err) {
+    return { ok: false, status: res.status, error: err instanceof Error ? err.message : String(err) };
+  }
+
+  const page = titleOf(body);
+  if (page === null) {
+    return { ok: false, status: res.status, error: 'the page has no <title> to check against' };
+  }
+  if (!normalise(page).includes(normalise(e.title))) {
+    return { ok: false, status: res.status, error: `the page is titled "${page.trim()}"` };
+  }
+  return { ok: true, status: res.status };
 }
 
 /**
@@ -188,7 +229,7 @@ async function verifyVideo(e) {
   return { ok: true, status: res.status };
 }
 
-const verify = (e) => (e.kind === 'video' ? verifyVideo(e) : resolves(e.url));
+const verify = (e) => (e.kind === 'video' ? verifyVideo(e) : verifyRead(e));
 
 async function main() {
   const explainers = readExplainers();
@@ -249,7 +290,11 @@ async function main() {
   }
 
   const videos = explainers.filter((e) => e.kind === 'video').length;
-  console.log(`✓ ${explainers.length} explainer(s) verified — ${videos} by title and author against YouTube`);
+  const domain = explainers.filter((e) => e.scope === 'domain').length;
+  console.log(
+    `✓ ${explainers.length} explainer(s) verified by title — ${videos} also by author against YouTube; ` +
+      `${domain} scoped to a domain rather than a concept`,
+  );
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

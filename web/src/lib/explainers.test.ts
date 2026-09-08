@@ -15,6 +15,7 @@ import { EXPLAINER_HOSTS, hostOf } from '../../scripts/explainer-hosts.mjs';
 
 interface Explainer {
   kind: string;
+  scope: string;
   title: string;
   author: string;
   url: string;
@@ -24,6 +25,7 @@ interface Explainer {
 const real: Explainer = {
   node: 'attention',
   kind: 'video',
+  scope: 'concept',
   title: 'Attention in transformers, step-by-step',
   author: '3Blue1Brown',
   url: 'https://www.youtube.com/watch?v=eMlx5fFNoYc',
@@ -93,6 +95,11 @@ describe('structuralProblems catches', () => {
       name: 'a kind nothing knows how to check',
       explainer: { ...real, kind: 'podcast' },
       match: /cannot verify/,
+    },
+    {
+      name: 'a missing scope — the page could not say what it covers',
+      explainer: { ...real, scope: undefined as unknown as string },
+      match: /must be "concept" or "domain"/,
     },
   ];
 

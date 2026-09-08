@@ -244,11 +244,19 @@
         "additionalProperties": false,
         "required": [
           "kind",
+          "scope",
           "title",
           "author",
           "url"
         ],
         "properties": {
+          "scope": {
+            "enum": [
+              "concept",
+              "domain"
+            ],
+            "description": "Whether this covers THIS CONCEPT or only its domain (ADR-0018). Required rather than defaulted: a default would let a domain overview be recorded as a concept-level one by omission, and the reader needs the distinction before they follow the link. A domain-scoped entry renders with the subject it actually covers."
+          },
           "kind": {
             "enum": [
               "video",

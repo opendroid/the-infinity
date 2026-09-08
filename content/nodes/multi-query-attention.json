@@ -51,6 +51,15 @@
     }
   ],
   "updated_at": "2026-08-02",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "The Illustrated Transformer",
+      "author": "Jay Alammar",
+      "url": "https://jalammar.github.io/illustrated-transformer/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"
