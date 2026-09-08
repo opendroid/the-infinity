@@ -56,6 +56,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "Working with Sequences",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_recurrent-neural-networks/sequence.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

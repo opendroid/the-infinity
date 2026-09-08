@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Flow-based Deep Generative Models",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2018-10-13-flow-models/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

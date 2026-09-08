@@ -51,6 +51,15 @@
     }
   ],
   "updated_at": "2026-08-04",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Transformers for Vision",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_attention-mechanisms-and-transformers/vision-transformer.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"
