@@ -46,15 +46,15 @@ describe('node.schema.json accepts', () => {
     expect(validate(valid())).toBe(true);
   });
 
-  it('a node with explainers, and the same node without them (ADR-0017)', () => {
-    // Absent is the normal case, not a gap: no canonical talk exists for most
-    // of the corpus, and the schema must not imply otherwise.
+  it('a node with explainers, concept- and domain-scoped (ADR-0017, ADR-0018)', () => {
+    // Absent still validates — the schema does not require the field. Whether
+    // every concept SHOULD have one is ADR-0018's question, not the schema's.
     expect(validate(valid())).toBe(true);
     const node = {
       ...valid(),
       explainers: [
-        { kind: 'video', title: 'T', author: 'A', url: 'https://www.youtube.com/watch?v=abc' },
-        { kind: 'read', title: 'C', author: 'B', url: 'https://distill.pub/2016/misread-tsne/' },
+        { kind: 'video', scope: 'concept', title: 'T', author: 'A', url: 'https://www.youtube.com/watch?v=abc' },
+        { kind: 'read', scope: 'domain', title: 'C', author: 'B', url: 'https://distill.pub/2016/misread-tsne/' },
       ],
     };
     expect(validate(node)).toBe(true);
@@ -144,9 +144,13 @@ describe('node.schema.json rejects', () => {
     { name: 'an unrecognised top-level field', mutate: (n) => Object.assign(n, { vibes: 'immaculate' }) },
     // ADR-0017. `kind` selects the verification strategy, so a third value is a
     // node the checker has no way to check.
-    { name: 'an explainer of an unknown kind', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'podcast', title: 'T', author: 'A', url: 'https://example.com/x' }] }) },
-    { name: 'an explainer with no author — attribution is the point', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'video', title: 'T', url: 'https://www.youtube.com/watch?v=abc' }] }) },
-    { name: 'a non-https explainer url', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'video', title: 'T', author: 'A', url: 'http://www.youtube.com/watch?v=abc' }] }) },
+    { name: 'an explainer of an unknown kind', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'podcast', scope: 'concept', title: 'T', author: 'A', url: 'https://example.com/x' }] }) },
+    // ADR-0018: required rather than defaulted, so a domain overview cannot be
+    // published as a concept-level one by saying nothing.
+    { name: 'an explainer with no scope', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'video', title: 'T', author: 'A', url: 'https://www.youtube.com/watch?v=abc' }] }) },
+    { name: 'an explainer scoped to something else', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'video', scope: 'vibes', title: 'T', author: 'A', url: 'https://www.youtube.com/watch?v=abc' }] }) },
+    { name: 'an explainer with no author — attribution is the point', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'video', scope: 'concept', title: 'T', url: 'https://www.youtube.com/watch?v=abc' }] }) },
+    { name: 'a non-https explainer url', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'video', scope: 'concept', title: 'T', author: 'A', url: 'http://www.youtube.com/watch?v=abc' }] }) },
     { name: 'an empty explainers array — absent, not empty', mutate: (n) => Object.assign(n, { explainers: [] }) },
   ];
 

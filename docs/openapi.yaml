@@ -590,8 +590,15 @@ components:
           minItems: 1
           items:
             type: object
-            required: [kind, title, author, url]
+            required: [kind, scope, title, author, url]
             properties:
+              scope:
+                type: string
+                enum: [concept, domain]
+                description: >-
+                  Whether this covers the concept itself or only its domain (ADR-0018).
+                  Required rather than defaulted, so a domain overview cannot be published
+                  as a concept-level resource by omission.
               kind:
                 type: string
                 enum: [video, read]

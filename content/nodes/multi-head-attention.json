@@ -52,6 +52,15 @@
     }
   ],
   "updated_at": "2026-08-02",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Multi-Head Attention",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_attention-mechanisms-and-transformers/multihead-attention.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

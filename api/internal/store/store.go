@@ -91,7 +91,11 @@ type Origin struct {
 // is the half that can be checked. Kind selects how check:explainers verifies
 // the entry, so it is authored rather than inferred from the host.
 type Explainer struct {
-	Kind   string `firestore:"kind" json:"kind"`
+	Kind string `firestore:"kind" json:"kind"`
+	// Scope is "concept" or "domain": whether this covers the concept itself or
+	// only the area it sits in (ADR-0018). Authored, never defaulted — a default
+	// lets a domain overview be published as a concept-level one by omission.
+	Scope  string `firestore:"scope" json:"scope"`
 	Title  string `firestore:"title" json:"title"`
 	Author string `firestore:"author" json:"author"`
 	URL    string `firestore:"url" json:"url"`
