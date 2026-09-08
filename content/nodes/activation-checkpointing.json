@@ -57,6 +57,15 @@
     }
   ],
   "updated_at": "2026-08-04",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "How to Train Really Large Models on Many GPUs?",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2021-09-25-train-large/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"
