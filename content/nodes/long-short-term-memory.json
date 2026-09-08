@@ -69,6 +69,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Understanding LSTM Networks",
+      "author": "Christopher Olah",
+      "url": "https://colah.github.io/posts/2015-08-Understanding-LSTMs/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Batch Normalization",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_convolutional-modern/batch-norm.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"
