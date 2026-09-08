@@ -47,6 +47,15 @@
     }
   ],
   "updated_at": "2026-08-02",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Scaling Laws, Carefully",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2026-06-24-scaling-laws/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

@@ -48,6 +48,15 @@
     }
   ],
   "updated_at": "2026-08-02",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Generalization",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_linear-regression/generalization.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"
