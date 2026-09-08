@@ -46,6 +46,20 @@ describe('node.schema.json accepts', () => {
     expect(validate(valid())).toBe(true);
   });
 
+  it('a node with explainers, and the same node without them (ADR-0017)', () => {
+    // Absent is the normal case, not a gap: no canonical talk exists for most
+    // of the corpus, and the schema must not imply otherwise.
+    expect(validate(valid())).toBe(true);
+    const node = {
+      ...valid(),
+      explainers: [
+        { kind: 'video', title: 'T', author: 'A', url: 'https://www.youtube.com/watch?v=abc' },
+        { kind: 'read', title: 'C', author: 'B', url: 'https://distill.pub/2016/misread-tsne/' },
+      ],
+    };
+    expect(validate(node)).toBe(true);
+  });
+
   it('a frontier node with provenance instead of review', () => {
     const node = { ...valid(), review: undefined, provenance: { drafted_at: '2026-01-01' } };
     delete node.review;
@@ -128,6 +142,12 @@ describe('node.schema.json rejects', () => {
     { name: 'an edge without a reviewed flag', mutate: (n) => n.edges.requires.push({ id: 'x' } as never) },
     { name: 'a missing depth body', mutate: (n) => delete (n.bodies as { math?: string }).math },
     { name: 'an unrecognised top-level field', mutate: (n) => Object.assign(n, { vibes: 'immaculate' }) },
+    // ADR-0017. `kind` selects the verification strategy, so a third value is a
+    // node the checker has no way to check.
+    { name: 'an explainer of an unknown kind', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'podcast', title: 'T', author: 'A', url: 'https://example.com/x' }] }) },
+    { name: 'an explainer with no author — attribution is the point', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'video', title: 'T', url: 'https://www.youtube.com/watch?v=abc' }] }) },
+    { name: 'a non-https explainer url', mutate: (n) => Object.assign(n, { explainers: [{ kind: 'video', title: 'T', author: 'A', url: 'http://www.youtube.com/watch?v=abc' }] }) },
+    { name: 'an empty explainers array — absent, not empty', mutate: (n) => Object.assign(n, { explainers: [] }) },
   ];
 
   for (const c of cases) {

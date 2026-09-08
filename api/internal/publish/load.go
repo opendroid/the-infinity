@@ -54,9 +54,10 @@ type AuthoredNode struct {
 	Emphasis *store.Emphasis `json:"emphasis,omitempty"`
 	Viz      store.Viz       `json:"viz"`
 
-	Edges     AuthoredEdges    `json:"edges"`
-	Citations []store.Citation `json:"citations"`
-	Origin    []store.Origin   `json:"origin,omitempty"`
+	Edges      AuthoredEdges     `json:"edges"`
+	Citations  []store.Citation  `json:"citations"`
+	Origin     []store.Origin    `json:"origin,omitempty"`
+	Explainers []store.Explainer `json:"explainers,omitempty"`
 
 	// Exactly one of Review and Prov is present; the schema's oneOf enforces it.
 	// Review's presence IS the tier (ADR-0002).

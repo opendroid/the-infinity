@@ -13,6 +13,7 @@
     "perf": "node scripts/perf-budget.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "check:citations": "node scripts/check-citations.mjs",
+    "check:explainers": "node scripts/check-explainers.mjs",
     "validate:openapi": "npx --yes @redocly/cli lint ../docs/openapi.yaml",
     "smoke": "node scripts/smoke.mjs"
   },

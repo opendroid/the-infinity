@@ -76,19 +76,20 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 
 	for _, n := range nodes {
 		out[n.ID] = &store.Concept{
-			ID:        n.ID,
-			Title:     n.Title,
-			Domain:    n.domainPath(),
-			Tier:      n.Tier(),
-			Bodies:    n.Bodies,
-			Emphasis:  n.Emphasis,
-			Viz:       n.Viz,
-			Edges:     store.Edges{},
-			Citations: n.Citations,
-			Origin:    n.Origin,
-			Review:    n.Review,
-			Prov:      n.Prov,
-			UpdatedAt: n.UpdatedAt,
+			ID:         n.ID,
+			Title:      n.Title,
+			Domain:     n.domainPath(),
+			Tier:       n.Tier(),
+			Bodies:     n.Bodies,
+			Emphasis:   n.Emphasis,
+			Viz:        n.Viz,
+			Edges:      store.Edges{},
+			Citations:  n.Citations,
+			Origin:     n.Origin,
+			Explainers: n.Explainers,
+			Review:     n.Review,
+			Prov:       n.Prov,
+			UpdatedAt:  n.UpdatedAt,
 		}
 		order = append(order, n.ID)
 	}

@@ -58,6 +58,24 @@ jobs:
       - name: Validate content
         run: npm run validate:content
 
+      # THE ONE GATE IN THIS FILE THAT REACHES A THIRD PARTY, AND WHY IT IS HERE
+      # ANYWAY (ADR-0017). A `video` explainer is verified through YouTube's
+      # oEmbed endpoint, which 404s for a video that is gone and returns the
+      # real title and channel for one that is live — so this checks that the
+      # recorded attribution MATCHES, not merely that a URL answers.
+      #
+      # That cannot be done anywhere else. Authoring sandboxes deny youtube.com,
+      # and `check:citations` is not in CI at all (#361), which is how
+      # LAUNCH.md came to tick "every citation resolves" with nothing enforcing
+      # it. This field does not inherit that.
+      #
+      # It will occasionally be red for reasons nobody caused — a video pulled,
+      # or YouTube unreachable. The script tells those apart: every entry failing
+      # identically exits 2 and says the network is the explanation, rather than
+      # reporting the corpus as dead.
+      - name: Verify explainers
+        run: npm run check:explainers
+
       - name: Lint
         run: npm run lint
 

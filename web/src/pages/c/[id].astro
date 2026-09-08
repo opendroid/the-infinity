@@ -111,6 +111,31 @@ const bodies = DEPTHS.map((depth) => {
                 </ul>
               </>
             )}
+            {node.explainers && node.explainers.length > 0 && (
+              <>
+                {/*
+                  ADR-0017. A third source list with a third job: `citations` is
+                  what backs the claims, `Origin` is where the idea came from,
+                  and this is where to go and be taught it.
+
+                  Linked in `thread`, unlike origin, and that difference is
+                  earned rather than cosmetic: `check:explainers` fetches each
+                  one, and for a video compares the title and author here
+                  against what YouTube reports. These are the most-checked links
+                  on the page.
+                */}
+                <p class="mt-4 font-mono text-[10px] uppercase tracking-[.16em] text-dust">
+                  Watch &amp; read
+                </p>
+                <ul class="mt-2 space-y-1.5">
+                  {node.explainers.map((e) => (
+                    <li class="font-mono text-[11.5px] text-dust">
+                      <a href={e.url} class="text-thread no-underline hover:underline">{e.title}</a> — {e.author}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
             {/*
               client:idle, not client:visible. The island renders null until it
               mounts (no JS, no buttons), so a visible-gated island has zero
@@ -153,6 +178,22 @@ const bodies = DEPTHS.map((depth) => {
                       {o.ref} — {o.title}
                       {o.venue && <span> · {o.venue}</span>}
                       {o.doi && <span> · doi:{o.doi}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {/* The same list as the frontier branch above — see #362, which is
+                about the duplication these two blocks now carry three times. */}
+            {node.explainers && node.explainers.length > 0 && (
+              <>
+                <p class="mt-4 font-mono text-[10px] uppercase tracking-[.16em] text-dust">
+                  Watch &amp; read
+                </p>
+                <ul class="mt-2 space-y-1.5">
+                  {node.explainers.map((e) => (
+                    <li class="font-mono text-[11.5px] text-dust">
+                      <a href={e.url} class="text-thread no-underline hover:underline">{e.title}</a> — {e.author}
                     </li>
                   ))}
                 </ul>

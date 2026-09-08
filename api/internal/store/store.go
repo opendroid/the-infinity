@@ -82,6 +82,21 @@ type Origin struct {
 	DOI   string `firestore:"doi" json:"doi,omitempty"`
 }
 
+// Explainer is somewhere a reader can go to be TAUGHT the concept (ADR-0017).
+// A third job beside its neighbours: Citation is evidence for the claims, Origin
+// is where the idea came from, and this is somebody explaining it.
+//
+// Author is a field rather than prose because it is the point — a named person
+// the reader already trusts is doing the teaching — and because for a video it
+// is the half that can be checked. Kind selects how check:explainers verifies
+// the entry, so it is authored rather than inferred from the host.
+type Explainer struct {
+	Kind   string `firestore:"kind" json:"kind"`
+	Title  string `firestore:"title" json:"title"`
+	Author string `firestore:"author" json:"author"`
+	URL    string `firestore:"url" json:"url"`
+}
+
 type ParamControl struct {
 	Name string  `firestore:"name" json:"name"`
 	Min  float64 `firestore:"min" json:"min"`
@@ -176,9 +191,12 @@ type Concept struct {
 	Edges     Edges          `firestore:"edges" json:"edges"`
 	Citations List[Citation] `firestore:"citations" json:"citations"`
 	Origin    List[Origin]   `firestore:"origin" json:"origin,omitempty"`
-	Review    *Review        `firestore:"review" json:"review"`
-	Prov      *Provenance    `firestore:"provenance" json:"provenance"`
-	UpdatedAt string         `firestore:"updated_at" json:"updated_at"`
+	// List, not a slice: a nil slice marshals as null, and this is optional
+	// enough that most concepts will have one.
+	Explainers List[Explainer] `firestore:"explainers" json:"explainers,omitempty"`
+	Review     *Review         `firestore:"review" json:"review"`
+	Prov       *Provenance     `firestore:"provenance" json:"provenance"`
+	UpdatedAt  string          `firestore:"updated_at" json:"updated_at"`
 }
 
 // NearestConcept is what a 404 offers instead of a dead end.

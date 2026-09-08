@@ -46,6 +46,22 @@ export interface Origin {
   doi?: string;
 }
 
+/**
+ * Where a reader can go to be TAUGHT the concept (ADR-0017).
+ *
+ * The third source field, and the one that is neither evidence nor attribution:
+ * `citations` is what backs the claims, `origin` is where the idea came from,
+ * this is somebody explaining it. Unlike `origin` these ARE fetched — and for a
+ * `video`, `title` and `author` are checked against what YouTube reports, so
+ * rendering them as links is honest.
+ */
+export interface Explainer {
+  kind: 'video' | 'course';
+  title: string;
+  author: string;
+  url: string;
+}
+
 export interface AuthoredNode {
   id: string;
   title: string;
@@ -63,6 +79,7 @@ export interface AuthoredNode {
   edges: { requires: AuthoredEdge[]; adjacent: AuthoredEdge[] };
   citations: Citation[];
   origin?: Origin[];
+  explainers?: Explainer[];
   review?: { reviewed_by: string; reviewed_at: string };
   provenance?: { drafted_at: string };
   updated_at: string;
