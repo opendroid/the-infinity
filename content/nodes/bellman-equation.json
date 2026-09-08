@@ -69,6 +69,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "A (Long) Peek into Reinforcement Learning",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2018-02-19-rl-overview/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

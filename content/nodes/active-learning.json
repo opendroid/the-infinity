@@ -60,10 +60,10 @@
   "explainers": [
     {
       "kind": "read",
-      "scope": "domain",
-      "title": "Dive into Deep Learning",
-      "author": "Zhang, Lipton, Li & Smola",
-      "url": "https://d2l.ai/index.html"
+      "scope": "concept",
+      "title": "Learning with not Enough Data Part 2: Active Learning",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2022-02-20-active-learning/"
     }
   ],
   "review": {
