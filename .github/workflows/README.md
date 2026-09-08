@@ -20,7 +20,7 @@ Two things about that configuration are easy to get wrong:
 
 | Job | Steps |
 |---|---|
-| `web` | `npm ci` → `validate:content` → `check:explainers` → lint → typecheck → test → build → perf budget → browser smoke |
+| `web` | `npm ci` → `validate:content` → `check:explainers --fast` → lint → typecheck → test → build → perf budget → browser smoke |
 | `api` | `go vet` + `gofmt` → `golangci-lint` → `govulncheck` → `go test -race` (with the Firestore emulator) → `go build` → `docker build` → the image runs |
 | `contracts` | `redocly lint docs/openapi.yaml` |
 | `pr title` | Conventional Commits, on the title that becomes the squash commit |
@@ -34,17 +34,23 @@ are the only tests that touch real serialisation. The jar is downloaded straight
 from `firebase-preview-drop` rather than through `gcloud components install`, so
 the job needs neither the SDK nor a credential.
 
-**`check:explainers`.** The only gate here that talks to a third party. A `video`
-entry is verified through YouTube's oEmbed endpoint, which 404s for a video that is
-gone and returns the real title and channel for one that is live — so the check
+**`check:explainers --fast`.** The only gate here that talks to a third party. A
+`video` entry is verified through YouTube's oEmbed endpoint, which 404s for a video that
+is gone and returns the real title and channel for one that is live — so the check
 asserts the recorded attribution is *right*, not merely that a URL answers.
-`check:citations` cannot do that, and is not in CI at all (#361).
+`check:citations` cannot do that, and does not run here at all — see `links.yml` below.
 
 It fetches **pages, not entries**: 482 explainers are 126 distinct URLs, because a
 domain fallback is one page shared across a whole domain. Deduplicating and then
 running four requests per host took the step from 99 seconds to 3 — the same change
 takes `check:citations` from 134 to 22 — and it is why a dead page now reports once
 with the concepts it affects rather than sixteen times (#373).
+
+**`--fast` skips hosts that publish a `Crawl-delay`, and says which** — with the number
+of entries it left unchecked, so a gate covering a subset cannot print the success line
+of a full run. Today it skips nothing: none of the seven hosts the explainer allowlist
+admits states a delay, and the step stays at about two seconds. The flag is here for the
+first host added that does (ADR-0020, #375).
 
 A failure that got **no response at all** is reported separately from one the server
 answered, and only the first kind can produce exit 2. A 404 is the host answering
@@ -78,6 +84,37 @@ Both versions are pinned in files — `api/.golangci-version` and
 falling back. The golangci pin was silently ignored for a long while, because
 the step read a path that did not exist and the action treats an empty version
 as `latest` (#341).
+
+## `links.yml` — weekly, Sundays 04:17 UTC
+
+The slow half of link checking, and **not a required check**
+([ADR-0020](../../docs/adr/0020-link-checking-is-two-jobs.md), #375). It runs both link
+checks in full, honouring every stated crawl-delay.
+
+The whole reason it exists is arxiv.org:
+
+```
+# Indiscriminate automated downloads from this site are not permitted
+User-agent: *
+Crawl-delay: 15
+```
+
+Every citation in the corpus is an arxiv.org URL, and 485 distinct papers at fifteen
+seconds apart is **just over two hours**. That price cannot sit on a pull request, so it
+sits here — which is also how #361 is closed: "every citation resolves" had been ticked
+in LAUNCH.md since the corpus was thirteen nodes, with nothing enforcing it.
+
+Weekly rather than nightly because link rot is slow. A citation that was never real is
+still caught immediately, on the pull request, by the structural checks — a fabricated
+arXiv id, a `ref` and `url` naming different papers, a date in the future — none of which
+need the network. What moves here is detecting rot in citations that were real when they
+merged.
+
+**No `issues: write`.** A failed scheduled run already emails the owner; a bot that opens
+an issue per dead link is a bot someone mutes.
+
+`workflow_dispatch` is enabled so the sweep can be started by hand after a large content
+merge rather than waiting up to a week.
 
 ## `deploy.yml` — merge to `main`
 

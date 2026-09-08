@@ -49,6 +49,7 @@ point.
 | [0017](0017-teaching-resources-are-not-citations.md) | A teaching resource is not a citation | **accepted** |
 | [0018](0018-every-concept-gets-an-explainer.md) | Every concept gets an explainer, and says which kind it is | **accepted** |
 | [0019](0019-an-encyclopedia-article-is-a-teaching-resource.md) | An encyclopedia article is a teaching resource, with a different kind of author | **accepted** |
+| [0020](0020-link-checking-is-two-jobs.md) | Link checking is two jobs — a fast gate and a slow, polite sweep | **accepted** |
 
 ## Planned
 

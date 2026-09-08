@@ -102,7 +102,11 @@ gcloud logging read 'resource.type=cloud_run_revision AND logName:"stdout"' \
 ## 6. The content is true
 
 - [ ] **Every M1 and M2 issue closed.** Not deferred, not "basically done"
-- [x] Every node validates against the schema, and every citation resolves
+- [x] Every node validates against the schema, and every citation resolves — the second
+      half of that was ticked for a long while with nothing enforcing it, and is now swept
+      weekly by [`links.yml`](../.github/workflows/links.yml). It is not a pull-request
+      gate and cannot be: honouring arxiv.org's stated 15-second crawl-delay across 485
+      papers is a two-hour job ([ADR-0020](adr/0020-link-checking-is-two-jobs.md))
 - [ ] **Citations checked for *identity*, not just resolvability.** `check:citations`
       answers "does this URL load", which a real-but-wrong paper passes — and that is by
       far the most common defect across every verification batch run so far.

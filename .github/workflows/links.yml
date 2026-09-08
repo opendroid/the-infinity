@@ -1,0 +1,71 @@
+# The slow half of link checking (ADR-0020, #375).
+#
+# `check:citations` verifies 485 arXiv urls. arxiv.org's robots.txt asks fifteen
+# seconds between requests and says at the top that "indiscriminate automated
+# downloads from this site are not permitted", so honouring it makes the sweep a
+# two-hour job — which is exactly why it cannot be a pull-request gate, and why
+# ci.yml runs `check:explainers -- --fast` instead.
+#
+# WEEKLY, NOT NIGHTLY. Link rot is a slow phenomenon and a two-hour job every
+# night is disproportionate to it. A citation that dies on Tuesday is found on
+# Sunday; a citation that was never real is found on the pull request, by the
+# structural checks, which need no network at all.
+#
+# This closes #361: "every citation resolves" has been ticked in LAUNCH.md with
+# nothing enforcing it since the corpus was thirteen nodes.
+name: links
+
+on:
+  schedule:
+    # Sundays, 04:17 UTC. Off the hour deliberately — the top of the hour is when
+    # every other repository's cron fires, and this one is in no hurry.
+    - cron: '17 4 * * 0'
+  # So the sweep can be started by hand after a large content merge, rather than
+  # waiting up to a week to learn whether 40 new citations resolve.
+  workflow_dispatch:
+
+# Read-only, and deliberately WITHOUT `issues: write`. A failed scheduled
+# workflow already emails the repository owner. A bot that opens an issue per
+# dead link is a bot someone mutes, and a muted bot is worse than no bot.
+permissions:
+  contents: read
+
+concurrency:
+  group: links
+  cancel-in-progress: false
+
+jobs:
+  links:
+    name: links
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    # Above the two-hour arXiv sweep with room for it to be slower than measured
+    # — 485 urls at 15s is 2h01m before a single response time is counted.
+    timeout-minutes: 210
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - run: npm ci
+
+      # Explainers first, and in full: it is the three-second half, so a
+      # structural problem or a dead teaching resource is reported within the
+      # minute rather than after the arXiv sweep. Without `--fast` — the point of
+      # this workflow is that it can afford whatever the hosts ask for.
+      - name: Verify explainers
+        timeout-minutes: 20
+        run: npm run check:explainers
+
+      # The two-hour one. `if: always()` so a red explainer check does not
+      # cancel the sweep this workflow exists for.
+      - name: Resolve every citation
+        if: always()
+        timeout-minutes: 180
+        run: npm run check:citations

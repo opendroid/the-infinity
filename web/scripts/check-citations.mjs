@@ -3,6 +3,7 @@
  *
  *   node scripts/check-citations.mjs            # structural checks + network
  *   node scripts/check-citations.mjs --offline  # structural checks only
+ *   node scripts/check-citations.mjs --fast     # skip hosts that ask a crawl-delay
  *
  * CLAUDE.md §4: "Citations are real, resolvable links. No invented references."
  * A generated node's citations are the single most likely thing in it to be
@@ -19,19 +20,36 @@
  * also the one that cannot run everywhere: a sandbox with a restrictive egress
  * policy cannot reach arxiv.org at all.
  *
- * WHICH IS WHY THIS NEVER EXITS 0 ON AN UNVERIFIED CORPUS. If the network is
- * unreachable, it says so and exits 2. A checker that reports success because
- * it could not check is worse than no checker: it converts "nobody looked" into
- * "someone looked and it was fine".
+ * WHICH IS WHY IT NEVER REPORTS WORK IT DID NOT DO. If the network is
+ * unreachable it says so and exits 2; `--offline` and `--fast` say in the
+ * success line itself what they left unresolved. A checker that reports success
+ * because it could not check is worse than no checker: it converts "nobody
+ * looked" into "someone looked and it was fine".
+ *
+ * THIS IS THE SLOW HALF OF ADR-0020, AND TODAY IT IS ALL OF IT. Every citation
+ * in the corpus is an arxiv.org url, and arxiv.org asks fifteen seconds between
+ * requests — so a full sweep of 485 papers is a two-hour job, which is why this
+ * runs weekly from links.yml rather than on a pull request. `--fast` is what a
+ * pull request would use, and today it checks nothing at all and says so.
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { byUrl, nothingWasVerified, pool, unreachableHosts } from './fetch-pool.mjs';
+import {
+  byUrl,
+  crawlDelays,
+  hostOf,
+  nothingWasVerified,
+  partitionByDelay,
+  pool,
+  skippedNotice,
+  unreachableHosts,
+} from './fetch-pool.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
 const NODES_DIR = join(ROOT, 'content/nodes');
 
 const OFFLINE = process.argv.includes('--offline');
+const FAST = process.argv.includes('--fast');
 
 /** arXiv ids are YYMM.NNNNN (or the pre-2007 `archive/YYMMNNN` form). */
 const ARXIV_REF = /^arXiv:(\d{4})\.(\d{4,5})(v\d+)?$/;
@@ -139,8 +157,31 @@ async function main() {
   // and the fetch only ever asked whether the URL answers, which does not depend
   // on which node is asking.
   const groups = byUrl(citations);
-  const results = await pool([...groups.keys()], resolves, { perHost: 4 });
-  const failed = [...groups.keys()].filter((url) => !results.get(url).ok);
+
+  // WHAT EACH HOST ASKS FOR, READ FROM THE HOST (ADR-0020). arxiv.org's
+  // robots.txt states 15 seconds between requests and, at the top, that
+  // "indiscriminate automated downloads from this site are not permitted".
+  // A host in this map runs serially with that gap; the rest keep the pool.
+  const delays = await crawlDelays([...groups.keys()].map(hostOf));
+  const { checking, skipped } = FAST
+    ? partitionByDelay([...groups.keys()], delays)
+    : { checking: [...groups.keys()], skipped: new Map() };
+
+  if (skipped.size > 0) {
+    console.log(skippedNotice(skipped, delays, groups, 'citation'));
+  }
+
+  // Nothing left to ask about is not a pass, and on this corpus it is the
+  // NORMAL --fast outcome: all 485 papers are on arxiv.org, so skipping the
+  // delayed hosts skips everything. Said plainly rather than dressed as a tick.
+  if (checking.length === 0) {
+    const structural = `${citations.length} citation(s) structurally consistent`;
+    console.log(`· ${structural} — NOT resolved, every url is on a host --fast skips`);
+    process.exit(0);
+  }
+
+  const results = await pool(checking, resolves, { perHost: 4, delays });
+  const failed = checking.filter((url) => !results.get(url).ok);
 
   // An egress proxy that denies a host answers the CONNECT with its own status,
   // so "arxiv.org is blocked here" arrives looking exactly like "this paper was
@@ -184,7 +225,14 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`✓ ${citations.length} citation(s) across ${groups.size} paper(s) resolve`);
+  // Counts the entries actually reached, not the corpus. A --fast run that
+  // printed the corpus size would be claiming the papers it skipped.
+  const checked = checking.reduce((n, url) => n + groups.get(url).length, 0);
+  const unchecked = citations.length - checked;
+  console.log(
+    `✓ ${checked} citation(s) across ${checking.length} paper(s) resolve` +
+      (unchecked > 0 ? ` — ${unchecked} NOT resolved (--fast)` : ''),
+  );
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
