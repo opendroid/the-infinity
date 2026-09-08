@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Numerical Stability and Initialization",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"
