@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-04",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Calibration (statistics)",
+      "author": "Wikipedia contributors",
+      "url": "https://en.wikipedia.org/wiki/Calibration_(statistics)"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

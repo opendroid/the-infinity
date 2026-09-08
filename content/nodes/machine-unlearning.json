@@ -52,6 +52,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Machine unlearning",
+      "author": "Wikipedia contributors",
+      "url": "https://en.wikipedia.org/wiki/Machine_unlearning"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

@@ -48,6 +48,7 @@ point.
 | [0016](0016-a-browser-smoke-test.md) | A browser smoke test, and one dependency to run it | **accepted** |
 | [0017](0017-teaching-resources-are-not-citations.md) | A teaching resource is not a citation | **accepted** |
 | [0018](0018-every-concept-gets-an-explainer.md) | Every concept gets an explainer, and says which kind it is | **accepted** |
+| [0019](0019-an-encyclopedia-article-is-a-teaching-resource.md) | An encyclopedia article is a teaching resource, with a different kind of author | **accepted** |
 
 ## Planned
 

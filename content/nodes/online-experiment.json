@@ -62,6 +62,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "A/B testing",
+      "author": "Wikipedia contributors",
+      "url": "https://en.wikipedia.org/wiki/A/B_testing"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

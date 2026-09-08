@@ -19,9 +19,17 @@ import { URL } from 'node:url';
  *
  * `read` is fetched, so the bar is that the host KEEPS ITS URLS. Every one below
  * is a stable publication rather than a feed: a lecture page that moves every
- * term is link rot with a syllabus. Wikipedia and paperswithcode are
- * deliberately absent — good references, but this field is a named person
- * teaching, and neither has an author to check.
+ * term is link rot with a syllabus.
+ *
+ * `en.wikipedia.org` IS A LAST RESORT AND SITS LAST FOR THAT REASON (ADR-0019).
+ * Every other host here is a named person teaching; Wikipedia is "Wikipedia
+ * contributors". It earns its place because eleven domains — privacy, fairness,
+ * causality, model merging — have no signed resource anywhere in this list, and
+ * seventy-seven concepts dead-ending is worse. Use it only where nothing with a
+ * named author covers the concept OR its domain: `perplexity` has a Wikipedia
+ * article and takes d2l's "Language Models" instead. No check enforces that.
+ *
+ * paperswithcode stays out: it indexes papers, which is what `citations` is for.
  */
 export const EXPLAINER_HOSTS = {
   video: ['youtube.com', 'youtu.be'],
@@ -40,6 +48,8 @@ export const EXPLAINER_HOSTS = {
     'sebastianraschka.com',
     'simonwillison.net',
     'thegradient.pub',
+    // Last, and last resort. See the note above.
+    'en.wikipedia.org',
   ],
 };
 
