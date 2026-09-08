@@ -73,7 +73,11 @@ jobs:
       # or YouTube unreachable. The script tells those apart: every entry failing
       # identically exits 2 and says the network is the explanation, rather than
       # reporting the corpus as dead.
+      # It has no timeout of its own beyond the per-request one, and the worst
+      # case is a host that hangs rather than refuses. The smoke step carries
+      # the same belt for the same reason (#373).
       - name: Verify explainers
+        timeout-minutes: 6
         run: npm run check:explainers
 
       - name: Lint
