@@ -52,6 +52,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Meta-Learning: Learning to Learn Fast",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2018-11-30-meta-learning/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

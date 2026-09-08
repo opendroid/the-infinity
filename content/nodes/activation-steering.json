@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "How to Explain the Prediction of a Machine Learning Model?",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2017-08-01-interpretation/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"
