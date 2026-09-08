@@ -58,6 +58,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "Fairness (machine learning)",
+      "author": "Wikipedia contributors",
+      "url": "https://en.wikipedia.org/wiki/Fairness_(machine_learning)"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

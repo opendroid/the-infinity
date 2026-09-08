@@ -56,6 +56,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Code-switching",
+      "author": "Wikipedia contributors",
+      "url": "https://en.wikipedia.org/wiki/Code_switching"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

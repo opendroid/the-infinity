@@ -60,6 +60,15 @@
     }
   ],
   "updated_at": "2026-08-04",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Reward Hacking in Reinforcement Learning",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2024-11-28-reward-hacking/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

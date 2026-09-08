@@ -50,6 +50,15 @@
     }
   ],
   "updated_at": "2026-08-04",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Policy Gradient Algorithms",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2018-04-08-policy-gradient/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

@@ -139,6 +139,11 @@ Scopes: `web` · `api` · `content` · `infra` · `docs`.
   and attaching one anyway is the invented reference rule wearing a different field name.
   `check:explainers` verifies each one and, for a video, checks the recorded title and
   author against what YouTube reports.
+- `en.wikipedia.org` is on the `explainers` allowlist as a **last resort**
+  ([ADR-0019](docs/adr/0019-an-encyclopedia-article-is-a-teaching-resource.md)) — used only
+  where nothing with a named author covers the concept or its domain, which is true of
+  privacy, fairness, causality and model merging. Where both exist the named author wins.
+  Nothing checks this; it is a review question.
 
 ---
 

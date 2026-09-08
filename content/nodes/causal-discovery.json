@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Exploratory causal analysis",
+      "author": "Wikipedia contributors",
+      "url": "https://en.wikipedia.org/wiki/Causal_discovery"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"
