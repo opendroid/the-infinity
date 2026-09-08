@@ -57,6 +57,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "How to Build an Open-Domain Question Answering System?",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2020-10-29-odqa/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

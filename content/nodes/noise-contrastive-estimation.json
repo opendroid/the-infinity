@@ -60,6 +60,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "Visual Information Theory",
+      "author": "Christopher Olah",
+      "url": "https://colah.github.io/posts/2015-09-Visual-Information/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

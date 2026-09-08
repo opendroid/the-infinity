@@ -64,6 +64,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Curriculum for Reinforcement Learning",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2020-01-29-curriculum-rl/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

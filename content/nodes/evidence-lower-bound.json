@@ -51,6 +51,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "From Autoencoder to Beta-VAE",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2018-08-12-vae/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

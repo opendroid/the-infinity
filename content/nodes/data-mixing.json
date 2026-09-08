@@ -52,6 +52,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "Thinking about High-Quality Human Data",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2024-02-05-human-data-quality/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

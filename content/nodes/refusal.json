@@ -58,6 +58,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "Prompt Engineering",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"
