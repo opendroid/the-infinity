@@ -50,6 +50,15 @@
     }
   ],
   "updated_at": "2026-08-02",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Softmax Regression",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_linear-classification/softmax-regression.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

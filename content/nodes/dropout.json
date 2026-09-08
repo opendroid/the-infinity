@@ -47,6 +47,15 @@
     }
   ],
   "updated_at": "2026-08-02",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Dropout",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_multilayer-perceptrons/dropout.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"
