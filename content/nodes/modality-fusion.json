@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "Generalized Visual Language Models",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2022-06-09-vlm/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

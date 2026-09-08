@@ -53,6 +53,15 @@
     }
   ],
   "updated_at": "2026-08-13",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "Self-Supervised Representation Learning",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2019-11-10-self-supervised/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-13"

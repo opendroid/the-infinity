@@ -47,6 +47,15 @@
     }
   ],
   "updated_at": "2026-08-13",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Neural Networks, Manifolds, and Topology",
+      "author": "Christopher Olah",
+      "url": "https://colah.github.io/posts/2014-03-NN-Manifolds-Topology/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-13"

@@ -59,6 +59,15 @@
     }
   ],
   "updated_at": "2026-08-04",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Contrastive Representation Learning",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2021-05-31-contrastive/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-04"

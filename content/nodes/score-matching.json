@@ -57,6 +57,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "What are Diffusion Models?",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2021-07-11-diffusion-models/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

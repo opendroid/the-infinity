@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-17",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "Hugging Face Audio course",
+      "author": "Hugging Face",
+      "url": "https://huggingface.co/learn/audio-course"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

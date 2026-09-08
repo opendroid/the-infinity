@@ -61,6 +61,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "Diffusion Models for Video Generation",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2024-04-12-diffusion-video/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

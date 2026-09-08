@@ -57,6 +57,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "concept",
+      "title": "From GAN to WGAN",
+      "author": "Lilian Weng",
+      "url": "https://lilianweng.github.io/posts/2017-08-20-gan/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"

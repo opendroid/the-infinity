@@ -56,6 +56,15 @@
     }
   ],
   "updated_at": "2026-08-18",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "A Gentle Introduction to Graph Neural Networks",
+      "author": "Sanchez-Lengeling, Reif, Pearce & Wiltschko",
+      "url": "https://distill.pub/2021/gnn-intro/"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-18"
