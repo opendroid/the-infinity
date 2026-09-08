@@ -56,6 +56,15 @@
     }
   ],
   "updated_at": "2026-08-19",
+  "explainers": [
+    {
+      "kind": "read",
+      "scope": "domain",
+      "title": "Hardware",
+      "author": "Zhang, Lipton, Li & Smola",
+      "url": "https://d2l.ai/chapter_computational-performance/hardware.html"
+    }
+  ],
   "review": {
     "reviewed_by": "opendroid",
     "reviewed_at": "2026-08-19"
