@@ -26,6 +26,7 @@
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { byUrl, nothingWasVerified, pool, unreachableHosts } from './fetch-pool.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
 const NODES_DIR = join(ROOT, 'content/nodes');
@@ -133,26 +134,31 @@ async function main() {
     process.exit(0);
   }
 
-  const failures = [];
-  for (const c of citations) {
-    const r = await resolves(c.url);
-    if (!r.ok) failures.push({ c, r });
-  }
+  // ONE FETCH PER PAPER, NOT PER CITATION (#373). 800 citations are 485
+  // distinct arXiv URLs — a well-cited paper appears on up to twelve concepts —
+  // and the fetch only ever asked whether the URL answers, which does not depend
+  // on which node is asking.
+  const groups = byUrl(citations);
+  const results = await pool([...groups.keys()], resolves, { perHost: 4 });
+  const failed = [...groups.keys()].filter((url) => !results.get(url).ok);
 
   // An egress proxy that denies a host answers the CONNECT with its own status,
   // so "arxiv.org is blocked here" arrives looking exactly like "this paper was
-  // retracted". Told apart by breadth, not by status: a corpus where EVERY
-  // citation fails the same way is describing the network, not the content.
+  // retracted". Told apart by breadth, not by status: a host where EVERY url
+  // fails the same way is describing the network, not the content.
   //
   // Getting this backwards is the expensive direction. Reporting a blocked
   // sandbox as nine dead papers invites someone to delete nine real citations.
-  const statuses = new Set(failures.map(({ r }) => r.status));
-  const environmental = failures.length === citations.length && citations.length > 1 && statuses.size === 1;
+  //
+  // Per host rather than per corpus since #373. This corpus is single-host —
+  // all 800 citations are arxiv.org — so the two are the same answer here; the
+  // shared helper is what keeps this checker and check:explainers agreeing.
+  const dead = unreachableHosts(results);
 
-  if (environmental) {
-    const [status] = [...statuses];
+  if (nothingWasVerified(results)) {
+    const [{ host, urls }] = dead;
     console.error(
-      `\nAll ${citations.length} citations failed identically (${status === 0 ? 'no response' : `HTTP ${status}`}).\n` +
+      `\nAll ${urls} url(s) on ${host} got no response at all.\n` +
         `That is the network, not the content — an egress policy denying arxiv.org looks the\n` +
         `same as every paper vanishing at once, and only one of those is plausible.\n\n` +
         `Nothing was verified. Re-run where arxiv.org is reachable, or use --offline and say\n` +
@@ -161,17 +167,24 @@ async function main() {
     process.exit(2);
   }
 
-  for (const { c, r } of failures) {
+  for (const url of failed) {
+    const r = results.get(url);
+    const cites = groups.get(url);
     const detail = r.status === 0 ? `could not reach (${r.error})` : `HTTP ${r.status}`;
-    console.error(`  ✗ ${c.node} → ${c.ref}: ${detail} — ${c.url}`);
+    console.error(`  ✗ ${cites[0].ref}: ${detail} — ${url}`);
+    console.error(
+      `      ${cites.length} node(s): ${cites.slice(0, 6).map((c) => c.node).join(', ')}` +
+        `${cites.length > 6 ? `, and ${cites.length - 6} more` : ''}`,
+    );
   }
 
-  if (problems.length > 0 || failures.length > 0) {
-    console.error(`\n${problems.length} structural, ${failures.length} unresolvable.`);
+  if (problems.length > 0 || failed.length > 0) {
+    const affected = failed.reduce((n, url) => n + groups.get(url).length, 0);
+    console.error(`\n${problems.length} structural, ${failed.length} unresolvable page(s) affecting ${affected} citation(s).`);
     process.exit(1);
   }
 
-  console.log(`✓ ${citations.length} citation(s) resolve`);
+  console.log(`✓ ${citations.length} citation(s) across ${groups.size} paper(s) resolve`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

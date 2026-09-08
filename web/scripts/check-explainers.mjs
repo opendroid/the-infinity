@@ -30,6 +30,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { URL } from 'node:url';
 import { EXPLAINER_HOSTS, hostOf } from './explainer-hosts.mjs';
+import { byUrl, nothingWasVerified, pool, unreachableHosts } from './fetch-pool.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
 const NODES_DIR = join(ROOT, 'content/nodes');
@@ -256,44 +257,59 @@ async function main() {
     process.exit(0);
   }
 
-  const failures = [];
-  for (const e of explainers) {
-    const r = await verify(e);
-    if (!r.ok) failures.push({ e, r });
-  }
+  // ONE FETCH PER PAGE, NOT PER ENTRY (#373). A domain fallback is one URL
+  // shared across a whole domain, so 482 entries are 126 pages. Every entry
+  // sharing a URL carries the same title and author — structuralProblems
+  // rejects any that do not — so one of them stands for all of them.
+  const groups = byUrl(explainers);
+  const results = await pool([...groups.keys()], (url) => verify(groups.get(url)[0]), { perHost: 4 });
 
-  // The same reasoning as check-citations.mjs: an egress policy denying
-  // youtube.com looks exactly like every video being deleted at once, and only
-  // one of those is plausible. Told apart by breadth, not by status.
-  const statuses = new Set(failures.map(({ r }) => r.status));
-  const environmental = failures.length === explainers.length && explainers.length > 1 && statuses.size === 1;
+  const failed = [...groups.keys()].filter((url) => !results.get(url).ok);
 
-  if (environmental) {
-    const [status] = [...statuses];
-    console.error(
-      `\nAll ${explainers.length} explainers failed identically (${status === 0 ? 'no response' : `HTTP ${status}`}).\n` +
-        `That is the network, not the content. Nothing was verified.\n\n` +
-        `Re-run where youtube.com is reachable — CI is, and an authoring sandbox may not be —\n` +
-        `or use --offline and say plainly that the corpus is unverified.`,
-    );
-    process.exit(2);
-  }
+  // Which hosts answered nothing, as opposed to which pages are gone. The old
+  // version of this asked whether the WHOLE corpus failed identically, which
+  // stopped meaning anything once the corpus spanned seven hosts.
+  const dead = unreachableHosts(results);
+  const blocked = failed.filter((url) => results.get(url).status === 0);
+  const real = failed.filter((url) => results.get(url).status !== 0);
 
-  for (const { e, r } of failures) {
+  for (const url of real) {
+    const r = results.get(url);
+    const entries = groups.get(url);
     const detail = r.error ?? `HTTP ${r.status}`;
-    console.error(`  ✗ ${e.node} → ${e.title}: ${detail} — ${e.url}`);
+    console.error(`  ✗ ${url}\n      ${detail}`);
+    // Blast radius, because a dead domain fallback is one page and many
+    // concepts, and the count is the thing a reader needs first.
+    console.error(
+      `      ${entries.length} concept(s): ${entries.slice(0, 6).map((e) => e.node).join(', ')}` +
+        `${entries.length > 6 ? `, and ${entries.length - 6} more` : ''}`,
+    );
   }
 
-  if (failures.length > 0) {
-    console.error(`\n${failures.length} of ${explainers.length} explainer(s) could not be verified.`);
+  if (dead.length > 0) {
+    const affected = blocked.reduce((n, url) => n + groups.get(url).length, 0);
+    console.error(
+      `\n${dead.length} host(s) answered nothing, which is the network rather than the content:\n` +
+        dead.map((d) => `  ${d.host} — ${d.urls} url(s), no response at all`).join('\n') +
+        `\n\n${affected} explainer(s) went unverified. Re-run where those hosts are reachable — CI is,\n` +
+        `and an authoring sandbox may not be — or use --offline and say plainly that they are unverified.`,
+    );
+    // Exit 2 only when nothing here is evidence a page is gone. One real HTTP
+    // status anywhere makes this a run that found something, and exit 1 says so.
+    if (nothingWasVerified(results)) process.exit(2);
+  }
+
+  if (real.length > 0) {
+    const affected = real.reduce((n, url) => n + groups.get(url).length, 0);
+    console.error(`\n${real.length} of ${groups.size} page(s) could not be verified, affecting ${affected} explainer(s).`);
     process.exit(1);
   }
 
   const videos = explainers.filter((e) => e.kind === 'video').length;
   const domain = explainers.filter((e) => e.scope === 'domain').length;
   console.log(
-    `✓ ${explainers.length} explainer(s) verified by title — ${videos} also by author against YouTube; ` +
-      `${domain} scoped to a domain rather than a concept`,
+    `✓ ${explainers.length} explainer(s) across ${groups.size} page(s) verified by title — ` +
+      `${videos} also by author against YouTube; ${domain} scoped to a domain rather than a concept`,
   );
 }
 

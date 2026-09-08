@@ -1,4 +1,6 @@
-import { URL } from 'node:url';
+import { hostOf } from './fetch-pool.mjs';
+
+export { hostOf };
 
 /**
  * Which hosts an `explainers` entry may point at, per kind (ADR-0017).
@@ -52,8 +54,3 @@ export const EXPLAINER_HOSTS = {
     'en.wikipedia.org',
   ],
 };
-
-/** The host as the allowlist spells it: no `www.`, lowercased. */
-export function hostOf(url) {
-  return new URL(url).hostname.toLowerCase().replace(/^www\./, '');
-}

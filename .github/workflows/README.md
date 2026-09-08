@@ -38,8 +38,17 @@ the job needs neither the SDK nor a credential.
 entry is verified through YouTube's oEmbed endpoint, which 404s for a video that is
 gone and returns the real title and channel for one that is live — so the check
 asserts the recorded attribution is *right*, not merely that a URL answers.
-`check:citations` cannot do that, and is not in CI at all (#361). When YouTube is
-unreachable the script exits 2 saying so, rather than reporting every entry as dead.
+`check:citations` cannot do that, and is not in CI at all (#361).
+
+It fetches **pages, not entries**: 482 explainers are 126 distinct URLs, because a
+domain fallback is one page shared across a whole domain. Deduplicating and then
+running four requests per host took the step from 99 seconds to 3 — the same change
+takes `check:citations` from 134 to 22 — and it is why a dead page now reports once
+with the concepts it affects rather than sixteen times (#373).
+
+A failure that got **no response at all** is reported separately from one the server
+answered, and only the first kind can produce exit 2. A 404 is the host answering
+clearly; three 404s on one host are three dead pages, not a blocked host.
 See [ADR-0017](../../docs/adr/0017-teaching-resources-are-not-citations.md).
 
 **`docker build`.** It is here because the daemon is unreachable where the code is
