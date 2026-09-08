@@ -572,6 +572,37 @@ components:
               doi:
                 type: string
                 description: An identifier, not a link. Never dereferenced.
+        explainers:
+          type: array
+          description: >-
+            Where a reader can go to be TAUGHT this concept — a talk, an explainer, a course
+            page, a book chapter (ADR-0017). A third job, distinct from both neighbours: `citations` is
+            evidence for the claims, `origin` is where the idea came from, and this is
+            somebody explaining it. Absent on most concepts, and that is the normal case
+            rather than a gap: a canonical talk exists for `attention` and not for
+            `fisher-weighted-merging`.
+
+            More strongly checked than `citations`. A `video` is verified through YouTube's
+            oEmbed endpoint, which 404s for one that is gone and returns the real title and
+            channel for one that is live — so `title` and `author` are checked against
+            reality, not merely for resolvability. `citations` cannot manage that: a
+            retracted paper still answers 200.
+          minItems: 1
+          items:
+            type: object
+            required: [kind, title, author, url]
+            properties:
+              kind:
+                type: string
+                enum: [video, read]
+                description: Selects how the entry is verified, so it is authored rather than inferred from the host.
+              title: { type: string }
+              author:
+                type: string
+                description: >-
+                  Who is doing the explaining — for a video, the channel exactly as YouTube
+                  names it, since that is what the check compares against.
+              url: { type: string, format: uri }
         review:
           description: Present on verified concepts, null on frontier ones.
           oneOf:

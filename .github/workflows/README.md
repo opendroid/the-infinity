@@ -20,12 +20,12 @@ Two things about that configuration are easy to get wrong:
 
 | Job | Steps |
 |---|---|
-| `web` | `npm ci` → `validate:content` → lint → typecheck → test → build → perf budget → browser smoke |
+| `web` | `npm ci` → `validate:content` → `check:explainers` → lint → typecheck → test → build → perf budget → browser smoke |
 | `api` | `go vet` + `gofmt` → `golangci-lint` → `govulncheck` → `go test -race` (with the Firestore emulator) → `go build` → `docker build` → the image runs |
 | `contracts` | `redocly lint docs/openapi.yaml` |
 | `pr title` | Conventional Commits, on the title that becomes the squash commit |
 
-Four of those deserve a note.
+Five of those deserve a note.
 
 **The emulator.** `internal/publish`'s round-trip tests skip when
 `FIRESTORE_EMULATOR_HOST` is unset, so `go test ./...` stays one command on a
@@ -33,6 +33,14 @@ laptop. This job sets it, which means CI is the only place they run — and they
 are the only tests that touch real serialisation. The jar is downloaded straight
 from `firebase-preview-drop` rather than through `gcloud components install`, so
 the job needs neither the SDK nor a credential.
+
+**`check:explainers`.** The only gate here that talks to a third party. A `video`
+entry is verified through YouTube's oEmbed endpoint, which 404s for a video that is
+gone and returns the real title and channel for one that is live — so the check
+asserts the recorded attribution is *right*, not merely that a URL answers.
+`check:citations` cannot do that, and is not in CI at all (#361). When YouTube is
+unreachable the script exits 2 saying so, rather than reporting every entry as dead.
+See [ADR-0017](../../docs/adr/0017-teaching-resources-are-not-citations.md).
 
 **`docker build`.** It is here because the daemon is unreachable where the code is
 written. Before this workflow existed, `api/Dockerfile` had never been built by

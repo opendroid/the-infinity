@@ -235,6 +235,46 @@
         }
       }
     },
+    "explainers": {
+      "type": "array",
+      "description": "Where a reader can go to be TAUGHT this concept \u2014 a talk, an explainer, a course page, a book chapter (ADR-0017). A third job, distinct from both neighbours: `citations` is evidence for the claims, `origin` is where the idea came from, and this is somebody explaining it. Optional and usually absent: a canonical talk exists for `attention` and not for `fisher-weighted-merging`, and an empty field is the honest answer rather than a gap to fill.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "title",
+          "author",
+          "url"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "video",
+              "read"
+            ],
+            "description": "Selects how `check:explainers` verifies this entry, so it is authored rather than guessed from the host. A `video` is checked through YouTube's oEmbed endpoint, which returns the real title and author; a `read` is fetched."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "For a video, must match what oEmbed reports \u2014 the check compares them."
+          },
+          "author": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Who is doing the explaining. The point of this field is that a named person a reader already trusts is teaching, so attribution is the content rather than decoration. For a video it is checked against oEmbed's author_name."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://",
+            "description": "Host is checked against a per-kind allowlist by validate:content, so a disallowed host fails offline with the file named rather than as a network error."
+          }
+        }
+      }
+    },
     "review": {
       "type": "object",
       "description": "Present iff the node is verified. Its presence IS the tier — adding it in a PR, and merging that PR, is the act of verification (ADR-0002).",

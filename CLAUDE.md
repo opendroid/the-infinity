@@ -131,6 +131,14 @@ Scopes: `web` · `api` · `content` · `infra` · `docs`.
   DOI is an identifier, not a link — and it is never fetched. `origin` names where an idea
   came from; `citations` is what a reader can go and read today, and every node still needs
   at least one of those.
+- A talk, explainer, course page or book chapter goes in `explainers`, which is neither
+  ([ADR-0017](docs/adr/0017-teaching-resources-are-not-citations.md)). **Three source
+  fields, three jobs**: `citations` is evidence for the claims, `origin` is where the idea
+  came from, `explainers` is where to go and be taught it. Optional, and absent on most
+  concepts — a canonical talk exists for `attention` and not for `fisher-weighted-merging`,
+  and attaching one anyway is the invented reference rule wearing a different field name.
+  `check:explainers` verifies each one and, for a video, checks the recorded title and
+  author against what YouTube reports.
 
 ---
 
@@ -252,6 +260,7 @@ here.*
 | `cd web && npm run smoke` | The browser smoke test — drives the built site in Chromium with the API stubbed. Needs a build first, like `perf`. `SMOKE_CHROMIUM=<path>` uses a browser that is already there instead of one Playwright would download ([ADR-0016](docs/adr/0016-a-browser-smoke-test.md)) |
 | `cd web && npm run validate:content` | Nodes against `node.schema.json`, plus the cross-field invariants |
 | `cd web && npm run check:citations` | Every citation resolves. `-- --offline` skips the network and says so — it exits 2 rather than passing when nothing could be reached |
+| `cd web && npm run check:explainers` | Every `explainers` entry resolves, and every video's title and author match what YouTube reports ([ADR-0017](docs/adr/0017-teaching-resources-are-not-citations.md)). `-- --offline` does the structural half only. Runs in CI, which `check:citations` does not |
 | `cd web && npm run validate:openapi` | `redocly lint` on `/docs/openapi.yaml` — zero warnings tolerated |
 | `cd api && make run` | Run the API locally on `:8080` (needs `GOOGLE_CLOUD_PROJECT`) |
 | `cd api && make test` | Table-driven tests, with the race detector |

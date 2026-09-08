@@ -19,6 +19,7 @@ import { basename, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
+import { EXPLAINER_HOSTS, hostOf } from './explainer-hosts.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
 const NODES_DIR = join(ROOT, 'content/nodes');
@@ -119,6 +120,32 @@ export function validateContent() {
       // in both means one of them is answering the wrong one.
       if ((node.citations ?? []).some((c) => c.ref === o.ref)) {
         errors.push(`origin "${o.ref}" is also a citation — a source is fetchable or it is not`);
+      }
+    }
+
+    // ADR-0017: the host is checked HERE rather than in the JSON Schema, so a
+    // disallowed one fails offline with the file and the field named — a
+    // regex in the schema would report the same thing as "does not match
+    // pattern" and leave the author to work out which part.
+    //
+    // An allowlist rather than a denylist because `kind` selects the check:
+    // `check:explainers` verifies a video through YouTube's oEmbed endpoint,
+    // which exists for exactly one host, and there is nothing to gain from
+    // letting a video point somewhere that cannot be checked at all.
+    for (const e of node.explainers ?? []) {
+      const allowed = EXPLAINER_HOSTS[e.kind] ?? [];
+      let host;
+      try {
+        host = hostOf(e.url);
+      } catch {
+        errors.push(`explainer "${e.title}" has an unparseable url — ${e.url}`);
+        continue;
+      }
+      if (!allowed.includes(host)) {
+        errors.push(
+          `explainer "${e.title}" is kind "${e.kind}" at ${host}, which check:explainers cannot verify — ` +
+            `allowed for that kind: ${allowed.join(', ')}`,
+        );
       }
     }
 

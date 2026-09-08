@@ -259,6 +259,7 @@ func TestFillPopulatesNestedShapes(t *testing.T) {
 		ok   bool
 	}{
 		{"Citations", len(c.Citations) == 1},
+		{"Explainers", len(c.Explainers) == 1},
 		{"Edges.Requires", len(c.Edges.Requires) == 1},
 		{"Viz.Params", len(c.Viz.Params) == 1},
 		{"Viz.ParamControls", len(c.Viz.ParamControls) == 1},
