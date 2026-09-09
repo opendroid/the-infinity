@@ -188,7 +188,9 @@ export function targets(nodes, { concepts = false } = {}) {
  * that a query returns better videos; that takes a real run against real
  * YouTube. This is an argument, not a measurement, until the next day's output
  * judges it — `adam`, `ablation`, `alibi` and `active-learning` are the four to
- * read, and `--redo-empty` is how to re-query them.
+ * read, and `--redo` is how to re-query them. NOT `--redo-empty`, which was
+ * what #401 said and was wrong (#403): all seven homonyms produced candidates,
+ * so they count as productive and that flag skips every one of them.
  */
 const FIELD = 'machine learning';
 
@@ -477,11 +479,43 @@ async function searchOne(target, key, quota, perTarget, opts = {}) {
  * prompted this. `--redo-empty` re-attempts a target that completed with no
  * candidates, and leaves the productive ones alone so their quota is not spent
  * twice.
+ *
+ * `--redo` is the third fact neither of those expresses: "done, produced
+ * something, and I no longer trust it" (#403). A query or scorer change creates
+ * exactly that state, and `--redo-empty` cannot see it — every homonym #401 was
+ * written for returned a candidate, so all seven counted as productive.
  */
-export function pending(all, prior, { redoEmpty = false } = {}) {
+export function pending(all, prior, { redoEmpty = false, redo = /** @type {string[]} */ ([]) } = {}) {
   const done = new Set(prior.done ?? []);
   const productive = new Set((prior.candidates ?? []).map((c) => c.target));
-  return all.filter((t) => !done.has(t.key) || (redoEmpty && !productive.has(t.key)));
+  // NAMED WINS OVER EVERY OTHER STATE (#403). `--redo-empty` retries a target
+  // that found nothing, which is a different question from "found something I
+  // no longer trust" — and the second is the one a query or scorer change
+  // creates. All seven homonyms #401 was written for produced candidates, so
+  // --redo-empty skipped every one of them.
+  const named = new Set(redo);
+  return all.filter(
+    (t) => named.has(t.key) || !done.has(t.key) || (redoEmpty && !productive.has(t.key)),
+  );
+}
+
+/**
+ * The `--redo` ids that name no target at all.
+ *
+ * A TYPO THAT DOES NOTHING IS THE EXPENSIVE FAILURE. `--redo ablaton` would
+ * skip silently, the run would spend its day on something else, and the thing
+ * it was paid to re-test would come back untested — discovered tomorrow, if at
+ * all. Same argument as `resolveHandles` printing what each handle became: an
+ * input this script cannot verify by reading gets checked against reality
+ * before anything is spent.
+ *
+ * @param {{key: string}[]} all every target, from `targets`
+ * @param {string[]} redo the ids `--redo` named
+ * @returns {string[]} the ones that match nothing
+ */
+export function unknownTargets(all, redo) {
+  const keys = new Set(all.map((t) => t.key));
+  return redo.filter((id) => !keys.has(id));
 }
 
 /**
@@ -525,6 +559,7 @@ async function search(argv, opts = {}) {
   const concepts = argv.includes('--concepts');
   const pace = opts.pace ?? ((ms) => new Promise((r) => setTimeout(r, ms)));
   const redoEmpty = argv.includes('--redo-empty');
+  const redo = (flag(argv, '--redo') ?? '').split(',').map((s) => s.trim()).filter(Boolean);
   const out = flag(argv, '--out') ?? (concepts ? 'video-candidates.concepts.json' : 'video-candidates.domains.json');
   const budget = Number(flag(argv, '--budget') ?? DAILY_UNITS);
   const perTarget = Number(flag(argv, '--per-target') ?? 5);
@@ -536,11 +571,24 @@ async function search(argv, opts = {}) {
   const prior = load(out) ?? { scope: concepts ? 'concept' : 'domain', done: [], candidates: [] };
   const done = new Set(prior.done);
   const productive = new Set(prior.candidates.map((c) => c.target));
-  const todo = pending(all, prior, { redoEmpty });
+
+  // BEFORE A SINGLE UNIT IS SPENT. Ten channel lookups and the first search go
+  // out before the loop would ever notice a name that matches nothing.
+  const unknown = unknownTargets(all, redo);
+  if (unknown.length > 0) {
+    console.error(
+      `--redo names ${unknown.length} target(s) that do not exist: ${unknown.join(', ')}\n` +
+        `Nothing was searched. Concept ids are the node filenames in content/nodes.`,
+    );
+    process.exit(2);
+  }
+
+  const todo = pending(all, prior, { redoEmpty, redo });
 
   console.log(
     `${all.length} ${concepts ? 'concept' : 'domain'} target(s); ${done.size} already done, ${todo.length} to go` +
       (redoEmpty ? ` (--redo-empty: retrying ${done.size - productive.size} that found nothing)` : '') +
+      (redo.length > 0 ? ` (--redo: ${redo.filter((id) => done.has(id)).length} named target(s) re-queried)` : '') +
       `.\n` +
       `Budget ${budget} units — a search costs ${COST.search}, so about ${Math.floor(budget / (COST.search + COST.videos))} targets this run.\n`,
   );
@@ -685,6 +733,7 @@ async function main() {
   console.error(
     'usage:\n' +
       '  YOUTUBE_API_KEY=... node scripts/find-video-explainers.mjs search [--concepts] [--redo-empty]\n' +
+      '                                  [--redo id,id,...]\n' +
       '                                  [--budget 10000] [--per-target 5] [--min-score 0.35] [--out FILE]\n' +
       '  node scripts/find-video-explainers.mjs verify picks.json [--out FILE]',
   );

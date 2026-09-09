@@ -8,6 +8,7 @@ import {
   queryFor,
   score,
   targets,
+  unknownTargets,
   withRetry,
 } from '../../scripts/find-video-explainers.mjs';
 
@@ -413,5 +414,41 @@ describe('pending knows that "done" is not "found something"', () => {
 
   it('treats an absent checkpoint as everything to do', () => {
     expect(pending(all, { done: [], candidates: [] }).length).toBe(3);
+  });
+
+  it('re-queries a named target even though it was productive (#403)', () => {
+    // THE DEFECT THIS REPLACES. Attention is done AND found something, so
+    // --redo-empty skips it — which is exactly what happened to all seven
+    // homonyms #401 was written for. Naming it must win over both facts.
+    expect(pending(all, prior, { redo: ['Attention'] }).map((t: Target) => t.key))
+      .toEqual(['Attention', 'Numerics']);
+  });
+
+  it('takes the union with --redo-empty rather than replacing it', () => {
+    expect(pending(all, prior, { redoEmpty: true, redo: ['Attention'] }).map((t: Target) => t.key))
+      .toEqual(['Foundations', 'Attention', 'Numerics']);
+  });
+
+  it('does not widen beyond what was named', () => {
+    // A flag that quietly re-queried the corpus would spend a day finding what
+    // it already had.
+    expect(pending(all, prior, { redo: [] }).map((t: Target) => t.key)).toEqual(['Numerics']);
+  });
+});
+
+describe('unknownTargets refuses a --redo id that names nothing', () => {
+  const all = [
+    { key: 'ablation', scope: 'concept' as const, title: 'Ablation' },
+    { key: 'adam', scope: 'concept' as const, title: 'Adam' },
+  ];
+
+  it('names every id that matches no target', () => {
+    // A typo that skips silently is the expensive failure: the run spends its
+    // day elsewhere and the thing it was paid to re-test comes back untested.
+    expect(unknownTargets(all, ['ablation', 'ablaton', 'alibi'])).toEqual(['ablaton', 'alibi']);
+  });
+
+  it('is empty when every id resolves', () => {
+    expect(unknownTargets(all, ['adam', 'ablation'])).toEqual([]);
   });
 });
