@@ -166,16 +166,49 @@ export function targets(nodes, { concepts = false } = {}) {
 }
 
 /**
+ * The field every concept query is asked within (#401).
+ *
+ * A CONCEPT NAME ALONE IS AMBIGUOUS, and the wrong video arrives as the TOP
+ * candidate — the first thing a reviewer reads. `ablation explained` returned a
+ * cardiac ablation patient guide; `adam explained` returned Genesis; `alibi`
+ * returned a dictionary entry; `active-learning` returned classroom pedagogy.
+ * Seven of the first 41 concepts, 17%, and they scored 0.40–0.56 BECAUSE the
+ * scorer is working: "ablation" really does appear in "AFib Ablation", and the
+ * video really is a teachable length. No mechanical signal available here can
+ * tell that the subject is a heart procedure.
+ *
+ * The domain pass never hit this. A domain query carries its sample concepts and
+ * that context disambiguates; a bare concept name carries nothing.
+ *
+ * NOT THE NODE'S OWN `domain[0]`, which would be the obvious source: half the
+ * domain names are filing labels — `Methods`, `Foundations`, `Core` — and
+ * `Core explained` was the finding that drove #386 in the first place.
+ *
+ * UNVALIDATED, AND THAT IS NOT A FORMALITY. Nothing in this repository can check
+ * that a query returns better videos; that takes a real run against real
+ * YouTube. This is an argument, not a measurement, until the next day's output
+ * judges it — `adam`, `ablation`, `alibi` and `active-learning` are the four to
+ * read, and `--redo-empty` is how to re-query them.
+ */
+const FIELD = 'machine learning';
+
+/**
  * The query a target becomes. Plain words — YouTube's search is not a DSL.
  *
  * The domain's own name is included but does the lighter half of the work; the
  * sample concepts are what make "Core" mean attention rather than the English
- * adjective.
+ * adjective. A concept has no samples, so it borrows `FIELD` instead.
+ *
+ * THE QUERY CHANGES; THE SCORING DOES NOT. `facets` still returns `[title]` for
+ * a concept, so `FIELD` never contributes overlap and cannot inflate a score.
+ * It changes which videos YouTube offers, and nothing about how they are ranked
+ * once offered — which is what keeps `attention` at 0.97 and `backpropagation`
+ * at 0.97 rather than quietly re-tuning the names that already work.
  */
 export const queryFor = (t) =>
   t.scope === 'domain'
     ? `${t.title} ${(t.sample ?? []).join(' ')} explained`.replace(/\s+/g, ' ').trim()
-    : `${t.title} explained`;
+    : `${t.title} ${FIELD} explained`;
 
 // ---------------------------------------------------------------- scoring
 

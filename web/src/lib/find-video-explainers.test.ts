@@ -118,8 +118,25 @@ describe('queryFor asks a different question at each scope', () => {
   it('collapses whitespace when a domain has no samples', () => {
     expect(queryFor({ scope: 'domain', title: 'Alignment' })).toBe('Alignment explained');
   });
-  it('asks about the concept itself at concept scope', () => {
-    expect(queryFor({ scope: 'concept', title: 'attention' })).toBe('attention explained');
+
+  it('names the field a concept belongs to, so a homonym has something to lose to (#401)', () => {
+    // `ablation explained` returned a cardiac ablation patient guide, at 0.55,
+    // as the top candidate. Seven of the first 41 concepts went that way.
+    expect(queryFor({ scope: 'concept', title: 'Ablation' })).toBe('Ablation machine learning explained');
+  });
+
+  it('leaves a domain query alone — its samples already disambiguate it', () => {
+    // The domain pass never hit the homonym problem, so this must not "fix" it
+    // there and disturb the queries that produced the ten shipped picks.
+    expect(queryFor({ scope: 'domain', title: 'Core', sample: ['Attention', 'Softmax'] }))
+      .toBe('Core Attention Softmax explained');
+  });
+
+  it('does not let the field leak into scoring', () => {
+    // The whole safety argument for #401 is that `facets` is untouched: the
+    // field steers what YouTube offers and contributes nothing to overlap, so
+    // `attention` at 0.97 stays at 0.97.
+    expect(facets({ scope: 'concept', title: 'Ablation' })).toEqual(['Ablation']);
   });
 });
 
