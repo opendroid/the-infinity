@@ -118,6 +118,11 @@ resolving citations, as of 2026-09-07, with the site live on the real domain.** 
 are a prediction and are deliberately left wrong; this section is the reconciliation,
 because the gap between the two is the interesting part.
 
+"800 resolving citations" is checked weekly rather than continuously, by
+[`links.yml`](../.github/workflows/links.yml) — arxiv.org asks fifteen seconds between
+requests, so proving that sentence costs two hours and cannot sit on a pull request
+([ADR-0020](adr/0020-link-checking-is-two-jobs.md)).
+
 A figure written into a document goes stale the moment the next batch lands — this one said
 "89 nodes" for a long while, in the file every session is told to read first (#319). The
 maintained count lives in [#61](https://github.com/opendroid/the-infinity/issues/61); treat

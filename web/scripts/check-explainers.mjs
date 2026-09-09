@@ -4,6 +4,7 @@
  *
  *   node scripts/check-explainers.mjs            # structural checks + network
  *   node scripts/check-explainers.mjs --offline  # structural checks only
+ *   node scripts/check-explainers.mjs --fast     # skip hosts that ask a crawl-delay
  *
  * THIS IS A STRONGER CHECK THAN check:citations, AND THAT IS THE POINT.
  *
@@ -25,17 +26,32 @@
  * Like its neighbour, this NEVER reports success for work it did not do. If
  * every entry failed the same way the network is the explanation, and it says so
  * and exits 2 rather than reporting the corpus as dead.
+ *
+ * THIS IS THE FAST HALF OF ADR-0020, AND THAT IS NOT LUCK BUT IT IS NOT
+ * PERMANENT EITHER. None of the seven hosts the allowlist admits today publishes
+ * a crawl-delay, so `--fast` skips nothing and the pull-request gate covers the
+ * whole corpus in about two seconds. The flag is here for the first host added
+ * that does publish one — it should slow the weekly sweep, not the gate.
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { URL } from 'node:url';
 import { EXPLAINER_HOSTS, hostOf } from './explainer-hosts.mjs';
-import { byUrl, nothingWasVerified, pool, unreachableHosts } from './fetch-pool.mjs';
+import {
+  byUrl,
+  crawlDelays,
+  nothingWasVerified,
+  partitionByDelay,
+  pool,
+  skippedNotice,
+  unreachableHosts,
+} from './fetch-pool.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
 const NODES_DIR = join(ROOT, 'content/nodes');
 
 const OFFLINE = process.argv.includes('--offline');
+const FAST = process.argv.includes('--fast');
 
 export function readExplainers() {
   return readdirSync(NODES_DIR)
@@ -262,9 +278,31 @@ async function main() {
   // sharing a URL carries the same title and author — structuralProblems
   // rejects any that do not — so one of them stands for all of them.
   const groups = byUrl(explainers);
-  const results = await pool([...groups.keys()], (url) => verify(groups.get(url)[0]), { perHost: 4 });
 
-  const failed = [...groups.keys()].filter((url) => !results.get(url).ok);
+  // WHAT EACH HOST ASKS FOR, READ FROM THE HOST (ADR-0020) rather than from a
+  // table here that would be wrong the day one of them changed its mind — and
+  // that would already be wrong about Wikipedia, whose Crawl-delay belongs to a
+  // named crawler and not to `*`.
+  const delays = await crawlDelays([...groups.keys()].map(hostOf));
+  const { checking, skipped } = FAST
+    ? partitionByDelay([...groups.keys()], delays)
+    : { checking: [...groups.keys()], skipped: new Map() };
+
+  if (skipped.size > 0) {
+    console.log(skippedNotice(skipped, delays, groups, 'explainer'));
+  }
+
+  if (checking.length === 0) {
+    console.log(
+      `· ${explainers.length} explainer(s) structurally consistent — NOT verified, ` +
+        `every url is on a host --fast skips`,
+    );
+    process.exit(0);
+  }
+
+  const results = await pool(checking, (url) => verify(groups.get(url)[0]), { perHost: 4, delays });
+
+  const failed = checking.filter((url) => !results.get(url).ok);
 
   // Which hosts answered nothing, as opposed to which pages are gone. The old
   // version of this asked whether the WHOLE corpus failed identically, which
@@ -301,15 +339,20 @@ async function main() {
 
   if (real.length > 0) {
     const affected = real.reduce((n, url) => n + groups.get(url).length, 0);
-    console.error(`\n${real.length} of ${groups.size} page(s) could not be verified, affecting ${affected} explainer(s).`);
+    console.error(`\n${real.length} of ${checking.length} page(s) could not be verified, affecting ${affected} explainer(s).`);
     process.exit(1);
   }
 
-  const videos = explainers.filter((e) => e.kind === 'video').length;
-  const domain = explainers.filter((e) => e.scope === 'domain').length;
+  // Counted over the pages actually reached. A --fast run that reported the
+  // corpus size would be claiming the entries it skipped.
+  const reached = checking.flatMap((url) => groups.get(url));
+  const videos = reached.filter((e) => e.kind === 'video').length;
+  const domain = reached.filter((e) => e.scope === 'domain').length;
+  const unchecked = explainers.length - reached.length;
   console.log(
-    `✓ ${explainers.length} explainer(s) across ${groups.size} page(s) verified by title — ` +
-      `${videos} also by author against YouTube; ${domain} scoped to a domain rather than a concept`,
+    `✓ ${reached.length} explainer(s) across ${checking.length} page(s) verified by title — ` +
+      `${videos} also by author against YouTube; ${domain} scoped to a domain rather than a concept` +
+      (unchecked > 0 ? `; ${unchecked} NOT verified (--fast)` : ''),
   );
 }
 

@@ -124,8 +124,11 @@ Scopes: `web` · `api` · `content` · `infra` · `docs`.
 
 - Node `id` is a kebab-case slug and is the URL: `speculative-decoding` → `/c/speculative-decoding`.
 - Edges may only reference node ids that exist or are planned in the same PR.
-- `citations` are real, resolvable links, and `check:citations` fetches every one. No
-  invented references.
+- `citations` are real, resolvable links, and `check:citations` fetches every one —
+  **weekly, not on your PR**, because arxiv.org asks 15s between requests and 485 papers at
+  that rate is two hours ([ADR-0020](docs/adr/0020-link-checking-is-two-jobs.md)). The
+  structural half still runs anywhere and catches an invented id immediately. No invented
+  references.
 - A primary source that predates arXiv goes in `origin`, not `citations`
   ([ADR-0013](docs/adr/0013-primary-sources-that-predate-arxiv.md)). It carries no URL — a
   DOI is an identifier, not a link — and it is never fetched. `origin` names where an idea
@@ -264,8 +267,8 @@ here.*
 | `cd web && npm run perf` | Gzipped JavaScript per route against [`perf-budget.json`](web/perf-budget.json). Needs a build first. `-- --update` refreshes the recorded measurements and leaves the budgets alone; `-- --set-budgets` moves them, which is a decision the commit message has to justify |
 | `cd web && npm run smoke` | The browser smoke test — drives the built site in Chromium with the API stubbed. Needs a build first, like `perf`. `SMOKE_CHROMIUM=<path>` uses a browser that is already there instead of one Playwright would download ([ADR-0016](docs/adr/0016-a-browser-smoke-test.md)) |
 | `cd web && npm run validate:content` | Nodes against `node.schema.json`, plus the cross-field invariants |
-| `cd web && npm run check:citations` | Every citation resolves. `-- --offline` skips the network and says so — it exits 2 rather than passing when nothing could be reached |
-| `cd web && npm run check:explainers` | Every `explainers` entry resolves, and every video's title and author match what YouTube reports ([ADR-0017](docs/adr/0017-teaching-resources-are-not-citations.md)). `-- --offline` does the structural half only. Runs in CI, which `check:citations` does not |
+| `cd web && npm run check:citations` | Every citation resolves. **A ~2h job**: all 485 papers are on arxiv.org, which asks 15s between requests, so it runs weekly from `links.yml` and never on a PR ([ADR-0020](docs/adr/0020-link-checking-is-two-jobs.md)). `-- --offline` does the structural half and says plainly that nothing was resolved; `-- --fast` skips delayed hosts, which here is all of them |
+| `cd web && npm run check:explainers` | Every `explainers` entry resolves, and every video's title and author match what YouTube reports ([ADR-0017](docs/adr/0017-teaching-resources-are-not-citations.md)). `-- --offline` does the structural half only. **`-- --fast` is what CI runs** — it skips hosts publishing a crawl-delay and names what it left unchecked; today that is nothing, and the step takes ~2s |
 | `cd web && npm run validate:openapi` | `redocly lint` on `/docs/openapi.yaml` — zero warnings tolerated |
 | `cd api && make run` | Run the API locally on `:8080` (needs `GOOGLE_CLOUD_PROJECT`) |
 | `cd api && make test` | Table-driven tests, with the race detector |

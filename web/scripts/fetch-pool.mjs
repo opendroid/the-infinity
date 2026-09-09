@@ -44,6 +44,92 @@ export function byUrl(entries) {
 }
 
 /**
+ * The `Crawl-delay` a robots.txt states for `User-agent: *`, in seconds.
+ *
+ * PARSED, NOT TABULATED, AND ADR-0020 EXISTS BECAUSE OF ONE FILE. Wikipedia's
+ * robots.txt contains `Crawl-delay: 5`, and a grep finds it. It belongs to
+ * `User-agent: SemrushBot`; the `*` group is sixty lines further down and states
+ * no delay. A table of numbers in this repository would have recorded that five
+ * and been wrong in the direction nobody notices — slower than asked, for a host
+ * that asked nothing. Reading the file is also the only thing that stays right
+ * the day arXiv changes its mind.
+ *
+ * @param {string[]} hosts bare hostnames, as `hostOf` returns them
+ * @returns {Promise<Map<string, number>>} host → seconds, absent when none stated
+ */
+export async function crawlDelays(hosts) {
+  const delays = new Map();
+  await Promise.all(
+    [...new Set(hosts)].map(async (host) => {
+      let body;
+      try {
+        const res = await fetch(`https://${host}/robots.txt`, {
+          redirect: 'follow',
+          signal: AbortSignal.timeout(15_000),
+        });
+        // No robots.txt is not an error and not a delay — it is a host that
+        // stated nothing, which is the same position as a 200 with no directive.
+        if (!res.ok) return;
+        body = await res.text();
+      } catch {
+        return;
+      }
+      const seconds = starGroupDelay(body);
+      if (seconds !== null) delays.set(host, seconds);
+    }),
+  );
+  return delays;
+}
+
+/**
+ * The `Crawl-delay` of the `User-agent: *` group, or null.
+ *
+ * Exported for the tests, which run it against the two real files rather than
+ * against a hand-written imitation of them.
+ *
+ * GROUPS, NOT LINES. Consecutive `User-agent` lines share one group — that is
+ * the format, and arXiv uses it — so a directive belongs to every agent named
+ * since the last non-agent line. A group is left the moment a directive appears
+ * and a new `User-agent` follows it.
+ */
+export function starGroupDelay(robots) {
+  let agents = [];
+  let inGroup = false;
+
+  for (const raw of robots.split(/\r?\n/)) {
+    const line = raw.replace(/#.*$/, '').trim();
+    if (!line) continue;
+    const at = line.indexOf(':');
+    if (at === -1) continue;
+    const field = line.slice(0, at).trim().toLowerCase();
+    const value = line.slice(at + 1).trim();
+
+    if (field === 'user-agent') {
+      // A `User-agent` after directives starts a fresh group rather than
+      // widening the one just closed.
+      if (inGroup) {
+        agents = [];
+        inGroup = false;
+      }
+      agents.push(value.toLowerCase());
+      continue;
+    }
+
+    inGroup = true;
+    if (field !== 'crawl-delay' || !agents.includes('*')) continue;
+    const seconds = Number(value);
+    // A delay this cannot read is not a delay of zero. Ignoring it would be the
+    // permissive direction of a mistake, so it is skipped and the next
+    // `Crawl-delay` in the group, if any, gets its turn.
+    if (Number.isFinite(seconds) && seconds > 0) return seconds;
+  }
+  return null;
+}
+
+/** Resolves after `ms`. */
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
  * Runs `verify` over every URL, capped PER HOST rather than globally.
  *
  * Per host because the cap is about politeness first and speed second: 46
@@ -51,9 +137,17 @@ export function byUrl(entries) {
  * global cap would let one slow host starve the others. Hosts run in parallel;
  * within a host, at most `perHost` are in flight.
  *
+ * A HOST IN `delays` OVERRIDES `perHost` ENTIRELY (ADR-0020). It runs one
+ * request at a time, waiting the stated interval between them — because
+ * "15 seconds between requests" and "4 in flight, 15 seconds apart each" are not
+ * the same promise, and only the first is what arxiv.org's robots.txt asks for.
+ *
+ * @param {Map<string, number>} [opts.delays] host → seconds between requests
+ * @param {(ms: number) => Promise<void>} [opts.sleep] injected so a test can
+ *   prove the interval without spending it
  * @returns {Promise<Map<string, unknown>>} url → whatever `verify` resolved to
  */
-export async function pool(urls, verify, { perHost = 4 } = {}) {
+export async function pool(urls, verify, { perHost = 4, delays = new Map(), sleep = wait } = {}) {
   const queues = new Map();
   for (const url of urls) {
     const host = hostOf(url);
@@ -64,7 +158,17 @@ export async function pool(urls, verify, { perHost = 4 } = {}) {
 
   const results = new Map();
   await Promise.all(
-    [...queues.values()].map(async (queue) => {
+    [...queues].map(async ([host, queue]) => {
+      const delay = delays.get(host);
+      if (delay) {
+        // Serial, with the gap BETWEEN requests rather than after the last one.
+        for (const [i, url] of queue.entries()) {
+          if (i > 0) await sleep(delay * 1000);
+          results.set(url, await verify(url));
+        }
+        return;
+      }
+
       let next = 0;
       // Safe without a lock: `next++` never yields, so two workers cannot read
       // the same index. Node is single-threaded and this is the one place it
@@ -80,6 +184,57 @@ export async function pool(urls, verify, { perHost = 4 } = {}) {
     }),
   );
   return results;
+}
+
+/**
+ * The urls to check and the ones a `--fast` run is leaving alone.
+ *
+ * Split here rather than in each checker so both describe the skip the same way,
+ * and so the thing the success line must not claim is a value rather than a
+ * convention.
+ *
+ * @returns {{ checking: string[], skipped: Map<string, string[]> }} host → urls
+ */
+export function partitionByDelay(urls, delays) {
+  const checking = [];
+  const skipped = new Map();
+  for (const url of urls) {
+    const host = hostOf(url);
+    if (!delays.has(host)) {
+      checking.push(url);
+      continue;
+    }
+    const seen = skipped.get(host);
+    if (seen) seen.push(url);
+    else skipped.set(host, [url]);
+  }
+  return { checking, skipped };
+}
+
+/**
+ * What a `--fast` run did NOT check, named host by host.
+ *
+ * THE WHOLE POINT OF THE FLAG IS THAT IT CANNOT BE SILENT. A gate covering a
+ * subset while printing the success line of a full run is precisely the failure
+ * PLAN.md §8 names, and it is the failure `--fast` would be if this were left to
+ * each caller's discretion. Shared so both checkers say it identically.
+ *
+ * @param {Map<string, string[]>} skipped host → urls, from `partitionByDelay`
+ * @param {Map<string, number>} delays host → seconds
+ * @param {Map<string, unknown[]>} groups url → the entries pointing at it
+ * @param {string} noun what an entry is called, e.g. "citation"
+ */
+export function skippedNotice(skipped, delays, groups, noun) {
+  const lines = [...skipped].map(([host, urls]) => {
+    const entries = urls.reduce((n, url) => n + (groups.get(url)?.length ?? 1), 0);
+    return `    ${host} — asks ${delays.get(host)}s between requests; ` +
+      `${urls.length} url(s) covering ${entries} ${noun}(s) NOT checked`;
+  });
+  return (
+    `· --fast skipped ${skipped.size} host(s) that publish a crawl-delay:\n` +
+    `${lines.join('\n')}\n` +
+    `  Those are checked by the weekly sweep, not here (ADR-0020).`
+  );
 }
 
 /**

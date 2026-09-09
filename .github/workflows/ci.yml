@@ -65,9 +65,17 @@ jobs:
       # recorded attribution MATCHES, not merely that a URL answers.
       #
       # That cannot be done anywhere else. Authoring sandboxes deny youtube.com,
-      # and `check:citations` is not in CI at all (#361), which is how
-      # LAUNCH.md came to tick "every citation resolves" with nothing enforcing
-      # it. This field does not inherit that.
+      # and `check:citations` cannot be a gate at all: every citation is an
+      # arxiv.org url, arxiv.org asks fifteen seconds between requests, and 485
+      # papers at that rate is a two-hour job. It runs weekly from links.yml
+      # instead (ADR-0020, #361, #375).
+      #
+      # `--fast` IS WHAT KEEPS THAT HONEST. It skips hosts publishing a
+      # crawl-delay and names each one with the number of entries it left
+      # unchecked, so a gate covering a subset cannot print the success line of a
+      # full run. Today it skips nothing — none of the seven explainer hosts
+      # states a delay — and the step stays at about two seconds. The flag is
+      # here for the first host added to the allowlist that does.
       #
       # It will occasionally be red for reasons nobody caused — a video pulled,
       # or YouTube unreachable. The script tells those apart: every entry failing
@@ -78,7 +86,7 @@ jobs:
       # the same belt for the same reason (#373).
       - name: Verify explainers
         timeout-minutes: 6
-        run: npm run check:explainers
+        run: npm run check:explainers -- --fast
 
       - name: Lint
         run: npm run lint

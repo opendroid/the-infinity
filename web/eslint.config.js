@@ -36,6 +36,7 @@ export default [
         console: 'readonly',
         fetch: 'readonly',
         AbortSignal: 'readonly',
+        setTimeout: 'readonly',
       },
     },
   },
