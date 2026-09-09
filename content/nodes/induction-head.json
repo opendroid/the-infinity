@@ -65,6 +65,14 @@
       "title": "How to Explain the Prediction of a Machine Learning Model?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2017-08-01-interpretation/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Stanford CS25: V1 I Transformer Circuits, Induction Heads, In-Context Learning",
+      "author": "Stanford Online",
+      "url": "https://www.youtube.com/watch?v=pC4zRb_5noQ",
+      "domain": "Circuits"
     }
   ],
   "review": {

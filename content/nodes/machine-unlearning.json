@@ -59,6 +59,13 @@
       "title": "Machine unlearning",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Machine_unlearning"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Membership Inference Attacks against Machine Learning Models",
+      "author": "IEEE Symposium on Security and Privacy",
+      "url": "https://www.youtube.com/watch?v=rDm1n2gceJY"
     }
   ],
   "review": {

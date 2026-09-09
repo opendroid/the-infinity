@@ -68,6 +68,13 @@
       "title": "Diffusion Models for Video Generation",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2024-04-12-diffusion-video/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Contrastive Learning - 5 Minutes with Cyrill",
+      "author": "Cyrill Stachniss",
+      "url": "https://www.youtube.com/watch?v=sftIkJ8MYL4"
     }
   ],
   "review": {

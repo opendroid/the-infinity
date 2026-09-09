@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "update-spectrum",
     "params": {
-      "temperature": 1.0,
+      "temperature": 1,
       "bars": 8
     },
     "param_controls": [
@@ -49,6 +49,14 @@
       "title": "Softmax Regression",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_linear-classification/softmax-regression.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Softmax Function Explained In Depth with 3D Visuals",
+      "author": "Elliot Waite",
+      "url": "https://www.youtube.com/watch?v=ytbYRIN0N4g",
+      "domain": "Functions"
     }
   ],
   "review": {

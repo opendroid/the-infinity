@@ -68,6 +68,14 @@
       "title": "Dive into Deep Learning",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/index.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Softmax Function Explained In Depth with 3D Visuals",
+      "author": "Elliot Waite",
+      "url": "https://www.youtube.com/watch?v=ytbYRIN0N4g",
+      "domain": "Functions"
     }
   ],
   "review": {

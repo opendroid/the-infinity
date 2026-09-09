@@ -59,6 +59,13 @@
       "title": "From Autoencoder to Beta-VAE",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2018-08-12-vae/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Variational Autoencoders | Generative AI Animated",
+      "author": "Deepia",
+      "url": "https://www.youtube.com/watch?v=qJeaCHQ1k2w"
     }
   ],
   "review": {

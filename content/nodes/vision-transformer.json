@@ -58,6 +58,13 @@
       "title": "Transformers for Vision",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_attention-mechanisms-and-transformers/vision-transformer.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Contrastive Learning - 5 Minutes with Cyrill",
+      "author": "Cyrill Stachniss",
+      "url": "https://www.youtube.com/watch?v=sftIkJ8MYL4"
     }
   ],
   "review": {

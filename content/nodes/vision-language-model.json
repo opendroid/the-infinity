@@ -58,6 +58,13 @@
       "title": "Generalized Visual Language Models",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2022-06-09-vlm/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Contrastive Learning - 5 Minutes with Cyrill",
+      "author": "Cyrill Stachniss",
+      "url": "https://www.youtube.com/watch?v=sftIkJ8MYL4"
     }
   ],
   "review": {
