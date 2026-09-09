@@ -51,6 +51,19 @@ const DAILY_UNITS = 10_000;
 const UNWATCHED = 500;
 
 /**
+ * Milliseconds between searches (#400).
+ *
+ * AVOIDING THE LIMIT BEATS REACTING TO IT. The first --concepts run fired ~100
+ * `search.list` calls back to back, tripped YouTube's short-window rate limit
+ * partway through, and then spent most of its budget being refused. The domain
+ * passes never showed it because 117 and 73 targets slip under the window.
+ *
+ * A day is about 99 searches, so this costs two and a half minutes of wall clock
+ * and nothing at all in quota.
+ */
+const PACE_MS = 1500;
+
+/**
  * Channels worth trusting, AS HANDLES — never as channel ids.
  *
  * A `UC...` id is 24 characters this repository cannot check by reading. A
@@ -153,16 +166,49 @@ export function targets(nodes, { concepts = false } = {}) {
 }
 
 /**
+ * The field every concept query is asked within (#401).
+ *
+ * A CONCEPT NAME ALONE IS AMBIGUOUS, and the wrong video arrives as the TOP
+ * candidate — the first thing a reviewer reads. `ablation explained` returned a
+ * cardiac ablation patient guide; `adam explained` returned Genesis; `alibi`
+ * returned a dictionary entry; `active-learning` returned classroom pedagogy.
+ * Seven of the first 41 concepts, 17%, and they scored 0.40–0.56 BECAUSE the
+ * scorer is working: "ablation" really does appear in "AFib Ablation", and the
+ * video really is a teachable length. No mechanical signal available here can
+ * tell that the subject is a heart procedure.
+ *
+ * The domain pass never hit this. A domain query carries its sample concepts and
+ * that context disambiguates; a bare concept name carries nothing.
+ *
+ * NOT THE NODE'S OWN `domain[0]`, which would be the obvious source: half the
+ * domain names are filing labels — `Methods`, `Foundations`, `Core` — and
+ * `Core explained` was the finding that drove #386 in the first place.
+ *
+ * UNVALIDATED, AND THAT IS NOT A FORMALITY. Nothing in this repository can check
+ * that a query returns better videos; that takes a real run against real
+ * YouTube. This is an argument, not a measurement, until the next day's output
+ * judges it — `adam`, `ablation`, `alibi` and `active-learning` are the four to
+ * read, and `--redo-empty` is how to re-query them.
+ */
+const FIELD = 'machine learning';
+
+/**
  * The query a target becomes. Plain words — YouTube's search is not a DSL.
  *
  * The domain's own name is included but does the lighter half of the work; the
  * sample concepts are what make "Core" mean attention rather than the English
- * adjective.
+ * adjective. A concept has no samples, so it borrows `FIELD` instead.
+ *
+ * THE QUERY CHANGES; THE SCORING DOES NOT. `facets` still returns `[title]` for
+ * a concept, so `FIELD` never contributes overlap and cannot inflate a score.
+ * It changes which videos YouTube offers, and nothing about how they are ranked
+ * once offered — which is what keeps `attention` at 0.97 and `backpropagation`
+ * at 0.97 rather than quietly re-tuning the names that already work.
  */
 export const queryFor = (t) =>
   t.scope === 'domain'
     ? `${t.title} ${(t.sample ?? []).join(' ')} explained`.replace(/\s+/g, ' ').trim()
-    : `${t.title} explained`;
+    : `${t.title} ${FIELD} explained`;
 
 // ---------------------------------------------------------------- scoring
 
@@ -363,13 +409,25 @@ const TRANSIENT = new Set(['rateLimitExceeded', 'userRateLimitExceeded', 'backen
  * budget could not see.
  */
 export async function withRetry(kind, quota, call, { sleep = (ms) => new Promise((r) => setTimeout(r, ms)), attempts = 3 } = {}) {
+  // ONCE PER OPERATION, NOT ONCE PER ATTEMPT (#400). Charging every attempt was
+  // my guess, and the first --concepts run priced it: 41 targets of real work
+  // cost 4,151 units and the run spent 9,951, so 58% of the day went to
+  // retries it had refused to pay for twice over.
+  //
+  // The asymmetry settles it. If YouTube does not bill a rejected request,
+  // billing it locally throws away real quota, which is what happened. If it
+  // does, under-counting is harmless: the run meets a genuine quotaExceeded,
+  // which stops it with the checkpoint intact. One direction costs a day, the
+  // other costs nothing.
+  quota.charge(kind);
   for (let i = 0; ; i += 1) {
-    quota.charge(kind);
     try {
       return await call();
     } catch (err) {
       if (!TRANSIENT.has(err.reason) || i >= attempts - 1) throw err;
-      const wait = 2000 * 2 ** i;
+      // 5s, 15s, 45s. The old 2s/4s never cleared the window — all three
+      // attempts failed together and 14 targets were lost outright.
+      const wait = 5000 * 3 ** i;
       console.error(`      ${err.reason}; waiting ${wait / 1000}s (attempt ${i + 2} of ${attempts})`);
       await sleep(wait);
     }
@@ -426,6 +484,24 @@ export function pending(all, prior, { redoEmpty = false } = {}) {
   return all.filter((t) => !done.has(t.key) || (redoEmpty && !productive.has(t.key)));
 }
 
+/**
+ * The targets, yielded with `ms` of quiet BETWEEN them (#400).
+ *
+ * Between rather than before, the same shape as the crawl-delay branch of
+ * `pool` in fetch-pool.mjs and for the same reason: a delay after the last item
+ * is time spent for nothing.
+ *
+ * A generator so the loop reads as a loop and the interval is still injectable —
+ * a test asserts the gaps without waiting them out, which is the only way this
+ * gets checked at all, since spending them for real is the thing being avoided.
+ */
+export async function* paced(items, { pace, ms = PACE_MS } = {}) {
+  for (const [i, item] of items.entries()) {
+    if (i > 0) await pace(ms);
+    yield item;
+  }
+}
+
 // ---------------------------------------------------------------- checkpoint
 
 const load = (path) => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : null);
@@ -433,7 +509,7 @@ const save = (path, data) => writeFileSync(path, `${JSON.stringify(data, null, 2
 
 // ---------------------------------------------------------------- commands
 
-async function search(argv) {
+async function search(argv, opts = {}) {
   const key = process.env.YOUTUBE_API_KEY;
   if (!key) {
     console.error(
@@ -447,6 +523,7 @@ async function search(argv) {
   }
 
   const concepts = argv.includes('--concepts');
+  const pace = opts.pace ?? ((ms) => new Promise((r) => setTimeout(r, ms)));
   const redoEmpty = argv.includes('--redo-empty');
   const out = flag(argv, '--out') ?? (concepts ? 'video-candidates.concepts.json' : 'video-candidates.domains.json');
   const budget = Number(flag(argv, '--budget') ?? DAILY_UNITS);
@@ -472,7 +549,7 @@ async function search(argv) {
   const allowed = await resolveHandles(CHANNEL_HANDLES, key, quota);
   console.log(`  ${allowed.size} of ${CHANNEL_HANDLES.length} handle(s) resolved\n`);
 
-  for (const target of todo) {
+  for await (const target of paced(todo, { pace })) {
     if (!quota.affords('search')) {
       console.log(`\nBudget reached at ${quota.spent} units. Re-run tomorrow — it resumes from ${out}.`);
       break;
@@ -480,7 +557,7 @@ async function search(argv) {
 
     let found;
     try {
-      found = await searchOne(target, key, quota, perTarget);
+      found = await searchOne(target, key, quota, perTarget, opts);
     } catch (err) {
       if (err.reason === 'quotaExceeded') {
         console.log(`\nYouTube says the daily quota is spent. Progress is saved in ${out}; re-run tomorrow.`);

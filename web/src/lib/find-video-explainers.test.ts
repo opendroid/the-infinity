@@ -3,6 +3,7 @@ import {
   durationSeconds,
   facets,
   inDegree,
+  paced,
   pending,
   queryFor,
   score,
@@ -117,8 +118,25 @@ describe('queryFor asks a different question at each scope', () => {
   it('collapses whitespace when a domain has no samples', () => {
     expect(queryFor({ scope: 'domain', title: 'Alignment' })).toBe('Alignment explained');
   });
-  it('asks about the concept itself at concept scope', () => {
-    expect(queryFor({ scope: 'concept', title: 'attention' })).toBe('attention explained');
+
+  it('names the field a concept belongs to, so a homonym has something to lose to (#401)', () => {
+    // `ablation explained` returned a cardiac ablation patient guide, at 0.55,
+    // as the top candidate. Seven of the first 41 concepts went that way.
+    expect(queryFor({ scope: 'concept', title: 'Ablation' })).toBe('Ablation machine learning explained');
+  });
+
+  it('leaves a domain query alone — its samples already disambiguate it', () => {
+    // The domain pass never hit the homonym problem, so this must not "fix" it
+    // there and disturb the queries that produced the ten shipped picks.
+    expect(queryFor({ scope: 'domain', title: 'Core', sample: ['Attention', 'Softmax'] }))
+      .toBe('Core Attention Softmax explained');
+  });
+
+  it('does not let the field leak into scoring', () => {
+    // The whole safety argument for #401 is that `facets` is untouched: the
+    // field steers what YouTube offers and contributes nothing to overlap, so
+    // `attention` at 0.97 stays at 0.97.
+    expect(facets({ scope: 'concept', title: 'Ablation' })).toEqual(['Ablation']);
   });
 });
 
@@ -278,7 +296,7 @@ describe('withRetry tells a burst limit from the daily cap', () => {
     return q;
   };
 
-  it('retries rateLimitExceeded with 2s/4s/8s backoff and charges every attempt', async () => {
+  it('retries rateLimitExceeded with 5s/15s backoff, long enough to clear the window', async () => {
     // Injected clock, so the interval is asserted rather than waited out.
     const slept: number[] = [];
     const q = quota();
@@ -291,10 +309,27 @@ describe('withRetry tells a burst limit from the daily cap', () => {
 
     expect(out).toBe('ok');
     expect(calls).toBe(3);
-    expect(slept).toEqual([2000, 4000]);
-    // Charged three times: YouTube counts an attempt whether or not it answers,
-    // so accounting that flattered itself would overspend invisibly.
-    expect(q.spent).toBe(300);
+    // The old 2s/4s never cleared it: all three attempts failed together and
+    // fourteen targets were lost outright in one run.
+    expect(slept).toEqual([5000, 15000]);
+  });
+
+  it('charges once per operation, however many attempts it takes', async () => {
+    const q = quota();
+    await withRetry('search', q, async () => 'ok', { sleep: async () => {} });
+    expect(q.spent).toBe(100);
+  });
+
+  it('charges once even when every attempt is refused', async () => {
+    // PLANTED AGAINST THE REAL DEFECT (#400). Charging per attempt spent 9,951
+    // units on 4,151 units of work — 58% of a day's quota went to requests
+    // YouTube had already refused. Move `charge` back inside the loop and this
+    // reads 300.
+    const q = quota();
+    await expect(withRetry('search', q, async () => {
+      throw Object.assign(new Error('still busy'), { reason: 'rateLimitExceeded' });
+    }, { sleep: async () => {}, attempts: 3 })).rejects.toThrow('still busy');
+    expect(q.spent).toBe(100);
   });
 
   it('never retries quotaExceeded — that one means come back tomorrow', async () => {
@@ -305,6 +340,7 @@ describe('withRetry tells a burst limit from the daily cap', () => {
       throw Object.assign(new Error('done for today'), { reason: 'quotaExceeded' });
     }, { sleep: async () => {} })).rejects.toThrow('done for today');
     expect(calls).toBe(1);
+    expect(q.spent).toBe(100);
   });
 
   it('gives up after the attempt limit rather than looping forever', async () => {
@@ -315,6 +351,41 @@ describe('withRetry tells a burst limit from the daily cap', () => {
       throw Object.assign(new Error('still busy'), { reason: 'rateLimitExceeded' });
     }, { sleep: async () => {}, attempts: 3 })).rejects.toThrow('still busy');
     expect(calls).toBe(3);
+  });
+});
+
+describe('paced leaves a gap between searches, not around them', () => {
+  const drain = async (items: string[], ms?: number) => {
+    const slept: number[] = [];
+    const seen: string[] = [];
+    const opts = { pace: async (n: number) => { slept.push(n); }, ...(ms === undefined ? {} : { ms }) };
+    for await (const item of paced(items, opts)) seen.push(item);
+    return { slept, seen };
+  };
+
+  it('waits between consecutive targets and yields them in order', async () => {
+    const { slept, seen } = await drain(['a', 'b', 'c'], 1500);
+    expect(seen).toEqual(['a', 'b', 'c']);
+    // Two gaps for three targets. A third would be a wait after the last one,
+    // which buys nothing.
+    expect(slept).toEqual([1500, 1500]);
+  });
+
+  it('does not wait before the first target', async () => {
+    expect((await drain(['only'], 1500)).slept).toEqual([]);
+  });
+
+  it('does nothing at all on an empty list', async () => {
+    expect(await drain([], 1500)).toEqual({ slept: [], seen: [] });
+  });
+
+  it('paces by default, so a caller cannot forget to', async () => {
+    // The whole point of #400 is that avoiding the limit beats reacting to it.
+    // A default of zero would make the fix opt-in and the next --concepts run
+    // would burn the same 58%.
+    const { slept } = await drain(['a', 'b']);
+    expect(slept).toHaveLength(1);
+    expect(slept[0]).toBeGreaterThan(0);
   });
 });
 

@@ -1,3 +1,16 @@
 # Generated from docs/design/handoff-v1/tokens.json at prebuild — never committed,
 # so the committed source cannot drift from the handoff.
 src/styles/tokens.generated.css
+
+# The video finder's working files (#399). Written into web/ by
+# `npm run find:videos` — the search checkpoint, the verified output, and the
+# picks file authored by hand between them. Per-run artefacts of an authoring
+# workflow, ignored for the same reason as the generated tokens above: nothing
+# should ever commit them.
+#
+# The concept pass is 482 targets over five days, so the checkpoint sits here
+# across five days of `git status`, and a `git add -A` during a content PR would
+# sweep a 230-entry candidates file in alongside 74 legitimately changed nodes.
+video-candidates.*.json
+video-explainers.json
+picks*.json

@@ -121,8 +121,27 @@ jobs:
       # here starts. `--with-deps` because the runner's shared libraries are not
       # a promise, and a missing one looks like a flaky test rather than a
       # missing package.
+      #
+      # THE GOOGLE CHROME LIST GOES FIRST (#402). `--with-deps` runs
+      # `apt-get update`, which reads every list on the runner image — including
+      # the one it ships for the preinstalled `google-chrome`, which nothing here
+      # uses: `--only-shell` takes the headless shell from Playwright's own CDN
+      # and the apt half is purely Ubuntu shared libraries. On 2026-09-09
+      # dl.google.com served a Packages.gz whose hash disagreed with its own
+      # Release file, apt failed the whole update over it, and the job died
+      # before a single test ran. Two runs, byte-identical hashes — Google's
+      # index, not a race worth re-running.
+      #
+      # REMOVED RATHER THAN TOLERATED. `apt-get update || true` would also
+      # swallow a genuinely broken Ubuntu archive; `--with-deps` would then
+      # install nothing and the smoke test would fail later with a missing
+      # shared library, which is a check going green for the wrong reason
+      # wearing a disguise. Narrowing what apt reads keeps a real archive
+      # failure loud.
       - name: Install Chromium
-        run: npx playwright-core install --with-deps chromium --only-shell
+        run: |
+          sudo rm -fv /etc/apt/sources.list.d/*google-chrome*
+          npx playwright-core install --with-deps chromium --only-shell
 
       # After the build, like the perf budget: it drives `astro preview` over
       # web/dist. Every /api/v1 call is stubbed, so this is never red because
