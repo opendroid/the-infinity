@@ -58,6 +58,13 @@
       "title": "From Autoencoder to Beta-VAE",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2018-08-12-vae/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Intuitively Understanding the KL Divergence",
+      "author": "Adian Liusie",
+      "url": "https://www.youtube.com/watch?v=SxGYPqCgJWM"
     }
   ],
   "review": {

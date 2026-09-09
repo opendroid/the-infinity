@@ -65,6 +65,13 @@
       "title": "A Gentle Introduction to Graph Neural Networks",
       "author": "Sanchez-Lengeling, Reif, Pearce & Wiltschko",
       "url": "https://distill.pub/2021/gnn-intro/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Simple Message Passing on Graphs",
+      "author": "WelcomeAIOverlords",
+      "url": "https://www.youtube.com/watch?v=ijmxpItkRjc"
     }
   ],
   "review": {

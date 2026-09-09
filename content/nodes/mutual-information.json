@@ -64,6 +64,13 @@
       "title": "Visual Information Theory",
       "author": "Christopher Olah",
       "url": "https://colah.github.io/posts/2015-09-Visual-Information/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Intuitively Understanding the KL Divergence",
+      "author": "Adian Liusie",
+      "url": "https://www.youtube.com/watch?v=SxGYPqCgJWM"
     }
   ],
   "review": {

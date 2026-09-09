@@ -63,6 +63,13 @@
       "title": "Are Deep Neural Networks Dramatically Overfitted?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2019-03-14-overfit/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Gradient descent, how neural networks learn | Deep Learning Chapter 2",
+      "author": "3Blue1Brown",
+      "url": "https://www.youtube.com/watch?v=IHZwWFHWa-w"
     }
   ],
   "review": {

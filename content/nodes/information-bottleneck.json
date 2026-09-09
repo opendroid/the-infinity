@@ -73,6 +73,13 @@
       "title": "Anatomize Deep Learning with Information Theory",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2017-09-28-information-bottleneck/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Intuitively Understanding the KL Divergence",
+      "author": "Adian Liusie",
+      "url": "https://www.youtube.com/watch?v=SxGYPqCgJWM"
     }
   ],
   "review": {

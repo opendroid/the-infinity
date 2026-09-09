@@ -72,6 +72,13 @@
       "title": "Q-Learning",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_reinforcement-learning/qlearning.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "RL Course by David Silver - Lecture 2: Markov Decision Process",
+      "author": "Google DeepMind",
+      "url": "https://www.youtube.com/watch?v=lfHX2hHRMVQ"
     }
   ],
   "review": {

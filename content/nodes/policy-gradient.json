@@ -63,6 +63,13 @@
       "title": "Policy Gradient Algorithms",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2018-04-08-policy-gradient/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "RL Course by David Silver - Lecture 2: Markov Decision Process",
+      "author": "Google DeepMind",
+      "url": "https://www.youtube.com/watch?v=lfHX2hHRMVQ"
     }
   ],
   "review": {
