@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "update-spectrum",
     "params": {
-      "spread": 1.0,
+      "spread": 1,
       "bars": 8
     },
     "param_controls": [
@@ -54,6 +54,14 @@
       "title": "The Transformer Architecture",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_attention-mechanisms-and-transformers/transformer.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "What is Layer Normalization? | Deep Learning Fundamentals",
+      "author": "AssemblyAI",
+      "url": "https://www.youtube.com/watch?v=2V3Uduw1zwQ",
+      "domain": "Normalization"
     }
   ],
   "review": {

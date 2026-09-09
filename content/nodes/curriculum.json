@@ -71,6 +71,14 @@
       "title": "Curriculum for Reinforcement Learning",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2020-01-29-curriculum-rl/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "L41: Learning rate schemes explained with warmup & cosine annealing",
+      "author": "IIT Madras - B.S. Degree Programme",
+      "url": "https://www.youtube.com/watch?v=Lqauh9dJzNc",
+      "domain": "Schedules"
     }
   ],
   "review": {

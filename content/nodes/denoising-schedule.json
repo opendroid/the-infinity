@@ -68,6 +68,14 @@
       "title": "What are Diffusion Models?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-07-11-diffusion-models/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "L41: Learning rate schemes explained with warmup & cosine annealing",
+      "author": "IIT Madras - B.S. Degree Programme",
+      "url": "https://www.youtube.com/watch?v=Lqauh9dJzNc",
+      "domain": "Schedules"
     }
   ],
   "review": {

@@ -63,6 +63,14 @@
       "title": "Evaluation of binary classifiers",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Evaluation_of_binary_classifiers"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "A Walkthrough of In-Context Learning and Induction Heads Part 1 of 2 (w/ Charles Frye)",
+      "author": "Neel Nanda",
+      "url": "https://www.youtube.com/watch?v=dCkQQYwPxdM",
+      "domain": "Capabilities"
     }
   ],
   "review": {

@@ -64,6 +64,14 @@
       "title": "Why We Think",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2025-05-01-thinking/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "A Walkthrough of In-Context Learning and Induction Heads Part 1 of 2 (w/ Charles Frye)",
+      "author": "Neel Nanda",
+      "url": "https://www.youtube.com/watch?v=dCkQQYwPxdM",
+      "domain": "Capabilities"
     }
   ],
   "review": {

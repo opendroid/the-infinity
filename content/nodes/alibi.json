@@ -68,6 +68,14 @@
       "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
       "author": "3Blue1Brown",
       "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "How Rotary Position Embedding Supercharges Modern LLMs [RoPE]",
+      "author": "Jia-Bin Huang",
+      "url": "https://www.youtube.com/watch?v=SMBkImDWOyQ",
+      "domain": "Position"
     }
   ],
   "review": {

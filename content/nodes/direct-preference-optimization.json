@@ -70,6 +70,14 @@
       "title": "RLAIF vs. RLHF: the technology behind Anthropic’s Claude (Constitutional AI Explained)",
       "author": "AssemblyAI",
       "url": "https://www.youtube.com/watch?v=nNHBb_2hMWI"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Reinforcement Learning with Human Feedback (RLHF), Clearly Explained!!!",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=qPN_XZcJf_s",
+      "domain": "Preference"
     }
   ],
   "review": {

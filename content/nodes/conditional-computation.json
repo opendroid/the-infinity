@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "update-spectrum",
     "params": {
-      "gate_temperature": 1.0
+      "gate_temperature": 1
     },
     "param_controls": [
       {
@@ -57,6 +57,14 @@
       "title": "The Transformer Architecture",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_attention-mechanisms-and-transformers/transformer.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "A Visual Guide to Mixture of Experts (MoE) in LLMs",
+      "author": "Maarten Grootendorst",
+      "url": "https://www.youtube.com/watch?v=sOPDGQjFcuM",
+      "domain": "Sparsity"
     }
   ],
   "review": {
