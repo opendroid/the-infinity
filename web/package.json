@@ -41,6 +41,6 @@
     "playwright-core": "1.63.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.65.0",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   }
 }
