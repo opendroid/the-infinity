@@ -227,6 +227,40 @@ describe('score ranks plausibly and says why', () => {
     );
   });
 
+  it('sinks a video nobody has watched, however well its title matches', () => {
+    // #395. The positive views term spans 0.000 to 0.070 across the whole
+    // plausible range — less than the 0.2 for being a teachable length — and
+    // never goes negative, so a 1-view content farm with a perfect title match
+    // scored 0.50 and landed near the top of a reviewer's list. 60 of 230
+    // candidates in the second search were under 500 views.
+    const perfectMatch = { ...base, title: 'Attention explained', views: '1' };
+    const r = score(perfectMatch, target, new Set());
+    expect(r.score).toBeLessThan(0.35);
+    expect(r.reasons).toContain('almost unwatched (1 views)');
+  });
+
+  it('does NOT demote a trusted channel with no views yet', () => {
+    // A new StatQuest video legitimately has an empty counter.
+    const fresh = { ...base, channelId: 'UC-good', views: '3' };
+    const r = score(fresh, target, new Set(['UC-good']));
+    expect(r.reasons).not.toContain('almost unwatched (3 views)');
+    expect(r.score).toBeGreaterThanOrEqual(0.35);
+  });
+
+  it('leaves a niche-but-real video alone at 16,801 views', () => {
+    // THE CASE THAT KILLED THE FIRST ATTEMPT. Widening the curve to punish 22
+    // views made it weaker than the original around 20,000, and demoted the
+    // IEEE S&P Membership Inference talk — already shipped — from 0.3547 to
+    // 0.3495. Conference talks and university lectures live in that band, so
+    // the fix adds a floor and leaves the positive term untouched.
+    const niche = { ...base, views: '16801' };
+    const withFloor = score(niche, target, new Set());
+    const wellWatched = score({ ...base, views: '9511886' }, target, new Set());
+    expect(withFloor.reasons).not.toContain('almost unwatched (16801 views)');
+    // The prior stays weak on purpose: 9.5M views is worth under 0.03 more.
+    expect(wellWatched.score - withFloor.score).toBeLessThan(0.03);
+  });
+
   it('stays within 0..1', () => {
     const best = score(
       { ...base, channelId: 'UC-good', author: 'Andrej Karpathy', views: '99999999' },
