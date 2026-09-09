@@ -59,6 +59,14 @@
       "title": "Adversarial Attacks on LLMs",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-10-25-adv-attack-llm/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Membership Inference Attacks against Machine Learning Models",
+      "author": "IEEE Symposium on Security and Privacy",
+      "url": "https://www.youtube.com/watch?v=rDm1n2gceJY",
+      "domain": "Attacks"
     }
   ],
   "review": {

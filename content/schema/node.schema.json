@@ -31,7 +31,7 @@
     },
     "domain": {
       "type": "array",
-      "description": "A two-level path, rendered as the mono eyebrow: [\"Architecture\",\"Sparsity\"] becomes \"Architecture / Sparsity\". A path, not multi-membership — a concept sits in one place.",
+      "description": "A two-level path, rendered as the mono eyebrow: [\"Architecture\",\"Sparsity\"] becomes \"Architecture / Sparsity\". A path, not multi-membership \u2014 a concept sits in one place.",
       "items": {
         "type": "string",
         "minLength": 1,
@@ -63,7 +63,7 @@
     },
     "emphasis": {
       "type": "object",
-      "description": "The phrase lifted to violet weight 500, per depth. Each value must be a VERBATIM substring of the matching body — a constraint JSON Schema cannot express, enforced by scripts/validate-content.mjs.",
+      "description": "The phrase lifted to violet weight 500, per depth. Each value must be a VERBATIM substring of the matching body \u2014 a constraint JSON Schema cannot express, enforced by scripts/validate-content.mjs.",
       "additionalProperties": false,
       "properties": {
         "intuition": {
@@ -92,7 +92,7 @@
       "properties": {
         "primitive": {
           "type": "string",
-          "description": "Names an implemented viz primitive — a reusable visual shape, not a per-concept drawing. A typo here would render an empty island, so the set is closed and grows only as primitives land. What each one shows, and which params it reads, is documented in content/schema/README.md.",
+          "description": "Names an implemented viz primitive \u2014 a reusable visual shape, not a per-concept drawing. A typo here would render an empty island, so the set is closed and grows only as primitives land. What each one shows, and which params it reads, is documented in content/schema/README.md.",
           "enum": [
             "router-dispatch",
             "update-spectrum",
@@ -156,7 +156,7 @@
     },
     "edges": {
       "type": "object",
-      "description": "Only `requires` and `adjacent` are authored. `unlocks` is inverted from `requires` at publish time (ADR-0002) — authoring it would let two files disagree about one fact, so it is rejected here.",
+      "description": "Only `requires` and `adjacent` are authored. `unlocks` is inverted from `requires` at publish time (ADR-0002) \u2014 authoring it would let two files disagree about one fact, so it is rejected here.",
       "additionalProperties": false,
       "required": [
         "requires",
@@ -203,7 +203,7 @@
     },
     "origin": {
       "type": "array",
-      "description": "Primary sources that predate arXiv and cannot be fetched (ADR-0013). NEVER carries a url — the property does not exist here, so the question of whether these get fetched cannot be reopened. Names where an idea came from; `citations` is what a reader can go and read today, and a node still needs at least one of those.",
+      "description": "Primary sources that predate arXiv and cannot be fetched (ADR-0013). NEVER carries a url \u2014 the property does not exist here, so the question of whether these get fetched cannot be reopened. Names where an idea came from; `citations` is what a reader can go and read today, and a node still needs at least one of those.",
       "minItems": 1,
       "items": {
         "type": "object",
@@ -279,13 +279,18 @@
             "format": "uri",
             "pattern": "^https://",
             "description": "Host is checked against a per-kind allowlist by validate:content, so a disallowed host fails offline with the file named rather than as a network error."
+          },
+          "domain": {
+            "type": "string",
+            "description": "Which domain a scope:domain entry covers (ADR-0021). Optional, defaulting to the node's domain[0]. Written only when the answer is NOT the primary \u2014 a refinement domain like Dimensionality or Clustering, which is never any node's primary and so could not otherwise carry an explainer at all. validate:content rejects a value the node does not actually belong to.",
+            "minLength": 1
           }
         }
       }
     },
     "review": {
       "type": "object",
-      "description": "Present iff the node is verified. Its presence IS the tier — adding it in a PR, and merging that PR, is the act of verification (ADR-0002).",
+      "description": "Present iff the node is verified. Its presence IS the tier \u2014 adding it in a PR, and merging that PR, is the act of verification (ADR-0002).",
       "additionalProperties": false,
       "required": [
         "reviewed_by",
@@ -303,7 +308,7 @@
     },
     "provenance": {
       "type": "object",
-      "description": "Present iff the node is frontier. Drafting metadata only — sources live in top-level `citations`.",
+      "description": "Present iff the node is frontier. Drafting metadata only \u2014 sources live in top-level `citations`.",
       "additionalProperties": false,
       "required": [
         "drafted_at"
@@ -320,7 +325,7 @@
   },
   "oneOf": [
     {
-      "title": "verified — carries a reviewer, and no provenance",
+      "title": "verified \u2014 carries a reviewer, and no provenance",
       "required": [
         "review"
       ],
@@ -330,7 +335,7 @@
       }
     },
     {
-      "title": "frontier — carries drafting provenance, and no reviewer",
+      "title": "frontier \u2014 carries drafting provenance, and no reviewer",
       "required": [
         "provenance"
       ],
@@ -342,7 +347,7 @@
   ],
   "$defs": {
     "body": {
-      "description": "Prose. `_` marks a subscript and `^` a superscript, each taking either a run of letters and digits (x_t, d_model, S_ij) or a braced group, which may nest (m_{t−1}, ℝ^{|V|×d_model}). A `{` that does not follow a marker is an ordinary character, so `∈ {0,1}` is safe. Write \\_ \\^ \\{ \\} for a literal one. Prefer a Unicode glyph where one exists for the whole construct (β₁, ᵀ, √, ∂) and markup where it does not. Checked by src/lib/notation.test.ts. See ADR-0009.",
+      "description": "Prose. `_` marks a subscript and `^` a superscript, each taking either a run of letters and digits (x_t, d_model, S_ij) or a braced group, which may nest (m_{t\u22121}, \u211d^{|V|\u00d7d_model}). A `{` that does not follow a marker is an ordinary character, so `\u2208 {0,1}` is safe. Write \\_ \\^ \\{ \\} for a literal one. Prefer a Unicode glyph where one exists for the whole construct (\u03b2\u2081, \u1d40, \u221a, \u2202) and markup where it does not. Checked by src/lib/notation.test.ts. See ADR-0009.",
       "type": "string",
       "minLength": 40,
       "maxLength": 1400
@@ -368,7 +373,7 @@
           },
           "reviewed": {
             "type": "boolean",
-            "description": "Has a human confirmed this relationship? Authored, not derived — the case that matters is an unchecked claim between two verified nodes, which deriving from tier would erase."
+            "description": "Has a human confirmed this relationship? Authored, not derived \u2014 the case that matters is an unchecked claim between two verified nodes, which deriving from tier would erase."
           }
         }
       }

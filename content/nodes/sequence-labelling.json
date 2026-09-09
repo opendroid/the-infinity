@@ -64,6 +64,14 @@
       "title": "Beam Search",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-modern/beam-search.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Conditional Random Fields : Data Science Concepts",
+      "author": "ritvikmath",
+      "url": "https://www.youtube.com/watch?v=rI3DQS0P2fk",
+      "domain": "Labelling"
     }
   ],
   "review": {

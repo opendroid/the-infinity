@@ -54,6 +54,14 @@
       "title": "Weight Decay",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_linear-regression/weight-decay.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "NN - 16 - L2 Regularization / Weight Decay (Theory + @PyTorch code)",
+      "author": "Meerkat Statistics",
+      "url": "https://www.youtube.com/watch?v=_SlPBbxuqas",
+      "domain": "Regularization"
     }
   ],
   "review": {

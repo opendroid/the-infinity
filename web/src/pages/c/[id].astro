@@ -148,7 +148,7 @@ const bodies = DEPTHS.map((depth) => {
                         Same rule ADR-0013 applies to origin: a broader source
                         presented as a narrower one is the misrepresentation.
                       */}
-                      {e.scope === 'domain' && <span> · on {node.domain[0]}</span>}
+                      {e.scope === 'domain' && <span> · on {e.domain ?? node.domain[0]}</span>}
                     </li>
                   ))}
                 </ul>
@@ -229,7 +229,7 @@ const bodies = DEPTHS.map((depth) => {
                         Same rule ADR-0013 applies to origin: a broader source
                         presented as a narrower one is the misrepresentation.
                       */}
-                      {e.scope === 'domain' && <span> · on {node.domain[0]}</span>}
+                      {e.scope === 'domain' && <span> · on {e.domain ?? node.domain[0]}</span>}
                     </li>
                   ))}
                 </ul>

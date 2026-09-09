@@ -10,7 +10,7 @@ import { join, resolve } from 'node:path';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { describe, expect, it } from 'vitest';
-import { validateContent, validateLayout } from '../../scripts/validate-content.mjs';
+import { explainerProblems, validateContent, validateLayout } from '../../scripts/validate-content.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
 const schema = JSON.parse(readFileSync(join(ROOT, 'content/schema/node.schema.json'), 'utf8'));
@@ -174,5 +174,56 @@ describe('validate-content over the real /content/nodes', () => {
     // failure nobody sees, because nobody reloads the landing page while
     // editing content. Same checks the CLI runs, not a second copy.
     expect(validateLayout()).toEqual([]);
+  });
+});
+
+describe('a domain-scoped explainer names a domain the node is actually in (ADR-0021)', () => {
+  const node = (explainers: unknown[]) => ({
+    id: 'mixture-of-experts',
+    title: 'Mixture of Experts',
+    domain: ['Architecture', 'Sparsity'],
+    explainers,
+  });
+  const video = (extra: Record<string, unknown>) => ({
+    kind: 'video',
+    scope: 'domain',
+    title: 'T',
+    author: 'A',
+    url: 'https://www.youtube.com/watch?v=abc',
+    ...extra,
+  });
+
+  it('accepts a refinement domain the node belongs to — the whole point of the field', () => {
+    // `Sparsity` is never any node's primary, so before ADR-0021 this entry
+    // could not exist: the page would have rendered "· on Architecture".
+    expect(explainerProblems(node([video({ domain: 'Sparsity' })]))).toEqual([]);
+  });
+
+  it('accepts the primary too, stated explicitly', () => {
+    expect(explainerProblems(node([video({ domain: 'Architecture' })]))).toEqual([]);
+  });
+
+  it('accepts an entry that names no domain — 563 existing ones do not', () => {
+    expect(explainerProblems(node([video({})]))).toEqual([]);
+  });
+
+  it('REJECTS a domain the node is not in', () => {
+    // The check that makes the field safe. Without it the label goes from
+    // wrong-but-knowable to wrong-and-arbitrary.
+    const problems = explainerProblems(node([video({ domain: 'Clustering' })]));
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('says it covers "Clustering"');
+    expect(problems[0]).toContain('Architecture, Sparsity');
+  });
+
+  it('REJECTS a domain on a concept-scoped entry', () => {
+    const problems = explainerProblems(node([video({ scope: 'concept', domain: 'Sparsity' })]));
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('names a domain but is scope "concept"');
+  });
+
+  it('still rejects a disallowed host, which this refactor must not have lost', () => {
+    const problems = explainerProblems(node([video({ url: 'https://vimeo.com/1' })]));
+    expect(problems.some((p: string) => p.includes('which check:explainers cannot verify'))).toBe(true);
   });
 });

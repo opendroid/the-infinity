@@ -75,6 +75,14 @@
       "title": "Learning Rate Scheduling",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_optimization/lr-scheduler.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "L41: Learning rate schemes explained with warmup & cosine annealing",
+      "author": "IIT Madras - B.S. Degree Programme",
+      "url": "https://www.youtube.com/watch?v=Lqauh9dJzNc",
+      "domain": "Schedules"
     }
   ],
   "review": {

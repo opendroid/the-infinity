@@ -27,6 +27,72 @@ const LAYOUT_PATH = join(ROOT, 'content/layout/lemniscate.json');
 const SCHEMA_PATH = join(ROOT, 'content/schema/node.schema.json');
 
 /** @returns {{file: string, errors: string[]}[]} one entry per file with problems */
+/**
+ * What is wrong with a node's `explainers`, if anything.
+ *
+ * EXTRACTED SO IT CAN BE TESTED (ADR-0021). `validateContent` reads the real
+ * corpus from disk and takes no arguments, so a rule added inside it could only
+ * ever be checked by whether 482 real nodes happened to trip it — which proves
+ * nothing about the rule and everything about the content. A pure function takes
+ * a node.
+ *
+ * @returns {string[]} one message per problem
+ */
+export function explainerProblems(node) {
+  const errors = [];
+
+  // ADR-0017: the host is checked HERE rather than in the JSON Schema, so a
+  // disallowed one fails offline with the file and the field named — a
+  // regex in the schema would report the same thing as "does not match
+  // pattern" and leave the author to work out which part.
+  //
+  // An allowlist rather than a denylist because `kind` selects the check:
+  // `check:explainers` verifies a video through YouTube's oEmbed endpoint,
+  // which exists for exactly one host, and there is nothing to gain from
+  // letting a video point somewhere that cannot be checked at all.
+  for (const e of node.explainers ?? []) {
+    const allowed = EXPLAINER_HOSTS[e.kind] ?? [];
+    let host;
+    try {
+      host = hostOf(e.url);
+    } catch {
+      errors.push(`explainer "${e.title}" has an unparseable url — ${e.url}`);
+      continue;
+    }
+    if (!allowed.includes(host)) {
+      errors.push(
+        `explainer "${e.title}" is kind "${e.kind}" at ${host}, which check:explainers cannot verify — ` +
+          `allowed for that kind: ${allowed.join(', ')}`,
+      );
+    }
+
+    // ADR-0021. A domain-scoped entry may name the domain it covers, so that a
+    // refinement domain — Dimensionality, Clustering, Circuits, none of which is
+    // ever a node's primary — can carry an explainer at all. The name has to be
+    // one this node actually belongs to.
+    //
+    // THIS CHECK IS WHAT MAKES THE FIELD SAFE TO ADD. Without it the ADR trades
+    // a label that is wrong in a knowable way (always the primary) for one that
+    // is wrong in an arbitrary way (whatever was typed). The schema cannot say
+    // "a member of this node's own domain array", so it lives here.
+    if (e.domain !== undefined) {
+      if (e.scope !== 'domain') {
+        errors.push(
+          `explainer "${e.title}" names a domain but is scope "${e.scope}" — ` +
+            `only a domain-scoped entry covers a domain`,
+        );
+      } else if (!(node.domain ?? []).includes(e.domain)) {
+        errors.push(
+          `explainer "${e.title}" says it covers "${e.domain}", which this node is not in — ` +
+            `node domains: ${(node.domain ?? []).join(', ')}`,
+        );
+      }
+    }
+  }
+
+  return errors;
+}
+
 export function validateContent() {
   const schema = JSON.parse(readFileSync(SCHEMA_PATH, 'utf8'));
   const ajv = new Ajv2020({ allErrors: true, strict: true });
@@ -123,31 +189,7 @@ export function validateContent() {
       }
     }
 
-    // ADR-0017: the host is checked HERE rather than in the JSON Schema, so a
-    // disallowed one fails offline with the file and the field named — a
-    // regex in the schema would report the same thing as "does not match
-    // pattern" and leave the author to work out which part.
-    //
-    // An allowlist rather than a denylist because `kind` selects the check:
-    // `check:explainers` verifies a video through YouTube's oEmbed endpoint,
-    // which exists for exactly one host, and there is nothing to gain from
-    // letting a video point somewhere that cannot be checked at all.
-    for (const e of node.explainers ?? []) {
-      const allowed = EXPLAINER_HOSTS[e.kind] ?? [];
-      let host;
-      try {
-        host = hostOf(e.url);
-      } catch {
-        errors.push(`explainer "${e.title}" has an unparseable url — ${e.url}`);
-        continue;
-      }
-      if (!allowed.includes(host)) {
-        errors.push(
-          `explainer "${e.title}" is kind "${e.kind}" at ${host}, which check:explainers cannot verify — ` +
-            `allowed for that kind: ${allowed.join(', ')}`,
-        );
-      }
-    }
+    errors.push(...explainerProblems(node));
 
     if (errors.length) failures.push({ file, errors });
   }

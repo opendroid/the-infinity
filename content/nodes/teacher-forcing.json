@@ -64,6 +64,14 @@
       "title": "Sequence-to-Sequence Learning for Machine Translation",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-modern/seq2seq.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Backpropagation, intuitively | Deep Learning Chapter 3",
+      "author": "3Blue1Brown",
+      "url": "https://www.youtube.com/watch?v=Ilg3gGewQ5U",
+      "domain": "Training"
     }
   ],
   "review": {

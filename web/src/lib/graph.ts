@@ -59,6 +59,15 @@ export interface Explainer {
   kind: 'video' | 'read';
   /** Whether this covers the concept, or only its domain (ADR-0018). */
   scope: 'concept' | 'domain';
+  /**
+   * Which domain a `scope: 'domain'` entry covers (ADR-0021).
+   *
+   * Absent means the node's `domain[0]`, which is what all 563 entries written
+   * before this meant implicitly. Present for a refinement domain —
+   * `Dimensionality`, `Clustering`, `Circuits` — which is never any node's
+   * primary and so could not otherwise carry an explainer at all.
+   */
+  domain?: string;
   title: string;
   author: string;
   url: string;

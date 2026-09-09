@@ -95,7 +95,13 @@ type Explainer struct {
 	// Scope is "concept" or "domain": whether this covers the concept itself or
 	// only the area it sits in (ADR-0018). Authored, never defaulted — a default
 	// lets a domain overview be published as a concept-level one by omission.
-	Scope  string `firestore:"scope" json:"scope"`
+	Scope string `firestore:"scope" json:"scope"`
+	// Domain is which domain a scope:"domain" entry covers (ADR-0021). Optional,
+	// and absent means the node's first domain — written only for a refinement
+	// domain like Dimensionality or Clustering, which is never any node's primary
+	// and so could not otherwise carry an explainer at all. omitempty because 563
+	// of the entries do not need it and a null in every one is noise.
+	Domain string `firestore:"domain,omitempty" json:"domain,omitempty"`
 	Title  string `firestore:"title" json:"title"`
 	Author string `firestore:"author" json:"author"`
 	URL    string `firestore:"url" json:"url"`

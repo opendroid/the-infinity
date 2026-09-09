@@ -68,6 +68,14 @@
       "title": "Language Models",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-neural-networks/language-model.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Maximum Likelihood, clearly explained!!!",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=XepXtl9YKwc",
+      "domain": "Statistics"
     }
   ],
   "review": {

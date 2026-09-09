@@ -59,6 +59,14 @@
       "title": "Deep Reinforcement Learning Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/deep-rl-course"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Monte Carlo Tree Search - Computerphile",
+      "author": "Computerphile",
+      "url": "https://www.youtube.com/watch?v=BEFY7IHs0HM",
+      "domain": "Search"
     }
   ],
   "review": {
