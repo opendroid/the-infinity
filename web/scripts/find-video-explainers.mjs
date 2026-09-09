@@ -41,6 +41,16 @@ const COST = { search: 100, videos: 1, channels: 1 };
 const DAILY_UNITS = 10_000;
 
 /**
+ * Below this, a video is treated as unwatched rather than merely unpopular.
+ *
+ * 500 because it separates cleanly on the measured corpus: it demotes exactly
+ * the 60 candidates under it and leaves the lowest survivor at 518. The
+ * legitimate low-view content sits above — USENIX at 1,292, Hung-yi Lee at
+ * 1,599, Olewave at 909.
+ */
+const UNWATCHED = 500;
+
+/**
  * Channels worth trusting, AS HANDLES — never as channel ids.
  *
  * A `UC...` id is 24 characters this repository cannot check by reading. A
@@ -189,11 +199,22 @@ export function score(candidate, target, allowedChannelIds = new Set()) {
   const reasons = [];
   let n = 0;
 
+  // Whether the floor below applies. A brand-new StatQuest video legitimately
+  // has no views yet, and should not be demoted for it.
+  //
+  // UNTESTED AGAINST REAL DATA, AND SAYING SO IS THE POINT: none of the 60
+  // sub-threshold candidates in the second search were on a trusted channel, so
+  // this exemption has never actually fired. It is here on the argument above,
+  // not on evidence.
+  let trusted = false;
+
   if (allowedChannelIds.has(candidate.channelId)) {
     n += 0.4;
+    trusted = true;
     reasons.push('allowlisted channel');
   } else if (NAMED_AUTHORS.some((a) => `${candidate.author} ${candidate.title}`.toLowerCase().includes(a))) {
     n += 0.25;
+    trusted = true;
     reasons.push('named author');
   }
 
@@ -235,9 +256,30 @@ export function score(candidate, target, allowedChannelIds = new Set()) {
     reasons.push('too short');
   }
 
-  // Weak popularity prior, capped so it cannot outweigh relevance.
+  // Weak popularity prior, capped so it cannot outweigh relevance. Left
+  // deliberately weak: a well-watched video is not a better teacher.
   const views = Number(candidate.views ?? 0);
   if (views > 0) n += Math.min(0.1, Math.log10(views) / 100);
+
+  // A FLOOR, WHICH THE PRIOR ABOVE IS NOT (#395). That term spans 0.000 to
+  // 0.070 across the entire plausible range — less than the 0.2 for merely
+  // being a teachable length — and never goes negative. So a video nobody has
+  // watched paid no price at all: 60 of 230 candidates in the second search had
+  // under 500 views, and several scored above 0.50 on a good title match. They
+  // are AI-generated content farms, publishing in 2026 with double-digit view
+  // counts and names like "AI Paper Slop", and hand-rejecting them was the
+  // largest single cost of curating that run.
+  //
+  // 0.25 rather than a wider curve, and only below the floor, because the first
+  // attempt at this re-weighted the whole term and demoted a video that had
+  // already shipped — the IEEE S&P Membership Inference talk at 16,801 views.
+  // Any curve steep enough to punish 22 views is weaker than this one around
+  // 20,000, which is exactly where conference talks and university lectures
+  // live. The threshold does the work: -0.35 demotes the same 60.
+  if (views > 0 && views < UNWATCHED && !trusted) {
+    n -= 0.25;
+    reasons.push(`almost unwatched (${views} views)`);
+  }
 
   return { score: Math.max(0, Math.min(1, n)), reasons };
 }
