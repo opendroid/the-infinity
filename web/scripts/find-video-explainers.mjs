@@ -37,6 +37,9 @@ const API = 'https://www.googleapis.com/youtube/v3';
  * Tracked and enforced here so the run STOPS with a checkpoint rather than
  * discovering the limit as a 403 halfway through.
  */
+const COST = { search: 100, videos: 1, channels: 1 };
+const DAILY_UNITS = 10_000;
+
 /**
  * Below this, a video is treated as unwatched rather than merely unpopular.
  *
@@ -46,9 +49,6 @@ const API = 'https://www.googleapis.com/youtube/v3';
  * 1,599, Olewave at 909.
  */
 const UNWATCHED = 500;
-
-const COST = { search: 100, videos: 1, channels: 1 };
-const DAILY_UNITS = 10_000;
 
 /**
  * Channels worth trusting, AS HANDLES — never as channel ids.
