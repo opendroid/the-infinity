@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { byUrl, hostOf, nothingWasVerified, pool, unreachableHosts } from '../../scripts/fetch-pool.mjs';
+import { byUrl, everyFailureWasSilent, hostOf, pool, unreachableHosts, verifiedCount } from '../../scripts/fetch-pool.mjs';
 
 /**
  * The fetch policy both link checkers share (#373).
@@ -78,6 +78,26 @@ describe('pool caps concurrency per host', () => {
   });
 });
 
+describe('verifiedCount reads the half everyFailureWasSilent does not', () => {
+  it('counts successes, which is the number the caller must report (#390)', () => {
+    // The bug: a run that verified 126 of 134 pages exited under a name meaning
+    // "nothing was verified", because only failures were ever consulted.
+    const r = new Map([
+      ['https://d2l.ai/a.html', ok],
+      ['https://d2l.ai/b.html', ok],
+      ['https://www.youtube.com/watch?v=x', silent],
+    ]);
+    expect(verifiedCount(r)).toBe(2);
+    // Still true — every FAILURE was silent — and the caller still exits 2,
+    // because nobody asked to skip that host. The name now says which.
+    expect(everyFailureWasSilent(r)).toBe(true);
+  });
+
+  it('is zero when nothing answered at all', () => {
+    expect(verifiedCount(new Map([['https://www.youtube.com/watch?v=a', silent]]))).toBe(0);
+  });
+});
+
 describe('a host that answered nothing is not a host with dead pages', () => {
   it('names a host whose every failure got no response', () => {
     const r = new Map([
@@ -86,7 +106,7 @@ describe('a host that answered nothing is not a host with dead pages', () => {
       ['https://d2l.ai/fine.html', ok],
     ]);
     expect(unreachableHosts(r)).toEqual([{ host: 'youtube.com', urls: 2 }]);
-    expect(nothingWasVerified(r)).toBe(true);
+    expect(everyFailureWasSilent(r)).toBe(true);
   });
 
   it('does NOT excuse a host whose pages 404 — the server answered', () => {
@@ -98,7 +118,7 @@ describe('a host that answered nothing is not a host with dead pages', () => {
       ['https://colah.github.io/c/', gone],
     ]);
     expect(unreachableHosts(r)).toEqual([]);
-    expect(nothingWasVerified(r)).toBe(false);
+    expect(everyFailureWasSilent(r)).toBe(false);
   });
 
   it('one real status anywhere means the run found something', () => {
@@ -108,10 +128,10 @@ describe('a host that answered nothing is not a host with dead pages', () => {
     ]);
     expect(unreachableHosts(r).map((d) => d.host)).toEqual(['youtube.com']);
     // A blocked host alongside a genuine 404 is still a run with something to fix.
-    expect(nothingWasVerified(r)).toBe(false);
+    expect(everyFailureWasSilent(r)).toBe(false);
   });
 
   it('an all-green run is not "nothing was verified"', () => {
-    expect(nothingWasVerified(new Map([['https://d2l.ai/x.html', ok]]))).toBe(false);
+    expect(everyFailureWasSilent(new Map([['https://d2l.ai/x.html', ok]]))).toBe(false);
   });
 });

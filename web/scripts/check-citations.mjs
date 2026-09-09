@@ -37,12 +37,13 @@ import { join, resolve } from 'node:path';
 import {
   byUrl,
   crawlDelays,
+  everyFailureWasSilent,
   hostOf,
-  nothingWasVerified,
   partitionByDelay,
   pool,
   skippedNotice,
   unreachableHosts,
+  verifiedCount,
 } from './fetch-pool.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
@@ -196,13 +197,20 @@ async function main() {
   // shared helper is what keeps this checker and check:explainers agreeing.
   const dead = unreachableHosts(results);
 
-  if (nothingWasVerified(results)) {
+  if (everyFailureWasSilent(results)) {
     const [{ host, urls }] = dead;
+    // DERIVED, NOT ASSERTED (#390). This used to print "Nothing was verified"
+    // unconditionally, which is true only while every citation is on one host.
+    // Add a citation elsewhere and the sentence becomes false with nothing to
+    // catch it — the same shape as the helper above claiming to read successes
+    // it never looked at.
+    const ok = verifiedCount(results);
     console.error(
       `\nAll ${urls} url(s) on ${host} got no response at all.\n` +
         `That is the network, not the content — an egress policy denying arxiv.org looks the\n` +
         `same as every paper vanishing at once, and only one of those is plausible.\n\n` +
-        `Nothing was verified. Re-run where arxiv.org is reachable, or use --offline and say\n` +
+        `${ok === 0 ? 'Nothing was verified' : `Only ${ok} of ${results.size} url(s) were verified`}. ` +
+        `Re-run where ${host} is reachable, or use --offline and say\n` +
         `plainly that the corpus is unresolved.`,
     );
     process.exit(2);

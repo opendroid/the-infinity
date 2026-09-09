@@ -40,11 +40,12 @@ import { EXPLAINER_HOSTS, hostOf } from './explainer-hosts.mjs';
 import {
   byUrl,
   crawlDelays,
-  nothingWasVerified,
+  everyFailureWasSilent,
   partitionByDelay,
   pool,
   skippedNotice,
   unreachableHosts,
+  verifiedCount,
 } from './fetch-pool.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
@@ -326,15 +327,25 @@ async function main() {
 
   if (dead.length > 0) {
     const affected = blocked.reduce((n, url) => n + groups.get(url).length, 0);
+    // BOTH NUMBERS, BECAUSE ONE OF THEM ALONE MISLEADS (#390). Reporting only
+    // what went unverified reads as though nothing was; reporting only what
+    // passed hides the gap. 126 of 134 pages verified with 8 unreachable is a
+    // different situation from 0 of 134, and the exit code is the same for both.
+    const ok = verifiedCount(results);
     console.error(
       `\n${dead.length} host(s) answered nothing, which is the network rather than the content:\n` +
         dead.map((d) => `  ${d.host} — ${d.urls} url(s), no response at all`).join('\n') +
-        `\n\n${affected} explainer(s) went unverified. Re-run where those hosts are reachable — CI is,\n` +
-        `and an authoring sandbox may not be — or use --offline and say plainly that they are unverified.`,
+        `\n\n${ok} of ${results.size} page(s) verified; ${affected} explainer(s) went unverified.\n` +
+        `Re-run where those hosts are reachable — CI is, and an authoring sandbox may not be —\n` +
+        `or use --offline and say plainly that they are unverified.`,
     );
-    // Exit 2 only when nothing here is evidence a page is gone. One real HTTP
-    // status anywhere makes this a run that found something, and exit 1 says so.
-    if (nothingWasVerified(results)) process.exit(2);
+    // EXIT 2 EVEN THOUGH MOST OF THE RUN SUCCEEDED, and that is deliberate.
+    // Nobody asked to skip these hosts: `--offline` and `--fast` exit 0 because
+    // there the skip was requested. An unreachable host leaves work undone, and
+    // a check that goes green because it could not look is PLAN.md §8's named
+    // failure. A genuine 404 alongside it makes this false, and exit 1 below
+    // reports the dead page instead.
+    if (everyFailureWasSilent(results)) process.exit(2);
   }
 
   if (real.length > 0) {
