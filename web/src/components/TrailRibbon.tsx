@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { Depth, Tier } from '../lib/graph';
 import { postCreate } from '../lib/submit';
 import { read, recordDepth, shareBody, subscribe, visit, type Stop } from '../lib/trail';
+import LiveRegion from './LiveRegion';
 import TierDot from './TierDot';
 
 /**
@@ -84,6 +85,10 @@ export default function TrailRibbon({ id, title, tier, depth = 'intuition' }: Pr
   }, [id]);
 
   async function onShare() {
+    // The guard, not `disabled`, is what stops a second send (#405). Disabling
+    // the button the reader is standing on hands focus to <body>, and on the
+    // failure path nothing gives it back.
+    if (share.name === 'sending') return;
     setShare({ name: 'sending' });
     const trail = read();
     const result = await postCreate(
@@ -126,17 +131,24 @@ export default function TrailRibbon({ id, title, tier, depth = 'intuition' }: Pr
 
       {mounted && (
         <span className="ml-auto flex items-center gap-3 max-md:mt-2.5 max-md:w-full">
-          {share.name === 'error' && (
-            // Not carried by colour: the text says what happened.
-            <span role="alert" className="text-[13px] text-starlight">
-              {share.message}
-            </span>
-          )}
+          {/*
+            Present before it has anything to say (#406). This was a bare
+            `<span role="alert">` rendered only once there was an error — the
+            region and its text in one render, which is a new subtree rather
+            than the change a reader is listening for, and #137 replaced
+            exactly that shape everywhere except here. Not carried by colour
+            either way: the text says what happened.
+          */}
+          <LiveRegion
+            assertive
+            message={share.name === 'error' ? share.message : ''}
+            className="text-[13px] text-starlight"
+          />
           <button
             type="button"
             onClick={() => void onShare()}
-            disabled={share.name === 'sending'}
-            className="cursor-pointer rounded-row border border-thread bg-transparent px-[18px] py-[9px] text-[14px] font-medium text-thread disabled:opacity-50 max-md:w-full max-md:bg-thread max-md:font-bold max-md:text-void"
+            aria-disabled={share.name === 'sending'}
+            className="cursor-pointer rounded-row border border-thread bg-transparent px-[18px] py-[9px] text-[14px] font-medium text-thread aria-disabled:opacity-50 max-md:w-full max-md:bg-thread max-md:font-bold max-md:text-void"
           >
             {share.name === 'sending' ? 'Sharing…' : 'Share trail'}
           </button>

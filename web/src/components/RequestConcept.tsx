@@ -86,6 +86,7 @@ export default function RequestConcept() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
+    if (submission.state === 'sending') return;
     if (name.trim().length < 2) {
       setSubmission({ state: 'error', message: 'Give the concept a name first.' });
       return;
@@ -140,8 +141,8 @@ export default function RequestConcept() {
           />
           <button
             type="submit"
-            disabled={submission.state === 'sending'}
-            className="rounded-control bg-thread px-4 py-2.5 text-[14px] font-medium text-void disabled:opacity-60"
+            aria-disabled={submission.state === 'sending'}
+            className="rounded-control bg-thread px-4 py-2.5 text-[14px] font-medium text-void aria-disabled:opacity-60"
           >
             {submission.state === 'sending' ? 'Sending…' : 'Request this concept'}
           </button>
