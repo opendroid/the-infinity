@@ -1,0 +1,497 @@
+/**
+ * Finds candidate `kind: video` explainers, on a machine that can reach YouTube.
+ *
+ *   YOUTUBE_API_KEY=... node scripts/find-video-explainers.mjs search
+ *   YOUTUBE_API_KEY=... node scripts/find-video-explainers.mjs search --concepts
+ *   node scripts/find-video-explainers.mjs verify picks.json
+ *
+ * WHY THIS EXISTS AT ALL (#384). The corpus has 482 explainers and zero videos,
+ * and that is not a judgement that no good talk exists. `youtube.com` is denied
+ * in the sandbox where content is authored, so no session has ever been able to
+ * SEARCH for one — only to verify one it was handed. `check:explainers` has a
+ * whole oEmbed path for `kind: video` that has never run against a single entry.
+ * This script is the half that has to happen on a laptop.
+ *
+ * IT FINDS. IT DOES NOT DECIDE. Nothing here writes `content/nodes/**`, and that
+ * is deliberate: ADR-0018 says attaching an explainer where none genuinely fits
+ * is the invented-reference rule wearing a different field name. A ranked list
+ * is a starting point for a person, not a verdict.
+ *
+ * NO MODEL IS CALLED, ANYWHERE. CLAUDE.md §3 is a hard constraint and it does
+ * not soften for an authoring script. Ranking is arithmetic over things YouTube
+ * reports: channel allowlist, title overlap, duration, view count.
+ */
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
+import { join, resolve } from 'node:path';
+import { URL } from 'node:url';
+import { EXPLAINER_HOSTS } from './explainer-hosts.mjs';
+import { videoId } from './check-explainers.mjs';
+
+const ROOT = resolve(process.cwd(), '..');
+const NODES_DIR = join(ROOT, 'content/nodes');
+const API = 'https://www.googleapis.com/youtube/v3';
+
+/**
+ * Free tier is 10,000 units a day and `search.list` costs 100 of them, so this
+ * is a hundred searches — 117 domains is a day and a bit, 482 concepts is five.
+ * Tracked and enforced here so the run STOPS with a checkpoint rather than
+ * discovering the limit as a 403 halfway through.
+ */
+const COST = { search: 100, videos: 1, channels: 1 };
+const DAILY_UNITS = 10_000;
+
+/**
+ * Channels worth trusting, AS HANDLES — never as channel ids.
+ *
+ * A `UC...` id is 24 characters this repository cannot check by reading. A
+ * handle is a public name that either resolves or does not, and `resolveHandles`
+ * prints what each one became so a wrong entry is visible in the first ten lines
+ * of output rather than as a silently empty result set. That is the same lesson
+ * ADR-0020 records about hard-coding arxiv.org's crawl-delay: read the source,
+ * do not recall it.
+ *
+ * Edit this freely — it is a starting point, not a canon.
+ */
+const CHANNEL_HANDLES = [
+  '@AndrejKarpathy',
+  '@DeepLearningAI',
+  '@3blue1brown',
+  '@statquest',
+  '@YannicKilcher',
+  '@TwoMinutePapers',
+  '@GoogleDeepMind',
+  '@stanfordonline',
+  '@MITCSAIL',
+  '@huggingface',
+];
+
+/** Names that earn a video a look even on a channel not listed above. */
+const NAMED_AUTHORS = [
+  'karpathy', 'andrew ng', 'yann lecun', 'lecun', 'chollet', 'hinton',
+  'fei-fei', 'hassabis', 'sutskever', 'jim fan', 'raschka',
+];
+
+// ---------------------------------------------------------------- the corpus
+
+/** Every node, with the fields targeting needs. */
+export function readNodes() {
+  return readdirSync(NODES_DIR)
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => JSON.parse(readFileSync(join(NODES_DIR, f), 'utf8')));
+}
+
+/**
+ * How many other nodes point at each node — a cheap centrality proxy.
+ *
+ * Used to pick which concepts stand for a domain in its search query. Corpus
+ * order would be alphabetical by filename, which would make every domain look
+ * like whatever its "A" concepts are.
+ */
+export function inDegree(nodes) {
+  const n = new Map();
+  for (const node of nodes) {
+    const e = node.edges ?? {};
+    for (const list of [e.requires, e.unlocks, e.adjacent]) {
+      for (const edge of list ?? []) n.set(edge.id, (n.get(edge.id) ?? 0) + 1);
+    }
+  }
+  return n;
+}
+
+/**
+ * What to search for, and at what scope.
+ *
+ * DOMAINS FIRST, AND THAT IS THE WHOLE COST ARGUMENT. 335 of the 482 existing
+ * explainers are domain-scoped, because one good resource legitimately covers a
+ * cluster. 117 domains fit inside a day of quota; 482 concepts do not fit inside
+ * five. Concept scope is the opt-in second pass for the ones that deserve their
+ * own.
+ *
+ * A DOMAIN CARRIES SAMPLE CONCEPTS BECAUSE HALF THE DOMAIN NAMES ARE NOT
+ * SEARCHABLE. "Alignment" is a topic YouTube knows about; "Methods",
+ * "Foundations", "Systems" and "Core" are this repository's filing labels, and
+ * searching for them returns noise — while scoring title overlap against the
+ * word "methods" would actively reward the wrong videos. So a domain target
+ * also carries its most-referenced concepts, and both the query and the
+ * relevance score are built from those instead.
+ */
+export function targets(nodes, { concepts = false } = {}) {
+  if (concepts) {
+    return nodes.map((n) => ({ scope: 'concept', key: n.id, title: n.title ?? n.id }));
+  }
+
+  const degree = inDegree(nodes);
+  const members = new Map();
+  for (const n of nodes) {
+    for (const d of n.domain ?? []) {
+      if (!members.has(d)) members.set(d, []);
+      members.get(d).push({ title: n.title ?? n.id, degree: degree.get(n.id) ?? 0 });
+    }
+  }
+
+  // Biggest domains first: if the quota runs out mid-run, it ran out having
+  // covered the most concepts rather than the alphabetically luckiest.
+  return [...members]
+    .sort((a, b) => b[1].length - a[1].length)
+    .map(([d, list]) => ({
+      scope: 'domain',
+      key: d,
+      title: d,
+      covers: list.length,
+      sample: [...list].sort((a, b) => b.degree - a.degree).slice(0, 3).map((c) => c.title),
+    }));
+}
+
+/**
+ * The query a target becomes. Plain words — YouTube's search is not a DSL.
+ *
+ * The domain's own name is included but does the lighter half of the work; the
+ * sample concepts are what make "Core" mean attention rather than the English
+ * adjective.
+ */
+export const queryFor = (t) =>
+  t.scope === 'domain'
+    ? `${t.title} ${(t.sample ?? []).join(' ')} explained`.replace(/\s+/g, ' ').trim()
+    : `${t.title} explained`;
+
+// ---------------------------------------------------------------- scoring
+
+const WORD = /[a-z0-9]+/g;
+const words = (s) => new Set(String(s).toLowerCase().match(WORD) ?? []);
+
+/** ISO 8601 duration → seconds. Only the shapes YouTube emits. */
+export function durationSeconds(iso) {
+  const m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(String(iso ?? ''));
+  if (!m) return null;
+  const [, h, min, s] = m;
+  return Number(h ?? 0) * 3600 + Number(min ?? 0) * 60 + Number(s ?? 0);
+}
+
+/**
+ * How promising a candidate looks, 0..1, from things YouTube reported.
+ *
+ * DELIBERATELY CRUDE, AND SAYING SO IS THE POINT. This cannot tell whether a
+ * video teaches the concept well; nothing mechanical can. It exists to put the
+ * plausible ones near the top of a list a person then reads. Every component is
+ * reported alongside the score so a reviewer can see WHY something ranked, and
+ * disagree with it.
+ */
+export function score(candidate, target, allowedChannelIds = new Set()) {
+  const reasons = [];
+  let n = 0;
+
+  if (allowedChannelIds.has(candidate.channelId)) {
+    n += 0.4;
+    reasons.push('allowlisted channel');
+  } else if (NAMED_AUTHORS.some((a) => `${candidate.author} ${candidate.title}`.toLowerCase().includes(a))) {
+    n += 0.25;
+    reasons.push('named author');
+  }
+
+  // Title overlap with the target's own words.
+  const want = words([target.title, ...(target.sample ?? [])].join(' '));
+  const got = words(candidate.title);
+  const hit = [...want].filter((w) => got.has(w)).length;
+  const overlap = want.size ? hit / want.size : 0;
+  n += 0.3 * overlap;
+  if (overlap > 0) reasons.push(`title overlap ${Math.round(overlap * 100)}%`);
+
+  // A teaching video is minutes, not seconds and not a whole conference day.
+  const secs = candidate.durationSeconds;
+  if (secs !== null && secs >= 240 && secs <= 5400) {
+    n += 0.2;
+    reasons.push('teachable length');
+  } else if (secs !== null && secs < 120) {
+    n -= 0.2;
+    reasons.push('too short');
+  }
+
+  // Weak popularity prior, capped so it cannot outweigh relevance.
+  const views = Number(candidate.views ?? 0);
+  if (views > 0) n += Math.min(0.1, Math.log10(views) / 100);
+
+  return { score: Math.max(0, Math.min(1, n)), reasons };
+}
+
+// ---------------------------------------------------------------- the api
+
+class Quota {
+  constructor(budget) {
+    this.budget = budget;
+    this.spent = 0;
+  }
+  /** True if `kind` can still be afforded. */
+  affords(kind) {
+    return this.spent + COST[kind] <= this.budget;
+  }
+  charge(kind) {
+    this.spent += COST[kind];
+  }
+}
+
+async function api(path, params, key) {
+  const url = new URL(`${API}/${path}`);
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+  url.searchParams.set('key', key);
+
+  const res = await fetch(url, { signal: AbortSignal.timeout(20_000) });
+  const body = await res.json().catch(() => null);
+  if (!res.ok) {
+    const reason = body?.error?.errors?.[0]?.reason ?? `HTTP ${res.status}`;
+    // quotaExceeded is not a bug and should not read like one. The checkpoint
+    // is already on disk; tomorrow's run continues from it.
+    throw Object.assign(new Error(`youtube ${path}: ${reason}`), { reason });
+  }
+  return body;
+}
+
+/**
+ * Handles → channel ids, printed so a wrong handle is visible immediately.
+ *
+ * An unresolved handle is reported and dropped rather than silently producing a
+ * channel filter that matches nothing — which would look exactly like "YouTube
+ * has no good videos about this", the wrong conclusion drawn quietly.
+ */
+async function resolveHandles(handles, key, quota) {
+  const ids = new Set();
+  for (const handle of handles) {
+    if (!quota.affords('channels')) break;
+    quota.charge('channels');
+    let body;
+    try {
+      body = await api('channels', { part: 'id,snippet', forHandle: handle }, key);
+    } catch (err) {
+      console.error(`  ? ${handle} — ${err.message}`);
+      continue;
+    }
+    const item = body.items?.[0];
+    if (!item) {
+      console.error(`  ? ${handle} — did not resolve; dropped from the allowlist`);
+      continue;
+    }
+    ids.add(item.id);
+    console.log(`  · ${handle.padEnd(22)} → ${item.snippet.title}`);
+  }
+  return ids;
+}
+
+/** Top candidates for one target, enriched with duration and views. */
+async function searchOne(target, key, quota, perTarget) {
+  quota.charge('search');
+  const found = await api(
+    'search',
+    { part: 'snippet', q: queryFor(target), type: 'video', maxResults: String(perTarget), relevanceLanguage: 'en' },
+    key,
+  );
+  const items = found.items ?? [];
+  if (items.length === 0) return [];
+
+  const ids = items.map((i) => i.id.videoId).filter(Boolean);
+  let details = new Map();
+  if (ids.length && quota.affords('videos')) {
+    quota.charge('videos');
+    const meta = await api('videos', { part: 'contentDetails,statistics', id: ids.join(',') }, key);
+    details = new Map((meta.items ?? []).map((v) => [v.id, v]));
+  }
+
+  return items
+    .filter((i) => i.id.videoId)
+    .map((i) => {
+      const d = details.get(i.id.videoId);
+      return {
+        videoId: i.id.videoId,
+        url: `https://www.youtube.com/watch?v=${i.id.videoId}`,
+        title: i.snippet.title,
+        author: i.snippet.channelTitle,
+        channelId: i.snippet.channelId,
+        published: i.snippet.publishedAt,
+        durationSeconds: durationSeconds(d?.contentDetails?.duration),
+        views: d?.statistics?.viewCount ?? null,
+      };
+    });
+}
+
+// ---------------------------------------------------------------- checkpoint
+
+const load = (path) => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : null);
+const save = (path, data) => writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`);
+
+// ---------------------------------------------------------------- commands
+
+async function search(argv) {
+  const key = process.env.YOUTUBE_API_KEY;
+  if (!key) {
+    console.error(
+      'YOUTUBE_API_KEY is not set.\n\n' +
+        'Create one at https://console.cloud.google.com/apis/credentials with the\n' +
+        '"YouTube Data API v3" enabled. It is free and unrelated to any model API —\n' +
+        'CLAUDE.md §3 forbids paid LLM calls, not Google service keys.\n\n' +
+        '  YOUTUBE_API_KEY=... node scripts/find-video-explainers.mjs search',
+    );
+    process.exit(2);
+  }
+
+  const concepts = argv.includes('--concepts');
+  const out = flag(argv, '--out') ?? (concepts ? 'video-candidates.concepts.json' : 'video-candidates.domains.json');
+  const budget = Number(flag(argv, '--budget') ?? DAILY_UNITS);
+  const perTarget = Number(flag(argv, '--per-target') ?? 5);
+  const minScore = Number(flag(argv, '--min-score') ?? 0.35);
+
+  const quota = new Quota(budget);
+  const all = targets(readNodes(), { concepts });
+
+  const prior = load(out) ?? { scope: concepts ? 'concept' : 'domain', done: [], candidates: [] };
+  const done = new Set(prior.done);
+  const todo = all.filter((t) => !done.has(t.key));
+
+  console.log(
+    `${all.length} ${concepts ? 'concept' : 'domain'} target(s); ${done.size} already done, ${todo.length} to go.\n` +
+      `Budget ${budget} units — a search costs ${COST.search}, so about ${Math.floor(budget / (COST.search + COST.videos))} targets this run.\n`,
+  );
+
+  console.log('Resolving the channel allowlist:');
+  const allowed = await resolveHandles(CHANNEL_HANDLES, key, quota);
+  console.log(`  ${allowed.size} of ${CHANNEL_HANDLES.length} handle(s) resolved\n`);
+
+  for (const target of todo) {
+    if (!quota.affords('search')) {
+      console.log(`\nBudget reached at ${quota.spent} units. Re-run tomorrow — it resumes from ${out}.`);
+      break;
+    }
+
+    let found;
+    try {
+      found = await searchOne(target, key, quota, perTarget);
+    } catch (err) {
+      if (err.reason === 'quotaExceeded') {
+        console.log(`\nYouTube says the daily quota is spent. Progress is saved in ${out}; re-run tomorrow.`);
+        break;
+      }
+      console.error(`  ✗ ${target.key}: ${err.message}`);
+      continue;
+    }
+
+    const ranked = found
+      .map((c) => ({ ...c, ...score(c, target, allowed) }))
+      .filter((c) => c.score >= minScore)
+      .sort((a, b) => b.score - a.score);
+
+    done.add(target.key);
+    for (const c of ranked) {
+      prior.candidates.push({ target: target.key, scope: target.scope, ...c });
+    }
+
+    const best = ranked[0];
+    console.log(
+      `  ${ranked.length ? '·' : ' '} ${target.key.padEnd(28)} ${String(ranked.length).padStart(2)} candidate(s)` +
+        (best ? `  best: ${best.score.toFixed(2)} ${best.author} — ${best.title.slice(0, 54)}` : ''),
+    );
+
+    prior.done = [...done];
+    save(out, prior);
+  }
+
+  save(out, { ...prior, done: [...done] });
+  console.log(
+    `\n${quota.spent} units spent. ${prior.candidates.length} candidate(s) across ${done.size} target(s) → ${out}\n` +
+      `\nNothing here is an explainer yet. Read it, pick the ones that genuinely teach the\n` +
+      `thing, and put the picks in a file:\n\n` +
+      `  [{ "target": "attention", "scope": "domain", "url": "https://www.youtube.com/watch?v=..." }]\n\n` +
+      `then: node scripts/find-video-explainers.mjs verify picks.json`,
+  );
+}
+
+/**
+ * Picked URLs → entries that pass `check:explainers` by construction.
+ *
+ * THE TITLE AND AUTHOR COME FROM oEmbed, NOT FROM THE PICKER. That is the whole
+ * value of this mode: `check:explainers` compares the recorded title and author
+ * against what YouTube reports, so anything typed by hand is a coin flip on
+ * punctuation. Taking the canonical strings here means the entry is right the
+ * first time — and if oEmbed 404s, the video is gone or private and the pick is
+ * rejected now rather than in CI.
+ */
+async function verify(argv) {
+  const path = argv.find((a) => !a.startsWith('-'));
+  if (!path || !existsSync(path)) {
+    console.error('usage: node scripts/find-video-explainers.mjs verify picks.json');
+    process.exit(2);
+  }
+
+  const picks = JSON.parse(readFileSync(path, 'utf8'));
+  const entries = [];
+  let bad = 0;
+
+  for (const pick of picks) {
+    const id = videoId(pick.url);
+    if (!id) {
+      console.error(`  ✗ ${pick.url}: not a YouTube url shape oEmbed can check`);
+      bad += 1;
+      continue;
+    }
+    if (!EXPLAINER_HOSTS.video.some((h) => pick.url.includes(h))) {
+      console.error(`  ✗ ${pick.url}: host is not on the video allowlist`);
+      bad += 1;
+      continue;
+    }
+
+    const target = `https://www.youtube.com/watch?v=${id}`;
+    const res = await fetch(
+      `https://www.youtube.com/oembed?url=${encodeURIComponent(target)}&format=json`,
+      { signal: AbortSignal.timeout(20_000) },
+    );
+    if (res.status === 404) {
+      console.error(`  ✗ ${pick.url}: no such video — deleted, private, or mistyped`);
+      bad += 1;
+      continue;
+    }
+    if (!res.ok) {
+      console.error(`  ✗ ${pick.url}: oEmbed answered HTTP ${res.status}`);
+      bad += 1;
+      continue;
+    }
+    const meta = await res.json();
+
+    entries.push({
+      for: pick.target,
+      entry: {
+        kind: 'video',
+        scope: pick.scope ?? 'domain',
+        title: meta.title,
+        author: meta.author_name,
+        url: target,
+      },
+    });
+    console.log(`  ✓ ${meta.author_name} — ${meta.title}`);
+  }
+
+  const out = flag(argv, '--out') ?? 'video-explainers.json';
+  save(out, entries);
+  console.log(
+    `\n${entries.length} verified, ${bad} rejected → ${out}\n` +
+      `Titles and authors are YouTube's own strings, so check:explainers will agree with them.`,
+  );
+  if (bad > 0) process.exit(1);
+}
+
+const flag = (argv, name) => {
+  const i = argv.indexOf(name);
+  return i === -1 ? null : argv[i + 1];
+};
+
+async function main() {
+  const [cmd, ...argv] = process.argv.slice(2);
+  if (cmd === 'search') return search(argv);
+  if (cmd === 'verify') return verify(argv);
+  console.error(
+    'usage:\n' +
+      '  YOUTUBE_API_KEY=... node scripts/find-video-explainers.mjs search [--concepts]\n' +
+      '                                  [--budget 10000] [--per-target 5] [--min-score 0.35] [--out FILE]\n' +
+      '  node scripts/find-video-explainers.mjs verify picks.json [--out FILE]',
+  );
+  process.exit(2);
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  await main();
+}
