@@ -256,7 +256,7 @@ export function skippedNotice(skipped, delays, groups, noun) {
  *
  * A host appears here when it had failures and every one of them got no
  * response. Whether that means "nothing was verified" is the caller's call —
- * see `nothingWasVerified`.
+ * see `everyFailureWasSilent`.
  */
 export function unreachableHosts(results) {
   const byHost = new Map();
@@ -279,11 +279,30 @@ export function unreachableHosts(results) {
 /**
  * True when there were failures and NONE of them was the server answering.
  *
- * The exit-2 condition: nothing here proved anything, and nothing here is
- * evidence a page is gone. One real HTTP status anywhere makes it false, because
- * a run that reached some hosts is a run that can report the ones it reached.
+ * NAMED FOR WHAT IT DECIDES, AFTER THE OLD NAME LIED (#390). This used to be
+ * called `nothingWasVerified`, and its note claimed "one real HTTP status
+ * anywhere makes it false, because a run that reached some hosts is a run that
+ * can report the ones it reached". It never looked at successes — only at
+ * failures — so on a run that verified 126 of 134 pages and was blocked on 8, it
+ * returned true and the caller exited 2 under a name meaning the opposite.
+ *
+ * The question it actually answers is the useful one: was every failure the
+ * NETWORK rather than the CONTENT. A 404 is a server answering clearly; status 0
+ * is DNS, TLS, a refused CONNECT, a timeout — the only failure a checker cannot
+ * tell from a network problem, and so the only one that excuses an incomplete
+ * run rather than condemning a page.
+ *
+ * The caller decides what to do about it, and both callers exit 2: an
+ * unreachable host nobody asked to skip leaves work undone, and a check that
+ * goes green because it could not look is the failure PLAN.md §8 names.
+ * `--offline` and `--fast` exit 0 instead, because there the skip was requested.
  */
-export function nothingWasVerified(results) {
+export function everyFailureWasSilent(results) {
   const failures = [...results.values()].filter((r) => !r.ok);
   return failures.length > 0 && failures.every((r) => r.status === 0);
+}
+
+/** How many urls actually answered ok — the half the name above does not read. */
+export function verifiedCount(results) {
+  return [...results.values()].filter((r) => r.ok).length;
 }
