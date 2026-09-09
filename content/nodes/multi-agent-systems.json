@@ -63,6 +63,14 @@
       "title": "LLM Powered Autonomous Agents",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-06-23-agent/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Multi Agent Systems Explained: How AI Agents & LLMs Work Together",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=sWH0T4Zez6I",
+      "domain": "Composition"
     }
   ],
   "review": {

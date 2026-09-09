@@ -17,7 +17,7 @@
   "viz": {
     "primitive": "threshold-sweep",
     "params": {
-      "separation": 1.0,
+      "separation": 1,
       "threshold": 1.6,
       "base_rate": 0.3
     },
@@ -69,6 +69,13 @@
       "title": "A/B testing",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/A/B_testing"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Top 5 Most-Used Deployment Strategies",
+      "author": "ByteByteGo",
+      "url": "https://www.youtube.com/watch?v=AWVTKBUnoIg"
     }
   ],
   "review": {

@@ -76,6 +76,14 @@
       "title": "Dive into Deep Learning",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/index.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Gradient Boost Part 1 (of 4): Regression Main Ideas",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=3CC4N4z3GJc",
+      "domain": "Ensembles"
     }
   ],
   "review": {

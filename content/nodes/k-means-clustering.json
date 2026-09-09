@@ -62,6 +62,21 @@
       "title": "Self-Supervised Representation Learning",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2019-11-10-self-supervised/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "StatQuest: K-means clustering",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=4b5d3muPQmA",
+      "domain": "Clustering"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Variational Autoencoders | Generative AI Animated",
+      "author": "Deepia",
+      "url": "https://www.youtube.com/watch?v=qJeaCHQ1k2w"
     }
   ],
   "review": {

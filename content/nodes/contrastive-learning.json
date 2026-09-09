@@ -23,7 +23,7 @@
       {
         "name": "temperature",
         "min": 0.01,
-        "max": 1.0,
+        "max": 1,
         "step": 0.01
       }
     ],
@@ -66,6 +66,13 @@
       "title": "Contrastive Representation Learning",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-05-31-contrastive/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Contrastive Learning - 5 Minutes with Cyrill",
+      "author": "Cyrill Stachniss",
+      "url": "https://www.youtube.com/watch?v=sftIkJ8MYL4"
     }
   ],
   "review": {

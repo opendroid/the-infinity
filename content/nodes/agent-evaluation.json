@@ -72,6 +72,13 @@
       "title": "AI Agents Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/agents-course"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "CLI vs MCP: How AI Agents Choose the Right Tool for the Job",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=g9JIUM0MHgQ"
     }
   ],
   "review": {

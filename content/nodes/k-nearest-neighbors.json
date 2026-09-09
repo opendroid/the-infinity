@@ -72,6 +72,14 @@
       "title": "Dive into Deep Learning",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/index.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "StatQuest: K-nearest neighbors, Clearly Explained",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=HVXime0nQeI",
+      "domain": "Instance-Based"
     }
   ],
   "review": {

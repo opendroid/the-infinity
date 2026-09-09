@@ -59,6 +59,13 @@
       "title": "MLOps",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/MLOps"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Top 5 Most-Used Deployment Strategies",
+      "author": "ByteByteGo",
+      "url": "https://www.youtube.com/watch?v=AWVTKBUnoIg"
     }
   ],
   "review": {

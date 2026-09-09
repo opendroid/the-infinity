@@ -64,6 +64,14 @@
       "title": "Hardware",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_computational-performance/hardware.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Introduction to Numerical Analysis (Part 1) Error Analysis in Numerical Analysis",
+      "author": "Dr. Chris Esekhaigbe",
+      "url": "https://www.youtube.com/watch?v=NUWn3qsZSbc",
+      "domain": "Numerics"
     }
   ],
   "review": {

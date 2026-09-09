@@ -63,6 +63,14 @@
       "title": "Machine Translation and the Dataset",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-modern/machine-translation-and-dataset.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "LLM Function Calling - AI Tools Deep Dive",
+      "author": "Adam Lucek",
+      "url": "https://www.youtube.com/watch?v=gMeTK6zzaO4",
+      "domain": "Interface"
     }
   ],
   "review": {

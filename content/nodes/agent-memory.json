@@ -64,6 +64,14 @@
       "title": "LLM Powered Autonomous Agents",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-06-23-agent/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Agent Memory EXPLAINED - Complete Architecture",
+      "author": "Hugging Face",
+      "url": "https://www.youtube.com/watch?v=aYfZN8t6AQs",
+      "domain": "State"
     }
   ],
   "review": {

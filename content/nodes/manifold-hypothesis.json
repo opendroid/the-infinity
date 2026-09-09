@@ -54,6 +54,21 @@
       "title": "Neural Networks, Manifolds, and Topology",
       "author": "Christopher Olah",
       "url": "https://colah.github.io/posts/2014-03-NN-Manifolds-Topology/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Neural manifolds - The Geometry of Behaviour",
+      "author": "Artem Kirsanov",
+      "url": "https://www.youtube.com/watch?v=QHj9uVmwA_0",
+      "domain": "Geometry"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Variational Autoencoders | Generative AI Animated",
+      "author": "Deepia",
+      "url": "https://www.youtube.com/watch?v=qJeaCHQ1k2w"
     }
   ],
   "review": {

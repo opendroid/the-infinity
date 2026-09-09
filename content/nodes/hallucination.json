@@ -69,6 +69,14 @@
       "title": "Extrinsic Hallucinations in LLMs",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2024-07-07-hallucination/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Hallucination - Simply Explained",
+      "author": "codebasics",
+      "url": "https://www.youtube.com/watch?v=xaEgbDa1KSI",
+      "domain": "Failure"
     }
   ],
   "review": {

@@ -69,6 +69,14 @@
       "title": "Prompt Engineering",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Top 5 Most-Used Deployment Strategies",
+      "author": "ByteByteGo",
+      "url": "https://www.youtube.com/watch?v=AWVTKBUnoIg",
+      "domain": "Deployment"
     }
   ],
   "review": {

@@ -60,6 +60,13 @@
       "title": "Self-Supervised Representation Learning",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2019-11-10-self-supervised/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Variational Autoencoders | Generative AI Animated",
+      "author": "Deepia",
+      "url": "https://www.youtube.com/watch?v=qJeaCHQ1k2w"
     }
   ],
   "review": {

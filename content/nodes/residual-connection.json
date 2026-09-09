@@ -59,6 +59,14 @@
       "title": "Residual Networks (ResNet) and ResNeXt",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_convolutional-modern/resnet.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Decoder-Only Transformers, ChatGPTs specific Transformer, Clearly Explained!!!",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=bQ5BoolX9Ag",
+      "domain": "Blocks"
     }
   ],
   "review": {

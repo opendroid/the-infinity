@@ -69,6 +69,14 @@
       "title": "Introduction to Gaussian Processes",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_gaussian-processes/gp-intro.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "[ICCV 2023 Tutorial] Sharon Yixuan Li: Out-of-Distribution detection",
+      "author": "Andrei Bursuc",
+      "url": "https://www.youtube.com/watch?v=hgLC9_9ZCJI",
+      "domain": "Detection"
     }
   ],
   "review": {
