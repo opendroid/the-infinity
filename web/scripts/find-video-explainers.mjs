@@ -159,6 +159,15 @@ export const queryFor = (t) =>
 const WORD = /[a-z0-9]+/g;
 const words = (s) => new Set(String(s).toLowerCase().match(WORD) ?? []);
 
+/**
+ * The separate things a target is about.
+ *
+ * A domain is its label AND each sample concept, scored independently — see the
+ * note in `score`. A concept is only itself.
+ */
+export const facets = (t) =>
+  t.scope === 'domain' ? [t.title, ...(t.sample ?? [])] : [t.title];
+
 /** ISO 8601 duration → seconds. Only the shapes YouTube emits. */
 export function durationSeconds(iso) {
   const m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(String(iso ?? ''));
@@ -188,13 +197,33 @@ export function score(candidate, target, allowedChannelIds = new Set()) {
     reasons.push('named author');
   }
 
-  // Title overlap with the target's own words.
-  const want = words([target.title, ...(target.sample ?? [])].join(' '));
+  // BEST-MATCHING FACET, NOT THE UNION OF THEM (#386). Scoring against one word
+  // set built from the label AND all three samples divided hits by everything a
+  // domain contains, and a video is only ever about one of those things. A
+  // perfect softmax video scored 20% against Foundations' five words — 0.307,
+  // under the 0.35 threshold, so it was dropped. 53 of 97 domains reported zero
+  // that way, INCLUDING ALL TEN LARGEST: the more concepts a domain covered, the
+  // more its own samples diluted it. Exactly backwards.
+  //
+  // Each facet is scored separately and the best one wins, so a video about one
+  // sampled concept counts as being about that concept.
   const got = words(candidate.title);
-  const hit = [...want].filter((w) => got.has(w)).length;
-  const overlap = want.size ? hit / want.size : 0;
+  let overlap = 0;
+  let matched = null;
+  for (const facet of facets(target)) {
+    const want = words(facet);
+    if (!want.size) continue;
+    const hit = [...want].filter((w) => got.has(w)).length;
+    const share = hit / want.size;
+    if (share > overlap) {
+      overlap = share;
+      matched = facet;
+    }
+  }
   n += 0.3 * overlap;
-  if (overlap > 0) reasons.push(`title overlap ${Math.round(overlap * 100)}%`);
+  // Naming the facet is the difference between a number and a reason: it says
+  // the video matched "Softmax", not that it matched "Foundations" somehow.
+  if (overlap > 0) reasons.push(`matches "${matched}" ${Math.round(overlap * 100)}%`);
 
   // A teaching video is minutes, not seconds and not a whole conference day.
   const secs = candidate.durationSeconds;
@@ -276,13 +305,41 @@ async function resolveHandles(handles, key, quota) {
 }
 
 /** Top candidates for one target, enriched with duration and views. */
-async function searchOne(target, key, quota, perTarget) {
-  quota.charge('search');
-  const found = await api(
+/** Reasons that mean "slow down", as opposed to "you are done for today". */
+const TRANSIENT = new Set(['rateLimitExceeded', 'userRateLimitExceeded', 'backendError', 'internalError']);
+
+/**
+ * Retries a burst limit; never retries the daily cap.
+ *
+ * THE TWO LOOK ALIKE AND ARE OPPOSITES (#386). A real run hit
+ * `rateLimitExceeded` on one target and lost it, because only `quotaExceeded`
+ * was special-cased and everything else fell through to "skip this target".
+ * quotaExceeded means come back tomorrow; rateLimitExceeded means wait a moment.
+ *
+ * Each attempt is charged, because YouTube counts an attempt whether or not it
+ * answers — an accounting that flattered itself here would spend real quota the
+ * budget could not see.
+ */
+export async function withRetry(kind, quota, call, { sleep = (ms) => new Promise((r) => setTimeout(r, ms)), attempts = 3 } = {}) {
+  for (let i = 0; ; i += 1) {
+    quota.charge(kind);
+    try {
+      return await call();
+    } catch (err) {
+      if (!TRANSIENT.has(err.reason) || i >= attempts - 1) throw err;
+      const wait = 2000 * 2 ** i;
+      console.error(`      ${err.reason}; waiting ${wait / 1000}s (attempt ${i + 2} of ${attempts})`);
+      await sleep(wait);
+    }
+  }
+}
+
+async function searchOne(target, key, quota, perTarget, opts = {}) {
+  const found = await withRetry('search', quota, () => api(
     'search',
     { part: 'snippet', q: queryFor(target), type: 'video', maxResults: String(perTarget), relevanceLanguage: 'en' },
     key,
-  );
+  ), opts);
   const items = found.items ?? [];
   if (items.length === 0) return [];
 
@@ -311,6 +368,22 @@ async function searchOne(target, key, quota, perTarget) {
     });
 }
 
+/**
+ * What still needs searching, given a checkpoint.
+ *
+ * "DONE" AND "FOUND SOMETHING" ARE DIFFERENT FACTS, and the checkpoint only ever
+ * recorded the first (#386). After a scoring fix a plain re-run would skip
+ * precisely the barren targets the fix was for — 53 domains, in the run that
+ * prompted this. `--redo-empty` re-attempts a target that completed with no
+ * candidates, and leaves the productive ones alone so their quota is not spent
+ * twice.
+ */
+export function pending(all, prior, { redoEmpty = false } = {}) {
+  const done = new Set(prior.done ?? []);
+  const productive = new Set((prior.candidates ?? []).map((c) => c.target));
+  return all.filter((t) => !done.has(t.key) || (redoEmpty && !productive.has(t.key)));
+}
+
 // ---------------------------------------------------------------- checkpoint
 
 const load = (path) => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : null);
@@ -332,6 +405,7 @@ async function search(argv) {
   }
 
   const concepts = argv.includes('--concepts');
+  const redoEmpty = argv.includes('--redo-empty');
   const out = flag(argv, '--out') ?? (concepts ? 'video-candidates.concepts.json' : 'video-candidates.domains.json');
   const budget = Number(flag(argv, '--budget') ?? DAILY_UNITS);
   const perTarget = Number(flag(argv, '--per-target') ?? 5);
@@ -342,10 +416,13 @@ async function search(argv) {
 
   const prior = load(out) ?? { scope: concepts ? 'concept' : 'domain', done: [], candidates: [] };
   const done = new Set(prior.done);
-  const todo = all.filter((t) => !done.has(t.key));
+  const productive = new Set(prior.candidates.map((c) => c.target));
+  const todo = pending(all, prior, { redoEmpty });
 
   console.log(
-    `${all.length} ${concepts ? 'concept' : 'domain'} target(s); ${done.size} already done, ${todo.length} to go.\n` +
+    `${all.length} ${concepts ? 'concept' : 'domain'} target(s); ${done.size} already done, ${todo.length} to go` +
+      (redoEmpty ? ` (--redo-empty: retrying ${done.size - productive.size} that found nothing)` : '') +
+      `.\n` +
       `Budget ${budget} units — a search costs ${COST.search}, so about ${Math.floor(budget / (COST.search + COST.videos))} targets this run.\n`,
   );
 
@@ -377,6 +454,9 @@ async function search(argv) {
       .sort((a, b) => b.score - a.score);
 
     done.add(target.key);
+    // Replace rather than append: a re-scored target must not leave its old
+    // candidates behind alongside the new ones.
+    prior.candidates = prior.candidates.filter((c) => c.target !== target.key);
     for (const c of ranked) {
       prior.candidates.push({ target: target.key, scope: target.scope, ...c });
     }
@@ -485,7 +565,7 @@ async function main() {
   if (cmd === 'verify') return verify(argv);
   console.error(
     'usage:\n' +
-      '  YOUTUBE_API_KEY=... node scripts/find-video-explainers.mjs search [--concepts]\n' +
+      '  YOUTUBE_API_KEY=... node scripts/find-video-explainers.mjs search [--concepts] [--redo-empty]\n' +
       '                                  [--budget 10000] [--per-target 5] [--min-score 0.35] [--out FILE]\n' +
       '  node scripts/find-video-explainers.mjs verify picks.json [--out FILE]',
   );

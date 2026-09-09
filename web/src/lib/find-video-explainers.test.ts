@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { durationSeconds, inDegree, queryFor, score, targets } from '../../scripts/find-video-explainers.mjs';
+import {
+  durationSeconds,
+  facets,
+  inDegree,
+  pending,
+  queryFor,
+  score,
+  targets,
+  withRetry,
+} from '../../scripts/find-video-explainers.mjs';
 
 /**
  * The pure half of the video-explainer finder (#384).
@@ -85,6 +94,16 @@ describe('targets picks domains first, biggest first', () => {
   });
 });
 
+describe('facets are the separate things a target is about', () => {
+  it('splits a domain into its label and each sample', () => {
+    expect(facets({ scope: 'domain', title: 'Core', sample: ['Attention', 'Softmax'] }))
+      .toEqual(['Core', 'Attention', 'Softmax']);
+  });
+  it('leaves a concept as itself alone', () => {
+    expect(facets({ scope: 'concept', title: 'speculative-decoding' })).toEqual(['speculative-decoding']);
+  });
+});
+
 describe('inDegree counts who points at whom', () => {
   it('counts references across every edge kind, and zero for the unreferenced', () => {
     const d = inDegree([node('a', ['X'], ['b', 'c']), node('b', ['X'], ['c'])]);
@@ -164,6 +183,38 @@ describe('score ranks plausibly and says why', () => {
     expect(modestRelevant.score).toBeGreaterThan(popularIrrelevant.score);
   });
 
+  it('lets a video about ONE sampled concept clear the bar on a broad domain', () => {
+    // THE #386 REGRESSION, WITH ITS REAL NUMBERS. Scoring against the union of
+    // {foundations, softmax, convolutional, network, tokenization} gave a
+    // perfect softmax video 20% overlap and a score of 0.307 — under the 0.35
+    // default threshold. 53 of 97 domains reported zero candidates that way,
+    // every one of the ten largest among them. Best-facet scoring makes it 100%
+    // against "Softmax".
+    const foundations = {
+      scope: 'domain' as const,
+      key: 'Foundations',
+      title: 'Foundations',
+      sample: ['Softmax', 'Convolutional Network', 'Tokenization'],
+    };
+    const perfect = { ...base, title: 'Softmax explained', views: '50000' };
+    const r = score(perfect, foundations, new Set());
+    expect(r.score).toBeGreaterThanOrEqual(0.35);
+    expect(r.reasons).toContain('matches "Softmax" 100%');
+  });
+
+  it('still filters an unrelated video on that same broad domain', () => {
+    // The other half of the fix: widening what counts as a match must not turn
+    // the threshold off. A holiday vlog stays out.
+    const foundations = {
+      scope: 'domain' as const,
+      key: 'Foundations',
+      title: 'Foundations',
+      sample: ['Softmax', 'Convolutional Network', 'Tokenization'],
+    };
+    const vlog = { ...base, title: 'my holiday vlog', views: '900000000' };
+    expect(score(vlog, foundations, new Set()).score).toBeLessThan(0.35);
+  });
+
   it('scores relevance against a domain’s samples, not just its label', () => {
     // The bug this guards: with only the label, a video titled "Research
     // Methods" scores full overlap on the domain "Methods" while teaching
@@ -184,5 +235,78 @@ describe('score ranks plausibly and says why', () => {
     );
     expect(best.score).toBeLessThanOrEqual(1);
     expect(best.score).toBeGreaterThanOrEqual(0);
+  });
+});
+
+describe('withRetry tells a burst limit from the daily cap', () => {
+  const quota = () => {
+    const q = { spent: 0, charge() { this.spent += 100; } };
+    return q;
+  };
+
+  it('retries rateLimitExceeded with 2s/4s/8s backoff and charges every attempt', async () => {
+    // Injected clock, so the interval is asserted rather than waited out.
+    const slept: number[] = [];
+    const q = quota();
+    let calls = 0;
+    const out = await withRetry('search', q, async () => {
+      calls += 1;
+      if (calls < 3) throw Object.assign(new Error('rate'), { reason: 'rateLimitExceeded' });
+      return 'ok';
+    }, { sleep: async (ms: number) => { slept.push(ms); } });
+
+    expect(out).toBe('ok');
+    expect(calls).toBe(3);
+    expect(slept).toEqual([2000, 4000]);
+    // Charged three times: YouTube counts an attempt whether or not it answers,
+    // so accounting that flattered itself would overspend invisibly.
+    expect(q.spent).toBe(300);
+  });
+
+  it('never retries quotaExceeded — that one means come back tomorrow', async () => {
+    const q = quota();
+    let calls = 0;
+    await expect(withRetry('search', q, async () => {
+      calls += 1;
+      throw Object.assign(new Error('done for today'), { reason: 'quotaExceeded' });
+    }, { sleep: async () => {} })).rejects.toThrow('done for today');
+    expect(calls).toBe(1);
+  });
+
+  it('gives up after the attempt limit rather than looping forever', async () => {
+    const q = quota();
+    let calls = 0;
+    await expect(withRetry('search', q, async () => {
+      calls += 1;
+      throw Object.assign(new Error('still busy'), { reason: 'rateLimitExceeded' });
+    }, { sleep: async () => {}, attempts: 3 })).rejects.toThrow('still busy');
+    expect(calls).toBe(3);
+  });
+});
+
+describe('pending knows that "done" is not "found something"', () => {
+  const all = [
+    { key: 'Foundations', scope: 'domain' as const, title: 'Foundations' },
+    { key: 'Attention', scope: 'domain' as const, title: 'Attention' },
+    { key: 'Numerics', scope: 'domain' as const, title: 'Numerics' },
+  ];
+  // Foundations completed and found nothing; Attention found one; Numerics errored.
+  const prior = {
+    done: ['Foundations', 'Attention'],
+    candidates: [{ target: 'Attention', url: 'https://www.youtube.com/watch?v=x' }],
+  };
+
+  it('skips everything already done by default', () => {
+    expect(pending(all, prior).map((t: Target) => t.key)).toEqual(['Numerics']);
+  });
+
+  it('re-attempts the barren ones under --redo-empty, and only those', () => {
+    // Without this the 53 domains a scoring fix was written for are exactly the
+    // ones a re-run would skip.
+    expect(pending(all, prior, { redoEmpty: true }).map((t: Target) => t.key)).toEqual(['Foundations', 'Numerics']);
+  });
+
+  it('treats an absent checkpoint as everything to do', () => {
+    expect(pending(all, { done: [], candidates: [] }).length).toBe(3);
   });
 });
