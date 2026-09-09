@@ -57,6 +57,13 @@
       "title": "Policy Gradient Algorithms",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2018-04-08-policy-gradient/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "RLAIF vs. RLHF: the technology behind Anthropic’s Claude (Constitutional AI Explained)",
+      "author": "AssemblyAI",
+      "url": "https://www.youtube.com/watch?v=nNHBb_2hMWI"
     }
   ],
   "review": {

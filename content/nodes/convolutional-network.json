@@ -84,6 +84,13 @@
       "title": "Convolutional Neural Networks",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_convolutional-neural-networks/index.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Vision Transformer Quick Guide - Theory and Code in (almost) 15 min",
+      "author": "DeepFindr",
+      "url": "https://www.youtube.com/watch?v=j3VNqtJUoz0"
     }
   ],
   "review": {

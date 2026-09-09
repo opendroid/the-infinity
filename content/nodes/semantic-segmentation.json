@@ -68,6 +68,13 @@
       "title": "Semantic Segmentation and the Dataset",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_computer-vision/semantic-segmentation-and-dataset.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Vision Transformer Quick Guide - Theory and Code in (almost) 15 min",
+      "author": "DeepFindr",
+      "url": "https://www.youtube.com/watch?v=j3VNqtJUoz0"
     }
   ],
   "review": {

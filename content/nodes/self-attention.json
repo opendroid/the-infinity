@@ -58,6 +58,13 @@
       "title": "Self-Attention and Positional Encoding",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_attention-mechanisms-and-transformers/self-attention-and-positional-encoding.html"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
+      "author": "3Blue1Brown",
+      "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc"
     }
   ],
   "review": {

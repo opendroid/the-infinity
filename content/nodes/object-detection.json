@@ -64,6 +64,13 @@
       "title": "Object Detection for Dummies Part 1",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2017-10-29-object-recognition-part-1/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Vision Transformer Quick Guide - Theory and Code in (almost) 15 min",
+      "author": "DeepFindr",
+      "url": "https://www.youtube.com/watch?v=j3VNqtJUoz0"
     }
   ],
   "review": {

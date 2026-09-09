@@ -132,6 +132,17 @@ const bodies = DEPTHS.map((depth) => {
                     <li class="font-mono text-[11.5px] text-dust">
                       <a href={e.url} class="text-thread no-underline hover:underline">{e.title}</a> — {e.author}
                       {/*
+                        MARKED IN TEXT, AND ONLY THE EXCEPTION IS MARKED (#389).
+                        The heading has said "Watch & read" since ADR-0017, but
+                        every entry was a `read`, so a video and a blog post
+                        rendered identically — a reader clicking to skim got a
+                        26-minute lecture instead. Not colour, not an icon
+                        alone: CLAUDE.md §4 keeps meaning off a single ambiguous
+                        carrier. `read` stays unmarked because it is the default
+                        and labelling 482 of them is noise.
+                      */}
+                      {e.kind === 'video' && <span> · video</span>}
+                      {/*
                         ADR-0018. A domain-scoped entry is NOT about this concept,
                         and the reader is told before they click rather than after.
                         Same rule ADR-0013 applies to origin: a broader source
@@ -201,6 +212,17 @@ const bodies = DEPTHS.map((depth) => {
                   {node.explainers.map((e) => (
                     <li class="font-mono text-[11.5px] text-dust">
                       <a href={e.url} class="text-thread no-underline hover:underline">{e.title}</a> — {e.author}
+                      {/*
+                        MARKED IN TEXT, AND ONLY THE EXCEPTION IS MARKED (#389).
+                        The heading has said "Watch & read" since ADR-0017, but
+                        every entry was a `read`, so a video and a blog post
+                        rendered identically — a reader clicking to skim got a
+                        26-minute lecture instead. Not colour, not an icon
+                        alone: CLAUDE.md §4 keeps meaning off a single ambiguous
+                        carrier. `read` stays unmarked because it is the default
+                        and labelling 482 of them is noise.
+                      */}
+                      {e.kind === 'video' && <span> · video</span>}
                       {/*
                         ADR-0018. A domain-scoped entry is NOT about this concept,
                         and the reader is told before they click rather than after.

@@ -55,6 +55,13 @@
       "title": "The Illustrated GPT-2",
       "author": "Jay Alammar",
       "url": "https://jalammar.github.io/illustrated-gpt2/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
+      "author": "3Blue1Brown",
+      "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc"
     }
   ],
   "review": {

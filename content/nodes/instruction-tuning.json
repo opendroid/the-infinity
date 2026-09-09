@@ -59,6 +59,13 @@
       "title": "Controllable Neural Text Generation",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "RLAIF vs. RLHF: the technology behind Anthropic’s Claude (Constitutional AI Explained)",
+      "author": "AssemblyAI",
+      "url": "https://www.youtube.com/watch?v=nNHBb_2hMWI"
     }
   ],
   "review": {

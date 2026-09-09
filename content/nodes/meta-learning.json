@@ -59,6 +59,13 @@
       "title": "Meta-Learning: Learning to Learn Fast",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2018-11-30-meta-learning/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Continual Learning and Catastrophic Forgetting",
+      "author": "Paul Hand",
+      "url": "https://www.youtube.com/watch?v=vjaq03IYgSk"
     }
   ],
   "review": {

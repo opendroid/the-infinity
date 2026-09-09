@@ -61,6 +61,13 @@
       "title": "The Illustrated Transformer",
       "author": "Jay Alammar",
       "url": "https://jalammar.github.io/illustrated-transformer/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
+      "author": "3Blue1Brown",
+      "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc"
     }
   ],
   "review": {

@@ -64,6 +64,13 @@
       "title": "Attention? Attention!",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2018-06-24-attention/"
+    },
+    {
+      "kind": "video",
+      "scope": "domain",
+      "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
+      "author": "3Blue1Brown",
+      "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc"
     }
   ],
   "review": {
