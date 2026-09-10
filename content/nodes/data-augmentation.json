@@ -65,6 +65,13 @@
       "title": "Image Augmentation",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_computer-vision/image-augmentation.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Data augmentation to address overfitting | Deep Learning Tutorial 26 (Tensorflow, Keras & Python)",
+      "author": "codebasics",
+      "url": "https://www.youtube.com/watch?v=mTVf7BN7S8w"
     }
   ],
   "review": {

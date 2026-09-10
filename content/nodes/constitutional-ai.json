@@ -48,6 +48,13 @@
   "updated_at": "2026-08-04",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Understanding Constitutional AI - the paper and key concepts",
+      "author": "Sam Witteveen",
+      "url": "https://www.youtube.com/watch?v=quyqRIHRa60"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "AI alignment",

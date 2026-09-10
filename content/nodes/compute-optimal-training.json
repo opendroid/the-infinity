@@ -49,6 +49,13 @@
   "updated_at": "2026-08-02",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Chinchilla Explained: Compute-Optimal Massive Language Models",
+      "author": "Edan Meyer",
+      "url": "https://www.youtube.com/watch?v=PZXN7jm9IC0"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Optimization and Deep Learning",

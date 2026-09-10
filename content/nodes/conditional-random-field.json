@@ -57,6 +57,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Conditional Random Fields (Natural Language Processing at UT Austin)",
+      "author": "Greg Durrett",
+      "url": "https://www.youtube.com/watch?v=8AnHsHhiJ4U"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Beam Search",

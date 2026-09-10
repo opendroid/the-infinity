@@ -60,6 +60,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Learning threshold neurons via the Edge of Stability",
+      "author": "Sebastien Bubeck",
+      "url": "https://www.youtube.com/watch?v=_TpSDM8jG-Y"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Are Deep Neural Networks Dramatically Overfitted?",

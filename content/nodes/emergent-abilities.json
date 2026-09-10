@@ -57,6 +57,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "The Emergent Abilities of LLMs - why LLMs are so useful",
+      "author": "AssemblyAI",
+      "url": "https://www.youtube.com/watch?v=bQuVLKn10do"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Evaluation of binary classifiers",

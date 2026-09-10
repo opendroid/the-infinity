@@ -48,6 +48,13 @@
   "updated_at": "2026-08-04",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Collective Communications",
+      "author": "ARCHER High Performance Computing Service",
+      "url": "https://www.youtube.com/watch?v=sahAGYPoubE"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "How to Train Really Large Models on Many GPUs?",

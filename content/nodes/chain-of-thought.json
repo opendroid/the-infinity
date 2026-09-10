@@ -65,6 +65,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Chain-of-thought prompting - Explained!",
+      "author": "CodeEmporium",
+      "url": "https://www.youtube.com/watch?v=AFE6x81AP4k"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "A Walkthrough of In-Context Learning and Induction Heads Part 1 of 2 (w/ Charles Frye)",
       "author": "Neel Nanda",

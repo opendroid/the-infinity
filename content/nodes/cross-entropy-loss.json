@@ -55,6 +55,13 @@
       "title": "Softmax Regression",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_linear-classification/softmax-regression.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Neural Networks Part 6: Cross Entropy",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=6ArSys5qHAU"
     }
   ],
   "review": {

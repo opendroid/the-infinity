@@ -85,6 +85,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Convolutional Neural Networks (CNNs) explained",
+      "author": "deeplizard",
+      "url": "https://www.youtube.com/watch?v=YRhxdVk_sIs"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Vision Transformer Quick Guide - Theory and Code in (almost) 15 min",
       "author": "DeepFindr",

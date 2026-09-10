@@ -56,6 +56,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Dropout Regularization (C2W1L06)",
+      "author": "DeepLearningAI",
+      "url": "https://www.youtube.com/watch?v=D8PJAL-MZv8"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "NN - 16 - L2 Regularization / Weight Decay (Theory + @PyTorch code)",
       "author": "Meerkat Statistics",

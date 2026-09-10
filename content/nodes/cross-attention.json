@@ -60,6 +60,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Cross Attention | Method Explanation | Math Explained",
+      "author": "Outlier",
+      "url": "https://www.youtube.com/watch?v=aw3H-wPuRcw"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
       "author": "3Blue1Brown",

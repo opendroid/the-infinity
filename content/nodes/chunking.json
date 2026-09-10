@@ -53,6 +53,13 @@
   "updated_at": "2026-08-04",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Chunking Strategies in RAG: Optimising Data for Advanced AI Responses",
+      "author": "Mervin Praison",
+      "url": "https://www.youtube.com/watch?v=pIGRwMjhMaQ"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "How to Build an Open-Domain Question Answering System?",

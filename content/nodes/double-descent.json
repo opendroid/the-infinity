@@ -55,6 +55,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Statistical Learning: 10.7 Interpolation and Double Descent",
+      "author": "Stanford Online",
+      "url": "https://www.youtube.com/watch?v=qRHdQz_P_Lo"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Are Deep Neural Networks Dramatically Overfitted?",

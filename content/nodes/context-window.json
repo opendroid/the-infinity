@@ -65,6 +65,13 @@
   "updated_at": "2026-08-02",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is a Context Window? Unlocking LLM Secrets",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=-QVoIxEpFkM"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Large Transformer Model Inference Optimization",

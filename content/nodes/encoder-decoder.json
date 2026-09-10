@@ -70,6 +70,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Sequence-to-Sequence (seq2seq) Encoder-Decoder Neural Networks, Clearly Explained!!!",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=L8HKweZIOmg"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Decoder-Only Transformers, ChatGPTs specific Transformer, Clearly Explained!!!",
       "author": "StatQuest with Josh Starmer",

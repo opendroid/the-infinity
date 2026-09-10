@@ -55,6 +55,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "SoK: Certified Robustness for Deep Neural Networks",
+      "author": "IEEE Symposium on Security and Privacy",
+      "url": "https://www.youtube.com/watch?v=hrBeUVRCixI"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Adversarial Attacks on LLMs",

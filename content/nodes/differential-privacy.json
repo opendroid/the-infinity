@@ -64,6 +64,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Differential Privacy - Simply Explained",
+      "author": "Simply Explained",
+      "url": "https://www.youtube.com/watch?v=gI0wk1CXlsQ"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Membership Inference Attacks against Machine Learning Models",
       "author": "IEEE Symposium on Security and Privacy",

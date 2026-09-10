@@ -65,6 +65,13 @@
       "title": "Exploratory causal analysis",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Causal_discovery"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "10.4 - The PC Algorithm for Causal Discovery",
+      "author": "Brady Neal - Causal Inference",
+      "url": "https://www.youtube.com/watch?v=o2A61bJ0UCw"
     }
   ],
   "review": {
