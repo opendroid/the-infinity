@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "dense-retrieval",
-        "reviewed": false
+        "id": "dense-retrieval"
       },
       {
-        "id": "transformer-block",
-        "reviewed": false
+        "id": "transformer-block"
       }
     ],
     "adjacent": []

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "collaborative-filtering",
-        "reviewed": false
+        "id": "collaborative-filtering"
       }
     ],
     "adjacent": [
       {
-        "id": "noise-contrastive-estimation",
-        "reviewed": false
+        "id": "noise-contrastive-estimation"
       },
       {
-        "id": "contrastive-learning",
-        "reviewed": false
+        "id": "contrastive-learning"
       }
     ]
   },

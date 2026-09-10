@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "markov-decision-process",
-        "reviewed": false
+        "id": "markov-decision-process"
       }
     ],
     "adjacent": [
       {
-        "id": "value-function",
-        "reviewed": false
+        "id": "value-function"
       },
       {
-        "id": "temporal-difference-learning",
-        "reviewed": false
+        "id": "temporal-difference-learning"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "time-series-forecasting",
-        "reviewed": false
+        "id": "time-series-forecasting"
       }
     ],
     "adjacent": [
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       },
       {
-        "id": "attention",
-        "reviewed": false
+        "id": "attention"
       }
     ]
   },

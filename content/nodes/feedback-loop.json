@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "collaborative-filtering",
-        "reviewed": false
+        "id": "collaborative-filtering"
       },
       {
-        "id": "causal-inference",
-        "reviewed": false
+        "id": "causal-inference"
       }
     ],
     "adjacent": [
       {
-        "id": "reward-hacking",
-        "reviewed": false
+        "id": "reward-hacking"
       },
       {
-        "id": "confounding",
-        "reviewed": false
+        "id": "confounding"
       }
     ]
   },

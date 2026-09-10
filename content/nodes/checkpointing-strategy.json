@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "optimizer-state",
-        "reviewed": false
+        "id": "optimizer-state"
       }
     ],
     "adjacent": [
       {
-        "id": "activation-checkpointing",
-        "reviewed": false
+        "id": "activation-checkpointing"
       },
       {
-        "id": "failure-recovery",
-        "reviewed": false
+        "id": "failure-recovery"
       }
     ]
   },

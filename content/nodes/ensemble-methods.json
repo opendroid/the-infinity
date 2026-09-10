@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "bias-variance-tradeoff",
-        "reviewed": false
+        "id": "bias-variance-tradeoff"
       }
     ],
     "adjacent": [
       {
-        "id": "gradient-boosting",
-        "reviewed": false
+        "id": "gradient-boosting"
       },
       {
-        "id": "model-soup",
-        "reviewed": false
+        "id": "model-soup"
       }
     ]
   },

@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "vision-language-action",
-        "reviewed": false
+        "id": "vision-language-action"
       },
       {
-        "id": "teleoperation-data",
-        "reviewed": false
+        "id": "teleoperation-data"
       }
     ],
     "adjacent": [
       {
-        "id": "task-interference",
-        "reviewed": false
+        "id": "task-interference"
       },
       {
-        "id": "sim-to-real",
-        "reviewed": false
+        "id": "sim-to-real"
       }
     ]
   },

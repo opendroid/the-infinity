@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "stochastic-gradient-descent",
-        "reviewed": false
+        "id": "stochastic-gradient-descent"
       }
     ],
     "adjacent": []

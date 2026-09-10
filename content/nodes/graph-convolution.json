@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "message-passing",
-        "reviewed": false
+        "id": "message-passing"
       }
     ],
     "adjacent": [
       {
-        "id": "layer-normalization",
-        "reviewed": false
+        "id": "layer-normalization"
       }
     ]
   },

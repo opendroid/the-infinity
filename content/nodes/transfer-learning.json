@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "pretraining",
-        "reviewed": false
+        "id": "pretraining"
       }
     ],
     "adjacent": [
       {
-        "id": "fine-tuning",
-        "reviewed": false
+        "id": "fine-tuning"
       },
       {
-        "id": "catastrophic-forgetting",
-        "reviewed": false
+        "id": "catastrophic-forgetting"
       }
     ]
   },

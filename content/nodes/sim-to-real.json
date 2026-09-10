@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "world-model",
-        "reviewed": false
+        "id": "world-model"
       }
     ],
     "adjacent": [
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       }
     ]
   },

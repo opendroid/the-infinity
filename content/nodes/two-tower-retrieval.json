@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "candidate-generation",
-        "reviewed": false
+        "id": "candidate-generation"
       },
       {
-        "id": "dense-retrieval",
-        "reviewed": false
+        "id": "dense-retrieval"
       }
     ],
     "adjacent": [
       {
-        "id": "noise-contrastive-estimation",
-        "reviewed": false
+        "id": "noise-contrastive-estimation"
       }
     ]
   },

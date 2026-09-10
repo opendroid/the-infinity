@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "value-function",
-        "reviewed": false
+        "id": "value-function"
       }
     ],
     "adjacent": []

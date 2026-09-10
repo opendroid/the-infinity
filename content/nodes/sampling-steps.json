@@ -35,18 +35,15 @@
   "edges": {
     "requires": [
       {
-        "id": "diffusion-model",
-        "reviewed": false
+        "id": "diffusion-model"
       }
     ],
     "adjacent": [
       {
-        "id": "speculative-decoding",
-        "reviewed": false
+        "id": "speculative-decoding"
       },
       {
-        "id": "knowledge-distillation",
-        "reviewed": false
+        "id": "knowledge-distillation"
       }
     ]
   },

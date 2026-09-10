@@ -34,12 +34,10 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "approximate-nearest-neighbor",
-        "reviewed": false
+        "id": "approximate-nearest-neighbor"
       },
       {
-        "id": "dense-retrieval",
-        "reviewed": false
+        "id": "dense-retrieval"
       }
     ]
   },

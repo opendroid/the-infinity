@@ -53,11 +53,7 @@ export function isNeighborhood(value: unknown): value is Neighborhood {
   const isLink = (l: unknown): boolean => {
     if (typeof l !== 'object' || l === null) return false;
     const link = l as Record<string, unknown>;
-    return (
-      typeof link.from === 'string' &&
-      typeof link.to === 'string' &&
-      typeof link.reviewed === 'boolean'
-    );
+    return typeof link.from === 'string' && typeof link.to === 'string';
   };
 
   return (
@@ -111,7 +107,7 @@ export function drawableLinks(data: Neighborhood) {
   return data.links.flatMap((link) => {
     const from = points.get(link.from);
     const to = points.get(link.to);
-    return from && to ? [{ from, to, reviewed: link.reviewed }] : [];
+    return from && to ? [{ from, to }] : [];
   });
 }
 
@@ -182,6 +178,12 @@ export default function MiniMap({ id, initial }: Props) {
         role="img"
         aria-label={`Concepts one step from ${data.center.title}`}
       >
+        {/*
+          ONE WAY, SINCE ADR-0022. A link used to be dashed at opacity .35 when
+          the edge was unreviewed and solid at .5 when it was. The corpus made
+          that distinction three times in 1,157 edges, so every line on every
+          page was dashed, under a legend explaining a difference nothing drew.
+        */}
         {links.map((link, i) => (
           <line
             key={`${link.from.id}-${link.to.id}-${i}`}
@@ -191,8 +193,7 @@ export default function MiniMap({ id, initial }: Props) {
             y2={link.to.y}
             stroke="#8F7BFF"
             strokeWidth="1"
-            opacity={link.reviewed ? '.5' : '.35'}
-            strokeDasharray={link.reviewed ? undefined : '3 4'}
+            opacity=".5"
           />
         ))}
         {data.nodes.map((n) => (
@@ -222,11 +223,6 @@ export default function MiniMap({ id, initial }: Props) {
         ))}
       </svg>
       </div>
-      {links.some((l) => !l.reviewed) && (
-        <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[.12em] text-dust">
-          Dashed = unreviewed edge
-        </p>
-      )}
     </div>
   );
 }

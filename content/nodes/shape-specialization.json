@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "graph-capture",
-        "reviewed": false
+        "id": "graph-capture"
       }
     ],
     "adjacent": [
       {
-        "id": "continuous-batching",
-        "reviewed": false
+        "id": "continuous-batching"
       },
       {
-        "id": "prefill-and-decode",
-        "reviewed": false
+        "id": "prefill-and-decode"
       }
     ]
   },

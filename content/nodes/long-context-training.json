@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "pretraining",
-        "reviewed": false
+        "id": "pretraining"
       }
     ],
     "adjacent": [
       {
-        "id": "position-interpolation",
-        "reviewed": false
+        "id": "position-interpolation"
       },
       {
-        "id": "long-range-dependency",
-        "reviewed": false
+        "id": "long-range-dependency"
       }
     ]
   },

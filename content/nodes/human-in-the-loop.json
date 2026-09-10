@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "sandboxing",
-        "reviewed": false
+        "id": "sandboxing"
       }
     ],
     "adjacent": [
       {
-        "id": "constitutional-ai",
-        "reviewed": false
+        "id": "constitutional-ai"
       }
     ]
   },

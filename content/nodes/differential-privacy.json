@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ]
   },

@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "scaling-laws",
-        "reviewed": false
+        "id": "scaling-laws"
       }
     ],
     "adjacent": [
       {
-        "id": "perplexity",
-        "reviewed": false
+        "id": "perplexity"
       }
     ]
   },

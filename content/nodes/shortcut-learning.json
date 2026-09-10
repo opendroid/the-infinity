@@ -36,14 +36,12 @@
   "edges": {
     "requires": [
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       }
     ],
     "adjacent": [
       {
-        "id": "benchmark-contamination",
-        "reviewed": false
+        "id": "benchmark-contamination"
       }
     ]
   },

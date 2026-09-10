@@ -35,18 +35,15 @@
   "edges": {
     "requires": [
       {
-        "id": "multi-head-attention",
-        "reviewed": false
+        "id": "multi-head-attention"
       },
       {
-        "id": "in-context-learning",
-        "reviewed": false
+        "id": "in-context-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "activation-patching",
-        "reviewed": false
+        "id": "activation-patching"
       }
     ]
   },

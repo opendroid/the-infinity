@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "patch-embedding",
-        "reviewed": false
+        "id": "patch-embedding"
       },
       {
-        "id": "transformer-block",
-        "reviewed": false
+        "id": "transformer-block"
       }
     ],
     "adjacent": []

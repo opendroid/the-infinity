@@ -34,12 +34,10 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       },
       {
-        "id": "perplexity",
-        "reviewed": false
+        "id": "perplexity"
       }
     ]
   },

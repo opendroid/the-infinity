@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "tiling",
-        "reviewed": false
+        "id": "tiling"
       },
       {
-        "id": "kernel-fusion",
-        "reviewed": false
+        "id": "kernel-fusion"
       }
     ],
     "adjacent": [
       {
-        "id": "flash-attention",
-        "reviewed": false
+        "id": "flash-attention"
       },
       {
-        "id": "selective-state-space",
-        "reviewed": false
+        "id": "selective-state-space"
       }
     ]
   },

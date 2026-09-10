@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "reward-model",
-        "reviewed": false
+        "id": "reward-model"
       }
     ],
     "adjacent": [
       {
-        "id": "constitutional-ai",
-        "reviewed": false
+        "id": "constitutional-ai"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "mechanistic-interpretability",
-        "reviewed": false
+        "id": "mechanistic-interpretability"
       }
     ],
     "adjacent": [
       {
-        "id": "classifier-free-guidance",
-        "reviewed": false
+        "id": "classifier-free-guidance"
       },
       {
-        "id": "sparse-autoencoder",
-        "reviewed": false
+        "id": "sparse-autoencoder"
       }
     ]
   },

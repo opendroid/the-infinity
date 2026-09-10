@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "react",
-        "reviewed": false
+        "id": "react"
       }
     ],
     "adjacent": [
       {
-        "id": "task-decomposition",
-        "reviewed": false
+        "id": "task-decomposition"
       },
       {
-        "id": "agent-evaluation",
-        "reviewed": false
+        "id": "agent-evaluation"
       }
     ]
   },

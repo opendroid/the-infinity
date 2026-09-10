@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "in-context-learning",
-        "reviewed": false
+        "id": "in-context-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "system-prompt",
-        "reviewed": false
+        "id": "system-prompt"
       },
       {
-        "id": "regression-suite",
-        "reviewed": false
+        "id": "regression-suite"
       }
     ]
   },

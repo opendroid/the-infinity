@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "semantic-segmentation",
-        "reviewed": false
+        "id": "semantic-segmentation"
       }
     ],
     "adjacent": [
       {
-        "id": "vision-language-model",
-        "reviewed": false
+        "id": "vision-language-model"
       }
     ]
   },

@@ -5,7 +5,7 @@ import type { Neighborhood } from '../lib/graph';
 const valid: Neighborhood = {
   center: { id: 'moe', title: 'Mixture-of-Experts', tier: 'verified', x: 120, y: 66 },
   nodes: [{ id: 'ffn', title: 'Feed-Forward Network', tier: 'verified', x: 40, y: 66 }],
-  links: [{ from: 'ffn', to: 'moe', type: 'requires', reviewed: true }],
+  links: [{ from: 'ffn', to: 'moe', type: 'requires' }],
 };
 
 /**
@@ -50,11 +50,7 @@ describe('isNeighborhood', () => {
     },
     {
       name: 'a link missing an endpoint',
-      value: { ...valid, links: [{ from: 'ffn', type: 'requires', reviewed: true }] },
-    },
-    {
-      name: 'reviewed as a string',
-      value: { ...valid, links: [{ ...valid.links[0], reviewed: 'true' }] },
+      value: { ...valid, links: [{ from: 'ffn', type: 'requires' }] },
     },
   ];
 
@@ -77,17 +73,16 @@ describe('drawableLinks', () => {
     // box and reads as a real edge to something that is not there.
     const orphaned: Neighborhood = {
       ...valid,
-      links: [...valid.links, { from: 'ghost', to: 'moe', type: 'requires', reviewed: true }],
+      links: [...valid.links, { from: 'ghost', to: 'moe', type: 'requires' }],
     };
     expect(drawableLinks(orphaned)).toHaveLength(1);
   });
 
-  it('carries the reviewed flag through, since it is what dashes the line', () => {
-    const unreviewed: Neighborhood = {
-      ...valid,
-      links: [{ from: 'ffn', to: 'moe', type: 'requires', reviewed: false }],
-    };
-    expect(drawableLinks(unreviewed)[0]?.reviewed).toBe(false);
+  it('carries only the geometry through — there is no flag left to carry (#348)', () => {
+    // ADR-0022 removed `reviewed`, which was the one thing this function passed
+    // along besides the two endpoints.
+    const drawn = drawableLinks(valid);
+    expect(Object.keys(drawn[0] ?? {}).sort()).toEqual(['from', 'to']);
   });
 });
 

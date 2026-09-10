@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "manipulation",
-        "reviewed": false
+        "id": "manipulation"
       }
     ],
     "adjacent": [
       {
-        "id": "sandboxing",
-        "reviewed": false
+        "id": "sandboxing"
       },
       {
-        "id": "human-in-the-loop",
-        "reviewed": false
+        "id": "human-in-the-loop"
       }
     ]
   },

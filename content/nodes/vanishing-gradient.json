@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "backpropagation",
-        "reviewed": false
+        "id": "backpropagation"
       }
     ],
     "adjacent": [
       {
-        "id": "residual-connection",
-        "reviewed": false
+        "id": "residual-connection"
       },
       {
-        "id": "gradient-clipping",
-        "reviewed": false
+        "id": "gradient-clipping"
       }
     ]
   },

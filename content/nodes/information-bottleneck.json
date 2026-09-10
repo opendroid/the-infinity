@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "mutual-information",
-        "reviewed": false
+        "id": "mutual-information"
       }
     ],
     "adjacent": [
       {
-        "id": "manifold-hypothesis",
-        "reviewed": false
+        "id": "manifold-hypothesis"
       },
       {
-        "id": "rate-distortion",
-        "reviewed": false
+        "id": "rate-distortion"
       }
     ]
   },

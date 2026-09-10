@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "stochastic-gradient-descent",
-        "reviewed": false
+        "id": "stochastic-gradient-descent"
       }
     ],
     "adjacent": [
       {
-        "id": "expert-parallelism",
-        "reviewed": false
+        "id": "expert-parallelism"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "spectrogram",
-        "reviewed": false
+        "id": "spectrogram"
       },
       {
-        "id": "text-to-speech",
-        "reviewed": false
+        "id": "text-to-speech"
       }
     ],
     "adjacent": [
       {
-        "id": "generative-adversarial-network",
-        "reviewed": false
+        "id": "generative-adversarial-network"
       }
     ]
   },

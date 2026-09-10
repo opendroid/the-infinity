@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "offline-online-gap",
-        "reviewed": false
+        "id": "offline-online-gap"
       }
     ],
     "adjacent": [
       {
-        "id": "production-monitoring",
-        "reviewed": false
+        "id": "production-monitoring"
       }
     ]
   },

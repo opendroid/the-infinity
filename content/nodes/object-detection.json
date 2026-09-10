@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "convolutional-network",
-        "reviewed": false
+        "id": "convolutional-network"
       }
     ],
     "adjacent": [
       {
-        "id": "feature-pyramid",
-        "reviewed": false
+        "id": "feature-pyramid"
       }
     ]
   },

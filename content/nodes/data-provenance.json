@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "data-filtering",
-        "reviewed": false
+        "id": "data-filtering"
       }
     ],
     "adjacent": [
       {
-        "id": "benchmark-contamination",
-        "reviewed": false
+        "id": "benchmark-contamination"
       }
     ]
   },

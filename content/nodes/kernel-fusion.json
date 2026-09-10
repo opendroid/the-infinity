@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "arithmetic-intensity",
-        "reviewed": false
+        "id": "arithmetic-intensity"
       }
     ],
     "adjacent": [
       {
-        "id": "flash-attention",
-        "reviewed": false
+        "id": "flash-attention"
       }
     ]
   },

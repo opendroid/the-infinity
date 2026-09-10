@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "policy-gradient",
-        "reviewed": false
+        "id": "policy-gradient"
       },
       {
-        "id": "value-function",
-        "reviewed": false
+        "id": "value-function"
       }
     ],
     "adjacent": [
       {
-        "id": "proximal-policy-optimization",
-        "reviewed": false
+        "id": "proximal-policy-optimization"
       }
     ]
   },

@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "long-horizon-agent",
-        "reviewed": false
+        "id": "long-horizon-agent"
       }
     ],
     "adjacent": [
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       },
       {
-        "id": "pass-at-k",
-        "reviewed": false
+        "id": "pass-at-k"
       },
       {
-        "id": "benchmark-contamination",
-        "reviewed": false
+        "id": "benchmark-contamination"
       }
     ]
   },

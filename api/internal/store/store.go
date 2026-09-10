@@ -55,13 +55,15 @@ const (
 
 // Edge is denormalized for serving: it carries the target's title and tier so
 // a row renders without extra reads. Node JSON stores ids alone.
+// It carried a Reviewed bool until ADR-0022. That flag stored an independent
+// human judgment about the relationship, and no workflow ever made one: it read
+// false on 1,154 of 1,157 edges, so the mini-map dashed nearly every line on
+// every page under a legend explaining a distinction the corpus made three
+// times.
 type Edge struct {
 	ID    string `firestore:"id" json:"id"`
 	Title string `firestore:"title" json:"title"`
 	Tier  Tier   `firestore:"tier" json:"tier"`
-	// Reviewed is authored per edge, not derived from the target's tier — the
-	// case that matters is an unchecked claim between two verified concepts.
-	Reviewed bool `firestore:"reviewed" json:"reviewed"`
 }
 
 type Citation struct {
@@ -227,10 +229,9 @@ type MiniMapNode struct {
 }
 
 type MiniMapLink struct {
-	From     string   `firestore:"from" json:"from"`
-	To       string   `firestore:"to" json:"to"`
-	Type     EdgeType `firestore:"type" json:"type"`
-	Reviewed bool     `firestore:"reviewed" json:"reviewed"`
+	From string   `firestore:"from" json:"from"`
+	To   string   `firestore:"to" json:"to"`
+	Type EdgeType `firestore:"type" json:"type"`
 }
 
 type Neighborhood struct {

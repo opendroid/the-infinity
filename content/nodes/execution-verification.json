@@ -34,14 +34,12 @@
   "edges": {
     "requires": [
       {
-        "id": "execution-feedback",
-        "reviewed": false
+        "id": "execution-feedback"
       }
     ],
     "adjacent": [
       {
-        "id": "sandboxing",
-        "reviewed": false
+        "id": "sandboxing"
       }
     ]
   },

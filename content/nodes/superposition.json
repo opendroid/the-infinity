@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "token-embedding",
-        "reviewed": false
+        "id": "token-embedding"
       }
     ]
   },

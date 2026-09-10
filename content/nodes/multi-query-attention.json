@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "multi-head-attention",
-        "reviewed": false
+        "id": "multi-head-attention"
       },
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       }
     ],
     "adjacent": []

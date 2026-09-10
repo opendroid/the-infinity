@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "deep-ensemble",
-        "reviewed": false
+        "id": "deep-ensemble"
       }
     ],
     "adjacent": [
       {
-        "id": "model-merging",
-        "reviewed": false
+        "id": "model-merging"
       }
     ]
   },

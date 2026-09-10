@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "self-supervised-learning",
-        "reviewed": false
+        "id": "self-supervised-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "contrastive-learning",
-        "reviewed": false
+        "id": "contrastive-learning"
       },
       {
-        "id": "video-understanding",
-        "reviewed": false
+        "id": "video-understanding"
       }
     ]
   },

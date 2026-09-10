@@ -34,12 +34,10 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "weight-decay",
-        "reviewed": false
+        "id": "weight-decay"
       },
       {
-        "id": "dropout",
-        "reviewed": false
+        "id": "dropout"
       }
     ]
   },

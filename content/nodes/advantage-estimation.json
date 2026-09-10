@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "credit-assignment",
-        "reviewed": false
+        "id": "credit-assignment"
       }
     ],
     "adjacent": [
       {
-        "id": "actor-critic",
-        "reviewed": false
+        "id": "actor-critic"
       },
       {
-        "id": "proximal-policy-optimization",
-        "reviewed": false
+        "id": "proximal-policy-optimization"
       }
     ]
   },

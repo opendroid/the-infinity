@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "data-parallelism",
-        "reviewed": false
+        "id": "data-parallelism"
       }
     ],
     "adjacent": [
       {
-        "id": "elastic-training",
-        "reviewed": false
+        "id": "elastic-training"
       }
     ]
   },

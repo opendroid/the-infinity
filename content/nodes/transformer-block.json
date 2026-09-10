@@ -34,20 +34,16 @@
   "edges": {
     "requires": [
       {
-        "id": "multi-head-attention",
-        "reviewed": false
+        "id": "multi-head-attention"
       },
       {
-        "id": "feed-forward-network",
-        "reviewed": false
+        "id": "feed-forward-network"
       },
       {
-        "id": "residual-connection",
-        "reviewed": false
+        "id": "residual-connection"
       },
       {
-        "id": "layer-normalization",
-        "reviewed": false
+        "id": "layer-normalization"
       }
     ],
     "adjacent": []

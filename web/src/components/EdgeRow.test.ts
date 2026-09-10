@@ -25,7 +25,7 @@ function accessibleName(html: string): string {
 }
 
 const edge = (over: Partial<ResolvedEdge> = {}): ResolvedEdge =>
-  ({ id: 'cross-attention', title: 'Cross-Attention', tier: 'frontier', reviewed: false, ...over }) as ResolvedEdge;
+  ({ id: 'cross-attention', title: 'Cross-Attention', tier: 'frontier', ...over }) as ResolvedEdge;
 
 async function renderRow(type: EdgeType, e: ResolvedEdge = edge()) {
   const container = await AstroContainer.create();
@@ -47,7 +47,7 @@ describe('an edge link announces what kind of edge it is', () => {
 
   it('names the tier, which was carried by colour alone', async () => {
     expect(await renderRow('unlocks', edge({ tier: 'frontier' }))).toContain('frontier');
-    expect(await renderRow('unlocks', edge({ tier: 'verified', reviewed: true }))).toContain('verified');
+    expect(await renderRow('unlocks', edge({ tier: 'verified' }))).toContain('verified');
   });
 
   it('leads with the title, which is what a reader scans for', async () => {

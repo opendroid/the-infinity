@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "fairness-criteria",
-        "reviewed": false
+        "id": "fairness-criteria"
       }
     ],
     "adjacent": [
       {
-        "id": "evaluation-disaggregation",
-        "reviewed": false
+        "id": "evaluation-disaggregation"
       },
       {
-        "id": "impossibility-result",
-        "reviewed": false
+        "id": "impossibility-result"
       }
     ]
   },

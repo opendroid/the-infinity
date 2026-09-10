@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "execution-feedback",
-        "reviewed": false
+        "id": "execution-feedback"
       }
     ],
     "adjacent": [
       {
-        "id": "task-decomposition",
-        "reviewed": false
+        "id": "task-decomposition"
       },
       {
-        "id": "context-window",
-        "reviewed": false
+        "id": "context-window"
       }
     ]
   },

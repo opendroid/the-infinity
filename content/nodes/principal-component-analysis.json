@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "linear-regression",
-        "reviewed": false
+        "id": "linear-regression"
       }
     ],
     "adjacent": [
       {
-        "id": "manifold-hypothesis",
-        "reviewed": false
+        "id": "manifold-hypothesis"
       }
     ]
   },

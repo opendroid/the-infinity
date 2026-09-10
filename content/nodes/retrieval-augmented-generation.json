@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "approximate-nearest-neighbor",
-        "reviewed": false
+        "id": "approximate-nearest-neighbor"
       },
       {
-        "id": "chunking",
-        "reviewed": false
+        "id": "chunking"
       }
     ],
     "adjacent": [
       {
-        "id": "in-context-learning",
-        "reviewed": false
+        "id": "in-context-learning"
       }
     ]
   },

@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       },
       {
-        "id": "tokenization",
-        "reviewed": false
+        "id": "tokenization"
       }
     ],
     "adjacent": []

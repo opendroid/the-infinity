@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "scaling-laws",
-        "reviewed": false
+        "id": "scaling-laws"
       }
     ],
     "adjacent": [
       {
-        "id": "chain-of-thought",
-        "reviewed": false
+        "id": "chain-of-thought"
       },
       {
-        "id": "inference-scaling-law",
-        "reviewed": false
+        "id": "inference-scaling-law"
       }
     ]
   },

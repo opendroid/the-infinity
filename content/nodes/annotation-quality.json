@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "data-filtering",
-        "reviewed": false
+        "id": "data-filtering"
       }
     ],
     "adjacent": [
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       },
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "annotation-quality",
-        "reviewed": false
+        "id": "annotation-quality"
       }
     ],
     "adjacent": [
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       },
       {
-        "id": "synthesis-evaluation",
-        "reviewed": false
+        "id": "synthesis-evaluation"
       }
     ]
   },

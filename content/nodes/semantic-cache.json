@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "approximate-nearest-neighbor",
-        "reviewed": false
+        "id": "approximate-nearest-neighbor"
       }
     ],
     "adjacent": [
       {
-        "id": "prefix-caching",
-        "reviewed": false
+        "id": "prefix-caching"
       },
       {
-        "id": "hallucination",
-        "reviewed": false
+        "id": "hallucination"
       }
     ]
   },

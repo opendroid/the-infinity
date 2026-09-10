@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "convolutional-network",
-        "reviewed": false
+        "id": "convolutional-network"
       }
     ],
     "adjacent": [
       {
-        "id": "dilated-convolution",
-        "reviewed": false
+        "id": "dilated-convolution"
       },
       {
-        "id": "instance-segmentation",
-        "reviewed": false
+        "id": "instance-segmentation"
       }
     ]
   },

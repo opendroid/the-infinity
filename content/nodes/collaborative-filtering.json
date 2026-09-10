@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "dense-retrieval",
-        "reviewed": false
+        "id": "dense-retrieval"
       }
     ]
   },

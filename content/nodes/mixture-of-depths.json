@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "mixture-of-experts",
-        "reviewed": false
+        "id": "mixture-of-experts"
       }
     ],
     "adjacent": [
       {
-        "id": "adaptive-computation",
-        "reviewed": false
+        "id": "adaptive-computation"
       }
     ]
   },

@@ -34,22 +34,18 @@
   "edges": {
     "requires": [
       {
-        "id": "spectrogram",
-        "reviewed": false
+        "id": "spectrogram"
       },
       {
-        "id": "encoder-decoder",
-        "reviewed": false
+        "id": "encoder-decoder"
       }
     ],
     "adjacent": [
       {
-        "id": "connectionist-temporal-classification",
-        "reviewed": false
+        "id": "connectionist-temporal-classification"
       },
       {
-        "id": "cross-attention",
-        "reviewed": false
+        "id": "cross-attention"
       }
     ]
   },

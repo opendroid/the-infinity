@@ -32,14 +32,12 @@
   "edges": {
     "requires": [
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       }
     ],
     "adjacent": [
       {
-        "id": "rlhf",
-        "reviewed": false
+        "id": "rlhf"
       }
     ]
   },

@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ],
     "adjacent": [
       {
-        "id": "human-in-the-loop",
-        "reviewed": false
+        "id": "human-in-the-loop"
       },
       {
-        "id": "conformal-prediction",
-        "reviewed": false
+        "id": "conformal-prediction"
       }
     ]
   },

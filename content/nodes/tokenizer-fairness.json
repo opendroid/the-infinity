@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "tokenization",
-        "reviewed": false
+        "id": "tokenization"
       },
       {
-        "id": "byte-pair-encoding",
-        "reviewed": false
+        "id": "byte-pair-encoding"
       }
     ],
     "adjacent": [
       {
-        "id": "context-window",
-        "reviewed": false
+        "id": "context-window"
       },
       {
-        "id": "fairness-criteria",
-        "reviewed": false
+        "id": "fairness-criteria"
       }
     ]
   },

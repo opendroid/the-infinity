@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "structured-output",
-        "reviewed": false
+        "id": "structured-output"
       }
     ],
     "adjacent": [
       {
-        "id": "conditional-random-field",
-        "reviewed": false
+        "id": "conditional-random-field"
       }
     ]
   },

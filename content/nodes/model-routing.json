@@ -34,14 +34,12 @@
   "edges": {
     "requires": [
       {
-        "id": "adaptive-computation",
-        "reviewed": false
+        "id": "adaptive-computation"
       }
     ],
     "adjacent": [
       {
-        "id": "tail-latency",
-        "reviewed": false
+        "id": "tail-latency"
       }
     ]
   },

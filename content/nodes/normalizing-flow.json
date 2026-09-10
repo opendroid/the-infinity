@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "variational-autoencoder",
-        "reviewed": false
+        "id": "variational-autoencoder"
       }
     ],
     "adjacent": [
       {
-        "id": "evidence-lower-bound",
-        "reviewed": false
+        "id": "evidence-lower-bound"
       },
       {
-        "id": "flow-matching",
-        "reviewed": false
+        "id": "flow-matching"
       }
     ]
   },

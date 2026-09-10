@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "pretraining",
-        "reviewed": false
+        "id": "pretraining"
       }
     ],
     "adjacent": [
       {
-        "id": "loss-spike",
-        "reviewed": false
+        "id": "loss-spike"
       }
     ]
   },

@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "clip",
-        "reviewed": false
+        "id": "clip"
       },
       {
-        "id": "cross-attention",
-        "reviewed": false
+        "id": "cross-attention"
       }
     ],
     "adjacent": []

@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "cross-validation",
-        "reviewed": false
+        "id": "cross-validation"
       }
     ],
     "adjacent": [
       {
-        "id": "statistical-significance",
-        "reviewed": false
+        "id": "statistical-significance"
       }
     ]
   },

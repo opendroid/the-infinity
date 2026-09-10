@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "jailbreak",
-        "reviewed": false
+        "id": "jailbreak"
       }
     ],
     "adjacent": [
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       },
       {
-        "id": "benchmark-contamination",
-        "reviewed": false
+        "id": "benchmark-contamination"
       }
     ]
   },

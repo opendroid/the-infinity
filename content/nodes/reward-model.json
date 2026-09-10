@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "fine-tuning",
-        "reviewed": false
+        "id": "fine-tuning"
       },
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       }
     ],
     "adjacent": []

@@ -34,14 +34,12 @@
   "edges": {
     "requires": [
       {
-        "id": "momentum",
-        "reviewed": false
+        "id": "momentum"
       }
     ],
     "adjacent": [
       {
-        "id": "adamw",
-        "reviewed": false
+        "id": "adamw"
       }
     ]
   },

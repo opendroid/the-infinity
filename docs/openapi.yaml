@@ -98,9 +98,9 @@ paths:
                   caption_engineer: 'Same primitive, engineer depth: per-expert utilisation…'
                 edges:
                   requires:
-                    - { id: feed-forward-network, title: Feed-Forward Network, tier: verified, reviewed: true }
+                    - { id: feed-forward-network, title: Feed-Forward Network, tier: verified }
                   unlocks:
-                    - { id: expert-parallelism, title: Expert Parallelism, tier: frontier, reviewed: false }
+                    - { id: expert-parallelism, title: Expert Parallelism, tier: frontier }
                   adjacent: []
                 citations:
                   - ref: arXiv:1701.06538
@@ -144,8 +144,9 @@ paths:
         surface.
 
         Coordinates are computed at publish time in a 240×132 viewBox — deterministic
-        placement by edge type, no client-side layout, so the map never jitters. Unreviewed
-        links are drawn dashed.
+        placement by edge type, no client-side layout, so the map never jitters. Every link
+        is drawn the same way; the dashed/solid distinction went with `reviewed` in
+        ADR-0022.
 
         On failure nothing happens: the map is rendered at build time from the same
         derivation, and this call only refreshes it. A dead API costs the reader nothing
@@ -167,8 +168,8 @@ paths:
                   - { id: feed-forward-network, title: Feed-Forward Network, tier: verified, x: 40, y: 44 }
                   - { id: expert-parallelism, title: Expert Parallelism, tier: frontier, x: 200, y: 66 }
                 links:
-                  - { from: feed-forward-network, to: mixture-of-experts, type: requires, reviewed: true }
-                  - { from: mixture-of-experts, to: expert-parallelism, type: unlocks, reviewed: false }
+                  - { from: feed-forward-network, to: mixture-of-experts, type: requires }
+                  - { from: mixture-of-experts, to: expert-parallelism, type: unlocks }
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
@@ -455,17 +456,11 @@ components:
         Denormalized so an edge row renders without extra reads. This is a response shape
         only — node JSON stores ids alone, or renaming a concept would edit every file that
         references it.
-      required: [id, title, tier, reviewed]
+      required: [id, title, tier]
       properties:
         id: { type: string }
         title: { type: string }
         tier: { $ref: '#/components/schemas/Tier' }
-        reviewed:
-          type: boolean
-          description: |
-            Has a human confirmed this relationship? Authored per edge, not derived from the
-            target's tier — the case that matters is an unchecked claim between two verified
-            concepts, which deriving would erase. Drawn dashed in the mini-map when false.
 
     Concept:
       type: object
@@ -659,12 +654,11 @@ components:
           type: array
           items:
             type: object
-            required: [from, to, type, reviewed]
+            required: [from, to, type]
             properties:
               from: { type: string }
               to: { type: string }
               type: { $ref: '#/components/schemas/EdgeType' }
-              reviewed: { type: boolean }
 
     MiniMapNode:
       type: object

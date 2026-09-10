@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "causal-masking",
-        "reviewed": false
+        "id": "causal-masking"
       }
     ],
     "adjacent": [
       {
-        "id": "repository-context",
-        "reviewed": false
+        "id": "repository-context"
       }
     ]
   },

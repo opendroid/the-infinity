@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "perplexity",
-        "reviewed": false
+        "id": "perplexity"
       }
     ],
     "adjacent": [
       {
-        "id": "word-embedding",
-        "reviewed": false
+        "id": "word-embedding"
       },
       {
-        "id": "tokenization",
-        "reviewed": false
+        "id": "tokenization"
       }
     ]
   },

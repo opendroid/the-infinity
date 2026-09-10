@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "autotuning",
-        "reviewed": false
+        "id": "autotuning"
       },
       {
-        "id": "shape-specialization",
-        "reviewed": false
+        "id": "shape-specialization"
       }
     ],
     "adjacent": [
       {
-        "id": "continuous-batching",
-        "reviewed": false
+        "id": "continuous-batching"
       }
     ]
   },

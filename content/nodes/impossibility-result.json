@@ -34,14 +34,12 @@
   "edges": {
     "requires": [
       {
-        "id": "fairness-criteria",
-        "reviewed": false
+        "id": "fairness-criteria"
       }
     ],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ]
   },

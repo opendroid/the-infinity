@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "nucleus-sampling",
-        "reviewed": false
+        "id": "nucleus-sampling"
       }
     ],
     "adjacent": [
       {
-        "id": "synthetic-data",
-        "reviewed": false
+        "id": "synthetic-data"
       },
       {
-        "id": "data-provenance",
-        "reviewed": false
+        "id": "data-provenance"
       }
     ]
   },

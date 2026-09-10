@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "gpu-memory-hierarchy",
-        "reviewed": false
+        "id": "gpu-memory-hierarchy"
       },
       {
-        "id": "flops",
-        "reviewed": false
+        "id": "flops"
       }
     ],
     "adjacent": [
       {
-        "id": "prefill-and-decode",
-        "reviewed": false
+        "id": "prefill-and-decode"
       },
       {
-        "id": "quantization",
-        "reviewed": false
+        "id": "quantization"
       }
     ]
   },

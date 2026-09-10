@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "proximal-policy-optimization",
-        "reviewed": false
+        "id": "proximal-policy-optimization"
       }
     ],
     "adjacent": [
       {
-        "id": "process-supervision",
-        "reviewed": false
+        "id": "process-supervision"
       },
       {
-        "id": "execution-verification",
-        "reviewed": false
+        "id": "execution-verification"
       }
     ]
   },

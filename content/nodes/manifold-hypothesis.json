@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "k-nearest-neighbors",
-        "reviewed": false
+        "id": "k-nearest-neighbors"
       }
     ]
   },

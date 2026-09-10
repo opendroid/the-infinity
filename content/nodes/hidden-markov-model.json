@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "markov-decision-process",
-        "reviewed": false
+        "id": "markov-decision-process"
       }
     ],
     "adjacent": [
       {
-        "id": "connectionist-temporal-classification",
-        "reviewed": false
+        "id": "connectionist-temporal-classification"
       },
       {
-        "id": "recurrent-neural-network",
-        "reviewed": false
+        "id": "recurrent-neural-network"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "tool-schema",
-        "reviewed": false
+        "id": "tool-schema"
       }
     ],
     "adjacent": [
       {
-        "id": "react",
-        "reviewed": false
+        "id": "react"
       },
       {
-        "id": "agent-memory",
-        "reviewed": false
+        "id": "agent-memory"
       }
     ]
   },

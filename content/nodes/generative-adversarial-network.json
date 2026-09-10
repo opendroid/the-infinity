@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "variational-autoencoder",
-        "reviewed": false
+        "id": "variational-autoencoder"
       }
     ],
     "adjacent": [
       {
-        "id": "text-to-speech",
-        "reviewed": false
+        "id": "text-to-speech"
       }
     ]
   },

@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "dense-retrieval",
-        "reviewed": false
+        "id": "dense-retrieval"
       }
     ],
     "adjacent": [
       {
-        "id": "sparse-retrieval",
-        "reviewed": false
+        "id": "sparse-retrieval"
       }
     ]
   },

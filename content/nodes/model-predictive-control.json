@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "model-based-rl",
-        "reviewed": false
+        "id": "model-based-rl"
       }
     ],
     "adjacent": [
       {
-        "id": "speculative-decoding",
-        "reviewed": false
+        "id": "speculative-decoding"
       }
     ]
   },

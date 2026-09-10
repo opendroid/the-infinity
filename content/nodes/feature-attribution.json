@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "backpropagation",
-        "reviewed": false
+        "id": "backpropagation"
       }
     ],
     "adjacent": [
       {
-        "id": "mechanistic-interpretability",
-        "reviewed": false
+        "id": "mechanistic-interpretability"
       }
     ]
   },

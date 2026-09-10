@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-landscape",
-        "reviewed": false
+        "id": "loss-landscape"
       }
     ],
     "adjacent": [
       {
-        "id": "batch-size",
-        "reviewed": false
+        "id": "batch-size"
       },
       {
-        "id": "weight-decay",
-        "reviewed": false
+        "id": "weight-decay"
       }
     ]
   },

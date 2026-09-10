@@ -20,10 +20,16 @@ export type Depth = 'intuition' | 'engineer' | 'math';
 export type Tier = 'verified' | 'frontier';
 export type EdgeType = 'requires' | 'unlocks' | 'adjacent';
 
-/** An edge as authored: a target id plus whether a human checked the claim. */
+/**
+ * An edge as authored: a target id, and nothing else.
+ *
+ * It carried a `reviewed` boolean until ADR-0022. That field recorded an
+ * independent human judgment about the relationship — and no workflow ever made
+ * one, so it read `false` on 1,154 of 1,157 edges and the mini-map dashed
+ * nearly every line on every page.
+ */
 export interface AuthoredEdge {
   id: string;
-  reviewed: boolean;
 }
 
 export interface Citation {
@@ -101,7 +107,6 @@ export interface ResolvedEdge {
   id: string;
   title: string;
   tier: Tier;
-  reviewed: boolean;
 }
 
 export interface ResolvedNode extends Omit<AuthoredNode, 'edges'> {
@@ -130,7 +135,6 @@ export interface MiniMapLink {
   from: string;
   to: string;
   type: EdgeType;
-  reviewed: boolean;
 }
 
 export interface Neighborhood {
@@ -158,7 +162,7 @@ export function resolveGraph(authored: AuthoredNode[]): Map<string, ResolvedNode
     if (!node) {
       throw new Error(`node "${from}" has an edge to "${edge.id}", which does not exist`);
     }
-    return { id: node.id, title: node.title, tier: tierOf(node), reviewed: edge.reviewed };
+    return { id: node.id, title: node.title, tier: tierOf(node) };
   };
 
   // Seed every node with its authored edges, then fill the derived ones.
@@ -172,38 +176,28 @@ export function resolveGraph(authored: AuthoredNode[]): Map<string, ResolvedNode
     });
   }
 
-  // Merges rather than first-wins: when the two sides of an adjacency disagree
-  // about `reviewed`, first-wins would resolve on slug order and half the time
-  // publish an explicitly unchecked claim as a verified one. An unreviewed
-  // assertion from either side has to survive.
+  // First arrival wins, and nothing is merged into it. This used to AND the two
+  // sides' `reviewed` flags, because an adjacency declared from both sides could
+  // disagree and first-wins would have resolved that on slug order. ADR-0022
+  // removed the field, so the two sides can no longer disagree about anything —
+  // a resolved edge is now the target's id, title and tier, all of which come
+  // from the target rather than from whoever declared the edge.
   const push = (nodeId: string, type: EdgeType, edge: ResolvedEdge) => {
     const group = out.get(nodeId)?.edges[type];
     if (!group) return;
-    const existing = group.find((e) => e.id === edge.id);
-    if (existing) existing.reviewed = existing.reviewed && edge.reviewed;
-    else group.push(edge);
+    if (!group.some((e) => e.id === edge.id)) group.push(edge);
   };
 
   for (const node of authored) {
     for (const edge of node.edges.requires) {
       push(node.id, 'requires', target(node.id, edge));
       // The inverse: if A requires B, then B unlocks A. Authored once.
-      push(edge.id, 'unlocks', {
-        id: node.id,
-        title: node.title,
-        tier: tierOf(node),
-        reviewed: edge.reviewed,
-      });
+      push(edge.id, 'unlocks', { id: node.id, title: node.title, tier: tierOf(node) });
     }
     for (const edge of node.edges.adjacent) {
       push(node.id, 'adjacent', target(node.id, edge));
       // Adjacency is symmetric — declare it from either side.
-      push(edge.id, 'adjacent', {
-        id: node.id,
-        title: node.title,
-        tier: tierOf(node),
-        reviewed: edge.reviewed,
-      });
+      push(edge.id, 'adjacent', { id: node.id, title: node.title, tier: tierOf(node) });
     }
   }
 
@@ -298,7 +292,6 @@ export function neighborhood(graph: Map<string, ResolvedNode>, id: string): Neig
         from: inbound ? edge.id : node.id,
         to: inbound ? node.id : edge.id,
         type,
-        reviewed: edge.reviewed,
       });
     }
   }

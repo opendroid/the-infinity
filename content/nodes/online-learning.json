@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "continual-learning",
-        "reviewed": false
+        "id": "continual-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "distribution-shift",
-        "reviewed": false
+        "id": "distribution-shift"
       },
       {
-        "id": "feedback-loop",
-        "reviewed": false
+        "id": "feedback-loop"
       }
     ]
   },

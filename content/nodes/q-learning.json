@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "temporal-difference-learning",
-        "reviewed": false
+        "id": "temporal-difference-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "exploration-exploitation",
-        "reviewed": false
+        "id": "exploration-exploitation"
       }
     ]
   },

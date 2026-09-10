@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "generative-adversarial-network",
-        "reviewed": false
+        "id": "generative-adversarial-network"
       }
     ],
     "adjacent": [
       {
-        "id": "nucleus-sampling",
-        "reviewed": false
+        "id": "nucleus-sampling"
       }
     ]
   },

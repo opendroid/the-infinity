@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "lora",
-        "reviewed": false
+        "id": "lora"
       },
       {
-        "id": "quantization",
-        "reviewed": false
+        "id": "quantization"
       }
     ],
     "adjacent": []

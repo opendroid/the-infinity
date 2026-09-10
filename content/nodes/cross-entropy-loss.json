@@ -32,12 +32,10 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-function",
-        "reviewed": false
+        "id": "loss-function"
       },
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       }
     ],
     "adjacent": []

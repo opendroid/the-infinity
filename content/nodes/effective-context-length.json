@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "lost-in-the-middle",
-        "reviewed": false
+        "id": "lost-in-the-middle"
       }
     ],
     "adjacent": [
       {
-        "id": "context-window",
-        "reviewed": false
+        "id": "context-window"
       }
     ]
   },

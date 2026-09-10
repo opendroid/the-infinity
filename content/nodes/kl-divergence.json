@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "entropy",
-        "reviewed": false
+        "id": "entropy"
       }
     ],
     "adjacent": [
       {
-        "id": "rlhf",
-        "reviewed": false
+        "id": "rlhf"
       },
       {
-        "id": "variational-autoencoder",
-        "reviewed": false
+        "id": "variational-autoencoder"
       }
     ]
   },

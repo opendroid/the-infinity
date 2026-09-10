@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "structured-sparsity",
-        "reviewed": false
+        "id": "structured-sparsity"
       }
     ],
     "adjacent": [
       {
-        "id": "pruning",
-        "reviewed": false
+        "id": "pruning"
       },
       {
-        "id": "tensor-core",
-        "reviewed": false
+        "id": "tensor-core"
       }
     ]
   },

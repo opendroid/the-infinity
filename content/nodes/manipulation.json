@@ -36,14 +36,12 @@
   "edges": {
     "requires": [
       {
-        "id": "imitation-learning",
-        "reviewed": false
+        "id": "imitation-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "shortcut-learning",
-        "reviewed": false
+        "id": "shortcut-learning"
       }
     ]
   },

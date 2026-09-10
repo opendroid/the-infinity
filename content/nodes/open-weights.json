@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "foundation-model",
-        "reviewed": false
+        "id": "foundation-model"
       }
     ],
     "adjacent": [
       {
-        "id": "training-data-licensing",
-        "reviewed": false
+        "id": "training-data-licensing"
       },
       {
-        "id": "dangerous-capability-evaluation",
-        "reviewed": false
+        "id": "dangerous-capability-evaluation"
       }
     ]
   },

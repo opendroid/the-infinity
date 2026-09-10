@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "modality-fusion",
-        "reviewed": false
+        "id": "modality-fusion"
       }
     ],
     "adjacent": [
       {
-        "id": "shortcut-learning",
-        "reviewed": false
+        "id": "shortcut-learning"
       },
       {
-        "id": "audio-visual-learning",
-        "reviewed": false
+        "id": "audio-visual-learning"
       }
     ]
   },

@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "bellman-equation",
-        "reviewed": false
+        "id": "bellman-equation"
       }
     ],
     "adjacent": [
       {
-        "id": "process-supervision",
-        "reviewed": false
+        "id": "process-supervision"
       }
     ]
   },

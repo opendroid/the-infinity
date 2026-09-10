@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "shortcut-learning",
-        "reviewed": false
+        "id": "shortcut-learning"
       }
     ]
   },

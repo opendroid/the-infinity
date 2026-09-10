@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ],
     "adjacent": [
       {
-        "id": "constitutional-ai",
-        "reviewed": false
+        "id": "constitutional-ai"
       },
       {
-        "id": "refusal",
-        "reviewed": false
+        "id": "refusal"
       }
     ]
   },

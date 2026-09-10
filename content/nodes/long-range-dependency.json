@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "state-space-model",
-        "reviewed": false
+        "id": "state-space-model"
       }
     ],
     "adjacent": [
       {
-        "id": "context-window",
-        "reviewed": false
+        "id": "context-window"
       },
       {
-        "id": "flash-attention",
-        "reviewed": false
+        "id": "flash-attention"
       }
     ]
   },

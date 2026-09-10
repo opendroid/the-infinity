@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "world-model",
-        "reviewed": false
+        "id": "world-model"
       },
       {
-        "id": "value-function",
-        "reviewed": false
+        "id": "value-function"
       }
     ],
     "adjacent": [
       {
-        "id": "temporal-difference-learning",
-        "reviewed": false
+        "id": "temporal-difference-learning"
       }
     ]
   },

@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "momentum",
-        "reviewed": false
+        "id": "momentum"
       }
     ],
     "adjacent": []

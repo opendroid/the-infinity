@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "automatic-speech-recognition",
-        "reviewed": false
+        "id": "automatic-speech-recognition"
       }
     ],
     "adjacent": [
       {
-        "id": "causal-masking",
-        "reviewed": false
+        "id": "causal-masking"
       }
     ]
   },

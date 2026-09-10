@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "self-supervised-learning",
-        "reviewed": false
+        "id": "self-supervised-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "active-learning",
-        "reviewed": false
+        "id": "active-learning"
       },
       {
-        "id": "data-augmentation",
-        "reviewed": false
+        "id": "data-augmentation"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "data-filtering",
-        "reviewed": false
+        "id": "data-filtering"
       },
       {
-        "id": "knowledge-distillation",
-        "reviewed": false
+        "id": "knowledge-distillation"
       }
     ],
     "adjacent": [
       {
-        "id": "mode-collapse",
-        "reviewed": false
+        "id": "mode-collapse"
       }
     ]
   },

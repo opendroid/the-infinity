@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "gradient-clipping",
-        "reviewed": false
+        "id": "gradient-clipping"
       }
     ],
     "adjacent": [
       {
-        "id": "warmup",
-        "reviewed": false
+        "id": "warmup"
       },
       {
-        "id": "checkpointing-strategy",
-        "reviewed": false
+        "id": "checkpointing-strategy"
       }
     ]
   },

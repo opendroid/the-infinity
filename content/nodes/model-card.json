@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "data-provenance",
-        "reviewed": false
+        "id": "data-provenance"
       }
     ],
     "adjacent": [
       {
-        "id": "safety-benchmark-validity",
-        "reviewed": false
+        "id": "safety-benchmark-validity"
       },
       {
-        "id": "open-weights",
-        "reviewed": false
+        "id": "open-weights"
       }
     ]
   },

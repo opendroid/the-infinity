@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "shortcut-learning",
-        "reviewed": false
+        "id": "shortcut-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "loss-function",
-        "reviewed": false
+        "id": "loss-function"
       },
       {
-        "id": "confounding",
-        "reviewed": false
+        "id": "confounding"
       }
     ]
   },

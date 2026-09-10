@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "batch-size",
-        "reviewed": false
+        "id": "batch-size"
       }
     ],
     "adjacent": [
       {
-        "id": "data-parallelism",
-        "reviewed": false
+        "id": "data-parallelism"
       }
     ]
   },

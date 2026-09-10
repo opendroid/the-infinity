@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "offline-online-gap",
-        "reviewed": false
+        "id": "offline-online-gap"
       }
     ],
     "adjacent": [
       {
-        "id": "canary-rollout",
-        "reviewed": false
+        "id": "canary-rollout"
       },
       {
-        "id": "feedback-loop",
-        "reviewed": false
+        "id": "feedback-loop"
       }
     ]
   },

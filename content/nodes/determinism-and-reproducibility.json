@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "mixed-precision-training",
-        "reviewed": false
+        "id": "mixed-precision-training"
       }
     ],
     "adjacent": [
       {
-        "id": "training-observability",
-        "reviewed": false
+        "id": "training-observability"
       }
     ]
   },

@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "tokenization",
-        "reviewed": false
+        "id": "tokenization"
       }
     ],
     "adjacent": []

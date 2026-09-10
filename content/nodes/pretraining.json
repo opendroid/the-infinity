@@ -34,12 +34,10 @@
   "edges": {
     "requires": [
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       },
       {
-        "id": "decoder-only-transformer",
-        "reviewed": false
+        "id": "decoder-only-transformer"
       }
     ],
     "adjacent": []

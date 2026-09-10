@@ -34,8 +34,7 @@
   "edges": {
     "requires": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ],
     "adjacent": []

@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "constrained-decoding",
-        "reviewed": false
+        "id": "constrained-decoding"
       }
     ],
     "adjacent": [
       {
-        "id": "function-calling",
-        "reviewed": false
+        "id": "function-calling"
       }
     ]
   },

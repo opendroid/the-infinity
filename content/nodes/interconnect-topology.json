@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "collective-communication",
-        "reviewed": false
+        "id": "collective-communication"
       }
     ],
     "adjacent": [
       {
-        "id": "tensor-parallelism",
-        "reviewed": false
+        "id": "tensor-parallelism"
       },
       {
-        "id": "pipeline-parallelism",
-        "reviewed": false
+        "id": "pipeline-parallelism"
       }
     ]
   },

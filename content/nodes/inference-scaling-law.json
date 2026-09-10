@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "compute-optimal-training",
-        "reviewed": false
+        "id": "compute-optimal-training"
       }
     ],
     "adjacent": [
       {
-        "id": "test-time-compute",
-        "reviewed": false
+        "id": "test-time-compute"
       }
     ]
   },

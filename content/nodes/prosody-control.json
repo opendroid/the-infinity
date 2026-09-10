@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "text-to-speech",
-        "reviewed": false
+        "id": "text-to-speech"
       }
     ],
     "adjacent": [
       {
-        "id": "classifier-free-guidance",
-        "reviewed": false
+        "id": "classifier-free-guidance"
       },
       {
-        "id": "synthesis-evaluation",
-        "reviewed": false
+        "id": "synthesis-evaluation"
       }
     ]
   },

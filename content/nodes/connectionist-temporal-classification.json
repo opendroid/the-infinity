@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "spectrogram",
-        "reviewed": false
+        "id": "spectrogram"
       },
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       }
     ],
     "adjacent": [
       {
-        "id": "automatic-speech-recognition",
-        "reviewed": false
+        "id": "automatic-speech-recognition"
       }
     ]
   },

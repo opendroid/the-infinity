@@ -33,16 +33,13 @@
   "edges": {
     "requires": [
       {
-        "id": "instruction-tuning",
-        "reviewed": false
+        "id": "instruction-tuning"
       },
       {
-        "id": "reward-model",
-        "reviewed": false
+        "id": "reward-model"
       },
       {
-        "id": "proximal-policy-optimization",
-        "reviewed": false
+        "id": "proximal-policy-optimization"
       }
     ],
     "adjacent": []

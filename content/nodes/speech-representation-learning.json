@@ -33,26 +33,21 @@
   "edges": {
     "requires": [
       {
-        "id": "self-supervised-learning",
-        "reviewed": false
+        "id": "self-supervised-learning"
       },
       {
-        "id": "spectrogram",
-        "reviewed": false
+        "id": "spectrogram"
       }
     ],
     "adjacent": [
       {
-        "id": "masked-language-modeling",
-        "reviewed": false
+        "id": "masked-language-modeling"
       },
       {
-        "id": "contrastive-learning",
-        "reviewed": false
+        "id": "contrastive-learning"
       },
       {
-        "id": "vector-quantization",
-        "reviewed": false
+        "id": "vector-quantization"
       }
     ]
   },

@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "mutual-information",
-        "reviewed": false
+        "id": "mutual-information"
       },
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       }
     ],
     "adjacent": [
       {
-        "id": "contrastive-learning",
-        "reviewed": false
+        "id": "contrastive-learning"
       },
       {
-        "id": "speech-representation-learning",
-        "reviewed": false
+        "id": "speech-representation-learning"
       }
     ]
   },

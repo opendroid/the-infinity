@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "graph-capture",
-        "reviewed": false
+        "id": "graph-capture"
       },
       {
-        "id": "gpu-memory-hierarchy",
-        "reviewed": false
+        "id": "gpu-memory-hierarchy"
       }
     ],
     "adjacent": [
       {
-        "id": "activation-checkpointing",
-        "reviewed": false
+        "id": "activation-checkpointing"
       },
       {
-        "id": "paged-attention",
-        "reviewed": false
+        "id": "paged-attention"
       }
     ]
   },

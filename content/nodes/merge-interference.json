@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "task-arithmetic",
-        "reviewed": false
+        "id": "task-arithmetic"
       }
     ],
     "adjacent": [
       {
-        "id": "model-soup",
-        "reviewed": false
+        "id": "model-soup"
       }
     ]
   },

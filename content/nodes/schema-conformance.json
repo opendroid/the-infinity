@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "grammar-constrained-decoding",
-        "reviewed": false
+        "id": "grammar-constrained-decoding"
       }
     ],
     "adjacent": [
       {
-        "id": "tool-schema",
-        "reviewed": false
+        "id": "tool-schema"
       }
     ]
   },

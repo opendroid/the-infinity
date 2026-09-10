@@ -35,14 +35,12 @@
   "edges": {
     "requires": [
       {
-        "id": "shadow-deployment",
-        "reviewed": false
+        "id": "shadow-deployment"
       }
     ],
     "adjacent": [
       {
-        "id": "rollback",
-        "reviewed": false
+        "id": "rollback"
       }
     ]
   },

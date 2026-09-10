@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "arithmetic-intensity",
-        "reviewed": false
+        "id": "arithmetic-intensity"
       }
     ],
     "adjacent": [
       {
-        "id": "straggler",
-        "reviewed": false
+        "id": "straggler"
       },
       {
-        "id": "interconnect-topology",
-        "reviewed": false
+        "id": "interconnect-topology"
       }
     ]
   },

@@ -34,14 +34,12 @@
   "edges": {
     "requires": [
       {
-        "id": "self-supervised-learning",
-        "reviewed": false
+        "id": "self-supervised-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "decoder-only-transformer",
-        "reviewed": false
+        "id": "decoder-only-transformer"
       }
     ]
   },

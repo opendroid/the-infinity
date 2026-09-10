@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "prefill-and-decode",
-        "reviewed": false
+        "id": "prefill-and-decode"
       }
     ],
     "adjacent": [
       {
-        "id": "interconnect-topology",
-        "reviewed": false
+        "id": "interconnect-topology"
       },
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       }
     ]
   },

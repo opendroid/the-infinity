@@ -36,18 +36,15 @@
   "edges": {
     "requires": [
       {
-        "id": "quantization",
-        "reviewed": false
+        "id": "quantization"
       },
       {
-        "id": "post-training-quantization",
-        "reviewed": false
+        "id": "post-training-quantization"
       }
     ],
     "adjacent": [
       {
-        "id": "mixed-precision-training",
-        "reviewed": false
+        "id": "mixed-precision-training"
       }
     ]
   },

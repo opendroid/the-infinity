@@ -35,18 +35,15 @@
   "edges": {
     "requires": [
       {
-        "id": "message-passing",
-        "reviewed": false
+        "id": "message-passing"
       }
     ],
     "adjacent": [
       {
-        "id": "batch-size",
-        "reviewed": false
+        "id": "batch-size"
       },
       {
-        "id": "stochastic-gradient-descent",
-        "reviewed": false
+        "id": "stochastic-gradient-descent"
       }
     ]
   },

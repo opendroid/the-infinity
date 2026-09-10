@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "k-nearest-neighbors",
-        "reviewed": false
+        "id": "k-nearest-neighbors"
       },
       {
-        "id": "meta-learning",
-        "reviewed": false
+        "id": "meta-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "in-context-learning",
-        "reviewed": false
+        "id": "in-context-learning"
       },
       {
-        "id": "contrastive-learning",
-        "reviewed": false
+        "id": "contrastive-learning"
       }
     ]
   },

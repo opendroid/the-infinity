@@ -32,8 +32,7 @@
   "edges": {
     "requires": [
       {
-        "id": "markov-decision-process",
-        "reviewed": false
+        "id": "markov-decision-process"
       }
     ],
     "adjacent": []

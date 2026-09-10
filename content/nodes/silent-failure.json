@@ -34,14 +34,12 @@
   "edges": {
     "requires": [
       {
-        "id": "production-monitoring",
-        "reviewed": false
+        "id": "production-monitoring"
       }
     ],
     "adjacent": [
       {
-        "id": "shortcut-learning",
-        "reviewed": false
+        "id": "shortcut-learning"
       }
     ]
   },

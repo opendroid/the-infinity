@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       }
     ],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       },
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       }
     ]
   },

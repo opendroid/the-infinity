@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "react",
-        "reviewed": false
+        "id": "react"
       }
     ],
     "adjacent": [
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       }
     ]
   },

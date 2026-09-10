@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "reward-hacking",
-        "reviewed": false
+        "id": "reward-hacking"
       }
     ],
     "adjacent": [
       {
-        "id": "sycophancy",
-        "reviewed": false
+        "id": "sycophancy"
       }
     ]
   },

@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "q-learning",
-        "reviewed": false
+        "id": "q-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "shortcut-learning",
-        "reviewed": false
+        "id": "shortcut-learning"
       }
     ]
   },

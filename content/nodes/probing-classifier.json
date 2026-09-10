@@ -36,18 +36,15 @@
   "edges": {
     "requires": [
       {
-        "id": "logistic-regression",
-        "reviewed": false
+        "id": "logistic-regression"
       }
     ],
     "adjacent": [
       {
-        "id": "mechanistic-interpretability",
-        "reviewed": false
+        "id": "mechanistic-interpretability"
       },
       {
-        "id": "superposition",
-        "reviewed": false
+        "id": "superposition"
       }
     ]
   },

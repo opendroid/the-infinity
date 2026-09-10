@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "logical-constraint",
-        "reviewed": false
+        "id": "logical-constraint"
       }
     ],
     "adjacent": [
       {
-        "id": "mechanistic-interpretability",
-        "reviewed": false
+        "id": "mechanistic-interpretability"
       },
       {
-        "id": "knowledge-graph",
-        "reviewed": false
+        "id": "knowledge-graph"
       }
     ]
   },

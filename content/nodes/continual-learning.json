@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "catastrophic-forgetting",
-        "reviewed": false
+        "id": "catastrophic-forgetting"
       }
     ],
     "adjacent": [
       {
-        "id": "meta-learning",
-        "reviewed": false
+        "id": "meta-learning"
       }
     ]
   },

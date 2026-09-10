@@ -36,12 +36,10 @@
   "edges": {
     "requires": [
       {
-        "id": "feed-forward-network",
-        "reviewed": true
+        "id": "feed-forward-network"
       },
       {
-        "id": "conditional-computation",
-        "reviewed": true
+        "id": "conditional-computation"
       }
     ],
     "adjacent": []

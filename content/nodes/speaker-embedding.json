@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "contrastive-learning",
-        "reviewed": false
+        "id": "contrastive-learning"
       },
       {
-        "id": "speech-representation-learning",
-        "reviewed": false
+        "id": "speech-representation-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "membership-inference",
-        "reviewed": false
+        "id": "membership-inference"
       }
     ]
   },

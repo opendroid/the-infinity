@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "data-mixing",
-        "reviewed": false
+        "id": "data-mixing"
       },
       {
-        "id": "multilingual-model",
-        "reviewed": false
+        "id": "multilingual-model"
       }
     ],
     "adjacent": [
       {
-        "id": "data-scaling-laws",
-        "reviewed": false
+        "id": "data-scaling-laws"
       },
       {
-        "id": "deduplication",
-        "reviewed": false
+        "id": "deduplication"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "layer-normalization",
-        "reviewed": false
+        "id": "layer-normalization"
       }
     ],
     "adjacent": [
       {
-        "id": "transformer-block",
-        "reviewed": false
+        "id": "transformer-block"
       },
       {
-        "id": "numerical-stability",
-        "reviewed": false
+        "id": "numerical-stability"
       }
     ]
   },

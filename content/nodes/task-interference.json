@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "continual-learning",
-        "reviewed": false
+        "id": "continual-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "mixture-of-experts",
-        "reviewed": false
+        "id": "mixture-of-experts"
       },
       {
-        "id": "lora",
-        "reviewed": false
+        "id": "lora"
       }
     ]
   },

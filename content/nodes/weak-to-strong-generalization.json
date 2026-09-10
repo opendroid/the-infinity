@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "scalable-oversight",
-        "reviewed": false
+        "id": "scalable-oversight"
       }
     ],
     "adjacent": [
       {
-        "id": "knowledge-distillation",
-        "reviewed": false
+        "id": "knowledge-distillation"
       },
       {
-        "id": "rlhf",
-        "reviewed": false
+        "id": "rlhf"
       }
     ]
   },

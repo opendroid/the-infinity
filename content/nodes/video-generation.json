@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "latent-diffusion",
-        "reviewed": false
+        "id": "latent-diffusion"
       }
     ],
     "adjacent": [
       {
-        "id": "video-understanding",
-        "reviewed": false
+        "id": "video-understanding"
       },
       {
-        "id": "diffusion-model",
-        "reviewed": false
+        "id": "diffusion-model"
       }
     ]
   },

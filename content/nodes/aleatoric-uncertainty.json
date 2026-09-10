@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-function",
-        "reviewed": false
+        "id": "loss-function"
       }
     ],
     "adjacent": [
       {
-        "id": "epistemic-uncertainty",
-        "reviewed": false
+        "id": "epistemic-uncertainty"
       },
       {
-        "id": "annotation-quality",
-        "reviewed": false
+        "id": "annotation-quality"
       }
     ]
   },

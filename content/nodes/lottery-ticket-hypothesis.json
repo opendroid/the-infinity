@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "pruning",
-        "reviewed": false
+        "id": "pruning"
       }
     ],
     "adjacent": [
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       }
     ]
   },

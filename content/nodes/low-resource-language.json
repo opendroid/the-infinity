@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "language-imbalance",
-        "reviewed": false
+        "id": "language-imbalance"
       },
       {
-        "id": "data-filtering",
-        "reviewed": false
+        "id": "data-filtering"
       }
     ],
     "adjacent": [
       {
-        "id": "synthetic-data",
-        "reviewed": false
+        "id": "synthetic-data"
       },
       {
-        "id": "annotation-quality",
-        "reviewed": false
+        "id": "annotation-quality"
       }
     ]
   },

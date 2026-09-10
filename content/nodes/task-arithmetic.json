@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "model-merging",
-        "reviewed": false
+        "id": "model-merging"
       }
     ],
     "adjacent": [
       {
-        "id": "lora",
-        "reviewed": false
+        "id": "lora"
       }
     ]
   },

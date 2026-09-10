@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "manipulation",
-        "reviewed": false
+        "id": "manipulation"
       }
     ],
     "adjacent": [
       {
-        "id": "long-horizon-agent",
-        "reviewed": false
+        "id": "long-horizon-agent"
       },
       {
-        "id": "model-predictive-control",
-        "reviewed": false
+        "id": "model-predictive-control"
       }
     ]
   },

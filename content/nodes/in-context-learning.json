@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "pretraining",
-        "reviewed": false
+        "id": "pretraining"
       },
       {
-        "id": "context-window",
-        "reviewed": false
+        "id": "context-window"
       }
     ],
     "adjacent": []

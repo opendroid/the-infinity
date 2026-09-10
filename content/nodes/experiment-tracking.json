@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "determinism-and-reproducibility",
-        "reviewed": false
+        "id": "determinism-and-reproducibility"
       }
     ],
     "adjacent": [
       {
-        "id": "online-experiment",
-        "reviewed": false
+        "id": "online-experiment"
       },
       {
-        "id": "data-versioning",
-        "reviewed": false
+        "id": "data-versioning"
       }
     ]
   },

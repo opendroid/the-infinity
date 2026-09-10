@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "membership-inference",
-        "reviewed": false
+        "id": "membership-inference"
       },
       {
-        "id": "pretraining",
-        "reviewed": false
+        "id": "pretraining"
       }
     ],
     "adjacent": [
       {
-        "id": "prompt-injection",
-        "reviewed": false
+        "id": "prompt-injection"
       }
     ]
   },

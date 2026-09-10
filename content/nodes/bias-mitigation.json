@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "fairness-criteria",
-        "reviewed": false
+        "id": "fairness-criteria"
       }
     ],
     "adjacent": [
       {
-        "id": "representation-bias",
-        "reviewed": false
+        "id": "representation-bias"
       }
     ]
   },

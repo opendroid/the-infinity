@@ -35,16 +35,13 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       },
       {
-        "id": "selective-prediction",
-        "reviewed": false
+        "id": "selective-prediction"
       },
       {
-        "id": "statistical-significance",
-        "reviewed": false
+        "id": "statistical-significance"
       }
     ]
   },

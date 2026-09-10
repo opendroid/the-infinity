@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "trend-decomposition",
-        "reviewed": false
+        "id": "trend-decomposition"
       }
     ],
     "adjacent": [
       {
-        "id": "spectrogram",
-        "reviewed": false
+        "id": "spectrogram"
       }
     ]
   },

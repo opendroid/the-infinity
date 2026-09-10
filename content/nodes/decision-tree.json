@@ -34,12 +34,10 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       },
       {
-        "id": "feature-attribution",
-        "reviewed": false
+        "id": "feature-attribution"
       }
     ]
   },

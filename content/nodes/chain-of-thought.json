@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "in-context-learning",
-        "reviewed": false
+        "id": "in-context-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       }
     ]
   },

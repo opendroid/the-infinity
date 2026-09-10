@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "layer-normalization",
-        "reviewed": false
+        "id": "layer-normalization"
       }
     ]
   },

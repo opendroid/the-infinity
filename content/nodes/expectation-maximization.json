@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "bayesian-inference",
-        "reviewed": false
+        "id": "bayesian-inference"
       }
     ],
     "adjacent": [
       {
-        "id": "k-means-clustering",
-        "reviewed": false
+        "id": "k-means-clustering"
       },
       {
-        "id": "evidence-lower-bound",
-        "reviewed": false
+        "id": "evidence-lower-bound"
       }
     ]
   },

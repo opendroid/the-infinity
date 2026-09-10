@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "data-parallelism",
-        "reviewed": false
+        "id": "data-parallelism"
       }
     ],
     "adjacent": [
       {
-        "id": "job-scheduling",
-        "reviewed": false
+        "id": "job-scheduling"
       }
     ]
   },

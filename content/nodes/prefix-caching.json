@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       }
     ],
     "adjacent": [
       {
-        "id": "prefill-and-decode",
-        "reviewed": false
+        "id": "prefill-and-decode"
       },
       {
-        "id": "compilation-cache",
-        "reviewed": false
+        "id": "compilation-cache"
       }
     ]
   },

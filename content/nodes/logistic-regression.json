@@ -32,18 +32,15 @@
   "edges": {
     "requires": [
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       },
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       }
     ],
     "adjacent": [
       {
-        "id": "linear-regression",
-        "reviewed": false
+        "id": "linear-regression"
       }
     ]
   },

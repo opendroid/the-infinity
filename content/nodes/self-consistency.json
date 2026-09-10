@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "chain-of-thought",
-        "reviewed": false
+        "id": "chain-of-thought"
       }
     ],
     "adjacent": [
       {
-        "id": "test-time-compute",
-        "reviewed": false
+        "id": "test-time-compute"
       },
       {
-        "id": "verifier-model",
-        "reviewed": false
+        "id": "verifier-model"
       }
     ]
   },

@@ -22,12 +22,10 @@ import (
 	"github.com/opendroid/the-infinity/api/internal/store"
 )
 
-// AuthoredEdge is an edge as written: a target id and whether a human checked
-// the claim. Reviewed is authored per edge rather than derived from the target's
-// tier — the case that matters is an unchecked claim between two verified nodes.
+// AuthoredEdge is an edge as written: a target id, and nothing else since
+// ADR-0022 removed the per-edge Reviewed flag.
 type AuthoredEdge struct {
-	ID       string `json:"id"`
-	Reviewed bool   `json:"reviewed"`
+	ID string `json:"id"`
 }
 
 // AuthoredEdges holds only what a node may declare. `unlocks` is absent by

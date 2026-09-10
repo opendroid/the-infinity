@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "number-format",
-        "reviewed": false
+        "id": "number-format"
       }
     ],
     "adjacent": [
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       }
     ]
   },

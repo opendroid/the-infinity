@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "reward-model",
-        "reviewed": false
+        "id": "reward-model"
       }
     ],
     "adjacent": [
       {
-        "id": "rlhf",
-        "reviewed": false
+        "id": "rlhf"
       },
       {
-        "id": "sycophancy",
-        "reviewed": false
+        "id": "sycophancy"
       }
     ]
   },

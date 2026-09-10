@@ -34,16 +34,13 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "approximate-nearest-neighbor",
-        "reviewed": false
+        "id": "approximate-nearest-neighbor"
       },
       {
-        "id": "k-nearest-neighbors",
-        "reviewed": false
+        "id": "k-nearest-neighbors"
       },
       {
-        "id": "vector-quantization",
-        "reviewed": false
+        "id": "vector-quantization"
       }
     ]
   },

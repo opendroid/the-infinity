@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "data-mixing",
-        "reviewed": false
+        "id": "data-mixing"
       }
     ],
     "adjacent": [
       {
-        "id": "learning-rate-schedule",
-        "reviewed": false
+        "id": "learning-rate-schedule"
       },
       {
-        "id": "warmup",
-        "reviewed": false
+        "id": "warmup"
       }
     ]
   },

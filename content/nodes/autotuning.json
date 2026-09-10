@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "tiling",
-        "reviewed": false
+        "id": "tiling"
       }
     ],
     "adjacent": [
       {
-        "id": "monte-carlo-tree-search",
-        "reviewed": false
+        "id": "monte-carlo-tree-search"
       },
       {
-        "id": "exploration-exploitation",
-        "reviewed": false
+        "id": "exploration-exploitation"
       }
     ]
   },

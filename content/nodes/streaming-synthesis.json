@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "text-to-speech",
-        "reviewed": false
+        "id": "text-to-speech"
       }
     ],
     "adjacent": [
       {
-        "id": "streaming-asr",
-        "reviewed": false
+        "id": "streaming-asr"
       },
       {
-        "id": "prefill-and-decode",
-        "reviewed": false
+        "id": "prefill-and-decode"
       }
     ]
   },

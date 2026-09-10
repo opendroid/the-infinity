@@ -363,17 +363,12 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "id",
-          "reviewed"
+          "id"
         ],
         "properties": {
           "id": {
             "type": "string",
             "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
-          },
-          "reviewed": {
-            "type": "boolean",
-            "description": "Has a human confirmed this relationship? Authored, not derived \u2014 the case that matters is an unchecked claim between two verified nodes, which deriving from tier would erase."
           }
         }
       }

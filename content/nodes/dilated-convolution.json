@@ -35,22 +35,18 @@
   "edges": {
     "requires": [
       {
-        "id": "convolutional-network",
-        "reviewed": false
+        "id": "convolutional-network"
       },
       {
-        "id": "time-series-forecasting",
-        "reviewed": false
+        "id": "time-series-forecasting"
       }
     ],
     "adjacent": [
       {
-        "id": "causal-masking",
-        "reviewed": false
+        "id": "causal-masking"
       },
       {
-        "id": "text-to-speech",
-        "reviewed": false
+        "id": "text-to-speech"
       }
     ]
   },

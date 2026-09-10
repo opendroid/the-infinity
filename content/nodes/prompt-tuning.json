@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "fine-tuning",
-        "reviewed": false
+        "id": "fine-tuning"
       },
       {
-        "id": "token-embedding",
-        "reviewed": false
+        "id": "token-embedding"
       }
     ],
     "adjacent": [
       {
-        "id": "lora",
-        "reviewed": false
+        "id": "lora"
       }
     ]
   },

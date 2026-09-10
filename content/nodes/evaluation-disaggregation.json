@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "annotation-quality",
-        "reviewed": false
+        "id": "annotation-quality"
       }
     ],
     "adjacent": [
       {
-        "id": "bias-mitigation",
-        "reviewed": false
+        "id": "bias-mitigation"
       }
     ]
   },

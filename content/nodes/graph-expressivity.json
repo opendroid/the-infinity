@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "message-passing",
-        "reviewed": false
+        "id": "message-passing"
       }
     ],
     "adjacent": []

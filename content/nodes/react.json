@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "chain-of-thought",
-        "reviewed": false
+        "id": "chain-of-thought"
       },
       {
-        "id": "function-calling",
-        "reviewed": false
+        "id": "function-calling"
       }
     ],
     "adjacent": []

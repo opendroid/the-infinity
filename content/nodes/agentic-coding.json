@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "long-horizon-agent",
-        "reviewed": false
+        "id": "long-horizon-agent"
       }
     ],
     "adjacent": [
       {
-        "id": "agent-evaluation",
-        "reviewed": false
+        "id": "agent-evaluation"
       },
       {
-        "id": "execution-verification",
-        "reviewed": false
+        "id": "execution-verification"
       }
     ]
   },

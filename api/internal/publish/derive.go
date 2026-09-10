@@ -97,12 +97,12 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 	// push adds an edge, or merges it into the one already naming that target so
 	// adjacency declared from both sides lands once.
 	//
-	// The merge takes the AND of `reviewed`, not the first arrival. When the two
-	// sides disagree — `a → b` checked, `b → a` unchecked — first-wins would
-	// resolve on slug order, and half the time it would publish an explicitly
-	// unchecked claim as a verified one: solid line, no dashed legend, nothing
-	// to tell a reader the relationship was never confirmed. An unreviewed
-	// assertion from either side has to survive.
+	// First arrival wins and nothing merges into it. This used to AND the two
+	// sides' `reviewed` flags, because an adjacency declared from both sides
+	// could disagree and first-wins would have settled that on slug order.
+	// ADR-0022 removed the field, so the two sides can no longer disagree: an
+	// edge is the target's id, title and tier, all read from the target rather
+	// than from whoever declared the edge.
 	push := func(nodeID string, group func(*store.Edges) *store.List[store.Edge], edge store.Edge) {
 		c, ok := out[nodeID]
 		if !ok {
@@ -111,7 +111,6 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 		g := group(&c.Edges)
 		for i := range *g {
 			if (*g)[i].ID == edge.ID {
-				(*g)[i].Reviewed = (*g)[i].Reviewed && edge.Reviewed
 				return
 			}
 		}
@@ -122,8 +121,8 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 	unlocks := func(e *store.Edges) *store.List[store.Edge] { return &e.Unlocks }
 	adjacent := func(e *store.Edges) *store.List[store.Edge] { return &e.Adjacent }
 
-	// target is the denormalised row rendered on the page: the edge's own
-	// reviewed flag, plus the target's current title and tier.
+	// target is the denormalised row rendered on the page: the target's current
+	// title and tier.
 	target := func(from string, e AuthoredEdge) (store.Edge, error) {
 		t, ok := byID[e.ID]
 		if !ok {
@@ -132,7 +131,7 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 		if e.ID == from {
 			return store.Edge{}, fmt.Errorf("node %q has an edge to itself", from)
 		}
-		return store.Edge{ID: t.ID, Title: t.Title, Tier: t.Tier(), Reviewed: e.Reviewed}, nil
+		return store.Edge{ID: t.ID, Title: t.Title, Tier: t.Tier()}, nil
 	}
 
 	for _, n := range nodes {
@@ -145,9 +144,7 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 			}
 			push(n.ID, requires, row)
 			// The inverse: if A requires B then B unlocks A. Authored once.
-			inverse := self
-			inverse.Reviewed = e.Reviewed
-			push(e.ID, unlocks, inverse)
+			push(e.ID, unlocks, self)
 		}
 
 		for _, e := range n.Edges.Adjacent {
@@ -157,9 +154,7 @@ func resolve(nodes []AuthoredNode, byID map[string]AuthoredNode) ([]store.Concep
 			}
 			push(n.ID, adjacent, row)
 			// Adjacency is symmetric — declare it from whichever side reads better.
-			back := self
-			back.Reviewed = e.Reviewed
-			push(e.ID, adjacent, back)
+			push(e.ID, adjacent, self)
 		}
 	}
 
@@ -225,7 +220,7 @@ func checkOneRelationship(c store.Concept) error {
 // The link direction follows the relationship rather than the traversal: a
 // requires edge runs from the prerequisite into the centre, an unlocks edge runs
 // out of it. That is what /docs/openapi.yaml documents and what the arrowless
-// mini-map still needs in order to dash the unreviewed ones correctly.
+// mini-map needs in order to read as a direction at all.
 func neighborhood(c store.Concept) store.Neighborhood {
 	cx, cy := viewBoxW/2, viewBoxH/2
 	center := store.MiniMapNode{ID: c.ID, Title: c.Title, Tier: c.Tier, X: cx, Y: cy}
@@ -287,7 +282,7 @@ func neighborhood(c store.Concept) store.Neighborhood {
 			if g.typ == store.EdgeRequires {
 				from, to = e.ID, c.ID
 			}
-			links = append(links, store.MiniMapLink{From: from, To: to, Type: g.typ, Reviewed: e.Reviewed})
+			links = append(links, store.MiniMapLink{From: from, To: to, Type: g.typ})
 		}
 	}
 

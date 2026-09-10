@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "time-series-forecasting",
-        "reviewed": false
+        "id": "time-series-forecasting"
       }
     ],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       },
       {
-        "id": "seasonality",
-        "reviewed": false
+        "id": "seasonality"
       }
     ]
   },

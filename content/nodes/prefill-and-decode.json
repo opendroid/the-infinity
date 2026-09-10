@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "autoregressive-decoding",
-        "reviewed": false
+        "id": "autoregressive-decoding"
       },
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       }
     ],
     "adjacent": []

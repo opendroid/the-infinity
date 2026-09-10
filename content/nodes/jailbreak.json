@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "adversarial-example",
-        "reviewed": false
+        "id": "adversarial-example"
       },
       {
-        "id": "rlhf",
-        "reviewed": false
+        "id": "rlhf"
       }
     ],
     "adjacent": [
       {
-        "id": "prompt-injection",
-        "reviewed": false
+        "id": "prompt-injection"
       },
       {
-        "id": "constitutional-ai",
-        "reviewed": false
+        "id": "constitutional-ai"
       }
     ]
   },

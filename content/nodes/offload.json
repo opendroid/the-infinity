@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "zero-redundancy-optimizer",
-        "reviewed": false
+        "id": "zero-redundancy-optimizer"
       }
     ],
     "adjacent": [
       {
-        "id": "arithmetic-intensity",
-        "reviewed": false
+        "id": "arithmetic-intensity"
       },
       {
-        "id": "activation-checkpointing",
-        "reviewed": false
+        "id": "activation-checkpointing"
       }
     ]
   },

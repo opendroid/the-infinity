@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "pretraining",
-        "reviewed": false
+        "id": "pretraining"
       }
     ],
     "adjacent": [
       {
-        "id": "task-interference",
-        "reviewed": false
+        "id": "task-interference"
       },
       {
-        "id": "mixture-of-experts",
-        "reviewed": false
+        "id": "mixture-of-experts"
       }
     ]
   },

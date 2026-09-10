@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "collaborative-filtering",
-        "reviewed": false
+        "id": "collaborative-filtering"
       },
       {
-        "id": "low-rank-factorization",
-        "reviewed": false
+        "id": "low-rank-factorization"
       }
     ],
     "adjacent": [
       {
-        "id": "principal-component-analysis",
-        "reviewed": false
+        "id": "principal-component-analysis"
       }
     ]
   },

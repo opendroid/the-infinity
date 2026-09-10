@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "cross-attention",
-        "reviewed": false
+        "id": "cross-attention"
       }
     ],
     "adjacent": [
       {
-        "id": "vision-language-model",
-        "reviewed": false
+        "id": "vision-language-model"
       },
       {
-        "id": "any-to-any-model",
-        "reviewed": false
+        "id": "any-to-any-model"
       }
     ]
   },

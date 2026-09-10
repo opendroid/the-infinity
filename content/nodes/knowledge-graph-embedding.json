@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "knowledge-graph",
-        "reviewed": false
+        "id": "knowledge-graph"
       }
     ],
     "adjacent": [
       {
-        "id": "token-embedding",
-        "reviewed": false
+        "id": "token-embedding"
       },
       {
-        "id": "entity-linking",
-        "reviewed": false
+        "id": "entity-linking"
       }
     ]
   },

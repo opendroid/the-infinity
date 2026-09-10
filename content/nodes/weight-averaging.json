@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "sharpness",
-        "reviewed": false
+        "id": "sharpness"
       }
     ],
     "adjacent": [
       {
-        "id": "model-soup",
-        "reviewed": false
+        "id": "model-soup"
       }
     ]
   },
