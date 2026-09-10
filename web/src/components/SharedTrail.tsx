@@ -246,7 +246,7 @@ function Ready({ trail }: { trail: Trail }) {
       <TrailThread beads={trail.stops.map((s) => s.tier)} />
 
       {/* Numbering is legitimate here and nowhere else: order IS the content. */}
-      <ol className="mb-[26px] mt-[18px] list-none">
+      <ol role="list" className="mb-[26px] mt-[18px] list-none">
         {trail.stops.map((stop, i) => (
           <li
             key={`${stop.n}-${stop.id}`}

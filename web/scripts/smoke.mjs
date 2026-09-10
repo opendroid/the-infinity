@@ -1,7 +1,7 @@
 /**
  * The browser smoke test (ADR-0016, #357).
  *
- * Seven assertions, each covering something no other check in this repository
+ * Eight assertions, each covering something no other check in this repository
  * can see: whether an island actually hydrated in a browser — and, since #405,
  * whether a failed write leaves focus somewhere the reader can act from, which
  * jsdom cannot answer because it does not blur a disabled element. Vitest mounts
@@ -178,7 +178,43 @@ async function main() {
       await page.goto(ORIGIN + path, { waitUntil: 'load' });
       // Islands are client:load / client:idle; give them a beat to mount.
       await page.waitForTimeout(1500);
+      await listsKeepTheirSemantics(path);
     };
+
+    /**
+     * Every unstyled list must say it is a list (#416).
+     *
+     * SAFARI STRIPS LIST SEMANTICS when `list-style: none` is applied, so
+     * VoiceOver does not announce the list at all — and Tailwind's preflight
+     * applies it to every `ul` and `ol` on the site. `role="list"` puts the
+     * semantics back. It is redundant against the spec and load-bearing against
+     * the implementation, which is why the validator flags it and we keep it.
+     *
+     * ASSERTED IN A BROWSER BECAUSE ONLY A BROWSER KNOWS. The role is in the
+     * markup, but whether a list is *unstyled* is a computed style, and whether
+     * it sits inside a `nav` — the one case Safari exempts — is a DOM question.
+     * Chromium is not the engine with the behaviour; it is the engine that can
+     * measure the condition.
+     */
+    async function listsKeepTheirSemantics(path) {
+      const bare = await page.$$eval('ul, ol', (els) =>
+        els
+          // `globalThis` rather than a bare `getComputedStyle`: this callback runs
+          // in the browser, but the file is linted as Node, where the browser
+          // globals do not exist. Same reason the focus check above uses a
+          // `:focus` selector instead of reading `document.activeElement`.
+          .filter((e) => globalThis.getComputedStyle(e).listStyleType === 'none')
+          .filter((e) => !e.closest('nav'))
+          // listbox is a different widget with its own semantics; SearchPanel's
+          // results list is correct as it is and must not be "fixed" into a list.
+          .filter((e) => !['list', 'listbox', 'menu', 'none', 'presentation'].includes(e.getAttribute('role') ?? ''))
+          .map((e) => `${e.tagName.toLowerCase()}.${(e.className || '(no class)').split(' ')[0]}`),
+      );
+      if (bare.length > 0) {
+        const shown = [...new Set(bare)].slice(0, 4).join(', ');
+        fail(`${path}: ${bare.length} unstyled list(s) without role="list" — Safari drops the semantics: ${shown}`);
+      }
+    }
 
     // 1 — the 404 island renders what the API hands it. Nothing else in the
     //     repository proves this island hydrates at all.
@@ -304,6 +340,13 @@ async function main() {
     if (crashes.length) fail(`/search threw: ${crashes.join(' | ')}`);
 
     // 6 — the landing page, which ships no JavaScript at all, still paints.
+    // 8 — /concepts is where the list assertion has the most to check: one list
+    //     per second-level domain, 234 of them, and no other route visits it.
+    await visit('/concepts');
+    if (!(await page.locator('main').innerText()).includes('concepts across')) {
+      fail('/concepts: the directory did not render its summary line');
+    }
+
     await visit('/');
     const landing = await page.locator('main').innerText();
     // Anchored to the number. "concepts" alone also appears in the standfirst
@@ -323,7 +366,7 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, landing`,
+      `focus after a failed share, search, list semantics, landing`,
   );
   return 0;
 }
