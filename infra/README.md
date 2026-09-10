@@ -185,6 +185,34 @@ The `/api/**` rewrite sends matching requests to the Cloud Run service named `ap
 `us-west1`. **Hosting does not strip the prefix** — the service receives the full
 `/api/v1/...` path, which is why the router mounts there. See ADR-0001.
 
+## Analytics — cost, and the ceiling that matters
+
+Analytics are read from request logs the project already has ([ADR-0011](../docs/adr/0011-analytics-from-request-logs.md)).
+No analytics JavaScript ships on any route, so there is no vendor, no cookie banner, and
+no third-party request to fund.
+
+**Zero recurring cost.** Cloud Logging's free tier is **50 GiB of ingestion per project
+per month**, and logs kept for the default **30-day retention** incur no storage charge on
+top of that. We do not request longer retention, so the storage line stays at zero by
+construction.
+
+**The ceiling matters more than the price, the same way it does for `--max-instances`
+above.** Nothing here creeps upward month by month; the failure mode is a step change. A
+bot storm, a scraper, or a Search Console submission that goes well all raise *ingestion*,
+and 50 GiB is the number that would be crossed — not a bill that grows 10% at a time. The
+budget alerts `setup.sh` creates cover the account, but they report a charge after it
+happens; the useful habit is watching the ingestion figure in the Logs Explorer's usage
+panel during the weeks after a traffic change.
+
+For scale: a `webrequests` entry is roughly 1 KB, so 50 GiB is on the order of fifty
+million requests a month. This site will not approach that from readers. It could from a
+misbehaving crawler, which is the case the ceiling is there for.
+
+**Retention is a decision, not a default to accept quietly.** Thirty days answers "what
+happened this month", which is what ADR-0011 asks of it. Anything longer is a paid
+question, and it should be asked deliberately rather than reached by leaving a setting
+alone.
+
 ## CI/CD identity
 
 ```zsh
