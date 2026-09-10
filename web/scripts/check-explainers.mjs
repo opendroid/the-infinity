@@ -42,7 +42,9 @@ import {
   crawlDelays,
   everyFailureWasSilent,
   partitionByDelay,
+  politeFetch,
   pool,
+  THROTTLED,
   skippedNotice,
   unreachableHosts,
   verifiedCount,
@@ -181,13 +183,16 @@ export function titleOf(html) {
  * 1.0.3 documentation" both have to match what a reader would sensibly write
  * down (ADR-0018).
  */
-async function verifyRead(e) {
+export async function verifyRead(e, opts = {}) {
   let res;
   try {
-    res = await fetch(e.url, { redirect: 'follow', signal: AbortSignal.timeout(20_000) });
+    res = await politeFetch(e.url, { redirect: 'follow', signal: AbortSignal.timeout(20_000) }, opts);
   } catch (err) {
     return { ok: false, status: 0, error: err instanceof Error ? err.message : String(err) };
   }
+  // A host that is still saying "slow down" after the retries has told us
+  // nothing about the page (#408). Marked, not condemned.
+  if (THROTTLED.has(res.status)) return { ok: false, status: res.status, throttled: true };
   if (!res.ok) return { ok: false, status: res.status };
 
   let body;
@@ -214,17 +219,18 @@ async function verifyRead(e) {
  * GET of the watch page cannot distinguish, because YouTube serves 200 and an
  * apology for all of them.
  */
-async function verifyVideo(e) {
+export async function verifyVideo(e, opts = {}) {
   const target = `https://www.youtube.com/watch?v=${videoId(e.url)}`;
   const api = `https://www.youtube.com/oembed?url=${encodeURIComponent(target)}&format=json`;
 
   let res;
   try {
-    res = await fetch(api, { redirect: 'follow', signal: AbortSignal.timeout(20_000) });
+    res = await politeFetch(api, { redirect: 'follow', signal: AbortSignal.timeout(20_000) }, opts);
   } catch (err) {
     return { ok: false, status: 0, error: err instanceof Error ? err.message : String(err) };
   }
   if (res.status === 404) return { ok: false, status: 404, error: 'no such video — deleted, private, or invented' };
+  if (THROTTLED.has(res.status)) return { ok: false, status: res.status, throttled: true };
   if (!res.ok) return { ok: false, status: res.status };
 
   let body;
@@ -248,6 +254,34 @@ async function verifyVideo(e) {
 }
 
 const verify = (e) => (e.kind === 'video' ? verifyVideo(e) : verifyRead(e));
+
+/**
+ * Failures, sorted by what they actually tell us (#408).
+ *
+ * THREE OUTCOMES, NOT TWO. A 429 is neither "verified" nor "gone": the host
+ * declined to answer, which is the information a refused connection carries and
+ * the opposite of what a 404 carries. Every non-zero status used to land in
+ * `real` together, so CI reported a rate-limited Wikipedia page as an
+ * unresolvable one affecting eleven concepts — and the fix a reader would draw
+ * from that message is to delete eleven working entries.
+ *
+ * `real` is what still fails the build. Keeping 404 there is the entire point:
+ * this check exists to catch invented references, and a softer version of it is
+ * the invented-reference rule quietly stopping.
+ */
+export function sortFailures(urls, results) {
+  const blocked = [];
+  const throttled = [];
+  const real = [];
+  for (const url of urls) {
+    const r = results.get(url);
+    if (!r || r.ok) continue;
+    if (r.status === 0) blocked.push(url);
+    else if (r.throttled === true) throttled.push(url);
+    else real.push(url);
+  }
+  return { blocked, throttled, real };
+}
 
 async function main() {
   const explainers = readExplainers();
@@ -309,8 +343,7 @@ async function main() {
   // version of this asked whether the WHOLE corpus failed identically, which
   // stopped meaning anything once the corpus spanned seven hosts.
   const dead = unreachableHosts(results);
-  const blocked = failed.filter((url) => results.get(url).status === 0);
-  const real = failed.filter((url) => results.get(url).status !== 0);
+  const { blocked, throttled, real } = sortFailures(failed, results);
 
   for (const url of real) {
     const r = results.get(url);
@@ -348,11 +381,31 @@ async function main() {
     if (everyFailureWasSilent(results)) process.exit(2);
   }
 
+  if (throttled.length > 0) {
+    const affected = throttled.reduce((n, url) => n + groups.get(url).length, 0);
+    const ok = verifiedCount(results);
+    console.error(
+      `\n${throttled.length} page(s) asked us to slow down and were NOT verified:\n` +
+        throttled.map((url) => `  ${url} — HTTP ${results.get(url).status}, after retrying`).join('\n') +
+        `\n\nThat is rate limiting, NOT a broken link — nothing here says the page is gone,\n` +
+        `so do not remove the entries. ${ok} of ${results.size} page(s) verified; ` +
+        `${affected} explainer(s) went unverified.\n` +
+        `Re-run; a shared CI address is the usual reason a host declines.`,
+    );
+  }
+
+  // A GENUINE DEAD PAGE OUTRANKS AN INCOMPLETE RUN. Exit 1 is the stronger
+  // claim and it is made first: if anything is actually broken, that is what
+  // the build should report, with the throttling noted above it.
   if (real.length > 0) {
     const affected = real.reduce((n, url) => n + groups.get(url).length, 0);
     console.error(`\n${real.length} of ${checking.length} page(s) could not be verified, affecting ${affected} explainer(s).`);
     process.exit(1);
   }
+
+  // Nobody asked to skip these, so the run is incomplete rather than green —
+  // the same reading #390 gave an unreachable host.
+  if (throttled.length > 0) process.exit(2);
 
   // Counted over the pages actually reached. A --fast run that reported the
   // corpus size would be claiming the entries it skipped.

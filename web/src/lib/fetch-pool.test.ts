@@ -1,5 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { byUrl, everyFailureWasSilent, hostOf, pool, unreachableHosts, verifiedCount } from '../../scripts/fetch-pool.mjs';
+import {
+  byUrl,
+  everyFailureWasSilent,
+  hostOf,
+  politeFetch,
+  pool,
+  retryAfterSeconds,
+  THROTTLED,
+  unreachableHosts,
+  verifiedCount,
+} from '../../scripts/fetch-pool.mjs';
 
 /**
  * The fetch policy both link checkers share (#373).
@@ -133,5 +143,110 @@ describe('a host that answered nothing is not a host with dead pages', () => {
 
   it('an all-green run is not "nothing was verified"', () => {
     expect(everyFailureWasSilent(new Map([['https://d2l.ai/x.html', ok]]))).toBe(false);
+  });
+});
+
+/**
+ * A host saying "slow down" is not a page saying "I am gone" (#408).
+ *
+ * CI went red on en.wikipedia.org/wiki/AI_alignment with HTTP 429, reported as
+ * an unresolvable page affecting eleven concepts. The page answered 200 from
+ * another network minutes later. Acting on that message means deleting eleven
+ * working entries — the direction ADR-0020 exists to prevent.
+ */
+describe('retryAfterSeconds reads what the host actually asked for', () => {
+  const cases: { name: string; header: string | null; want: number | null }[] = [
+    { name: 'delta-seconds, the common form', header: '120', want: 120 },
+    { name: 'zero is a real answer, not an absent one', header: '0', want: 0 },
+    { name: 'an HTTP-date, relative to now', header: 'Thu, 10 Sep 2026 01:02:00 GMT', want: 120 },
+    { name: 'a date already past is a wait of zero, never negative', header: 'Thu, 10 Sep 2026 00:00:00 GMT', want: 0 },
+    { name: 'absent', header: null, want: null },
+    { name: 'empty', header: '   ', want: null },
+    // Unreadable must be null, not 0: reading it as zero would turn "slow down"
+    // into "retry immediately", which is worse than not reading it at all.
+    { name: 'unparseable', header: 'soon please', want: null },
+    { name: 'not an integer', header: '12.5', want: null },
+  ];
+
+  const now = Date.parse('Thu, 10 Sep 2026 01:00:00 GMT');
+  for (const c of cases) {
+    it(c.name, () => expect(retryAfterSeconds(c.header, now)).toBe(c.want));
+  }
+});
+
+describe('politeFetch retries a host that says "not now"', () => {
+  /** A Response-shaped stub: only `status` and `headers.get` are read. */
+  const res = (status: number, retryAfter?: string) => ({
+    status,
+    ok: status >= 200 && status < 300,
+    headers: { get: (n: string) => (n.toLowerCase() === 'retry-after' ? (retryAfter ?? null) : null) },
+  });
+
+  const run = async (queue: ReturnType<typeof res>[], opts = {}) => {
+    const slept: number[] = [];
+    let calls = 0;
+    const out = await politeFetch('https://en.wikipedia.org/wiki/AI_alignment', {}, {
+      fetchImpl: async () => { calls += 1; return queue[Math.min(calls - 1, queue.length - 1)]; },
+      sleep: async (ms: number) => { slept.push(ms); },
+      ...opts,
+    });
+    return { out, slept, calls };
+  };
+
+  it('returns a 200 without sleeping at all', async () => {
+    const { out, slept, calls } = await run([res(200)]);
+    expect(out.status).toBe(200);
+    expect(slept).toEqual([]);
+    expect(calls).toBe(1);
+  });
+
+  it('retries a 429 and returns the answer that follows', async () => {
+    const { out, calls } = await run([res(429), res(200)]);
+    expect(out.status).toBe(200);
+    expect(calls).toBe(2);
+  });
+
+  it('waits what Retry-After asks for, in seconds', async () => {
+    const { slept } = await run([res(429, '7'), res(200)]);
+    expect(slept).toEqual([7000]);
+  });
+
+  it('accepts the HTTP-date form of Retry-After', async () => {
+    const at = new Date(Date.now() + 4000).toUTCString();
+    const { slept } = await run([res(503, at), res(200)]);
+    // Rounded to the second, and the clock moves between the two lines.
+    expect(slept).toHaveLength(1);
+    expect(slept[0]).toBeGreaterThanOrEqual(3000);
+    expect(slept[0]).toBeLessThanOrEqual(5000);
+  });
+
+  it('falls back to 5s then 15s when the host states nothing', async () => {
+    // Not 1s/2s: #400 priced a backoff too short to clear a rate window — every
+    // attempt fails together and it is the same as having no retry.
+    const { slept, calls } = await run([res(429)]);
+    expect(slept).toEqual([5000, 15000]);
+    expect(calls).toBe(3);
+  });
+
+  it('caps a host that asks for an hour, so the job cannot hang on it', async () => {
+    const { slept } = await run([res(429, '3600'), res(200)]);
+    expect(slept).toEqual([30_000]);
+  });
+
+  it('gives the throttled response back rather than throwing, and lets the caller judge', async () => {
+    const { out, calls } = await run([res(429)]);
+    expect(out.status).toBe(429);
+    expect(calls).toBe(3);
+    expect(THROTTLED.has(out.status)).toBe(true);
+  });
+
+  it('never retries a 404 — that one IS a claim about the page', async () => {
+    // The check exists to catch invented references. Softening this would be
+    // the invented-reference rule quietly stopping.
+    const { out, slept, calls } = await run([res(404)]);
+    expect(out.status).toBe(404);
+    expect(calls).toBe(1);
+    expect(slept).toEqual([]);
+    expect(THROTTLED.has(404)).toBe(false);
   });
 });

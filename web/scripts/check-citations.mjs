@@ -40,7 +40,9 @@ import {
   everyFailureWasSilent,
   hostOf,
   partitionByDelay,
+  politeFetch,
   pool,
+  THROTTLED,
   skippedNotice,
   unreachableHosts,
   verifiedCount,
@@ -121,13 +123,18 @@ async function resolves(url) {
   // so a 405 falls through to a ranged GET rather than being read as dead.
   for (const method of ['HEAD', 'GET']) {
     try {
-      const res = await fetch(url, {
+      const res = await politeFetch(url, {
         method,
         redirect: 'follow',
         headers: method === 'GET' ? { Range: 'bytes=0-0' } : {},
         signal: AbortSignal.timeout(20_000),
       });
       if (res.status === 405 || res.status === 501) continue;
+      // Still throttled after the retries (#408). arxiv.org holds every url in
+      // this corpus and the sweep is a two-hour job, so it is the run most
+      // exposed to a host saying "not now" — and reporting that as a retracted
+      // paper is the mistake this file's own note calls the expensive one.
+      if (THROTTLED.has(res.status)) return { ok: false, status: res.status, throttled: true };
       return { ok: res.ok, status: res.status };
     } catch (err) {
       return { ok: false, status: 0, error: err instanceof Error ? err.message : String(err) };
@@ -216,7 +223,11 @@ async function main() {
     process.exit(2);
   }
 
-  for (const url of failed) {
+  // A host that declined to answer has said nothing about the paper (#408).
+  const throttled = failed.filter((url) => results.get(url).throttled === true);
+  const gone = failed.filter((url) => results.get(url).throttled !== true);
+
+  for (const url of gone) {
     const r = results.get(url);
     const cites = groups.get(url);
     const detail = r.status === 0 ? `could not reach (${r.error})` : `HTTP ${r.status}`;
@@ -227,15 +238,29 @@ async function main() {
     );
   }
 
-  if (problems.length > 0 || failed.length > 0) {
-    const affected = failed.reduce((n, url) => n + groups.get(url).length, 0);
-    console.error(`\n${problems.length} structural, ${failed.length} unresolvable page(s) affecting ${affected} citation(s).`);
+  if (throttled.length > 0) {
+    const affected = throttled.reduce((n, url) => n + groups.get(url).length, 0);
+    console.error(
+      `\n${throttled.length} paper(s) asked us to slow down and were NOT resolved:\n` +
+        throttled.map((url) => `  ${url} — HTTP ${results.get(url).status}, after retrying`).join('\n') +
+        `\n\nThat is rate limiting, NOT a missing paper. ${affected} citation(s) went unresolved.`,
+    );
+  }
+
+  if (problems.length > 0 || gone.length > 0) {
+    const affected = gone.reduce((n, url) => n + groups.get(url).length, 0);
+    console.error(`\n${problems.length} structural, ${gone.length} unresolvable page(s) affecting ${affected} citation(s).`);
     process.exit(1);
   }
 
+  // Nobody asked to skip these, so the sweep is incomplete rather than clean.
+  if (throttled.length > 0) process.exit(2);
+
   // Counts the entries actually reached, not the corpus. A --fast run that
   // printed the corpus size would be claiming the papers it skipped.
-  const checked = checking.reduce((n, url) => n + groups.get(url).length, 0);
+  const checked = checking
+    .filter((url) => results.get(url).ok)
+    .reduce((n, url) => n + groups.get(url).length, 0);
   const unchecked = citations.length - checked;
   console.log(
     `✓ ${checked} citation(s) across ${checking.length} paper(s) resolve` +
