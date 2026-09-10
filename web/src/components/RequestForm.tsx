@@ -59,6 +59,9 @@ export default function RequestForm() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
+    // In flight already: the guard is what prevents a second send, because the
+    // button stays enabled and focusable (#405).
+    if (state.name === 'sending') return;
     if (name.trim().length < 2) {
       setState({ name: 'error', message: 'Give it a name first — two characters at least.' });
       return;
@@ -108,8 +111,8 @@ export default function RequestForm() {
           />
           <button
             type="submit"
-            disabled={state.name === 'sending'}
-            className="rounded-control bg-thread px-4 py-2.5 text-[14px] font-medium text-void disabled:opacity-60"
+            aria-disabled={state.name === 'sending'}
+            className="rounded-control bg-thread px-4 py-2.5 text-[14px] font-medium text-void aria-disabled:opacity-60"
           >
             {state.name === 'sending' ? 'Sending…' : 'Send it'}
           </button>

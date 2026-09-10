@@ -51,6 +51,10 @@ export default function ReviewActions({ conceptId }: Props) {
   useEffect(() => setMounted(true), []);
 
   async function send(kind: 'flag' | 'volunteer') {
+    if (state.name === 'sending') return;
+    // An empty note was a `disabled` too. Both are guarded here instead, so
+    // neither can take focus away from the button mid-interaction (#405).
+    if (kind === 'flag' && note.trim().length === 0) return;
     setState({ name: 'sending' });
     const result = await postQueue(
       '/reviews',
@@ -99,8 +103,8 @@ export default function ReviewActions({ conceptId }: Props) {
           <div className="mt-2.5 flex flex-wrap items-center gap-2.5">
             <button
               type="submit"
-              disabled={state.name === 'sending' || note.trim().length === 0}
-              className="cursor-pointer rounded-row border border-thread bg-transparent px-[18px] py-[9px] text-[13px] text-thread disabled:opacity-50"
+              aria-disabled={state.name === 'sending' || note.trim().length === 0}
+              className="cursor-pointer rounded-row border border-thread bg-transparent px-[18px] py-[9px] text-[13px] text-thread aria-disabled:opacity-50"
             >
               {state.name === 'sending' ? 'Sending…' : 'Send report'}
             </button>
@@ -135,9 +139,19 @@ export default function ReviewActions({ conceptId }: Props) {
         </div>
       )}
 
-      {/* Not carried by colour: the text says what happened and what to do. */}
+      {/*
+        Not carried by colour: the text says what happened and what to do.
+
+        `takeFocus` HERE AND NOT ON THE OTHER THREE (#405). Everywhere else a
+        failure leaves the pressed button in the DOM, so the fix is to stop
+        `disabled` from taking focus off it. Here the flag form unmounts on
+        error — `state.name === 'error'` is neither `flagging` nor `sending` —
+        so there is nothing to leave focus on, and this is the unmounted case
+        LiveRegion's own note describes.
+      */}
       <LiveRegion
         assertive
+        takeFocus
         message={state.name === 'error' ? state.message : ''}
         className="mt-2.5 text-[13.5px] text-starlight"
       />

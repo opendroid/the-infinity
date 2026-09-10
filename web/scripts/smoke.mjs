@@ -1,8 +1,10 @@
 /**
  * The browser smoke test (ADR-0016, #357).
  *
- * Six assertions, each covering something no other check in this repository can
- * see: whether an island actually hydrated in a browser. Vitest mounts
+ * Seven assertions, each covering something no other check in this repository
+ * can see: whether an island actually hydrated in a browser — and, since #405,
+ * whether a failed write leaves focus somewhere the reader can act from, which
+ * jsdom cannot answer because it does not blur a disabled element. Vitest mounts
  * components in jsdom, `astro build` proves they compile, and `npm run perf`
  * weighs the bundles — none of that observes a handler firing.
  *
@@ -258,6 +260,41 @@ async function main() {
     }
     if (crashes.length) fail(`/c/${node.id} threw: ${crashes.join(' | ')}`);
 
+    // 7. A FAILED SEND MUST NOT COST THE READER THEIR PLACE (#405).
+    //
+    // THIS ONE CANNOT BE A UNIT TEST, and that is why it is here. The defect was
+    // `disabled={sending}` on the button the reader is standing on: disabling a
+    // focused element hands focus to `<body>`, the send then fails, the button
+    // comes back — and nothing gives focus back. jsdom does not blur on
+    // `disabled`, so the vitest version of this assertion passes with the defect
+    // restored. Only a real browser drops the focus, so only a real browser can
+    // notice that it stopped.
+    //
+    // Every /api/v1 route is stubbed to 500 already, so "Share trail" fails by
+    // construction — the failure path is the one worth checking, since the
+    // success path navigates away.
+    step = 'checking focus survives a failed share';
+    const share = page.locator('button', { hasText: /^Share trail$/ });
+    if ((await share.count()) === 0) {
+      fail(`/c/${node.id}: no Share trail button — the trail ribbon did not hydrate`);
+    } else {
+      await share.first().focus();
+      await share.first().click();
+      // The alert is the signal the send has settled; waiting on a timer would
+      // pass or fail on machine speed.
+      await page.locator('[role="alert"]', { hasText: /could not be/ }).first().waitFor({ timeout: 10_000 });
+      // `:focus` as a selector rather than reading `document.activeElement` in
+      // an evaluate: this file is linted as Node, where `document` is not a
+      // global, and the CSS form asserts something stronger anyway — that the
+      // share button ITSELF holds focus, not merely that something does.
+      if ((await page.locator('button:focus', { hasText: /^Share trail$/ }).count()) === 0) {
+        fail(`/c/${node.id}: the share button did not keep focus after a failed share`);
+      }
+      if (await share.first().isDisabled()) {
+        fail(`/c/${node.id}: the share button is disabled after a failed share — it cannot be retried`);
+      }
+    }
+
     // 5 — search runs client-side off the static index, with the API dead.
     await visit('/search?q=attention');
     const found = await page.locator('main').innerText();
@@ -284,7 +321,10 @@ async function main() {
     for (const f of failures) console.error(`  ✗ ${f}`);
     return 1;
   }
-  console.log(`✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, search, landing`);
+  console.log(
+    `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
+      `focus after a failed share, search, landing`,
+  );
   return 0;
 }
 

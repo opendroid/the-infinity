@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 const postQueue = vi.hoisted(() => vi.fn());
@@ -73,5 +73,46 @@ describe('the review actions', () => {
 
     // A failure leaves the buttons where they were — there is something to retry.
     expect(screen.getByRole('button', { name: 'Volunteer to review' })).toBeDefined();
+  });
+
+  /**
+   * The flag path loses focus for BOTH reasons at once: `disabled` took it off
+   * the button mid-send, and then the form unmounted on error so there was
+   * nothing to give it back to. The guard fixes the first; `takeFocus` on the
+   * error region fixes the second, which is the case LiveRegion was built for.
+   */
+  it('puts focus on the message when a flag fails, since the form is gone (#405)', async () => {
+    postQueue.mockResolvedValue({ ok: false, message: 'That could not be accepted.' });
+    render(<ReviewActions conceptId="adam" />);
+    await waitFor(() => screen.getByRole('button', { name: 'Flag an error' }));
+
+    fireEvent.click(screen.getByRole('button', { name: 'Flag an error' }));
+    const note = await screen.findByLabelText(/What is wrong with it/);
+    fireEvent.change(note, { target: { value: 'The coefficient does not match the paper.' } });
+
+    const send = await screen.findByRole('button', { name: 'Send report' });
+    send.focus();
+    expect(document.activeElement).toBe(send);
+
+    fireEvent.click(send);
+    await waitFor(() => expect(screen.getByRole('alert').textContent).toBe('That could not be accepted.'));
+
+    // The form is gone, so the message is what focus can land on. Drop
+    // `takeFocus` and this is <body> — the reader hears the failure from the
+    // top of the document.
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('alert')));
+    expect(document.activeElement).not.toBe(document.body);
+  });
+
+  it('will not send a flag with an empty note, now that the guard replaces `disabled` (#405)', async () => {
+    render(<ReviewActions conceptId="adam" />);
+    await waitFor(() => screen.getByRole('button', { name: 'Flag an error' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Flag an error' }));
+
+    const send = await screen.findByRole('button', { name: 'Send report' });
+    expect(send.getAttribute('aria-disabled')).toBe('true');
+    fireEvent.click(send);
+
+    expect(postQueue).not.toHaveBeenCalled();
   });
 });
