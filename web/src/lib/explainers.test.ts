@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { readExplainers, structuralProblems, videoId } from '../../scripts/check-explainers.mjs';
+import {
+  readExplainers,
+  sortFailures,
+  structuralProblems,
+  verifyRead,
+  verifyVideo,
+  videoId,
+} from '../../scripts/check-explainers.mjs';
 import { EXPLAINER_HOSTS, hostOf } from '../../scripts/explainer-hosts.mjs';
 
 /**
@@ -133,5 +140,111 @@ describe('the committed corpus', () => {
     for (const e of explainers) {
       expect(hosts[e.kind] ?? [], `${e.node} → ${e.title}`).toContain(hostOf(e.url));
     }
+  });
+});
+
+/**
+ * A rate limit is not a dead link (#408).
+ *
+ * CI failed on #407 — a PR touching no content — with
+ * `✗ https://en.wikipedia.org/wiki/AI_alignment / HTTP 429 / 11 concept(s)` and
+ * the line "1 of 164 page(s) could not be verified". The page answered 200 from
+ * another network minutes later. The message named eleven concepts and read as
+ * a broken reference, so the obvious response to it was to delete eleven
+ * working entries.
+ *
+ * These use an injected fetch, so nothing here touches the network — which is
+ * the point, since what is being tested is how a misbehaving host is read.
+ */
+const response = (status: number, body = '', retryAfter?: string) => ({
+  status,
+  ok: status >= 200 && status < 300,
+  headers: { get: (n: string) => (n.toLowerCase() === 'retry-after' ? (retryAfter ?? null) : null) },
+  text: async () => body,
+  json: async () => JSON.parse(body || '{}'),
+});
+
+const entry = {
+  node: 'deceptive-alignment',
+  url: 'https://en.wikipedia.org/wiki/AI_alignment',
+  title: 'AI alignment',
+  author: 'Wikipedia contributors',
+  kind: 'read' as const,
+};
+
+describe('a host saying "slow down" is not a page saying "I am gone"', () => {
+  const stub = (queue: ReturnType<typeof response>[]) => {
+    let i = 0;
+    return {
+      fetchImpl: async () => queue[Math.min(i++, queue.length - 1)],
+      sleep: async () => {},
+    };
+  };
+
+  it('marks a surviving 429 as throttled rather than failed', async () => {
+    const r = await verifyRead(entry, stub([response(429)]));
+    expect(r.ok).toBe(false);
+    expect(r.throttled).toBe(true);
+    expect(r.status).toBe(429);
+  });
+
+  it('treats 503 the same way — the host cannot answer yet', async () => {
+    const r = await verifyRead(entry, stub([response(503)]));
+    expect(r.throttled).toBe(true);
+  });
+
+  it('verifies normally once the host relents', async () => {
+    const r = await verifyRead(entry, stub([
+      response(429),
+      response(200, '<title>AI alignment - Wikipedia</title>'),
+    ]));
+    expect(r.ok).toBe(true);
+  });
+
+  it('still fails a 404, which IS a claim about the page', async () => {
+    const r = await verifyRead(entry, stub([response(404)]));
+    expect(r.ok).toBe(false);
+    expect(r.throttled).toBeUndefined();
+  });
+
+  it('still fails a page whose title does not match what we recorded', async () => {
+    const r = await verifyRead(entry, stub([response(200, '<title>Something else entirely</title>')]));
+    expect(r.ok).toBe(false);
+    expect(r.throttled).toBeUndefined();
+    expect(r.error).toContain('Something else entirely');
+  });
+
+  it('marks a throttled oEmbed the same way, and still calls a 404 a missing video', async () => {
+    const video = { ...entry, kind: 'video' as const, url: 'https://www.youtube.com/watch?v=eMlx5fFNoYc' };
+    expect((await verifyVideo(video, stub([response(429)]))).throttled).toBe(true);
+
+    const missing = await verifyVideo(video, stub([response(404)]));
+    expect(missing.throttled).toBeUndefined();
+    expect(missing.error).toContain('no such video');
+  });
+});
+
+describe('sortFailures separates the network, the host, and the page', () => {
+  const urls = ['a', 'b', 'c', 'd', 'e'];
+  const results = new Map<string, { ok: boolean; status: number; throttled?: boolean }>([
+    ['a', { ok: true, status: 200 }],
+    ['b', { ok: false, status: 0 }],
+    ['c', { ok: false, status: 429, throttled: true }],
+    ['d', { ok: false, status: 404 }],
+    ['e', { ok: false, status: 503, throttled: true }],
+  ]);
+
+  it('puts a rate limit with neither the unreachable nor the dead', () => {
+    const { blocked, throttled, real } = sortFailures(urls, results);
+    expect(blocked).toEqual(['b']);
+    expect(throttled).toEqual(['c', 'e']);
+    // The one that must keep failing the build. Fold `throttled` back into this
+    // and CI reports a rate-limited page as an unresolvable one again.
+    expect(real).toEqual(['d']);
+  });
+
+  it('does not report a success as any kind of failure', () => {
+    const { blocked, throttled, real } = sortFailures(['a'], results);
+    expect([...blocked, ...throttled, ...real]).toEqual([]);
   });
 });

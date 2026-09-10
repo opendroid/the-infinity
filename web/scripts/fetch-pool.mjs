@@ -130,6 +130,77 @@ export function starGroupDelay(robots) {
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /**
+ * Statuses that mean "not now" rather than "not here" (#408).
+ *
+ * 429 is the server asking us to slow down; 503 is it saying it cannot answer
+ * yet. Neither is a claim about the page. Everything else in the 4xx/5xx range
+ * IS a claim — 404 above all — and must keep failing the build.
+ */
+export const THROTTLED = new Set([429, 503]);
+
+/**
+ * The wait a `Retry-After` header asks for, in seconds, or null.
+ *
+ * Two forms are legal and hosts use both: delta-seconds, and an HTTP-date.
+ * A date in the past is a wait of zero rather than a negative one, and anything
+ * unparseable is null — the caller then falls back to its own backoff, which is
+ * the safe direction. Reading a malformed header as zero would turn "slow down"
+ * into "retry immediately", which is worse than not reading it at all.
+ */
+export function retryAfterSeconds(value, now = Date.now()) {
+  if (typeof value !== 'string' || value.trim() === '') return null;
+  const raw = value.trim();
+
+  if (/^\d+$/.test(raw)) return Number(raw);
+
+  // An HTTP-date begins with a weekday name (RFC 9110, and every obsolete form
+  // too). Gating on that before `Date.parse` because Date.parse is famously
+  // permissive — it reads "12.5" as a December date, which would turn a
+  // malformed header into a wait measured in months.
+  if (!/^[A-Za-z]{3},?\s/.test(raw)) return null;
+
+  const at = Date.parse(raw);
+  if (Number.isNaN(at)) return null;
+  return Math.max(0, Math.round((at - now) / 1000));
+}
+
+/**
+ * `fetch`, with a bounded retry for a host that says "slow down" (#408).
+ *
+ * WHY THIS EXISTS. CI went red on `en.wikipedia.org/wiki/AI_alignment` with
+ * HTTP 429, reported as an unresolvable page affecting eleven concepts. The
+ * page was fine — 200 from another network minutes later. A reader acting on
+ * that message would have deleted eleven working explainer entries, which is
+ * the expensive direction ADR-0020 exists to keep us out of.
+ *
+ * It will recur without this: en.wikipedia.org states no `Crawl-delay` for
+ * `User-agent: *`, so `partitionByDelay` correctly leaves it in the `--fast`
+ * set and `pool` fetches it at `perHost` concurrency, from a shared CI address.
+ * Nothing is misbehaving; the host is simply allowed to say "not right now".
+ *
+ * THE HOST'S OWN NUMBER FIRST, ours only as a fallback — the same rule ADR-0020
+ * records for `Crawl-delay`: read the source, do not recall it. The fallback is
+ * 5s then 15s rather than 1s then 2s, because #400 priced a backoff too short
+ * to clear a rate window: all attempts fail together and it is the same as
+ * having none. `cap` keeps a host that asks for an hour from hanging the job.
+ *
+ * @param {(ms: number) => Promise<void>} [opts.sleep] injected so a test proves
+ *   the interval without spending it
+ * @returns {Promise<Response>} the last response, throttled or not — deciding
+ *   what a surviving 429 means is the caller's job, not this one's
+ */
+export async function politeFetch(url, init, opts = {}) {
+  const { fetchImpl = fetch, sleep = wait, attempts = 3, cap = 30 } = opts;
+  for (let i = 0; ; i += 1) {
+    const res = await fetchImpl(url, init);
+    if (!THROTTLED.has(res.status) || i >= attempts - 1) return res;
+    const stated = retryAfterSeconds(res.headers?.get?.('retry-after') ?? null);
+    const seconds = Math.min(stated ?? 5 * 3 ** i, cap);
+    await sleep(seconds * 1000);
+  }
+}
+
+/**
  * Runs `verify` over every URL, capped PER HOST rather than globally.
  *
  * Per host because the cap is about politeness first and speed second: 46
