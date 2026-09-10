@@ -74,6 +74,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Bayesian Neural Network | Deep Learning",
+      "author": "TwinEd Productions",
+      "url": "https://www.youtube.com/watch?v=OVne8jDKGUI"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Introduction to Gaussian Processes",

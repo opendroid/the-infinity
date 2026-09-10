@@ -60,6 +60,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Deceptive Misaligned Mesa-Optimisers? It's More Likely Than You Think...",
+      "author": "Robert Miles AI Safety ",
+      "url": "https://www.youtube.com/watch?v=IeWljQw3UgQ"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "AI alignment",

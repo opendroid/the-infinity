@@ -68,6 +68,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "A Tutorial on Conformal Prediction",
+      "author": "Anastasios Nikolas Angelopoulos",
+      "url": "https://www.youtube.com/watch?v=nql000Lu_iE"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Introduction to Gaussian Processes",

@@ -58,6 +58,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Quantization: The Size vs Quality Trade-Off",
+      "author": "Hugging Face",
+      "url": "https://www.youtube.com/watch?v=-s4KGeAE6iQ"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Large Transformer Model Inference Optimization",

@@ -54,6 +54,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "ALiBi | Train Short, Test Long: Attention With Linear Biases Enables Input Length Extrapolation",
+      "author": "Aleksa Gordić - The AI Epiphany",
+      "url": "https://www.youtube.com/watch?v=gKT-MVoPjzM"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "The Illustrated Transformer",

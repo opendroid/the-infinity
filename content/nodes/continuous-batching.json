@@ -55,6 +55,13 @@
   "updated_at": "2026-08-04",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "How to Scale LLM Applications With Continuous Batching!",
+      "author": "The ML Tech Lead!",
+      "url": "https://www.youtube.com/watch?v=PqHVpvvHLpE"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Large Transformer Model Inference Optimization",

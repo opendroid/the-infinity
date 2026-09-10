@@ -59,6 +59,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Decision and Classification Trees, Clearly Explained!!!",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=_L39rN6gz7Y"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Dive into Deep Learning",

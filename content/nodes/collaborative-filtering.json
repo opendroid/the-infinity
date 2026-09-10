@@ -66,6 +66,13 @@
       "title": "Neural Collaborative Filtering for Personalized Ranking",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recommender-systems/neumf.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Collaborative Filtering : Data Science Concepts",
+      "author": "ritvikmath",
+      "url": "https://www.youtube.com/watch?v=Fmtorg_dmM0"
     }
   ],
   "review": {

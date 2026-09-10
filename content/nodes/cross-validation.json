@@ -52,6 +52,13 @@
   "updated_at": "2026-08-05",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Machine Learning Fundamentals: Cross Validation",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=fSytzGwwBVw"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Dive into Deep Learning",

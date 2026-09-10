@@ -65,6 +65,13 @@
       "title": "Convexity",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_optimization/convexity.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Convexity and The Principle of Duality",
+      "author": "Visually Explained",
+      "url": "https://www.youtube.com/watch?v=d0CF3d5aEGc"
     }
   ],
   "review": {

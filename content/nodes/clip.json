@@ -60,6 +60,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "OpenAI CLIP: ConnectingText and Images (Paper Explained)",
+      "author": "Yannic Kilcher",
+      "url": "https://www.youtube.com/watch?v=T9XSU0pKX2E"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Contrastive Learning - 5 Minutes with Cyrill",
       "author": "Cyrill Stachniss",

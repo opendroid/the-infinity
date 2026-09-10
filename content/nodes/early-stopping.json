@@ -71,6 +71,13 @@
   ],
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Early Stopping In Neural Networks | End to End Deep Learning Course",
+      "author": "CampusX",
+      "url": "https://www.youtube.com/watch?v=Ygvskt5HadI"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Dive into Deep Learning",

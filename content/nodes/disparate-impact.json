@@ -62,6 +62,13 @@
       "title": "Disparate impact",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Disparate_impact"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Definitions of Fairness in Machine Learning | Equal Opportunity, Equalized Odds & Disparate Impact",
+      "author": "A Data Odyssey",
+      "url": "https://www.youtube.com/watch?v=c2_ezuAnCrA"
     }
   ],
   "review": {

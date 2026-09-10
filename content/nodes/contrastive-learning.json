@@ -66,6 +66,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Contrastive Learning with SimCLR | Deep Learning Animated",
+      "author": "Deepia",
+      "url": "https://www.youtube.com/watch?v=UqJauYELn6c"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Contrastive Learning - 5 Minutes with Cyrill",
       "author": "Cyrill Stachniss",

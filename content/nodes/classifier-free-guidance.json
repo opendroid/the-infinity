@@ -56,6 +56,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Classifier and Classifier-Free Diffusion Guidance",
+      "author": "NPTEL-NOC IITM",
+      "url": "https://www.youtube.com/watch?v=90GlJcpMrm8"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Contrastive Learning - 5 Minutes with Cyrill",
       "author": "Cyrill Stachniss",

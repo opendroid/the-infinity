@@ -55,6 +55,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model | DPO paper explained",
+      "author": "AI Coffee Break with Letitia",
+      "url": "https://www.youtube.com/watch?v=XZLc09hkMwA"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "AI alignment",

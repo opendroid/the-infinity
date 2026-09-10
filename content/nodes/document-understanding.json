@@ -60,6 +60,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Intelligent Document Understanding Explained",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=FpfhY-_0uCw"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Generalized Visual Language Models",

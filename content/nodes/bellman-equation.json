@@ -76,6 +76,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Bellman Equation -  Explained!",
+      "author": "CodeEmporium",
+      "url": "https://www.youtube.com/watch?v=9JZID-h6ZJ0"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "RL Course by David Silver - Lecture 2: Markov Decision Process",
       "author": "Google DeepMind",
