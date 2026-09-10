@@ -1,7 +1,7 @@
 /**
  * The browser smoke test (ADR-0016, #357).
  *
- * Eight assertions, each covering something no other check in this repository
+ * Nine assertions, each covering something no other check in this repository
  * can see: whether an island actually hydrated in a browser — and, since #405,
  * whether a failed write leaves focus somewhere the reader can act from, which
  * jsdom cannot answer because it does not blur a disabled element. Vitest mounts
@@ -348,6 +348,30 @@ async function main() {
     }
 
     await visit('/');
+
+    // 9 — THE SEARCH FIELD SHOWS WHERE FOCUS IS (#418). It did not: the global
+    //     rule is written with `:where()`, which has zero specificity by
+    //     definition, so the input's `outline-none` beat it and a keyboard user
+    //     tabbing onto the primary action of the whole product was shown
+    //     nothing. Every other focusable element on the site was already right.
+    //
+    //     Read off the WRAPPER, not the input. The ring belongs there because
+    //     the form is `overflow-hidden` and would clip an outline drawn on a
+    //     child — so an assertion on the input would fail the correct fix.
+    step = 'checking the search field shows focus';
+    const unfocused = await page.$eval('form', (e) => globalThis.getComputedStyle(e).outlineStyle);
+    await page.focus('#q');
+    const focused = await page.$eval('form', (e) => {
+      const c = globalThis.getComputedStyle(e);
+      return `${c.outlineStyle} ${c.outlineWidth}`;
+    });
+    if (unfocused !== 'none') {
+      fail(`/: the search field draws an outline before it is focused (${unfocused})`);
+    }
+    if (!focused.startsWith('solid') || focused.endsWith('0px')) {
+      fail(`/: focusing the search field showed no ring — computed "${focused}"`);
+    }
+
     const landing = await page.locator('main').innerText();
     // Anchored to the number. "concepts" alone also appears in the standfirst
     // above the search field, so the loose version passed with the count line
@@ -366,7 +390,7 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, list semantics, landing`,
+      `focus after a failed share, search, list semantics, focus ring, landing`,
   );
   return 0;
 }

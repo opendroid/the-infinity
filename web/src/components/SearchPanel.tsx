@@ -182,7 +182,7 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
       }
       onKeyDown={onKeyDown}
     >
-      <div className="flex items-center gap-3 rounded-control border border-thread bg-void px-4 py-3">
+      <div className="flex items-center gap-3 rounded-control border border-thread bg-void px-4 py-3 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-thread">
         <label htmlFor="search-q" className="sr-only">
           Search concepts
         </label>
