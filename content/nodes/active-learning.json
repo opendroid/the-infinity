@@ -62,6 +62,13 @@
       "title": "Learning with not Enough Data Part 2: Active Learning",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2022-02-20-active-learning/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Active (Machine) Learning - Computerphile",
+      "author": "Computerphile",
+      "url": "https://www.youtube.com/watch?v=ANIw1Mz1SRI"
     }
   ],
   "review": {

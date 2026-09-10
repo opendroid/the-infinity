@@ -56,6 +56,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Backpropagation calculus | Deep Learning Chapter 4",
+      "author": "3Blue1Brown",
+      "url": "https://www.youtube.com/watch?v=tIeHLnjs5U8"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Backpropagation, intuitively | Deep Learning Chapter 3",
       "author": "3Blue1Brown",

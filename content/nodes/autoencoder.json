@@ -60,6 +60,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Autoencoder Explained - Deep Neural Networks",
+      "author": "AIEngineering",
+      "url": "https://www.youtube.com/watch?v=q222maQaPYo"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Variational Autoencoders | Generative AI Animated",
       "author": "Deepia",

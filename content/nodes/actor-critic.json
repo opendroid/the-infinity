@@ -68,6 +68,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "DeepMind x UCL RL Lecture Series - Policy-Gradient and Actor-Critic methods [9/13]",
+      "author": "Google DeepMind",
+      "url": "https://www.youtube.com/watch?v=y3oqOjHilio"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "RL Course by David Silver - Lecture 2: Markov Decision Process",
       "author": "Google DeepMind",

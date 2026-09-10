@@ -60,6 +60,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "ALOHA and ACT: LeRobot Research Presentation #1 by Alexander Soare",
+      "author": "Hugging Face",
+      "url": "https://www.youtube.com/watch?v=ft73x0LfGpM"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Robotics Course",

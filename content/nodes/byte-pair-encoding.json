@@ -58,6 +58,13 @@
       "title": "Subword Embedding",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_natural-language-processing-pretraining/subword-embedding.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Word Piece And Byte Pair Encoding (Natural Language Processing at UT Austin)",
+      "author": "Greg Durrett",
+      "url": "https://www.youtube.com/watch?v=WA16JelEkkg"
     }
   ],
   "review": {

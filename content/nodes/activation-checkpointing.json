@@ -62,6 +62,13 @@
       "title": "How to Train Really Large Models on Many GPUs?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-09-25-train-large/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Part 2: Increase your training throughput with FSDP activation checkpointing",
+      "author": "PyTorch",
+      "url": "https://www.youtube.com/watch?v=5B4d0FuxSQc"
     }
   ],
   "review": {

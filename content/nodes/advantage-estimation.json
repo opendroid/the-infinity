@@ -68,6 +68,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "L3 Policy Gradients and Advantage Estimation (Foundations of Deep RL Series)",
+      "author": "Pieter Abbeel",
+      "url": "https://www.youtube.com/watch?v=AKbX1Zvo7r8"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "RL Course by David Silver - Lecture 2: Markov Decision Process",
       "author": "Google DeepMind",

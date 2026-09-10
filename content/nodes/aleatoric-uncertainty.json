@@ -55,6 +55,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Aleatoric vs Epistemic Uncertainty | Lecture 28 (Part 1) | Applied Deep Learning (Supplementary)",
+      "author": "Maziar Raissi",
+      "url": "https://www.youtube.com/watch?v=XPzH6wGN_P8"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Introduction to Gaussian Processes",

@@ -65,6 +65,13 @@
       "title": "Multilayer Perceptrons",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_multilayer-perceptrons/mlp.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Activation Functions in a Neural Network explained",
+      "author": "deeplizard",
+      "url": "https://www.youtube.com/watch?v=m0pIlLfpXWE"
     }
   ],
   "review": {

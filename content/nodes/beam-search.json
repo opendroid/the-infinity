@@ -53,6 +53,13 @@
   "updated_at": "2026-08-04",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "C5W3L03 Beam Search",
+      "author": "DeepLearningAI",
+      "url": "https://www.youtube.com/watch?v=RLWuzLLSIgw"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Large Transformer Model Inference Optimization",

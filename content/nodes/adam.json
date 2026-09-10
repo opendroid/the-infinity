@@ -61,6 +61,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Who's Adam and What's He Optimizing? | Deep Dive into Optimizers for Machine Learning!",
+      "author": "Sourish Kundu",
+      "url": "https://www.youtube.com/watch?v=MD2fYip6QsQ"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Backpropagation, intuitively | Deep Learning Chapter 3",
       "author": "3Blue1Brown",
