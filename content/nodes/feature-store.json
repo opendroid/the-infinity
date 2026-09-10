@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "training-serving-skew",
-        "reviewed": false
+        "id": "training-serving-skew"
       }
     ],
     "adjacent": [
       {
-        "id": "data-versioning",
-        "reviewed": false
+        "id": "data-versioning"
       },
       {
-        "id": "benchmark-contamination",
-        "reviewed": false
+        "id": "benchmark-contamination"
       }
     ]
   },

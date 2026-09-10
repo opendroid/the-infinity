@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "deduplication",
-        "reviewed": false
+        "id": "deduplication"
       }
     ],
     "adjacent": [
       {
-        "id": "training-data-extraction",
-        "reviewed": false
+        "id": "training-data-extraction"
       },
       {
-        "id": "machine-unlearning",
-        "reviewed": false
+        "id": "machine-unlearning"
       }
     ]
   },

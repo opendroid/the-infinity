@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "differential-privacy",
-        "reviewed": false
+        "id": "differential-privacy"
       }
     ],
     "adjacent": [
       {
-        "id": "data-parallelism",
-        "reviewed": false
+        "id": "data-parallelism"
       },
       {
-        "id": "collective-communication",
-        "reviewed": false
+        "id": "collective-communication"
       }
     ]
   },

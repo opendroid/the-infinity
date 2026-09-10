@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "graph-convolution",
-        "reviewed": false
+        "id": "graph-convolution"
       }
     ],
     "adjacent": [
       {
-        "id": "residual-connection",
-        "reviewed": false
+        "id": "residual-connection"
       },
       {
-        "id": "message-passing",
-        "reviewed": false
+        "id": "message-passing"
       }
     ]
   },

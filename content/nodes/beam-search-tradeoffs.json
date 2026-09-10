@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "beam-search",
-        "reviewed": false
+        "id": "beam-search"
       }
     ],
     "adjacent": [
       {
-        "id": "structured-output",
-        "reviewed": false
+        "id": "structured-output"
       },
       {
-        "id": "grammar-constrained-decoding",
-        "reviewed": false
+        "id": "grammar-constrained-decoding"
       }
     ]
   },

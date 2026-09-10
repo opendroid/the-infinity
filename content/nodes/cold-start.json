@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "collaborative-filtering",
-        "reviewed": false
+        "id": "collaborative-filtering"
       }
     ],
     "adjacent": [
       {
-        "id": "exploration-exploitation",
-        "reviewed": false
+        "id": "exploration-exploitation"
       },
       {
-        "id": "implicit-feedback",
-        "reviewed": false
+        "id": "implicit-feedback"
       }
     ]
   },

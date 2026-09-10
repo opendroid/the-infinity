@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "federated-learning",
-        "reviewed": false
+        "id": "federated-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "secure-aggregation",
-        "reviewed": false
+        "id": "secure-aggregation"
       },
       {
-        "id": "dp-sgd",
-        "reviewed": false
+        "id": "dp-sgd"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       },
       {
-        "id": "positional-encoding",
-        "reviewed": false
+        "id": "positional-encoding"
       }
     ],
     "adjacent": [
       {
-        "id": "rotary-position-embedding",
-        "reviewed": false
+        "id": "rotary-position-embedding"
       }
     ]
   },

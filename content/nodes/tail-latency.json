@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "continuous-batching",
-        "reviewed": false
+        "id": "continuous-batching"
       }
     ],
     "adjacent": [
       {
-        "id": "straggler",
-        "reviewed": false
+        "id": "straggler"
       },
       {
-        "id": "disaggregated-serving",
-        "reviewed": false
+        "id": "disaggregated-serving"
       }
     ]
   },

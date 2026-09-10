@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "context-window",
-        "reviewed": false
+        "id": "context-window"
       }
     ],
     "adjacent": [
       {
-        "id": "prompt-injection",
-        "reviewed": false
+        "id": "prompt-injection"
       },
       {
-        "id": "prefix-caching",
-        "reviewed": false
+        "id": "prefix-caching"
       }
     ]
   },

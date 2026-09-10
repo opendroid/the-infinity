@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       }
     ]
   },

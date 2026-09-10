@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "knowledge-graph",
-        "reviewed": false
+        "id": "knowledge-graph"
       }
     ],
     "adjacent": [
       {
-        "id": "dense-retrieval",
-        "reviewed": false
+        "id": "dense-retrieval"
       }
     ]
   },

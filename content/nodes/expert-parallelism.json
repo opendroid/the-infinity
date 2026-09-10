@@ -35,14 +35,12 @@
   "edges": {
     "requires": [
       {
-        "id": "mixture-of-experts",
-        "reviewed": false
+        "id": "mixture-of-experts"
       }
     ],
     "adjacent": [
       {
-        "id": "collective-communication",
-        "reviewed": false
+        "id": "collective-communication"
       }
     ]
   },

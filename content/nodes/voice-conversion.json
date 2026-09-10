@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "speaker-embedding",
-        "reviewed": false
+        "id": "speaker-embedding"
       },
       {
-        "id": "vocoder",
-        "reviewed": false
+        "id": "vocoder"
       }
     ],
     "adjacent": [
       {
-        "id": "variational-autoencoder",
-        "reviewed": false
+        "id": "variational-autoencoder"
       }
     ]
   },

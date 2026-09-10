@@ -36,14 +36,12 @@
   "edges": {
     "requires": [
       {
-        "id": "adversarial-training",
-        "reviewed": false
+        "id": "adversarial-training"
       }
     ],
     "adjacent": [
       {
-        "id": "bias-variance-tradeoff",
-        "reviewed": false
+        "id": "bias-variance-tradeoff"
       }
     ]
   },

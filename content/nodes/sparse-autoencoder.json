@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "autoencoder",
-        "reviewed": false
+        "id": "autoencoder"
       },
       {
-        "id": "superposition",
-        "reviewed": false
+        "id": "superposition"
       }
     ],
     "adjacent": [
       {
-        "id": "vector-quantization",
-        "reviewed": false
+        "id": "vector-quantization"
       }
     ]
   },

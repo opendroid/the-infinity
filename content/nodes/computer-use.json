@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "tool-schema",
-        "reviewed": false
+        "id": "tool-schema"
       },
       {
-        "id": "vision-language-model",
-        "reviewed": false
+        "id": "vision-language-model"
       }
     ],
     "adjacent": [
       {
-        "id": "sandboxing",
-        "reviewed": false
+        "id": "sandboxing"
       }
     ]
   },

@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "monte-carlo-tree-search",
-        "reviewed": false
+        "id": "monte-carlo-tree-search"
       }
     ],
     "adjacent": [
       {
-        "id": "verifier-model",
-        "reviewed": false
+        "id": "verifier-model"
       }
     ]
   },

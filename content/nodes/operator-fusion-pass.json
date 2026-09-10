@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "graph-capture",
-        "reviewed": false
+        "id": "graph-capture"
       },
       {
-        "id": "kernel-fusion",
-        "reviewed": false
+        "id": "kernel-fusion"
       }
     ],
     "adjacent": [
       {
-        "id": "arithmetic-intensity",
-        "reviewed": false
+        "id": "arithmetic-intensity"
       }
     ]
   },

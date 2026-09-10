@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "distribution-shift",
-        "reviewed": false
+        "id": "distribution-shift"
       }
     ],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ]
   },

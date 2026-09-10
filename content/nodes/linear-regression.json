@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-function",
-        "reviewed": false
+        "id": "loss-function"
       },
       {
-        "id": "gradient-descent",
-        "reviewed": false
+        "id": "gradient-descent"
       }
     ],
     "adjacent": []

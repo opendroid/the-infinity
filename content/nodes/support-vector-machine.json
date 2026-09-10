@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-function",
-        "reviewed": false
+        "id": "loss-function"
       }
     ],
     "adjacent": [
       {
-        "id": "logistic-regression",
-        "reviewed": false
+        "id": "logistic-regression"
       },
       {
-        "id": "bias-variance-tradeoff",
-        "reviewed": false
+        "id": "bias-variance-tradeoff"
       }
     ]
   },

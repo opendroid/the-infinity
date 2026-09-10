@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "object-detection",
-        "reviewed": false
+        "id": "object-detection"
       }
     ],
     "adjacent": [
       {
-        "id": "promptable-segmentation",
-        "reviewed": false
+        "id": "promptable-segmentation"
       }
     ]
   },

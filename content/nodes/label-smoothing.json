@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       }
     ],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       },
       {
-        "id": "knowledge-distillation",
-        "reviewed": false
+        "id": "knowledge-distillation"
       }
     ]
   },

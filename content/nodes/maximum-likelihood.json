@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       }
     ],
     "adjacent": [
       {
-        "id": "minimum-description-length",
-        "reviewed": false
+        "id": "minimum-description-length"
       }
     ]
   },

@@ -35,22 +35,18 @@
   "edges": {
     "requires": [
       {
-        "id": "sharpness",
-        "reviewed": false
+        "id": "sharpness"
       },
       {
-        "id": "learning-rate",
-        "reviewed": false
+        "id": "learning-rate"
       }
     ],
     "adjacent": [
       {
-        "id": "warmup",
-        "reviewed": false
+        "id": "warmup"
       },
       {
-        "id": "gradient-clipping",
-        "reviewed": false
+        "id": "gradient-clipping"
       }
     ]
   },

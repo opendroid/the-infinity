@@ -139,7 +139,10 @@ describe('node.schema.json rejects', () => {
     { name: 'an empty engineer caption', mutate: (n) => Object.assign(n.viz, { caption_engineer: '' }) },
     { name: 'a per-depth caption object, which is not the shape chosen', mutate: (n) => Object.assign(n.viz, { caption: { intuition: 'x', engineer: 'y' } }) },
     { name: 'two draggable viz parameters', mutate: (n) => n.viz.param_controls.push({ name: 'other', min: 0, max: 1, step: 1 }) },
-    { name: 'an edge without a reviewed flag', mutate: (n) => n.edges.requires.push({ id: 'x' } as never) },
+    // ADR-0022 removed `reviewed`, so a bare `{ id }` is now the only legal
+    // shape. What must still be rejected is anything MORE than that — the field
+    // creeping back in without the workflow that would fill it.
+    { name: 'an edge carrying a reviewed flag, which no longer exists', mutate: (n) => n.edges.requires.push({ id: 'x', reviewed: false } as never) },
     { name: 'a missing depth body', mutate: (n) => delete (n.bodies as { math?: string }).math },
     { name: 'an unrecognised top-level field', mutate: (n) => Object.assign(n, { vibes: 'immaculate' }) },
     // ADR-0017. `kind` selects the verification strategy, so a third value is a

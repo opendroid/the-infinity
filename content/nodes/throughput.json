@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "continuous-batching",
-        "reviewed": false
+        "id": "continuous-batching"
       }
     ],
     "adjacent": [
       {
-        "id": "tail-latency",
-        "reviewed": false
+        "id": "tail-latency"
       },
       {
-        "id": "accelerator-utilization",
-        "reviewed": false
+        "id": "accelerator-utilization"
       }
     ]
   },

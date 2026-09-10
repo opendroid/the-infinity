@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "parametric-vs-retrieved-knowledge",
-        "reviewed": false
+        "id": "parametric-vs-retrieved-knowledge"
       }
     ],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ]
   },

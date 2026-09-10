@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "backpropagation",
-        "reviewed": false
+        "id": "backpropagation"
       }
     ],
     "adjacent": [
       {
-        "id": "gradient-accumulation",
-        "reviewed": false
+        "id": "gradient-accumulation"
       }
     ]
   },

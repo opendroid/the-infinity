@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "likelihood-vs-sample-quality",
-        "reviewed": false
+        "id": "likelihood-vs-sample-quality"
       }
     ],
     "adjacent": [
       {
-        "id": "memorisation",
-        "reviewed": false
+        "id": "memorisation"
       },
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       }
     ]
   },

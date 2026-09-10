@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "feedback-loop",
-        "reviewed": false
+        "id": "feedback-loop"
       }
     ],
     "adjacent": [
       {
-        "id": "shortcut-learning",
-        "reviewed": false
+        "id": "shortcut-learning"
       },
       {
-        "id": "agent-evaluation",
-        "reviewed": false
+        "id": "agent-evaluation"
       }
     ]
   },

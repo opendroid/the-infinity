@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "state-space-model",
-        "reviewed": false
+        "id": "state-space-model"
       }
     ],
     "adjacent": [
       {
-        "id": "flash-attention",
-        "reviewed": false
+        "id": "flash-attention"
       },
       {
-        "id": "gpu-memory-hierarchy",
-        "reviewed": false
+        "id": "gpu-memory-hierarchy"
       }
     ]
   },

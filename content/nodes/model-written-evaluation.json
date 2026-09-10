@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       }
     ],
     "adjacent": [
       {
-        "id": "benchmark-contamination",
-        "reviewed": false
+        "id": "benchmark-contamination"
       },
       {
-        "id": "dangerous-capability-evaluation",
-        "reviewed": false
+        "id": "dangerous-capability-evaluation"
       }
     ]
   },

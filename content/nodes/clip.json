@@ -34,12 +34,10 @@
   "edges": {
     "requires": [
       {
-        "id": "contrastive-learning",
-        "reviewed": false
+        "id": "contrastive-learning"
       },
       {
-        "id": "vision-transformer",
-        "reviewed": false
+        "id": "vision-transformer"
       }
     ],
     "adjacent": []

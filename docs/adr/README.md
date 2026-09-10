@@ -51,6 +51,7 @@ point.
 | [0019](0019-an-encyclopedia-article-is-a-teaching-resource.md) | An encyclopedia article is a teaching resource, with a different kind of author | **accepted** |
 | [0020](0020-link-checking-is-two-jobs.md) | Link checking is two jobs — a fast gate and a slow, polite sweep | **accepted** |
 | [0021](0021-a-domain-scoped-explainer-names-its-domain.md) | A domain-scoped explainer names its domain | **accepted** |
+| [0022](0022-an-edge-review-pass-that-never-ran.md) | An edge-review pass that never ran | **accepted** |
 
 ## Planned
 

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "cross-validation",
-        "reviewed": false
+        "id": "cross-validation"
       }
     ],
     "adjacent": [
       {
-        "id": "ablation",
-        "reviewed": false
+        "id": "ablation"
       },
       {
-        "id": "benchmark-contamination",
-        "reviewed": false
+        "id": "benchmark-contamination"
       }
     ]
   },

@@ -34,14 +34,12 @@
   "edges": {
     "requires": [
       {
-        "id": "rlhf",
-        "reviewed": false
+        "id": "rlhf"
       }
     ],
     "adjacent": [
       {
-        "id": "jailbreak",
-        "reviewed": false
+        "id": "jailbreak"
       }
     ]
   },

@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "token-embedding",
-        "reviewed": false
+        "id": "token-embedding"
       },
       {
-        "id": "positional-encoding",
-        "reviewed": false
+        "id": "positional-encoding"
       }
     ],
     "adjacent": []

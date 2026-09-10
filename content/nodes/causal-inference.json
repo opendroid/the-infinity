@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "bias-variance-tradeoff",
-        "reviewed": false
+        "id": "bias-variance-tradeoff"
       }
     ]
   },

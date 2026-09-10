@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-landscape",
-        "reviewed": false
+        "id": "loss-landscape"
       }
     ],
     "adjacent": [
       {
-        "id": "permutation-symmetry",
-        "reviewed": false
+        "id": "permutation-symmetry"
       }
     ]
   },

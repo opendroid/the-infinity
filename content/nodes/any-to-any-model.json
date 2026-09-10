@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "vector-quantization",
-        "reviewed": false
+        "id": "vector-quantization"
       }
     ],
     "adjacent": [
       {
-        "id": "modality-fusion",
-        "reviewed": false
+        "id": "modality-fusion"
       }
     ]
   },

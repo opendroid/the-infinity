@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-landscape",
-        "reviewed": false
+        "id": "loss-landscape"
       },
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       }
     ],
     "adjacent": [
       {
-        "id": "weight-decay",
-        "reviewed": false
+        "id": "weight-decay"
       },
       {
-        "id": "stochastic-gradient-descent",
-        "reviewed": false
+        "id": "stochastic-gradient-descent"
       }
     ]
   },

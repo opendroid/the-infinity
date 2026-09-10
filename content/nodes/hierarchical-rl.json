@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "markov-decision-process",
-        "reviewed": false
+        "id": "markov-decision-process"
       },
       {
-        "id": "task-decomposition",
-        "reviewed": false
+        "id": "task-decomposition"
       }
     ],
     "adjacent": [
       {
-        "id": "agent-memory",
-        "reviewed": false
+        "id": "agent-memory"
       }
     ]
   },

@@ -32,14 +32,12 @@
   "edges": {
     "requires": [
       {
-        "id": "autoencoder",
-        "reviewed": false
+        "id": "autoencoder"
       }
     ],
     "adjacent": [
       {
-        "id": "latent-diffusion",
-        "reviewed": false
+        "id": "latent-diffusion"
       }
     ]
   },

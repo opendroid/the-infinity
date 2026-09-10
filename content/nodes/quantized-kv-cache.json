@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       }
     ],
     "adjacent": [
       {
-        "id": "quantization",
-        "reviewed": false
+        "id": "quantization"
       },
       {
-        "id": "number-format",
-        "reviewed": false
+        "id": "number-format"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "model-merging",
-        "reviewed": false
+        "id": "model-merging"
       }
     ],
     "adjacent": [
       {
-        "id": "weight-averaging",
-        "reviewed": false
+        "id": "weight-averaging"
       },
       {
-        "id": "merge-vs-ensemble",
-        "reviewed": false
+        "id": "merge-vs-ensemble"
       }
     ]
   },

@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       },
       {
-        "id": "weight-decay",
-        "reviewed": false
+        "id": "weight-decay"
       }
     ],
     "adjacent": [
       {
-        "id": "emergent-abilities",
-        "reviewed": false
+        "id": "emergent-abilities"
       },
       {
-        "id": "double-descent",
-        "reviewed": false
+        "id": "double-descent"
       }
     ]
   },

@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "kl-divergence",
-        "reviewed": false
+        "id": "kl-divergence"
       },
       {
-        "id": "variational-autoencoder",
-        "reviewed": false
+        "id": "variational-autoencoder"
       }
     ],
     "adjacent": []

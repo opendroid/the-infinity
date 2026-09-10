@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "vector-quantization",
-        "reviewed": false
+        "id": "vector-quantization"
       },
       {
-        "id": "autoencoder",
-        "reviewed": false
+        "id": "autoencoder"
       }
     ],
     "adjacent": [
       {
-        "id": "quantization",
-        "reviewed": false
+        "id": "quantization"
       },
       {
-        "id": "speech-representation-learning",
-        "reviewed": false
+        "id": "speech-representation-learning"
       }
     ]
   },

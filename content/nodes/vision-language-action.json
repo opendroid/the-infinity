@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "vision-language-model",
-        "reviewed": false
+        "id": "vision-language-model"
       },
       {
-        "id": "imitation-learning",
-        "reviewed": false
+        "id": "imitation-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "sim-to-real",
-        "reviewed": false
+        "id": "sim-to-real"
       }
     ]
   },

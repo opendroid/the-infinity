@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "continual-learning",
-        "reviewed": false
+        "id": "continual-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "bias-variance-tradeoff",
-        "reviewed": false
+        "id": "bias-variance-tradeoff"
       },
       {
-        "id": "robustness-accuracy-tradeoff",
-        "reviewed": false
+        "id": "robustness-accuracy-tradeoff"
       }
     ]
   },

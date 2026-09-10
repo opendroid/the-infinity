@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "spectrogram",
-        "reviewed": false
+        "id": "spectrogram"
       }
     ],
     "adjacent": [
       {
-        "id": "diffusion-model",
-        "reviewed": false
+        "id": "diffusion-model"
       },
       {
-        "id": "autoregressive-decoding",
-        "reviewed": false
+        "id": "autoregressive-decoding"
       }
     ]
   },

@@ -267,7 +267,7 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 		{name: "concept.edges", doc: concepts.Doc(id), at: "edges",
 			want: []string{"adjacent", "requires", "unlocks"}},
 		{name: "concept.edges.unlocks[]", doc: concepts.Doc(unlocksID), at: "edges.unlocks.[]",
-			want: []string{"id", "reviewed", "tier", "title"}},
+			want: []string{"id", "tier", "title"}},
 		{name: "concept.citations[]", doc: concepts.Doc(id), at: "citations.[]",
 			want: []string{"ref", "title", "url"}},
 		{name: "concept.review", doc: concepts.Doc(verifiedID), at: "review",
@@ -295,7 +295,7 @@ func TestPublishedDocumentsUseTheDocumentedFieldNames(t *testing.T) {
 			name: "neighborhood.links[]",
 			doc:  concepts.Doc(id).Collection(store.SubNeighborhood).Doc(store.DocNeighborhood),
 			at:   "links.[]",
-			want: []string{"from", "reviewed", "to", "type"},
+			want: []string{"from", "to", "type"},
 		},
 		{
 			name: "stats",

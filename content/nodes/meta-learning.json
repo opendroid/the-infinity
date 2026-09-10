@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "fine-tuning",
-        "reviewed": false
+        "id": "fine-tuning"
       }
     ],
     "adjacent": [
       {
-        "id": "in-context-learning",
-        "reviewed": false
+        "id": "in-context-learning"
       }
     ]
   },

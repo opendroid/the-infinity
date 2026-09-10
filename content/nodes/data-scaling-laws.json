@@ -35,18 +35,15 @@
   "edges": {
     "requires": [
       {
-        "id": "scaling-laws",
-        "reviewed": false
+        "id": "scaling-laws"
       },
       {
-        "id": "data-filtering",
-        "reviewed": false
+        "id": "data-filtering"
       }
     ],
     "adjacent": [
       {
-        "id": "compute-optimal-training",
-        "reviewed": false
+        "id": "compute-optimal-training"
       }
     ]
   },

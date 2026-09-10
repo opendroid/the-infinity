@@ -36,18 +36,15 @@
   "edges": {
     "requires": [
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       }
     ],
     "adjacent": [
       {
-        "id": "shortcut-learning",
-        "reviewed": false
+        "id": "shortcut-learning"
       },
       {
-        "id": "epistemic-uncertainty",
-        "reviewed": false
+        "id": "epistemic-uncertainty"
       }
     ]
   },

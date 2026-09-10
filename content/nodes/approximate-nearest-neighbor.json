@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "dense-retrieval",
-        "reviewed": false
+        "id": "dense-retrieval"
       }
     ],
     "adjacent": []

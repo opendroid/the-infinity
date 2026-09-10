@@ -34,8 +34,7 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-function",
-        "reviewed": false
+        "id": "loss-function"
       }
     ],
     "adjacent": []

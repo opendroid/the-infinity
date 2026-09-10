@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "pass-at-k",
-        "reviewed": false
+        "id": "pass-at-k"
       }
     ],
     "adjacent": [
       {
-        "id": "execution-verification",
-        "reviewed": false
+        "id": "execution-verification"
       },
       {
-        "id": "fill-in-the-middle",
-        "reviewed": false
+        "id": "fill-in-the-middle"
       }
     ]
   },

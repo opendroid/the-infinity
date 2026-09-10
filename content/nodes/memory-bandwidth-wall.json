@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "arithmetic-intensity",
-        "reviewed": false
+        "id": "arithmetic-intensity"
       }
     ],
     "adjacent": [
       {
-        "id": "kernel-fusion",
-        "reviewed": false
+        "id": "kernel-fusion"
       },
       {
-        "id": "activation-checkpointing",
-        "reviewed": false
+        "id": "activation-checkpointing"
       }
     ]
   },

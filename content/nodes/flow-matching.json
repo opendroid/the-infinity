@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "score-matching",
-        "reviewed": false
+        "id": "score-matching"
       }
     ],
     "adjacent": [
       {
-        "id": "diffusion-model",
-        "reviewed": false
+        "id": "diffusion-model"
       }
     ]
   },

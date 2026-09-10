@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "entropy",
-        "reviewed": false
+        "id": "entropy"
       }
     ],
     "adjacent": [
       {
-        "id": "neural-audio-codec",
-        "reviewed": false
+        "id": "neural-audio-codec"
       },
       {
-        "id": "quantization",
-        "reviewed": false
+        "id": "quantization"
       }
     ]
   },

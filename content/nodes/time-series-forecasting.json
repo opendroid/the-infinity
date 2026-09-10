@@ -37,12 +37,10 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       },
       {
-        "id": "shortcut-learning",
-        "reviewed": false
+        "id": "shortcut-learning"
       }
     ]
   },

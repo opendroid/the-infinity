@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "instruction-tuning",
-        "reviewed": false
+        "id": "instruction-tuning"
       }
     ],
     "adjacent": [
       {
-        "id": "constrained-decoding",
-        "reviewed": false
+        "id": "constrained-decoding"
       }
     ]
   },

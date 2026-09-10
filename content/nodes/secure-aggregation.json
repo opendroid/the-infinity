@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "federated-learning",
-        "reviewed": false
+        "id": "federated-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "collective-communication",
-        "reviewed": false
+        "id": "collective-communication"
       }
     ]
   },

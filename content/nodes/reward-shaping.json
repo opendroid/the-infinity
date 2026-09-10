@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "credit-assignment",
-        "reviewed": false
+        "id": "credit-assignment"
       }
     ],
     "adjacent": [
       {
-        "id": "specification-gaming",
-        "reviewed": false
+        "id": "specification-gaming"
       },
       {
-        "id": "reward-hacking",
-        "reviewed": false
+        "id": "reward-hacking"
       }
     ]
   },

@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "gradient-descent",
-        "reviewed": false
+        "id": "gradient-descent"
       }
     ],
     "adjacent": [
       {
-        "id": "principal-component-analysis",
-        "reviewed": false
+        "id": "principal-component-analysis"
       }
     ]
   },

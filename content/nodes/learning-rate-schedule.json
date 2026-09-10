@@ -34,8 +34,7 @@
   "edges": {
     "requires": [
       {
-        "id": "learning-rate",
-        "reviewed": false
+        "id": "learning-rate"
       }
     ],
     "adjacent": []

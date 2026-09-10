@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "rlhf",
-        "reviewed": false
+        "id": "rlhf"
       }
     ],
     "adjacent": [
       {
-        "id": "human-in-the-loop",
-        "reviewed": false
+        "id": "human-in-the-loop"
       }
     ]
   },

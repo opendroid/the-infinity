@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "bayesian-inference",
-        "reviewed": false
+        "id": "bayesian-inference"
       }
     ],
     "adjacent": [
       {
-        "id": "dropout",
-        "reviewed": false
+        "id": "dropout"
       },
       {
-        "id": "epistemic-uncertainty",
-        "reviewed": false
+        "id": "epistemic-uncertainty"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "energy-cost-of-training",
-        "reviewed": false
+        "id": "energy-cost-of-training"
       }
     ],
     "adjacent": [
       {
-        "id": "compute-optimal-training",
-        "reviewed": false
+        "id": "compute-optimal-training"
       },
       {
-        "id": "energy-cost-of-inference",
-        "reviewed": false
+        "id": "energy-cost-of-inference"
       }
     ]
   },

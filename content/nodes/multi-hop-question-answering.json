@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "entity-linking",
-        "reviewed": false
+        "id": "entity-linking"
       }
     ],
     "adjacent": [
       {
-        "id": "chain-of-thought",
-        "reviewed": false
+        "id": "chain-of-thought"
       },
       {
-        "id": "search-over-thoughts",
-        "reviewed": false
+        "id": "search-over-thoughts"
       }
     ]
   },

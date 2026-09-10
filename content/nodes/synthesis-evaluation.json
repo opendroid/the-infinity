@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "text-to-speech",
-        "reviewed": false
+        "id": "text-to-speech"
       },
       {
-        "id": "word-error-rate",
-        "reviewed": false
+        "id": "word-error-rate"
       }
     ],
     "adjacent": [
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       },
       {
-        "id": "annotation-quality",
-        "reviewed": false
+        "id": "annotation-quality"
       }
     ]
   },

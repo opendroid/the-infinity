@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "attention",
-        "reviewed": false
+        "id": "attention"
       },
       {
-        "id": "query-key-value",
-        "reviewed": false
+        "id": "query-key-value"
       }
     ],
     "adjacent": []

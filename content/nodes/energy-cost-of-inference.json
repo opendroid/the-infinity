@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "energy-cost-of-training",
-        "reviewed": false
+        "id": "energy-cost-of-training"
       }
     ],
     "adjacent": [
       {
-        "id": "test-time-compute",
-        "reviewed": false
+        "id": "test-time-compute"
       },
       {
-        "id": "quantization",
-        "reviewed": false
+        "id": "quantization"
       }
     ]
   },

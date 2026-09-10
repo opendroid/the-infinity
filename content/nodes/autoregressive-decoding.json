@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "causal-masking",
-        "reviewed": false
+        "id": "causal-masking"
       },
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       }
     ],
     "adjacent": []

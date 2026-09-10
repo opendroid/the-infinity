@@ -34,8 +34,7 @@
   "edges": {
     "requires": [
       {
-        "id": "contrastive-learning",
-        "reviewed": false
+        "id": "contrastive-learning"
       }
     ],
     "adjacent": []

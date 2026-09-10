@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       },
       {
-        "id": "kl-divergence",
-        "reviewed": false
+        "id": "kl-divergence"
       }
     ],
     "adjacent": [
       {
-        "id": "fine-tuning",
-        "reviewed": false
+        "id": "fine-tuning"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "speech-tokenization",
-        "reviewed": false
+        "id": "speech-tokenization"
       }
     ],
     "adjacent": [
       {
-        "id": "latent-diffusion",
-        "reviewed": false
+        "id": "latent-diffusion"
       },
       {
-        "id": "likelihood-vs-sample-quality",
-        "reviewed": false
+        "id": "likelihood-vs-sample-quality"
       }
     ]
   },

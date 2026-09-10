@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "connectionist-temporal-classification",
-        "reviewed": false
+        "id": "connectionist-temporal-classification"
       }
     ],
     "adjacent": [
       {
-        "id": "beam-search",
-        "reviewed": false
+        "id": "beam-search"
       }
     ]
   },

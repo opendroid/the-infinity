@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "encoder-decoder",
-        "reviewed": false
+        "id": "encoder-decoder"
       },
       {
-        "id": "cross-attention",
-        "reviewed": false
+        "id": "cross-attention"
       }
     ],
     "adjacent": [
       {
-        "id": "word-error-rate",
-        "reviewed": false
+        "id": "word-error-rate"
       },
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       }
     ]
   },

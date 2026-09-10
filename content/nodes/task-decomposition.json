@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "chain-of-thought",
-        "reviewed": false
+        "id": "chain-of-thought"
       }
     ],
     "adjacent": [
       {
-        "id": "react",
-        "reviewed": false
+        "id": "react"
       }
     ]
   },

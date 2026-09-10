@@ -124,29 +124,29 @@ func TestDeriveEdges(t *testing.T) {
 	}{
 		{
 			name:  "requires is kept as authored",
-			nodes: []publish.AuthoredNode{node("a", requires(publish.AuthoredEdge{ID: "b", Reviewed: true})), node("b")},
+			nodes: []publish.AuthoredNode{node("a", requires(publish.AuthoredEdge{ID: "b"})), node("b")},
 			id:    "a", typ: store.EdgeRequires, want: []string{"b"},
 		},
 		{
 			name:  "unlocks is inverted onto the target",
-			nodes: []publish.AuthoredNode{node("a", requires(publish.AuthoredEdge{ID: "b", Reviewed: true})), node("b")},
+			nodes: []publish.AuthoredNode{node("a", requires(publish.AuthoredEdge{ID: "b"})), node("b")},
 			id:    "b", typ: store.EdgeUnlocks, want: []string{"a"},
 		},
 		{
 			name:  "the target declares nothing itself",
-			nodes: []publish.AuthoredNode{node("a", requires(publish.AuthoredEdge{ID: "b", Reviewed: true})), node("b")},
+			nodes: []publish.AuthoredNode{node("a", requires(publish.AuthoredEdge{ID: "b"})), node("b")},
 			id:    "b", typ: store.EdgeRequires, want: []string{},
 		},
 		{
 			name:  "adjacency declared from one side reaches the other",
-			nodes: []publish.AuthoredNode{node("a", adjacent(publish.AuthoredEdge{ID: "b", Reviewed: true})), node("b")},
+			nodes: []publish.AuthoredNode{node("a", adjacent(publish.AuthoredEdge{ID: "b"})), node("b")},
 			id:    "b", typ: store.EdgeAdjacent, want: []string{"a"},
 		},
 		{
 			name: "adjacency declared from both sides lands once",
 			nodes: []publish.AuthoredNode{
-				node("a", adjacent(publish.AuthoredEdge{ID: "b", Reviewed: true})),
-				node("b", adjacent(publish.AuthoredEdge{ID: "a", Reviewed: true})),
+				node("a", adjacent(publish.AuthoredEdge{ID: "b"})),
+				node("b", adjacent(publish.AuthoredEdge{ID: "a"})),
 			},
 			id: "a", typ: store.EdgeAdjacent, want: []string{"b"},
 		},
@@ -180,51 +180,28 @@ func TestDeriveEdges(t *testing.T) {
 	}
 }
 
-// The reviewed flag is authored per edge, so the derived inverse has to carry the
-// authored value rather than defaulting to true. Deriving it from the target's
-// tier would erase the case the flag exists for: an unchecked claim between two
-// verified concepts.
-func TestDeriveCarriesReviewedOntoTheInverse(t *testing.T) {
-	t.Parallel()
-
-	g := deriveOrFatal(t,
-		node("a", requires(publish.AuthoredEdge{ID: "b", Reviewed: false})),
-		node("b"))
-
-	unlocks := conceptOrFatal(t, g, "b").Edges.Unlocks
-	if len(unlocks) != 1 {
-		t.Fatalf("got %d unlocks, want 1", len(unlocks))
-	}
-	if unlocks[0].Reviewed {
-		t.Error("the derived inverse reports reviewed=true for an unreviewed edge")
-	}
-}
-
-// Adjacency is one relationship written from two places, so the two sides can
-// disagree about whether a human checked it. Keeping the first arrival would
-// resolve that on slug order — and half the time publish an explicitly
-// unchecked claim as a verified one, which is the one thing the flag exists to
-// prevent.
-func TestDeriveResolvesContradictoryAdjacencyToUnreviewed(t *testing.T) {
+// Adjacency is one relationship written from two places, so it must land once
+// whichever side declares it. It used to also need reconciling: the two sides
+// each carried a `reviewed` flag and could disagree, and keeping the first
+// arrival would have settled that on slug order. ADR-0022 removed the flag, so
+// there is nothing left to disagree about — id, title and tier all come from
+// the target rather than from whoever wrote the edge.
+func TestDeriveLandsTwoSidedAdjacencyOnce(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name       string
-		first      publish.AuthoredNode
-		second     publish.AuthoredNode
-		wantSorted string // which side sorts first, to show the answer does not depend on it
+		name          string
+		first, second publish.AuthoredNode
 	}{
 		{
-			name:       "the reviewed side is written first",
-			first:      node("a", adjacent(publish.AuthoredEdge{ID: "b", Reviewed: true})),
-			second:     node("b", adjacent(publish.AuthoredEdge{ID: "a", Reviewed: false})),
-			wantSorted: "a",
+			name:   "a declares it first",
+			first:  node("a", adjacent(publish.AuthoredEdge{ID: "b"})),
+			second: node("b"),
 		},
 		{
-			name:       "the unreviewed side is written first",
-			first:      node("a", adjacent(publish.AuthoredEdge{ID: "b", Reviewed: false})),
-			second:     node("b", adjacent(publish.AuthoredEdge{ID: "a", Reviewed: true})),
-			wantSorted: "a",
+			name:   "both sides declare it",
+			first:  node("a", adjacent(publish.AuthoredEdge{ID: "b"})),
+			second: node("b", adjacent(publish.AuthoredEdge{ID: "a"})),
 		},
 	}
 
@@ -237,9 +214,6 @@ func TestDeriveResolvesContradictoryAdjacencyToUnreviewed(t *testing.T) {
 				if len(edges) != 1 {
 					t.Fatalf("%s has %d adjacent edges, want 1", id, len(edges))
 				}
-				if edges[0].Reviewed {
-					t.Errorf("%s's adjacency reports reviewed=true, but one side declared it unchecked", id)
-				}
 			}
 		})
 	}
@@ -249,7 +223,7 @@ func TestDeriveDenormalisesTheTarget(t *testing.T) {
 	t.Parallel()
 
 	g := deriveOrFatal(t,
-		node("a", requires(publish.AuthoredEdge{ID: "b", Reviewed: true})),
+		node("a", requires(publish.AuthoredEdge{ID: "b"})),
 		node("b", title("Bee"), frontier("2026-01-01")))
 
 	edge := conceptOrFatal(t, g, "a").Edges.Requires[0]
@@ -392,11 +366,11 @@ func TestNeighborhoodLayout(t *testing.T) {
 	t.Parallel()
 
 	g := deriveOrFatal(t,
-		node("center", requires(publish.AuthoredEdge{ID: "req", Reviewed: true}),
-			adjacent(publish.AuthoredEdge{ID: "adj", Reviewed: true})),
+		node("center", requires(publish.AuthoredEdge{ID: "req"}),
+			adjacent(publish.AuthoredEdge{ID: "adj"})),
 		node("req"),
 		node("adj"),
-		node("unl", requires(publish.AuthoredEdge{ID: "center", Reviewed: false})),
+		node("unl", requires(publish.AuthoredEdge{ID: "center"})),
 	)
 
 	n, ok := g.Neighborhoods["center"]
@@ -435,18 +409,17 @@ func TestNeighborhoodLinkDirection(t *testing.T) {
 	t.Parallel()
 
 	g := deriveOrFatal(t,
-		node("center", requires(publish.AuthoredEdge{ID: "req", Reviewed: true})),
+		node("center", requires(publish.AuthoredEdge{ID: "req"})),
 		node("req"),
-		node("unl", requires(publish.AuthoredEdge{ID: "center", Reviewed: false})),
+		node("unl", requires(publish.AuthoredEdge{ID: "center"})),
 	)
 
 	tests := []struct {
-		typ        store.EdgeType
-		from, to   string
-		wantDashed bool
+		typ      store.EdgeType
+		from, to string
 	}{
-		{typ: store.EdgeRequires, from: "req", to: "center", wantDashed: false},
-		{typ: store.EdgeUnlocks, from: "center", to: "unl", wantDashed: true},
+		{typ: store.EdgeRequires, from: "req", to: "center"},
+		{typ: store.EdgeUnlocks, from: "center", to: "unl"},
 	}
 
 	links := g.Neighborhoods["center"].Links
@@ -456,9 +429,6 @@ func TestNeighborhoodLinkDirection(t *testing.T) {
 				if l.Type == tt.typ {
 					if l.From != tt.from || l.To != tt.to {
 						t.Errorf("%s runs %s→%s, want %s→%s", tt.typ, l.From, l.To, tt.from, tt.to)
-					}
-					if l.Reviewed == tt.wantDashed {
-						t.Errorf("%s reviewed = %v, want %v", tt.typ, l.Reviewed, !tt.wantDashed)
 					}
 					return
 				}

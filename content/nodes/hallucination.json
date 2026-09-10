@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "autoregressive-decoding",
-        "reviewed": false
+        "id": "autoregressive-decoding"
       }
     ],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       },
       {
-        "id": "knowledge-conflict",
-        "reviewed": false
+        "id": "knowledge-conflict"
       }
     ]
   },

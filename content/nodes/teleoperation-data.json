@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "imitation-learning",
-        "reviewed": false
+        "id": "imitation-learning"
       }
     ],
     "adjacent": [
       {
-        "id": "data-filtering",
-        "reviewed": false
+        "id": "data-filtering"
       },
       {
-        "id": "annotation-quality",
-        "reviewed": false
+        "id": "annotation-quality"
       }
     ]
   },

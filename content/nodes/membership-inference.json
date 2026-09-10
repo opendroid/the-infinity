@@ -36,14 +36,12 @@
   "edges": {
     "requires": [
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       }
     ],
     "adjacent": [
       {
-        "id": "differential-privacy",
-        "reviewed": false
+        "id": "differential-privacy"
       }
     ]
   },

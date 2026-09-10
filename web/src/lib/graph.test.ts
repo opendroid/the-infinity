@@ -31,7 +31,7 @@ describe('tierOf', () => {
 
 describe('resolveGraph', () => {
   it('inverts requires into unlocks on the target', () => {
-    const g = resolveGraph([node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [] } }), node('b')]);
+    const g = resolveGraph([node('a', { edges: { requires: [{ id: 'b' }], adjacent: [] } }), node('b')]);
 
     expect(g.get('a')?.edges.requires.map((e) => e.id)).toEqual(['b']);
     expect(g.get('b')?.edges.unlocks.map((e) => e.id)).toEqual(['a']);
@@ -39,24 +39,17 @@ describe('resolveGraph', () => {
     expect(g.get('b')?.edges.requires).toEqual([]);
   });
 
-  it('carries the authored reviewed flag onto the derived inverse', () => {
-    const g = resolveGraph([
-      node('a', { edges: { requires: [{ id: 'b', reviewed: false }], adjacent: [] } }),
-      node('b'),
-    ]);
-    expect(g.get('b')?.edges.unlocks[0]?.reviewed).toBe(false);
-  });
 
   it('symmetrizes adjacency declared from one side only', () => {
-    const g = resolveGraph([node('a', { edges: { requires: [], adjacent: [{ id: 'b', reviewed: true }] } }), node('b')]);
+    const g = resolveGraph([node('a', { edges: { requires: [], adjacent: [{ id: 'b' }] } }), node('b')]);
     expect(g.get('a')?.edges.adjacent.map((e) => e.id)).toEqual(['b']);
     expect(g.get('b')?.edges.adjacent.map((e) => e.id)).toEqual(['a']);
   });
 
   it('does not duplicate adjacency declared from both sides', () => {
     const g = resolveGraph([
-      node('a', { edges: { requires: [], adjacent: [{ id: 'b', reviewed: true }] } }),
-      node('b', { edges: { requires: [], adjacent: [{ id: 'a', reviewed: true }] } }),
+      node('a', { edges: { requires: [], adjacent: [{ id: 'b' }] } }),
+      node('b', { edges: { requires: [], adjacent: [{ id: 'a' }] } }),
     ]);
     expect(g.get('a')?.edges.adjacent).toHaveLength(1);
     expect(g.get('b')?.edges.adjacent).toHaveLength(1);
@@ -64,43 +57,45 @@ describe('resolveGraph', () => {
 
   it('denormalizes the target title and tier onto the edge', () => {
     const g = resolveGraph([
-      node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [] } }),
+      node('a', { edges: { requires: [{ id: 'b' }], adjacent: [] } }),
       node('b', { title: 'Bee', review: undefined, provenance: { drafted_at: '2026-01-01' } }),
     ]);
     expect(g.get('a')?.edges.requires[0]).toMatchObject({ title: 'Bee', tier: 'frontier' });
   });
 
-  it('resolves contradictory two-sided adjacency to unreviewed', () => {
-    // Keeping the first arrival would resolve this on slug order, and half the
-    // time render an explicitly unchecked claim as a solid, verified edge.
+  it('does not duplicate an adjacency each side declares, whichever arrives first', () => {
+    // This used to AND the two sides' `reviewed` flags, because they could
+    // disagree and first-wins would have settled it on slug order. ADR-0022
+    // removed the field, so there is nothing left for the two sides to
+    // disagree about: title and tier both come from the target.
     const g = resolveGraph([
-      node('a', { edges: { requires: [], adjacent: [{ id: 'b', reviewed: true }] } }),
-      node('b', { edges: { requires: [], adjacent: [{ id: 'a', reviewed: false }] } }),
+      node('a', { edges: { requires: [], adjacent: [{ id: 'b' }] } }),
+      node('b', { edges: { requires: [], adjacent: [{ id: 'a' }] } }),
     ]);
-    expect(g.get('a')?.edges.adjacent[0]?.reviewed).toBe(false);
-    expect(g.get('b')?.edges.adjacent[0]?.reviewed).toBe(false);
+    expect(g.get('a')?.edges.adjacent).toHaveLength(1);
+    expect(g.get('a')?.edges.adjacent[0]).toMatchObject({ id: 'b', tier: 'verified' });
   });
 
   const twoWays = [
     {
       name: 'one target in two authored groups',
       nodes: [
-        node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [{ id: 'b', reviewed: true }] } }),
+        node('a', { edges: { requires: [{ id: 'b' }], adjacent: [{ id: 'b' }] } }),
         node('b'),
       ],
     },
     {
       name: 'a mutual requires, which is a circular prerequisite',
       nodes: [
-        node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [] } }),
-        node('b', { edges: { requires: [{ id: 'a', reviewed: true }], adjacent: [] } }),
+        node('a', { edges: { requires: [{ id: 'b' }], adjacent: [] } }),
+        node('b', { edges: { requires: [{ id: 'a' }], adjacent: [] } }),
       ],
     },
     {
       name: 'a prerequisite that the other side calls adjacent',
       nodes: [
-        node('a', { edges: { requires: [{ id: 'b', reviewed: true }], adjacent: [] } }),
-        node('b', { edges: { requires: [], adjacent: [{ id: 'a', reviewed: true }] } }),
+        node('a', { edges: { requires: [{ id: 'b' }], adjacent: [] } }),
+        node('b', { edges: { requires: [], adjacent: [{ id: 'a' }] } }),
       ],
     },
   ] as const;
@@ -114,7 +109,7 @@ describe('resolveGraph', () => {
   }
 
   it('throws on an edge to a node that does not exist', () => {
-    expect(() => resolveGraph([node('a', { edges: { requires: [{ id: 'ghost', reviewed: true }], adjacent: [] } })])).toThrow(
+    expect(() => resolveGraph([node('a', { edges: { requires: [{ id: 'ghost' }], adjacent: [] } })])).toThrow(
       /"ghost", which does not exist/,
     );
   });
@@ -130,11 +125,11 @@ describe('resolveGraph', () => {
 describe('neighborhood', () => {
   const graph = resolveGraph([
     node('center', {
-      edges: { requires: [{ id: 'req', reviewed: true }], adjacent: [{ id: 'adj', reviewed: true }] },
+      edges: { requires: [{ id: 'req' }], adjacent: [{ id: 'adj' }] },
     }),
     node('req'),
     node('adj'),
-    node('unl', { edges: { requires: [{ id: 'center', reviewed: false }], adjacent: [] } }),
+    node('unl', { edges: { requires: [{ id: 'center' }], adjacent: [] } }),
   ]);
 
   it('places requires left of centre and unlocks right', () => {
@@ -174,9 +169,13 @@ describe('neighborhood', () => {
     expect(n.links.find((l) => l.type === 'unlocks')).toMatchObject({ from: 'center', to: 'unl' });
   });
 
-  it('marks an unreviewed edge so the mini-map can dash it', () => {
+  it('gives every link a from, a to and a type, and nothing else', () => {
+    // ADR-0022: `reviewed` was the fourth field and the only one a reader saw
+    // rendered, as a dash. Its absence is the assertion.
     const n = neighborhood(graph, 'center');
-    expect(n.links.some((l) => !l.reviewed)).toBe(true);
+    for (const link of n.links) {
+      expect(Object.keys(link).sort()).toEqual(['from', 'to', 'type']);
+    }
   });
 
   it('throws on an unknown node', () => {

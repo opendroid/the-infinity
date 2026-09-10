@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "data-filtering",
-        "reviewed": false
+        "id": "data-filtering"
       }
     ],
     "adjacent": [
       {
-        "id": "evaluation-disaggregation",
-        "reviewed": false
+        "id": "evaluation-disaggregation"
       },
       {
-        "id": "annotation-quality",
-        "reviewed": false
+        "id": "annotation-quality"
       }
     ]
   },

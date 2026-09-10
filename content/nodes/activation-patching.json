@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "mechanistic-interpretability",
-        "reviewed": false
+        "id": "mechanistic-interpretability"
       }
     ],
     "adjacent": [
       {
-        "id": "induction-head",
-        "reviewed": false
+        "id": "induction-head"
       }
     ]
   },

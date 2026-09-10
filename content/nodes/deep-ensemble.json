@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "ensemble-methods",
-        "reviewed": false
+        "id": "ensemble-methods"
       }
     ],
     "adjacent": [
       {
-        "id": "epistemic-uncertainty",
-        "reviewed": false
+        "id": "epistemic-uncertainty"
       },
       {
-        "id": "distribution-shift",
-        "reviewed": false
+        "id": "distribution-shift"
       }
     ]
   },

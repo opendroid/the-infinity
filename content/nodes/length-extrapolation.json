@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "positional-encoding",
-        "reviewed": false
+        "id": "positional-encoding"
       }
     ],
     "adjacent": [
       {
-        "id": "alibi",
-        "reviewed": false
+        "id": "alibi"
       },
       {
-        "id": "position-interpolation",
-        "reviewed": false
+        "id": "position-interpolation"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "backdoor-attack",
-        "reviewed": false
+        "id": "backdoor-attack"
       }
     ],
     "adjacent": [
       {
-        "id": "mechanistic-interpretability",
-        "reviewed": false
+        "id": "mechanistic-interpretability"
       },
       {
-        "id": "red-teaming",
-        "reviewed": false
+        "id": "red-teaming"
       }
     ]
   },

@@ -139,9 +139,11 @@ describe('content/nodes', () => {
       }
     });
 
-    it('marks every edge as reviewed or not', () => {
+    it('declares an edge as a bare id and nothing else', () => {
+      // ADR-0022 removed `reviewed`, the only other key an authored edge had.
+      // Asserted as an exact key set so a field cannot creep back in unnoticed.
       for (const edge of [...node.edges.requires, ...node.edges.adjacent]) {
-        expect(typeof edge.reviewed).toBe('boolean');
+        expect(Object.keys(edge)).toEqual(['id']);
       }
     });
 

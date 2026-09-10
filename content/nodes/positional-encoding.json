@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "token-embedding",
-        "reviewed": false
+        "id": "token-embedding"
       }
     ],
     "adjacent": []

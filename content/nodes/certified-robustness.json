@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "adversarial-example",
-        "reviewed": false
+        "id": "adversarial-example"
       }
     ],
     "adjacent": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       },
       {
-        "id": "adversarial-training",
-        "reviewed": false
+        "id": "adversarial-training"
       }
     ]
   },

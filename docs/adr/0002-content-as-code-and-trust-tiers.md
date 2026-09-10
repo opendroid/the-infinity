@@ -71,11 +71,17 @@ that can contradict each other, with nothing to catch it. Node JSON declares `re
 and `adjacent` only; publish inverts `requires` into the target's `unlocks`, and
 symmetrizes `adjacent` so it can be declared from whichever side reads naturally.
 
-`edges[].reviewed` **is** authored, per edge, defaulting to `false`. It is tempting to
+~~`edges[].reviewed` **is** authored, per edge, defaulting to `false`. It is tempting to
 derive it from the target node's tier — in the handoff's example the two happen to
 coincide — but that would erase the case the dashed mini-map line exists for: an
 unchecked claim *between two verified nodes*, where both concepts are solid and nobody
-confirmed the relationship. That is an independent human judgment, so it is stored.
+confirmed the relationship. That is an independent human judgment, so it is stored.~~
+
+> **Superseded by [ADR-0022](0022-an-edge-review-pass-that-never-ran.md).** The reasoning
+> was sound and the workflow never arrived: the judgment this field stores was never part
+> of node review, so it resolved to `false` on 1,154 of 1,157 edges and the mini-map
+> dashed nearly every line on every page. The field and the dash are gone. The two clauses
+> above — `unlocks` derived, `adjacent` symmetrized — still stand.
 
 ### 5. `citations[]` stays top-level and tier-independent
 
@@ -96,7 +102,7 @@ presentation rule, and it was modeled as a storage rule.
 | `viz` | Take the handoff's `{primitive, params, param_controls, caption}`. CI enforces `param_controls` length ≤ 1 and validates `primitive` against implemented primitives. |
 | `emphasis` | Optional per depth. CI asserts `bodies[d]` contains `emphasis[d]` verbatim. Renderer highlights the first occurrence only. |
 | `updated_at` | Adopt the handoff's name — consistent with `drafted_at`, `reviewed_at`, `created_at`. |
-| Edge storage | Ids only in node JSON. The API's denormalized `{id, title, tier, reviewed}` is a response shape, produced at publish time. |
+| Edge storage | Ids only in node JSON. The API's denormalized `{id, title, tier}` is a response shape, produced at publish time. (`reviewed` was part of it until [ADR-0022](0022-an-edge-review-pass-that-never-ran.md).) |
 
 ### 7. Publish rewrites every concept document
 

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "catastrophic-forgetting",
-        "reviewed": false
+        "id": "catastrophic-forgetting"
       }
     ],
     "adjacent": [
       {
-        "id": "weight-decay",
-        "reviewed": false
+        "id": "weight-decay"
       },
       {
-        "id": "kl-divergence",
-        "reviewed": false
+        "id": "kl-divergence"
       }
     ]
   },

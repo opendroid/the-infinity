@@ -34,14 +34,12 @@
   "edges": {
     "requires": [
       {
-        "id": "learning-rate-schedule",
-        "reviewed": false
+        "id": "learning-rate-schedule"
       }
     ],
     "adjacent": [
       {
-        "id": "layer-normalization",
-        "reviewed": false
+        "id": "layer-normalization"
       }
     ]
   },

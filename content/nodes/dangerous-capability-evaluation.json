@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "agent-evaluation",
-        "reviewed": false
+        "id": "agent-evaluation"
       }
     ],
     "adjacent": [
       {
-        "id": "red-teaming",
-        "reviewed": false
+        "id": "red-teaming"
       },
       {
-        "id": "safety-benchmark-validity",
-        "reviewed": false
+        "id": "safety-benchmark-validity"
       }
     ]
   },

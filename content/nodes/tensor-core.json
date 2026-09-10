@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "gpu-memory-hierarchy",
-        "reviewed": false
+        "id": "gpu-memory-hierarchy"
       }
     ],
     "adjacent": [
       {
-        "id": "kernel-fusion",
-        "reviewed": false
+        "id": "kernel-fusion"
       },
       {
-        "id": "flash-attention",
-        "reviewed": false
+        "id": "flash-attention"
       }
     ]
   },

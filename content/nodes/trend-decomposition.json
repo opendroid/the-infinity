@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "time-series-forecasting",
-        "reviewed": false
+        "id": "time-series-forecasting"
       }
     ],
     "adjacent": [
       {
-        "id": "principal-component-analysis",
-        "reviewed": false
+        "id": "principal-component-analysis"
       }
     ]
   },

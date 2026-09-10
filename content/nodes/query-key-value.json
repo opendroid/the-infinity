@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "attention",
-        "reviewed": false
+        "id": "attention"
       }
     ],
     "adjacent": [
       {
-        "id": "multi-head-attention",
-        "reviewed": false
+        "id": "multi-head-attention"
       }
     ]
   },

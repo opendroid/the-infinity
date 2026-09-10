@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "teacher-forcing",
-        "reviewed": false
+        "id": "teacher-forcing"
       }
     ],
     "adjacent": [
       {
-        "id": "hallucination",
-        "reviewed": false
+        "id": "hallucination"
       },
       {
-        "id": "world-model",
-        "reviewed": false
+        "id": "world-model"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "context-window",
-        "reviewed": false
+        "id": "context-window"
       }
     ],
     "adjacent": [
       {
-        "id": "code-search",
-        "reviewed": false
+        "id": "code-search"
       },
       {
-        "id": "retrieval-augmented-generation",
-        "reviewed": false
+        "id": "retrieval-augmented-generation"
       }
     ]
   },

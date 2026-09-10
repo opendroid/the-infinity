@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "data-filtering",
-        "reviewed": false
+        "id": "data-filtering"
       }
     ],
     "adjacent": [
       {
-        "id": "training-data-extraction",
-        "reviewed": false
+        "id": "training-data-extraction"
       },
       {
-        "id": "benchmark-contamination",
-        "reviewed": false
+        "id": "benchmark-contamination"
       }
     ]
   },

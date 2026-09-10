@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "autoregressive-decoding",
-        "reviewed": false
+        "id": "autoregressive-decoding"
       },
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       }
     ],
     "adjacent": [
       {
-        "id": "top-k-sampling",
-        "reviewed": false
+        "id": "top-k-sampling"
       }
     ]
   },

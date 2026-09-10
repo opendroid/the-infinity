@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       }
     ],
     "adjacent": []

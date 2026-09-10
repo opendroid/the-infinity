@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "data-parallelism",
-        "reviewed": false
+        "id": "data-parallelism"
       }
     ],
     "adjacent": []

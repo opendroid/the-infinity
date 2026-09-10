@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "adaptive-computation",
-        "reviewed": false
+        "id": "adaptive-computation"
       }
     ],
     "adjacent": [
       {
-        "id": "model-routing",
-        "reviewed": false
+        "id": "model-routing"
       },
       {
-        "id": "verifier-model",
-        "reviewed": false
+        "id": "verifier-model"
       }
     ]
   },

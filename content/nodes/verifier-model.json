@@ -34,14 +34,12 @@
   "edges": {
     "requires": [
       {
-        "id": "reward-model",
-        "reviewed": false
+        "id": "reward-model"
       }
     ],
     "adjacent": [
       {
-        "id": "reward-hacking",
-        "reviewed": false
+        "id": "reward-hacking"
       }
     ]
   },

@@ -35,7 +35,7 @@ const node = (id: string, domain: string[], adjacent: string[] = []) => ({
   id,
   title: id,
   domain,
-  edges: { requires: [], adjacent: adjacent.map((a) => ({ id: a, reviewed: false })) },
+  edges: { requires: [], adjacent: adjacent.map((a) => ({ id: a })) },
 });
 
 describe('targets picks domains first, biggest first', () => {

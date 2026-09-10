@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "manipulation",
-        "reviewed": false
+        "id": "manipulation"
       }
     ],
     "adjacent": [
       {
-        "id": "hierarchical-rl",
-        "reviewed": false
+        "id": "hierarchical-rl"
       },
       {
-        "id": "streaming-asr",
-        "reviewed": false
+        "id": "streaming-asr"
       }
     ]
   },

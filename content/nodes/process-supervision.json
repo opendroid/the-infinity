@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "verifier-model",
-        "reviewed": false
+        "id": "verifier-model"
       }
     ],
     "adjacent": [
       {
-        "id": "reasoning-rl",
-        "reviewed": false
+        "id": "reasoning-rl"
       }
     ]
   },

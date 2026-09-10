@@ -270,7 +270,7 @@ func TestListMarshalsEmptyAsArray(t *testing.T) {
 		{
 			name: "populated",
 			list: store.List[store.Edge]{{ID: "a", Title: "A", Tier: store.TierVerified}},
-			want: `[{"id":"a","title":"A","tier":"verified","reviewed":false}]`,
+			want: `[{"id":"a","title":"A","tier":"verified"}]`,
 		},
 	}
 

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "sim-to-real",
-        "reviewed": false
+        "id": "sim-to-real"
       }
     ],
     "adjacent": [
       {
-        "id": "model-based-rl",
-        "reviewed": false
+        "id": "model-based-rl"
       },
       {
-        "id": "manipulation",
-        "reviewed": false
+        "id": "manipulation"
       }
     ]
   },

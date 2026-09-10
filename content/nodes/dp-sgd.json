@@ -35,22 +35,18 @@
   "edges": {
     "requires": [
       {
-        "id": "differential-privacy",
-        "reviewed": false
+        "id": "differential-privacy"
       },
       {
-        "id": "stochastic-gradient-descent",
-        "reviewed": false
+        "id": "stochastic-gradient-descent"
       }
     ],
     "adjacent": [
       {
-        "id": "gradient-clipping",
-        "reviewed": false
+        "id": "gradient-clipping"
       },
       {
-        "id": "batch-size",
-        "reviewed": false
+        "id": "batch-size"
       }
     ]
   },

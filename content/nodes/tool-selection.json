@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "tool-schema",
-        "reviewed": false
+        "id": "tool-schema"
       }
     ],
     "adjacent": [
       {
-        "id": "dense-retrieval",
-        "reviewed": false
+        "id": "dense-retrieval"
       },
       {
-        "id": "reranking",
-        "reviewed": false
+        "id": "reranking"
       }
     ]
   },

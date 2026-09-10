@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "automatic-speech-recognition",
-        "reviewed": false
+        "id": "automatic-speech-recognition"
       }
     ],
     "adjacent": [
       {
-        "id": "perplexity",
-        "reviewed": false
+        "id": "perplexity"
       },
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ]
   },

@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "weight-decay",
-        "reviewed": false
+        "id": "weight-decay"
       }
     ]
   },

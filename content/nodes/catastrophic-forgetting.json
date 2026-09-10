@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "fine-tuning",
-        "reviewed": false
+        "id": "fine-tuning"
       }
     ],
     "adjacent": [
       {
-        "id": "rlhf",
-        "reviewed": false
+        "id": "rlhf"
       },
       {
-        "id": "instruction-tuning",
-        "reviewed": false
+        "id": "instruction-tuning"
       }
     ]
   },

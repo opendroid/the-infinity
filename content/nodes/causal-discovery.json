@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "causal-inference",
-        "reviewed": false
+        "id": "causal-inference"
       },
       {
-        "id": "graph-neural-network",
-        "reviewed": false
+        "id": "graph-neural-network"
       }
     ],
     "adjacent": [
       {
-        "id": "graph-expressivity",
-        "reviewed": false
+        "id": "graph-expressivity"
       }
     ]
   },

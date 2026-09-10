@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "data-parallelism",
-        "reviewed": false
+        "id": "data-parallelism"
       }
     ],
     "adjacent": [
       {
-        "id": "straggler",
-        "reviewed": false
+        "id": "straggler"
       }
     ]
   },

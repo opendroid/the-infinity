@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "mode-collapse",
-        "reviewed": false
+        "id": "mode-collapse"
       }
     ],
     "adjacent": [
       {
-        "id": "perplexity",
-        "reviewed": false
+        "id": "perplexity"
       },
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ]
   },

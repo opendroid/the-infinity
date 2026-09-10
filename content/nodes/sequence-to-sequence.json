@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "encoder-decoder",
-        "reviewed": false
+        "id": "encoder-decoder"
       }
     ],
     "adjacent": [
       {
-        "id": "cross-attention",
-        "reviewed": false
+        "id": "cross-attention"
       },
       {
-        "id": "recurrent-neural-network",
-        "reviewed": false
+        "id": "recurrent-neural-network"
       }
     ]
   },

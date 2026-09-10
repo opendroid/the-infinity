@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "exploration-exploitation",
-        "reviewed": false
+        "id": "exploration-exploitation"
       }
     ],
     "adjacent": [
       {
-        "id": "value-function",
-        "reviewed": false
+        "id": "value-function"
       }
     ]
   },

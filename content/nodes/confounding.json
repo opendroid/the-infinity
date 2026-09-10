@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "causal-inference",
-        "reviewed": false
+        "id": "causal-inference"
       }
     ],
     "adjacent": [
       {
-        "id": "cross-validation",
-        "reviewed": false
+        "id": "cross-validation"
       }
     ]
   },

@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "diffusion-model",
-        "reviewed": false
+        "id": "diffusion-model"
       }
     ],
     "adjacent": []

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "execution-verification",
-        "reviewed": false
+        "id": "execution-verification"
       }
     ],
     "adjacent": [
       {
-        "id": "program-repair",
-        "reviewed": false
+        "id": "program-repair"
       },
       {
-        "id": "code-generation",
-        "reviewed": false
+        "id": "code-generation"
       }
     ]
   },

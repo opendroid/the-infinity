@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "logit",
-        "reviewed": false
+        "id": "logit"
       }
     ],
     "adjacent": [
       {
-        "id": "nucleus-sampling",
-        "reviewed": false
+        "id": "nucleus-sampling"
       },
       {
-        "id": "top-k-sampling",
-        "reviewed": false
+        "id": "top-k-sampling"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "bias-variance-tradeoff",
-        "reviewed": false
+        "id": "bias-variance-tradeoff"
       }
     ],
     "adjacent": [
       {
-        "id": "convolutional-network",
-        "reviewed": false
+        "id": "convolutional-network"
       },
       {
-        "id": "vision-transformer",
-        "reviewed": false
+        "id": "vision-transformer"
       }
     ]
   },

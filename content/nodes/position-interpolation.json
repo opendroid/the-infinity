@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "rotary-position-embedding",
-        "reviewed": false
+        "id": "rotary-position-embedding"
       }
     ],
     "adjacent": [
       {
-        "id": "length-extrapolation",
-        "reviewed": false
+        "id": "length-extrapolation"
       }
     ]
   },

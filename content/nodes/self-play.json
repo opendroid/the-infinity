@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "policy-gradient",
-        "reviewed": false
+        "id": "policy-gradient"
       }
     ],
     "adjacent": [
       {
-        "id": "monte-carlo-tree-search",
-        "reviewed": false
+        "id": "monte-carlo-tree-search"
       },
       {
-        "id": "reasoning-rl",
-        "reviewed": false
+        "id": "reasoning-rl"
       }
     ]
   },

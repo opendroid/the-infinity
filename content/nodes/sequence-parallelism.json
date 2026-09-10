@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "tensor-parallelism",
-        "reviewed": false
+        "id": "tensor-parallelism"
       }
     ],
     "adjacent": [
       {
-        "id": "activation-checkpointing",
-        "reviewed": false
+        "id": "activation-checkpointing"
       },
       {
-        "id": "long-context-training",
-        "reviewed": false
+        "id": "long-context-training"
       }
     ]
   },

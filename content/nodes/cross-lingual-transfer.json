@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "multilingual-model",
-        "reviewed": false
+        "id": "multilingual-model"
       },
       {
-        "id": "fine-tuning",
-        "reviewed": false
+        "id": "fine-tuning"
       }
     ],
     "adjacent": [
       {
-        "id": "few-shot-learning",
-        "reviewed": false
+        "id": "few-shot-learning"
       },
       {
-        "id": "in-context-learning",
-        "reviewed": false
+        "id": "in-context-learning"
       }
     ]
   },

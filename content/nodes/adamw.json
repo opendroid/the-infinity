@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "adam",
-        "reviewed": false
+        "id": "adam"
       },
       {
-        "id": "weight-decay",
-        "reviewed": false
+        "id": "weight-decay"
       }
     ],
     "adjacent": []

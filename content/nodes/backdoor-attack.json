@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "data-poisoning",
-        "reviewed": false
+        "id": "data-poisoning"
       }
     ],
     "adjacent": [
       {
-        "id": "fine-tuning",
-        "reviewed": false
+        "id": "fine-tuning"
       }
     ]
   },

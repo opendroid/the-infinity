@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "collaborative-filtering",
-        "reviewed": false
+        "id": "collaborative-filtering"
       },
       {
-        "id": "approximate-nearest-neighbor",
-        "reviewed": false
+        "id": "approximate-nearest-neighbor"
       }
     ],
     "adjacent": [
       {
-        "id": "reranking",
-        "reviewed": false
+        "id": "reranking"
       },
       {
-        "id": "hybrid-search",
-        "reviewed": false
+        "id": "hybrid-search"
       }
     ]
   },

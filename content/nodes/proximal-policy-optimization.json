@@ -32,12 +32,10 @@
   "edges": {
     "requires": [
       {
-        "id": "gradient-descent",
-        "reviewed": false
+        "id": "gradient-descent"
       },
       {
-        "id": "policy-gradient",
-        "reviewed": false
+        "id": "policy-gradient"
       }
     ],
     "adjacent": []

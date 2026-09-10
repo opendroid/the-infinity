@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "implicit-regularization",
-        "reviewed": false
+        "id": "implicit-regularization"
       },
       {
-        "id": "bias-variance-tradeoff",
-        "reviewed": false
+        "id": "bias-variance-tradeoff"
       }
     ],
     "adjacent": [
       {
-        "id": "scaling-laws",
-        "reviewed": false
+        "id": "scaling-laws"
       }
     ]
   },

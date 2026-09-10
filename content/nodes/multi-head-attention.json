@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "self-attention",
-        "reviewed": false
+        "id": "self-attention"
       }
     ],
     "adjacent": []

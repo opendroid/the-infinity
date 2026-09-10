@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "backpropagation",
-        "reviewed": false
+        "id": "backpropagation"
       }
     ],
     "adjacent": [
       {
-        "id": "vision-transformer",
-        "reviewed": false
+        "id": "vision-transformer"
       }
     ]
   },

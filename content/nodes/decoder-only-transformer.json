@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "transformer-block",
-        "reviewed": false
+        "id": "transformer-block"
       },
       {
-        "id": "causal-masking",
-        "reviewed": false
+        "id": "causal-masking"
       }
     ],
     "adjacent": []

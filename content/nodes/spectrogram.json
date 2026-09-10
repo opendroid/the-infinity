@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "patch-embedding",
-        "reviewed": false
+        "id": "patch-embedding"
       }
     ]
   },

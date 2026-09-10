@@ -34,12 +34,10 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "compute-optimal-training",
-        "reviewed": false
+        "id": "compute-optimal-training"
       },
       {
-        "id": "accelerator-utilization",
-        "reviewed": false
+        "id": "accelerator-utilization"
       }
     ]
   },

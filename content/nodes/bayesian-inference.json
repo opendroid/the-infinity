@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "maximum-likelihood",
-        "reviewed": false
+        "id": "maximum-likelihood"
       }
     ],
     "adjacent": [
       {
-        "id": "variational-autoencoder",
-        "reviewed": false
+        "id": "variational-autoencoder"
       }
     ]
   },

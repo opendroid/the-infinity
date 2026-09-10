@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "graph-neural-network",
-        "reviewed": false
+        "id": "graph-neural-network"
       }
     ],
     "adjacent": [
       {
-        "id": "retrieval-augmented-generation",
-        "reviewed": false
+        "id": "retrieval-augmented-generation"
       }
     ]
   },

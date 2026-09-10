@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "intervention",
-        "reviewed": false
+        "id": "intervention"
       }
     ],
     "adjacent": [
       {
-        "id": "llm-as-judge",
-        "reviewed": false
+        "id": "llm-as-judge"
       },
       {
-        "id": "instrumental-variable",
-        "reviewed": false
+        "id": "instrumental-variable"
       }
     ]
   },

@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "autoregressive-decoding",
-        "reviewed": false
+        "id": "autoregressive-decoding"
       }
     ],
     "adjacent": [
       {
-        "id": "sequence-to-sequence",
-        "reviewed": false
+        "id": "sequence-to-sequence"
       }
     ]
   },

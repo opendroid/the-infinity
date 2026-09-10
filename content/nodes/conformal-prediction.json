@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "calibration",
-        "reviewed": false
+        "id": "calibration"
       }
     ],
     "adjacent": [
       {
-        "id": "selective-prediction",
-        "reviewed": false
+        "id": "selective-prediction"
       },
       {
-        "id": "distribution-shift",
-        "reviewed": false
+        "id": "distribution-shift"
       }
     ]
   },

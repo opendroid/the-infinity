@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "multilingual-model",
-        "reviewed": false
+        "id": "multilingual-model"
       },
       {
-        "id": "tokenization",
-        "reviewed": false
+        "id": "tokenization"
       }
     ],
     "adjacent": [
       {
-        "id": "tokenizer-fairness",
-        "reviewed": false
+        "id": "tokenizer-fairness"
       }
     ]
   },

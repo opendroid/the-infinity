@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "principal-component-analysis",
-        "reviewed": false
+        "id": "principal-component-analysis"
       }
     ],
     "adjacent": [
       {
-        "id": "lora",
-        "reviewed": false
+        "id": "lora"
       },
       {
-        "id": "muon-optimizer",
-        "reviewed": false
+        "id": "muon-optimizer"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-landscape",
-        "reviewed": false
+        "id": "loss-landscape"
       }
     ],
     "adjacent": [
       {
-        "id": "momentum",
-        "reviewed": false
+        "id": "momentum"
       },
       {
-        "id": "gradient-descent",
-        "reviewed": false
+        "id": "gradient-descent"
       }
     ]
   },

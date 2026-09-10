@@ -33,22 +33,18 @@
   "edges": {
     "requires": [
       {
-        "id": "knowledge-distillation",
-        "reviewed": false
+        "id": "knowledge-distillation"
       },
       {
-        "id": "post-training-quantization",
-        "reviewed": false
+        "id": "post-training-quantization"
       }
     ],
     "adjacent": [
       {
-        "id": "perplexity",
-        "reviewed": false
+        "id": "perplexity"
       },
       {
-        "id": "chain-of-thought",
-        "reviewed": false
+        "id": "chain-of-thought"
       }
     ]
   },

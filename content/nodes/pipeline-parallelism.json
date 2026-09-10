@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "transformer-block",
-        "reviewed": false
+        "id": "transformer-block"
       }
     ],
     "adjacent": [
       {
-        "id": "tensor-parallelism",
-        "reviewed": false
+        "id": "tensor-parallelism"
       }
     ]
   },

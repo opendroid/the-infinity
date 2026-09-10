@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "overfitting",
-        "reviewed": false
+        "id": "overfitting"
       }
     ],
     "adjacent": [
       {
-        "id": "synthetic-data",
-        "reviewed": false
+        "id": "synthetic-data"
       },
       {
-        "id": "contrastive-learning",
-        "reviewed": false
+        "id": "contrastive-learning"
       }
     ]
   },

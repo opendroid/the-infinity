@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "backpropagation",
-        "reviewed": false
+        "id": "backpropagation"
       }
     ],
     "adjacent": [
       {
-        "id": "vector-quantization",
-        "reviewed": false
+        "id": "vector-quantization"
       },
       {
-        "id": "quantization",
-        "reviewed": false
+        "id": "quantization"
       }
     ]
   },

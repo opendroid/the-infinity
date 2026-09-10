@@ -33,14 +33,12 @@
   "edges": {
     "requires": [
       {
-        "id": "loss-landscape",
-        "reviewed": false
+        "id": "loss-landscape"
       }
     ],
     "adjacent": [
       {
-        "id": "lottery-ticket-hypothesis",
-        "reviewed": false
+        "id": "lottery-ticket-hypothesis"
       }
     ]
   },

@@ -36,8 +36,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "conditional-computation",
-        "reviewed": true
+        "id": "conditional-computation"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "recurrent-neural-network",
-        "reviewed": false
+        "id": "recurrent-neural-network"
       }
     ],
     "adjacent": [
       {
-        "id": "residual-connection",
-        "reviewed": false
+        "id": "residual-connection"
       },
       {
-        "id": "vanishing-gradient",
-        "reviewed": false
+        "id": "vanishing-gradient"
       }
     ]
   },

@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "neural-audio-codec",
-        "reviewed": false
+        "id": "neural-audio-codec"
       },
       {
-        "id": "vector-quantization",
-        "reviewed": false
+        "id": "vector-quantization"
       }
     ],
     "adjacent": [
       {
-        "id": "byte-pair-encoding",
-        "reviewed": false
+        "id": "byte-pair-encoding"
       }
     ]
   },

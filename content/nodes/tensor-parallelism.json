@@ -33,12 +33,10 @@
   "edges": {
     "requires": [
       {
-        "id": "feed-forward-network",
-        "reviewed": false
+        "id": "feed-forward-network"
       },
       {
-        "id": "collective-communication",
-        "reviewed": false
+        "id": "collective-communication"
       }
     ],
     "adjacent": []

@@ -32,16 +32,13 @@
   "edges": {
     "requires": [
       {
-        "id": "cross-entropy-loss",
-        "reviewed": false
+        "id": "cross-entropy-loss"
       },
       {
-        "id": "softmax",
-        "reviewed": false
+        "id": "softmax"
       },
       {
-        "id": "batch-size",
-        "reviewed": false
+        "id": "batch-size"
       }
     ],
     "adjacent": []

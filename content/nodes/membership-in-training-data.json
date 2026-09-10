@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "membership-inference",
-        "reviewed": false
+        "id": "membership-inference"
       }
     ],
     "adjacent": [
       {
-        "id": "data-provenance",
-        "reviewed": false
+        "id": "data-provenance"
       },
       {
-        "id": "memorisation",
-        "reviewed": false
+        "id": "memorisation"
       }
     ]
   },

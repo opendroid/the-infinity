@@ -34,12 +34,10 @@
   "edges": {
     "requires": [
       {
-        "id": "attention",
-        "reviewed": false
+        "id": "attention"
       },
       {
-        "id": "encoder-decoder",
-        "reviewed": false
+        "id": "encoder-decoder"
       }
     ],
     "adjacent": []

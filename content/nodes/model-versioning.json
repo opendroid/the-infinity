@@ -33,8 +33,7 @@
   "edges": {
     "requires": [
       {
-        "id": "fine-tuning",
-        "reviewed": false
+        "id": "fine-tuning"
       }
     ],
     "adjacent": []

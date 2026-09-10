@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "gradient-descent",
-        "reviewed": false
+        "id": "gradient-descent"
       }
     ],
     "adjacent": [
       {
-        "id": "saddle-point",
-        "reviewed": false
+        "id": "saddle-point"
       },
       {
-        "id": "logistic-regression",
-        "reviewed": false
+        "id": "logistic-regression"
       }
     ]
   },

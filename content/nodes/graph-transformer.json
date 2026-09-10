@@ -35,18 +35,15 @@
   "edges": {
     "requires": [
       {
-        "id": "graph-attention",
-        "reviewed": false
+        "id": "graph-attention"
       },
       {
-        "id": "graph-expressivity",
-        "reviewed": false
+        "id": "graph-expressivity"
       }
     ],
     "adjacent": [
       {
-        "id": "vision-transformer",
-        "reviewed": false
+        "id": "vision-transformer"
       }
     ]
   },

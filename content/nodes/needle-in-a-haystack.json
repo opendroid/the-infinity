@@ -34,18 +34,15 @@
   "edges": {
     "requires": [
       {
-        "id": "effective-context-length",
-        "reviewed": false
+        "id": "effective-context-length"
       }
     ],
     "adjacent": [
       {
-        "id": "benchmark-contamination",
-        "reviewed": false
+        "id": "benchmark-contamination"
       },
       {
-        "id": "lost-in-the-middle",
-        "reviewed": false
+        "id": "lost-in-the-middle"
       }
     ]
   },

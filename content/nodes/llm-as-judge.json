@@ -32,14 +32,12 @@
   "edges": {
     "requires": [
       {
-        "id": "instruction-tuning",
-        "reviewed": false
+        "id": "instruction-tuning"
       }
     ],
     "adjacent": [
       {
-        "id": "reward-model",
-        "reviewed": false
+        "id": "reward-model"
       }
     ]
   },

@@ -35,18 +35,15 @@
   "edges": {
     "requires": [
       {
-        "id": "causal-masking",
-        "reviewed": false
+        "id": "causal-masking"
       },
       {
-        "id": "kv-cache",
-        "reviewed": false
+        "id": "kv-cache"
       }
     ],
     "adjacent": [
       {
-        "id": "length-extrapolation",
-        "reviewed": false
+        "id": "length-extrapolation"
       }
     ]
   },

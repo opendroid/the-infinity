@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "continuous-batching",
-        "reviewed": false
+        "id": "continuous-batching"
       }
     ],
     "adjacent": [
       {
-        "id": "arithmetic-intensity",
-        "reviewed": false
+        "id": "arithmetic-intensity"
       },
       {
-        "id": "job-scheduling",
-        "reviewed": false
+        "id": "job-scheduling"
       }
     ]
   },

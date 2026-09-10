@@ -34,8 +34,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "flash-attention",
-        "reviewed": false
+        "id": "flash-attention"
       }
     ]
   },

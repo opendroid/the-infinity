@@ -33,8 +33,7 @@
     "requires": [],
     "adjacent": [
       {
-        "id": "sparsity-hardware",
-        "reviewed": false
+        "id": "sparsity-hardware"
       }
     ]
   },

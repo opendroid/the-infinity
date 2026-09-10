@@ -33,18 +33,15 @@
   "edges": {
     "requires": [
       {
-        "id": "dynamic-programming-inference",
-        "reviewed": false
+        "id": "dynamic-programming-inference"
       }
     ],
     "adjacent": [
       {
-        "id": "structured-output",
-        "reviewed": false
+        "id": "structured-output"
       },
       {
-        "id": "sequence-labelling",
-        "reviewed": false
+        "id": "sequence-labelling"
       }
     ]
   },
