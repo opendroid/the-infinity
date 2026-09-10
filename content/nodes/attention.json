@@ -66,6 +66,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Attention for Neural Networks, Clearly Explained!!!",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=PSs6nxngL6k"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
       "author": "3Blue1Brown",

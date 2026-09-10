@@ -56,6 +56,13 @@
   "updated_at": "2026-08-02",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Transformer models: Decoders",
+      "author": "Hugging Face",
+      "url": "https://www.youtube.com/watch?v=d_ixlCubqQw"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Large Transformer Model Inference Optimization",

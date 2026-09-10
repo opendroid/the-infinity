@@ -57,6 +57,13 @@
   "updated_at": "2026-08-05",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Machine Learning Fundamentals: Bias and Variance",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=EuBBz3bI-aA"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Dive into Deep Learning",

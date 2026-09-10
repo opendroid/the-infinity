@@ -65,6 +65,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Bayes theorem, the geometry of changing beliefs",
+      "author": "3Blue1Brown",
+      "url": "https://www.youtube.com/watch?v=HZGCoVF3YvM"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Dive into Deep Learning",

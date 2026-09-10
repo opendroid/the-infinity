@@ -65,6 +65,13 @@
       "title": "Batch Normalization",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_convolutional-modern/batch-norm.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Why Does Batch Norm Work? (C2W3L06)",
+      "author": "DeepLearningAI",
+      "url": "https://www.youtube.com/watch?v=nUUqwaxLnWs"
     }
   ],
   "review": {

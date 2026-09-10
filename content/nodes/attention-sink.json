@@ -57,6 +57,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Attention Sink: The Fluke That Made LLMs Actually Usable",
+      "author": "bycloud",
+      "url": "https://www.youtube.com/watch?v=Y8Tj9kq4iWY"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "The Illustrated Transformer",

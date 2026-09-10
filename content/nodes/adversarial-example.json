@@ -58,6 +58,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Adversarial Machine Learning explained! | With examples.",
+      "author": "AI Coffee Break with Letitia",
+      "url": "https://www.youtube.com/watch?v=YyTyWGUUhmo"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "Adversarial Attacks on LLMs",

@@ -53,6 +53,13 @@
   "updated_at": "2026-08-04",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Approximate Nearest Neighbors : Data Science Concepts",
+      "author": "ritvikmath",
+      "url": "https://www.youtube.com/watch?v=DRbjpuqOsjk"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "How to Build an Open-Domain Question Answering System?",

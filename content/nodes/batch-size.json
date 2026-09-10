@@ -66,6 +66,13 @@
     },
     {
       "kind": "video",
+      "scope": "concept",
+      "title": "Batch Size in a Neural Network explained",
+      "author": "deeplizard",
+      "url": "https://www.youtube.com/watch?v=U4WB9p6ODjM"
+    },
+    {
+      "kind": "video",
       "scope": "domain",
       "title": "Backpropagation, intuitively | Deep Learning Chapter 3",
       "author": "3Blue1Brown",

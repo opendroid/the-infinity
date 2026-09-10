@@ -60,6 +60,13 @@
   "updated_at": "2026-08-18",
   "explainers": [
     {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Steering LLM Behavior Without Fine-Tuning",
+      "author": "Hugging Face",
+      "url": "https://www.youtube.com/watch?v=F2jd5WuT-zg"
+    },
+    {
       "kind": "read",
       "scope": "domain",
       "title": "How to Explain the Prediction of a Machine Learning Model?",
