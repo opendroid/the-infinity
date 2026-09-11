@@ -1,7 +1,7 @@
 /**
  * The browser smoke test (ADR-0016, #357).
  *
- * Nine assertions, each covering something no other check in this repository
+ * Ten assertions, each covering something no other check in this repository
  * can see: whether an island actually hydrated in a browser — and, since #405,
  * whether a failed write leaves focus somewhere the reader can act from, which
  * jsdom cannot answer because it does not blur a disabled element. Vitest mounts
@@ -26,6 +26,7 @@ import { join, resolve } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { setTimeout, clearTimeout } from 'node:timers';
 import { chromium } from 'playwright-core';
+import { glowing } from './box-shadow.mjs';
 
 const WEB = resolve(process.cwd());
 const DIST = join(WEB, 'dist');
@@ -372,6 +373,34 @@ async function main() {
       fail(`/: focusing the search field showed no ring — computed "${focused}"`);
     }
 
+    // 10 — THE GLOW IS LIT, AND IT IS THE ONLY ONE (#419). CLAUDE.md §5 rule 3:
+    //      "at most one glowing element per screen… on the landing page that is
+    //      the search field and nothing else." Both halves are asserted here —
+    //      a budget nothing spends and a budget everything spends are equally
+    //      wrong, and until now neither was checked by anybody.
+    //
+    //      The browser only MEASURES; box-shadow.mjs decides what counts. That
+    //      split is the point: Tailwind v4 composes five variables, so a lit
+    //      element reports four transparent placeholders before the real shadow,
+    //      and judging that string is subtle enough to have its own unit tests.
+    //      Judging it inline, inside page.evaluate, is what produced #419 — a
+    //      bug filed against a page that was rendering correctly all along.
+    step = 'checking the landing glow';
+    const shadows = await page.$$eval('*', (els) =>
+      els.map((e) => {
+        const cls = typeof e.className === 'string' && e.className ? `.${e.className.split(' ')[0]}` : '';
+        return [`${e.tagName.toLowerCase()}${cls}`, globalThis.getComputedStyle(e).boxShadow];
+      }),
+    );
+    const lit = glowing(shadows);
+    if (lit.length === 0) {
+      fail('/: nothing on the landing page glows — the search field should (CLAUDE.md §5 rule 3)');
+    } else if (lit.length > 1) {
+      fail(`/: glow is rationed to one element, found ${lit.length} — ${lit.join(', ')}`);
+    } else if (!lit[0].startsWith('form')) {
+      fail(`/: the glow is on ${lit[0]}, not the search field`);
+    }
+
     const landing = await page.locator('main').innerText();
     // Anchored to the number. "concepts" alone also appears in the standfirst
     // above the search field, so the loose version passed with the count line
@@ -390,7 +419,7 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, list semantics, focus ring, landing`,
+      `focus after a failed share, search, list semantics, focus ring, the one glow, landing`,
   );
   return 0;
 }
