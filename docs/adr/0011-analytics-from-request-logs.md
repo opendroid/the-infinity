@@ -1,8 +1,8 @@
 # 0011 — Analytics is read from request logs, not from a script in the page
 
-- **Status:** accepted — the hard part holds: no analytics JavaScript ships on any route.
-  Linking Cloud Logging and adding `make analytics` is outstanding and needs a console
-  step (#64).
+- **Status:** accepted, and now **implemented** — Cloud Logging was linked on 2026-09-11
+  and `make analytics` reads it (#64). The four facts below were re-checked against the
+  live log on that date; see *Confirmed against the log* at the end.
 - **Date:** 2026-08-04
 
 ## Context
@@ -230,3 +230,43 @@ Five of six survive. The one that dies is the one that assumed the answer.
 
 *Written before the code, per CLAUDE.md §8. `proposed` until the console link is made and
 the first query runs; nothing in `/web` changes under this decision, which is the point.*
+
+## Confirmed against the log — 2026-09-11
+
+Fact 4 above was read from Google's documentation when this ADR was written. #64 held a
+checkbox to confirm it by running it, and linking Cloud Logging made that possible. Every
+assumption held, and two details are worth recording because they change how the log must
+be read.
+
+**Both load-bearing fields exist, and both are OMITTED rather than zeroed.** Over 200
+consecutive entries:
+
+| field | present on |
+|---|---|
+| `httpRequest.referer` | 29 of 200 |
+| `httpRequest.cacheHit` | 31 of 200 |
+
+`referer` is absent when the request carried no `Referer` header — a direct hit, a fresh
+tab, a crawler — and `cacheHit` is a boolean, which Cloud Logging omits when false. So a
+small sample shows neither field and looks exactly like a log that does not record them.
+The first five entries read did precisely that, and the conclusion "Firebase does not log
+referrers" was one step away. It is wrong: filter on `httpRequest.referer:*` and they are
+there.
+
+Retention is **30 days**, as assumed (`gcloud logging buckets describe _Default`), which is
+why `make analytics` refuses a `-days` above 30 rather than silently reporting a shorter
+window than the one asked for.
+
+**`/api/**` requests reach this log too.** Firebase rewrites `/api/**` to Cloud Run and the
+CDN logs the request on its way past, so the Hosting log sees both tiers. That is more
+coverage than the table above claims — and it is a trap for the edge-traversal join,
+because every concept page's mini-map fetch carries that page as its own `Referer`:
+
+```
+requestUrl  https://theinfinity.ai/api/v1/concepts/instrumental-variable/neighborhood
+referer     https://theinfinity.ai/c/instrumental-variable
+```
+
+A referrer join that does not require the *target* to be a concept page counts one phantom
+traversal for every concept read on the site. `internal/analytics` requires it, and the
+test that says so is planted against.

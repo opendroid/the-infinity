@@ -7,8 +7,9 @@ NODES  ?= ../content/nodes
 GOLDEN ?= ../content/derived.golden.json
 
 QUEUE_LIMIT ?= 100
+ANALYTICS_DAYS ?= 7
 
-.PHONY: help run publish queues golden test test-emulator cover lint vuln fmt tidy docker-build check
+.PHONY: help run publish queues analytics golden test test-emulator cover lint vuln fmt tidy docker-build check
 .DEFAULT_GOAL := help
 
 help: ## List targets
@@ -24,6 +25,9 @@ publish: ## Sync /content/nodes to Firestore (needs GOOGLE_CLOUD_PROJECT and cre
 # provenance buttons queue submissions no one ever sees (#115).
 queues: ## Print pending flags and concept requests (needs GOOGLE_CLOUD_PROJECT and credentials)
 	go run ./cmd/queues -limit $(QUEUE_LIMIT)
+
+analytics: ## Read the request log: top concepts, edges pulled, bots, cache (needs GOOGLE_CLOUD_PROJECT and credentials)
+	go run ./cmd/analytics -days $(ANALYTICS_DAYS)
 
 golden: ## Regenerate the derivation fixture both /api and /web are checked against
 	go run ./cmd/publish -nodes $(NODES) -out $(GOLDEN)
