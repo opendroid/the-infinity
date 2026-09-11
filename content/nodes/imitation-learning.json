@@ -63,6 +63,13 @@
       "title": "Deep Reinforcement Learning Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/deep-rl-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "CS 182: Lecture 14: Part 3: Imitation Learning",
+      "author": "RAIL",
+      "url": "https://www.youtube.com/watch?v=a5wkzPa4fO4"
     }
   ],
   "review": {

@@ -65,6 +65,13 @@
       "title": "Compilers and Interpreters",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_computational-performance/hybridize.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Autotuning Deep Learning Models - Robert Blanchard",
+      "author": "Magnimind Academy",
+      "url": "https://www.youtube.com/watch?v=5DWLsNXZmic"
     }
   ],
   "review": {

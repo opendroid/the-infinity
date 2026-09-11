@@ -62,6 +62,13 @@
       "title": "Beam Search",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-modern/beam-search.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Machine Learning 10-701 Lecture 18 Dynamic Programming",
+      "author": "Alex Smola",
+      "url": "https://www.youtube.com/watch?v=QJ2Gi6moSVc"
     }
   ],
   "review": {

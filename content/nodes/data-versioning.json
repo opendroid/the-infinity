@@ -62,6 +62,13 @@
       "title": "MLOps",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/MLOps"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "How to manage model and data versions",
+      "author": "Dr. Raj Ramesh",
+      "url": "https://www.youtube.com/watch?v=LQF6vHm_QIY"
     }
   ],
   "review": {

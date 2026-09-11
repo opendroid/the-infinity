@@ -65,6 +65,13 @@
       "title": "Working with Sequences",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-neural-networks/sequence.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "62-Dilated convolution || Dilation rate in Conv2D layer of keras",
+      "author": "Dr.P.V.Yeswanth",
+      "url": "https://www.youtube.com/watch?v=ySF9BaWckdM"
     }
   ],
   "review": {

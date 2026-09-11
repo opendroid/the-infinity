@@ -65,6 +65,13 @@
       "title": "MLOps",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/MLOps"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Talk - Antoine Toubhans: Flexible ML Experiment Tracking System for Python Coders with DVC and St...",
+      "author": "PyCon US",
+      "url": "https://www.youtube.com/watch?v=EGIzJIfAy7g"
     }
   ],
   "review": {

@@ -65,6 +65,13 @@
       "title": "How to Build an Open-Domain Question Answering System?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2020-10-29-odqa/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "The math & business of Knowledge Graph Embedding in less than 10 minutes",
+      "author": "You are a Data Scientist",
+      "url": "https://www.youtube.com/watch?v=9ISuAu-Qc3g"
     }
   ],
   "review": {

@@ -62,6 +62,13 @@
       "title": "How to Build an Open-Domain Question Answering System?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2020-10-29-odqa/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Training a custom ENTITY LINKING model with spaCy",
+      "author": "Explosion",
+      "url": "https://www.youtube.com/watch?v=8u57WSXVpmw"
     }
   ],
   "review": {
