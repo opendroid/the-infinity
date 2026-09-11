@@ -60,6 +60,13 @@
       "title": "Thinking about High-Quality Human Data",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2024-02-05-human-data-quality/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Machine Learning and Deduplication",
+      "author": "Chicago Python Users Group",
+      "url": "https://www.youtube.com/watch?v=3kGKQqNVibQ"
     }
   ],
   "review": {

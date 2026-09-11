@@ -65,6 +65,13 @@
       "title": "The Transformer Family Version 2.0",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "How to train LLMs with long context?",
+      "author": "Deep Learning with Yacine",
+      "url": "https://www.youtube.com/watch?v=PqTYjSbnP9o"
     }
   ],
   "review": {

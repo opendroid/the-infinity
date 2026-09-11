@@ -63,6 +63,13 @@
       "title": "Fairness (machine learning)",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Fairness_(machine_learning)"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Unprovability and Other Impossibility Results in Machine Learning",
+      "author": "Simons Institute for the Theory of Computing",
+      "url": "https://www.youtube.com/watch?v=U0s3xN2GUA8"
     }
   ],
   "review": {
