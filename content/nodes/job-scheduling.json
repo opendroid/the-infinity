@@ -62,6 +62,13 @@
       "title": "How to Train Really Large Models on Many GPUs?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-09-25-train-large/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Scheduling For Efficient Large-Scale Machine Learning Training",
+      "author": "Microsoft Research",
+      "url": "https://www.youtube.com/watch?v=_rAkFBE-ItE"
     }
   ],
   "review": {

@@ -57,6 +57,13 @@
       "title": "Instrumental variables",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Instrumental_variables_estimation"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Identification, Part 3: Instrumental Variables",
+      "author": "Ashley Hodgson",
+      "url": "https://www.youtube.com/watch?v=J2BMFBMO14o"
     }
   ],
   "review": {

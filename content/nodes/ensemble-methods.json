@@ -73,6 +73,13 @@
       "title": "Dive into Deep Learning",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/index.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Bagging vs Boosting - Ensemble Learning In Machine Learning Explained",
+      "author": "DataMListic",
+      "url": "https://www.youtube.com/watch?v=tjy0yL1rRRU"
     }
   ],
   "review": {

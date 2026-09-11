@@ -65,6 +65,13 @@
       "title": "Fairness (machine learning)",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Fairness_(machine_learning)"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "On the Apparent Conflict Between Individual and Group Fairness",
+      "author": "ACM FAccT Conference",
+      "url": "https://www.youtube.com/watch?v=kok73C50RLA"
     }
   ],
   "review": {

@@ -73,6 +73,13 @@
       "title": "How to Train Really Large Models on Many GPUs?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-09-25-train-large/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "LLM Inference Lecture: Roofline Analysis for GPU (arithmetic intensity, compute and memory bound)",
+      "author": "Faradawn Yang",
+      "url": "https://www.youtube.com/watch?v=7EJjdDLK4cg"
     }
   ],
   "review": {
