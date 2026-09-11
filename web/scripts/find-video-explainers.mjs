@@ -243,6 +243,45 @@ export function durationSeconds(iso) {
  * reported alongside the score so a reviewer can see WHY something ranked, and
  * disagree with it.
  */
+/**
+ * What each signal is worth (#432).
+ *
+ * RELEVANCE MUST OUTWEIGH REPUTATION, and until this issue it did not: the
+ * allowlist paid 0.40 and a perfect topic match paid 0.30, so an allowlisted
+ * video about something else scored 0.67 while the best any other channel could
+ * reach on an exact match was 0.60. Measured, not argued — `early-exit` was
+ * offered 3Blue1Brown's "But what is a neural network?" at 0.67 on ZERO overlap,
+ * which is 0.40 + 0.20 + log10(24,210,799)/100 to three decimals. Across one
+ * sweep, 8 of 181 targets had a top pick matching nothing at all, and 14 had a
+ * better match ranked lower.
+ *
+ * The allowlist is still doing a real job — it is the only proxy here for "this
+ * will actually teach you" — but quality only matters once subject is settled. A
+ * superb explanation of a different concept is worth nothing to a reader on this
+ * page, and ADR-0017 is explicit that `explainers` is where to be taught IT.
+ *
+ * allowlist < overlap / 2 is the invariant that keeps it that way, and a test
+ * asserts it: a perfect match from an unknown channel must beat a half-match
+ * from a trusted one. Raise the allowlist above 0.30 again and that test fails.
+ */
+export const WEIGHTS = {
+  allowlist: 0.2,
+  namedAuthor: 0.12,
+  /** Multiplied by the best facet's overlap, so a perfect match pays 0.6. */
+  overlap: 0.6,
+  teachableLength: 0.15,
+  /** Cap on the popularity prior. A well-watched video is not a better teacher. */
+  views: 0.1,
+  /**
+   * The floor #395 added, RESCALED WITH THE OVERLAP TERM. At 0.25 against an
+   * overlap worth 0.30 it very nearly cancelled a perfect title; against an
+   * overlap worth 0.60 it no longer did, and a content farm with an exact title
+   * and one view scored 0.50 — comfortably past the 0.35 threshold it exists to
+   * keep them under. #395's own test caught that, which is why it is a test.
+   */
+  unwatched: 0.45,
+};
+
 export function score(candidate, target, allowedChannelIds = new Set()) {
   const reasons = [];
   let n = 0;
@@ -257,11 +296,11 @@ export function score(candidate, target, allowedChannelIds = new Set()) {
   let trusted = false;
 
   if (allowedChannelIds.has(candidate.channelId)) {
-    n += 0.4;
+    n += WEIGHTS.allowlist;
     trusted = true;
     reasons.push('allowlisted channel');
   } else if (NAMED_AUTHORS.some((a) => `${candidate.author} ${candidate.title}`.toLowerCase().includes(a))) {
-    n += 0.25;
+    n += WEIGHTS.namedAuthor;
     trusted = true;
     reasons.push('named author');
   }
@@ -289,25 +328,33 @@ export function score(candidate, target, allowedChannelIds = new Set()) {
       matched = facet;
     }
   }
-  n += 0.3 * overlap;
+  // RELEVANCE IS A GATE BEFORE IT IS A TERM (#432). A video whose title shares
+  // no word with the concept is not a teaching resource for it, however good it
+  // is and whoever made it — so it scores zero rather than being out-argued by
+  // the other terms. This is what removes the eight zero-overlap winners; the
+  // weights above decide the order of everything that survives.
+  if (overlap === 0) {
+    return { score: 0, reasons: ['no topic overlap'] };
+  }
+  n += WEIGHTS.overlap * overlap;
   // Naming the facet is the difference between a number and a reason: it says
   // the video matched "Softmax", not that it matched "Foundations" somehow.
-  if (overlap > 0) reasons.push(`matches "${matched}" ${Math.round(overlap * 100)}%`);
+  reasons.push(`matches "${matched}" ${Math.round(overlap * 100)}%`);
 
   // A teaching video is minutes, not seconds and not a whole conference day.
   const secs = candidate.durationSeconds;
   if (secs !== null && secs >= 240 && secs <= 5400) {
-    n += 0.2;
+    n += WEIGHTS.teachableLength;
     reasons.push('teachable length');
   } else if (secs !== null && secs < 120) {
-    n -= 0.2;
+    n -= WEIGHTS.teachableLength;
     reasons.push('too short');
   }
 
   // Weak popularity prior, capped so it cannot outweigh relevance. Left
   // deliberately weak: a well-watched video is not a better teacher.
   const views = Number(candidate.views ?? 0);
-  if (views > 0) n += Math.min(0.1, Math.log10(views) / 100);
+  if (views > 0) n += Math.min(WEIGHTS.views, Math.log10(views) / 100);
 
   // A FLOOR, WHICH THE PRIOR ABOVE IS NOT (#395). That term spans 0.000 to
   // 0.070 across the entire plausible range — less than the 0.2 for merely
@@ -325,7 +372,7 @@ export function score(candidate, target, allowedChannelIds = new Set()) {
   // 20,000, which is exactly where conference talks and university lectures
   // live. The threshold does the work: -0.35 demotes the same 60.
   if (views > 0 && views < UNWATCHED && !trusted) {
-    n -= 0.25;
+    n -= WEIGHTS.unwatched;
     reasons.push(`almost unwatched (${views} views)`);
   }
 
