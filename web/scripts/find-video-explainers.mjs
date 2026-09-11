@@ -452,11 +452,32 @@ const TRANSIENT = new Set(['rateLimitExceeded', 'userRateLimitExceeded', 'backen
  * `rateLimitExceeded` on one target and lost it, because only `quotaExceeded`
  * was special-cased and everything else fell through to "skip this target".
  * quotaExceeded means come back tomorrow; rateLimitExceeded means wait a moment.
- *
- * Each attempt is charged, because YouTube counts an attempt whether or not it
- * answers — an accounting that flattered itself here would spend real quota the
- * budget could not see.
  */
+/**
+ * Consecutive targets refused for rate limiting. A success — or a failure of
+ * any other kind — clears it.
+ *
+ * THE RETRY LADDER IS SIZED FOR A BURST AND THE THING IT MEETS MAY NOT BE ONE
+ * (#429). Each target retries over about 20 seconds and then gives up, and the
+ * loop starts the next one immediately, so a condition lasting ten minutes cost
+ * thirty targets: on 2026-09-11 the run charged 99 searches and 30 of them —
+ * roughly 3,000 units, a third of the day — bought nothing. Nothing carried
+ * between targets, so the tool could not tell "this one was unlucky" from
+ * "everything is being refused right now".
+ */
+export function refusals(previous, err) {
+  return err && TRANSIENT.has(err.reason) ? previous + 1 : 0;
+}
+
+/**
+ * How many in a row before the run stops and checkpoints.
+ *
+ * Three, because two in a row is plausibly coincidence and thirty is a wasted
+ * day. Stopping is cheap — the failed targets were never marked done, so the
+ * next run picks them up — and continuing is what costs.
+ */
+export const STOP_AFTER_REFUSALS = 3;
+
 export async function withRetry(kind, quota, call, { sleep = (ms) => new Promise((r) => setTimeout(r, ms)), attempts = 3 } = {}) {
   // ONCE PER OPERATION, NOT ONCE PER ATTEMPT (#400). Charging every attempt was
   // my guess, and the first --concepts run priced it: 41 targets of real work
@@ -468,6 +489,14 @@ export async function withRetry(kind, quota, call, { sleep = (ms) => new Promise
   // does, under-counting is harmless: the run meets a genuine quotaExceeded,
   // which stops it with the checkpoint intact. One direction costs a day, the
   // other costs nothing.
+  //
+  // WHICH OF THE TWO IS TRUE IS STILL NOT ESTABLISHED (#429). Google documents
+  // the daily cap and not what a refusal costs, and this repository has never
+  // measured it: doing so means spending a known number of units, forcing
+  // refusals, and reading the quota page in the console — a deliberate
+  // experiment on a day nobody needs the budget. Until then the asymmetry
+  // above is the whole argument, and it is an argument rather than a
+  // measurement.
   quota.charge(kind);
   for (let i = 0; ; i += 1) {
     try {
@@ -590,7 +619,15 @@ const save = (path, data) => writeFileSync(path, `${JSON.stringify(data, null, 2
 
 // ---------------------------------------------------------------- commands
 
-async function search(argv, opts = {}) {
+/**
+ * Exported for the integration test that drives the whole loop.
+ *
+ * The unit tests cover `refusals` — the RULE — and cannot cover the `break`
+ * that acts on it: removing the break outright left all 57 of them passing
+ * (#429). A missing `break` is only observable by running the loop, so the
+ * loop has to be reachable from a test.
+ */
+export async function search(argv, opts = {}) {
   const key = process.env.YOUTUBE_API_KEY;
   if (!key) {
     console.error(
@@ -644,6 +681,7 @@ async function search(argv, opts = {}) {
   const allowed = await resolveHandles(CHANNEL_HANDLES, key, quota);
   console.log(`  ${allowed.size} of ${CHANNEL_HANDLES.length} handle(s) resolved\n`);
 
+  let refused = 0;
   for await (const target of paced(todo, { pace })) {
     if (!quota.affords('search')) {
       console.log(`\nBudget reached at ${quota.spent} units. Re-run tomorrow — it resumes from ${out}.`);
@@ -653,12 +691,23 @@ async function search(argv, opts = {}) {
     let found;
     try {
       found = await searchOne(target, key, quota, perTarget, opts);
+      refused = refusals(refused, null);
     } catch (err) {
       if (err.reason === 'quotaExceeded') {
         console.log(`\nYouTube says the daily quota is spent. Progress is saved in ${out}; re-run tomorrow.`);
         break;
       }
+      refused = refusals(refused, err);
       console.error(`  ✗ ${target.key}: ${err.message}`);
+      if (refused >= STOP_AFTER_REFUSALS) {
+        console.log(
+          `\n${refused} target(s) in a row were refused for rate limiting, so this run is stopping\n` +
+            `rather than spending the rest of the budget one refusal at a time (#429).\n` +
+            `${quota.spent} units spent. Those targets were never marked done — re-run and it\n` +
+            `resumes from ${out}. If a quota day just rolled over, waiting a few minutes is enough.`,
+        );
+        break;
+      }
       continue;
     }
 
