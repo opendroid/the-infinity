@@ -58,36 +58,6 @@ jobs:
       - name: Validate content
         run: npm run validate:content
 
-      # THE ONE GATE IN THIS FILE THAT REACHES A THIRD PARTY, AND WHY IT IS HERE
-      # ANYWAY (ADR-0017). A `video` explainer is verified through YouTube's
-      # oEmbed endpoint, which 404s for a video that is gone and returns the
-      # real title and channel for one that is live — so this checks that the
-      # recorded attribution MATCHES, not merely that a URL answers.
-      #
-      # That cannot be done anywhere else. Authoring sandboxes deny youtube.com,
-      # and `check:citations` cannot be a gate at all: every citation is an
-      # arxiv.org url, arxiv.org asks fifteen seconds between requests, and 485
-      # papers at that rate is a two-hour job. It runs weekly from links.yml
-      # instead (ADR-0020, #361, #375).
-      #
-      # `--fast` IS WHAT KEEPS THAT HONEST. It skips hosts publishing a
-      # crawl-delay and names each one with the number of entries it left
-      # unchecked, so a gate covering a subset cannot print the success line of a
-      # full run. Today it skips nothing — none of the seven explainer hosts
-      # states a delay — and the step stays at about two seconds. The flag is
-      # here for the first host added to the allowlist that does.
-      #
-      # It will occasionally be red for reasons nobody caused — a video pulled,
-      # or YouTube unreachable. The script tells those apart: every entry failing
-      # identically exits 2 and says the network is the explanation, rather than
-      # reporting the corpus as dead.
-      # It has no timeout of its own beyond the per-request one, and the worst
-      # case is a host that hangs rather than refuses. The smoke step carries
-      # the same belt for the same reason (#373).
-      - name: Verify explainers
-        timeout-minutes: 6
-        run: npm run check:explainers -- --fast
-
       - name: Lint
         run: npm run lint
 
@@ -153,6 +123,48 @@ jobs:
       - name: Smoke
         timeout-minutes: 6
         run: npm run smoke
+
+      # LAST, NOT FIRST, AND THAT IS THE POINT (#423). This was step 6 of 13,
+      # so when en.wikipedia.org failed to answer on 2026-09-11 the job went red
+      # and SKIPPED lint, typecheck, the tests, the build, the perf budget and all
+      # ten smoke assertions. A blip at a third party did not merely add noise: it
+      # silently disabled every check that gates the code, on a push to main, and
+      # attributed the failure to something unrelated.
+      #
+      # Running it here cannot stop main going red for a reason nobody caused —
+      # only moving the network half to links.yml would, and that is a separate
+      # argument (ADR-0020 made it for citations). What this does is make the red
+      # HONEST: everything else has been checked and reported, so the failure
+      # means what it says.
+      # THE ONE GATE IN THIS FILE THAT REACHES A THIRD PARTY, AND WHY IT IS HERE
+      # ANYWAY (ADR-0017). A `video` explainer is verified through YouTube's
+      # oEmbed endpoint, which 404s for a video that is gone and returns the
+      # real title and channel for one that is live — so this checks that the
+      # recorded attribution MATCHES, not merely that a URL answers.
+      #
+      # That cannot be done anywhere else. Authoring sandboxes deny youtube.com,
+      # and `check:citations` cannot be a gate at all: every citation is an
+      # arxiv.org url, arxiv.org asks fifteen seconds between requests, and 485
+      # papers at that rate is a two-hour job. It runs weekly from links.yml
+      # instead (ADR-0020, #361, #375).
+      #
+      # `--fast` IS WHAT KEEPS THAT HONEST. It skips hosts publishing a
+      # crawl-delay and names each one with the number of entries it left
+      # unchecked, so a gate covering a subset cannot print the success line of a
+      # full run. Today it skips nothing — none of the seven explainer hosts
+      # states a delay — and the step stays at about two seconds. The flag is
+      # here for the first host added to the allowlist that does.
+      #
+      # It will occasionally be red for reasons nobody caused — a video pulled,
+      # or YouTube unreachable. The script tells those apart: every entry failing
+      # identically exits 2 and says the network is the explanation, rather than
+      # reporting the corpus as dead.
+      # It has no timeout of its own beyond the per-request one, and the worst
+      # case is a host that hangs rather than refuses. The smoke step carries
+      # the same belt for the same reason (#373).
+      - name: Verify explainers
+        timeout-minutes: 6
+        run: npm run check:explainers -- --fast
 
   api:
     name: api

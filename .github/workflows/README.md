@@ -20,7 +20,7 @@ Two things about that configuration are easy to get wrong:
 
 | Job | Steps |
 |---|---|
-| `web` | `npm ci` → `validate:content` → `check:explainers --fast` → lint → typecheck → test → build → perf budget → browser smoke |
+| `web` | `npm ci` → `validate:content` → lint → typecheck → test → build → perf budget → browser smoke → `check:explainers --fast` |
 | `api` | `go vet` + `gofmt` → `golangci-lint` → `govulncheck` → `go test -race` (with the Firestore emulator) → `go build` → `docker build` → the image runs |
 | `contracts` | `redocly lint docs/openapi.yaml` |
 | `pr title` | Conventional Commits, on the title that becomes the squash commit |
@@ -34,7 +34,7 @@ are the only tests that touch real serialisation. The jar is downloaded straight
 from `firebase-preview-drop` rather than through `gcloud components install`, so
 the job needs neither the SDK nor a credential.
 
-**`check:explainers --fast`.** The only gate here that talks to a third party. A
+**`check:explainers --fast`.** The only gate here that talks to a third party, and **last on purpose** ([#423](https://github.com/opendroid/the-infinity/issues/423)): it used to run sixth of thirteen, so when `en.wikipedia.org` failed to answer on 2026-09-11 the job went red and skipped lint, typecheck, the tests, the build, the perf budget and every smoke assertion. Running it last cannot stop `main` going red for a reason nobody caused — only moving the network half to `links.yml` would, and that is a separate argument (ADR-0020 made it for citations). It makes the red honest: everything else has reported first. A
 `video` entry is verified through YouTube's oEmbed endpoint, which 404s for a video that
 is gone and returns the real title and channel for one that is live — so the check
 asserts the recorded attribution is *right*, not merely that a URL answers.
