@@ -60,6 +60,13 @@
       "title": "Deep Reinforcement Learning Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/deep-rl-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Hierarchical RL | Reinforcement Learning (INF8953DE) | Lecture - 11 | Part - 1",
+      "author": "chandar-lab",
+      "url": "https://www.youtube.com/watch?v=urt_t1-c2Ww"
     }
   ],
   "review": {

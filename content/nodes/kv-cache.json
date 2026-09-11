@@ -66,6 +66,13 @@
       "title": "Large Transformer Model Inference Optimization",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "How KV Cache Speeds Up LLMs for Faster AI Models on GPUs",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=o0gkdZBtwEg"
     }
   ],
   "review": {

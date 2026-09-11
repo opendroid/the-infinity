@@ -60,6 +60,13 @@
       "title": "Large Transformer Model Inference Optimization",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Knowledge Distillation: How LLMs train each other",
+      "author": "Julia Turc",
+      "url": "https://www.youtube.com/watch?v=jrJKRYAdh7I"
     }
   ],
   "review": {

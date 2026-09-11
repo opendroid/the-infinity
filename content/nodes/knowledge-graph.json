@@ -62,6 +62,13 @@
       "title": "How to Build an Open-Domain Question Answering System?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2020-10-29-odqa/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is a Knowledge Graph?",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=y7sXDpffzQQ"
     }
   ],
   "review": {

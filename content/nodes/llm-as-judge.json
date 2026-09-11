@@ -56,6 +56,13 @@
       "title": "Evaluation of binary classifiers",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Evaluation_of_binary_classifiers"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "LLM as a Judge: Scaling AI Evaluation Strategies",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=trfUBIDeI1Y"
     }
   ],
   "review": {

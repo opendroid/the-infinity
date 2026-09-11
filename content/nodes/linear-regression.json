@@ -56,6 +56,13 @@
       "title": "Linear Regression",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_linear-regression/linear-regression.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Linear Regression, Clearly Explained!!!",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=7ArmBVF2dCs"
     }
   ],
   "review": {

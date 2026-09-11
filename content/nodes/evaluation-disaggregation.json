@@ -62,6 +62,13 @@
       "title": "Fairness (machine learning)",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Fairness_(machine_learning)"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Disaggregated model evaluation and comparison",
+      "author": "Microsoft Research",
+      "url": "https://www.youtube.com/watch?v=NYXRrLzGiFk"
     }
   ],
   "review": {

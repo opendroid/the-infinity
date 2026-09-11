@@ -65,6 +65,13 @@
       "title": "MLOps",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/MLOps"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Batch vs Real-time Inference Explained | Model Serving & Inference | ML System Design",
+      "author": "System Overflow - Master System Design Interviews",
+      "url": "https://www.youtube.com/watch?v=ckKfsTM9mUw"
     }
   ],
   "review": {
