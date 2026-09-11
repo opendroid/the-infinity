@@ -9,6 +9,7 @@ import {
   score,
   targets,
   unknownTargets,
+  WEIGHTS,
   withRetry,
 } from '../../scripts/find-video-explainers.mjs';
 
@@ -200,6 +201,105 @@ describe('score ranks plausibly and says why', () => {
     );
     const modestRelevant = score({ ...base, views: '500' }, target, new Set());
     expect(modestRelevant.score).toBeGreaterThan(popularIrrelevant.score);
+  });
+
+  /**
+   * #432: relevance must outweigh reputation, and it did not.
+   *
+   * The allowlist paid 0.40 and a perfect topic match paid 0.30, so an
+   * allowlisted video about something else reached 0.67 while the ceiling for
+   * an exact match from any other channel was 0.60. Measured on the live
+   * sweep: 8 of 181 targets had a top pick that matched NOTHING, all of them
+   * 3Blue1Brown or StatQuest, and 14 had a better match ranked lower.
+   */
+  describe('relevance outweighs reputation (#432)', () => {
+    const concept = { scope: 'concept' as const, title: 'Early Exit', key: 'early-exit' };
+
+    it('keeps the weights in an order that cannot invert again', () => {
+      // The invariant, stated as arithmetic rather than as a comment: a PERFECT
+      // match from an unknown channel must beat a HALF match from a trusted
+      // one. Raise the allowlist back above half the overlap term and this
+      // fails — which is the whole point of asserting it here.
+      expect(WEIGHTS.allowlist).toBeLessThan(WEIGHTS.overlap / 2);
+      expect(WEIGHTS.namedAuthor).toBeLessThan(WEIGHTS.allowlist);
+    });
+
+    it('disqualifies a video that shares no word with the concept, whoever made it', () => {
+      // The real case: early-exit was offered 3Blue1Brown's neural network
+      // primer at 0.67 on zero overlap — 0.40 + 0.20 + log10(24,210,799)/100.
+      const allowed = new Set(['UC-3b1b']);
+      const r = score(
+        {
+          channelId: 'UC-3b1b',
+          title: 'But what is a neural network? | Deep learning chapter 1',
+          author: '3Blue1Brown',
+          durationSeconds: 1140,
+          views: '24210799',
+        },
+        concept,
+        allowed,
+      );
+      expect(r.score).toBe(0);
+      expect(r.reasons).toEqual(['no topic overlap']);
+    });
+
+    it('ranks a perfect match from an unknown channel above a half match from a trusted one', () => {
+      const allowed = new Set(['UC-statquest']);
+      const trustedHalf = score(
+        {
+          channelId: 'UC-statquest',
+          title: 'StatQuest: Hierarchical Clustering',
+          author: 'StatQuest with Josh Starmer',
+          durationSeconds: 700,
+          views: '566380',
+        },
+        { scope: 'concept' as const, title: 'Hierarchical RL', key: 'hierarchical-rl' },
+        allowed,
+      );
+      const unknownExact = score(
+        {
+          channelId: 'UC-chandar',
+          title: 'Hierarchical RL | Reinforcement Learning | Lecture 11',
+          author: 'chandar-lab',
+          durationSeconds: 2000,
+          views: '1011',
+        },
+        { scope: 'concept' as const, title: 'Hierarchical RL', key: 'hierarchical-rl' },
+        allowed,
+      );
+      expect(unknownExact.score).toBeGreaterThan(trustedHalf.score);
+    });
+
+    it('still lets a trusted channel win when it IS on topic', () => {
+      // The fix must not throw away what the allowlist is for. StatQuest's
+      // logistic regression video is the right answer for logistic-regression
+      // and has to stay the right answer.
+      const allowed = new Set(['UC-statquest']);
+      const t = { scope: 'concept' as const, title: 'Logistic Regression', key: 'logistic-regression' };
+      const statquest = score(
+        {
+          channelId: 'UC-statquest',
+          title: 'StatQuest: Logistic Regression',
+          author: 'StatQuest with Josh Starmer',
+          durationSeconds: 500,
+          views: '2802552',
+        },
+        t,
+        allowed,
+      );
+      const lesser = score(
+        {
+          channelId: 'UC-other',
+          title: 'Logistic Regression in five minutes',
+          author: 'Someone',
+          durationSeconds: 300,
+          views: '900',
+        },
+        t,
+        allowed,
+      );
+      expect(statquest.score).toBeGreaterThan(lesser.score);
+    });
   });
 
   it('lets a video about ONE sampled concept clear the bar on a broad domain', () => {
