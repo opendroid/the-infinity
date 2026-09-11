@@ -28,7 +28,24 @@ import (
 	"time"
 
 	"github.com/opendroid/the-infinity/api/internal/analytics"
+	"github.com/opendroid/the-infinity/api/internal/publish"
 )
+
+// lookup derives the graph so the report can tell an edge from a jump.
+//
+// now is the clock only because Derive takes one for Stats.GrewThisWeek, which
+// this does not read.
+func lookup(dir string) (analytics.EdgeLookup, error) {
+	authored, err := publish.Load(dir)
+	if err != nil {
+		return nil, fmt.Errorf("reading concept nodes from %s (pass -nodes): %w", dir, err)
+	}
+	g, err := publish.Derive(authored, time.Now())
+	if err != nil {
+		return nil, fmt.Errorf("deriving the graph from %s: %w", dir, err)
+	}
+	return analytics.EdgesFrom(g), nil
+}
 
 // Bounded so a hung read fails with a deadline rather than sitting on a
 // terminal indefinitely, as in cmd/queues.
@@ -47,6 +64,7 @@ func run() error {
 		days    = flag.Int("days", 7, "how many days back to read")
 		top     = flag.Int("top", 15, "how many rows per ranking")
 		limit   = flag.Int("limit", 10000, "most log entries to read")
+		nodes   = flag.String("nodes", "../content/nodes", "concept node JSON, for telling an edge from a jump")
 	)
 	flag.Parse()
 
@@ -68,6 +86,15 @@ func run() error {
 		return fmt.Errorf("-limit must be at least 1, got %d", *limit)
 	}
 
+	// Whether a move followed an edge is a question about the graph, so the
+	// graph has to be read — from the SAME derivation the API publishes and the
+	// pages render (#426, CLAUDE.md §7). Loaded before the network call: being
+	// told the content directory is wrong should not cost a log read.
+	edges, err := lookup(*nodes)
+	if err != nil {
+		return err
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), readTimeout)
 	defer cancel()
 
@@ -83,7 +110,7 @@ func run() error {
 
 	now := time.Now().UTC()
 	since := now.AddDate(0, 0, -*days)
-	report, err := analytics.Collect(ctx, source, since, *limit, *top, now)
+	report, err := analytics.Collect(ctx, source, since, *limit, *top, now, edges)
 	if err != nil {
 		return err
 	}

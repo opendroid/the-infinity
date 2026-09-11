@@ -6,6 +6,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/opendroid/the-infinity/api/internal/store"
 )
 
 // The fixtures below are REAL entries from the live webrequests log, reduced to
@@ -164,28 +166,83 @@ func TestTopConcepts(t *testing.T) {
 	}
 }
 
+/**
+ * The graph as the live run's six traversals actually stand (#426): three pairs
+ * are connected, three are not. Checked against content/nodes when the issue
+ * was filed, and used here so the test describes the real corpus rather than a
+ * convenient one.
+ */
+func liveEdges(from, to string) (store.EdgeType, bool) {
+	declared := map[[2]string]store.EdgeType{
+		{"attention", "graph-neural-network"}:                store.EdgeAdjacent,
+		{"positional-encoding", "rotary-position-embedding"}: store.EdgeUnlocks,
+		{"transformer-block", "feed-forward-network"}:        store.EdgeRequires,
+	}
+	t, ok := declared[[2]string{from, to}]
+	return t, ok
+}
+
 func TestTraversals(t *testing.T) {
 	cases := []struct {
-		name    string
-		entries []Entry
-		want    []Edge
+		name      string
+		entries   []Entry
+		edges     EdgeLookup
+		wantAlong []Edge
+		wantJumps []Edge
 	}{
 		{
-			name:    "a reader pulling the thread",
-			entries: []Entry{traversal("attention", "softmax")},
-			want:    []Edge{{From: "attention", To: "softmax", N: 1}},
+			name:      "a reader following a declared edge",
+			entries:   []Entry{traversal("transformer-block", "feed-forward-network")},
+			edges:     liveEdges,
+			wantAlong: []Edge{{From: "transformer-block", To: "feed-forward-network", Type: store.EdgeRequires, N: 1}},
+			wantJumps: []Edge{},
 		},
 		{
-			// The defect this fixture exists for: the mini-map fetch carries its
-			// own page as referer on EVERY concept read.
-			name:    "a page's own mini-map fetch is not a traversal",
-			entries: []Entry{miniMapReader, miniMap},
-			want:    []Edge{},
+			// THE DEFECT #426 IS ABOUT. This pair was reported under "EDGES
+			// PULLED" and nothing connects it.
+			name:      "a jump with no edge is not an edge",
+			entries:   []Entry{traversal("backpropagation", "query-key-value")},
+			edges:     liveEdges,
+			wantAlong: []Edge{},
+			wantJumps: []Edge{{From: "backpropagation", To: "query-key-value", N: 1}},
 		},
 		{
-			name:    "a reload is not a traversal",
-			entries: []Entry{traversal("attention", "attention")},
-			want:    []Edge{},
+			name: "the live run, split",
+			entries: []Entry{
+				traversal("attention", "graph-neural-network"),
+				traversal("attention", "graph-neural-network"),
+				traversal("backpropagation", "query-key-value"),
+				traversal("neural-audio-codec", "backpropagation"),
+			},
+			edges:     liveEdges,
+			wantAlong: []Edge{{From: "attention", To: "graph-neural-network", Type: store.EdgeAdjacent, N: 2}},
+			wantJumps: []Edge{
+				{From: "backpropagation", To: "query-key-value", N: 1},
+				{From: "neural-audio-codec", To: "backpropagation", N: 1},
+			},
+		},
+		{
+			// Without a corpus nothing can be classified, and calling every move
+			// an edge would be the #426 bug restored by another route.
+			name:      "with no graph, everything is a jump",
+			entries:   []Entry{traversal("transformer-block", "feed-forward-network")},
+			edges:     NoEdges,
+			wantAlong: []Edge{},
+			wantJumps: []Edge{{From: "transformer-block", To: "feed-forward-network", N: 1}},
+		},
+		{
+			name:      "a page's own mini-map fetch is not a traversal",
+			entries:   []Entry{miniMapReader, miniMap},
+			edges:     liveEdges,
+			wantAlong: []Edge{},
+			wantJumps: []Edge{},
+		},
+		{
+			name:      "a reload is not a traversal",
+			entries:   []Entry{traversal("attention", "attention")},
+			edges:     liveEdges,
+			wantAlong: []Edge{},
+			wantJumps: []Edge{},
 		},
 		{
 			// The referer path is shaped like ours on purpose. With a path the
@@ -197,36 +254,44 @@ func TestTraversals(t *testing.T) {
 				Referer:   "https://scraped-mirror.example.com/c/softmax",
 				UserAgent: reader.UserAgent,
 			}},
-			want: []Edge{},
+			edges:     liveEdges,
+			wantAlong: []Edge{},
+			wantJumps: []Edge{},
 		},
 		{
-			name:    "a crawler enumerating is not a reader exploring",
-			entries: []Entry{{URL: "https://theinfinity.ai/c/b", Referer: "https://theinfinity.ai/c/a", UserAgent: ahrefs.UserAgent}},
-			want:    []Edge{},
+			name:      "a crawler enumerating is not a reader exploring",
+			entries:   []Entry{{URL: "https://theinfinity.ai/c/b", Referer: "https://theinfinity.ai/c/a", UserAgent: ahrefs.UserAgent}},
+			edges:     liveEdges,
+			wantAlong: []Edge{},
+			wantJumps: []Edge{},
 		},
 		{
-			name:    "no referer at all",
-			entries: []Entry{reader, ahrefs},
-			want:    []Edge{},
-		},
-		{
-			name:    "counted and ranked",
-			entries: []Entry{traversal("a", "b"), traversal("a", "b"), traversal("c", "d")},
-			want:    []Edge{{From: "a", To: "b", N: 2}, {From: "c", To: "d", N: 1}},
+			name:      "no referer at all",
+			entries:   []Entry{reader, ahrefs},
+			edges:     liveEdges,
+			wantAlong: []Edge{},
+			wantJumps: []Edge{},
 		},
 	}
+
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			got := Traversals(c.entries, 10)
-			if len(got) != len(c.want) {
-				t.Fatalf("got %d edges %v, want %d %v", len(got), got, len(c.want), c.want)
-			}
-			for i := range got {
-				if got[i] != c.want[i] {
-					t.Errorf("edge %d = %+v, want %+v", i, got[i], c.want[i])
-				}
-			}
+			along, jumps := Traversals(c.entries, 10, c.edges)
+			assertEdges(t, "along", along, c.wantAlong)
+			assertEdges(t, "jumps", jumps, c.wantJumps)
 		})
+	}
+}
+
+func assertEdges(t *testing.T, what string, got, want []Edge) {
+	t.Helper()
+	if len(got) != len(want) {
+		t.Fatalf("%s: got %d rows %+v, want %d %+v", what, len(got), got, len(want), want)
+	}
+	for i := range got {
+		if got[i] != want[i] {
+			t.Errorf("%s row %d = %+v, want %+v", what, i, got[i], want[i])
+		}
 	}
 }
 
@@ -320,16 +385,19 @@ func TestCollect(t *testing.T) {
 	since := now.Add(-7 * 24 * time.Hour)
 
 	t.Run("answers every question from one read", func(t *testing.T) {
-		f := &fake{entries: []Entry{traversal("attention", "softmax"), ahrefs, reader, miniMap}}
-		got, err := Collect(context.Background(), f, since, 500, 10, now)
+		f := &fake{entries: []Entry{traversal("attention", "graph-neural-network"), ahrefs, reader, miniMap}}
+		got, err := Collect(context.Background(), f, since, 500, 10, now, liveEdges)
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
 		if got.Total != 4 {
 			t.Errorf("Total = %d, want 4", got.Total)
 		}
-		if len(got.Traversals) != 1 || got.Traversals[0].To != "softmax" {
-			t.Errorf("Traversals = %+v, want one edge to softmax", got.Traversals)
+		if len(got.Traversals) != 1 || got.Traversals[0].To != "graph-neural-network" {
+			t.Errorf("Traversals = %+v, want one edge to graph-neural-network", got.Traversals)
+		}
+		if len(got.Jumps) != 0 {
+			t.Errorf("Jumps = %+v, want none", got.Jumps)
 		}
 		if got.Bots != (Share{N: 2, Total: 4}) {
 			t.Errorf("Bots = %+v, want 2 of 4", got.Bots)
@@ -344,7 +412,7 @@ func TestCollect(t *testing.T) {
 
 	t.Run("a failed read is returned, not reported as an empty week", func(t *testing.T) {
 		want := errors.New("permission denied")
-		if _, err := Collect(context.Background(), &fake{err: want}, since, 500, 10, now); !errors.Is(err, want) {
+		if _, err := Collect(context.Background(), &fake{err: want}, since, 500, 10, now, liveEdges); !errors.Is(err, want) {
 			t.Errorf("err = %v, want %v", err, want)
 		}
 	})
@@ -356,7 +424,8 @@ func TestRender(t *testing.T) {
 		Now:        now,
 		Total:      4,
 		Concepts:   []Count{{Key: "attention", N: 3}},
-		Traversals: []Edge{{From: "attention", To: "softmax", N: 2}},
+		Traversals: []Edge{{From: "attention", To: "softmax", Type: store.EdgeAdjacent, N: 2}},
+		Jumps:      []Edge{{From: "backpropagation", To: "query-key-value", N: 1}},
 		Bots:       Share{N: 1, Total: 4},
 		Cache:      Share{N: 2, Total: 3},
 	}
@@ -378,6 +447,9 @@ func TestRender(t *testing.T) {
 				"1 of 4 request(s)",
 				"attention",
 				"attention → softmax",
+				"adjacent",
+				"JUMPED, NO EDGE",
+				"backpropagation → query-key-value",
 				"filter: logName=…",
 			},
 			absent: []string{"-limit"},
@@ -392,11 +464,12 @@ func TestRender(t *testing.T) {
 		},
 		{
 			name:   "an empty window says it looked",
-			report: &Report{Now: now, Concepts: []Count{}, Traversals: []Edge{}},
+			report: &Report{Now: now, Concepts: []Count{}, Traversals: []Edge{}, Jumps: []Edge{}},
 			limit:  10000,
 			want: []string{
 				"nothing — no reader opened a concept page",
 				"nothing — no reader followed an edge",
+				"every concept-to-concept move followed an edge",
 				"0 of 0 page request(s)",
 			},
 		},
