@@ -564,6 +564,13 @@ async function searchOne(target, key, quota, perTarget, opts = {}) {
 export function pending(all, prior, { redoEmpty = false, redo = /** @type {string[]} */ ([]) } = {}) {
   const done = new Set(prior.done ?? []);
   const productive = new Set((prior.candidates ?? []).map((c) => c.target));
+  // THE FOURTH STATE (#437). A target can be searched, produce candidates, be
+  // read by a human, and have every one rejected — 32 of them after the
+  // 2026-09-11 sweep. Nothing recorded that, so each pass re-read the same 32
+  // and reached the same conclusions. `--redo-empty` must not resurrect them:
+  // they are not barren, they are finished. `--redo` still can, by name, which
+  // is what makes a dismissal a judgment rather than a tombstone.
+  const dismissed = new Set((prior.dismissed ?? []).map((d) => d.target));
   // NAMED WINS OVER EVERY OTHER STATE (#403). `--redo-empty` retries a target
   // that found nothing, which is a different question from "found something I
   // no longer trust" — and the second is the one a query or scorer change
@@ -571,7 +578,9 @@ export function pending(all, prior, { redoEmpty = false, redo = /** @type {strin
   // --redo-empty skipped every one of them.
   const named = new Set(redo);
   return all.filter(
-    (t) => named.has(t.key) || !done.has(t.key) || (redoEmpty && !productive.has(t.key)),
+    (t) =>
+      named.has(t.key) ||
+      (!dismissed.has(t.key) && (!done.has(t.key) || (redoEmpty && !productive.has(t.key)))),
   );
 }
 
@@ -669,10 +678,28 @@ export async function search(argv, opts = {}) {
 
   const todo = pending(all, prior, { redoEmpty, redo });
 
+  // A dismissal says "looked, nothing worth attaching". If the concept has
+  // since gained a video the judgment has been overtaken, and saying so is
+  // cheaper than anybody noticing a year later (#437).
+  const covered = new Set(
+    readNodes()
+      .filter((n) => (n.explainers ?? []).some((e) => e.kind === 'video'))
+      .map((n) => n.id),
+  );
+  const stale = staleDismissals(prior.dismissed, covered);
+  if (stale.length > 0) {
+    console.log(
+      `${stale.length} dismissal(s) are stale — these now have a video: ${stale.join(', ')}\n`,
+    );
+  }
+
   console.log(
     `${all.length} ${concepts ? 'concept' : 'domain'} target(s); ${done.size} already done, ${todo.length} to go` +
       (redoEmpty ? ` (--redo-empty: retrying ${done.size - productive.size} that found nothing)` : '') +
       (redo.length > 0 ? ` (--redo: ${redo.filter((id) => done.has(id)).length} named target(s) re-queried)` : '') +
+      ((prior.dismissed ?? []).length > 0
+        ? `; ${prior.dismissed.length} dismissed as having nothing worth attaching`
+        : '') +
       `.\n` +
       `Budget ${budget} units — a search costs ${COST.search}, so about ${Math.floor(budget / (COST.search + COST.videos))} targets this run.\n`,
   );
@@ -754,6 +781,78 @@ export async function search(argv, opts = {}) {
  * first time — and if oEmbed 404s, the video is gone or private and the pick is
  * rejected now rather than in CI.
  */
+/**
+ * Records that a target was searched, read, and had nothing worth attaching.
+ *
+ * A REASON IS REQUIRED, and that is the whole value of the file. "custom-kernel
+ * was skipped" tells a curator a year from now nothing at all; "homonym —
+ * returns the kernel trick and OS kernels" tells them whether a different query
+ * might help, and "no teaching video exists for this" tells them not to look
+ * again. The two kinds need opposite follow-ups and the checkpoint has to carry
+ * which is which.
+ */
+export function dismissals(picks, knownIds) {
+  const entries = [];
+  const problems = [];
+  for (const pick of picks) {
+    const target = typeof pick?.target === 'string' ? pick.target.trim() : '';
+    const reason = typeof pick?.reason === 'string' ? pick.reason.trim() : '';
+    if (!target) {
+      problems.push('an entry has no target');
+    } else if (!knownIds.has(target)) {
+      problems.push(`${target} is not a concept id`);
+    } else if (!reason) {
+      problems.push(`${target} has no reason — say why, or a year from now this is indistinguishable from a mistake`);
+    } else {
+      entries.push({ target, reason });
+    }
+  }
+  return { entries, problems };
+}
+
+/** Dismissals naming a concept that has since gained a video are stale. */
+export function staleDismissals(dismissed, coveredIds) {
+  return (dismissed ?? []).filter((d) => coveredIds.has(d.target)).map((d) => d.target);
+}
+
+async function dismiss(argv) {
+  const path = argv.find((a) => !a.startsWith('-'));
+  if (!path || !existsSync(path)) {
+    console.error(
+      'usage: node scripts/find-video-explainers.mjs dismiss dismissed.json [--out FILE]\n\n' +
+        '  [{ "target": "custom-kernel", "reason": "homonym — returns the kernel trick" }]',
+    );
+    process.exit(2);
+  }
+
+  const out = flag(argv, '--out') ?? 'video-candidates.concepts.json';
+  const prior = load(out);
+  if (!prior) {
+    console.error(`No checkpoint at ${out}. Run a search first, or pass --out.`);
+    process.exit(2);
+  }
+
+  const nodes = readNodes();
+  const { entries, problems } = dismissals(JSON.parse(readFileSync(path, 'utf8')), new Set(nodes.map((n) => n.id)));
+
+  // NOTHING IS WRITTEN IF ANYTHING IS WRONG, the same argument as --redo's
+  // check (#403): a half-applied dismissal file is worse than none, because the
+  // half that landed looks deliberate.
+  if (problems.length > 0) {
+    console.error(`${problems.length} problem(s); nothing was written:`);
+    for (const p of problems) console.error(`  ✗ ${p}`);
+    process.exit(2);
+  }
+
+  const kept = (prior.dismissed ?? []).filter((d) => !entries.some((e) => e.target === d.target));
+  prior.dismissed = [...kept, ...entries].sort((a, b) => a.target.localeCompare(b.target));
+  save(out, prior);
+
+  for (const e of entries) console.log(`  · ${e.target.padEnd(30)} ${e.reason}`);
+  console.log(`\n${entries.length} dismissed; ${prior.dismissed.length} in ${out} in total.`);
+  console.log('A dismissal is a judgment, not a tombstone — `--redo <id>` re-queries one by name.');
+}
+
 async function verify(argv) {
   const path = argv.find((a) => !a.startsWith('-'));
   if (!path || !existsSync(path)) {
@@ -826,12 +925,14 @@ async function main() {
   const [cmd, ...argv] = process.argv.slice(2);
   if (cmd === 'search') return search(argv);
   if (cmd === 'verify') return verify(argv);
+  if (cmd === 'dismiss') return dismiss(argv);
   console.error(
     'usage:\n' +
       '  YOUTUBE_API_KEY=... node scripts/find-video-explainers.mjs search [--concepts] [--redo-empty]\n' +
       '                                  [--redo id,id,...]\n' +
       '                                  [--budget 10000] [--per-target 5] [--min-score 0.35] [--out FILE]\n' +
-      '  node scripts/find-video-explainers.mjs verify picks.json [--out FILE]',
+      '  node scripts/find-video-explainers.mjs verify picks.json [--out FILE]\n' +
+      '  node scripts/find-video-explainers.mjs dismiss dismissed.json [--out FILE]',
   );
   process.exit(2);
 }

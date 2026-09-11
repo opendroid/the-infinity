@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import {
+  dismissals,
   durationSeconds,
   facets,
   inDegree,
@@ -12,6 +13,7 @@ import {
   refusals,
   score,
   search,
+  staleDismissals,
   targets,
   STOP_AFTER_REFUSALS,
   unknownTargets,
@@ -662,5 +664,108 @@ describe('the loop actually stops (#429)', () => {
     // stopping — which is the day that was lost on 2026-09-11.
     expect(searches).toBeLessThanOrEqual(STOP_AFTER_REFUSALS * 3);
     expect(searches).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * #437: the state the checkpoint could not express.
+ *
+ * 32 targets after the 2026-09-11 sweep had been searched, produced candidates,
+ * been read, and had every candidate rejected — and none of that was recorded,
+ * so each pass re-read the same 32. #386 separated "done" from "found
+ * something" and #403 added "found something I no longer trust"; this is the
+ * fourth: "looked, and there is nothing worth attaching".
+ */
+describe('a dismissal is a state the checkpoint keeps (#437)', () => {
+  const known = new Set(['custom-kernel', 'cold-start', 'attention']);
+
+  describe('dismissals', () => {
+    it('accepts a target with a reason', () => {
+      const { entries, problems } = dismissals(
+        [{ target: 'custom-kernel', reason: 'homonym — returns the kernel trick' }],
+        known,
+      );
+      expect(problems).toEqual([]);
+      expect(entries).toEqual([{ target: 'custom-kernel', reason: 'homonym — returns the kernel trick' }]);
+    });
+
+    const rejected: Array<[string, unknown, string]> = [
+      ['no reason at all', { target: 'custom-kernel' }, 'no reason'],
+      ['a blank reason', { target: 'custom-kernel', reason: '   ' }, 'no reason'],
+      ['an unknown id', { target: 'nope', reason: 'because' }, 'not a concept id'],
+      ['no target', { reason: 'because' }, 'no target'],
+      ['nonsense', null, 'no target'],
+    ];
+    it.each(rejected)('rejects %s', (_name, pick, fragment) => {
+      const { entries, problems } = dismissals([pick], known);
+      expect(entries).toEqual([]);
+      expect(problems.join(' ')).toContain(fragment);
+    });
+
+    it('reports every problem rather than stopping at the first', () => {
+      // Nothing is written when anything is wrong, so the operator should see
+      // the whole list in one pass instead of fixing them one run at a time.
+      const { problems } = dismissals([{ target: 'nope', reason: 'x' }, { target: 'cold-start' }], known);
+      expect(problems).toHaveLength(2);
+    });
+  });
+
+  describe('pending honours it', () => {
+    const all = [
+      { scope: 'concept' as const, key: 'custom-kernel', title: 'Custom Kernel' },
+      { scope: 'concept' as const, key: 'beam-search-tradeoffs', title: 'Beam Search Tradeoffs' },
+      { scope: 'concept' as const, key: 'cold-start', title: 'Cold Start' },
+      { scope: 'concept' as const, key: 'attention', title: 'Attention' },
+    ];
+    // custom-kernel:         searched, HAS candidates, dismissed as a homonym.
+    // beam-search-tradeoffs: searched, found NOTHING, dismissed as hopeless.
+    // cold-start:            searched, found nothing, NOT dismissed.
+    // attention:             never searched.
+    //
+    // The barren-and-dismissed row is the one that matters and the one I first
+    // left out. A dismissed target that still has candidates is skipped by
+    // --redo-empty anyway, for being productive — so a fixture with only that
+    // shape passes whether or not the dismissed list is consulted at all.
+    // Planting proved exactly that.
+    const prior = {
+      done: ['custom-kernel', 'beam-search-tradeoffs', 'cold-start'],
+      candidates: [{ target: 'custom-kernel' }],
+      dismissed: [
+        { target: 'custom-kernel', reason: 'homonym' },
+        { target: 'beam-search-tradeoffs', reason: 'no teaching video exists' },
+      ],
+    };
+
+    it('leaves a dismissed target alone on an ordinary run', () => {
+      expect(pending(all, prior).map((t: Target) => t.key)).toEqual(['attention']);
+    });
+
+    it('--redo-empty does not resurrect a barren target that was dismissed', () => {
+      // The case this exists for. cold-start is barren and NOT dismissed, so it
+      // comes back; beam-search-tradeoffs is barren AND dismissed, so it does
+      // not. Without the dismissed check the two are indistinguishable.
+      const keys = pending(all, prior, { redoEmpty: true }).map((t: Target) => t.key);
+      expect(keys).toContain('cold-start');
+      expect(keys).not.toContain('beam-search-tradeoffs');
+      expect(keys).not.toContain('custom-kernel');
+    });
+
+    it('--redo names it and gets it back', () => {
+      // A dismissal is a judgment, not a tombstone.
+      const keys = pending(all, prior, { redo: ['custom-kernel'] }).map((t: Target) => t.key);
+      expect(keys).toContain('custom-kernel');
+    });
+  });
+
+  describe('staleDismissals', () => {
+    it('names a dismissal the corpus has overtaken', () => {
+      const dismissed = [{ target: 'custom-kernel', reason: 'x' }, { target: 'cold-start', reason: 'y' }];
+      expect(staleDismissals(dismissed, new Set(['cold-start']))).toEqual(['cold-start']);
+    });
+
+    it('is quiet when none are stale', () => {
+      expect(staleDismissals([{ target: 'custom-kernel', reason: 'x' }], new Set())).toEqual([]);
+      expect(staleDismissals(undefined, new Set(['a']))).toEqual([]);
+    });
   });
 });
