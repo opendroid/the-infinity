@@ -280,6 +280,7 @@ here.*
 | `cd api && make docker-build` | Multi-stage distroless nonroot image |
 | `cd api && make publish` | Sync `/content/nodes` → Firestore (needs `GOOGLE_CLOUD_PROJECT`) |
 | `cd api && make queues` | Print pending flags and concept requests, oldest first. Read-only |
+| `cd api && make analytics` | What readers did, from the Firebase Hosting request log — top concepts, **edges pulled**, crawler share, and the cache-hit ratio that is the static-first claim measured. Read-only, and no analytics JavaScript ships to anybody ([ADR-0011](docs/adr/0011-analytics-from-request-logs.md)). Needs Cloud Logging linked and credentials. `ANALYTICS_DAYS=30 make analytics`, or `go run ./cmd/analytics -top 25`; `-days` is capped at 30 because that is the log bucket's retention |
 | `cd api && make golden` | Regenerate `content/derived.golden.json` after a content change |
 | `cd web && firebase deploy --only hosting` | Deploy the built site |
 
