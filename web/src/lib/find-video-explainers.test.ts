@@ -1,4 +1,7 @@
-import { describe, expect, it } from 'vitest';
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { describe, expect, it, vi } from 'vitest';
 import {
   durationSeconds,
   facets,
@@ -6,8 +9,11 @@ import {
   paced,
   pending,
   queryFor,
+  refusals,
   score,
+  search,
   targets,
+  STOP_AFTER_REFUSALS,
   unknownTargets,
   WEIGHTS,
   withRetry,
@@ -550,5 +556,111 @@ describe('unknownTargets refuses a --redo id that names nothing', () => {
 
   it('is empty when every id resolves', () => {
     expect(unknownTargets(all, ['adam', 'ablation'])).toEqual([]);
+  });
+});
+
+/**
+ * #429: the run kept paying for a refusal it could not recognise.
+ *
+ * Each target retries over about 20 seconds and then gives up, and the loop
+ * starts the next one immediately — so a condition lasting ten minutes cost
+ * thirty targets. On 2026-09-11 the sweep charged 99 searches and 30 of them,
+ * roughly 3,000 units and a third of the day, bought nothing. Nothing carried
+ * between targets, so "this one was unlucky" and "everything is being refused"
+ * looked identical.
+ */
+describe('a sustained refusal stops the run (#429)', () => {
+  const limited = { reason: 'rateLimitExceeded', message: 'youtube search: rateLimitExceeded' };
+
+  it('counts refusals in a row', () => {
+    expect(refusals(0, limited)).toBe(1);
+    expect(refusals(2, limited)).toBe(3);
+  });
+
+  const clearing: Array<[string, unknown]> = [
+    ['a success', null],
+    ['no error at all', undefined],
+    ['a failure of another kind', { reason: 'badRequest' }],
+    ['the daily cap, which is handled separately', { reason: 'quotaExceeded' }],
+  ];
+  it.each(clearing)('%s clears the streak', (_name, err) => {
+    expect(refusals(9, err as Error)).toBe(0);
+  });
+
+  it('stops well before a day can be spent', () => {
+    // Three, because two in a row is plausibly coincidence and thirty is a
+    // wasted day. If this is ever raised, the cost is quota — so it is asserted
+    // rather than left to a comment.
+    expect(STOP_AFTER_REFUSALS).toBeGreaterThanOrEqual(2);
+    expect(STOP_AFTER_REFUSALS).toBeLessThanOrEqual(5);
+  });
+
+  it('reaches the limit after exactly STOP_AFTER_REFUSALS targets, not before', () => {
+    let n = 0;
+    const seen: number[] = [];
+    for (let i = 0; i < 10; i += 1) {
+      n = refusals(n, limited);
+      seen.push(n);
+      if (n >= STOP_AFTER_REFUSALS) break;
+    }
+    expect(seen).toHaveLength(STOP_AFTER_REFUSALS);
+    expect(seen[seen.length - 1]).toBe(STOP_AFTER_REFUSALS);
+  });
+
+  it('does not trip on refusals that are spread out', () => {
+    // The case the stop must NOT fire on: an occasional burst limit between
+    // successful targets is exactly what withRetry is for.
+    let n = 0;
+    for (const err of [limited, null, limited, null, limited, null]) {
+      n = refusals(n, err as Error | null);
+      expect(n).toBeLessThan(STOP_AFTER_REFUSALS);
+    }
+  });
+});
+
+/**
+ * The `break` itself, which no unit test can see.
+ *
+ * Removing it outright left every other test in this file passing, which is
+ * how this one came to exist: the rule and the wiring are different claims.
+ * Drives the real loop against a YouTube that refuses every search.
+ */
+describe('the loop actually stops (#429)', () => {
+  it('gives up after a run of refusals instead of spending the budget', async () => {
+    const previous = process.env.YOUTUBE_API_KEY;
+    process.env.YOUTUBE_API_KEY = 'test-key';
+    const out = join(mkdtempSync(join(tmpdir(), 'fve-')), 'candidates.json');
+    let searches = 0;
+
+    const fake = (url: string | URL) => {
+      const href = String(url);
+      if (href.includes('/channels')) {
+        return Promise.resolve(
+          new Response(JSON.stringify({ items: [{ id: 'UC-x', snippet: { title: 'Chan' } }] }), { status: 200 }),
+        );
+      }
+      searches += 1;
+      return Promise.resolve(
+        new Response(JSON.stringify({ error: { errors: [{ reason: 'rateLimitExceeded' }] } }), { status: 403 }),
+      );
+    };
+
+    try {
+      vi.stubGlobal('fetch', fake);
+      await search(['--concepts', '--out', out, '--budget', '10000'], {
+        pace: () => Promise.resolve(),
+        sleep: () => Promise.resolve(),
+      });
+    } finally {
+      vi.unstubAllGlobals();
+      if (previous === undefined) delete process.env.YOUTUBE_API_KEY;
+      else process.env.YOUTUBE_API_KEY = previous;
+    }
+
+    // Three targets, three attempts each. Without the break the budget allows
+    // ~99 targets and the run would make roughly 300 search calls before
+    // stopping — which is the day that was lost on 2026-09-11.
+    expect(searches).toBeLessThanOrEqual(STOP_AFTER_REFUSALS * 3);
+    expect(searches).toBeGreaterThan(0);
   });
 });
