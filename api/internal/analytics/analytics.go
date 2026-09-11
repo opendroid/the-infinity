@@ -26,6 +26,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/opendroid/the-infinity/api/internal/store"
 )
 
 // Entry is one request, reduced to the fields the four questions need.
@@ -51,10 +53,14 @@ type Count struct {
 	N   int
 }
 
-// Edge is a reader pulling the thread from one concept to another.
+// Edge is a reader moving from one concept to another.
+//
+// Type is the declared edge that was followed, empty when none connects the
+// pair — which is the whole reason this type carries it (#426).
 type Edge struct {
 	From string
 	To   string
+	Type store.EdgeType
 	N    int
 }
 
@@ -75,11 +81,13 @@ func (s Share) Percent() float64 {
 
 // Report is every answer at one moment.
 type Report struct {
-	Since      time.Time
-	Now        time.Time
-	Total      int
-	Concepts   []Count
+	Since    time.Time
+	Now      time.Time
+	Total    int
+	Concepts []Count
+	// Traversals followed a declared edge. Jumps did not.
 	Traversals []Edge
+	Jumps      []Edge
 	Bots       Share
 	Cache      Share
 }
@@ -194,15 +202,29 @@ func TopConcepts(entries []Entry, n int) []Count {
 	return ranked(tally, n)
 }
 
-// Traversals counts readers moving from one concept to another.
+// Traversals splits concept-to-concept navigation into readers who followed a
+// declared edge and readers who did not.
 //
-// This is the question the ADR says a page-view counter cannot answer, and it
-// is a referrer join: a request for /c/B whose Referer is /c/A on the same host
-// IS a reader pulling the A→B thread. Self-referrals are dropped — a reload, or
-// the page's own fetch — and so are bots, which do not follow edges so much as
-// enumerate them.
-func Traversals(entries []Entry, n int) []Edge {
-	tally := map[string]int{}
+// BOTH HALVES ARE FINDINGS, AND THE SECOND IS THE MORE INTERESTING ONE (#426).
+// The first shipped version of this reported every /c/A → /c/B navigation under
+// the heading "EDGES PULLED", and on the first real run half the rows were
+// pairs with no edge between them at all — a reader on one concept opening
+// search with `/` and jumping somewhere else. The heading asserted something
+// the data did not support.
+//
+// The fix is not to filter those out. A reader going from `backpropagation` to
+// `query-key-value` where nothing connects them is the readership saying the
+// graph is missing a link, which for a product whose thesis IS the graph is
+// worth more than another confirmation that a drawn edge gets used. So they are
+// counted separately and labelled for what they are.
+//
+// Self-referrals are dropped — a reload, or the page's own mini-map fetch — and
+// so are bots, which do not follow edges so much as enumerate them.
+func Traversals(entries []Entry, n int, edge EdgeLookup) (along, jumps []Edge) {
+	type move struct {
+		from, to string
+	}
+	tally := map[move]int{}
 	for _, e := range entries {
 		if e.Referer == "" || IsBot(e.UserAgent) {
 			continue
@@ -214,15 +236,40 @@ func Traversals(entries []Entry, n int) []Edge {
 		if from == "" || to == "" || from == to {
 			continue
 		}
-		tally[from+" → "+to]++
+		tally[move{from, to}]++
 	}
-	rows := ranked(tally, n)
-	out := make([]Edge, 0, len(rows))
-	for _, r := range rows {
-		from, to, _ := strings.Cut(r.Key, " → ")
-		out = append(out, Edge{From: from, To: to, N: r.N})
+
+	for m, count := range tally {
+		kind, ok := edge(m.from, m.to)
+		row := Edge{From: m.from, To: m.to, Type: kind, N: count}
+		if ok {
+			along = append(along, row)
+		} else {
+			jumps = append(jumps, row)
+		}
 	}
-	return out
+	return rankEdges(along, n), rankEdges(jumps, n)
+}
+
+// rankEdges orders by count, ties broken by name so two runs of the same window
+// print the same thing.
+func rankEdges(rows []Edge, n int) []Edge {
+	sort.Slice(rows, func(i, j int) bool {
+		if rows[i].N != rows[j].N {
+			return rows[i].N > rows[j].N
+		}
+		if rows[i].From != rows[j].From {
+			return rows[i].From < rows[j].From
+		}
+		return rows[i].To < rows[j].To
+	})
+	if n > 0 && len(rows) > n {
+		rows = rows[:n]
+	}
+	if rows == nil {
+		return []Edge{}
+	}
+	return rows
 }
 
 // Bots is the share of all requests that came from a crawler.
@@ -257,17 +304,19 @@ func Cache(entries []Entry) Share {
 // One read, not four: the questions are different views of the same requests,
 // and four reads would be four different windows, four bills, and four chances
 // for the numbers on one screen to disagree with each other.
-func Collect(ctx context.Context, r Reader, since time.Time, limit, top int, now time.Time) (*Report, error) {
+func Collect(ctx context.Context, r Reader, since time.Time, limit, top int, now time.Time, edge EdgeLookup) (*Report, error) {
 	entries, err := r.Requests(ctx, since, limit)
 	if err != nil {
 		return nil, err
 	}
+	along, jumps := Traversals(entries, top, edge)
 	return &Report{
 		Since:      since,
 		Now:        now,
 		Total:      len(entries),
 		Concepts:   TopConcepts(entries, top),
-		Traversals: Traversals(entries, top),
+		Traversals: along,
+		Jumps:      jumps,
 		Bots:       Bots(entries),
 		Cache:      Cache(entries),
 	}, nil
@@ -311,12 +360,23 @@ func (r *Report) Render(w io.Writer, days, limit int, filter string) error {
 
 	// The question a page-view counter cannot answer, and the reason ADR-0011
 	// reads referrers rather than installing a counter at all.
-	fmt.Fprintf(&b, "\nEDGES PULLED — a reader moving from one concept to the next\n")
+	fmt.Fprintf(&b, "\nEDGES PULLED — a reader followed a declared edge\n")
 	if len(r.Traversals) == 0 {
 		b.WriteString("  nothing — no reader followed an edge in this window\n")
 	}
 	for _, e := range r.Traversals {
-		fmt.Fprintf(&b, "  %-40s %d\n", e.From+" → "+e.To, e.N)
+		fmt.Fprintf(&b, "  %-44s %-9s %d\n", e.From+" → "+e.To, e.Type, e.N)
+	}
+
+	// The half that was being reported as edges until #426, and the half worth
+	// reading closely: these are pairs the readership connected and the graph
+	// does not.
+	fmt.Fprintf(&b, "\nJUMPED, NO EDGE — candidate edges the readership is asking for\n")
+	if len(r.Jumps) == 0 {
+		b.WriteString("  nothing — every concept-to-concept move followed an edge\n")
+	}
+	for _, e := range r.Jumps {
+		fmt.Fprintf(&b, "  %-44s %-9s %d\n", e.From+" → "+e.To, "", e.N)
 	}
 
 	// Printed so the number can be reproduced by hand. A measurement nobody
