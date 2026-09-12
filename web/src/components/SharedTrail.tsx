@@ -116,8 +116,44 @@ export function arrival(state: State): string {
   }
 }
 
+/**
+ * The document title for a state, or null to keep the one the page shipped.
+ *
+ * /t/ IS PRERENDERED AND ITS TITLE IS A GUESS. firebase.json rewrites /t/** to
+ * one static shell, so every trail — real, deleted, or never-existing — arrives
+ * titled "A shared thread". For a page whose heading says "No such trail" that
+ * is the tab, the bookmark, the history entry and the first thing a screen
+ * reader reads all disagreeing with the page (#455).
+ *
+ * THE 200 STATUS IS NOT FIXED HERE AND CANNOT BE. A Firebase rewrite always
+ * answers 200, and a trail slug does not exist at build time to prerender a 404
+ * for. Making the status conditional would put Cloud Run in front of every
+ * shared trail, which is the serving strategy ADR-0001 chose against. The
+ * status stays 200; what the reader sees no longer lies.
+ *
+ * Null rather than a string for the states the shipped title already fits:
+ * "A shared thread" is right while loading and right once loaded.
+ */
+export function pageTitle(state: State): string | null {
+  switch (state.name) {
+    case 'missing':
+      return 'No such trail — theinfinity.ai';
+    case 'unreachable':
+      return 'The live graph is offline — theinfinity.ai';
+    case 'loading':
+    case 'ready':
+      return null;
+  }
+}
+
 export default function SharedTrail() {
   const [state, setState] = useState<State>({ name: 'loading' });
+
+  // The tab, the bookmark and the history entry, kept in step with the page.
+  useEffect(() => {
+    const next = pageTitle(state);
+    if (next !== null) document.title = next;
+  }, [state]);
 
   useEffect(() => {
     const slug = slugFromPath(window.location.pathname);

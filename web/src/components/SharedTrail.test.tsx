@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import SharedTrail, { arrival, slugFromPath } from './SharedTrail';
+import SharedTrail, { arrival, pageTitle, slugFromPath } from './SharedTrail';
 
 const TRAIL = {
   slug: 'dense-to-sparse-9k2f',
@@ -194,5 +194,60 @@ describe('a trail whose concept was deleted', () => {
     for (const n of ['01', '02', '03']) {
       expect(screen.getByText(n)).toBeTruthy();
     }
+  });
+});
+
+/**
+ * #455. /t/ is one prerendered shell behind a firebase.json rewrite, so every
+ * trail — real, deleted, or never-existing — arrived titled "A shared thread".
+ * On a page whose heading says "No such trail" that is the tab, the bookmark,
+ * the history entry and the first thing a screen reader reads, all disagreeing
+ * with the page.
+ */
+describe('the document title follows the state', () => {
+  it('names the failure when the trail is not there', () => {
+    expect(pageTitle({ name: 'missing' })).toBe('No such trail — theinfinity.ai');
+  });
+
+  it('names the failure when the graph cannot be reached', () => {
+    expect(pageTitle({ name: 'unreachable' })).toBe('The live graph is offline — theinfinity.ai');
+  });
+
+  it('keeps the shipped title where it is already right', () => {
+    // "A shared thread" is correct while loading and once loaded; null means
+    // leave it alone rather than rewrite it to the same thing.
+    expect(pageTitle({ name: 'loading' })).toBeNull();
+  });
+
+  it('matches the heading the reader is looking at', () => {
+    // The two must not drift: whatever the title claims, the h1 says the same.
+    expect(pageTitle({ name: 'missing' })).toContain('No such trail');
+    expect(pageTitle({ name: 'unreachable' })).toContain('The live graph is offline');
+  });
+
+  /**
+   * THE WIRING, not the rule. Deleting the effect that calls pageTitle leaves
+   * every assertion above green — a pure function nobody calls passes its own
+   * tests forever (#452 and #429 both went this way), so the component has to
+   * be driven and the real document.title read back.
+   */
+  it('actually sets the title when a trail 404s', async () => {
+    document.title = 'A shared thread — theinfinity.ai';
+    vi.spyOn(globalThis, 'fetch').mockReturnValue(respond({}, 404));
+
+    render(<SharedTrail />);
+
+    await waitFor(() => expect(screen.getByRole('heading', { name: /no such trail/i })).toBeTruthy());
+    await waitFor(() => expect(document.title).toBe('No such trail — theinfinity.ai'));
+  });
+
+  it('leaves the title alone for a trail that loads', async () => {
+    document.title = 'A shared thread — theinfinity.ai';
+    vi.spyOn(globalThis, 'fetch').mockReturnValue(respond(TRAIL));
+
+    render(<SharedTrail />);
+
+    await waitFor(() => expect(screen.getByRole('heading', { level: 1 })).toBeTruthy());
+    expect(document.title).toBe('A shared thread — theinfinity.ai');
   });
 });
