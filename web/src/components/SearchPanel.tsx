@@ -310,8 +310,32 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
       {hits.length > 0 && (
         <ul id="search-results" ref={listRef} role="listbox" className="mt-3 max-h-[50vh] list-none overflow-y-auto p-0">
           {hits.map((hit, i) => (
-            <li key={hit.id} role="option" aria-selected={i === cursor} id={`hit-${hit.id}`}>
+            <li key={hit.id} role="none">
+              {/*
+              THE OPTION IS THE ANCHOR, and the <li> carries nothing.
+
+              It used to be `<li role="option"><a href>`, which is an interactive
+              element inside an interactive element — axe's `nested-interactive`,
+              serious, once per result (#468). A listbox option is a leaf: with a
+              link inside it, assistive technology has two competing controls for
+              one row, the option this combobox drives by aria-activedescendant
+              and an anchor the browser also offers to link navigation.
+
+              Putting the role on the anchor keeps BOTH things that matter. There
+              is one interactive element per row, so the nesting is gone; and the
+              row is still a real <a href>, so cmd-click, middle-click and "copy
+              link address" still work — which on a page whose whole job is to
+              send you somewhere is not a detail worth trading away.
+
+              tabIndex={-1} because this is a combobox: focus stays in the input
+              and moves by aria-activedescendant. Without it, twelve results would
+              land in the tab order between the field and everything after it.
+              */}
               <a
+                role="option"
+                aria-selected={i === cursor}
+                id={`hit-${hit.id}`}
+                tabIndex={-1}
                 href={`/c/${hit.id}`}
                 onMouseEnter={() => setCursor(i)}
                 className={[

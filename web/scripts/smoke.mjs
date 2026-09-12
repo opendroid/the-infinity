@@ -459,6 +459,32 @@ async function main() {
     // tokens.json generates a pixel-keyed spacing scale, so Tailwind's usual
     // 6 = 1.5rem does not hold here. The class was present, the rule was in the
     // CSS, and nothing changed (#457).
+    // axe's `nested-interactive` rule, implemented rather than imported: an
+    // element with a widget role must not contain a focusable descendant. One
+    // rule is not worth a new dependency, and this states the invariant in the
+    // terms the page is actually built from (#468).
+    //
+    // Needs the results rendered, so it runs on /search with a query.
+    step = 'checking no widget contains a focusable control';
+    await page.goto(`${ORIGIN}/search?q=attention`, { waitUntil: 'networkidle' });
+    await page.waitForTimeout(400);
+    const nested = await page.evaluate(() => {
+      const WIDGET = ['option', 'tab', 'button', 'checkbox', 'radio', 'menuitem', 'switch', 'link', 'treeitem'];
+      const FOCUSABLE = 'a[href],button,input,select,textarea,[tabindex]:not([tabindex="-1"])';
+      const out = [];
+      globalThis.document.querySelectorAll('[role]').forEach((el) => {
+        if (!WIDGET.includes(el.getAttribute('role'))) return;
+        const inner = el.querySelectorAll(FOCUSABLE);
+        if (inner.length > 0) {
+          out.push(`${el.tagName.toLowerCase()}[role=${el.getAttribute('role')}] contains ${inner.length} focusable`);
+        }
+      });
+      return out;
+    });
+    if (nested.length > 0) {
+      fail(`/search: ${nested.length} widget(s) with focusable descendants — ${nested.slice(0, 3).join('; ')}`);
+    }
+
     step = 'checking the header targets are big enough to tap';
     const small = await page.$$eval('header a, header button', (els) =>
       els
@@ -507,7 +533,7 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, tap targets, short viewport, landing`,
+      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, nesting, tap targets, short viewport, landing`,
   );
   return 0;
 }
