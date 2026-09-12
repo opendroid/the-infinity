@@ -29,6 +29,18 @@ import { videoId } from './check-explainers.mjs';
 
 const ROOT = resolve(process.cwd(), '..');
 const NODES_DIR = join(ROOT, 'content/nodes');
+/**
+ * Where dismissals live, and NOT in the checkpoint (#439).
+ *
+ * `done` and `candidates` are caches of an API — lose them and a re-search
+ * rebuilds them, at the price of quota. A dismissal is human judgment and no
+ * command regenerates it: "homonym — returns the SVM kernel trick" took reading
+ * every candidate for that target to write. #399 ignores the checkpoint for
+ * good reasons that all apply to a cache and none of which apply to this, so
+ * this is committed, reviewable in a pull request, and survives the checkpoint
+ * being deleted.
+ */
+const DISMISSED = join(ROOT, 'content/explainers-dismissed.json');
 const API = 'https://www.googleapis.com/youtube/v3';
 
 /**
@@ -561,7 +573,7 @@ async function searchOne(target, key, quota, perTarget, opts = {}) {
  * exactly that state, and `--redo-empty` cannot see it — every homonym #401 was
  * written for returned a candidate, so all seven counted as productive.
  */
-export function pending(all, prior, { redoEmpty = false, redo = /** @type {string[]} */ ([]) } = {}) {
+export function pending(all, prior, { redoEmpty = false, redo = /** @type {string[]} */ ([]), dismissed: dismissedList = /** @type {{ target: string, reason: string }[]} */ ([]) } = {}) {
   const done = new Set(prior.done ?? []);
   const productive = new Set((prior.candidates ?? []).map((c) => c.target));
   // THE FOURTH STATE (#437). A target can be searched, produce candidates, be
@@ -570,7 +582,7 @@ export function pending(all, prior, { redoEmpty = false, redo = /** @type {strin
   // and reached the same conclusions. `--redo-empty` must not resurrect them:
   // they are not barren, they are finished. `--redo` still can, by name, which
   // is what makes a dismissal a judgment rather than a tombstone.
-  const dismissed = new Set((prior.dismissed ?? []).map((d) => d.target));
+  const dismissed = new Set(dismissedList.map((d) => d.target));
   // NAMED WINS OVER EVERY OTHER STATE (#403). `--redo-empty` retries a target
   // that found nothing, which is a different question from "found something I
   // no longer trust" — and the second is the one a query or scorer change
@@ -676,7 +688,8 @@ export async function search(argv, opts = {}) {
     process.exit(2);
   }
 
-  const todo = pending(all, prior, { redoEmpty, redo });
+  const dismissedList = readDismissed();
+  const todo = pending(all, prior, { redoEmpty, redo, dismissed: dismissedList });
 
   // A dismissal says "looked, nothing worth attaching". If the concept has
   // since gained a video the judgment has been overtaken, and saying so is
@@ -686,7 +699,7 @@ export async function search(argv, opts = {}) {
       .filter((n) => (n.explainers ?? []).some((e) => e.kind === 'video'))
       .map((n) => n.id),
   );
-  const stale = staleDismissals(prior.dismissed, covered);
+  const stale = staleDismissals(dismissedList, covered);
   if (stale.length > 0) {
     console.log(
       `${stale.length} dismissal(s) are stale — these now have a video: ${stale.join(', ')}\n`,
@@ -697,8 +710,8 @@ export async function search(argv, opts = {}) {
     `${all.length} ${concepts ? 'concept' : 'domain'} target(s); ${done.size} already done, ${todo.length} to go` +
       (redoEmpty ? ` (--redo-empty: retrying ${done.size - productive.size} that found nothing)` : '') +
       (redo.length > 0 ? ` (--redo: ${redo.filter((id) => done.has(id)).length} named target(s) re-queried)` : '') +
-      ((prior.dismissed ?? []).length > 0
-        ? `; ${prior.dismissed.length} dismissed as having nothing worth attaching`
+      (dismissedList.length > 0
+        ? `; ${dismissedList.length} dismissed as having nothing worth attaching`
         : '') +
       `.\n` +
       `Budget ${budget} units — a search costs ${COST.search}, so about ${Math.floor(budget / (COST.search + COST.videos))} targets this run.\n`,
@@ -791,6 +804,12 @@ export async function search(argv, opts = {}) {
  * again. The two kinds need opposite follow-ups and the checkpoint has to carry
  * which is which.
  */
+/** The committed dismissal list, or an empty one before the first dismissal. */
+export function readDismissed() {
+  if (!existsSync(DISMISSED)) return [];
+  return JSON.parse(readFileSync(DISMISSED, 'utf8'));
+}
+
 export function dismissals(picks, knownIds) {
   const entries = [];
   const problems = [];
@@ -825,13 +844,6 @@ async function dismiss(argv) {
     process.exit(2);
   }
 
-  const out = flag(argv, '--out') ?? 'video-candidates.concepts.json';
-  const prior = load(out);
-  if (!prior) {
-    console.error(`No checkpoint at ${out}. Run a search first, or pass --out.`);
-    process.exit(2);
-  }
-
   const nodes = readNodes();
   const { entries, problems } = dismissals(JSON.parse(readFileSync(path, 'utf8')), new Set(nodes.map((n) => n.id)));
 
@@ -844,12 +856,14 @@ async function dismiss(argv) {
     process.exit(2);
   }
 
-  const kept = (prior.dismissed ?? []).filter((d) => !entries.some((e) => e.target === d.target));
-  prior.dismissed = [...kept, ...entries].sort((a, b) => a.target.localeCompare(b.target));
-  save(out, prior);
+  const existing = readDismissed();
+  const kept = existing.filter((d) => !entries.some((e) => e.target === d.target));
+  const all = [...kept, ...entries].sort((a, b) => a.target.localeCompare(b.target));
+  writeFileSync(DISMISSED, `${JSON.stringify(all, null, 2)}\n`);
 
   for (const e of entries) console.log(`  · ${e.target.padEnd(30)} ${e.reason}`);
-  console.log(`\n${entries.length} dismissed; ${prior.dismissed.length} in ${out} in total.`);
+  console.log(`\n${entries.length} dismissed; ${all.length} in content/explainers-dismissed.json in total.`);
+  console.log('It is committed, so this belongs in a pull request like any other judgment about the corpus.');
   console.log('A dismissal is a judgment, not a tombstone — `--redo <id>` re-queries one by name.');
 }
 

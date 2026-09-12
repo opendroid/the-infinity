@@ -14,3 +14,9 @@ src/styles/tokens.generated.css
 video-candidates.*.json
 video-explainers.json
 picks*.json
+#
+# WHAT IS **NOT** HERE, AND WHY (#439). `done` and `candidates` above are caches
+# of an API: lose them and a re-search rebuilds them, at the price of quota. A
+# DISMISSAL is human judgment and nothing regenerates it, so it lives in
+# content/explainers-dismissed.json and is committed — reviewable in a pull
+# request, and it survives this checkpoint being deleted.
