@@ -28,7 +28,7 @@ const { node } = Astro.props;
 <ul role="list" class="mt-3 space-y-1.5">
   {node.citations.map((c) => (
     <li class="font-mono text-[11.5px] text-dust">
-      <a href={c.url} class="text-thread no-underline hover:underline">{c.ref}</a> — {c.title}
+      <a href={c.url} class="text-thread underline underline-offset-2">{c.ref}</a> — {c.title}
     </li>
   ))}
 </ul>
@@ -74,7 +74,7 @@ const { node } = Astro.props;
     <ul role="list" class="mt-2 space-y-1.5">
       {node.explainers.map((e) => (
         <li class="font-mono text-[11.5px] text-dust">
-          <a href={e.url} class="text-thread no-underline hover:underline">{e.title}</a> — {e.author}
+          <a href={e.url} class="text-thread underline underline-offset-2">{e.title}</a> — {e.author}
           {/*
             MARKED IN TEXT, AND ONLY THE EXCEPTION IS MARKED (#389).
             The heading has said "Watch & read" since ADR-0017, but
