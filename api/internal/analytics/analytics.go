@@ -89,7 +89,10 @@ type Report struct {
 	Traversals []Edge
 	Jumps      []Edge
 	Bots       Share
-	Cache      Share
+	// Cache is split by Kind: pages and hashed assets are cached to opposite
+	// policies on purpose, so one number for both answers neither (#427).
+	CachePages  Share
+	CacheAssets Share
 }
 
 // conceptID returns the slug of a /c/<slug> URL, or "" for anything else.
@@ -156,16 +159,41 @@ func IsBot(ua string) bool {
 	return false
 }
 
-// isPage reports whether an entry is a request for a page rather than for the
-// API. The cache ratio is the static-first claim measured, and /api/** is a
-// Cloud Run call that is never cached — including it would report the claim as
-// weaker than it is for reasons that have nothing to do with the claim.
-func isPage(e Entry) bool {
-	u, err := url.Parse(e.URL)
+// Kind is what a request was for, because the three are cached on purpose to
+// three different policies and one blended ratio answers none of them (#427).
+type Kind int
+
+const (
+	// KindAPI is /api/**, a Cloud Run call that is never cached.
+	KindAPI Kind = iota
+	// KindAsset is /_astro/**, content-hashed and served immutable for a year.
+	KindAsset
+	// KindPage is everything else — the HTML a reader actually navigates to.
+	KindPage
+)
+
+// classify sorts a request by what firebase.json does to it.
+//
+// THE SPLIT IS THE MEASUREMENT (#427). The first version of this counted cache
+// hits over everything that was not /api/**, which mixed two populations with
+// opposite policies: /_astro/** is `max-age=31536000, immutable` and should
+// approach 100%, while /, /c/** and /t/** are `max-age=0, must-revalidate` and
+// structurally cannot — the edge must check with the origin before serving. A
+// blended 26.2% is therefore not evidence of anything. Split, each half means
+// something.
+func classify(rawURL string) Kind {
+	u, err := url.Parse(rawURL)
 	if err != nil {
-		return false
+		return KindPage
 	}
-	return !strings.HasPrefix(u.Path, "/api/")
+	switch {
+	case strings.HasPrefix(u.Path, "/api/"):
+		return KindAPI
+	case strings.HasPrefix(u.Path, "/_astro/"):
+		return KindAsset
+	default:
+		return KindPage
+	}
 }
 
 // ranked turns a tally into the top n rows, largest first, ties broken by key
@@ -283,12 +311,12 @@ func Bots(entries []Entry) Share {
 	return s
 }
 
-// Cache is the share of PAGE requests the CDN served without reaching an
-// origin — static-first, measured.
-func Cache(entries []Entry) Share {
+// Cache is the share of requests of one kind that the CDN served without
+// reaching an origin.
+func Cache(entries []Entry, kind Kind) Share {
 	var s Share
 	for _, e := range entries {
-		if !isPage(e) {
+		if classify(e.URL) != kind {
 			continue
 		}
 		s.Total++
@@ -311,14 +339,15 @@ func Collect(ctx context.Context, r Reader, since time.Time, limit, top int, now
 	}
 	along, jumps := Traversals(entries, top, edge)
 	return &Report{
-		Since:      since,
-		Now:        now,
-		Total:      len(entries),
-		Concepts:   TopConcepts(entries, top),
-		Traversals: along,
-		Jumps:      jumps,
-		Bots:       Bots(entries),
-		Cache:      Cache(entries),
+		Since:       since,
+		Now:         now,
+		Total:       len(entries),
+		Concepts:    TopConcepts(entries, top),
+		Traversals:  along,
+		Jumps:       jumps,
+		Bots:        Bots(entries),
+		CachePages:  Cache(entries, KindPage),
+		CacheAssets: Cache(entries, KindAsset),
 	}, nil
 }
 
@@ -345,8 +374,14 @@ func (r *Report) Render(w io.Writer, days, limit int, filter string) error {
 	}
 
 	fmt.Fprintf(&b, "\nREAD — the static-first claim, measured\n")
-	fmt.Fprintf(&b, "  cache hits  %d of %d page request(s)  %.1f%%\n", r.Cache.N, r.Cache.Total, r.Cache.Percent())
-	fmt.Fprintf(&b, "  crawlers    %d of %d request(s)  %.1f%%\n", r.Bots.N, r.Bots.Total, r.Bots.Percent())
+	// Two lines, not one, and the policy is printed beside each because the
+	// numbers are meaningless without it: a low page figure is the design
+	// working, and a low asset figure would be a real defect.
+	fmt.Fprintf(&b, "  cache hits, pages   %d of %d  %.1f%%   (max-age=0, must-revalidate — low is expected)\n",
+		r.CachePages.N, r.CachePages.Total, r.CachePages.Percent())
+	fmt.Fprintf(&b, "  cache hits, assets  %d of %d  %.1f%%   (immutable, 1y — this is the one to watch)\n",
+		r.CacheAssets.N, r.CacheAssets.Total, r.CacheAssets.Percent())
+	fmt.Fprintf(&b, "  crawlers            %d of %d  %.1f%%\n", r.Bots.N, r.Bots.Total, r.Bots.Percent())
 
 	fmt.Fprintf(&b, "\nTOP CONCEPTS — crawlers excluded\n")
 	if len(r.Concepts) == 0 {
