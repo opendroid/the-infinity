@@ -42,6 +42,13 @@
       "title": "Optimization and Deep Learning",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_optimization/optimization-intro.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is a Loss Function? Understanding How AI Models Learn",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=v_ueBW_5dLg"
     }
   ],
   "review": {

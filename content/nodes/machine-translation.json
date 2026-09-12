@@ -63,6 +63,13 @@
       "title": "Machine Translation and the Dataset",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-modern/machine-translation-and-dataset.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Encoder And Decoder- Neural Machine Learning Language Translation Tutorial With Keras- Deep Learning",
+      "author": "Krish Naik",
+      "url": "https://www.youtube.com/watch?v=f-JCCOHwx1c"
     }
   ],
   "review": {

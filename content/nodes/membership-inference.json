@@ -68,6 +68,13 @@
       "author": "IEEE Symposium on Security and Privacy",
       "url": "https://www.youtube.com/watch?v=rDm1n2gceJY",
       "domain": "Attacks"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Membership inference attacks from first principles",
+      "author": "IEEE Symposium on Security and Privacy",
+      "url": "https://www.youtube.com/watch?v=1CNxfhMlk-A"
     }
   ],
   "review": {

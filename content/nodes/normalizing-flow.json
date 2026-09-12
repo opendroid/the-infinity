@@ -65,6 +65,13 @@
       "title": "Flow-based Deep Generative Models",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2018-10-13-flow-models/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Normalizing Flows Explained | Flow Matching Part-1 | Generative AI",
+      "author": "ExplainingAI",
+      "url": "https://www.youtube.com/watch?v=x11yFPsttRw"
     }
   ],
   "review": {

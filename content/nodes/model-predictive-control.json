@@ -57,6 +57,13 @@
       "title": "Deep Reinforcement Learning Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/deep-rl-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Model Predictive Control",
+      "author": "Steve Brunton",
+      "url": "https://www.youtube.com/watch?v=YwodGM2eoy4"
     }
   ],
   "review": {

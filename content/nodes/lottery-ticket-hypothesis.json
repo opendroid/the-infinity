@@ -57,6 +57,13 @@
       "title": "Large Transformer Model Inference Optimization",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks",
+      "author": "Yannic Kilcher",
+      "url": "https://www.youtube.com/watch?v=ZVVnvZdUMUk"
     }
   ],
   "review": {

@@ -53,6 +53,13 @@
       "title": "How to Explain the Prediction of a Machine Learning Model?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2017-08-01-interpretation/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "An Introduction to Mechanistic Interpretability – Neel Nanda | IASEAI 2025",
+      "author": "International Association for Safe & Ethical AI",
+      "url": "https://www.youtube.com/watch?v=0704iLc55Fs"
     }
   ],
   "review": {

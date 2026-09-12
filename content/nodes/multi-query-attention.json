@@ -63,6 +63,13 @@
       "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
       "author": "3Blue1Brown",
       "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Variants of Multi-head attention: Multi-query (MQA) and Grouped-query attention (GQA)",
+      "author": "Machine Learning Studio",
+      "url": "https://www.youtube.com/watch?v=pVP0bu8QA2w"
     }
   ],
   "review": {

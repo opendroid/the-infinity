@@ -73,6 +73,13 @@
       "title": "Understanding LSTM Networks",
       "author": "Christopher Olah",
       "url": "https://colah.github.io/posts/2015-08-Understanding-LSTMs/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Long Short-Term Memory (LSTM), Clearly Explained",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=YCzL96nL7j0"
     }
   ],
   "review": {

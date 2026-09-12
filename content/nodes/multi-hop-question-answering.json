@@ -65,6 +65,13 @@
       "title": "How to Build an Open-Domain Question Answering System?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2020-10-29-odqa/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Multi-hop QA (Natural Language Processing at UT Austin)",
+      "author": "Greg Durrett",
+      "url": "https://www.youtube.com/watch?v=jpRwa2iE_z8"
     }
   ],
   "review": {

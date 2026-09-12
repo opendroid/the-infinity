@@ -65,6 +65,13 @@
       "title": "Feature store",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Feature_store"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is a Feature Store for Machine Learning?",
+      "author": "Hopsworks",
+      "url": "https://www.youtube.com/watch?v=DESBDukN9gw"
     }
   ],
   "review": {

@@ -57,6 +57,13 @@
       "title": "What are Diffusion Models?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-07-11-diffusion-models/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "How I Understand Flow Matching",
+      "author": "Jia-Bin Huang",
+      "url": "https://www.youtube.com/watch?v=DDq_pIfHqLs"
     }
   ],
   "review": {

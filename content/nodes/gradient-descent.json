@@ -66,6 +66,13 @@
       "author": "3Blue1Brown",
       "url": "https://www.youtube.com/watch?v=Ilg3gGewQ5U",
       "domain": "Training"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Gradient descent, how neural networks learn | Deep Learning Chapter 2",
+      "author": "3Blue1Brown",
+      "url": "https://www.youtube.com/watch?v=IHZwWFHWa-w"
     }
   ],
   "review": {

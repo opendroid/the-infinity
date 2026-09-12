@@ -68,6 +68,13 @@
       "title": "Hugging Face Audio course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/audio-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Neil Zeghidour: SoundStream: an end-to-end neural audio codec",
+      "author": "RISE Research Institutes of Sweden",
+      "url": "https://www.youtube.com/watch?v=V4jj-yhiclk"
     }
   ],
   "review": {

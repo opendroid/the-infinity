@@ -69,6 +69,13 @@
       "title": "Vision Transformer Quick Guide - Theory and Code in (almost) 15 min",
       "author": "DeepFindr",
       "url": "https://www.youtube.com/watch?v=j3VNqtJUoz0"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Feature Pyramid Network | Neck | Essentials of Object Detection",
+      "author": "Kapil Sachdeva",
+      "url": "https://www.youtube.com/watch?v=FKsgO0U7CUw"
     }
   ],
   "review": {

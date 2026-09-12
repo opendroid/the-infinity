@@ -59,6 +59,13 @@
       "title": "Fairness (machine learning)",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Fairness_(machine_learning)"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Fairness Criteria, Exploring Fairness in Machine Learning",
+      "author": "MIT OpenCourseWare",
+      "url": "https://www.youtube.com/watch?v=euwc0va-7Vo"
     }
   ],
   "review": {

@@ -53,6 +53,13 @@
       "title": "Optimization and Deep Learning",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_optimization/optimization-intro.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is Low-Rank Adaptation (LoRA) | explained by the inventor",
+      "author": "Edward Hu",
+      "url": "https://www.youtube.com/watch?v=DhRoTONcyZE"
     }
   ],
   "review": {

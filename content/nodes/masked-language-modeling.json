@@ -65,6 +65,13 @@
       "title": "Variational Autoencoders | Generative AI Animated",
       "author": "Deepia",
       "url": "https://www.youtube.com/watch?v=qJeaCHQ1k2w"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Training BERT #1 - Masked-Language Modeling (MLM)",
+      "author": "James Briggs",
+      "url": "https://www.youtube.com/watch?v=q9NS5WpfkrU"
     }
   ],
   "review": {

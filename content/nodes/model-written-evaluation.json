@@ -72,6 +72,13 @@
       "title": "RLAIF vs. RLHF: the technology behind Anthropic’s Claude (Constitutional AI Explained)",
       "author": "AssemblyAI",
       "url": "https://www.youtube.com/watch?v=nNHBb_2hMWI"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Ethan Perez | Discovering language model behaviors with model-written evaluations",
+      "author": "Schwartz Reisman Institute",
+      "url": "https://www.youtube.com/watch?v=-6grYve_kWY"
     }
   ],
   "review": {

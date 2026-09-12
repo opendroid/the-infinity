@@ -68,6 +68,13 @@
       "title": "Matrix Factorization",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recommender-systems/mf.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Matrix Factorization - Recommender Systems #datascience #machinelearning #recommender #maths",
+      "author": "DataMListic",
+      "url": "https://www.youtube.com/watch?v=AeoAgtnpQiA"
     }
   ],
   "review": {
