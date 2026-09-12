@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { search, type Entry, type Hit } from '../lib/search';
+import { search, suggest, type Entry, type Hit } from '../lib/search';
 
 /**
  * Search — the overlay, and the engine behind /search.
@@ -146,6 +146,8 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
   }, [mode, open]);
 
   const hits: Hit[] = index.state === 'ready' ? search(index.entries, query) : [];
+  // Only computed when nothing matched, so the ordinary path pays nothing.
+  const near: Hit[] = index.state === 'ready' && hits.length === 0 ? suggest(index.entries, query) : [];
 
   useEffect(() => setCursor(0), [query]);
 
@@ -233,13 +235,44 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
         // echoed back at full length. A pasted DOI or URL has no space to wrap
         // at, so without it a 40-character token pushed the page wider than a
         // 320px viewport and the whole site scrolled sideways (#449).
-        <p className="mt-3 break-words text-[13.5px] text-dust">
-          Nothing matches “{query}”.{' '}
-          <a href="/concepts" className="text-thread underline">
-            Browse every concept
-          </a>{' '}
-          or keep typing.
-        </p>
+        <div>
+          <p className="mt-3 break-words text-[13.5px] text-dust">
+            Nothing matches “{query}”.{' '}
+            <a href="/concepts" className="text-thread underline">
+              Browse every concept
+            </a>{' '}
+            or keep typing.
+          </p>
+
+          {/*
+            Suggestions, not results — the matching rule still requires every
+            term. A reader who typed "attention mechanism" has named something
+            real and been told nothing exists; these are the concepts that
+            answered part of it (#451).
+          */}
+          {near.length > 0 && (
+            <>
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-[.16em] text-dust">
+                Closest concepts
+              </p>
+              <ul className="mt-2 list-none p-0">
+                {near.map((hit) => (
+                  <li key={hit.id}>
+                    <a
+                      href={`/c/${hit.id}`}
+                      className="mb-[7px] flex min-h-11 items-center justify-between gap-3 rounded-row border border-line bg-void px-[11px] py-[9px] text-[13.5px] text-starlight no-underline"
+                    >
+                      <span>{hit.title}</span>
+                      <span className="font-mono text-[10px] uppercase tracking-[.12em] text-dust">
+                        {hit.domain}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
       )}
 
       {hits.length > 0 && (

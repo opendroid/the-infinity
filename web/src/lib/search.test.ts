@@ -1,6 +1,6 @@
 import { gzipSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
-import { buildIndex, normalise, search, type Entry } from './search';
+import { buildIndex, normalise, search, suggest, type Entry } from './search';
 import { allNodes } from './content';
 
 const index = buildIndex(allNodes);
@@ -156,5 +156,72 @@ describe('the edges of the box', () => {
 
   it('treats a hyphen as a word break, so "self attention" finds self-attention', () => {
     expect(ids('self attention')).toContain('self-attention');
+  });
+});
+
+/**
+ * #451. "attention mechanism" and "positional embedding" are how people ask for
+ * concepts that exist, and both answered with nothing — the second while
+ * Positional Encoding sits on the landing page as a suggested concept.
+ *
+ * The matching rule itself is unchanged and deliberately so; these are offered
+ * as suggestions beside the zero state, never as results.
+ */
+describe('the zero state offers the closest concepts', () => {
+  const names = (q: string, n = 4) => suggest(index, q, n).map((h) => h.title);
+
+  it('answers a query whose extra word matches nothing', () => {
+    const out = names('attention mechanism');
+    expect(out.length).toBeGreaterThan(0);
+    expect(out).toContain('Attention');
+  });
+
+  it('offers Positional Encoding for "positional embedding"', () => {
+    expect(names('positional embedding', 6)).toContain('Positional Encoding');
+  });
+
+  /**
+   * Breadth beats strength. Built on a synthetic index because the real corpus
+   * cannot separate the two rules: "self attention" puts Self-Attention first
+   * under either, so asserting on it proves nothing — which is what planting
+   * the weighting showed, with all 27 tests still green.
+   *
+   * Here "Alpha" answers ONE term as strongly as possible (title prefix, 4) and
+   * "Zeta" answers BOTH as weakly as possible (domain only, 1 + 1). Ranked by
+   * raw score Alpha wins; ranked by terms matched Zeta does, and Zeta is the
+   * better suggestion because it addresses more of what was typed.
+   */
+  it('ranks an entry matching more terms above one matching fewer but harder', () => {
+    const synthetic: Entry[] = [
+      { id: 'alpha', title: 'Alpha', domain: 'Unrelated / Things', tier: 'verified' },
+      { id: 'zeta', title: 'Zeta', domain: 'Alpha / Beta', tier: 'verified' },
+    ];
+    expect(suggest(synthetic, 'alpha beta').map((h) => h.title)).toEqual(['Zeta', 'Alpha']);
+  });
+
+  it('still puts a two-term match first on the real corpus', () => {
+    expect(names('self attention')[0]).toBe('Self-Attention');
+  });
+
+  it('says nothing for a single term — that is a typo, not a partial match', () => {
+    expect(suggest(index, 'attenton')).toEqual([]);
+    expect(suggest(index, 'attention')).toEqual([]);
+  });
+
+  it('says nothing when no term matches anything', () => {
+    expect(suggest(index, 'qwertyuiop zxcvbnm')).toEqual([]);
+  });
+
+  it('respects its limit', () => {
+    expect(suggest(index, 'attention zzzzz', 2).length).toBeLessThanOrEqual(2);
+  });
+
+  /**
+   * The guard that matters. `search` keeps requiring every term: suggestions
+   * are a separate call, so a relaxation here can never leak into results.
+   */
+  it('does not change what search itself returns', () => {
+    expect(search(index, 'attention zzzzz')).toEqual([]);
+    expect(search(index, 'attention mechanism')).toEqual([]);
   });
 });
