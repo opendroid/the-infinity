@@ -33,6 +33,18 @@ interface Props {
   initialQuery?: string;
 }
 
+/**
+ * What the live region says, for every state the panel can be in.
+ *
+ * Pure and exported: the wording is the whole feature here, and a DOM test
+ * would assert on the same string through three layers of rendering.
+ */
+export function announcement(state: Index['state'], query: string, hits: number): string {
+  if (state === 'failed') return 'The search index could not be loaded.';
+  if (query.trim() === '') return 'Search cleared. Type to find a concept.';
+  return `${hits} ${hits === 1 ? 'result' : 'results'} for ${query}`;
+}
+
 export default function SearchPanel({ mode, initialQuery = '' }: Props) {
   const [open, setOpen] = useState(mode === 'page');
   const [query, setQuery] = useState(initialQuery);
@@ -224,13 +236,18 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
         )}
       </div>
 
-      {/* Announced to a screen reader as the count changes, not just drawn. */}
+      {/*
+        Announced to a screen reader as the count changes, not just drawn.
+
+        The empty case used to be the empty string, so a reader who cleared a
+        query heard nothing and could not tell the clear had worked from the
+        page having stopped responding (#453). "0 results for x" was already
+        announced, so silence was reserved for the one state that needed a word
+        most. `announcement` is pure and exported so the wording is testable
+        without a DOM.
+      */}
       <p className="sr-only" role="status">
-        {index.state === 'failed'
-          ? 'The search index could not be loaded.'
-          : query.trim() === ''
-            ? ''
-            : `${hits.length} ${hits.length === 1 ? 'result' : 'results'} for ${query}`}
+        {announcement(index.state, query, hits.length)}
       </p>
 
       {index.state === 'failed' && (
