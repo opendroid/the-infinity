@@ -235,21 +235,29 @@ func (f *Firestore) CreateTrail(ctx context.Context, nt NewTrail) (*Trail, error
 		return nil, fmt.Errorf("fetching %d trail stops: %w", len(refs), err)
 	}
 
+	// Every missing stop, not the first one. The client drops what this names
+	// and retries once (#445), so stopping at the first would make a walk with
+	// three stale stops take three round trips to share.
+	var missing []string
 	stops := make([]TrailStop, 0, len(snaps))
 	for i, snap := range snaps {
 		// A missing document is not an error from GetAll — it comes back as a
 		// snapshot that does not exist. Reading it without checking would decode
 		// into a zero Concept and put a nameless stop on a shared page.
 		if !snap.Exists() {
-			return nil, fmt.Errorf("trail stop %s: %w", nt.Stops[i].ID, ErrNotFound)
+			missing = append(missing, nt.Stops[i].ID)
+			continue
 		}
 		var c Concept
 		if err := snap.DataTo(&c); err != nil {
 			return nil, fmt.Errorf("decoding concept %s: %w", nt.Stops[i].ID, err)
 		}
 		stops = append(stops, TrailStop{
-			N: i + 1, ID: c.ID, Title: c.Title, Tier: c.Tier, DepthReadAt: nt.Stops[i].DepthReadAt,
+			N: len(stops) + 1, ID: c.ID, Title: c.Title, Tier: c.Tier, DepthReadAt: nt.Stops[i].DepthReadAt,
 		})
+	}
+	if len(missing) > 0 {
+		return nil, &MissingStopsError{IDs: missing}
 	}
 
 	t := Trail{

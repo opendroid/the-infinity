@@ -143,15 +143,22 @@ func (f *Fake) CreateTrail(_ context.Context, nt NewTrail) (*Trail, error) {
 		return cloneTrail(existing), nil
 	}
 
+	// Every missing stop, like Firestore: the two must agree about what a stale
+	// trail reports, because the handler test runs against this one (#445).
+	var missing []string
 	stops := make([]TrailStop, 0, len(nt.Stops))
-	for i, s := range nt.Stops {
+	for _, s := range nt.Stops {
 		c, ok := f.Concepts[s.ID]
 		if !ok {
-			return nil, fmt.Errorf("trail stop %s: %w", s.ID, ErrNotFound)
+			missing = append(missing, s.ID)
+			continue
 		}
 		stops = append(stops, TrailStop{
-			N: i + 1, ID: c.ID, Title: c.Title, Tier: c.Tier, DepthReadAt: s.DepthReadAt,
+			N: len(stops) + 1, ID: c.ID, Title: c.Title, Tier: c.Tier, DepthReadAt: s.DepthReadAt,
 		})
+	}
+	if len(missing) > 0 {
+		return nil, &MissingStopsError{IDs: missing}
 	}
 
 	t := &Trail{

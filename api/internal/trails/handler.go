@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/opendroid/the-infinity/api/internal/apihttp"
@@ -87,6 +88,7 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	trail, err := h.store.CreateTrail(r.Context(), store.NewTrail{Stops: stops, DurationS: body.DurationS})
+	var missing *store.MissingStopsError
 	switch {
 	case err == nil:
 		apihttp.NoStore(w)
@@ -94,10 +96,15 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 			Slug: trail.Slug,
 			URL:  "/t/" + trail.Slug,
 		})
-	case errors.Is(err, store.ErrNotFound):
+	case errors.As(err, &missing):
 		// A stop naming a concept that does not exist is the client's error,
-		// not ours — it means a stale localStorage trail, so say which.
-		apihttp.WriteFieldError(w, "stops", "A stop names a concept that does not exist.")
+		// not ours — it means a stale localStorage trail, so say which. The ids
+		// are in the details as well as the prose, because the client repairs
+		// the trail by dropping exactly these and retrying (#445), and it cannot
+		// do that by parsing a sentence.
+		apihttp.WriteFieldErrorWith(w, "stops",
+			"These stops name concepts that no longer exist: "+strings.Join(missing.IDs, ", ")+".",
+			map[string]any{"missing_stops": missing.IDs})
 	default:
 		apihttp.WriteInternal(r.Context(), w, err, "creating trail")
 	}

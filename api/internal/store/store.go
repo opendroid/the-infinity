@@ -21,6 +21,25 @@ import (
 // errors.Is rather than comparing strings, so wrapping stays lossless.
 var ErrNotFound = errors.New("not found")
 
+// MissingStopsError names every stop of a trail whose concept does not exist.
+//
+// A trail lives in the reader's localStorage and outlives any rename or removal
+// in /content/nodes, so one stale stop used to refuse the whole walk with a
+// rejection that named nothing (#445). The client can only repair what it can
+// identify, so the ids travel with the error and out to the response body.
+//
+// It unwraps to ErrNotFound, so the handlers and tests that match the general
+// case keep matching; only the code that wants the ids reaches for errors.As.
+type MissingStopsError struct {
+	IDs []string
+}
+
+func (e *MissingStopsError) Error() string {
+	return "trail stops not found: " + strings.Join(e.IDs, ", ")
+}
+
+func (e *MissingStopsError) Unwrap() error { return ErrNotFound }
+
 // Tier is derived at publish time, never authored: a concept is Verified iff
 // its node carries a reviewer. See ADR-0002.
 type Tier string

@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"os"
+	"slices"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -200,6 +201,16 @@ func TestATrailNamingAMissingConceptIsNotFound(t *testing.T) {
 	}
 	if !strings.Contains(err.Error(), "no-such-concept") {
 		t.Errorf("error does not name the missing stop: %v", err)
+	}
+	// The ids travel structurally, not only in the prose: the handler puts them
+	// in the response so the client can drop exactly these and retry (#445).
+	// This is the only place the Firestore half of that is exercised.
+	var missing *store.MissingStopsError
+	if !errors.As(err, &missing) {
+		t.Fatalf("CreateTrail err = %v, want a *store.MissingStopsError", err)
+	}
+	if !slices.Equal(missing.IDs, []string{"no-such-concept"}) {
+		t.Errorf("missing.IDs = %v, want [no-such-concept]", missing.IDs)
 	}
 	if got := reads.Load(); got != 2 {
 		t.Errorf("the failing path cost %d reads, want 2", got)

@@ -121,19 +121,68 @@ export function withDepth(trail: Stop[], id: string, depth: Depth): Stop[] {
   return [...trail.slice(0, -1), { ...last, depth_read_at: depth }];
 }
 
-/** How long the walk took, in seconds — first stop to last. */
-export function durationS(trail: Stop[], now: number): number {
+/**
+ * The longest walk the API will store — `maxDurationS` in `internal/trails`.
+ *
+ * The client knows the bound rather than discovering it as a 400 it cannot
+ * explain. A walk legitimately older than a week is ordinary: the trail is
+ * localStorage and outlives every session.
+ */
+export const MAX_DURATION_S = 7 * 24 * 60 * 60;
+
+/**
+ * How long the walk took, in seconds — first stop to last.
+ *
+ * That is what this comment said before #445 and not what the code did. It
+ * measured `now - first.ts`: the age of the oldest stop still in storage, not
+ * the span of the walk. Since the trail persists across sessions the number
+ * only ever grew, so every trail whose first stop was a week old became
+ * permanently unshareable — rejected with a 400 blaming its length.
+ *
+ * Reading it from the stops alone also takes the clock out of it, which is what
+ * makes the ribbon's `ts: 0` seed harmless: a one-stop trail is a walk of zero
+ * seconds whatever timestamp it carries, rather than the ~57 years since the
+ * epoch that used to be a guaranteed rejection.
+ */
+export function durationS(trail: Stop[]): number {
   const first = trail[0];
-  if (!first) return 0;
-  return Math.max(0, Math.round((now - first.ts) / 1000));
+  const last = trail[trail.length - 1];
+  if (!first || !last) return 0;
+  return Math.max(0, Math.round((last.ts - first.ts) / 1000));
 }
 
-/** The payload `POST /api/v1/trails` expects. */
-export function shareBody(trail: Stop[], now: number) {
-  return {
-    stops: trail.map((s) => ({ id: s.id, depth_read_at: s.depth_read_at })),
-    duration_s: durationS(trail, now),
-  };
+/** The payload `POST /api/v1/trails` expects. `duration_s` is optional there. */
+export interface ShareBody {
+  stops: { id: string; depth_read_at: Depth }[];
+  duration_s?: number;
+}
+
+/**
+ * The trail as the API wants it.
+ *
+ * `duration_s` is OMITTED, not clamped, when the walk spans more than the API's
+ * week. The shared page already renders the duration behind `minutes > 0`, so
+ * an absent one simply does not appear — whereas clamping would print
+ * "10080 min of wandering" under a walk that actually took three weeks. The
+ * stops are the trail; the stopwatch is a detail, and a missing detail beats an
+ * invented one.
+ */
+export function shareBody(trail: Stop[]): ShareBody {
+  const stops = trail.map((s) => ({ id: s.id, depth_read_at: s.depth_read_at }));
+  const seconds = durationS(trail);
+  return seconds > MAX_DURATION_S ? { stops } : { stops, duration_s: seconds };
+}
+
+/**
+ * The trail without the named stops.
+ *
+ * The repair for a stale trail. A stop whose concept has been renamed or
+ * removed refuses the whole walk, and that bead is already broken for the
+ * reader — following it 404s. Dropping it is a repair, not a loss (#445).
+ */
+export function withoutStops(trail: Stop[], ids: readonly string[]): Stop[] {
+  const drop = new Set(ids);
+  return trail.filter((s) => !drop.has(s.id));
 }
 
 // --- storage ---------------------------------------------------------------
@@ -203,6 +252,18 @@ function takeResuming(): string | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * Drops the named stops from the stored trail and returns what is left.
+ *
+ * Writes, so the ribbon and the topbar count lose the stale beads at the same
+ * moment the share is retried without them.
+ */
+export function dropStops(ids: readonly string[]): Stop[] {
+  const next = withoutStops(read(), ids);
+  write(next);
+  return next;
 }
 
 /** Updates the depth on the current stop after the reader toggles. */
