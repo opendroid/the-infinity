@@ -64,6 +64,13 @@
       "title": "How to Train Really Large Models on Many GPUs?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-09-25-train-large/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Expert Parallelism Explained! How 120B+ AI Models Run on GPUs in Seconds",
+      "author": "Fahd Mirza",
+      "url": "https://www.youtube.com/watch?v=Vi5bOX9xY7Q"
     }
   ],
   "review": {

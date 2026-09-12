@@ -53,6 +53,13 @@
       "title": "How to Train Really Large Models on Many GPUs?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-09-25-train-large/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "GPU Memory Hierarchy Explained: Registers, Shared Memory, L2, HBM, and PCIe (Visual) | M2L2",
+      "author": "Parallel Routines",
+      "url": "https://www.youtube.com/watch?v=Q1Y-vkXqCKM"
     }
   ],
   "review": {

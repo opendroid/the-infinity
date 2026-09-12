@@ -62,6 +62,13 @@
       "title": "Ensemble learning",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Ensemble_learning"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "23. Model Merging, Cross-Modal Coupling, Course Summary",
+      "author": "MIT OpenCourseWare",
+      "url": "https://www.youtube.com/watch?v=XPEJg_6Cg6o"
     }
   ],
   "review": {

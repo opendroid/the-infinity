@@ -65,6 +65,13 @@
       "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
       "author": "3Blue1Brown",
       "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "FlashAttention - Tri Dao | Stanford MLSys #67",
+      "author": "Stanford MLSys Seminars",
+      "url": "https://www.youtube.com/watch?v=gMOAud7hZg4"
     }
   ],
   "review": {

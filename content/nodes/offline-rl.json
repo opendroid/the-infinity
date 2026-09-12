@@ -67,6 +67,13 @@
       "title": "Deep Reinforcement Learning Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/deep-rl-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "A Gentle Introduction to Offline Reinforcement Learning",
+      "author": "RAIL",
+      "url": "https://www.youtube.com/watch?v=tW-BNW1ApN8"
     }
   ],
   "review": {

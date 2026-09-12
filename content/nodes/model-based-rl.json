@@ -65,6 +65,13 @@
       "title": "Deep Reinforcement Learning Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/deep-rl-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "L6 Model-based RL (Foundations of Deep RL Series)",
+      "author": "Pieter Abbeel",
+      "url": "https://www.youtube.com/watch?v=2o1yrkbpcUk"
     }
   ],
   "review": {

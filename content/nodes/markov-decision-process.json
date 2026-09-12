@@ -56,6 +56,13 @@
       "title": "RL Course by David Silver - Lecture 2: Markov Decision Process",
       "author": "Google DeepMind",
       "url": "https://www.youtube.com/watch?v=lfHX2hHRMVQ"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Markov decision process in machine learning | Reinforcement learning | Lec-31 | Machine Learning",
+      "author": "Er Sahil ka Gyan",
+      "url": "https://www.youtube.com/watch?v=zC8jkmlCDCU"
     }
   ],
   "review": {

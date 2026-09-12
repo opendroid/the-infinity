@@ -64,6 +64,13 @@
       "title": "Continual Learning and Catastrophic Forgetting",
       "author": "Paul Hand",
       "url": "https://www.youtube.com/watch?v=vjaq03IYgSk"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "CS 182: Lecture 21: Part 1: Meta-Learning",
+      "author": "RAIL",
+      "url": "https://www.youtube.com/watch?v=h7qyQeXKxZE"
     }
   ],
   "review": {

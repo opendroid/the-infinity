@@ -65,6 +65,13 @@
       "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
       "author": "3Blue1Brown",
       "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is Multi-head Attention in Transformers | Multi-head Attention v Self Attention | Deep Learning",
+      "author": "CampusX",
+      "url": "https://www.youtube.com/watch?v=bX2QwpjsmuA"
     }
   ],
   "review": {

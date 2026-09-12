@@ -68,6 +68,13 @@
       "title": "Simple Message Passing on Graphs",
       "author": "WelcomeAIOverlords",
       "url": "https://www.youtube.com/watch?v=ijmxpItkRjc"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Understanding Graph Attention Networks",
+      "author": "DeepFindr",
+      "url": "https://www.youtube.com/watch?v=A-yKQamf2Fc"
     }
   ],
   "review": {

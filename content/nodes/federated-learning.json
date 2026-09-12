@@ -72,6 +72,13 @@
       "title": "Membership Inference Attacks against Machine Learning Models",
       "author": "IEEE Symposium on Security and Privacy",
       "url": "https://www.youtube.com/watch?v=rDm1n2gceJY"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Training AI Models with Federated Learning",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=zqv1eELa7fs"
     }
   ],
   "review": {

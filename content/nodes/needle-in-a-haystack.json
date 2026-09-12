@@ -66,6 +66,13 @@
       "title": "The Transformer Family Version 2.0",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Needle in the Haystack Test: How to Test AI for Long Context?",
+      "author": "Mervin Praison",
+      "url": "https://www.youtube.com/watch?v=IaGOGvwetV4"
     }
   ],
   "review": {

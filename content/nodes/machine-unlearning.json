@@ -64,6 +64,13 @@
       "title": "Membership Inference Attacks against Machine Learning Models",
       "author": "IEEE Symposium on Security and Privacy",
       "url": "https://www.youtube.com/watch?v=rDm1n2gceJY"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "How does machine unlearning work?",
+      "author": "Probably Private",
+      "url": "https://www.youtube.com/watch?v=C-k4Zf39nNg"
     }
   ],
   "review": {

@@ -65,6 +65,13 @@
       "author": "Computerphile",
       "url": "https://www.youtube.com/watch?v=BEFY7IHs0HM",
       "domain": "Search"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Monte Carlo Tree Search",
+      "author": "John Levine",
+      "url": "https://www.youtube.com/watch?v=UXW2yZndl7U"
     }
   ],
   "review": {

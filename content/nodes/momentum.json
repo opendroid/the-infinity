@@ -61,6 +61,13 @@
       "author": "3Blue1Brown",
       "url": "https://www.youtube.com/watch?v=Ilg3gGewQ5U",
       "domain": "Training"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Optimization for Deep Learning (Momentum, RMSprop, AdaGrad, Adam)",
+      "author": "DeepBean",
+      "url": "https://www.youtube.com/watch?v=NE88eqLngkg"
     }
   ],
   "review": {

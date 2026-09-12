@@ -65,6 +65,13 @@
       "title": "Top 5 Most-Used Deployment Strategies",
       "author": "ByteByteGo",
       "url": "https://www.youtube.com/watch?v=AWVTKBUnoIg"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Dmitry Petrov - Machine learning model and dataset versioning practices - PyCon 2019",
+      "author": "PyCon 2019",
+      "url": "https://www.youtube.com/watch?v=jkfh2PM5Sz8"
     }
   ],
   "review": {

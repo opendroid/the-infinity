@@ -70,6 +70,13 @@
       "title": "Intuitively Understanding the KL Divergence",
       "author": "Adian Liusie",
       "url": "https://www.youtube.com/watch?v=SxGYPqCgJWM"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Noise-Contrastive Estimation - CLEARLY EXPLAINED!",
+      "author": "Kapil Sachdeva",
+      "url": "https://www.youtube.com/watch?v=68dJCDyzB0A"
     }
   ],
   "review": {

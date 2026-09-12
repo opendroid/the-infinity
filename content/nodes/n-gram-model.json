@@ -73,6 +73,13 @@
       "author": "StatQuest with Josh Starmer",
       "url": "https://www.youtube.com/watch?v=XepXtl9YKwc",
       "domain": "Statistics"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Understanding N-Gram Model - Hands On NLP using Python Demo",
+      "author": "Bijoyan Das",
+      "url": "https://www.youtube.com/watch?v=M2lSOHYldNs"
     }
   ],
   "review": {
