@@ -38,15 +38,27 @@ export interface Hit extends Entry {
 }
 
 /**
- * Lowercase, decompose accents, drop the combining marks.
+ * Lowercase, decompose accents, drop the combining marks and the invisibles.
  *
  * So "MoE" finds "moe" and a pasted "Résidual" finds "Residual". Concept ids
  * are ASCII by schema, but queries come from people and clipboards.
+ *
+ * THE INVISIBLES ARE THE CLIPBOARD'S DOING, not the reader's (#454). A zero-width
+ * space inside "attention" made it match nothing while looking exactly like the
+ * word that matches twelve things, so a reader concludes the concept does not
+ * exist rather than that their paste was dirty. PDFs, docs and rendered pages
+ * carry these routinely. Diacritics were already folded here; these belong in
+ * the same place and for the same reason.
+ *
+ * U+200B-U+200D zero-width space / non-joiner / joiner, U+2060 word joiner, and
+ * U+FEFF — a byte-order mark at the start of a file, a zero-width no-break space
+ * anywhere else, and a pasted query is anywhere else.
  */
 export function normalise(text: string): string {
   return text
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u200b-\u200d\u2060\ufeff]/g, '')
     .toLowerCase();
 }
 

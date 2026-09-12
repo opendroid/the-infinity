@@ -259,3 +259,50 @@ describe('the URL carries the question', () => {
       .toBe('/search?from=%2Fc%2Fattention&q=kv+cache');
   });
 });
+
+/**
+ * #454. A zero-width space inside an otherwise perfect term made it match
+ * nothing, while looking exactly like the word that matches twelve things — so
+ * a reader concludes the concept does not exist rather than that their paste
+ * carried an invisible.
+ */
+describe('invisible characters from a clipboard', () => {
+  it('finds a term split by a zero-width space', () => {
+    expect(search(index, 'atten\u200btion').map((h) => h.id))
+      .toEqual(search(index, 'attention').map((h) => h.id));
+  });
+
+  it('handles the whole invisible family', () => {
+    const want = search(index, 'softmax').map((h) => h.id);
+    expect(want.length).toBeGreaterThan(0);
+    for (const c of ['\u200b', '\u200c', '\u200d', '\u2060', '\ufeff']) {
+      expect(search(index, `soft${c}max`).map((h) => h.id)).toEqual(want);
+    }
+  });
+
+  /**
+   * Passes with the strip REMOVED too, and is kept for that reason rather than
+   * as evidence for it: JavaScript's \s already matches U+FEFF, so splitting the
+   * query on whitespace discarded a leading one before this change existed.
+   * U+200B and U+2060 are NOT \s, which is why they needed the strip and this
+   * did not. Recorded so nobody reads it as coverage it does not provide.
+   */
+  it('was already fine with a leading byte-order mark', () => {
+    expect(search(index, '\ufeffattention').map((h) => h.id))
+      .toEqual(search(index, 'attention').map((h) => h.id));
+  });
+
+  it('leaves ordinary text alone', () => {
+    // The strip must not eat anything a reader can see.
+    expect(normalise('Mixture-of-Experts')).toBe('mixture-of-experts');
+    expect(normalise('KV Cache')).toBe('kv cache');
+    expect(normalise('Résidual')).toBe('residual');
+  });
+
+  it('still separates words on a real space', () => {
+    // A zero-width space is not a word break; a real one is. Collapsing both
+    // would make "flowmatching" match "flow matching".
+    expect(normalise('flow matching')).toContain(' ');
+    expect(normalise('flow\u200bmatching')).toBe('flowmatching');
+  });
+});
