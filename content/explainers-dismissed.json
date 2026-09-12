@@ -1,0 +1,130 @@
+[
+  {
+    "target": "adaptive-computation",
+    "reason": "candidates cover adaptive resonance theory and regression splines, not adaptive computation"
+  },
+  {
+    "target": "adversarial-training",
+    "reason": "candidates cover adversarial ML broadly; none teaches the training defence itself"
+  },
+  {
+    "target": "agentic-coding",
+    "reason": "candidates explain agentic AI in general, not coding agents"
+  },
+  {
+    "target": "audio-generation",
+    "reason": "homonym — returns RAG explainers and Pokémon cry analysis; 'generation' dominates the query"
+  },
+  {
+    "target": "beam-search-tradeoffs",
+    "reason": "no teaching video exists; the only on-topic candidate has 16 views"
+  },
+  {
+    "target": "benchmark-contamination",
+    "reason": "no teaching video exists; the only on-topic candidate has 5 views"
+  },
+  {
+    "target": "candidate-generation",
+    "reason": "homonym — returns Apriori frequent-itemset mining, not recommender candidate generation"
+  },
+  {
+    "target": "carbon-accounting",
+    "reason": "homonym — returns corporate carbon accounting, not the energy cost of training"
+  },
+  {
+    "target": "code-search",
+    "reason": "homonym — returns how web search works and beginner sklearn tutorials"
+  },
+  {
+    "target": "code-switching",
+    "reason": "on topic but an ICASSP research talk, not a teaching resource"
+  },
+  {
+    "target": "cold-start",
+    "reason": "homonym — returns car engines and startup network effects, not the recommender problem"
+  },
+  {
+    "target": "compilation-cache",
+    "reason": "homonym — returns CPU and CDN cache design, not compiled-graph caching"
+  },
+  {
+    "target": "context-compression",
+    "reason": "candidates explain context windows, not compressing them"
+  },
+  {
+    "target": "counterfactual",
+    "reason": "on topic but a Microsoft Research workshop session, not a teaching resource"
+  },
+  {
+    "target": "custom-kernel",
+    "reason": "homonym — returns the SVM kernel trick and OS kernel builds"
+  },
+  {
+    "target": "data-filtering",
+    "reason": "candidates cover data preparation generally, not filtering as a pretraining decision"
+  },
+  {
+    "target": "data-mixing",
+    "reason": "candidates explain Gaussian mixture models"
+  },
+  {
+    "target": "data-parallelism",
+    "reason": "homonym — returns generic task-vs-data parallelism, not distributed training"
+  },
+  {
+    "target": "data-scaling-laws",
+    "reason": "only candidate is a university lecture recording whose language and audience could not be confirmed; not attached unverified"
+  },
+  {
+    "target": "deep-ensemble",
+    "reason": "candidates cover bagging and boosting; none covers deep ensembles"
+  },
+  {
+    "target": "dense-retrieval",
+    "reason": "candidates explain RAG end to end, not dense retrieval specifically"
+  },
+  {
+    "target": "early-exit",
+    "reason": "homonym — returns bank customer 'exit prediction', i.e. churn"
+  },
+  {
+    "target": "effective-context-length",
+    "reason": "candidates explain context windows, not the usable length within one"
+  },
+  {
+    "target": "elastic-training",
+    "reason": "homonym — returns the Elastic company's products"
+  },
+  {
+    "target": "execution-verification",
+    "reason": "homonym — returns cloud attestation and cryptographic verification"
+  },
+  {
+    "target": "human-evaluation",
+    "reason": "best candidate is LLM-as-judge, which is the automated alternative to this"
+  },
+  {
+    "target": "implicit-feedback",
+    "reason": "homonym — returns implicit differentiation"
+  },
+  {
+    "target": "inference-scaling-law",
+    "reason": "candidates explain inference generally, not the scaling law"
+  },
+  {
+    "target": "interconnect-topology",
+    "reason": "homonym — returns topological data analysis"
+  },
+  {
+    "target": "invariant-risk-minimization",
+    "reason": "candidates are a general ML intro lecture and ERM, not IRM"
+  },
+  {
+    "target": "jailbreak",
+    "reason": "only candidate is a clickbait demo, not an explanation of the attack class"
+  },
+  {
+    "target": "likelihood-vs-sample-quality",
+    "reason": "candidate teaches maximum likelihood, not the trade-off against sample quality"
+  }
+]

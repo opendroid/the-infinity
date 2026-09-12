@@ -10,6 +10,8 @@ import {
   paced,
   pending,
   queryFor,
+  readDismissed,
+  readNodes,
   refusals,
   score,
   search,
@@ -730,21 +732,24 @@ describe('a dismissal is a state the checkpoint keeps (#437)', () => {
     const prior = {
       done: ['custom-kernel', 'beam-search-tradeoffs', 'cold-start'],
       candidates: [{ target: 'custom-kernel' }],
-      dismissed: [
-        { target: 'custom-kernel', reason: 'homonym' },
-        { target: 'beam-search-tradeoffs', reason: 'no teaching video exists' },
-      ],
     };
+    // #439: the list is no longer part of the checkpoint. It is a committed
+    // file, because `done` and `candidates` are caches an API can rebuild and
+    // this is human judgment that nothing regenerates.
+    const dismissed = [
+      { target: 'custom-kernel', reason: 'homonym' },
+      { target: 'beam-search-tradeoffs', reason: 'no teaching video exists' },
+    ];
 
     it('leaves a dismissed target alone on an ordinary run', () => {
-      expect(pending(all, prior).map((t: Target) => t.key)).toEqual(['attention']);
+      expect(pending(all, prior, { dismissed }).map((t: Target) => t.key)).toEqual(['attention']);
     });
 
     it('--redo-empty does not resurrect a barren target that was dismissed', () => {
       // The case this exists for. cold-start is barren and NOT dismissed, so it
       // comes back; beam-search-tradeoffs is barren AND dismissed, so it does
       // not. Without the dismissed check the two are indistinguishable.
-      const keys = pending(all, prior, { redoEmpty: true }).map((t: Target) => t.key);
+      const keys = pending(all, prior, { redoEmpty: true, dismissed }).map((t: Target) => t.key);
       expect(keys).toContain('cold-start');
       expect(keys).not.toContain('beam-search-tradeoffs');
       expect(keys).not.toContain('custom-kernel');
@@ -752,8 +757,41 @@ describe('a dismissal is a state the checkpoint keeps (#437)', () => {
 
     it('--redo names it and gets it back', () => {
       // A dismissal is a judgment, not a tombstone.
-      const keys = pending(all, prior, { redo: ['custom-kernel'] }).map((t: Target) => t.key);
+      const keys = pending(all, prior, { redo: ['custom-kernel'], dismissed }).map((t: Target) => t.key);
       expect(keys).toContain('custom-kernel');
+    });
+  });
+
+  describe('the list is committed, not in the checkpoint (#439)', () => {
+    it('reads content/explainers-dismissed.json', () => {
+      // The file is in git, so this asserts the real corpus rather than a
+      // fixture: a dismissal now survives the checkpoint being deleted, which
+      // is the whole point of #439.
+      const live = readDismissed();
+      expect(live.length).toBeGreaterThan(0);
+      for (const d of live) {
+        expect(d.target, 'every dismissal names a target').toBeTruthy();
+        expect(d.reason, `${d.target} has no reason`).toBeTruthy();
+      }
+    });
+
+    it('names only concepts that exist', () => {
+      // A committed file can be hand-edited, which is the point — and a typo'd
+      // id would silently dismiss nothing at all.
+      const ids = new Set(readNodes().map((n: { id: string }) => n.id));
+      for (const d of readDismissed()) {
+        expect(ids.has(d.target), `${d.target} is not a concept id`).toBe(true);
+      }
+    });
+
+    it('does not carry a dismissal the corpus has overtaken', () => {
+      const covered = new Set(
+        readNodes()
+          .filter((n: { explainers?: Array<{ kind: string }> }) =>
+            (n.explainers ?? []).some((e) => e.kind === 'video'))
+          .map((n: { id: string }) => n.id),
+      );
+      expect(staleDismissals(readDismissed(), covered)).toEqual([]);
     });
   });
 
