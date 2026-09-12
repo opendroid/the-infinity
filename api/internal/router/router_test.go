@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -114,6 +115,14 @@ func TestRoutes(t *testing.T) {
 		{
 			name: "create trail", method: http.MethodPost, path: "/api/v1/trails",
 			body:       `{"stops":[{"id":"mixture-of-experts","depth_read_at":"engineer"}],"duration_s":60}`,
+			wantStatus: http.StatusCreated,
+		},
+		{
+			// The client omits it rather than clamp a walk that spans more than
+			// the week this endpoint stores (#445), so "absent" has to be valid
+			// and not merely undefined behaviour that happens to decode to 0.
+			name: "create trail with no duration", method: http.MethodPost, path: "/api/v1/trails",
+			body:       `{"stops":[{"id":"muon-optimizer","depth_read_at":"math"}]}`,
 			wantStatus: http.StatusCreated,
 		},
 		{
@@ -1080,5 +1089,57 @@ func TestHealthIsNotTraced(t *testing.T) {
 	}
 	if strings.Contains(buf.String(), "logging.googleapis.com/") {
 		t.Errorf("a health probe produced a trace-tagged line:\n%s", buf.String())
+	}
+}
+
+// A trail is localStorage, and localStorage outlives a rename in /content/nodes.
+// The rejection has to name the stale stops or the client cannot repair the
+// walk — it would have to parse the prose, or give up on a walk that is almost
+// entirely fine (#445).
+func TestCreateTrailNamesEveryMissingStop(t *testing.T) {
+	t.Parallel()
+	h := newServer(t, seeded(), router.Options{})
+
+	rec := do(t, h, http.MethodPost, "/api/v1/trails",
+		`{"stops":[{"id":"ghost","depth_read_at":"math"},`+
+			`{"id":"mixture-of-experts","depth_read_at":"engineer"},`+
+			`{"id":"phantom","depth_read_at":"intuition"}]}`)
+
+	if rec.Code != http.StatusBadRequest {
+		t.Fatalf("status = %d, want 400 (body: %s)", rec.Code, rec.Body.String())
+	}
+	body := decodeError(t, rec)
+
+	details, ok := body["details"].(map[string]any)
+	if !ok {
+		t.Fatalf("details = %v, want an object", body["details"])
+	}
+	if details["field"] != "stops" {
+		t.Errorf("details.field = %v, want \"stops\"", details["field"])
+	}
+
+	raw, ok := details["missing_stops"].([]any)
+	if !ok {
+		t.Fatalf("details.missing_stops = %v, want an array", details["missing_stops"])
+	}
+	got := make([]string, 0, len(raw))
+	for _, v := range raw {
+		s, ok := v.(string)
+		if !ok {
+			t.Fatalf("missing_stops entry %v is not a string", v)
+		}
+		got = append(got, s)
+	}
+	// Both, not the first: a client told only about "ghost" would drop it,
+	// retry, and be refused again for "phantom".
+	if !slices.Equal(got, []string{"ghost", "phantom"}) {
+		t.Errorf("missing_stops = %v, want [ghost phantom]", got)
+	}
+
+	msg, _ := body["message"].(string)
+	for _, id := range got {
+		if !strings.Contains(msg, id) {
+			t.Errorf("message %q does not name %q — it is what a reader sees", msg, id)
+		}
 	}
 }

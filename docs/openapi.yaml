@@ -375,14 +375,29 @@ components:
 
   responses:
     BadRequest:
-      description: The request body failed validation.
+      description: |
+        The request body failed validation. `details.field` names the input at fault.
+
+        `POST /trails` adds one more detail: when a stop names a concept that no longer
+        exists — a trail lives in localStorage and outlives a rename in `/content/nodes` —
+        the rejection carries `details.missing_stops`, the ids to drop before retrying.
+        Naming them is what lets a stale trail be repaired rather than refused whole.
       content:
         application/json:
           schema: { $ref: '#/components/schemas/Error' }
-          example:
-            error: invalid_request
-            message: '"stops" must contain at least one entry.'
-            details: { field: stops }
+          examples:
+            field:
+              summary: An input failed validation.
+              value:
+                error: invalid_request
+                message: '"stops" must contain at least one entry.'
+                details: { field: stops }
+            staleTrail:
+              summary: A trail carrying concepts that have since been removed.
+              value:
+                error: invalid_request
+                message: 'These stops name concepts that no longer exist: ghost, phantom.'
+                details: { field: stops, missing_stops: [ghost, phantom] }
     NotFound:
       description: No such resource.
       content:
@@ -691,7 +706,18 @@ components:
             properties:
               id: { type: string }
               depth_read_at: { $ref: '#/components/schemas/Depth' }
-        duration_s: { type: integer, minimum: 0 }
+        duration_s:
+          type: integer
+          minimum: 0
+          # One week, matching maxDurationS in internal/trails. The handler has
+          # always refused more; the spec did not say so, so a client had no way
+          # to know before the 400 (#445).
+          maximum: 604800
+          description: |
+            How long the walk took, first stop to last. Optional — omit it rather than send a
+            number you cannot stand behind. A walk spanning more than a week is still a walk:
+            share the stops and leave the stopwatch off, because a clamped duration would
+            publish a time the walk did not take.
 
     TrailCreated:
       type: object

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Depth, Tier } from '../lib/graph';
-import { postCreate } from '../lib/submit';
-import { read, recordDepth, shareBody, subscribe, visit, type Stop } from '../lib/trail';
+import { postCreate, type Created } from '../lib/submit';
+import { dropStops, read, recordDepth, shareBody, subscribe, visit, type Stop } from '../lib/trail';
 import LiveRegion from './LiveRegion';
 import TierDot from './TierDot';
 
@@ -32,6 +32,14 @@ interface Props {
   /** The depth the server rendered. The reader may change it; see below. */
   depth?: Depth;
 }
+
+/**
+ * Shown only when the API gave us nothing readable — it is offline, or a proxy
+ * answered with HTML. Every rejection it CAN explain now speaks for itself; the
+ * string this replaced said "It may be too long" for all six of them, including
+ * a 36-stop walk against a cap of 200 (#445).
+ */
+const CANNOT_SHARE = 'That trail could not be shared. The graph is still here.';
 
 type Share =
   | { name: 'idle' }
@@ -91,17 +99,40 @@ export default function TrailRibbon({ id, title, tier, depth = 'intuition' }: Pr
     if (share.name === 'sending') return;
     setShare({ name: 'sending' });
     const trail = read();
-    const result = await postCreate(
-      '/trails',
-      shareBody(trail.length > 0 ? trail : seed, Date.now()),
-      'That trail could not be shared. It may be too long.',
-      narrowTrail,
-    );
+    const result = await send(trail.length > 0 ? trail : seed);
     if (!result.ok) {
       setShare({ name: 'error', message: result.message });
       return;
     }
     window.location.href = result.value.url;
+  }
+
+  /**
+   * Posts the walk, repairing a stale trail once.
+   *
+   * A trail is localStorage and outlives a concept being renamed or removed in
+   * /content/nodes, so one dead bead used to refuse the whole walk (#445). The
+   * API now names those stops; dropping them and retrying shares the walk the
+   * reader actually has. They were already broken — following one 404s — so
+   * this is a repair, and `dropStops` writes it, which is what makes the beads
+   * disappear from the ribbon rather than the trail quietly disagreeing with
+   * what was shared.
+   *
+   * ONCE. The second attempt takes the answer it gets, whatever it is: a server
+   * that keeps naming stops we have already dropped is a bug, not a loop to
+   * run.
+   */
+  async function send(walk: Stop[], repaired = false): Promise<Created<{ slug: string; url: string }>> {
+    const result = await postCreate('/trails', shareBody(walk), CANNOT_SHARE, narrowTrail);
+    if (result.ok || repaired) return result;
+
+    const stale = result.missingStops ?? [];
+    if (stale.length === 0) return result;
+    const kept = dropStops(stale);
+    // Every stop stale cannot happen — this page's own concept is in the walk
+    // and it plainly exists — but an empty retry would be a 400 about nothing.
+    if (kept.length === 0) return result;
+    return send(kept, true);
   }
 
   return (

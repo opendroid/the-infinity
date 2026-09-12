@@ -31,20 +31,58 @@ export function outcomeFor(
   okStatus = 202,
 ): Outcome {
   if (status === okStatus) return { ok: true };
+  return { ok: false, message: messageFor(status, retryAfter, badRequest) };
+}
+
+/**
+ * The rejection mapping alone, for a caller that has already established the
+ * response is one. Split out of `outcomeFor` so that caller does not have to
+ * re-narrow a union that cannot be `ok`, which would leave an unreachable
+ * branch for a reader to puzzle over.
+ */
+export function messageFor(status: number, retryAfter: number | null, badRequest: string): string {
   if (status === 429) {
-    return {
-      ok: false,
-      message:
-        retryAfter && retryAfter > 0
-          ? `Too many requests just now. Try again in ${retryAfter} seconds.`
-          : 'Too many requests just now. Try again shortly.',
-    };
+    return retryAfter && retryAfter > 0
+      ? `Too many requests just now. Try again in ${retryAfter} seconds.`
+      : 'Too many requests just now. Try again shortly.';
   }
-  if (status === 400) return { ok: false, message: badRequest };
-  if (status === 404) return { ok: false, message: 'That concept is not in the graph.' };
-  if (status === 413) return { ok: false, message: 'That was too long to send. Shorten it and try again.' };
+  if (status === 400) return badRequest;
+  if (status === 404) return 'That concept is not in the graph.';
+  if (status === 413) return 'That was too long to send. Shorten it and try again.';
   // Anything else is ours, not theirs — say so without leaking what broke.
-  return { ok: false, message: 'It could not be sent. The graph is still here.' };
+  return 'It could not be sent. The graph is still here.';
+}
+
+/**
+ * A rejection as the API itself described it.
+ *
+ * `message` is written for a human and it is true. A caller's own `badRequest`
+ * string is a guess made once and outlived by the reasons it was written for:
+ * `POST /trails` can reject a walk six different ways and the ribbon called
+ * every one of them "It may be too long", including for a trail of 36 stops
+ * against a cap of 200 (#445).
+ *
+ * `missingStops` is the half a client can act on rather than display — the
+ * stops whose concepts are gone, which it drops before retrying.
+ */
+export interface ApiError {
+  message: string | null;
+  missingStops: string[];
+}
+
+/** Reads an error body. Trusts nothing: every field is checked, not cast. */
+export function readApiError(value: unknown): ApiError {
+  const none: ApiError = { message: null, missingStops: [] };
+  if (typeof value !== 'object' || value === null) return none;
+  const v = value as Record<string, unknown>;
+
+  const message = typeof v.message === 'string' && v.message.trim() !== '' ? v.message : null;
+
+  const details = typeof v.details === 'object' && v.details !== null ? v.details : {};
+  const raw = (details as Record<string, unknown>).missing_stops;
+  const missingStops = Array.isArray(raw) ? raw.filter((id): id is string => typeof id === 'string') : [];
+
+  return { message, missingStops };
 }
 
 /** POSTs JSON to an API path and maps the answer. Never throws. */
@@ -68,8 +106,16 @@ export async function postQueue(
   }
 }
 
-/** A create that hands something back — currently only `POST /trails`. */
-export type Created<T> = { ok: true; value: T } | { ok: false; message: string };
+/**
+ * A create that hands something back — currently only `POST /trails`.
+ *
+ * `missingStops` rides on the failure because one rejection is repairable: a
+ * trail carrying a concept that has since been renamed or removed is otherwise
+ * fine, and the caller can drop exactly those stops and try again (#445).
+ */
+export type Created<T> =
+  | { ok: true; value: T }
+  | { ok: false; message: string; missingStops?: string[] };
 
 /**
  * POSTs and reads the created resource out of the response.
@@ -96,8 +142,17 @@ export async function postCreate<T>(
   }
 
   const retry = Number(res.headers.get('Retry-After') ?? '');
-  const outcome = outcomeFor(res.status, Number.isFinite(retry) ? retry : null, badRequest, 201);
-  if (!outcome.ok) return outcome;
+  const retryAfter = Number.isFinite(retry) ? retry : null;
+
+  if (res.status !== 201) {
+    // The API's own message beats the caller's, and its details are the only
+    // way to know which stops to drop. Reading the body here rather than in the
+    // success path below is safe: a response body is consumed once, and these
+    // two branches are exclusive.
+    const api = readApiError(await json(res));
+    const message = messageFor(res.status, retryAfter, api.message ?? badRequest);
+    return api.missingStops.length > 0 ? { ok: false, message, missingStops: api.missingStops } : { ok: false, message };
+  }
 
   try {
     const value = narrow(await res.json());
@@ -107,5 +162,14 @@ export async function postCreate<T>(
     // A 201 we cannot read is our problem, not the reader's, and it is not a
     // success: acting on it would send them somewhere that does not exist.
     return { ok: false, message: 'It was saved, but the link came back unreadable.' };
+  }
+}
+
+/** `res.json()`, or null for a body that is not JSON. An error page is not. */
+async function json(res: Response): Promise<unknown> {
+  try {
+    return await res.json();
+  } catch {
+    return null;
   }
 }

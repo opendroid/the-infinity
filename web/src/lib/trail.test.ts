@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
+  MAX_DURATION_S,
   MAX_STOPS,
   append,
   durationS,
@@ -11,6 +12,7 @@ import {
   subscribe,
   visit,
   withDepth,
+  withoutStops,
   type Stop,
 } from './trail';
 
@@ -102,7 +104,7 @@ describe('append — order is the content', () => {
 
 describe('what gets shared', () => {
   it('sends only what the API asked for', () => {
-    const body = shareBody([stop('a'), stop('b', { depth_read_at: 'engineer' })], T0);
+    const body = shareBody([stop('a'), stop('b', { depth_read_at: 'engineer' })]);
     expect(body.stops).toEqual([
       { id: 'a', depth_read_at: 'intuition' },
       { id: 'b', depth_read_at: 'engineer' },
@@ -112,14 +114,69 @@ describe('what gets shared', () => {
     expect(JSON.stringify(body)).not.toContain('tier');
   });
 
-  it('measures the walk from the first stop', () => {
-    expect(durationS([stop('a', { ts: T0 })], T0 + 90_000)).toBe(90);
-    expect(durationS([], T0)).toBe(0);
+  it('measures the walk, first stop to last', () => {
+    expect(durationS([stop('a', { ts: T0 }), stop('b', { ts: T0 + 90_000 })])).toBe(90);
+    expect(durationS([])).toBe(0);
+  });
+
+  /**
+   * The defect behind #445. `durationS` took `now - first.ts`, which is how
+   * long ago the reader started browsing rather than how long the walk was, and
+   * the API refuses anything over a week. A trail persists across sessions, so
+   * this failed for good: it could only grow.
+   */
+  it('does not grow with the age of the trail', () => {
+    // Started a month ago; walked for a minute. The old reading returned the
+    // month, and the API refuses anything over a week.
+    const month = 30 * 24 * 60 * 60 * 1000;
+    const started = T0 - month;
+    const walk = [stop('a', { ts: started }), stop('b', { ts: started + 60_000 })];
+    expect(durationS(walk)).toBe(60);
+    expect(shareBody(walk).duration_s).toBe(60);
   });
 
   it('never reports a negative duration', () => {
     // A clock that moved backwards, or a trail from a machine that is ahead.
-    expect(durationS([stop('a', { ts: T0 })], T0 - 5_000)).toBe(0);
+    expect(durationS([stop('b', { ts: T0 }), stop('a', { ts: T0 - 5_000 })])).toBe(0);
+  });
+
+  /**
+   * A one-stop walk took zero seconds, whatever timestamp the stop carries.
+   * The ribbon seeds itself with `ts: 0`, so the old reading made every share
+   * from a reader with no usable localStorage a request for ~57 years of
+   * wandering — a guaranteed 400, reported as "it may be too long".
+   */
+  it('reports zero for the ribbon\'s epoch seed', () => {
+    expect(durationS([stop('a', { ts: 0 })])).toBe(0);
+    expect(shareBody([stop('a', { ts: 0 })]).duration_s).toBe(0);
+  });
+
+  /**
+   * The API stores at most a week. A longer walk is still a walk: share the
+   * stops and drop the stopwatch, because clamping would print a duration the
+   * walk did not take on a public page.
+   */
+  it('omits a duration the API would refuse rather than clamping it', () => {
+    const weeks = [stop('a', { ts: T0 }), stop('b', { ts: T0 + 3 * MAX_DURATION_S * 1000 })];
+    const body = shareBody(weeks);
+    expect(body.stops).toHaveLength(2);
+    expect('duration_s' in body).toBe(false);
+
+    // The boundary itself is storable, so it is sent.
+    const exact = [stop('a', { ts: T0 }), stop('b', { ts: T0 + MAX_DURATION_S * 1000 })];
+    expect(shareBody(exact).duration_s).toBe(MAX_DURATION_S);
+  });
+});
+
+describe('withoutStops repairs a stale trail', () => {
+  it('drops the named stops and keeps the order of the rest', () => {
+    const walk = [stop('a'), stop('b'), stop('c'), stop('d')];
+    expect(withoutStops(walk, ['b', 'd']).map((s) => s.id)).toEqual(['a', 'c']);
+  });
+
+  it('is unchanged by a name that is not in the trail', () => {
+    const walk = [stop('a'), stop('b')];
+    expect(withoutStops(walk, ['ghost']).map((s) => s.id)).toEqual(['a', 'b']);
   });
 });
 

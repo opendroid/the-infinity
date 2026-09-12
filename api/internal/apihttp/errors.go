@@ -69,11 +69,25 @@ func WriteError(w http.ResponseWriter, status int, code Code, msg string) {
 // WriteFieldError sends a 400 naming the offending field, so a client can point
 // at the right input rather than re-reading the whole body.
 func WriteFieldError(w http.ResponseWriter, field, msg string) {
+	WriteFieldErrorWith(w, field, msg, nil)
+}
+
+// WriteFieldErrorWith is WriteFieldError plus details the client can act on
+// rather than only display — today, the stop ids a stale trail should drop
+// before retrying (#445). "field" always wins: extra is merged under it, never
+// over it.
+func WriteFieldErrorWith(w http.ResponseWriter, field, msg string, extra map[string]any) {
+	details := make(map[string]any, len(extra)+1)
+	for k, v := range extra {
+		details[k] = v
+	}
+	details["field"] = field
+
 	NoStore(w)
 	WriteJSON(w, http.StatusBadRequest, Error{
 		Code:    CodeInvalidRequest,
 		Message: msg,
-		Details: map[string]any{"field": field},
+		Details: details,
 	})
 }
 

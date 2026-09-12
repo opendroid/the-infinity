@@ -6,6 +6,7 @@ const postCreate = vi.hoisted(() => vi.fn());
 vi.mock('../lib/submit', () => ({ postCreate }));
 
 const { default: TrailRibbon } = await import('./TrailRibbon');
+import type { Stop } from '../lib/trail';
 
 afterEach(() => {
   cleanup();
@@ -98,5 +99,82 @@ describe('the trail ribbon, when a share fails', () => {
     expect(postCreate).toHaveBeenCalledTimes(1);
     settle({ ok: false, message: 'It could not be sent.' });
     await waitFor(() => expect(screen.getByRole('alert').textContent).toBe('It could not be sent.'));
+  });
+});
+
+/**
+ * #445. A trail is localStorage and outlives a concept being renamed or removed
+ * in /content/nodes, so one dead bead refused the whole walk — reported to the
+ * reader as "It may be too long", which it was not. The API now names the stale
+ * stops; the ribbon drops exactly those and shares what is left.
+ */
+describe('the trail ribbon, when the trail has gone stale', () => {
+  const walk = (...ids: string[]): Stop[] =>
+    ids.map((id) => ({ id, title: id, tier: 'verified', depth_read_at: 'intuition', ts: 0 }));
+
+  const stale = (...ids: string[]) => ({
+    ok: false,
+    message: `These stops name concepts that no longer exist: ${ids.join(', ')}.`,
+    missingStops: ids,
+  });
+
+  const sentStops = (call: number): string[] =>
+    (postCreate.mock.calls[call]?.[1] as { stops: { id: string }[] }).stops.map((s) => s.id);
+
+  const stored = (): string[] =>
+    (JSON.parse(localStorage.getItem('trail') ?? '[]') as Stop[]).map((s) => s.id);
+
+  it('drops the stops the API named and shares the rest', async () => {
+    localStorage.setItem('trail', JSON.stringify(walk('ghost', 'softmax', 'attention')));
+    postCreate
+      .mockResolvedValueOnce(stale('ghost'))
+      .mockResolvedValueOnce({ ok: true, value: { slug: 'a-trail-0000', url: '/t/a-trail-0000' } });
+
+    render(ribbon());
+    await waitFor(() => shareButton());
+    shareButton().click();
+
+    await waitFor(() => expect(postCreate).toHaveBeenCalledTimes(2));
+    expect(sentStops(0)).toEqual(['ghost', 'softmax', 'attention']);
+    expect(sentStops(1)).toEqual(['softmax', 'attention']);
+
+    // Written, not just retried: a bead that 404s should leave the ribbon at
+    // the same moment, and what was shared has to be what the trail now says.
+    expect(stored()).toEqual(['softmax', 'attention']);
+    // The repair succeeded, so nothing is announced — the reader is navigating.
+    expect(screen.getByRole('alert').textContent).toBe('');
+  });
+
+  it('repairs once, then takes whatever the answer is', async () => {
+    localStorage.setItem('trail', JSON.stringify(walk('ghost', 'attention')));
+    // A server that keeps naming stops we have already dropped is a bug, not a
+    // loop to run.
+    postCreate.mockResolvedValue(stale('attention'));
+
+    render(ribbon());
+    await waitFor(() => shareButton());
+    shareButton().click();
+
+    await waitFor(() =>
+      expect(screen.getByRole('alert').textContent).toBe(
+        'These stops name concepts that no longer exist: attention.',
+      ),
+    );
+    expect(postCreate).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not retry a rejection it cannot repair', async () => {
+    postCreate.mockResolvedValue({ ok: false, message: '"duration_s" is out of range.' });
+
+    render(ribbon());
+    await waitFor(() => shareButton());
+    shareButton().click();
+
+    await waitFor(() =>
+      expect(screen.getByRole('alert').textContent).toBe('"duration_s" is out of range.'),
+    );
+    expect(postCreate).toHaveBeenCalledTimes(1);
+    // And the reader's trail is untouched: nothing about it was stale.
+    expect(stored()).toEqual(['attention']);
   });
 });
