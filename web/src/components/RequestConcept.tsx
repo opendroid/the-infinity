@@ -98,7 +98,7 @@ export default function RequestConcept() {
     const result = await postQueue(
       '/requests',
       { name: name.trim(), referrer: window.location.pathname },
-      'That name was not accepted. Try a shorter one.',
+      'That name was not accepted.',
     );
     setSubmission(result.ok ? { state: 'queued' } : { state: 'error', message: result.message });
   }
