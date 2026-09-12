@@ -449,6 +449,26 @@ async function main() {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(ORIGIN + '/', { waitUntil: 'networkidle' });
 
+    // A phone held sideways is ~390px tall and the landing stack needed 402, so
+    // the one action the page exists to offer started below the fold (#456).
+    // CSS that quietly stops applying looks identical in a diff; only a real
+    // viewport can say whether the cap is doing anything.
+    step = 'checking the search field survives a short viewport';
+    await page.setViewportSize({ width: 844, height: 390 });
+    await page.goto(ORIGIN + '/', { waitUntil: 'networkidle' });
+    const fold = await page.evaluate(() => {
+      const box = globalThis.document.querySelector('input').getBoundingClientRect();
+      return { bottom: Math.round(box.bottom), viewport: globalThis.innerHeight };
+    });
+    if (fold.bottom > fold.viewport) {
+      fail(
+        `/: in a ${fold.viewport}px-tall viewport the search field ends at ${fold.bottom}px — ` +
+          'the primary action is below the fold',
+      );
+    }
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(ORIGIN + '/', { waitUntil: 'networkidle' });
+
     const landing = await page.locator('main').innerText();
     // Anchored to the number. "concepts" alone also appears in the standfirst
     // above the search field, so the loose version passed with the count line
@@ -467,7 +487,7 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, landing`,
+      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, short viewport, landing`,
   );
   return 0;
 }
