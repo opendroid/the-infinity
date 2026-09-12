@@ -453,6 +453,26 @@ async function main() {
     // the one action the page exists to offer started below the fold (#456).
     // CSS that quietly stops applying looks identical in a diff; only a real
     // viewport can say whether the cap is doing anything.
+    // WCAG 2.2 AA 2.5.8 wants 24x24 for a standalone control, and the header's
+    // links are on every page. Measured rather than asserted from the class
+    // list: the first fix used `min-h-6`, which in this repo is SIX pixels —
+    // tokens.json generates a pixel-keyed spacing scale, so Tailwind's usual
+    // 6 = 1.5rem does not hold here. The class was present, the rule was in the
+    // CSS, and nothing changed (#457).
+    step = 'checking the header targets are big enough to tap';
+    const small = await page.$$eval('header a, header button', (els) =>
+      els
+        .filter((e) => e.offsetParent !== null)
+        .map((e) => ({ name: (e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 20), h: e.getBoundingClientRect().height }))
+        .filter((e) => e.h < 24),
+    );
+    if (small.length > 0) {
+      fail(
+        `/: ${small.length} header target(s) under 24px tall — ` +
+          small.map((e) => `"${e.name}" ${Math.round(e.h)}px`).join(', '),
+      );
+    }
+
     step = 'checking the search field survives a short viewport';
     await page.setViewportSize({ width: 844, height: 390 });
     await page.goto(ORIGIN + '/', { waitUntil: 'networkidle' });
@@ -487,7 +507,7 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, short viewport, landing`,
+      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, tap targets, short viewport, landing`,
   );
   return 0;
 }
