@@ -102,3 +102,50 @@ export function search(index: Entry[], query: string, limit = 12): Hit[] {
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
     .slice(0, limit);
 }
+
+/**
+ * The nearest entries for a query that matched nothing. For the zero state.
+ *
+ * THIS IS NOT A RELAXATION OF THE MATCHING RULE. `search` still requires every
+ * term, deliberately — its own test says why: "OR would return every attention
+ * concept and rank the noise." That reasoning stands, so what comes back here is
+ * offered to the reader as a SUGGESTION and never as a result.
+ *
+ * What it fixes is the dead end (#451). "attention mechanism" and "positional
+ * embedding" are the natural way to ask for concepts that exist, and both
+ * answered with nothing at all — the second while Positional Encoding sits on
+ * the landing page as a suggested concept.
+ *
+ * Ranked by how many terms an entry matched first, then by where they landed, so
+ * an entry answering two thirds of the query outranks one answering a common
+ * word. Single-term queries get nothing: with one term there is no partial match
+ * to offer, only a different word, and guessing that is a typo problem rather
+ * than this one.
+ */
+export function suggest(index: Entry[], query: string, limit = 4): Hit[] {
+  const terms = normalise(query).split(/\s+/).filter(Boolean);
+  if (terms.length < 2) return [];
+
+  const near: Hit[] = [];
+  for (const entry of index) {
+    let matched = 0;
+    let total = 0;
+    for (const term of terms) {
+      const s = scoreTerm(entry, term);
+      if (s > 0) {
+        matched += 1;
+        total += s;
+      }
+    }
+    // Terms matched dominates placement: MATCHED_WEIGHT is larger than any
+    // achievable `total`, so no pile of weak hits outranks a broader match.
+    if (matched > 0) near.push({ ...entry, score: matched * MATCHED_WEIGHT + total });
+  }
+
+  return near
+    .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
+    .slice(0, limit);
+}
+
+/** Larger than any reachable per-term total, so "how many matched" wins first. */
+const MATCHED_WEIGHT = 1000;
