@@ -20,12 +20,12 @@ import TrailCount from './TrailCount';
 // either nothing or the length of a hardcoded one-element array (#114).
 ---
 <header class="flex items-center justify-between gap-3 border-b border-line px-[26px] py-3.5">
-  <a href="/" class="font-display text-[14px] font-semibold text-starlight no-underline">
+  <a href="/" class="flex min-h-[24px] items-center font-display text-[14px] font-semibold text-starlight no-underline">
     the<span class="text-thread">∞</span>.ai
   </a>
   <nav class="flex items-center gap-3">
     <SearchPanel client:idle mode="overlay" />
-    <a href="/concepts" class="font-mono text-[11px] uppercase tracking-[.12em] text-dust no-underline hover:text-starlight">
+    <a href="/concepts" class="flex min-h-[24px] items-center font-mono text-[11px] uppercase tracking-[.12em] text-dust no-underline hover:text-starlight">
       Concepts
     </a>
     <TrailCount client:idle />
