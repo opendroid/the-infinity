@@ -465,6 +465,38 @@ async function main() {
     // terms the page is actually built from (#468).
     //
     // Needs the results rendered, so it runs on /search with a query.
+    // WCAG 1.4.1: a link sitting INSIDE a run of text needs something other than
+    // colour to mark it. Violet alone fails for anyone who cannot separate it
+    // from the body colour, and hover — which the CSS deferred to — never
+    // arrives on a touch screen (#469).
+    //
+    // The heuristic is axe's `link-in-text-block`: only links whose parent holds
+    // other text are in scope. A link alone in its own block is distinguished by
+    // position and is deliberately not flagged.
+    step = 'checking links in prose are not colour alone';
+    for (const path of ['/c/attention', '/request', '/search?q=attention', '/c/qa-nope-404']) {
+      await page.goto(ORIGIN + path, { waitUntil: 'networkidle' });
+      await page.waitForTimeout(200);
+      const bare = await page.evaluate(() => {
+        const out = [];
+        globalThis.document.querySelectorAll('main a[href]').forEach((a) => {
+          const parent = a.parentElement;
+          if (!parent) return;
+          const siblingText = [...parent.childNodes]
+            .filter((n) => n.nodeType === 3 && n.textContent.trim().length > 1).length;
+          if (siblingText === 0) return;
+          const line = globalThis.getComputedStyle(a).textDecorationLine;
+          if (!line.includes('underline')) {
+            out.push(`"${(a.textContent || '').trim().slice(0, 28)}"`);
+          }
+        });
+        return out;
+      });
+      if (bare.length > 0) {
+        fail(`${path}: ${bare.length} link(s) in prose with no underline at rest — ${bare.slice(0, 3).join(', ')}`);
+      }
+    }
+
     step = 'checking no widget contains a focusable control';
     await page.goto(`${ORIGIN}/search?q=attention`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(400);
@@ -533,7 +565,7 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, nesting, tap targets, short viewport, landing`,
+      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, prose links, nesting, tap targets, short viewport, landing`,
   );
   return 0;
 }
