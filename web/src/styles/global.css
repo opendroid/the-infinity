@@ -6,6 +6,30 @@
   background: radial-gradient(120% 90% at 50% 0%, #141a31 0%, var(--color-void) 62%);
 }
 
+/*
+ * A phone held sideways is ~390px tall, and the landing page needs 402 before
+ * the search field starts — so the one thing the page exists to offer began 12
+ * pixels below the fold (#456).
+ *
+ * The lemniscate yields, because it is the element that can: it is decorative
+ * (aria-hidden) and scales by its own aspect ratio, so capping its height costs
+ * nothing but size. Shrinking type or padding instead would take from the
+ * content on every short viewport, including a desktop window dragged short.
+ *
+ * Keyed on viewport HEIGHT, not a phone breakpoint. A short window is a short
+ * window whatever the device, and width tells you nothing about it.
+ *
+ * 30vh is the loosest cap that clears the fold, chosen by measuring rather than
+ * picked: 30/26/22vh all work at 844x390, so the one that keeps the most of the
+ * graphic wins. Checked across 844x390, 740x360, 932x430, 667x375 and 1024x450;
+ * at 1280x800 the rule does not apply and the lemniscate is its full 230px.
+ */
+@media (max-height: 460px) {
+  .hero-thread {
+    max-height: 30vh;
+  }
+}
+
 @layer base {
   html {
     background: var(--color-void);
