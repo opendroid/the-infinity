@@ -59,7 +59,7 @@ export default function ReviewActions({ conceptId }: Props) {
     const result = await postQueue(
       '/reviews',
       { concept_id: conceptId, kind, ...(kind === 'flag' ? { note: note.trim() } : {}) },
-      'That could not be accepted. Try a shorter note.',
+      'That could not be accepted.',
     );
     setState(result.ok ? { name: 'queued', kind } : { name: 'error', message: result.message });
   }

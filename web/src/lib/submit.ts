@@ -17,28 +17,19 @@ import { apiUrl } from './api';
 export type Outcome = { ok: true } | { ok: false; message: string };
 
 /**
- * The message for a status, given what a 400 means for this particular form.
+ * What a rejection means to the person who just clicked.
  *
- * `okStatus` because the two write shapes disagree about success: the queue
- * endpoints answer 202 (accepted, nothing created), and `POST /trails` answers
- * 201 with a slug. Defaulting to 202 keeps every existing call site reading the
- * same.
- */
-export function outcomeFor(
-  status: number,
-  retryAfter: number | null,
-  badRequest: string,
-  okStatus = 202,
-): Outcome {
-  if (status === okStatus) return { ok: true };
-  return { ok: false, message: messageFor(status, retryAfter, badRequest) };
-}
-
-/**
- * The rejection mapping alone, for a caller that has already established the
- * response is one. Split out of `outcomeFor` so that caller does not have to
- * re-narrow a union that cannot be `ok`, which would leave an unreachable
- * branch for a reader to puzzle over.
+ * The mapping is deliberately not "something went wrong": one status is worth
+ * retrying in a minute, one means fix your input, one means the network is
+ * gone. `badRequest` is what a 400 means for this particular form — used only
+ * when the API did not explain itself, since its own message is better than any
+ * guess made in advance (#445, #447).
+ *
+ * Both callers establish the response is a rejection before asking, because the
+ * two write shapes disagree about success: the queue endpoints answer 202
+ * (accepted, nothing created) and `POST /trails` answers 201 with a slug. A
+ * shared `okStatus` parameter would hand every caller back a union that cannot
+ * be `ok`, and an unreachable branch to puzzle over.
  */
 export function messageFor(status: number, retryAfter: number | null, badRequest: string): string {
   if (status === 429) {
@@ -85,25 +76,40 @@ export function readApiError(value: unknown): ApiError {
   return { message, missingStops };
 }
 
-/** POSTs JSON to an API path and maps the answer. Never throws. */
+/**
+ * POSTs JSON to an API path and maps the answer. Never throws.
+ *
+ * Like `postCreate`, a 400 is reported in the API's own words. These two
+ * endpoints reject six different ways between them and the callers have two
+ * strings, so the guess was wrong four times out of six — and for a name below
+ * the minimum it said "try a shorter one", which is the opposite of the fix
+ * (#447). `badRequest` survives as the fallback for a rejection the API could
+ * not explain.
+ */
 export async function postQueue(
   path: string,
   body: unknown,
   badRequest: string,
 ): Promise<Outcome> {
+  let res: Response;
   try {
-    const res = await fetch(apiUrl(path), {
+    res = await fetch(apiUrl(path), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
-    const retry = Number(res.headers.get('Retry-After') ?? '');
-    return outcomeFor(res.status, Number.isFinite(retry) ? retry : null, badRequest);
   } catch {
     // Offline, aborted, or the service is cold. Distinct from a rejection,
     // because "we did not send it" and "they refused it" are different facts.
     return { ok: false, message: 'No connection. Nothing was sent.' };
   }
+
+  const retry = Number(res.headers.get('Retry-After') ?? '');
+  const retryAfter = Number.isFinite(retry) ? retry : null;
+  if (res.status === 202) return { ok: true };
+
+  const api = readApiError(await json(res));
+  return { ok: false, message: messageFor(res.status, retryAfter, api.message ?? badRequest) };
 }
 
 /**

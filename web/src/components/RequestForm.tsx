@@ -70,7 +70,9 @@ export default function RequestForm() {
     const result = await postQueue(
       '/requests',
       { name: name.trim(), referrer: context || window.location.pathname },
-      'That name was not accepted. Try a shorter one.',
+      // The fallback only fires when the API did not say why, so it does not
+      // guess either — it used to assert "try a shorter one" (#447).
+      'That name was not accepted.',
     );
     setState(result.ok ? { name: 'queued' } : { name: 'error', message: result.message });
   }

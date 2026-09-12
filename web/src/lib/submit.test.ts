@@ -1,55 +1,35 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { outcomeFor, postCreate, readApiError } from './submit';
+import { messageFor, postCreate, postQueue, readApiError } from './submit';
 import { confirmation } from '../components/ReviewActions';
 
 const BAD = 'That could not be accepted. Try a shorter note.';
 
-describe('outcomeFor maps a status to something a reader can act on', () => {
-  it('202 is success', () => {
-    expect(outcomeFor(202, null, BAD)).toEqual({ ok: true });
-  });
-
+describe('messageFor says what a reader can act on', () => {
   it('429 says how long to wait when the server said', () => {
-    const out = outcomeFor(429, 45, BAD);
-    expect(out).toEqual({ ok: false, message: 'Too many requests just now. Try again in 45 seconds.' });
+    expect(messageFor(429, 45, BAD)).toBe('Too many requests just now. Try again in 45 seconds.');
   });
 
   it('429 without Retry-After does not invent a number', () => {
-    expect(outcomeFor(429, null, BAD)).toEqual({
-      ok: false,
-      message: 'Too many requests just now. Try again shortly.',
-    });
+    expect(messageFor(429, null, BAD)).toBe('Too many requests just now. Try again shortly.');
     // A zero header is the same as none: "try again in 0 seconds" is nonsense.
-    expect(outcomeFor(429, 0, BAD)).toEqual({
-      ok: false,
-      message: 'Too many requests just now. Try again shortly.',
-    });
+    expect(messageFor(429, 0, BAD)).toBe('Too many requests just now. Try again shortly.');
   });
 
-  it('400 says what is wrong with THIS form, not a generic failure', () => {
-    expect(outcomeFor(400, null, BAD)).toEqual({ ok: false, message: BAD });
-    expect(outcomeFor(400, null, 'Give it a shorter name.')).toEqual({
-      ok: false,
-      message: 'Give it a shorter name.',
-    });
+  it('400 says what is wrong with THIS request, not a generic failure', () => {
+    expect(messageFor(400, null, BAD)).toBe(BAD);
+    expect(messageFor(400, null, '"name" must be at least 2 characters.')).toBe(
+      '"name" must be at least 2 characters.',
+    );
   });
 
   it('404 and 413 each say their own thing', () => {
     // The endpoint returns both; collapsing them would hide the actionable one.
-    expect(outcomeFor(404, null, BAD)).not.toEqual(outcomeFor(413, null, BAD));
-    expect(outcomeFor(413, null, BAD)).toMatchObject({ message: expect.stringContaining('too long') });
+    expect(messageFor(404, null, BAD)).not.toBe(messageFor(413, null, BAD));
+    expect(messageFor(413, null, BAD)).toContain('too long');
   });
 
   it('an unexpected status does not leak what broke', () => {
-    const out = outcomeFor(500, null, BAD);
-    expect(out).toMatchObject({ ok: false });
-    expect((out as { message: string }).message).not.toMatch(/500|error|server/i);
-  });
-
-  it('never returns ok for a non-202', () => {
-    for (const s of [200, 201, 204, 301, 400, 401, 403, 404, 413, 429, 500, 502, 503]) {
-      expect(outcomeFor(s, null, BAD).ok).toBe(false);
-    }
+    expect(messageFor(500, null, BAD)).not.toMatch(/500|error|server/i);
   });
 });
 
@@ -147,6 +127,90 @@ describe('postCreate reports the rejection the API described', () => {
   it('reads the created resource on a 201', async () => {
     respond(201, { slug: 'a-trail-0000', url: '/t/a-trail-0000' });
     expect(await postCreate('/trails', {}, GUESS, narrow)).toMatchObject({ ok: true });
+  });
+});
+
+describe('postQueue reports the rejection the API described', () => {
+  const GUESS = 'That name was not accepted. Try a shorter one.';
+
+  function respond(status: number, body: unknown): void {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response(body === undefined ? null : JSON.stringify(body), {
+          status,
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      ),
+    );
+  }
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('202 is success', async () => {
+    respond(202, { status: 'queued' });
+    expect(await postQueue('/requests', {}, GUESS)).toEqual({ ok: true });
+  });
+
+  /**
+   * #447, and the reason it is reachable at all. Both forms guard on
+   * `name.trim().length < 2` before sending, but `String.length` counts UTF-16
+   * code units and the server counts runes: a single emoji is 2 to the client
+   * and 1 to Go. So the reader typed one character, got past the guard, and was
+   * told by the form to try a SHORTER one.
+   */
+  it('does not tell a too-short name to get shorter', async () => {
+    respond(400, {
+      error: 'invalid_request',
+      message: '"name" must be at least 2 characters.',
+      details: { field: 'name' },
+    });
+    const out = await postQueue('/requests', { name: '👍' }, GUESS);
+    expect(out).toEqual({ ok: false, message: '"name" must be at least 2 characters.' });
+    expect((out as { message: string }).message).not.toMatch(/shorter/i);
+  });
+
+  it('keeps the caller string for a 400 the API did not explain', async () => {
+    respond(400, undefined);
+    expect(await postQueue('/requests', {}, GUESS)).toEqual({ ok: false, message: GUESS });
+  });
+
+  /**
+   * A 500's message is ours and deliberately says nothing; a 429's is about
+   * waiting. Neither is improved by whatever prose the server attached.
+   */
+  it('does not let the API rewrite a non-400', async () => {
+    respond(500, { message: 'firestore: deadline exceeded on projects/the-infinity-ai' });
+    expect(await postQueue('/reviews', {}, GUESS)).toEqual({
+      ok: false,
+      message: 'It could not be sent. The graph is still here.',
+    });
+  });
+
+  it('a 429 still carries its own Retry-After', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response(JSON.stringify({ message: 'Too many requests. Try again shortly.' }), {
+          status: 429,
+          headers: { 'Content-Type': 'application/json', 'Retry-After': '30' },
+        }),
+      ),
+    );
+    expect(await postQueue('/requests', {}, GUESS)).toEqual({
+      ok: false,
+      message: 'Too many requests just now. Try again in 30 seconds.',
+    });
+  });
+
+  it('says nothing was sent when the request never left', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')));
+    expect(await postQueue('/requests', {}, GUESS)).toEqual({
+      ok: false,
+      message: 'No connection. Nothing was sent.',
+    });
   });
 });
 
