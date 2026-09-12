@@ -249,6 +249,18 @@ async function main() {
       if ((await control.count()) === 0) {
         fail(`/c/${node.id}: no slider, though the node declares param_controls`);
       } else {
+        // WCAG 2.2 AA 2.5.8 wants 24x24. `appearance: none` with no height
+        // collapsed this onto its own 3px track, and the thumb painted OUTSIDE
+        // the box that receives the touch — so it looked right and measured
+        // 206x3 (#450). Only a real browser computes this box.
+        const box = await control.boundingBox();
+        if (box && box.height < 24) {
+          fail(
+            `/c/${node.id}: the slider is ${Math.round(box.width)}x${Math.round(box.height)} — ` +
+              'under the 24px minimum target size (WCAG 2.2 AA 2.5.8)',
+          );
+        }
+
         const before = await described.textContent();
         await control.fill(String(node.viz.param_controls[0].max));
         await page.waitForTimeout(250);

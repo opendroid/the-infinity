@@ -57,9 +57,21 @@
    * this palette — a colour the handoff never sanctioned, sitting inside an
    * island whose whole rule is that violet is the only data channel. So both
    * halves are stated explicitly rather than half-delegated. */
+  /*
+   * The HIT AREA is 24px; the track it draws is still 3px (#450).
+   *
+   * With `appearance: none` and no height, the input's box collapsed onto its
+   * own 3px track — a 206x3 target, against the 24x24 WCAG 2.2 AA 2.5.8 asks
+   * for and the ~34px of a fingertip. The thumb was painted larger than the box
+   * that received the touch, so it looked fine and measured wrong.
+   *
+   * Height here rather than padding: padding would move the track inside the
+   * box and leave the thumb's offset to be re-derived for each engine.
+   */
   input[type='range'] {
     appearance: none;
     background: transparent;
+    height: 24px;
   }
 
   input[type='range']::-webkit-slider-runnable-track {
