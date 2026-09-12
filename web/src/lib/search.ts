@@ -149,3 +149,23 @@ export function suggest(index: Entry[], query: string, limit = 4): Hit[] {
 
 /** Larger than any reachable per-term total, so "how many matched" wins first. */
 const MATCHED_WEIGHT = 1000;
+
+/**
+ * The path+query a /search URL should carry for a given question.
+ *
+ * The URL is where the question LIVES on /search — it is what the page reads on
+ * load, and what a reader reloads, bookmarks and shares. It was written only on
+ * submit, so clearing the box left `?q=` behind: the visible state said nothing
+ * was being asked and the URL still said "attention" (#452).
+ *
+ * Pure and string-taking so the rule is testable without a DOM, and so the
+ * "did anything actually change?" comparison the caller makes is exact rather
+ * than a guess about how URLSearchParams will re-encode what it was given.
+ */
+export function queryUrl(pathname: string, currentSearch: string, query: string): string {
+  const params = new URLSearchParams(currentSearch);
+  if (query.trim() === '') params.delete('q');
+  else params.set('q', query);
+  const rest = params.toString();
+  return rest === '' ? pathname : `${pathname}?${rest}`;
+}

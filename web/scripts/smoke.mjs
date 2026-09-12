@@ -350,6 +350,22 @@ async function main() {
     if (!/\d+ results? for attention/i.test(found)) {
       fail('/search?q=attention: no result count — the search island did not answer');
     }
+    // The rule is unit-tested; this is the WIRING. A pure function nothing calls
+    // passes its own tests forever (#452, and #429 before it).
+    const box = page.locator('input[type="search"]').first();
+    await box.fill('');
+    await page.waitForTimeout(250);
+    const cleared = await page.evaluate(() => globalThis.location.search);
+    if (cleared !== '') {
+      fail(`/search: clearing the box left "${cleared}" in the URL — a reload would bring the query back`);
+    }
+    await box.fill('softmax');
+    await page.waitForTimeout(250);
+    const retyped = await page.evaluate(() => globalThis.location.search);
+    if (!retyped.includes('softmax')) {
+      fail(`/search: typing a new query left the URL at "${retyped}"`);
+    }
+
     if (crashes.length) fail(`/search threw: ${crashes.join(' | ')}`);
 
     // 6 — the landing page, which ships no JavaScript at all, still paints.

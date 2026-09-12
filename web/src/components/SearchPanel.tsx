@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { search, suggest, type Entry, type Hit } from '../lib/search';
+import { queryUrl, search, suggest, type Entry, type Hit } from '../lib/search';
 
 /**
  * Search — the overlay, and the engine behind /search.
@@ -80,6 +80,21 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
     const q = new URLSearchParams(window.location.search).get('q');
     if (q) setQuery(q);
   }, [mode, load]);
+
+  // Keep the URL saying what the box says (#452). On /search the URL is the
+  // question: the page reads it on load, and it is what gets reloaded,
+  // bookmarked and shared.
+  //
+  // replaceState, not push: a history entry per keystroke would bury the page
+  // the reader came from under a stack of half-typed queries. The guard is what
+  // makes that safe — without it this writes on every render.
+  useEffect(() => {
+    if (mode !== 'page') return;
+    const next = queryUrl(window.location.pathname, window.location.search, query);
+    if (next !== window.location.pathname + window.location.search) {
+      window.history.replaceState(null, '', next);
+    }
+  }, [mode, query]);
 
   // `/` from anywhere opens it, the convention every search field on the web
   // has trained people to expect. Ignored while typing somewhere else.

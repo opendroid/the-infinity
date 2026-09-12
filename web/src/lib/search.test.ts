@@ -1,6 +1,6 @@
 import { gzipSync } from 'node:zlib';
 import { describe, expect, it } from 'vitest';
-import { buildIndex, normalise, search, suggest, type Entry } from './search';
+import { buildIndex, normalise, search, queryUrl, suggest, type Entry } from './search';
 import { allNodes } from './content';
 
 const index = buildIndex(allNodes);
@@ -223,5 +223,39 @@ describe('the zero state offers the closest concepts', () => {
   it('does not change what search itself returns', () => {
     expect(search(index, 'attention zzzzz')).toEqual([]);
     expect(search(index, 'attention mechanism')).toEqual([]);
+  });
+});
+
+/**
+ * #452. The URL is the question on /search, and it was written only on submit —
+ * so clearing the box left ?q= behind and a reload brought the cleared query
+ * back.
+ */
+describe('the URL carries the question', () => {
+  it('sets q for a query', () => {
+    expect(queryUrl('/search', '', 'attention')).toBe('/search?q=attention');
+  });
+
+  it('drops q entirely when the box is cleared', () => {
+    expect(queryUrl('/search', '?q=attention', '')).toBe('/search');
+    // Whitespace is not a question either — the panel returns no hits for it.
+    expect(queryUrl('/search', '?q=attention', '   ')).toBe('/search');
+  });
+
+  it('replaces rather than appends when the query changes', () => {
+    expect(queryUrl('/search', '?q=attention', 'softmax')).toBe('/search?q=softmax');
+  });
+
+  it('keeps a query the reader can still read back', () => {
+    // Round-trips: what the URL says is what the box gets on reload.
+    const url = queryUrl('/search', '', 'mixture of experts');
+    expect(new URLSearchParams(url.split('?')[1]).get('q')).toBe('mixture of experts');
+  });
+
+  it('leaves other parameters alone', () => {
+    // Nothing uses one today; silently dropping someone else's would be a
+    // surprise the moment something does.
+    expect(queryUrl('/search', '?from=%2Fc%2Fattention', 'kv cache'))
+      .toBe('/search?from=%2Fc%2Fattention&q=kv+cache');
   });
 });
