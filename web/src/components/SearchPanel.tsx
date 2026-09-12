@@ -228,7 +228,12 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
 
       {index.state === 'ready' && query.trim() !== '' && hits.length === 0 && (
         // Never a dead end: nothing matched, but the graph is still here.
-        <p className="mt-3 text-[13.5px] text-dust">
+        //
+        // `break-words` because this is the one place a reader's own string is
+        // echoed back at full length. A pasted DOI or URL has no space to wrap
+        // at, so without it a 40-character token pushed the page wider than a
+        // 320px viewport and the whole site scrolled sideways (#449).
+        <p className="mt-3 break-words text-[13.5px] text-dust">
           Nothing matches “{query}”.{' '}
           <a href="/concepts" className="text-thread underline">
             Browse every concept

@@ -401,6 +401,26 @@ async function main() {
       fail(`/: the glow is on ${lit[0]}, not the search field`);
     }
 
+    // A reader's own text is echoed back on the zero-result page, and a long
+    // unbroken token has nowhere to wrap. This needs a real browser at a real
+    // width: it is a layout fact, invisible to jsdom and to any DOM assertion
+    // (#449). 320px is the floor WCAG 2.2 reflow names.
+    step = 'checking a long query cannot widen the page';
+    await page.setViewportSize({ width: 320, height: 800 });
+    await page.goto(`${ORIGIN}/search?q=${'a'.repeat(80)}`, { waitUntil: 'networkidle' });
+    const spill = await page.evaluate(() => {
+      const d = globalThis.document.documentElement;
+      return { scrollW: d.scrollWidth, clientW: d.clientWidth };
+    });
+    if (spill.scrollW > spill.clientW + 1) {
+      fail(
+        `/search: an 80-character query widened the page to ${spill.scrollW}px in a ${spill.clientW}px viewport — ` +
+          'the echoed query has to wrap (WCAG 2.2 AA 1.4.10)',
+      );
+    }
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(ORIGIN + '/', { waitUntil: 'networkidle' });
+
     const landing = await page.locator('main').innerText();
     // Anchored to the number. "concepts" alone also appears in the standfirst
     // above the search field, so the loose version passed with the count line
@@ -419,7 +439,7 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, list semantics, focus ring, the one glow, landing`,
+      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, landing`,
   );
   return 0;
 }
