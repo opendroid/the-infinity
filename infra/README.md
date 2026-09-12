@@ -185,6 +185,41 @@ The `/api/**` rewrite sends matching requests to the Cloud Run service named `ap
 `us-west1`. **Hosting does not strip the prefix** — the service receives the full
 `/api/v1/...` path, which is why the router mounts there. See ADR-0001.
 
+## Cache policy, and why the page hit-rate is low on purpose
+
+`make analytics` reports a cache-hit ratio because ADR-0011 calls it *the static-first
+claim measured*. The first real run read **26.2%**, which looks alarming and is not. The
+policy is set deliberately in [`web/firebase.json`](../web/firebase.json), and measured
+from the live CDN on 2026-09-12:
+
+| path | `Cache-Control` | set by |
+|---|---|---|
+| `/_astro/**` | `public, max-age=31536000, immutable` | `firebase.json` |
+| `/` · `/c/**` · `/t/**` · `**/*.html` | `public, max-age=0, must-revalidate` | `firebase.json` |
+| `/concepts` · `/search-index.json` | `max-age=3600` | **Firebase's default — not configured** |
+
+**`must-revalidate` is the answer.** The edge holds the HTML but may not serve it without
+checking the origin first, so a page request is logged as a miss even when the bytes never
+travel — the revalidation returns `304` with an `ETag` and no body. That is the correct
+trade for this site: content is published on merge to `main`, and a reader must not be
+served last week's page for an hour because an edge decided to keep it.
+
+So **a low page figure is the design working, and a low asset figure would be a real
+defect.** One blended number over both says nothing, which is why the report prints them
+apart with the policy beside each ([#427](https://github.com/opendroid/the-infinity/issues/427)).
+
+Two things this measurement did *not* settle, recorded so nobody assumes they were:
+
+- **`/concepts` and `/search-index.json` are on Firebase's default hour, not a chosen one.**
+  Nothing in `firebase.json` names them. An hour is defensible for both and neither is a
+  concept page, but it is a default rather than a decision, and it is inconsistent with the
+  `must-revalidate` the other routes get.
+- **Whether Firebase logs a `304` revalidation as `cacheHit`** is unknown. If it does, the
+  page figure is already measuring something useful; if it does not, the page figure can
+  only ever be near zero and the honest move is to stop reporting it as a ratio. Settling
+  it needs a controlled request against a warm edge, which is a deliberate experiment
+  rather than a reading of the logs.
+
 ## Analytics — cost, and the ceiling that matters
 
 Analytics are read from request logs the project already has ([ADR-0011](../docs/adr/0011-analytics-from-request-logs.md)).

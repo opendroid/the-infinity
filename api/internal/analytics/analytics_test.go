@@ -303,47 +303,96 @@ func TestSameSiteAcrossSchemes(t *testing.T) {
 	}
 }
 
+/** A request for a hashed asset, which is cached immutable for a year. */
+func asset(hit bool) Entry {
+	return Entry{
+		URL:       "https://theinfinity.ai/_astro/Base.DCmENVSl.css",
+		UserAgent: reader.UserAgent,
+		Status:    200,
+		CacheHit:  hit,
+	}
+}
+
+func TestClassify(t *testing.T) {
+	cases := []struct {
+		name string
+		url  string
+		want Kind
+	}{
+		{"the landing page", "https://theinfinity.ai/", KindPage},
+		{"a concept page", "https://theinfinity.ai/c/attention", KindPage},
+		{"a trail", "https://theinfinity.ai/t/abc", KindPage},
+		{"the concepts index", "https://theinfinity.ai/concepts", KindPage},
+		{"a hashed stylesheet", "https://theinfinity.ai/_astro/Base.DCmENVSl.css", KindAsset},
+		{"a hashed island", "https://theinfinity.ai/_astro/SearchPanel.IX860QLM.js", KindAsset},
+		{"the api", "https://theinfinity.ai/api/v1/concepts/attention/neighborhood", KindAPI},
+		// search-index.json is not under /_astro/ and is not hashed; it is a
+		// page-ish fetch and counted with the pages.
+		{"the search index", "https://theinfinity.ai/search-index.json", KindPage},
+		{"nonsense", "://", KindPage},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			if got := classify(c.url); got != c.want {
+				t.Errorf("classify(%q) = %v, want %v", c.url, got, c.want)
+			}
+		})
+	}
+}
+
 func TestBotsAndCache(t *testing.T) {
 	cases := []struct {
-		name      string
-		entries   []Entry
-		wantBots  Share
-		wantCache Share
+		name       string
+		entries    []Entry
+		wantBots   Share
+		wantPages  Share
+		wantAssets Share
 	}{
 		{
-			name:      "a crawler and a reader, both cached",
-			entries:   []Entry{ahrefs, reader},
-			wantBots:  Share{N: 1, Total: 2},
-			wantCache: Share{N: 2, Total: 2},
+			// THE POINT OF THE SPLIT (#427). One blended figure over these four
+			// reads 50%, which describes neither population: the assets are
+			// perfect and the pages are structurally poor, on purpose.
+			name:       "pages and assets are counted apart",
+			entries:    []Entry{reader, traversal("a", "b"), asset(true), asset(true)},
+			wantBots:   Share{N: 0, Total: 4},
+			wantPages:  Share{N: 1, Total: 2},
+			wantAssets: Share{N: 2, Total: 2},
 		},
 		{
-			// /api/** is a Cloud Run call and is never cached. Counting it would
-			// report static-first as weaker than it is, for an unrelated reason.
-			name:      "the api is not a page and does not dilute the cache ratio",
-			entries:   []Entry{reader, miniMap},
-			wantBots:  Share{N: 1, Total: 2},
-			wantCache: Share{N: 1, Total: 1},
+			name:       "a crawler and a reader, both on cached pages",
+			entries:    []Entry{ahrefs, reader},
+			wantBots:   Share{N: 1, Total: 2},
+			wantPages:  Share{N: 2, Total: 2},
+			wantAssets: Share{},
 		},
 		{
-			name:      "a miss",
-			entries:   []Entry{traversal("a", "b")},
-			wantBots:  Share{N: 0, Total: 1},
-			wantCache: Share{N: 0, Total: 1},
+			// /api/** is a Cloud Run call and is never cached. Counting it
+			// would report static-first as weaker for an unrelated reason.
+			name:       "the api is neither a page nor an asset",
+			entries:    []Entry{reader, miniMap},
+			wantBots:   Share{N: 1, Total: 2},
+			wantPages:  Share{N: 1, Total: 1},
+			wantAssets: Share{},
 		},
 		{
-			name:      "nothing measured",
-			entries:   nil,
-			wantBots:  Share{},
-			wantCache: Share{},
+			name:       "a miss",
+			entries:    []Entry{traversal("a", "b")},
+			wantBots:   Share{N: 0, Total: 1},
+			wantPages:  Share{N: 0, Total: 1},
+			wantAssets: Share{},
 		},
+		{name: "nothing measured", entries: nil, wantBots: Share{}, wantPages: Share{}, wantAssets: Share{}},
 	}
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			if got := Bots(c.entries); got != c.wantBots {
 				t.Errorf("Bots = %+v, want %+v", got, c.wantBots)
 			}
-			if got := Cache(c.entries); got != c.wantCache {
-				t.Errorf("Cache = %+v, want %+v", got, c.wantCache)
+			if got := Cache(c.entries, KindPage); got != c.wantPages {
+				t.Errorf("Cache(pages) = %+v, want %+v", got, c.wantPages)
+			}
+			if got := Cache(c.entries, KindAsset); got != c.wantAssets {
+				t.Errorf("Cache(assets) = %+v, want %+v", got, c.wantAssets)
 			}
 		})
 	}
@@ -402,8 +451,8 @@ func TestCollect(t *testing.T) {
 		if got.Bots != (Share{N: 2, Total: 4}) {
 			t.Errorf("Bots = %+v, want 2 of 4", got.Bots)
 		}
-		if got.Cache != (Share{N: 2, Total: 3}) {
-			t.Errorf("Cache = %+v, want 2 of 3", got.Cache)
+		if got.CachePages != (Share{N: 2, Total: 3}) {
+			t.Errorf("CachePages = %+v, want 2 of 3", got.CachePages)
 		}
 		if !f.since.Equal(since) || f.limit != 500 {
 			t.Errorf("read window = (%v, %d), want (%v, 500)", f.since, f.limit, since)
@@ -421,13 +470,14 @@ func TestCollect(t *testing.T) {
 func TestRender(t *testing.T) {
 	now := time.Date(2026, 9, 11, 6, 0, 0, 0, time.UTC)
 	full := &Report{
-		Now:        now,
-		Total:      4,
-		Concepts:   []Count{{Key: "attention", N: 3}},
-		Traversals: []Edge{{From: "attention", To: "softmax", Type: store.EdgeAdjacent, N: 2}},
-		Jumps:      []Edge{{From: "backpropagation", To: "query-key-value", N: 1}},
-		Bots:       Share{N: 1, Total: 4},
-		Cache:      Share{N: 2, Total: 3},
+		Now:         now,
+		Total:       4,
+		Concepts:    []Count{{Key: "attention", N: 3}},
+		Traversals:  []Edge{{From: "attention", To: "softmax", Type: store.EdgeAdjacent, N: 2}},
+		Jumps:       []Edge{{From: "backpropagation", To: "query-key-value", N: 1}},
+		Bots:        Share{N: 1, Total: 4},
+		CachePages:  Share{N: 2, Total: 3},
+		CacheAssets: Share{N: 5, Total: 5},
 	}
 
 	cases := []struct {
@@ -443,8 +493,11 @@ func TestRender(t *testing.T) {
 			limit:  10000,
 			want: []string{
 				"4 request(s) read",
-				"2 of 3 page request(s)",
-				"1 of 4 request(s)",
+				"2 of 3",
+				"must-revalidate",
+				"5 of 5",
+				"immutable",
+				"1 of 4",
 				"attention",
 				"attention → softmax",
 				"adjacent",
@@ -470,7 +523,7 @@ func TestRender(t *testing.T) {
 				"nothing — no reader opened a concept page",
 				"nothing — no reader followed an edge",
 				"every concept-to-concept move followed an edge",
-				"0 of 0 page request(s)",
+				"0 of 0",
 			},
 		},
 	}
