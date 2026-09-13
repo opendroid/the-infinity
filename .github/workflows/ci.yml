@@ -131,40 +131,43 @@ jobs:
       # silently disabled every check that gates the code, on a push to main, and
       # attributed the failure to something unrelated.
       #
-      # Running it here cannot stop main going red for a reason nobody caused —
-      # only moving the network half to links.yml would, and that is a separate
-      # argument (ADR-0020 made it for citations). What this does is make the red
-      # HONEST: everything else has been checked and reported, so the failure
-      # means what it says.
-      # THE ONE GATE IN THIS FILE THAT REACHES A THIRD PARTY, AND WHY IT IS HERE
-      # ANYWAY (ADR-0017). A `video` explainer is verified through YouTube's
-      # oEmbed endpoint, which 404s for a video that is gone and returns the
-      # real title and channel for one that is live — so this checks that the
-      # recorded attribution MATCHES, not merely that a URL answers.
+      # Ordering alone could not stop main going red for a reason nobody caused;
+      # it only made the red HONEST, by ensuring everything else had already been
+      # checked and reported. The separate argument it pointed at — moving the
+      # network half to links.yml — has since been made, below.
+
+      # NO GATE IN THIS FILE REACHES A THIRD PARTY ANY MORE (#489). The comment
+      # above used to end "only moving the network half to links.yml would, and
+      # that is a separate argument". This is that argument, and it was settled
+      # by evidence rather than taste: three pull requests went red in one
+      # session for a host that did not answer — an ADR, a Go-only change, and
+      # one that edited a single markdown file — and all three passed on an
+      # unchanged re-run.
       #
-      # That cannot be done anywhere else. Authoring sandboxes deny youtube.com,
-      # and `check:citations` cannot be a gate at all: every citation is an
-      # arxiv.org url, arxiv.org asks fifteen seconds between requests, and 485
-      # papers at that rate is a two-hour job. It runs weekly from links.yml
-      # instead (ADR-0020, #361, #375).
+      #   #479  en.wikipedia.org
+      #   #487  youtube.com          1 url, 2 explainers
+      #   #488  en.wikipedia.org    21 urls, 57 explainers
       #
-      # `--fast` IS WHAT KEEPS THAT HONEST. It skips hosts publishing a
-      # crawl-delay and names each one with the number of entries it left
-      # unchecked, so a gate covering a subset cannot print the success line of a
-      # full run. Today it skips nothing — none of the seven explainer hosts
-      # states a delay — and the step stays at about two seconds. The flag is
-      # here for the first host added to the allowlist that does.
+      # The script was not wrong in any of them. It reported "unverified" rather
+      # than "dead", which is exactly what #408 built it to do. The mistake was
+      # where it ran: a required check cannot depend on whether someone else's
+      # server answers in the next six minutes.
       #
-      # It will occasionally be red for reasons nobody caused — a video pulled,
-      # or YouTube unreachable. The script tells those apart: every entry failing
-      # identically exits 2 and says the network is the explanation, rather than
-      # reporting the corpus as dead.
-      # It has no timeout of its own beyond the per-request one, and the worst
-      # case is a host that hangs rather than refuses. The smoke step carries
-      # the same belt for the same reason (#373).
-      - name: Verify explainers
-        timeout-minutes: 6
-        run: npm run check:explainers -- --fast
+      # THE NETWORK HALF IS NOT LOST — links.yml already ran it in full, weekly,
+      # without --fast, on a 20-minute timeout, before this change. So a video
+      # pulled from YouTube is still found, just on Sunday rather than at merge.
+      # ADR-0020 accepted that identical trade for citations against a larger
+      # corpus, 485 papers to 315 pages.
+      #
+      # WHAT STILL FAILS A PULL REQUEST, with no network at all: a url that is
+      # not https, one that does not parse, a host the allowlist does not admit,
+      # a missing or wrong scope, a video url with no id for oEmbed to ask
+      # about, and the same resource described two ways on two nodes. An
+      # invented reference is caught here, immediately, which is the half that
+      # was ever about the pull request.
+      - name: Verify explainers are well formed
+        timeout-minutes: 2
+        run: npm run check:explainers -- --offline
 
   api:
     name: api
