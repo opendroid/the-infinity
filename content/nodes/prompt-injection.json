@@ -57,6 +57,13 @@
       "title": "LLM Powered Autonomous Agents",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-06-23-agent/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What Is a Prompt Injection Attack?",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=jrHRe9lSqqA"
     }
   ],
   "review": {

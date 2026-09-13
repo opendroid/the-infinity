@@ -60,6 +60,13 @@
       "title": "Adversarial Attacks on LLMs",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-10-25-adv-attack-llm/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "AI Red Teaming 101 – Full Course (Episodes 1-10)",
+      "author": "Microsoft Developer",
+      "url": "https://www.youtube.com/watch?v=DwFVhFdD2fs"
     }
   ],
   "review": {

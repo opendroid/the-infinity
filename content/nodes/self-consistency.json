@@ -65,6 +65,13 @@
       "title": "Why We Think",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2025-05-01-thinking/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Chain of Thought Prompting | Self Consistency Prompting Explained | Prompt Engineering 101",
+      "author": "Analytics Vidhya",
+      "url": "https://www.youtube.com/watch?v=5-Fv_ZoAwrE"
     }
   ],
   "review": {

@@ -68,6 +68,13 @@
       "title": "How to Explain the Prediction of a Machine Learning Model?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2017-08-01-interpretation/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Probing | Stanford CS224U Natural Language Understanding | Spring 2021",
+      "author": "Stanford Online",
+      "url": "https://www.youtube.com/watch?v=ElDtkhqv5ZE"
     }
   ],
   "review": {

@@ -60,6 +60,13 @@
       "title": "Robotics Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/robotics-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "L31 04 Safety Envelope Requirements Approach",
+      "author": "Phil Koopman",
+      "url": "https://www.youtube.com/watch?v=_wxlgbl4s-g"
     }
   ],
   "review": {

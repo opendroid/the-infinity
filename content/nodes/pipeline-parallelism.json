@@ -67,6 +67,13 @@
       "title": "How to Train Really Large Models on Many GPUs?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-09-25-train-large/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "PiPPy: Automated Pipeline Parallelism for PyTorch",
+      "author": "PyTorch",
+      "url": "https://www.youtube.com/watch?v=_rC49PeqrWc"
     }
   ],
   "review": {

@@ -65,6 +65,13 @@
       "title": "Robotics Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/robotics-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Dexterity: Machine Learning for Robot Manipulation and Dexterity",
+      "author": "Northwestern Robotics",
+      "url": "https://www.youtube.com/watch?v=Vj50Z7az3TY"
     }
   ],
   "review": {

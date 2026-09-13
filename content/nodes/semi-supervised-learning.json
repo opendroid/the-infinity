@@ -66,6 +66,13 @@
       "title": "Learning with not Enough Data Part 1: Semi-Supervised Learning",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-12-05-semi-supervised/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is Semi-Supervised Learning?",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=C3Lr6Waw66g"
     }
   ],
   "review": {

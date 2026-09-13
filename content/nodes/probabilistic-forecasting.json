@@ -60,6 +60,13 @@
       "title": "Working with Sequences",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-neural-networks/sequence.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Inge van den Ende - Kickstart Your Probabilistic Forecasting | PyData Amsterdam 2025",
+      "author": "PyData",
+      "url": "https://www.youtube.com/watch?v=RIIfZ_Akeoc"
     }
   ],
   "review": {

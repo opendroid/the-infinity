@@ -65,6 +65,13 @@
       "title": "Hardware",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_computational-performance/hardware.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Cracking The Memory Wall",
+      "author": "Semiconductor Engineering",
+      "url": "https://www.youtube.com/watch?v=r5saMdxF8Os"
     }
   ],
   "review": {

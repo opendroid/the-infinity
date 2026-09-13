@@ -60,6 +60,13 @@
       "title": "Working with Sequences",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-neural-networks/sequence.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces (Paper Explained)",
+      "author": "Yannic Kilcher",
+      "url": "https://www.youtube.com/watch?v=9dSkvxS2EB0"
     }
   ],
   "review": {

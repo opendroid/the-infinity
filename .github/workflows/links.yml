@@ -64,8 +64,21 @@ jobs:
       # structural problem or a dead teaching resource is reported within the
       # minute rather than after the arXiv sweep. Without `--fast` — the point of
       # this workflow is that it can afford whatever the hosts ask for.
+      #
+      # YOUTUBE_API_KEY IS FOR ONE NARROW CASE (#493): a video whose owner
+      # disabled embedding answers oEmbed with 401 while the video itself is
+      # public. videos.list checks its title and author instead, at one unit
+      # each against a 10,000/day free tier, and ONLY for entries oEmbed has
+      # already refused — a corpus with none of them makes no API calls at all.
+      #
+      # Without the secret the check still runs and reports those entries as
+      # UNVERIFIABLE rather than invented, exiting 2 like any incomplete run. So
+      # an unset secret degrades to a visible gap instead of a false accusation
+      # against a live lecture, which is the failure #493 was filed for.
       - name: Verify explainers
         timeout-minutes: 20
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: npm run check:explainers
 
       # The two-hour one. `if: always()` so a red explainer check does not
