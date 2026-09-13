@@ -5,6 +5,7 @@ import {
   structuralProblems,
   verifyRead,
   verifyVideo,
+  verifyVideoByApi,
   videoId,
 } from '../../scripts/check-explainers.mjs';
 import { EXPLAINER_HOSTS, hostOf } from '../../scripts/explainer-hosts.mjs';
@@ -214,6 +215,52 @@ describe('a host saying "slow down" is not a page saying "I am gone"', () => {
     expect(r.error).toContain('Something else entirely');
   });
 
+  /**
+   * #493. A video whose owner disabled embedding answers oEmbed with 401 while
+   * the video itself is public — three live Stanford and Northwestern lectures
+   * did exactly that, and were reported as invented references.
+   *
+   * The watch page cannot stand in: YouTube serves 200 and an apology for a
+   * deleted video, which is why this path calls videos.list rather than a URL.
+   */
+  describe('a video that disables embedding (#493)', () => {
+    const video = { kind: 'video' as const, scope: 'concept' as const, node: 'n',
+      title: 'Feature Attribution', author: 'Stanford Online',
+      url: 'https://www.youtube.com/watch?v=RFE6xdfJvag' };
+
+    const api = (body: unknown, status = 200) =>
+      () => Promise.resolve({ ok: status < 400, status, json: () => Promise.resolve(body) } as Response);
+
+    it('is not reported as invented when the attribution checks out', async () => {
+      globalThis.fetch = api({ items: [{ snippet: { title: 'Feature Attribution', channelTitle: 'Stanford Online' } }] }) as never;
+      const r = await verifyVideoByApi(video, 'RFE6xdfJvag', 'key');
+      expect(r.ok).toBe(true);
+      expect(r.viaApi).toBe(true);
+    });
+
+    it('AN EMPTY items IS THE DELETION — the half a watch-page GET cannot do', async () => {
+      globalThis.fetch = api({ items: [] }) as never;
+      const r = await verifyVideoByApi(video, 'RFE6xdfJvag', 'key');
+      expect(r.ok).toBe(false);
+      expect(r.unverifiable).toBeUndefined(); // a real failure, not a soft one
+      expect(r.error).toContain('no such video');
+    });
+
+    it('still catches attribution drift, which is the whole of ADR-0017', async () => {
+      globalThis.fetch = api({ items: [{ snippet: { title: 'Something else', channelTitle: 'Stanford Online' } }] }) as never;
+      const r = await verifyVideoByApi(video, 'RFE6xdfJvag', 'key');
+      expect(r.ok).toBe(false);
+      expect(r.error).toContain('Something else');
+    });
+
+    it('without a key says so, rather than calling a live lecture invented', async () => {
+      const r = await verifyVideoByApi(video, 'RFE6xdfJvag', undefined);
+      expect(r.ok).toBe(false);
+      expect(r.unverifiable).toBe(true);
+      expect(r.error).toContain('YOUTUBE_API_KEY');
+    });
+  });
+
   it('marks a throttled oEmbed the same way, and still calls a 404 a missing video', async () => {
     const video = { ...entry, kind: 'video' as const, url: 'https://www.youtube.com/watch?v=eMlx5fFNoYc' };
     expect((await verifyVideo(video, stub([response(429)]))).throttled).toBe(true);
@@ -225,13 +272,17 @@ describe('a host saying "slow down" is not a page saying "I am gone"', () => {
 });
 
 describe('sortFailures separates the network, the host, and the page', () => {
-  const urls = ['a', 'b', 'c', 'd', 'e'];
-  const results = new Map<string, { ok: boolean; status: number; throttled?: boolean }>([
+  const urls = ['a', 'b', 'c', 'd', 'e', 'f'];
+  const results = new Map<
+    string,
+    { ok: boolean; status: number; throttled?: boolean; unverifiable?: boolean }
+  >([
     ['a', { ok: true, status: 200 }],
     ['b', { ok: false, status: 0 }],
     ['c', { ok: false, status: 429, throttled: true }],
     ['d', { ok: false, status: 404 }],
     ['e', { ok: false, status: 503, throttled: true }],
+    ['f', { ok: false, status: 401, unverifiable: true }],
   ]);
 
   it('puts a rate limit with neither the unreachable nor the dead', () => {
@@ -243,8 +294,19 @@ describe('sortFailures separates the network, the host, and the page', () => {
     expect(real).toEqual(['d']);
   });
 
+  it('separates a permanent refusal from a transient one (#493)', () => {
+    const { throttled, unverifiable, real } = sortFailures(urls, results);
+    // A video whose owner disabled embedding will not succeed on a retry, so it
+    // must not be reported alongside throttling, which tells a reader to re-run.
+    expect(unverifiable).toEqual(['f']);
+    expect(throttled).not.toContain('f');
+    // And above all not here: `real` is the invented-reference bucket, and a
+    // live Stanford lecture landing in it is the defect #493 was filed for.
+    expect(real).not.toContain('f');
+  });
+
   it('does not report a success as any kind of failure', () => {
-    const { blocked, throttled, real } = sortFailures(['a'], results);
-    expect([...blocked, ...throttled, ...real]).toEqual([]);
+    const { blocked, throttled, unverifiable, real } = sortFailures(['a'], results);
+    expect([...blocked, ...throttled, ...unverifiable, ...real]).toEqual([]);
   });
 });

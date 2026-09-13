@@ -213,6 +213,59 @@ export async function verifyRead(e, opts = {}) {
 }
 
 /**
+ * The same check as oEmbed, through the Data API, for a video that refuses to
+ * be embedded (#493).
+ *
+ * ONE UNIT against the hundred a search costs, and only for entries oEmbed has
+ * already refused — so a corpus with none of them makes no calls at all. The
+ * key is optional here: without it the entry is reported as UNVERIFIABLE rather
+ * than as invented, which is the distinction #408 drew for 429 and this extends
+ * to a refusal that is permanent instead of transient.
+ */
+export async function verifyVideoByApi(e, id, key = process.env.YOUTUBE_API_KEY) {
+  if (!key) {
+    return {
+      ok: false,
+      status: 401,
+      unverifiable: true,
+      error: 'embedding disabled, so oEmbed cannot answer — set YOUTUBE_API_KEY to check it against videos.list',
+    };
+  }
+
+  const url = new URL('https://www.googleapis.com/youtube/v3/videos');
+  url.searchParams.set('part', 'snippet');
+  url.searchParams.set('id', id);
+  url.searchParams.set('key', key);
+
+  let body;
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(20_000) });
+    if (THROTTLED.has(res.status)) return { ok: false, status: res.status, throttled: true };
+    if (!res.ok) {
+      return { ok: false, status: res.status, unverifiable: true, error: `videos.list answered HTTP ${res.status}` };
+    }
+    body = await res.json();
+  } catch (err) {
+    return { ok: false, status: 0, error: err instanceof Error ? err.message : String(err) };
+  }
+
+  // AN EMPTY LIST IS THE DELETION. This is the half a watch-page GET cannot do,
+  // and the reason this path is worth an API call at all.
+  const snippet = body?.items?.[0]?.snippet;
+  if (!snippet) {
+    return { ok: false, status: 404, error: 'no such video — deleted, private, or invented (videos.list returned nothing)' };
+  }
+
+  const mismatches = [];
+  if (normalise(snippet.title) !== normalise(e.title)) mismatches.push(`title is "${snippet.title}"`);
+  if (normalise(snippet.channelTitle) !== normalise(e.author)) mismatches.push(`author is "${snippet.channelTitle}"`);
+  if (mismatches.length) {
+    return { ok: false, status: 200, error: `YouTube says ${mismatches.join(' and ')}` };
+  }
+  return { ok: true, status: 200, viaApi: true };
+}
+
+/**
  * Existence AND attribution, for a `video`.
  *
  * oEmbed 404s for a video that is gone, deleted or private — the states a plain
@@ -231,6 +284,19 @@ export async function verifyVideo(e, opts = {}) {
   }
   if (res.status === 404) return { ok: false, status: 404, error: 'no such video — deleted, private, or invented' };
   if (THROTTLED.has(res.status)) return { ok: false, status: res.status, throttled: true };
+
+  // A 401 IS THE OWNER REFUSING EMBEDDING, NOT A DEAD VIDEO (#493). We link to
+  // explainers and never embed them, so it says nothing about whether a reader
+  // can go and watch. Three live Stanford and Northwestern lectures answered
+  // `oembed=401, watch=200` on 2026-09-13 and were reported as invented.
+  //
+  // THE WATCH PAGE CANNOT STAND IN, which is the whole reason this calls an API
+  // rather than a URL: YouTube serves 200 and an apology for a deleted video,
+  // as the note above verifyVideo already records. videos.list distinguishes
+  // them — an empty `items` IS the deletion — and returns title and channel, so
+  // the full ADR-0017 guarantee survives rather than degrading to liveness.
+  if (res.status === 401) return verifyVideoByApi(e, videoId(e.url));
+
   if (!res.ok) return { ok: false, status: res.status };
 
   let body;
@@ -265,6 +331,11 @@ const verify = (e) => (e.kind === 'video' ? verifyVideo(e) : verifyRead(e));
  * unresolvable one affecting eleven concepts — and the fix a reader would draw
  * from that message is to delete eleven working entries.
  *
+ * FOUR NOW, AND THE FOURTH IS PERMANENT (#493). `unverifiable` is a video whose
+ * owner disabled embedding, checked without a YOUTUBE_API_KEY. Unlike a 429 it
+ * will not succeed on a retry — re-running changes nothing — so it is reported
+ * separately from throttling, which tells a reader to try again.
+ *
  * `real` is what still fails the build. Keeping 404 there is the entire point:
  * this check exists to catch invented references, and a softer version of it is
  * the invented-reference rule quietly stopping.
@@ -272,15 +343,17 @@ const verify = (e) => (e.kind === 'video' ? verifyVideo(e) : verifyRead(e));
 export function sortFailures(urls, results) {
   const blocked = [];
   const throttled = [];
+  const unverifiable = [];
   const real = [];
   for (const url of urls) {
     const r = results.get(url);
     if (!r || r.ok) continue;
     if (r.status === 0) blocked.push(url);
     else if (r.throttled === true) throttled.push(url);
+    else if (r.unverifiable === true) unverifiable.push(url);
     else real.push(url);
   }
-  return { blocked, throttled, real };
+  return { blocked, throttled, unverifiable, real };
 }
 
 async function main() {
@@ -343,7 +416,7 @@ async function main() {
   // version of this asked whether the WHOLE corpus failed identically, which
   // stopped meaning anything once the corpus spanned seven hosts.
   const dead = unreachableHosts(results);
-  const { blocked, throttled, real } = sortFailures(failed, results);
+  const { blocked, throttled, unverifiable, real } = sortFailures(failed, results);
 
   for (const url of real) {
     const r = results.get(url);
@@ -394,6 +467,18 @@ async function main() {
     );
   }
 
+  if (unverifiable.length > 0) {
+    const affected = unverifiable.reduce((n, url) => n + groups.get(url).length, 0);
+    console.error(
+      `\n${unverifiable.length} video(s) disable embedding, so oEmbed cannot answer for them:\n` +
+        unverifiable.map((url) => `  ${url} — ${results.get(url).error}`).join('\n') +
+        `\n\nThat is the owner's embedding setting, NOT a broken link — we link to explainers\n` +
+        `and never embed them, so do not remove the entries. ${affected} explainer(s) affected.\n` +
+        `Set YOUTUBE_API_KEY and these are checked against videos.list instead, title and\n` +
+        `author both, which is what CI does.`,
+    );
+  }
+
   // A GENUINE DEAD PAGE OUTRANKS AN INCOMPLETE RUN. Exit 1 is the stronger
   // claim and it is made first: if anything is actually broken, that is what
   // the build should report, with the throttling noted above it.
@@ -404,8 +489,10 @@ async function main() {
   }
 
   // Nobody asked to skip these, so the run is incomplete rather than green —
-  // the same reading #390 gave an unreachable host.
-  if (throttled.length > 0) process.exit(2);
+  // the same reading #390 gave an unreachable host. An unverifiable video is
+  // the same shape: work left undone, and a check that goes green because it
+  // could not look is PLAN.md §8's named failure.
+  if (throttled.length > 0 || unverifiable.length > 0) process.exit(2);
 
   // Counted over the pages actually reached. A --fast run that reported the
   // corpus size would be claiming the entries it skipped.

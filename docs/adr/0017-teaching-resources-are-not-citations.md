@@ -62,6 +62,28 @@ retracted paper still answers 200. PLAN.md §8 calls a source that resolves and 
 nothing "the most common defect by a wide margin"; for this field that class is closed by
 construction.
 
+> **Amended 2026-09-13 ([#493](https://github.com/opendroid/the-infinity/issues/493)).** oEmbed
+> answers **401**, not 404, when a video's owner has disabled **embedding** — and the video is
+> public. Three live course lectures were rejected that way on the first concept-scope search
+> run, two of them Stanford CS224U on exactly their concepts. Embedding permission says nothing
+> about whether a reader can go and watch, which is the only thing this field claims: **we link
+> to explainers and never embed them.**
+>
+> So a 401 falls back to the Data API's `videos.list`, which reports `title` and `channelTitle`
+> for such a video. **The guarantee above is unchanged** — the strings still come from YouTube
+> rather than from a person, and an empty `items` is the deletion, so the dead-video case is
+> still caught. One unit per affected entry against a 10,000/day free tier, and only for entries
+> oEmbed has already refused.
+>
+> The obvious cheaper fix does not work and was tried first: a plain GET of the watch page
+> **cannot** detect deletion, because YouTube serves 200 and an apology. That is why this calls
+> an API rather than a URL.
+>
+> Without a `YOUTUBE_API_KEY` the entry is reported as **unverifiable** and the run exits 2 —
+> a fourth outcome beside #408's three, and distinct from throttling because it is permanent
+> rather than transient: re-running changes nothing. It never lands in the bucket that means
+> *invented*, which was the defect.
+
 **A `read` entry is fetched with the HEAD→GET-on-405/501 pattern** already in
 `check-citations.mjs`. That fallback was written for non-arXiv hosts and, against a corpus
 that is 800/800 arXiv, has never once been exercised.
