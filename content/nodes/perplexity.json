@@ -61,6 +61,13 @@
       "title": "Language Models",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-neural-networks/language-model.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is perplexity?",
+      "author": "Hugging Face",
+      "url": "https://www.youtube.com/watch?v=NURcDHhYe98"
     }
   ],
   "review": {

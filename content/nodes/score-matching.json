@@ -62,6 +62,13 @@
       "title": "What are Diffusion Models?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-07-11-diffusion-models/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Score-based Diffusion Models | Generative AI Animated",
+      "author": "Deepia",
+      "url": "https://www.youtube.com/watch?v=lUljxdkolK8"
     }
   ],
   "review": {

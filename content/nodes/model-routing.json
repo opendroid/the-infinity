@@ -63,6 +63,13 @@
       "title": "Large Transformer Model Inference Optimization",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Intelligent LLM Routing: A New Paradigm for Multi-Model AI Orchestration... Chen Wang & Huamin Chen",
+      "author": "CNCF [Cloud Native Computing Foundation]",
+      "url": "https://www.youtube.com/watch?v=DIwlL5Z8v1o"
     }
   ],
   "review": {

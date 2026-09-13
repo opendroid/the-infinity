@@ -56,6 +56,13 @@
       "title": "Large Transformer Model Inference Optimization",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "LLM Inference Explained: Prefill vs Decode and Why Latency Matters",
+      "author": "Ready Tensor",
+      "url": "https://www.youtube.com/watch?v=HRKFa8LIAQg"
     }
   ],
   "review": {

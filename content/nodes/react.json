@@ -56,6 +56,13 @@
       "title": "LLM Powered Autonomous Agents",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-06-23-agent/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Understanding ReACT with LangChain",
+      "author": "Sam Witteveen",
+      "url": "https://www.youtube.com/watch?v=Eug2clsLtFs"
     }
   ],
   "review": {

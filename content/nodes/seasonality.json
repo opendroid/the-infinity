@@ -57,6 +57,13 @@
       "title": "Working with Sequences",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-neural-networks/sequence.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Time Series Talk : What is Seasonality ?",
+      "author": "ritvikmath",
+      "url": "https://www.youtube.com/watch?v=4hrMdu9CSQs"
     }
   ],
   "review": {

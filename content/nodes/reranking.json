@@ -56,6 +56,13 @@
       "title": "How to Build an Open-Domain Question Answering System?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2020-10-29-odqa/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Do Reranking Models Actually Improve RAG?",
+      "author": "Adam Lucek",
+      "url": "https://www.youtube.com/watch?v=7ZU85v4Kt-Y"
     }
   ],
   "review": {

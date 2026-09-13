@@ -66,6 +66,13 @@
       "title": "Large Transformer Model Inference Optimization",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is a semantic cache?",
+      "author": "Redis",
+      "url": "https://www.youtube.com/watch?v=AtVTT_s8AGc"
     }
   ],
   "review": {

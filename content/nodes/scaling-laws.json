@@ -53,6 +53,13 @@
       "title": "Scaling Laws, Carefully",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2026-06-24-scaling-laws/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Lecture 7: Explaining Neural Scaling Laws",
+      "author": "Data ICMC",
+      "url": "https://www.youtube.com/watch?v=A8F4Qga3NaM"
     }
   ],
   "review": {
