@@ -749,6 +749,31 @@ func TestLandingVisits(t *testing.T) {
 			want:    Landing{Form: 2},
 			left:    0,
 		},
+		{
+			// THE LIVE DEFECT (#486), reproduced. The landing page fetches its
+			// stylesheet and its favicon with "/" as their referer, and both
+			// were counted as a reader going elsewhere — 41 of 172 views, which
+			// reported "no onward request" as 32.6% when it was 56.4%.
+			name: "the page's own subresources are not a reader going anywhere",
+			entries: []Entry{
+				view,
+				onward("/_astro/Base.BKk3gvjO.css"),
+				onward("/favicon.svg"),
+				onward("/og.png"),
+				onward("/api/v1/stats"),
+				onward("/search-index.json"),
+			},
+			want: Landing{Views: 1},
+			left: 1,
+		},
+		{
+			// The bucket must survive the fix: a reader going somewhere this
+			// switch has not enumerated still went somewhere.
+			name:    "a real onward move to an unenumerated page is still counted",
+			entries: []Entry{view, onward("/request"), onward("/t/dense-to-sparse-9k2f")},
+			want:    Landing{Views: 1, Other: 2},
+			left:    0,
+		},
 	}
 
 	for _, c := range cases {

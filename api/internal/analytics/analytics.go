@@ -383,6 +383,18 @@ func LandingVisits(entries []Entry) Landing {
 		if urlPath(e.Referer) != "/" || !sameSite(e.Referer, e.URL) {
 			continue
 		}
+		// A SUBRESOURCE IS NOT A READER (#486). The landing page pulls
+		// /_astro/Base.*.css and /favicon.svg, both with "/" as their referer,
+		// and the first version of this counted them as readers going
+		// elsewhere — 41 of 172 views, which deflated "no onward request" from
+		// 56.4% to 32.6% and would have been quoted at ADR-0023 as the number.
+		//
+		// classify() was already in this file, already answering exactly this,
+		// and already carrying a comment about mixing populations. It was not
+		// used. Kind alone is not enough either: /favicon.svg is KindPage.
+		if !navigable(e.URL) {
+			continue
+		}
 		switch to := urlPath(e.URL); {
 		case to == "/":
 			// A reload, not a move — dropped for the same reason a self-referral
@@ -394,10 +406,31 @@ func LandingVisits(entries []Entry) Landing {
 		case conceptID(e.URL) != "":
 			l.Concept++
 		default:
+			// A real onward move to somewhere unenumerated — /request, a shared
+			// trail. Kept as its own bucket rather than dropped: a reader who
+			// goes somewhere this switch has not heard of still went somewhere.
 			l.Other++
 		}
 	}
 	return l
+}
+
+// navigable reports whether a URL is somewhere a reader could have navigated,
+// as opposed to something the page fetched on their behalf.
+//
+// Two tests, because neither alone is enough. classify() catches /api/** and
+// /_astro/**, and misses /favicon.svg, which is KindPage by elimination. A file
+// extension catches that and would not catch /api/v1/stats. A concept id is
+// never mistaken for a file: the ids are kebab-case slugs and carry no dot.
+func navigable(raw string) bool {
+	if k := classify(raw); k != KindPage {
+		return false
+	}
+	p := urlPath(raw)
+	if p == "" {
+		return false // unparseable, or a URL with no path at all
+	}
+	return !strings.Contains(p[strings.LastIndex(p, "/")+1:], ".")
 }
 
 // urlPath is the path of a URL, or "" if it will not parse.
