@@ -170,6 +170,26 @@ export function titleOf(html) {
 }
 
 /**
+ * What every verifier answers with — and the reason `sortFailures` can sort at
+ * all. THE THREE FLAGS ARE NOT INTERCHANGEABLE: `throttled` is a host saying
+ * "slow down" (#408), `unverifiable` is an entry nothing available could check
+ * (#493), and neither is a dead link. A verdict carrying only `ok` and `status`
+ * is a plain HTTP failure with nothing more to say about it.
+ *
+ * Written down rather than inferred because the union crosses a function
+ * boundary — `verifyVideo` returns `verifyVideoByApi`'s verdict as its own —
+ * and an inferred union of object literals stops normalising when it does.
+ *
+ * @typedef {object} Verdict
+ * @property {boolean} ok
+ * @property {number} status
+ * @property {boolean} [throttled] the host refused to answer, not the page
+ * @property {boolean} [unverifiable] nothing to hand could check it
+ * @property {boolean} [viaApi] checked against videos.list, not oEmbed
+ * @property {string} [error] what is wrong, for a reader of the report
+ */
+
+/**
  * Existence AND identity, for a `read`.
  *
  * A GET alone proves only that SOMETHING answers at that URL, which is exactly
@@ -182,6 +202,8 @@ export function titleOf(html) {
  * concept at a time." and "11.5. Multi-Head Attention — Dive into Deep Learning
  * 1.0.3 documentation" both have to match what a reader would sensibly write
  * down (ADR-0018).
+ *
+ * @returns {Promise<Verdict>}
  */
 export async function verifyRead(e, opts = {}) {
   let res;
@@ -221,6 +243,8 @@ export async function verifyRead(e, opts = {}) {
  * key is optional here: without it the entry is reported as UNVERIFIABLE rather
  * than as invented, which is the distinction #408 drew for 429 and this extends
  * to a refusal that is permanent instead of transient.
+ *
+ * @returns {Promise<Verdict>}
  */
 export async function verifyVideoByApi(e, id, key = process.env.YOUTUBE_API_KEY) {
   if (!key) {
@@ -271,6 +295,8 @@ export async function verifyVideoByApi(e, id, key = process.env.YOUTUBE_API_KEY)
  * oEmbed 404s for a video that is gone, deleted or private — the states a plain
  * GET of the watch page cannot distinguish, because YouTube serves 200 and an
  * apology for all of them.
+ *
+ * @returns {Promise<Verdict>}
  */
 export async function verifyVideo(e, opts = {}) {
   const target = `https://www.youtube.com/watch?v=${videoId(e.url)}`;
