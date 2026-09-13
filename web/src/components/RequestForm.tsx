@@ -43,6 +43,30 @@ export function contextFrom(search: string, referrer: string): string {
   }
 }
 
+/**
+ * The half-written edge to start the reader off, for a context that names a
+ * concept. "" when it does not.
+ *
+ * The entry point is "Suggest an edge" on a concept page, so the reader has
+ * already said which concept they mean by pressing a link attached to it — and
+ * then had to type it again (#471). The page itself teaches this exact shape:
+ * its placeholder reads "A concept, or an edge — speculative decoding ↔
+ * kv-cache", so a prefilled "attention ↔ " completes a pattern the form already
+ * demonstrates rather than inventing one.
+ *
+ * THE SLUG, NOT A PRETTIED-UP TITLE. Only the path is known here; deriving a
+ * title from it would turn "kv-cache" into "Kv Cache", which is wrong, and the
+ * placeholder's own example uses "kv-cache" unmodified. A slug is exact and a
+ * guessed title is not.
+ *
+ * Pure and string-taking so the shapes it must ignore — /request itself, a
+ * referrer that is not a concept — are testable without a DOM.
+ */
+export function seededName(context: string): string {
+  const slug = /^\/c\/([a-z0-9]+(?:-[a-z0-9]+)*)$/.exec(context)?.[1];
+  return slug ? `${slug} ↔ ` : '';
+}
+
 const QUEUED =
   'Noted. It joins the queue for a human to read — nothing has been added to the graph yet, and it grows by someone deciding it should.';
 
@@ -54,7 +78,12 @@ export default function RequestForm() {
 
   useEffect(() => {
     setMounted(true);
-    setContext(contextFrom(window.location.search, document.referrer));
+    const ctx = contextFrom(window.location.search, document.referrer);
+    setContext(ctx);
+    // Only ever a starting point: set once on arrival, never re-applied, so it
+    // cannot fight the reader as they edit or clear it.
+    const seed = seededName(ctx);
+    if (seed !== '') setName(seed);
   }, []);
 
   async function submit(event: FormEvent) {
