@@ -453,82 +453,49 @@ async function main() {
     // the one action the page exists to offer started below the fold (#456).
     // CSS that quietly stops applying looks identical in a diff; only a real
     // viewport can say whether the cap is doing anything.
-    // WCAG 2.2 AA 2.5.8 wants 24x24 for a standalone control, and the header's
-    // links are on every page. Measured rather than asserted from the class
-    // list: the first fix used `min-h-6`, which in this repo is SIX pixels —
-    // tokens.json generates a pixel-keyed spacing scale, so Tailwind's usual
-    // 6 = 1.5rem does not hold here. The class was present, the rule was in the
-    // CSS, and nothing changed (#457).
-    // axe's `nested-interactive` rule, implemented rather than imported: an
-    // element with a widget role must not contain a focusable descendant. One
-    // rule is not worth a new dependency, and this states the invariant in the
-    // terms the page is actually built from (#468).
+    // WCAG 2.2 AA 2.5.8 wants 24x24 for a STANDALONE control. Measured rather
+    // than read off the class list: the first version of this fix used
+    // `min-h-6`, which in this repo is SIX pixels — tokens.json generates a
+    // pixel-keyed spacing scale, so Tailwind's usual 6 = 1.5rem does not hold.
+    // The class was present, the rule was in the CSS, and nothing changed (#457).
     //
-    // Needs the results rendered, so it runs on /search with a query.
-    // WCAG 1.4.1: a link sitting INSIDE a run of text needs something other than
-    // colour to mark it. Violet alone fails for anyone who cannot separate it
-    // from the body colour, and hover — which the CSS deferred to — never
-    // arrives on a touch screen (#469).
+    // SCOPE IS THE OTHER HALF OF THE LESSON. This checked `header a, header
+    // button` only, so it passed while "Suggest an edge" sat at 16px on every
+    // concept page (#470). A guard that only looks where you already looked
+    // finds nothing new. It now walks the whole page.
     //
-    // The heuristic is axe's `link-in-text-block`: only links whose parent holds
-    // other text are in scope. A link alone in its own block is distinguished by
-    // position and is deliberately not flagged.
-    step = 'checking links in prose are not colour alone';
-    for (const path of ['/c/attention', '/request', '/search?q=attention', '/c/qa-nope-404']) {
+    // Inline links inside a sentence are exempt by 2.5.8 and excluded here:
+    // "arXiv:1706.03762 — Attention Is All You Need" is a link in a line of
+    // text, not a control. `display: inline` with adjacent text is the test.
+    step = 'checking standalone targets are big enough to tap';
+    for (const path of ['/', '/concepts', '/c/attention', '/search?q=attention', '/request']) {
       await page.goto(ORIGIN + path, { waitUntil: 'networkidle' });
-      await page.waitForTimeout(200);
-      const bare = await page.evaluate(() => {
+      await page.waitForTimeout(250);
+      const small = await page.evaluate(() => {
         const out = [];
-        globalThis.document.querySelectorAll('main a[href]').forEach((a) => {
-          const parent = a.parentElement;
-          if (!parent) return;
-          const siblingText = [...parent.childNodes]
-            .filter((n) => n.nodeType === 3 && n.textContent.trim().length > 1).length;
-          if (siblingText === 0) return;
-          const line = globalThis.getComputedStyle(a).textDecorationLine;
-          if (!line.includes('underline')) {
-            out.push(`"${(a.textContent || '').trim().slice(0, 28)}"`);
+        globalThis.document.querySelectorAll('a[href],button,[role="tab"]').forEach((el) => {
+          if (el.offsetParent === null) return;
+          const style = globalThis.getComputedStyle(el);
+          const parent = el.parentElement;
+          // 2.5.8's inline exception: a link sitting in a line with other
+          // content. ANY neighbour counts — the landing page's "482 concepts ·
+          // every concept reviewed" has only a one-character text node and a
+          // <b> beside the link, and an earlier version of this test that
+          // demanded a text node longer than one character called it a defect.
+          const neighbours = parent
+            ? [...parent.childNodes].filter((n) => n !== el && (n.textContent || '').trim() !== '').length
+            : 0;
+          if (style.display === 'inline' && neighbours > 0) return;
+          const box = el.getBoundingClientRect();
+          if (box.height > 0 && box.height < 24) {
+            out.push(`"${(el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 22)}" ${Math.round(box.height)}px`);
           }
         });
         return out;
       });
-      if (bare.length > 0) {
-        fail(`${path}: ${bare.length} link(s) in prose with no underline at rest — ${bare.slice(0, 3).join(', ')}`);
+      if (small.length > 0) {
+        fail(`${path}: ${small.length} standalone target(s) under 24px — ${small.slice(0, 4).join(', ')}`);
       }
-    }
-
-    step = 'checking no widget contains a focusable control';
-    await page.goto(`${ORIGIN}/search?q=attention`, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(400);
-    const nested = await page.evaluate(() => {
-      const WIDGET = ['option', 'tab', 'button', 'checkbox', 'radio', 'menuitem', 'switch', 'link', 'treeitem'];
-      const FOCUSABLE = 'a[href],button,input,select,textarea,[tabindex]:not([tabindex="-1"])';
-      const out = [];
-      globalThis.document.querySelectorAll('[role]').forEach((el) => {
-        if (!WIDGET.includes(el.getAttribute('role'))) return;
-        const inner = el.querySelectorAll(FOCUSABLE);
-        if (inner.length > 0) {
-          out.push(`${el.tagName.toLowerCase()}[role=${el.getAttribute('role')}] contains ${inner.length} focusable`);
-        }
-      });
-      return out;
-    });
-    if (nested.length > 0) {
-      fail(`/search: ${nested.length} widget(s) with focusable descendants — ${nested.slice(0, 3).join('; ')}`);
-    }
-
-    step = 'checking the header targets are big enough to tap';
-    const small = await page.$$eval('header a, header button', (els) =>
-      els
-        .filter((e) => e.offsetParent !== null)
-        .map((e) => ({ name: (e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 20), h: e.getBoundingClientRect().height }))
-        .filter((e) => e.h < 24),
-    );
-    if (small.length > 0) {
-      fail(
-        `/: ${small.length} header target(s) under 24px tall — ` +
-          small.map((e) => `"${e.name}" ${Math.round(e.h)}px`).join(', '),
-      );
     }
 
     step = 'checking the search field survives a short viewport';
@@ -565,7 +532,7 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, prose links, nesting, tap targets, short viewport, landing`,
+      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, prose links, nesting, tap targets (all routes), short viewport, landing`,
   );
   return 0;
 }

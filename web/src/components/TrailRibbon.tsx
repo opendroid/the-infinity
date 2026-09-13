@@ -147,7 +147,11 @@ export default function TrailRibbon({ id, title, tier, depth = 'intuition' }: Pr
           <a
             href={`/c/${stop.id}`}
             className={[
-              'whitespace-nowrap text-[13px] no-underline max-md:hidden',
+              // min-h-[24px] for 2.5.8: a stop is a standalone control, and at
+              // 13px its line box came to 21. Found by widening the tap-target
+              // guard past the header (#470) — and only at desktop width, since
+              // below 768px the title is hidden and a tier dot shows instead.
+              'inline-flex min-h-[24px] items-center whitespace-nowrap text-[13px] no-underline max-md:hidden',
               stop.id === id ? 'font-bold text-thread' : 'text-starlight',
             ].join(' ')}
           >
