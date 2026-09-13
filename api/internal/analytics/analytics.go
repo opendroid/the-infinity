@@ -88,12 +88,32 @@ type Report struct {
 	// Traversals followed a declared edge. Jumps did not.
 	Traversals []Edge
 	Jumps      []Edge
-	Bots       Share
+	// Moves is what those two lists are OF, before -top truncates them. An
+	// empty Jumps without it is unreadable (#482).
+	Moves Moves
+	Bots  Share
 	// Cache is split by Kind: pages and hashed assets are cached to opposite
 	// policies on purpose, so one number for both answers neither (#427).
 	CachePages  Share
 	CacheAssets Share
 }
+
+// Moves counts every concept-to-concept navigation in the window, before -top
+// truncates the printed rows.
+//
+// WITHOUT IT AN EMPTY JUMP LIST SAYS NOTHING (#482). The first real run printed
+// "nothing — every concept-to-concept move followed an edge" over a total of
+// roughly forty moves, in a window that had itself been cut short by -limit.
+// "0 of 40" and "0 of 4000" are different claims about the graph and the report
+// rendered them identically — the exact mistake the denominator rule below was
+// written to prevent, in the one section that did not apply it.
+type Moves struct {
+	Along  int // the navigation followed a declared edge
+	Jumped int // it did not
+}
+
+// Total is every concept-to-concept move seen, followed or not.
+func (m Moves) Total() int { return m.Along + m.Jumped }
 
 // conceptID returns the slug of a /c/<slug> URL, or "" for anything else.
 //
@@ -248,7 +268,7 @@ func TopConcepts(entries []Entry, n int) []Count {
 //
 // Self-referrals are dropped — a reload, or the page's own mini-map fetch — and
 // so are bots, which do not follow edges so much as enumerate them.
-func Traversals(entries []Entry, n int, edge EdgeLookup) (along, jumps []Edge) {
+func Traversals(entries []Entry, n int, edge EdgeLookup) (along, jumps []Edge, moves Moves) {
 	type move struct {
 		from, to string
 	}
@@ -270,13 +290,17 @@ func Traversals(entries []Entry, n int, edge EdgeLookup) (along, jumps []Edge) {
 	for m, count := range tally {
 		kind, ok := edge(m.from, m.to)
 		row := Edge{From: m.from, To: m.to, Type: kind, N: count}
+		// Counted before rankEdges truncates to n, so the denominator is the
+		// window's real total rather than the sum of the rows that fit.
 		if ok {
 			along = append(along, row)
+			moves.Along += count
 		} else {
 			jumps = append(jumps, row)
+			moves.Jumped += count
 		}
 	}
-	return rankEdges(along, n), rankEdges(jumps, n)
+	return rankEdges(along, n), rankEdges(jumps, n), moves
 }
 
 // rankEdges orders by count, ties broken by name so two runs of the same window
@@ -337,7 +361,7 @@ func Collect(ctx context.Context, r Reader, since time.Time, limit, top int, now
 	if err != nil {
 		return nil, err
 	}
-	along, jumps := Traversals(entries, top, edge)
+	along, jumps, moves := Traversals(entries, top, edge)
 	return &Report{
 		Since:       since,
 		Now:         now,
@@ -345,10 +369,29 @@ func Collect(ctx context.Context, r Reader, since time.Time, limit, top int, now
 		Concepts:    TopConcepts(entries, top),
 		Traversals:  along,
 		Jumps:       jumps,
+		Moves:       moves,
 		Bots:        Bots(entries),
 		CachePages:  Cache(entries, KindPage),
 		CacheAssets: Cache(entries, KindAsset),
 	}, nil
+}
+
+// moveCount is the denominator line under each traversal heading.
+//
+// Zero moves is said in words rather than as "0 of 0", which reads like a
+// measurement and is the absence of one: nobody navigated between two concept
+// pages in this window, so neither list could have had anything in it.
+func moveCount(n, total, shown int) string {
+	if total == 0 {
+		return "no concept-to-concept moves in this window"
+	}
+	s := fmt.Sprintf("%d of %d concept-to-concept moves", n, total)
+	// Only when rows were dropped. If every move is on screen, saying "showing
+	// the top N" is noise; if some are not, its absence is a lie of omission.
+	if shown > 0 && n > shown {
+		s += fmt.Sprintf("; showing the top %d pair(s)", shown)
+	}
+	return s
 }
 
 // Render writes the whole report, or nothing. Built in memory and written once,
@@ -395,21 +438,25 @@ func (r *Report) Render(w io.Writer, days, limit int, filter string) error {
 
 	// The question a page-view counter cannot answer, and the reason ADR-0011
 	// reads referrers rather than installing a counter at all.
+	//
+	// BOTH HEADINGS CARRY THE DENOMINATOR (#482). The rows are truncated to
+	// -top; the counts are not, so "38 of 40" describes the window and not the
+	// fifteen lines underneath it.
+	total := r.Moves.Total()
 	fmt.Fprintf(&b, "\nEDGES PULLED — a reader followed a declared edge\n")
-	if len(r.Traversals) == 0 {
-		b.WriteString("  nothing — no reader followed an edge in this window\n")
-	}
+	fmt.Fprintf(&b, "  %s\n", moveCount(r.Moves.Along, total, len(r.Traversals)))
 	for _, e := range r.Traversals {
 		fmt.Fprintf(&b, "  %-44s %-9s %d\n", e.From+" → "+e.To, e.Type, e.N)
 	}
 
 	// The half that was being reported as edges until #426, and the half worth
-	// reading closely: these are pairs the readership connected and the graph
-	// does not.
-	fmt.Fprintf(&b, "\nJUMPED, NO EDGE — candidate edges the readership is asking for\n")
-	if len(r.Jumps) == 0 {
-		b.WriteString("  nothing — every concept-to-concept move followed an edge\n")
-	}
+	// reading closely: pairs the readership connected and the graph does not.
+	//
+	// The heading says what the rows ARE, not what they mean. It used to read
+	// "candidate edges the readership is asking for", which is true of a row
+	// and asserts something quite different when there are none.
+	fmt.Fprintf(&b, "\nJUMPED, NO EDGE — pairs the readership connected and the graph does not\n")
+	fmt.Fprintf(&b, "  %s\n", moveCount(r.Moves.Jumped, total, len(r.Jumps)))
 	for _, e := range r.Jumps {
 		fmt.Fprintf(&b, "  %-44s %-9s %d\n", e.From+" → "+e.To, "", e.N)
 	}

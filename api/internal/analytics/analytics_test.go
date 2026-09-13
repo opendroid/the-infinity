@@ -189,6 +189,8 @@ func TestTraversals(t *testing.T) {
 		edges     EdgeLookup
 		wantAlong []Edge
 		wantJumps []Edge
+		// wantMoves counts MOVES, not rows — a pair walked twice counts twice.
+		wantMoves int
 	}{
 		{
 			name:      "a reader following a declared edge",
@@ -196,6 +198,7 @@ func TestTraversals(t *testing.T) {
 			edges:     liveEdges,
 			wantAlong: []Edge{{From: "transformer-block", To: "feed-forward-network", Type: store.EdgeRequires, N: 1}},
 			wantJumps: []Edge{},
+			wantMoves: 1,
 		},
 		{
 			// THE DEFECT #426 IS ABOUT. This pair was reported under "EDGES
@@ -205,6 +208,7 @@ func TestTraversals(t *testing.T) {
 			edges:     liveEdges,
 			wantAlong: []Edge{},
 			wantJumps: []Edge{{From: "backpropagation", To: "query-key-value", N: 1}},
+			wantMoves: 1,
 		},
 		{
 			name: "the live run, split",
@@ -220,6 +224,9 @@ func TestTraversals(t *testing.T) {
 				{From: "backpropagation", To: "query-key-value", N: 1},
 				{From: "neural-audio-codec", To: "backpropagation", N: 1},
 			},
+			// FOUR, not three: attention → graph-neural-network was walked
+			// twice and the denominator counts moves, not distinct pairs.
+			wantMoves: 4,
 		},
 		{
 			// Without a corpus nothing can be classified, and calling every move
@@ -229,6 +236,7 @@ func TestTraversals(t *testing.T) {
 			edges:     NoEdges,
 			wantAlong: []Edge{},
 			wantJumps: []Edge{{From: "transformer-block", To: "feed-forward-network", N: 1}},
+			wantMoves: 1,
 		},
 		{
 			name:      "a page's own mini-map fetch is not a traversal",
@@ -276,9 +284,14 @@ func TestTraversals(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			along, jumps := Traversals(c.entries, 10, c.edges)
+			along, jumps, moves := Traversals(c.entries, 10, c.edges)
 			assertEdges(t, "along", along, c.wantAlong)
 			assertEdges(t, "jumps", jumps, c.wantJumps)
+			// The denominator is the point of #482: it must count MOVES, not
+			// rows, so a pair walked twice counts twice.
+			if got, want := moves.Total(), c.wantMoves; got != want {
+				t.Errorf("moves.Total() = %d, want %d", got, want)
+			}
 		})
 	}
 }
@@ -521,9 +534,14 @@ func TestRender(t *testing.T) {
 			limit:  10000,
 			want: []string{
 				"nothing — no reader opened a concept page",
-				"nothing — no reader followed an edge",
-				"every concept-to-concept move followed an edge",
+				// No moves at all is said in words. "0 of 0 moves" reads like a
+				// measurement and is the absence of one (#482).
+				"no concept-to-concept moves in this window",
 				"0 of 0",
+			},
+			absent: []string{
+				// The heading must not assert what an empty list means.
+				"candidate edges the readership is asking for",
 			},
 		},
 	}
@@ -558,3 +576,98 @@ func TestRender(t *testing.T) {
 type brokenPipe struct{}
 
 func (brokenPipe) Write([]byte) (int, error) { return 0, errors.New("broken pipe") }
+
+// The whole of #482: an empty jump list is a claim about the graph, and until
+// the denominator shipped it was rendered identically whether it summarised
+// forty moves or four thousand.
+//
+// THIS TEST FAILS IF THE DENOMINATOR LINE IS DELETED, which the assertions in
+// TestRender above do not — they check for substrings that survive the removal.
+func TestTraversalDenominator(t *testing.T) {
+	now := time.Date(2026, 9, 13, 2, 23, 0, 0, time.UTC)
+
+	cases := []struct {
+		name   string
+		report *Report
+		want   []string
+		absent []string
+	}{
+		{
+			// The shape of the run that prompted the issue: every move followed
+			// an edge, and the report used to say only "nothing".
+			name: "no jumps, said against the number of moves",
+			report: &Report{
+				Now:        now,
+				Concepts:   []Count{},
+				Traversals: []Edge{{From: "attention", To: "softmax", Type: store.EdgeAdjacent, N: 40}},
+				Jumps:      []Edge{},
+				Moves:      Moves{Along: 40},
+			},
+			want:   []string{"40 of 40 concept-to-concept moves", "0 of 40 concept-to-concept moves"},
+			absent: []string{"every concept-to-concept move followed an edge"},
+		},
+		{
+			name: "a jump is counted against the same total",
+			report: &Report{
+				Now:        now,
+				Concepts:   []Count{},
+				Traversals: []Edge{{From: "attention", To: "softmax", Type: store.EdgeAdjacent, N: 3}},
+				Jumps:      []Edge{{From: "backpropagation", To: "query-key-value", N: 1}},
+				Moves:      Moves{Along: 3, Jumped: 1},
+			},
+			want: []string{"3 of 4 concept-to-concept moves", "1 of 4 concept-to-concept moves"},
+		},
+		{
+			// Rows are capped at -top; the counts are not. Saying "5 of 9" over
+			// two printed rows without admitting the truncation would be the
+			// -limit defect one section further down.
+			name: "says when rows were dropped",
+			report: &Report{
+				Now:        now,
+				Concepts:   []Count{},
+				Traversals: []Edge{{From: "a", To: "b", N: 3}, {From: "c", To: "d", N: 2}},
+				Jumps:      []Edge{},
+				Moves:      Moves{Along: 9},
+			},
+			want: []string{"9 of 9 concept-to-concept moves; showing the top 2 pair(s)"},
+		},
+		{
+			name: "one move per pair does not claim to be showing a top",
+			report: &Report{
+				Now:        now,
+				Concepts:   []Count{},
+				Traversals: []Edge{{From: "a", To: "b", N: 1}},
+				Jumps:      []Edge{},
+				Moves:      Moves{Along: 1},
+			},
+			absent: []string{"showing the top"},
+		},
+		{
+			// Zero moves is the absence of a measurement, not a measurement of
+			// zero. "0 of 0" invites a reader to treat it as a finding.
+			name:   "no moves at all is said in words",
+			report: &Report{Now: now, Concepts: []Count{}, Traversals: []Edge{}, Jumps: []Edge{}},
+			want:   []string{"no concept-to-concept moves in this window"},
+			absent: []string{"0 of 0 concept-to-concept moves"},
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			var b strings.Builder
+			if err := c.report.Render(&b, 7, 10000, "logName=…"); err != nil {
+				t.Fatalf("Render: %v", err)
+			}
+			for _, want := range c.want {
+				if !strings.Contains(b.String(), want) {
+					t.Errorf("missing %q in:\n%s", want, b.String())
+				}
+			}
+			for _, absent := range c.absent {
+				if strings.Contains(b.String(), absent) {
+					t.Errorf("unexpected %q in:\n%s", absent, b.String())
+				}
+			}
+		})
+	}
+}
