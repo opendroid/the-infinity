@@ -58,21 +58,47 @@ they keep is a page that paints with nothing to download and works with scriptin
   product. That is the cost of this decision, and this file is where it is written down —
   the previous record was a comment inside `index.astro`, which no one auditing the site
   from outside will ever see.
-- **This is revisitable on evidence, and the evidence is cheap.** `make analytics` prints a
-  `LANDING` section: landing views, how many submitted the form, and how many made no
-  onward request at all. If the share that leaves without searching is bad, reopen this
-  with the number.
+- **This was revisitable on evidence, and the evidence has now been taken.** `make analytics`
+  prints a `LANDING` section: landing views, how many submitted the form, and how many made
+  no onward request at all.
 
-  **They are requests, not sessions** ([#484](https://github.com/opendroid/the-infinity/issues/484)).
+  **Measured 2026-09-13** — 173 landing views, of which **7.5% submitted the form**, 31.8%
+  went to a concept, 4.0% to `/concepts`, 1.7% elsewhere, and **54.9% made no onward
+  request**.
+
+  The question was whether readers *stall* on the form and route around it — which would
+  show as them reaching for the header's overlay instead. The log cannot separate an
+  overlay result from a featured link, but the ranking answers it: the six concepts this
+  page features (`attention`, `backpropagation`, `kv-cache`, `mixture-of-experts`,
+  `positional-encoding`, `transformer-block`) are **all in the top eleven of TOP CONCEPTS,
+  five of them in the top seven**. Overlay searches would scatter across 482 concepts;
+  these concentrate on the curated six. Readers who act are clicking a featured link, not
+  working around a box that failed them.
+
+  **The decision stands on this rather than on nobody having checked.** A bounce near 55%
+  is unremarkable for a landing page. What would change it: the featured-versus-overlay
+  split *measured* instead of inferred, form submissions falling while concept arrivals
+  hold, or a materially larger sample — 13 submissions is a small number to settle an
+  argument with. Reopen [#473](https://github.com/opendroid/the-infinity/issues/473) with
+  the number, not without one.
+
+  **Read the figures as requests, not sessions** ([#484](https://github.com/opendroid/the-infinity/issues/484)).
   The log carries no session id and no timestamp per reader, so a reload counts twice and
-  two readers landing once look like one landing twice. And *"went to a concept"* is a
-  featured link **or** the header's search overlay — the log cannot separate them, so
-  neither may be claimed alone. The section is a proxy, and a thin window is not a finding.
+  two readers landing once look like one landing twice. The window above was also truncated
+  — the `-limit` of 10,000 was reached at 30 days — so it describes the most recent 10,000
+  requests rather than the month, though it held steady across three runs. And roughly half
+  of all traffic is crawlers, which `LANDING` and `TOP CONCEPTS` exclude and the headline
+  request count does not. The section is a proxy; a thin window is not a finding.
 
   When this ADR was written it said this paragraph's measurement came from `make analytics`.
-  It did not: the command had no landing section, and nobody noticed because nobody ran it.
-  The section exists now, and this note stays as the record of an ADR that demanded a number
-  of #473 and did not check that its own instruction produced one.
+  It did not: the command had no landing section, and nobody noticed because nobody ran it
+  ([#484](https://github.com/opendroid/the-infinity/issues/484)). The section then shipped
+  counting the page's own stylesheet and favicon as readers going elsewhere, which reported
+  the headline figure as 32.6% when it was 54.9%
+  ([#486](https://github.com/opendroid/the-infinity/issues/486)). Both were found by running
+  the thing rather than reading it, forty minutes apart. This note stays as the record of an
+  ADR that demanded a number of #473 and twice failed to check that its own instruction
+  produced a true one.
 - If it is ever reversed, `/`'s perf budget moves in the same pull request, because
   `perf-budget.json` requires the commit message to justify it.
 
