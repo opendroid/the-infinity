@@ -39,6 +39,9 @@
     "adjacent": [
       {
         "id": "process-supervision"
+      },
+      {
+        "id": "backpropagation"
       }
     ]
   },
