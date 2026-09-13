@@ -100,6 +100,22 @@
     "reason": "homonym — returns cloud attestation and cryptographic verification"
   },
   {
+    "target": "failure-recovery",
+    "reason": "homonym — returns database transaction recovery, not checkpoint/restart when an accelerator dies"
+  },
+  {
+    "target": "fill-in-the-middle",
+    "reason": "only candidate is a WIRED five-levels explainer of machine learning generally"
+  },
+  {
+    "target": "grammar-constrained-decoding",
+    "reason": "only candidate is speculative decoding, a different decoding-time technique"
+  },
+  {
+    "target": "graph-capture",
+    "reason": "homonym — returns graph neural networks, not a compiler tracing an eager program"
+  },
+  {
     "target": "human-evaluation",
     "reason": "best candidate is LLM-as-judge, which is the automated alternative to this"
   },
@@ -126,5 +142,81 @@
   {
     "target": "likelihood-vs-sample-quality",
     "reason": "candidate teaches maximum likelihood, not the trade-off against sample quality"
+  },
+  {
+    "target": "long-range-dependency",
+    "reason": "only candidate is a general LSTM explainer"
+  },
+  {
+    "target": "loss-spike",
+    "reason": "candidates explain what a loss function is, not why loss spikes mid-training"
+  },
+  {
+    "target": "membership-in-training-data",
+    "reason": "homonym — returns the train/test split, not membership inference"
+  },
+  {
+    "target": "merge-interference",
+    "reason": "homonym — returns causal \"interference\" in econometrics, not interference between merged weights"
+  },
+  {
+    "target": "merge-vs-ensemble",
+    "reason": "homonym — returns bagging vs boosting, a comparison between two ensembling methods"
+  },
+  {
+    "target": "model-card",
+    "reason": "homonym — matched the word \"model\", not the documentation artifact"
+  },
+  {
+    "target": "model-cascade",
+    "reason": "homonym — returns Haar cascades in classical computer vision"
+  },
+  {
+    "target": "model-soup",
+    "reason": "homonym — matched the phrase \"soup-to-nuts\" in an ArcGIS AutoML tutorial"
+  },
+  {
+    "target": "optimizer-state",
+    "reason": "only candidate explains the Adam optimizer, not the memory its state occupies"
+  },
+  {
+    "target": "output-watermarking",
+    "reason": "only candidate is a news video, not a teaching resource on watermarking schemes"
+  },
+  {
+    "target": "overfitting",
+    "reason": "candidates are generic ML-course filler; for a concept this central a mediocre video is worse than none — revisit with a better query"
+  },
+  {
+    "target": "paged-attention",
+    "reason": "only candidate is attention in general, nothing on vLLM’s paged KV cache"
+  },
+  {
+    "target": "parsing",
+    "reason": "homonym — returns compiler and document parsing, not syntactic parsing of natural language"
+  },
+  {
+    "target": "pruning",
+    "reason": "homonym — returns alpha-beta, decision trees and synaptic pruning, not magnitude pruning of weights"
+  },
+  {
+    "target": "repository-context",
+    "reason": "homonym — returns repository recommendation, not repository context fed to a coding model"
+  },
+  {
+    "target": "representation-bias",
+    "reason": "homonym — returns the bias-variance tradeoff, a different sense of bias entirely"
+  },
+  {
+    "target": "sampling-steps",
+    "reason": "homonym — returns survey sampling in statistics, not denoising steps"
+  },
+  {
+    "target": "selective-prediction",
+    "reason": "candidates are SVM classification and the selective-labels problem, neither of which is abstaining when unsure"
+  },
+  {
+    "target": "self-reflection",
+    "reason": "only candidate is a clickbait reaction video"
   }
 ]
