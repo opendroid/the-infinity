@@ -229,6 +229,22 @@ export default function SearchPanel({ mode, initialQuery = '' }: Props) {
           aria-activedescendant={hits[cursor] ? `hit-${hits[cursor].id}` : undefined}
           className="min-w-0 flex-1 bg-transparent text-[15px] text-starlight outline-none placeholder:text-dust"
         />
+        {query !== '' && (
+          // Focus goes back to the field, not to <body>: the reader cleared the
+          // box to type something else, and #405 is the standing lesson about
+          // what happens when a control drops focus on the way out.
+          <button
+            type="button"
+            onClick={() => {
+              setQuery('');
+              inputRef.current?.focus();
+            }}
+            aria-label="Clear search"
+            className="inline-flex h-[24px] w-[24px] shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-[15px] leading-none text-dust hover:text-starlight focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-thread"
+          >
+            <span aria-hidden="true">✕</span>
+          </button>
+        )}
         {mode === 'overlay' && (
           <kbd className="shrink-0 rounded-[4px] border border-line px-1.5 py-0.5 font-mono text-[10px] text-dust">
             ESC

@@ -92,6 +92,20 @@
    * Height here rather than padding: padding would move the track inside the
    * box and leave the thumb's offset to be re-derived for each engine.
    */
+  /*
+   * ONE CLEAR CONTROL, THE SAME IN EVERY ENGINE (#472).
+   *
+   * `type=search` gets a native ✕ in Chromium and Safari and nothing in Firefox,
+   * so the affordance existed or not depending on the browser — and every QA
+   * pass this project has run was Chromium, which is why it took a Firefox run
+   * to notice. Suppressing the native one and drawing our own is what stops
+   * Chromium and Safari showing two side by side.
+   */
+  input[type='search']::-webkit-search-cancel-button {
+    appearance: none;
+    display: none;
+  }
+
   input[type='range'] {
     appearance: none;
     background: transparent;
