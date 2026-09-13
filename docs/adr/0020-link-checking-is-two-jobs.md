@@ -61,8 +61,25 @@ between successive requests. `perHost` parallelism stays for hosts that publish 
 success line never counts what it skipped — the discipline `--offline` already follows with
 its "NOT resolved" wording.
 
-**The pull-request gate is `check:explainers --fast`.** It covers 126 URLs on seven hosts,
-none of them delayed, in about two seconds.
+**The pull-request gate is `check:explainers --offline`.** Structural checks only, no network
+at all: a url that is not https, one that does not parse, a host the allowlist does not
+admit, a missing or wrong scope, a video url with no id for oEmbed to ask about, and the
+same resource described two ways on two nodes. An invented reference is caught immediately,
+which is the half that was ever about the pull request.
+
+> **Amended 2026-09-13 ([#489](https://github.com/opendroid/the-infinity/issues/489)).** This
+> clause originally read *"the pull-request gate is `check:explainers --fast`… about two
+> seconds"*, on the reasoning that the fast half was cheap enough to gate on. The measurement
+> held and the conclusion did not: cheap is not the same as *reliable*, and a gate that
+> reaches a third party fails for reasons the pull request cannot fix. Three went red in one
+> session — an ADR, a Go-only change, and one that edited a single markdown file — for
+> `en.wikipedia.org` and `youtube.com` not answering, and all three passed on an unchanged
+> re-run. One of them took three minutes, not two seconds.
+>
+> The network half moved to the weekly sweep, which **already ran it in full**, so nothing
+> was added and nothing is lost but latency: a video pulled from YouTube is found on Sunday
+> rather than at merge. That is the identical trade this ADR already accepted for citations,
+> against a larger corpus — 485 papers to 315 pages.
 
 **The sweep is `.github/workflows/links.yml`, weekly.** It runs both checks in full with
 delays honoured. Weekly rather than nightly because link rot is slow and a two-hour job
