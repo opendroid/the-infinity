@@ -1312,7 +1312,13 @@
             "tier": "verified"
           }
         ],
-        "adjacent": []
+        "adjacent": [
+          {
+            "id": "credit-assignment",
+            "title": "Credit Assignment",
+            "tier": "verified"
+          }
+        ]
       }
     },
     {
@@ -3461,6 +3467,11 @@
         ],
         "adjacent": [
           {
+            "id": "backpropagation",
+            "title": "Backpropagation",
+            "tier": "verified"
+          },
+          {
             "id": "process-supervision",
             "title": "Process Supervision",
             "tier": "verified"
@@ -4121,6 +4132,11 @@
           {
             "id": "language-imbalance",
             "title": "Language Imbalance",
+            "tier": "verified"
+          },
+          {
+            "id": "low-resource-language",
+            "title": "Low-Resource Language",
             "tier": "verified"
           }
         ]
@@ -9311,6 +9327,11 @@
           {
             "id": "annotation-quality",
             "title": "Annotation Quality",
+            "tier": "verified"
+          },
+          {
+            "id": "data-scaling-laws",
+            "title": "Data Scaling Laws",
             "tier": "verified"
           },
           {
@@ -20336,6 +20357,13 @@
           "tier": "verified",
           "x": 200,
           "y": 121
+        },
+        {
+          "id": "credit-assignment",
+          "title": "Credit Assignment",
+          "tier": "verified",
+          "x": 120,
+          "y": 22
         }
       ],
       "links": [
@@ -20398,6 +20426,11 @@
           "from": "backpropagation",
           "to": "vanishing-gradient",
           "type": "unlocks"
+        },
+        {
+          "from": "backpropagation",
+          "to": "credit-assignment",
+          "type": "adjacent"
         }
       ]
     },
@@ -24569,11 +24602,18 @@
           "y": 88
         },
         {
+          "id": "backpropagation",
+          "title": "Backpropagation",
+          "tier": "verified",
+          "x": 80,
+          "y": 22
+        },
+        {
           "id": "process-supervision",
           "title": "Process Supervision",
           "tier": "verified",
-          "x": 120,
-          "y": 22
+          "x": 160,
+          "y": 110
         }
       ],
       "links": [
@@ -24591,6 +24631,11 @@
           "from": "credit-assignment",
           "to": "reward-shaping",
           "type": "unlocks"
+        },
+        {
+          "from": "credit-assignment",
+          "to": "backpropagation",
+          "type": "adjacent"
         },
         {
           "from": "credit-assignment",
@@ -25855,22 +25900,29 @@
           "id": "compute-optimal-training",
           "title": "Compute-Optimal Training",
           "tier": "verified",
-          "x": 60,
+          "x": 48,
           "y": 22
         },
         {
           "id": "epistemic-uncertainty",
           "title": "Epistemic Uncertainty",
           "tier": "verified",
-          "x": 120,
+          "x": 96,
           "y": 110
         },
         {
           "id": "language-imbalance",
           "title": "Language Imbalance",
           "tier": "verified",
-          "x": 180,
+          "x": 144,
           "y": 22
+        },
+        {
+          "id": "low-resource-language",
+          "title": "Low-Resource Language",
+          "tier": "verified",
+          "x": 192,
+          "y": 110
         }
       ],
       "links": [
@@ -25897,6 +25949,11 @@
         {
           "from": "data-scaling-laws",
           "to": "language-imbalance",
+          "type": "adjacent"
+        },
+        {
+          "from": "data-scaling-laws",
+          "to": "low-resource-language",
           "type": "adjacent"
         }
       ]
@@ -35763,15 +35820,22 @@
           "id": "annotation-quality",
           "title": "Annotation Quality",
           "tier": "verified",
-          "x": 80,
+          "x": 60,
           "y": 22
+        },
+        {
+          "id": "data-scaling-laws",
+          "title": "Data Scaling Laws",
+          "tier": "verified",
+          "x": 120,
+          "y": 110
         },
         {
           "id": "synthetic-data",
           "title": "Synthetic Data",
           "tier": "verified",
-          "x": 160,
-          "y": 110
+          "x": 180,
+          "y": 22
         }
       ],
       "links": [
@@ -35788,6 +35852,11 @@
         {
           "from": "low-resource-language",
           "to": "annotation-quality",
+          "type": "adjacent"
+        },
+        {
+          "from": "low-resource-language",
+          "to": "data-scaling-laws",
           "type": "adjacent"
         },
         {

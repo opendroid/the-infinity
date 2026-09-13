@@ -189,6 +189,8 @@ func TestTraversals(t *testing.T) {
 		edges     EdgeLookup
 		wantAlong []Edge
 		wantJumps []Edge
+		// wantMoves counts MOVES, not rows — a pair walked twice counts twice.
+		wantMoves int
 	}{
 		{
 			name:      "a reader following a declared edge",
@@ -196,6 +198,7 @@ func TestTraversals(t *testing.T) {
 			edges:     liveEdges,
 			wantAlong: []Edge{{From: "transformer-block", To: "feed-forward-network", Type: store.EdgeRequires, N: 1}},
 			wantJumps: []Edge{},
+			wantMoves: 1,
 		},
 		{
 			// THE DEFECT #426 IS ABOUT. This pair was reported under "EDGES
@@ -205,6 +208,7 @@ func TestTraversals(t *testing.T) {
 			edges:     liveEdges,
 			wantAlong: []Edge{},
 			wantJumps: []Edge{{From: "backpropagation", To: "query-key-value", N: 1}},
+			wantMoves: 1,
 		},
 		{
 			name: "the live run, split",
@@ -220,6 +224,9 @@ func TestTraversals(t *testing.T) {
 				{From: "backpropagation", To: "query-key-value", N: 1},
 				{From: "neural-audio-codec", To: "backpropagation", N: 1},
 			},
+			// FOUR, not three: attention → graph-neural-network was walked
+			// twice and the denominator counts moves, not distinct pairs.
+			wantMoves: 4,
 		},
 		{
 			// Without a corpus nothing can be classified, and calling every move
@@ -229,6 +236,7 @@ func TestTraversals(t *testing.T) {
 			edges:     NoEdges,
 			wantAlong: []Edge{},
 			wantJumps: []Edge{{From: "transformer-block", To: "feed-forward-network", N: 1}},
+			wantMoves: 1,
 		},
 		{
 			name:      "a page's own mini-map fetch is not a traversal",
@@ -276,9 +284,14 @@ func TestTraversals(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			along, jumps := Traversals(c.entries, 10, c.edges)
+			along, jumps, moves := Traversals(c.entries, 10, c.edges)
 			assertEdges(t, "along", along, c.wantAlong)
 			assertEdges(t, "jumps", jumps, c.wantJumps)
+			// The denominator is the point of #482: it must count MOVES, not
+			// rows, so a pair walked twice counts twice.
+			if got, want := moves.Total(), c.wantMoves; got != want {
+				t.Errorf("moves.Total() = %d, want %d", got, want)
+			}
 		})
 	}
 }
@@ -521,9 +534,14 @@ func TestRender(t *testing.T) {
 			limit:  10000,
 			want: []string{
 				"nothing — no reader opened a concept page",
-				"nothing — no reader followed an edge",
-				"every concept-to-concept move followed an edge",
+				// No moves at all is said in words. "0 of 0 moves" reads like a
+				// measurement and is the absence of one (#482).
+				"no concept-to-concept moves in this window",
 				"0 of 0",
+			},
+			absent: []string{
+				// The heading must not assert what an empty list means.
+				"candidate edges the readership is asking for",
 			},
 		},
 	}
@@ -558,3 +576,237 @@ func TestRender(t *testing.T) {
 type brokenPipe struct{}
 
 func (brokenPipe) Write([]byte) (int, error) { return 0, errors.New("broken pipe") }
+
+// The whole of #482: an empty jump list is a claim about the graph, and until
+// the denominator shipped it was rendered identically whether it summarised
+// forty moves or four thousand.
+//
+// THIS TEST FAILS IF THE DENOMINATOR LINE IS DELETED, which the assertions in
+// TestRender above do not — they check for substrings that survive the removal.
+func TestTraversalDenominator(t *testing.T) {
+	now := time.Date(2026, 9, 13, 2, 23, 0, 0, time.UTC)
+
+	cases := []struct {
+		name   string
+		report *Report
+		want   []string
+		absent []string
+	}{
+		{
+			// The shape of the run that prompted the issue: every move followed
+			// an edge, and the report used to say only "nothing".
+			name: "no jumps, said against the number of moves",
+			report: &Report{
+				Now:        now,
+				Concepts:   []Count{},
+				Traversals: []Edge{{From: "attention", To: "softmax", Type: store.EdgeAdjacent, N: 40}},
+				Jumps:      []Edge{},
+				Moves:      Moves{Along: 40},
+			},
+			want:   []string{"40 of 40 concept-to-concept moves", "0 of 40 concept-to-concept moves"},
+			absent: []string{"every concept-to-concept move followed an edge"},
+		},
+		{
+			name: "a jump is counted against the same total",
+			report: &Report{
+				Now:        now,
+				Concepts:   []Count{},
+				Traversals: []Edge{{From: "attention", To: "softmax", Type: store.EdgeAdjacent, N: 3}},
+				Jumps:      []Edge{{From: "backpropagation", To: "query-key-value", N: 1}},
+				Moves:      Moves{Along: 3, Jumped: 1},
+			},
+			want: []string{"3 of 4 concept-to-concept moves", "1 of 4 concept-to-concept moves"},
+		},
+		{
+			// Rows are capped at -top; the counts are not. Saying "5 of 9" over
+			// two printed rows without admitting the truncation would be the
+			// -limit defect one section further down.
+			name: "says when rows were dropped",
+			report: &Report{
+				Now:        now,
+				Concepts:   []Count{},
+				Traversals: []Edge{{From: "a", To: "b", N: 3}, {From: "c", To: "d", N: 2}},
+				Jumps:      []Edge{},
+				Moves:      Moves{Along: 9},
+			},
+			want: []string{"9 of 9 concept-to-concept moves; showing the top 2 pair(s)"},
+		},
+		{
+			name: "one move per pair does not claim to be showing a top",
+			report: &Report{
+				Now:        now,
+				Concepts:   []Count{},
+				Traversals: []Edge{{From: "a", To: "b", N: 1}},
+				Jumps:      []Edge{},
+				Moves:      Moves{Along: 1},
+			},
+			absent: []string{"showing the top"},
+		},
+		{
+			// Zero moves is the absence of a measurement, not a measurement of
+			// zero. "0 of 0" invites a reader to treat it as a finding.
+			name:   "no moves at all is said in words",
+			report: &Report{Now: now, Concepts: []Count{}, Traversals: []Edge{}, Jumps: []Edge{}},
+			want:   []string{"no concept-to-concept moves in this window"},
+			absent: []string{"0 of 0 concept-to-concept moves"},
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			var b strings.Builder
+			if err := c.report.Render(&b, 7, 10000, "logName=…"); err != nil {
+				t.Fatalf("Render: %v", err)
+			}
+			for _, want := range c.want {
+				if !strings.Contains(b.String(), want) {
+					t.Errorf("missing %q in:\n%s", want, b.String())
+				}
+			}
+			for _, absent := range c.absent {
+				if strings.Contains(b.String(), absent) {
+					t.Errorf("unexpected %q in:\n%s", absent, b.String())
+				}
+			}
+		})
+	}
+}
+
+// #484: ADR-0023 named a measurement and then pointed at a command that did not
+// compute it. These are that measurement.
+func TestLandingVisits(t *testing.T) {
+	const site = "https://theinfinity.ai"
+	const readerUA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36"
+	view := Entry{URL: site + "/", UserAgent: readerUA}
+	onward := func(to string) Entry {
+		return Entry{URL: site + to, Referer: site + "/", UserAgent: readerUA}
+	}
+
+	cases := []struct {
+		name    string
+		entries []Entry
+		want    Landing
+		left    int
+	}{
+		{
+			name:    "the form was submitted",
+			entries: []Entry{view, onward("/search?q=attention")},
+			want:    Landing{Views: 1, Form: 1},
+		},
+		{
+			// The half of the ADR's question that asks who gave up.
+			name:    "landed and left",
+			entries: []Entry{view, view, view, onward("/search?q=x")},
+			want:    Landing{Views: 3, Form: 1},
+			left:    2,
+		},
+		{
+			// Featured link or search overlay — both land here, and the log
+			// cannot separate them, so neither may be claimed.
+			name:    "onward to a concept, however they got there",
+			entries: []Entry{view, onward("/c/attention")},
+			want:    Landing{Views: 1, Concept: 1},
+		},
+		{
+			name:    "the concept index is not the form",
+			entries: []Entry{view, onward("/concepts")},
+			want:    Landing{Views: 1, Index: 1},
+		},
+		{
+			name:    "anything else on the site is counted and not silently dropped",
+			entries: []Entry{view, onward("/request")},
+			want:    Landing{Views: 1, Other: 1},
+		},
+		{
+			// A reload is not a move, for the same reason a self-referral is not
+			// a traversal.
+			name:    "a reload of the landing page is not an onward move",
+			entries: []Entry{view, onward("/")},
+			want:    Landing{Views: 2},
+			left:    2,
+		},
+		{
+			// An external page whose own path happens to be "/" is not a reader
+			// leaving OUR landing page.
+			name: "an inbound link from another site's root is not our landing page",
+			entries: []Entry{
+				view,
+				{URL: site + "/c/attention", Referer: "https://news.ycombinator.com/", UserAgent: readerUA},
+			},
+			want: Landing{Views: 1},
+			left: 1,
+		},
+		{
+			name:    "crawlers are not readers deciding anything",
+			entries: []Entry{{URL: site + "/", UserAgent: "Amazonbot/0.1"}, {URL: site + "/search?q=a", Referer: site + "/", UserAgent: "Amazonbot/0.1"}},
+			want:    Landing{},
+		},
+		{
+			// A referer can outlive its landing view at the edge of a truncated
+			// window. Negative would read as a bug in the tool.
+			name:    "more onward requests than views does not go negative",
+			entries: []Entry{onward("/search?q=a"), onward("/search?q=b")},
+			want:    Landing{Form: 2},
+			left:    0,
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got := LandingVisits(c.entries)
+			if got != c.want {
+				t.Errorf("LandingVisits = %+v, want %+v", got, c.want)
+			}
+			if got.Left() != c.left {
+				t.Errorf("Left() = %d, want %d", got.Left(), c.left)
+			}
+		})
+	}
+}
+
+// The ADR sends a reader to this command for a number. THE SECTION MUST BE
+// THERE even in a quiet window, or the instruction fails the same way it failed
+// before — silently, looking like an answer.
+func TestRenderLanding(t *testing.T) {
+	now := time.Date(2026, 9, 13, 2, 23, 0, 0, time.UTC)
+	base := func(l Landing) *Report {
+		return &Report{Now: now, Concepts: []Count{}, Traversals: []Edge{}, Jumps: []Edge{}, Landing: l}
+	}
+
+	cases := []struct {
+		name   string
+		report *Report
+		want   []string
+	}{
+		{
+			name:   "every ratio carries its denominator",
+			report: base(Landing{Views: 120, Form: 14, Concept: 22, Index: 5}),
+			want: []string{
+				"LANDING — what readers do with the form (ADR-0023)",
+				"landing views       120",
+				"submitted the form  14 of 120  11.7%",
+				"no onward request   79 of 120  65.8%",
+				"requests, not sessions",
+			},
+		},
+		{
+			name:   "a quiet window says it looked",
+			report: base(Landing{}),
+			want:   []string{"LANDING", "nothing — no reader opened the landing page in this window"},
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			var b strings.Builder
+			if err := c.report.Render(&b, 7, 10000, "logName=…"); err != nil {
+				t.Fatalf("Render: %v", err)
+			}
+			for _, w := range c.want {
+				if !strings.Contains(b.String(), w) {
+					t.Errorf("missing %q in:\n%s", w, b.String())
+				}
+			}
+		})
+	}
+}

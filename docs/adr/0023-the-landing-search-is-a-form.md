@@ -58,10 +58,21 @@ they keep is a page that paints with nothing to download and works with scriptin
   product. That is the cost of this decision, and this file is where it is written down —
   the previous record was a comment inside `index.astro`, which no one auditing the site
   from outside will ever see.
-- **This is revisitable on evidence, and the evidence is cheap.** `make analytics` reads
-  the Hosting request log: landing sessions that submit the form versus landing sessions
-  that leave without a search would say whether anyone actually stalls waiting for
-  suggestions. Nobody has looked. If that number is bad, reopen this with it.
+- **This is revisitable on evidence, and the evidence is cheap.** `make analytics` prints a
+  `LANDING` section: landing views, how many submitted the form, and how many made no
+  onward request at all. If the share that leaves without searching is bad, reopen this
+  with the number.
+
+  **They are requests, not sessions** ([#484](https://github.com/opendroid/the-infinity/issues/484)).
+  The log carries no session id and no timestamp per reader, so a reload counts twice and
+  two readers landing once look like one landing twice. And *"went to a concept"* is a
+  featured link **or** the header's search overlay — the log cannot separate them, so
+  neither may be claimed alone. The section is a proxy, and a thin window is not a finding.
+
+  When this ADR was written it said this paragraph's measurement came from `make analytics`.
+  It did not: the command had no landing section, and nobody noticed because nobody ran it.
+  The section exists now, and this note stays as the record of an ADR that demanded a number
+  of #473 and did not check that its own instruction produced one.
 - If it is ever reversed, `/`'s perf budget moves in the same pull request, because
   `perf-budget.json` requires the commit message to justify it.
 

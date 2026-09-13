@@ -45,6 +45,9 @@
       },
       {
         "id": "annotation-quality"
+      },
+      {
+        "id": "data-scaling-laws"
       }
     ]
   },
