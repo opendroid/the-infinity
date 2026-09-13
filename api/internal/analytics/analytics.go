@@ -92,6 +92,8 @@ type Report struct {
 	// empty Jumps without it is unreadable (#482).
 	Moves Moves
 	Bots  Share
+	// Landing answers the question ADR-0023 named and #473 was closed on.
+	Landing Landing
 	// Cache is split by Kind: pages and hashed assets are cached to opposite
 	// policies on purpose, so one number for both answers neither (#427).
 	CachePages  Share
@@ -324,6 +326,89 @@ func rankEdges(rows []Edge, n int) []Edge {
 	return rows
 }
 
+// Landing is what readers did after the landing page (#484, ADR-0023).
+//
+// ADR-0023 closed #473 by deciding the landing search stays a plain GET form,
+// and named the condition for reopening it: "landing sessions that submit the
+// form versus landing sessions that leave without searching". It then pointed
+// at `make analytics`, which did not compute it. This is that number.
+//
+// REQUESTS, NOT SESSIONS, AND THE DIFFERENCE MATTERS. Entry carries no session
+// id and no timestamp, so a session cannot be reconstructed here. What can be
+// counted is landing views and the onward requests naming "/" as their referer.
+// A reader who reloads the landing page counts twice; two readers who each land
+// once are indistinguishable from one who landed twice. It is a proxy, and the
+// ADR now says so rather than implying a census.
+//
+// ONWARD TO A CONCEPT IS AMBIGUOUS ON PURPOSE. The landing page carries six
+// featured concept links AND the header's search overlay, and both produce a
+// "/" referer on a /c/ URL. Splitting them would mean hardcoding the featured
+// slugs, which change without this file knowing. So they are counted together
+// and labelled as both: an honest wide bucket beats a precise wrong one.
+type Landing struct {
+	Views   int // requests for "/"
+	Form    int // onward to /search — the form was submitted
+	Concept int // onward to a concept page
+	Index   int // onward to /concepts
+	Other   int // onward to anything else on the site
+}
+
+// Onward is every landing view that led to another request.
+func (l Landing) Onward() int { return l.Form + l.Concept + l.Index + l.Other }
+
+// Left is landing views with no onward request — the half of the ADR's question
+// that asks who gave up. Never negative: a referer can outlive its landing view
+// at the edge of a truncated window, and a negative count would read as a bug
+// in the tool rather than the boundary it is.
+func (l Landing) Left() int {
+	if n := l.Views - l.Onward(); n > 0 {
+		return n
+	}
+	return 0
+}
+
+// LandingVisits counts landing views and where they went next.
+func LandingVisits(entries []Entry) Landing {
+	var l Landing
+	for _, e := range entries {
+		if IsBot(e.UserAgent) {
+			continue
+		}
+		if urlPath(e.URL) == "/" {
+			l.Views++
+		}
+		// An onward move needs the landing page as referer AND our own host:
+		// an external page whose own path is "/" linking to us is not a reader
+		// leaving our landing page.
+		if urlPath(e.Referer) != "/" || !sameSite(e.Referer, e.URL) {
+			continue
+		}
+		switch to := urlPath(e.URL); {
+		case to == "/":
+			// A reload, not a move — dropped for the same reason a self-referral
+			// is dropped from Traversals.
+		case to == "/search":
+			l.Form++
+		case to == "/concepts":
+			l.Index++
+		case conceptID(e.URL) != "":
+			l.Concept++
+		default:
+			l.Other++
+		}
+	}
+	return l
+}
+
+// urlPath is the path of a URL, or "" if it will not parse.
+func urlPath(raw string) string {
+	u, err := url.Parse(raw)
+	if err != nil {
+		return ""
+	}
+	return u.Path
+}
+
 // Bots is the share of all requests that came from a crawler.
 func Bots(entries []Entry) Share {
 	s := Share{Total: len(entries)}
@@ -371,6 +456,7 @@ func Collect(ctx context.Context, r Reader, since time.Time, limit, top int, now
 		Jumps:       jumps,
 		Moves:       moves,
 		Bots:        Bots(entries),
+		Landing:     LandingVisits(entries),
 		CachePages:  Cache(entries, KindPage),
 		CacheAssets: Cache(entries, KindAsset),
 	}, nil
@@ -425,6 +511,31 @@ func (r *Report) Render(w io.Writer, days, limit int, filter string) error {
 	fmt.Fprintf(&b, "  cache hits, assets  %d of %d  %.1f%%   (immutable, 1y — this is the one to watch)\n",
 		r.CacheAssets.N, r.CacheAssets.Total, r.CacheAssets.Percent())
 	fmt.Fprintf(&b, "  crawlers            %d of %d  %.1f%%\n", r.Bots.N, r.Bots.Total, r.Bots.Percent())
+
+	// The measurement ADR-0023 named. Printed even when empty: the ADR tells a
+	// reader to run this command for the number, and a section that vanishes
+	// when there is no traffic looks like a tool that did not look (#484).
+	l := r.Landing
+	fmt.Fprintf(&b, "\nLANDING — what readers do with the form (ADR-0023)\n")
+	if l.Views == 0 {
+		b.WriteString("  nothing — no reader opened the landing page in this window\n")
+	} else {
+		fmt.Fprintf(&b, "  landing views       %d  (requests, not sessions — see the note in analytics.go)\n", l.Views)
+		for _, row := range []struct {
+			label string
+			n     int
+		}{
+			{"submitted the form", l.Form},
+			{"went to a concept", l.Concept},
+			{"went to /concepts", l.Index},
+			{"went elsewhere", l.Other},
+			{"no onward request", l.Left()},
+		} {
+			share := Share{N: row.n, Total: l.Views}
+			fmt.Fprintf(&b, "  %-19s %d of %d  %.1f%%\n", row.label, share.N, share.Total, share.Percent())
+		}
+		b.WriteString("  (a concept can be a featured link OR the search overlay — the log cannot tell them apart)\n")
+	}
 
 	fmt.Fprintf(&b, "\nTOP CONCEPTS — crawlers excluded\n")
 	if len(r.Concepts) == 0 {

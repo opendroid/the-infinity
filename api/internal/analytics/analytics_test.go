@@ -671,3 +671,142 @@ func TestTraversalDenominator(t *testing.T) {
 		})
 	}
 }
+
+// #484: ADR-0023 named a measurement and then pointed at a command that did not
+// compute it. These are that measurement.
+func TestLandingVisits(t *testing.T) {
+	const site = "https://theinfinity.ai"
+	const readerUA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36"
+	view := Entry{URL: site + "/", UserAgent: readerUA}
+	onward := func(to string) Entry {
+		return Entry{URL: site + to, Referer: site + "/", UserAgent: readerUA}
+	}
+
+	cases := []struct {
+		name    string
+		entries []Entry
+		want    Landing
+		left    int
+	}{
+		{
+			name:    "the form was submitted",
+			entries: []Entry{view, onward("/search?q=attention")},
+			want:    Landing{Views: 1, Form: 1},
+		},
+		{
+			// The half of the ADR's question that asks who gave up.
+			name:    "landed and left",
+			entries: []Entry{view, view, view, onward("/search?q=x")},
+			want:    Landing{Views: 3, Form: 1},
+			left:    2,
+		},
+		{
+			// Featured link or search overlay — both land here, and the log
+			// cannot separate them, so neither may be claimed.
+			name:    "onward to a concept, however they got there",
+			entries: []Entry{view, onward("/c/attention")},
+			want:    Landing{Views: 1, Concept: 1},
+		},
+		{
+			name:    "the concept index is not the form",
+			entries: []Entry{view, onward("/concepts")},
+			want:    Landing{Views: 1, Index: 1},
+		},
+		{
+			name:    "anything else on the site is counted and not silently dropped",
+			entries: []Entry{view, onward("/request")},
+			want:    Landing{Views: 1, Other: 1},
+		},
+		{
+			// A reload is not a move, for the same reason a self-referral is not
+			// a traversal.
+			name:    "a reload of the landing page is not an onward move",
+			entries: []Entry{view, onward("/")},
+			want:    Landing{Views: 2},
+			left:    2,
+		},
+		{
+			// An external page whose own path happens to be "/" is not a reader
+			// leaving OUR landing page.
+			name: "an inbound link from another site's root is not our landing page",
+			entries: []Entry{
+				view,
+				{URL: site + "/c/attention", Referer: "https://news.ycombinator.com/", UserAgent: readerUA},
+			},
+			want: Landing{Views: 1},
+			left: 1,
+		},
+		{
+			name:    "crawlers are not readers deciding anything",
+			entries: []Entry{{URL: site + "/", UserAgent: "Amazonbot/0.1"}, {URL: site + "/search?q=a", Referer: site + "/", UserAgent: "Amazonbot/0.1"}},
+			want:    Landing{},
+		},
+		{
+			// A referer can outlive its landing view at the edge of a truncated
+			// window. Negative would read as a bug in the tool.
+			name:    "more onward requests than views does not go negative",
+			entries: []Entry{onward("/search?q=a"), onward("/search?q=b")},
+			want:    Landing{Form: 2},
+			left:    0,
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got := LandingVisits(c.entries)
+			if got != c.want {
+				t.Errorf("LandingVisits = %+v, want %+v", got, c.want)
+			}
+			if got.Left() != c.left {
+				t.Errorf("Left() = %d, want %d", got.Left(), c.left)
+			}
+		})
+	}
+}
+
+// The ADR sends a reader to this command for a number. THE SECTION MUST BE
+// THERE even in a quiet window, or the instruction fails the same way it failed
+// before — silently, looking like an answer.
+func TestRenderLanding(t *testing.T) {
+	now := time.Date(2026, 9, 13, 2, 23, 0, 0, time.UTC)
+	base := func(l Landing) *Report {
+		return &Report{Now: now, Concepts: []Count{}, Traversals: []Edge{}, Jumps: []Edge{}, Landing: l}
+	}
+
+	cases := []struct {
+		name   string
+		report *Report
+		want   []string
+	}{
+		{
+			name:   "every ratio carries its denominator",
+			report: base(Landing{Views: 120, Form: 14, Concept: 22, Index: 5}),
+			want: []string{
+				"LANDING — what readers do with the form (ADR-0023)",
+				"landing views       120",
+				"submitted the form  14 of 120  11.7%",
+				"no onward request   79 of 120  65.8%",
+				"requests, not sessions",
+			},
+		},
+		{
+			name:   "a quiet window says it looked",
+			report: base(Landing{}),
+			want:   []string{"LANDING", "nothing — no reader opened the landing page in this window"},
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			var b strings.Builder
+			if err := c.report.Render(&b, 7, 10000, "logName=…"); err != nil {
+				t.Fatalf("Render: %v", err)
+			}
+			for _, w := range c.want {
+				if !strings.Contains(b.String(), w) {
+					t.Errorf("missing %q in:\n%s", w, b.String())
+				}
+			}
+		})
+	}
+}
