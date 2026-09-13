@@ -1,10 +1,15 @@
-# The slow half of link checking (ADR-0020, #375).
+# The NETWORK half of link checking (ADR-0020, #375, #489).
 #
 # `check:citations` verifies 485 arXiv urls. arxiv.org's robots.txt asks fifteen
 # seconds between requests and says at the top that "indiscriminate automated
 # downloads from this site are not permitted", so honouring it makes the sweep a
-# two-hour job — which is exactly why it cannot be a pull-request gate, and why
-# ci.yml runs `check:explainers -- --fast` instead.
+# two-hour job — which is exactly why it cannot be a pull-request gate.
+#
+# `check:explainers` is here for a different reason and since #489: it is fast,
+# but it reaches seven third-party hosts, and three pull requests that could not
+# have caused it went red in one session because one of them did not answer. The
+# pull request runs `--offline`, the structural half, which needs no network and
+# still catches an invented reference. Resolving a url is this workflow's job.
 #
 # WEEKLY, NOT NIGHTLY. Link rot is a slow phenomenon and a two-hour job every
 # night is disproportionate to it. A citation that dies on Tuesday is found on

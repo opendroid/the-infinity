@@ -20,7 +20,7 @@ Two things about that configuration are easy to get wrong:
 
 | Job | Steps |
 |---|---|
-| `web` | `npm ci` → `validate:content` → lint → typecheck → test → build → perf budget → browser smoke → `check:explainers --fast` |
+| `web` | `npm ci` → `validate:content` → lint → typecheck → test → build → perf budget → browser smoke → `check:explainers --offline` |
 | `api` | `go vet` + `gofmt` → `golangci-lint` → `govulncheck` → `go test -race` (with the Firestore emulator) → `go build` → `docker build` → the image runs |
 | `contracts` | `redocly lint docs/openapi.yaml` |
 | `pr title` | Conventional Commits, on the title that becomes the squash commit |
@@ -34,10 +34,19 @@ are the only tests that touch real serialisation. The jar is downloaded straight
 from `firebase-preview-drop` rather than through `gcloud components install`, so
 the job needs neither the SDK nor a credential.
 
-**`check:explainers --fast`.** The only gate here that talks to a third party, and **last on purpose** ([#423](https://github.com/opendroid/the-infinity/issues/423)): it used to run sixth of thirteen, so when `en.wikipedia.org` failed to answer on 2026-09-11 the job went red and skipped lint, typecheck, the tests, the build, the perf budget and every smoke assertion. Running it last cannot stop `main` going red for a reason nobody caused — only moving the network half to `links.yml` would, and that is a separate argument (ADR-0020 made it for citations). It makes the red honest: everything else has reported first. A
-`video` entry is verified through YouTube's oEmbed endpoint, which 404s for a video that
-is gone and returns the real title and channel for one that is live — so the check
-asserts the recorded attribution is *right*, not merely that a URL answers.
+**`check:explainers --offline`.** **No gate here talks to a third party** ([#489](https://github.com/opendroid/the-infinity/issues/489)). It used to, as `--fast`, and it was **last on purpose** ([#423](https://github.com/opendroid/the-infinity/issues/423)) — it had run sixth of thirteen, so when `en.wikipedia.org` failed to answer on 2026-09-11 the job went red and skipped lint, typecheck, the tests, the build, the perf budget and every smoke assertion. Ordering made the red honest but could not stop it: three pull requests that could not have caused it went red in one session, and all three passed on an unchanged re-run. The network half moved to `links.yml`, which already ran it in full, weekly.
+
+What still fails a pull request, with no network at all: a url that is not https, one that
+does not parse, a host the allowlist does not admit, a missing or wrong scope, a `video`
+url with no id for oEmbed to ask about, and the same resource described two ways on two
+nodes. **An invented reference is caught immediately**, which is the half that was ever
+about the pull request.
+
+The *resolving* half runs weekly. A `video` entry is verified through YouTube's oEmbed
+endpoint, which 404s for a video that is gone and returns the real title and channel for
+one that is live — so that check asserts the recorded attribution is *right*, not merely
+that a URL answers. It is found on Sunday rather than at merge, which is the trade
+ADR-0020 already accepted for citations.
 `check:citations` cannot do that, and does not run here at all — see `links.yml` below.
 
 It fetches **pages, not entries**: 482 explainers are 126 distinct URLs, because a
