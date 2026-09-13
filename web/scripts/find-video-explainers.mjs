@@ -868,6 +868,9 @@ async function dismiss(argv) {
 }
 
 async function verify(argv) {
+  // Optional, unlike `search`: only a 401 needs it, so a run with no
+  // embedding-disabled picks works exactly as before without a key.
+  const key = process.env.YOUTUBE_API_KEY;
   const path = argv.find((a) => !a.startsWith('-'));
   if (!path || !existsSync(path)) {
     console.error('usage: node scripts/find-video-explainers.mjs verify picks.json');
@@ -901,12 +904,40 @@ async function verify(argv) {
       bad += 1;
       continue;
     }
-    if (!res.ok) {
+    // A 401 IS NOT A DEAD VIDEO (#493). YouTube's oEmbed refuses when the owner
+    // has disabled EMBEDDING, and all three rejected on 2026-09-13 answered
+    // `oembed=401, watch=200` — public, watchable Stanford course lectures on
+    // exactly their concepts. We link to explainers and never embed them, so
+    // whether embedding is permitted says nothing about whether a reader can go
+    // and watch.
+    //
+    // The attribution still comes from YouTube rather than from a person, which
+    // is the whole of ADR-0017: videos.list reports title and channel for an
+    // embedding-disabled video, at ONE unit against the hundred a search costs.
+    let meta;
+    if (res.status === 401 && key) {
+      const body = await api('videos', { part: 'snippet', id }, key).catch(() => null);
+      const snippet = body?.items?.[0]?.snippet;
+      if (!snippet) {
+        console.error(`  ✗ ${pick.url}: oEmbed answered 401 and videos.list found nothing`);
+        bad += 1;
+        continue;
+      }
+      meta = { title: snippet.title, author_name: snippet.channelTitle, viaApi: true };
+    } else if (res.status === 401) {
+      console.error(
+        `  ✗ ${pick.url}: oEmbed answered 401 (embedding disabled). ` +
+          'Set YOUTUBE_API_KEY to read the title and author from videos.list instead.',
+      );
+      bad += 1;
+      continue;
+    } else if (!res.ok) {
       console.error(`  ✗ ${pick.url}: oEmbed answered HTTP ${res.status}`);
       bad += 1;
       continue;
+    } else {
+      meta = await res.json();
     }
-    const meta = await res.json();
 
     entries.push({
       for: pick.target,
@@ -918,7 +949,7 @@ async function verify(argv) {
         url: target,
       },
     });
-    console.log(`  ✓ ${meta.author_name} — ${meta.title}`);
+    console.log(`  ✓ ${meta.author_name} — ${meta.title}${meta.viaApi ? '  (via videos.list; embedding disabled)' : ''}`);
   }
 
   const out = flag(argv, '--out') ?? 'video-explainers.json';
