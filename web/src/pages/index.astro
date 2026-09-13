@@ -60,6 +60,12 @@ const chips = layout.chips;
         A real GET form, and that is the point: with no JavaScript it
         navigates to /search, which answers the query there. The overlay is the
         better experience and the form is what makes the URL bookmarkable.
+
+        WHY THIS BOX DOES NOT TYPE AHEAD — ADR-0023. Two QA passes have filed
+        the difference between this form and the header's island as a defect.
+        It is a decision: the island costs 64 KB gzipped, almost all of it the
+        React floor, on the one page budgeted at zero. The ADR carries the
+        measurement and the condition for reopening it.
       -->
       <form
         role="search"
