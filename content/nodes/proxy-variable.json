@@ -62,6 +62,13 @@
       "title": "Fairness (machine learning)",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Fairness_(machine_learning)"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "5 Reasons for Unfair Models | Proxy Variables, Unbalanced Samples & Negative Feedback Loops",
+      "author": "A Data Odyssey",
+      "url": "https://www.youtube.com/watch?v=QV1L9NyQTOQ"
     }
   ],
   "review": {

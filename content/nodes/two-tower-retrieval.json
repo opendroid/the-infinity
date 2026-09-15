@@ -68,6 +68,13 @@
       "title": "Overview of Recommender Systems",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recommender-systems/recsys-intro.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Building Scalable Retrieval System with Two-Tower Models | Query-Item Retrieval Recsys Model | ML AI",
+      "author": "DataTrek",
+      "url": "https://www.youtube.com/watch?v=o-pZk5R0TZg"
     }
   ],
   "review": {

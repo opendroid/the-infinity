@@ -65,6 +65,13 @@
       "title": "Working with Sequences",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-neural-networks/sequence.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What are State Space Models? Redefining AI & Machine Learning with Data",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=HbZD0XoN5fc"
     }
   ],
   "review": {

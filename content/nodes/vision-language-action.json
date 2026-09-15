@@ -65,6 +65,13 @@
       "title": "Robotics Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/robotics-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "LLMs Meet Robotics: What Are Vision-Language-Action Models? (VLA Series Ep.1)",
+      "author": "Ilia",
+      "url": "https://www.youtube.com/watch?v=8dZUOo5xWFw"
     }
   ],
   "review": {

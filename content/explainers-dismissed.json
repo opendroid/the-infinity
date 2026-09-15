@@ -104,8 +104,16 @@
     "reason": "homonym — returns database transaction recovery, not checkpoint/restart when an accelerator dies"
   },
   {
+    "target": "feedback-loop",
+    "reason": "candidates are conference panels on ML feedback in general and a two-minute business-process clip; none teaches the recommender loop where the model's own output becomes its next training set"
+  },
+  {
     "target": "fill-in-the-middle",
     "reason": "only candidate is a WIRED five-levels explainer of machine learning generally"
+  },
+  {
+    "target": "generative-adversarial-network",
+    "reason": "the search returned one face-generation code walkthrough and nothing teaching the adversarial game itself; the canonical explainers were not in the results, so this is worth a --redo with a different query rather than a settled no"
   },
   {
     "target": "grammar-constrained-decoding",
@@ -176,6 +184,14 @@
     "reason": "homonym — matched the phrase \"soup-to-nuts\" in an ArcGIS AutoML tutorial"
   },
   {
+    "target": "multilingual-model",
+    "reason": "the only candidate is a multilingual-BERT walkthrough; nothing teaches parameter sharing across languages or the curse of multilinguality"
+  },
+  {
+    "target": "neuro-symbolic",
+    "reason": "the only on-topic candidates are short unattributed explainers under 5k views; nothing from a named researcher or an institution, and this concept is too subtle to take on a clickbait title"
+  },
+  {
     "target": "optimizer-state",
     "reason": "only candidate explains the Adam optimizer, not the memory its state occupies"
   },
@@ -196,8 +212,32 @@
     "reason": "homonym — returns compiler and document parsing, not syntactic parsing of natural language"
   },
   {
+    "target": "permutation-symmetry",
+    "reason": "homonym — candidates cover symmetry as equivariance and invariant networks, not the permutation of hidden units that makes every trained model one of an enormous number of identical twins"
+  },
+  {
+    "target": "position-interpolation",
+    "reason": "the only on-topic candidate is an automated paper-narration channel, which is a reading of the paper rather than a teaching resource"
+  },
+  {
+    "target": "pretraining",
+    "reason": "candidates are a four-minute BERT course segment and a one-minute scaling clip; nothing teaches pretraining itself. Worth a --redo — for a concept this central the query, not YouTube, is the problem"
+  },
+  {
+    "target": "process-supervision",
+    "reason": "the only candidate is a two-minute news segment at 620 views"
+  },
+  {
     "target": "pruning",
     "reason": "homonym — returns alpha-beta, decision trees and synaptic pruning, not magnitude pruning of weights"
+  },
+  {
+    "target": "quantized-kv-cache",
+    "reason": "every candidate teaches the KV cache itself rather than storing it in fewer bits, and the highest-scoring one is already attached to `kv-cache`"
+  },
+  {
+    "target": "reasoning-trace",
+    "reason": "candidates teach reasoning models in general, which `chain-of-thought` already covers; none treats the trace as an object in its own right or asks whether it is faithful to what determined the answer"
   },
   {
     "target": "repository-context",
@@ -218,5 +258,61 @@
   {
     "target": "self-reflection",
     "reason": "only candidate is a clickbait reaction video"
+  },
+  {
+    "target": "shape-specialization",
+    "reason": "homonym — matched the word Specialization in the title of an introductory ML course"
+  },
+  {
+    "target": "sparsity-hardware",
+    "reason": "the closest candidate is a 79-minute interview spanning three topics; the rest are vendor clips about sparsity in general rather than about what the silicon can actually skip"
+  },
+  {
+    "target": "speaker-embedding",
+    "reason": "candidates are research talks on diarization; nothing teaches the embedding itself"
+  },
+  {
+    "target": "speech-tokenization",
+    "reason": "homonym — the only candidate is text tokenization in a Keras NLP tutorial"
+  },
+  {
+    "target": "streaming-synthesis",
+    "reason": "homonym — returns the machine-learning-guided synthesis of 2D materials, a chemistry talk"
+  },
+  {
+    "target": "structured-sparsity",
+    "reason": "homonym — candidates cover structured sparsity as a regularization norm (group lasso, submodular functions), not the removal of whole channels or heads that hardware can skip"
+  },
+  {
+    "target": "synthesis-evaluation",
+    "reason": "homonym — returns UN evaluation synthesis, i.e. meta-analysis of programme evaluations"
+  },
+  {
+    "target": "tensor-parallelism",
+    "reason": "the only on-topic candidates are individual walkthroughs under 8k views; the Ultra-Scale Playbook chapter that one of them reads aloud would make a better `read` explainer than any of these videos"
+  },
+  {
+    "target": "text-to-speech",
+    "reason": "candidates are product tutorials for commercial voice generators, and the second-ranked one is about speech recognition — the opposite direction"
+  },
+  {
+    "target": "tiling",
+    "reason": "homonym — returns tiling the plane (tiling machines, tiling complexity), not blocking a matrix multiply to fit fast memory"
+  },
+  {
+    "target": "tokenization",
+    "reason": "the top candidate is Keras word-index tokenization, not subword vocabularies and their trade-offs. Worth a --redo: an allowlisted channel has a well-known lecture on building a GPT tokenizer and the query did not surface it"
+  },
+  {
+    "target": "training-data-licensing",
+    "reason": "the only candidate is a general talk on where data comes from; nothing on the legal question the node is about"
+  },
+  {
+    "target": "training-observability",
+    "reason": "the only candidate is production model monitoring, which is a different thing from instrumenting a training run — the node is about a run that burns a week of cluster time producing nothing"
+  },
+  {
+    "target": "vocoder",
+    "reason": "the only candidate is a conference presentation of a vocoder benchmark, not an explanation of what a vocoder does"
   }
 ]

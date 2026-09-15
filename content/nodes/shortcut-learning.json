@@ -60,6 +60,13 @@
       "title": "Causal inference",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Causal_inference"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Shortcut Learning in Deep Neural Networks",
+      "author": "Yannic Kilcher",
+      "url": "https://www.youtube.com/watch?v=D-eg7k8YSfs"
     }
   ],
   "review": {

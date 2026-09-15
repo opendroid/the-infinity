@@ -58,6 +58,13 @@
       "title": "Large Transformer Model Inference Optimization",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Speculative Decoding: When Two LLMs are Faster than One",
+      "author": "Efficient NLP",
+      "url": "https://www.youtube.com/watch?v=S-8yr_RibJ4"
     }
   ],
   "review": {

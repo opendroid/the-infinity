@@ -70,6 +70,13 @@
       "title": "Learning with not Enough Data Part 3: Data Generation",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2022-04-15-data-gen/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is Synthetic Data? No, It's Not \"Fake\" Data",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=HIusawrGBN4"
     }
   ],
   "review": {

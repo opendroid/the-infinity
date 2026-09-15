@@ -62,6 +62,13 @@
       "title": "Hugging Face Audio course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/audio-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Can Whisper be used for real-time streaming ASR?",
+      "author": "Efficient NLP",
+      "url": "https://www.youtube.com/watch?v=_spinzpEeFM"
     }
   ],
   "review": {

@@ -73,6 +73,13 @@
       "title": "Numerical Stability and Initialization",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Vanishing & Exploding Gradient explained | A problem resulting from backpropagation",
+      "author": "deeplizard",
+      "url": "https://www.youtube.com/watch?v=qO_NLVjD6zE"
     }
   ],
   "review": {
