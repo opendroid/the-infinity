@@ -573,7 +573,7 @@ async function searchOne(target, key, quota, perTarget, opts = {}) {
  * exactly that state, and `--redo-empty` cannot see it — every homonym #401 was
  * written for returned a candidate, so all seven counted as productive.
  */
-export function pending(all, prior, { redoEmpty = false, redo = /** @type {string[]} */ ([]), dismissed: dismissedList = /** @type {{ target: string, reason: string }[]} */ ([]) } = {}) {
+export function pending(all, prior, { redoEmpty = false, redo = /** @type {string[]} */ ([]), dismissed: dismissedList = /** @type {{ target: string, reason: string }[]} */ ([]), covered: coveredIds = /** @type {Set<string>} */ (new Set()) } = {}) {
   const done = new Set(prior.done ?? []);
   const productive = new Set((prior.candidates ?? []).map((c) => c.target));
   // THE FOURTH STATE (#437). A target can be searched, produce candidates, be
@@ -589,10 +589,23 @@ export function pending(all, prior, { redoEmpty = false, redo = /** @type {strin
   // creates. All seven homonyms #401 was written for produced candidates, so
   // --redo-empty skipped every one of them.
   const named = new Set(redo);
+  // AND A CONCEPT THAT ALREADY HAS A VIDEO IS NOT BARREN EITHER (#499). A
+  // target reaches "done with no candidates" honestly — an early domain-scoped
+  // pass found nothing — and a later concept-scoped pass then attached a video
+  // from a different query. The checkpoint records the first fact and nothing
+  // reconciles it with the second, so --redo-empty re-asked YouTube about 24 of
+  // its 68 targets: 2,400 units, a QUARTER OF A DAY, on questions already
+  // answered. `covered` is the same set staleDismissals uses, for the same
+  // reason — the corpus is the authority on what has a video, not the cache.
+  //
+  // Only the bulk flag skips them. --redo <id> still wins here as it wins over
+  // `dismissed` (#403): "this concept has a video I no longer trust" is a real
+  // reason to re-query one by name.
   return all.filter(
     (t) =>
       named.has(t.key) ||
-      (!dismissed.has(t.key) && (!done.has(t.key) || (redoEmpty && !productive.has(t.key)))),
+      (!dismissed.has(t.key) &&
+        (!done.has(t.key) || (redoEmpty && !productive.has(t.key) && !coveredIds.has(t.key)))),
   );
 }
 
@@ -689,16 +702,19 @@ export async function search(argv, opts = {}) {
   }
 
   const dismissedList = readDismissed();
-  const todo = pending(all, prior, { redoEmpty, redo, dismissed: dismissedList });
-
-  // A dismissal says "looked, nothing worth attaching". If the concept has
-  // since gained a video the judgment has been overtaken, and saying so is
-  // cheaper than anybody noticing a year later (#437).
+  // WHAT THE CORPUS SAYS HAS A VIDEO. Read before `pending`, because it decides
+  // two things: which dismissals have been overtaken (#437), and which targets
+  // --redo-empty should not pay to re-ask about (#499).
   const covered = new Set(
     readNodes()
       .filter((n) => (n.explainers ?? []).some((e) => e.kind === 'video'))
       .map((n) => n.id),
   );
+  const todo = pending(all, prior, { redoEmpty, redo, dismissed: dismissedList, covered });
+
+  // A dismissal says "looked, nothing worth attaching". If the concept has
+  // since gained a video the judgment has been overtaken, and saying so is
+  // cheaper than anybody noticing a year later (#437).
   const stale = staleDismissals(dismissedList, covered);
   if (stale.length > 0) {
     console.log(
@@ -708,7 +724,9 @@ export async function search(argv, opts = {}) {
 
   console.log(
     `${all.length} ${concepts ? 'concept' : 'domain'} target(s); ${done.size} already done, ${todo.length} to go` +
-      (redoEmpty ? ` (--redo-empty: retrying ${done.size - productive.size} that found nothing)` : '') +
+      (redoEmpty
+        ? ` (--redo-empty: retrying ${todo.filter((t) => done.has(t.key) && !productive.has(t.key)).length} that found nothing)`
+        : '') +
       (redo.length > 0 ? ` (--redo: ${redo.filter((id) => done.has(id)).length} named target(s) re-queried)` : '') +
       (dismissedList.length > 0
         ? `; ${dismissedList.length} dismissed as having nothing worth attaching`
