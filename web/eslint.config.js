@@ -37,6 +37,30 @@ export default [
         fetch: 'readonly',
         AbortSignal: 'readonly',
         setTimeout: 'readonly',
+        // scripts/engine-probe reads its sibling probe file through an
+        // import.meta.url URL, and writes screenshots as a Buffer.
+        URL: 'readonly',
+        Buffer: 'readonly',
+      },
+    },
+  },
+  {
+    // THE ONE FILE HERE THAT IS NOT NODE. scripts/engine-probe/probe.js is
+    // injected into the page under test and runs in the browser, so it reaches
+    // for `document` and `getComputedStyle` rather than `process`. It is
+    // deliberately not a module — the driver wraps the IIFE in `return …`,
+    // because W3C execute/sync takes a function body and not an expression.
+    files: ['scripts/engine-probe/probe.js'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        document: 'readonly',
+        getComputedStyle: 'readonly',
+        navigator: 'readonly',
+        location: 'readonly',
+        innerWidth: 'readonly',
+        innerHeight: 'readonly',
+        devicePixelRatio: 'readonly',
       },
     },
   },
