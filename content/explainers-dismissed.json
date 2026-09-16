@@ -1,5 +1,13 @@
 [
   {
+    "target": "accelerator-utilization",
+    "reason": "homonym — the only candidate is BigQuery ML through Looker; \"accelerator\" there is a product name, not a GPU whose utilisation is the subject"
+  },
+  {
+    "target": "activation-patching",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "adaptive-computation",
     "reason": "candidates cover adaptive resonance theory and regression splines, not adaptive computation"
   },
@@ -10,6 +18,10 @@
   {
     "target": "agentic-coding",
     "reason": "candidates explain agentic AI in general, not coding agents"
+  },
+  {
+    "target": "annotation-quality",
+    "reason": "the only candidate explains what data annotation IS, at vendor length; nothing on annotator disagreement or the ceiling it puts on a benchmark"
   },
   {
     "target": "audio-generation",
@@ -32,6 +44,10 @@
     "reason": "homonym — returns corporate carbon accounting, not the energy cost of training"
   },
   {
+    "target": "code-generation",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "code-search",
     "reason": "homonym — returns how web search works and beginner sklearn tutorials"
   },
@@ -46,6 +62,10 @@
   {
     "target": "compilation-cache",
     "reason": "homonym — returns CPU and CDN cache design, not compiled-graph caching"
+  },
+  {
+    "target": "contact-dynamics",
+    "reason": "homonym — returns FLUID dynamics and MOLECULAR dynamics, not the discontinuous physics of a gripper holding or dropping"
   },
   {
     "target": "context-compression",
@@ -72,6 +92,10 @@
     "reason": "homonym — returns generic task-vs-data parallelism, not distributed training"
   },
   {
+    "target": "data-provenance",
+    "reason": "the only candidate is a one-minute certification-glossary clip at 1,247 views; the node is about what is actually inside a web-scale corpus"
+  },
+  {
     "target": "data-scaling-laws",
     "reason": "only candidate is a university lecture recording whose language and audience could not be confirmed; not attached unverified"
   },
@@ -84,6 +108,14 @@
     "reason": "candidates explain RAG end to end, not dense retrieval specifically"
   },
   {
+    "target": "disaggregated-serving",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "distribution-shift",
+    "reason": "the only candidate is a 58-minute medical-AI research seminar at 994 views. A central concept deserves teaching rather than a specialist seminar, and none was returned"
+  },
+  {
     "target": "early-exit",
     "reason": "homonym — returns bank customer 'exit prediction', i.e. churn"
   },
@@ -94,6 +126,18 @@
   {
     "target": "elastic-training",
     "reason": "homonym — returns the Elastic company's products"
+  },
+  {
+    "target": "embodiment-gap",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "energy-cost-of-inference",
+    "reason": "candidates are a data-centre news feature and two videos about inference SPEED; none teaches the node's actual claim, that serving energy overtakes training energy past enough traffic"
+  },
+  {
+    "target": "energy-cost-of-training",
+    "reason": "the top candidate is an XGBoost time-series tutorial — it matched on the words and shares no subject with the node"
   },
   {
     "target": "execution-verification",
@@ -112,8 +156,12 @@
     "reason": "only candidate is a WIRED five-levels explainer of machine learning generally"
   },
   {
+    "target": "fisher-weighted-merging",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "generative-adversarial-network",
-    "reason": "the search returned one face-generation code walkthrough and nothing teaching the adversarial game itself; the canonical explainers were not in the results, so this is worth a --redo with a different query rather than a settled no"
+    "reason": "re-queried 2026-09-16 with --redo and returned ZERO candidates, down from one face-generation walkthrough. The canonical explainers exist and this query does not reach them"
   },
   {
     "target": "grammar-constrained-decoding",
@@ -122,6 +170,10 @@
   {
     "target": "graph-capture",
     "reason": "homonym — returns graph neural networks, not a compiler tracing an eager program"
+  },
+  {
+    "target": "grounding",
+    "reason": "the only candidate is a one-minute vendor clip; the node is about whether an answer actually RESTS on the retrieved passage, which is finer than \"stop hallucinations\""
   },
   {
     "target": "human-evaluation",
@@ -140,12 +192,24 @@
     "reason": "homonym — returns topological data analysis"
   },
   {
+    "target": "intervention",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "invariant-risk-minimization",
     "reason": "candidates are a general ML intro lecture and ERM, not IRM"
   },
   {
     "target": "jailbreak",
     "reason": "only candidate is a clickbait demo, not an explanation of the attack class"
+  },
+  {
+    "target": "knowledge-conflict",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "language-imbalance",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
   },
   {
     "target": "likelihood-vs-sample-quality",
@@ -160,8 +224,24 @@
     "reason": "candidates explain what a loss function is, not why loss spikes mid-training"
   },
   {
+    "target": "low-rank-factorization",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "low-resource-language",
+    "reason": "the only candidate is a one-minute localisation-industry definition at 506 views, barely over the unwatched floor"
+  },
+  {
     "target": "membership-in-training-data",
     "reason": "homonym — returns the train/test split, not membership inference"
+  },
+  {
+    "target": "memorisation",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "memory-planning",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
   },
   {
     "target": "merge-interference",
@@ -170,6 +250,10 @@
   {
     "target": "merge-vs-ensemble",
     "reason": "homonym — returns bagging vs boosting, a comparison between two ensembling methods"
+  },
+  {
+    "target": "mixture-of-depths",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
   },
   {
     "target": "model-card",
@@ -192,6 +276,18 @@
     "reason": "the only on-topic candidates are short unattributed explainers under 5k views; nothing from a named researcher or an institution, and this concept is too subtle to take on a clickbait title"
   },
   {
+    "target": "offline-online-gap",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "offload",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "operator-fusion-pass",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "optimizer-state",
     "reason": "only candidate explains the Adam optimizer, not the memory its state occupies"
   },
@@ -208,8 +304,16 @@
     "reason": "only candidate is attention in general, nothing on vLLM’s paged KV cache"
   },
   {
+    "target": "parametric-vs-retrieved-knowledge",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "parsing",
     "reason": "homonym — returns compiler and document parsing, not syntactic parsing of natural language"
+  },
+  {
+    "target": "pass-at-k",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
   },
   {
     "target": "permutation-symmetry",
@@ -221,11 +325,19 @@
   },
   {
     "target": "pretraining",
-    "reason": "candidates are a four-minute BERT course segment and a one-minute scaling clip; nothing teaches pretraining itself. Worth a --redo — for a concept this central the query, not YouTube, is the problem"
+    "reason": "re-queried 2026-09-16 with --redo and returned ZERO candidates, where the earlier pass at least found filler. My earlier reason said the query rather than YouTube was the problem and that a --redo would help; --redo re-runs the SAME query, so that was never a test of it. Changing the query is the outstanding work"
   },
   {
     "target": "process-supervision",
     "reason": "the only candidate is a two-minute news segment at 620 views"
+  },
+  {
+    "target": "program-repair",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "proprioception",
+    "reason": "homonym — the two popular candidates are HUMAN proprioception, from a chiropractor and a fitness channel; the robotics one is an unattributed 902-view clip"
   },
   {
     "target": "pruning",
@@ -252,6 +364,10 @@
     "reason": "homonym — returns survey sampling in statistics, not denoising steps"
   },
   {
+    "target": "schema-conformance",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "selective-prediction",
     "reason": "candidates are SVM classification and the selective-labels problem, neither of which is abstaining when unsure"
   },
@@ -262,6 +378,14 @@
   {
     "target": "shape-specialization",
     "reason": "homonym — matched the word Specialization in the title of an introductory ML course"
+  },
+  {
+    "target": "sim-to-real",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "sparse-retrieval",
+    "reason": "the top candidate is IBM on RAG at 2M views — retrieval-augmented generation, not the BM25-style lexical scoring this node is about"
   },
   {
     "target": "sparsity-hardware",
@@ -276,6 +400,10 @@
     "reason": "homonym — the only candidate is text tokenization in a Keras NLP tutorial"
   },
   {
+    "target": "straggler",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "streaming-synthesis",
     "reason": "homonym — returns the machine-learning-guided synthesis of 2D materials, a chemistry talk"
   },
@@ -288,20 +416,44 @@
     "reason": "homonym — returns UN evaluation synthesis, i.e. meta-analysis of programme evaluations"
   },
   {
+    "target": "task-arithmetic",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "task-decomposition",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "tensor-parallelism",
     "reason": "the only on-topic candidates are individual walkthroughs under 8k views; the Ultra-Scale Playbook chapter that one of them reads aloud would make a better `read` explainer than any of these videos"
+  },
+  {
+    "target": "test-generation",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
   },
   {
     "target": "text-to-speech",
     "reason": "candidates are product tutorials for commercial voice generators, and the second-ranked one is about speech recognition — the opposite direction"
   },
   {
+    "target": "throughput",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "tiling",
     "reason": "homonym — returns tiling the plane (tiling machines, tiling complexity), not blocking a matrix multiply to fit fast memory"
   },
   {
+    "target": "token-embedding",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "tokenization",
-    "reason": "the top candidate is Keras word-index tokenization, not subword vocabularies and their trade-offs. Worth a --redo: an allowlisted channel has a well-known lecture on building a GPT tokenizer and the query did not surface it"
+    "reason": "re-queried 2026-09-16 with --redo: identical two candidates, still Keras word-index tokenization rather than subword vocabularies. --redo without a query change returns what it returned before, which is what this run established"
+  },
+  {
+    "target": "training-corpus-contamination",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
   },
   {
     "target": "training-data-licensing",
@@ -312,7 +464,19 @@
     "reason": "the only candidate is production model monitoring, which is a different thing from instrumenting a training run — the node is about a run that burns a week of cluster time producing nothing"
   },
   {
+    "target": "verifier-model",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
     "target": "vocoder",
     "reason": "the only candidate is a conference presentation of a vocoder benchmark, not an explanation of what a vocoder does"
+  },
+  {
+    "target": "world-model",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
+  },
+  {
+    "target": "zero-redundancy-optimizer",
+    "reason": "searched twice with no query change, zero candidates both times — YouTube returns nothing for this concept, not merely nothing good. --redo <id> after a query or scorer change is the only thing that would move it"
   }
 ]
