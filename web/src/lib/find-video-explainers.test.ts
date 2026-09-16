@@ -1,4 +1,4 @@
-import { mkdtempSync } from 'node:fs';
+import { mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
@@ -497,6 +497,65 @@ describe('paced leaves a gap between searches, not around them', () => {
     const { slept } = await drain(['a', 'b']);
     expect(slept).toHaveLength(1);
     expect(slept[0]).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * #499. A target reaches "done with no candidates" honestly — an early
+ * domain-scoped pass found nothing — and a later concept-scoped pass then
+ * attaches a video from a different query. The checkpoint records the first
+ * fact and nothing reconciles it with the second, so --redo-empty re-asked
+ * YouTube about 24 of its 68 targets: 2,400 units against a 10,000/day tier.
+ */
+describe('a concept that already has a video is not barren (#499)', () => {
+  const all = [
+    { scope: 'concept' as const, key: 'throughput', title: 'Throughput' },
+    { scope: 'concept' as const, key: 'grounding', title: 'Grounding' },
+  ];
+  // BOTH ARE done-AND-EMPTY, which is the only state --redo-empty acts on.
+  // Differing only in coverage is what makes the assertion about coverage and
+  // nothing else: a fixture where the covered one also had candidates would
+  // pass whether or not `covered` is consulted at all, which is how the
+  // dismissal fixture above went wrong the first time.
+  const prior = { done: ['throughput', 'grounding'], candidates: [] };
+  const covered = new Set(['grounding']);
+
+  it('--redo-empty skips it, and still retries the one with no video', () => {
+    expect(pending(all, prior, { redoEmpty: true, covered }).map((t: Target) => t.key))
+      .toEqual(['throughput']);
+  });
+
+  it('REVERTING THE EXCLUSION IS VISIBLE HERE — without `covered`, both come back', () => {
+    expect(pending(all, prior, { redoEmpty: true }).map((t: Target) => t.key))
+      .toEqual(['throughput', 'grounding']);
+  });
+
+  it('--redo names it anyway, because a video you no longer trust is a reason', () => {
+    expect(pending(all, prior, { redo: ['grounding'], covered }).map((t: Target) => t.key))
+      .toEqual(['grounding']);
+  });
+
+  it('a covered target that was never searched is still searched', () => {
+    expect(pending(all, { done: [], candidates: [] }, { covered }).map((t: Target) => t.key))
+      .toEqual(['throughput', 'grounding']);
+  });
+
+  /**
+   * THE UNIT TESTS ABOVE CANNOT SEE A CALL-SITE MISTAKE, and I proved it by
+   * planting one: dropping `covered` from main()'s pending() call leaves all 77
+   * of them passing, because they call pending() directly. The exclusion is
+   * only worth anything if main() actually passes the set, so the wiring is
+   * asserted the way ci-workflow.test.ts asserts a workflow's `run:` lines —
+   * by reading the source, which is blunt and is the only reader there is.
+   */
+  it('main() passes covered to pending, or the exclusion is decorative', () => {
+    const src = readFileSync(
+      new URL('../../scripts/find-video-explainers.mjs', import.meta.url),
+      'utf8',
+    );
+    const call = /const todo = pending\(([^;]*)\);/.exec(src);
+    expect(call, 'main() no longer calls pending() in the expected shape').not.toBeNull();
+    expect(call![1]).toContain('covered');
   });
 });
 
