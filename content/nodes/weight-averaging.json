@@ -62,6 +62,13 @@
       "title": "Ensemble learning",
       "author": "Wikipedia contributors",
       "url": "https://en.wikipedia.org/wiki/Ensemble_learning"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "17.2 Averaging Weights Leads To Wider Optima And Better Generalization",
+      "author": "UAI 2018",
+      "url": "https://www.youtube.com/watch?v=cbVZDFs46mg"
     }
   ],
   "review": {
