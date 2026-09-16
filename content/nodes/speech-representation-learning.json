@@ -71,6 +71,13 @@
       "title": "Hugging Face Audio course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/audio-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Wav2vec2 A Framework for Self-Supervised Learning of Speech Representations - Paper Explained",
+      "author": "DataMListic",
+      "url": "https://www.youtube.com/watch?v=fMqYul2TvBE"
     }
   ],
   "review": {

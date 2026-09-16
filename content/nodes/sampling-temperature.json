@@ -65,6 +65,13 @@
       "title": "Large Transformer Model Inference Optimization",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Softmax - What is the Temperature of an AI??",
+      "author": "MarbleScience",
+      "url": "https://www.youtube.com/watch?v=YjVuJjmgclU"
     }
   ],
   "review": {

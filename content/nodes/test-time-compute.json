@@ -65,6 +65,13 @@
       "title": "Why We Think",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2025-05-01-thinking/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Why AI Models Pause to Think: Test Time Compute Explained",
+      "author": "IBM Technology",
+      "url": "https://www.youtube.com/watch?v=DAlC8mL5ZlI"
     }
   ],
   "review": {

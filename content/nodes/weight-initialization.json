@@ -65,6 +65,13 @@
       "title": "Numerical Stability and Initialization",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Weight Initialization in a Deep Network (C2W1L11)",
+      "author": "DeepLearningAI",
+      "url": "https://www.youtube.com/watch?v=s2coXdufOzE"
     }
   ],
   "review": {

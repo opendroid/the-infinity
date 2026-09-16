@@ -57,6 +57,13 @@
       "title": "Working with Sequences",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-neural-networks/sequence.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "What is Time Series Decomposition? - Time Series Analysis in Python",
+      "author": "Egor Howell",
+      "url": "https://www.youtube.com/watch?v=4Vq8KqbHKh8"
     }
   ],
   "review": {

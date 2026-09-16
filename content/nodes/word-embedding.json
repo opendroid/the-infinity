@@ -62,6 +62,13 @@
       "title": "The Illustrated Word2vec",
       "author": "Jay Alammar",
       "url": "https://jalammar.github.io/illustrated-word2vec/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Word Embedding and Word2Vec, Clearly Explained!!!",
+      "author": "StatQuest with Josh Starmer",
+      "url": "https://www.youtube.com/watch?v=viZrOnJclY0"
     }
   ],
   "review": {

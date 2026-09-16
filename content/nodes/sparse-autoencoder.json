@@ -60,6 +60,13 @@
       "title": "How to Explain the Prediction of a Machine Learning Model?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2017-08-01-interpretation/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "A Window  Into LLMs | Sparse Autoencoders Explained",
+      "author": "Papers Are Wonderful",
+      "url": "https://www.youtube.com/watch?v=TKozVZoXAYs"
     }
   ],
   "review": {

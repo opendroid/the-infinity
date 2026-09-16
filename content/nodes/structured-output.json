@@ -65,6 +65,13 @@
       "title": "Beam Search",
       "author": "Zhang, Lipton, Li & Smola",
       "url": "https://d2l.ai/chapter_recurrent-modern/beam-search.html"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Structured Output from LLMs: Grammars, Regex, and State Machines",
+      "author": "Efficient NLP",
+      "url": "https://www.youtube.com/watch?v=xpvFinvqRCA"
     }
   ],
   "review": {

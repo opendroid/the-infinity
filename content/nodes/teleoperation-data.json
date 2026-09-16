@@ -65,6 +65,13 @@
       "title": "Robotics Course",
       "author": "Hugging Face",
       "url": "https://huggingface.co/learn/robotics-course"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Explained: Data Collection and Humanoid Robots",
+      "author": "Agility",
+      "url": "https://www.youtube.com/watch?v=W6oldJgTTJM"
     }
   ],
   "review": {
