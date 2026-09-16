@@ -20,3 +20,8 @@ picks*.json
 # DISMISSAL is human judgment and nothing regenerates it, so it lives in
 # content/explainers-dismissed.json and is committed — reviewable in a pull
 # request, and it survives this checkpoint being deleted.
+
+# Screenshots from scripts/engine-probe (#497). Evidence for a manual pass, not
+# source: they are re-taken on every run and belong in an issue comment rather
+# than in git. The directory is the script's default OUT.
+probe-shots/
