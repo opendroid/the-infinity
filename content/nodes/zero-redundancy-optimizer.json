@@ -56,6 +56,13 @@
       "title": "How to Train Really Large Models on Many GPUs?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-09-25-train-large/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "Turing-NLG, DeepSpeed and the ZeRO optimizer",
+      "author": "Yannic Kilcher",
+      "url": "https://www.youtube.com/watch?v=tC01FRB0M7w"
     }
   ],
   "review": {
