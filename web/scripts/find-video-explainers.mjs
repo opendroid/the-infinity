@@ -285,6 +285,54 @@ export const queryFor = (t) => {
   return `${t.title} ${context} explained`.replace(/\s+/g, ' ').trim();
 };
 
+/**
+ * The query to fall back to when the narrow one comes back empty (#514).
+ *
+ * #504 TRADED ONE FAILURE FOR ITS MIRROR IMAGE, and the run measured both. The
+ * old query was mostly boilerplate, so YouTube answered four different concepts
+ * with the same generic video. The neighbour query fixed that — and
+ * `Offload ZeRO Arithmetic Intensity Activation Checkpointing explained` is six
+ * technical terms, which YouTube answers with nothing at all. Across the 30
+ * concepts re-queried in #513: targets returning nothing went 0 to 12, and the
+ * videos returned went 150 to 76. `low-rank-factorization` and `memory-planning`
+ * had candidates at 0.78 under the old query and returned ZERO under the new
+ * one.
+ *
+ * SO THE FALLBACK IS THE OLD QUERY, NOT A CLEVERER MIDDLE RUNG. Title plus one
+ * neighbour is the tempting version and it is another argument of exactly the
+ * kind #504 already made once and half-lost. This one is measured: the `FIELD`
+ * query returned five candidates for all thirty of these targets. The narrow
+ * query keeps its wins where it has them, and where it has nothing the run does
+ * what it did before — so this cannot regress anything.
+ *
+ * `null` MEANS THERE IS NOTHING TO WIDEN TO, which is two cases and not an
+ * error. A domain query already carries its sample concepts and has never shown
+ * this failure. A concept with no declared edges is already using the `FIELD`
+ * query, so a second identical search would spend 100 units to be refused the
+ * same way.
+ */
+export function widenedQueryFor(t) {
+  if (t.scope !== 'concept') return null;
+  const wide = `${t.title} ${FIELD} explained`;
+  return wide === queryFor(t) ? null : wide;
+}
+
+/**
+ * Whether to spend a second search on this target.
+ *
+ * EMPTY IS NOT THE SAME AS BAD, and only empty earns the retry. A target that
+ * returned five candidates which all scored zero has been answered — the videos
+ * exist and the scorer rejected them, which is #515's problem and not this one.
+ * Re-asking would buy the same five videos for another 100 units.
+ *
+ * Pure so the decision can be tested without mocking YouTube, which this file
+ * declines to do on the grounds that it proves only that the code agrees with
+ * its own mock.
+ */
+export function shouldWiden(target, videos, quota) {
+  return videos.length === 0 && widenedQueryFor(target) !== null && quota.affords('search');
+}
+
 // ---------------------------------------------------------------- scoring
 
 const WORD = /[a-z0-9]+/g;
@@ -505,13 +553,17 @@ export function score(candidate, target, allowedChannelIds = new Set(), { floor 
  * @property {string} [reason] the term that kept the top candidate out
  * @property {string[]} [reasons] every term that fired on it
  * @property {string} [title] what the top candidate was, for a reader
+ * @property {boolean} [widened] the narrow query was empty and the wide one ran (#514)
  */
 
 /** @returns {Outcome} */
-export function outcome(scored, minScore) {
+export function outcome(scored, minScore, widened = false) {
   const kept = scored.filter((c) => c.score >= minScore).length;
   /** @type {Outcome} */
   const o = { returned: scored.length, kept };
+  // Only when true. An absent flag reads as "the narrow query answered", which
+  // is the common case and does not need announcing in 482 records.
+  if (widened) o.widened = true;
   const top = scored[0];
   if (kept === 0 && top) {
     o.best = Number(top.score.toFixed(3));
@@ -581,14 +633,17 @@ export function floored(scored, target, allowed, minScore) {
  * target with one pick and three floored near-misses is a different thing to
  * read than a target with one pick, and the reader is the one deciding.
  */
-export function reportLine(key, scored, minScore, flooredCount = 0) {
+export function reportLine(key, scored, minScore, flooredCount = 0, widened = false) {
   const kept = scored.filter((c) => c.score >= minScore);
   const head = `  ${kept.length ? '\u00b7' : ' '} ${key.padEnd(28)} ${String(kept.length).padStart(2)} candidate(s)`;
-  const tail = flooredCount > 0 ? `; ${flooredCount} floored` : '';
+  const notes = [];
+  if (widened) notes.push('widened');
+  if (flooredCount > 0) notes.push(`${flooredCount} floored`);
+  const tail = notes.length > 0 ? `; ${notes.join(', ')}` : '';
   const best = kept[0];
   if (best) return `${head}  best: ${best.score.toFixed(2)} ${best.author} \u2014 ${best.title.slice(0, 54)}${tail}`;
   const top = scored[0];
-  if (!top) return `${head}  \u2014 nothing returned`;
+  if (!top) return `${head}  \u2014 nothing returned${widened ? ' by either query' : ''}`;
   return (
     `${head}  \u2014 ${scored.length} returned, none kept; ` +
     `best ${top.score.toFixed(2)} (${rejecting(top.reasons)})${tail}`
@@ -728,10 +783,13 @@ export async function withRetry(kind, quota, call, { sleep = (ms) => new Promise
   }
 }
 
-async function searchOne(target, key, quota, perTarget, opts = {}) {
+/**
+ * One search, hydrated. `searchOne` below decides which query to hand it.
+ */
+async function searchQuery(q, key, quota, perTarget, opts = {}) {
   const found = await withRetry('search', quota, () => api(
     'search',
-    { part: 'snippet', q: queryFor(target), type: 'video', maxResults: String(perTarget), relevanceLanguage: 'en' },
+    { part: 'snippet', q, type: 'video', maxResults: String(perTarget), relevanceLanguage: 'en' },
     key,
   ), opts);
   const items = found.items ?? [];
@@ -760,6 +818,20 @@ async function searchOne(target, key, quota, perTarget, opts = {}) {
         views: d?.statistics?.viewCount ?? null,
       };
     });
+}
+
+/**
+ * The narrow query, and the wide one when the narrow finds nothing (#514).
+ *
+ * `widened` is reported whether or not the second search found anything, so
+ * "returned nothing" keeps meaning BOTH queries found nothing rather than
+ * quietly meaning one of them — which is the ambiguity #503 exists to remove.
+ */
+async function searchOne(target, key, quota, perTarget, opts = {}) {
+  const videos = await searchQuery(queryFor(target), key, quota, perTarget, opts);
+  if (!shouldWiden(target, videos, quota)) return { videos, widened: false };
+  const wide = widenedQueryFor(target);
+  return { videos: await searchQuery(String(wide), key, quota, perTarget, opts), widened: true };
 }
 
 /**
@@ -950,9 +1022,9 @@ export async function search(argv, opts = {}) {
       break;
     }
 
-    let found;
+    let got;
     try {
-      found = await searchOne(target, key, quota, perTarget, opts);
+      got = await searchOne(target, key, quota, perTarget, opts);
       refused = refusals(refused, null);
     } catch (err) {
       if (err.reason === 'quotaExceeded') {
@@ -972,6 +1044,10 @@ export async function search(argv, opts = {}) {
       }
       continue;
     }
+
+    // Destructured after the try: every path out of the catch continues the
+    // loop, so `got` is assigned by the time this runs.
+    const { videos: found, widened } = got;
 
     const scored = found
       .map((c) => ({ ...c, ...score(c, target, allowed) }))
@@ -994,8 +1070,8 @@ export async function search(argv, opts = {}) {
       ...held.map((c) => ({ target: target.key, scope: target.scope, ...c })),
     ];
 
-    prior.outcomes = { ...prior.outcomes, [target.key]: outcome(scored, minScore) };
-    console.log(reportLine(target.key, scored, minScore, held.length));
+    prior.outcomes = { ...prior.outcomes, [target.key]: outcome(scored, minScore, widened) };
+    console.log(reportLine(target.key, scored, minScore, held.length, widened));
 
     prior.done = [...done];
     save(out, prior);
