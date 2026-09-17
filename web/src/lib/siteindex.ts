@@ -12,6 +12,7 @@
  * while before that, on the pre-launch host and behind `Disallow: /` — asking
  * to be ignored, which was coherent because the site was.
  */
+import { directory, domainRoutes } from './directory';
 import type { ResolvedNode, Tier } from './graph';
 
 export interface IndexedPage {
@@ -90,7 +91,7 @@ export function indexedConcepts(nodes: ResolvedNode[]): IndexedConcept[] {
  *   /404     obviously.
  */
 export function indexedRoutes(concepts: IndexedConcept[]): IndexedPage[] {
-  const newest = concepts.reduce((a, c) => (c.lastmod > a ? c.lastmod : a), '0000-00-00');
+  const newest = newestOf(concepts);
   return [
     {
       path: '/',
@@ -109,8 +110,37 @@ export function indexedRoutes(concepts: IndexedConcept[]): IndexedPage[] {
   ];
 }
 
+/**
+ * The 47 domain pages (#509, ADR-0024).
+ *
+ * SEPARATE FROM `indexedRoutes` BECAUSE THEY ARE NOT FIXED. Those two entries
+ * are a hand-written list and can be, because `/` and `/concepts` exist
+ * whatever the graph does. A domain route exists only because nodes name it, so
+ * it is derived from the same `directory` the pages are built from — the one
+ * traversal this file exists to keep singular. A hand-kept list here would be a
+ * third description of the graph, free to list a domain the site does not serve
+ * or miss one it does.
+ *
+ * Priority sits between `/concepts` at 0.9 and a concept at 0.8: a domain page
+ * is a view over the graph like the index above it, covering less of it.
+ */
+export function indexedDomains(nodes: ResolvedNode[], lastmod: string): IndexedPage[] {
+  return domainRoutes(directory(nodes)).map((route) => ({
+    path: route.path,
+    title: route.name,
+    lastmod,
+    priority: '0.85',
+    note: `${route.count} concepts in ${route.name} — ${route.sections.join(', ')}`,
+  }));
+}
+
+/** The newest concept, which is when any view over the graph last changed. */
+export function newestOf(concepts: IndexedConcept[]): string {
+  return concepts.reduce((a, c) => (c.lastmod > a ? c.lastmod : a), '0000-00-00');
+}
+
 /** Everything a sitemap lists: the fixed routes, then the concepts. */
 export function sitemapPages(nodes: ResolvedNode[]): IndexedPage[] {
   const concepts = indexedConcepts(nodes);
-  return [...indexedRoutes(concepts), ...concepts];
+  return [...indexedRoutes(concepts), ...indexedDomains(nodes, newestOf(concepts)), ...concepts];
 }

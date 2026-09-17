@@ -287,6 +287,8 @@ here.*
 | `cd api && make golden` | Regenerate `content/derived.golden.json` after a content change |
 | `cd web && firebase deploy --only hosting` | Deploy the built site |
 
+**The concept index is two routes** ([ADR-0024](docs/adr/0024-a-domain-is-a-route.md)). `/concepts` is a directory of the 47 domains; `/concepts/<domain>` lists that domain's concepts. Both derive from `domain[0]` through `directory()`, never a hand-kept list — `domainRoutes` **throws on a slug collision**, because the alternative is one domain quietly vanishing from the site while the card still counts it. Both are island-free, and `lib/siteindex` feeds the domain routes to `sitemap.xml` and `llms.txt` from that same walk. The split took `/concepts` from 37,379 to 5,040 gzipped bytes; the route that grows with the graph is now `/concepts/*`.
+
 **The Tailwind theme is generated, not written.** `web/scripts/generate-tokens.mjs` reads
 [`tokens.json`](docs/design/handoff-v1/tokens.json) and emits `src/styles/tokens.generated.css`,
 which is gitignored so committed source cannot drift from the handoff. It runs from

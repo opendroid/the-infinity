@@ -1,0 +1,111 @@
+---
+// One domain, its sections, and its concepts (#509, ADR-0024).
+//
+// The rows here are the ones /concepts used to render 482 of. Nothing about a
+// row changed: same blurb derived from the intuition body, same tier badge
+// carrying text as well as colour, same link. What changed is how many of them
+// a reader has to download to reach one.
+//
+// PATHS ARE DERIVED FROM THE NODES, never a hand-kept list — `domainRoutes`
+// throws if two domains would claim the same URL, so the build stops instead of
+// dropping one of them from the site.
+import Base from '../../layouts/Base.astro';
+import Topbar from '../../components/Topbar.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import TierDot from '../../components/TierDot.astro';
+import { allNodes } from '../../lib/content';
+import { directory, domainRoutes } from '../../lib/directory';
+import type { Group } from '../../lib/directory';
+
+export function getStaticPaths() {
+  const groups = directory(allNodes);
+  const routes = domainRoutes(groups);
+  return routes.map((route) => ({
+    params: { domain: route.slug },
+    props: { group: groups.find((g) => g.name === route.name) as Group, count: route.count },
+  }));
+}
+
+interface Props {
+  group: Group;
+  count: number;
+}
+
+const { group, count } = Astro.props;
+const verified = group.sections.flatMap((s) => s.entries).filter((e) => e.tier === 'verified').length;
+---
+
+<Base
+  title={`${group.name} · theinfinity.ai`}
+  description={`${count} concepts in ${group.name} — ${group.sections.map((s) => s.name).join(', ')}.`}
+>
+  <Topbar />
+
+  <main class="mx-auto max-w-[860px] px-[26px] py-12">
+    {/*
+      The eyebrow is the way back up. This route has no breadcrumb component and
+      does not need one at two levels deep — the link a reader wants is "all of
+      them", and that is the page they came from.
+    */}
+    <Eyebrow>
+      {/*
+        A REAL 24px BOX, NOT 13px OF TEXT. The eyebrow elsewhere is a label —
+        the domain path on a concept page — and making it a link here turned it
+        into a standalone control at the eyebrow's own 11px, which WCAG 2.5.8
+        puts under the minimum. `npm run smoke` caught it. The negative margin
+        gives the height back to the layout so the heading does not move; the
+        hit area is the min-height and is unaffected by it.
+      */}
+      <a
+        href="/concepts"
+        class="-my-[7px] inline-flex min-h-[24px] items-center text-dust no-underline hover:text-starlight"
+      >
+        Every concept
+      </a>
+    </Eyebrow>
+    <h1 class="mt-1.5 font-display text-[30px] font-semibold leading-[1.16] text-starlight max-md:text-[23px]">
+      {group.name}
+    </h1>
+
+    <p class="mt-2.5 max-w-[62ch] text-[15px] leading-[1.65] text-dust">
+      {count} {count === 1 ? 'concept' : 'concepts'}, {verified} reviewed and merged.
+    </p>
+
+    {
+      group.sections.map((section) => (
+        <section class="mt-9">
+          <h2 class="mb-2.5 font-mono text-[10px] uppercase tracking-[.18em] text-dust">
+            {section.name}
+          </h2>
+          <ul role="list" class="m-0 list-none space-y-[7px] p-0">
+            {section.entries.map((entry) => (
+              <li>
+                <a
+                  href={`/c/${entry.id}`}
+                  class="flex min-h-11 items-start justify-between gap-4 rounded-row border border-line bg-nebula px-[13px] py-[11px] no-underline hover:border-thread"
+                >
+                  <span class="min-w-0">
+                    <span class="block text-[14px] text-starlight">{entry.title}</span>
+                    <span class="mt-1 block max-w-[62ch] text-[12.5px] leading-[1.55] text-dust">
+                      {entry.blurb}
+                    </span>
+                  </span>
+                  {/*
+                    Tier carries text, not only colour — the dot alone would
+                    make the single most important semantic in the product
+                    invisible to a third of the reasons someone might not
+                    see it (CLAUDE.md §5).
+                  */}
+                  <span class="flex shrink-0 items-center gap-1.5 pt-0.5 font-mono text-[10px] uppercase tracking-[.14em] text-dust">
+                    <span class="sr-only md:not-sr-only">{entry.tier}</span>
+                    <TierDot tier={entry.tier} decorative />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </main>
+</Base>

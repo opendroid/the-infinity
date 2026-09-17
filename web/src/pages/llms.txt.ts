@@ -16,14 +16,16 @@
  */
 import type { APIRoute } from 'astro';
 import { allNodes } from '../lib/content';
-import { indexedConcepts, indexedRoutes } from '../lib/siteindex';
+import { indexedConcepts, indexedDomains, indexedRoutes, newestOf } from '../lib/siteindex';
 
 export const GET: APIRoute = ({ site }) => {
   if (!site) throw new Error('llms.txt needs `site` in astro.config.ts');
   const abs = (path: string) => new URL(path, site).href;
 
   const concepts = indexedConcepts(allNodes);
-  const pages = indexedRoutes(concepts);
+  // The domain pages join the fixed ones: a model reading this index should be
+  // able to reach a subject without walking all 482 concepts (#509).
+  const pages = [...indexedRoutes(concepts), ...indexedDomains(allNodes, newestOf(concepts))];
 
   const body = `# theinfinity.ai
 

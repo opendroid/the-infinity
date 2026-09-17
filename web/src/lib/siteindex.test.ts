@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { indexedConcepts, indexedRoutes, sitemapPages, summarise } from './siteindex';
+import { indexedConcepts, indexedDomains, indexedRoutes, newestOf, sitemapPages, summarise } from './siteindex';
 import { allNodes } from './content';
 
 const concepts = indexedConcepts(allNodes);
@@ -38,13 +38,32 @@ describe('what the sitemap lists', () => {
     expect(pages.map((p) => p.path)).toEqual(expect.arrayContaining(['/', '/concepts']));
   });
 
-  it('lists those two routes and the concepts, and nothing else', () => {
+  it('lists those routes, the domains and the concepts, and nothing else', () => {
     // The exact set, not a pattern that excludes today's routes: a pattern
     // passes for a route nobody thought to name, and the whole risk here is a
     // route added later that quietly ends up in the sitemap. Trails are the one
     // that matters — unbounded and duplicate by construction. See the comment
     // on `indexedRoutes` for why /search, /request and /404 are out too.
-    expect(pages.map((p) => p.path)).toEqual(['/', '/concepts', ...concepts.map((c) => c.path)]);
+    //
+    // THE DOMAIN PAGES ARE A DELIBERATE ADDITION (#509), and this assertion is
+    // how they had to be: adding 47 routes turned this red, which is the point
+    // of writing it as the exact set rather than a pattern.
+    const domains = indexedDomains(allNodes, newestOf(concepts));
+    expect(pages.map((p) => p.path)).toEqual([
+      '/',
+      '/concepts',
+      ...domains.map((d) => d.path),
+      ...concepts.map((c) => c.path),
+    ]);
+  });
+
+  it('gives every domain a page, derived from the nodes rather than listed', () => {
+    const domains = indexedDomains(allNodes, newestOf(concepts));
+    expect(domains.length).toBe(new Set(allNodes.map((n) => n.domain[0])).size);
+    // Between the index above them and a concept below: a view over the graph
+    // that covers less of it than /concepts does.
+    for (const d of domains) expect(Number(d.priority)).toBeLessThan(0.9);
+    for (const d of domains) expect(Number(d.priority)).toBeGreaterThan(0.8);
   });
 
   it('matches the canonical URLs — no trailing slash except the root', () => {

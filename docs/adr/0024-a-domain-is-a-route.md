@@ -1,6 +1,6 @@
 # 0024 — A domain is a route, and the index is a directory of them
 
-- **Status:** proposed
+- **Status:** accepted — implemented in #509, and the two questions it left open are answered below
 - **Date:** 2026-09-17
 - **Refines:** [ADR-0003](0003-static-first-serving.md)
 
@@ -109,6 +109,33 @@ of magnitude is the expectation; the recorded number is what settles it.
 **What would reverse this.** Domain pages that readers land on and leave — `make analytics`
 can see arrivals per route. Or a corpus that stops growing, which would make the flat page
 fine again.
+
+## Answered on implementation (#509)
+
+Two things this file left open, settled by building it. Recorded here rather than rewritten
+above, so the record of what was known when stays intact.
+
+**The saving is 7.4×, not an order of magnitude.** `/concepts` went from 37,379 to **5,040 B
+gzipped**, and the heaviest domain page — `Foundations`, 37 concepts — is **4,206 B**. So a
+reader who wants Foundations now fetches 9,246 B across two pages rather than 37,379 B for
+one, and a reader who wants any other domain fetches about 7,000. The prediction was
+optimistic and the measurement is what belongs on the record. `perf-budget.json` carries both
+numbers and its own prose was corrected: the route that grows with the graph is now
+`/concepts/*`, not `/concepts`.
+
+**Where the thread runs here: it does not, and that is the answer.** CLAUDE.md §5 asks it of
+every new surface. The thread means *the path a reader took* — the landing lemniscate, the
+trail ribbon, the shared trail. A directory is not a traversal; it is the map consulted
+before one. Running a line through 47 cards would spend the product's one visual idea on
+decoration, which is what the handoff's anti-patterns list calls out. The index never carried
+the thread and this change does not invent one for it.
+
+**One thing the ADR did not anticipate.** The back link to `/concepts` sits in the eyebrow,
+which is an 11px mono label everywhere else in the product — as a link that is a standalone
+control of 13px, under WCAG 2.5.8's 24px minimum. `npm run smoke` failed on it, twice: the
+first fix used `min-h-6`, and the spacing scale is generated from `tokens.json` so the
+numeric key is not 24px. An explicit `min-h-[24px]` is what passes. A breadcrumb rendered in
+a label's clothing is a trap the next surface will hit too.
 
 ## Alternatives considered
 
