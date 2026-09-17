@@ -60,7 +60,18 @@ const DAILY_UNITS = 10_000;
  * legitimate low-view content sits above — USENIX at 1,292, Hung-yi Lee at
  * 1,599, Olewave at 909.
  */
-const UNWATCHED = 500;
+export const UNWATCHED = 500;
+
+/**
+ * The score a candidate must reach to be kept, unless `--min-score` says
+ * otherwise.
+ *
+ * EXPORTED BECAUSE THE FLOOR'S BEHAVIOUR IS DEFINED RELATIVE TO IT (#505). It
+ * was a literal in argument parsing, which meant nothing could assert the one
+ * relationship that decides whether `WEIGHTS.unwatched` demotes a candidate or
+ * deletes it. Now a test can, and does.
+ */
+export const DEFAULT_MIN_SCORE = 0.35;
 
 /**
  * Milliseconds between searches (#400).
@@ -353,7 +364,7 @@ export const WEIGHTS = {
   unwatched: 0.45,
 };
 
-export function score(candidate, target, allowedChannelIds = new Set()) {
+export function score(candidate, target, allowedChannelIds = new Set(), { floor = true } = {}) {
   const reasons = [];
   let n = 0;
 
@@ -441,8 +452,28 @@ export function score(candidate, target, allowedChannelIds = new Set()) {
   // already shipped — the IEEE S&P Membership Inference talk at 16,801 views.
   // Any curve steep enough to punish 22 views is weaker than this one around
   // 20,000, which is exactly where conference talks and university lectures
-  // live. The threshold does the work: -0.35 demotes the same 60.
-  if (views > 0 && views < UNWATCHED && !trusted) {
+  // live.
+  //
+  // AT 0.45 IT IS A GATE, NOT THE DEMOTION THE PARAGRAPH ABOVE DESCRIBES (#505).
+  // That is the whole of what an untrusted candidate can reach while it applies:
+  //
+  //     0.600  a perfect title match
+  //     0.150  a teachable length
+  //     0.027  the views prior at its maximum below the floor, log10(499)/100
+  //    -0.450  this term
+  //     -----
+  //     0.327  and DEFAULT_MIN_SCORE is 0.350
+  //
+  // So nothing from an untrusted channel with fewer than 500 views can pass,
+  // however exactly its title matches and however right it is — one view either
+  // side of the boundary is the difference between removed and best in the run.
+  // It reached that magnitude honestly, rescaled in #432 when the overlap term
+  // grew from 0.30 to 0.60 so a content farm with an exact title could not clear
+  // the bar; what went unnoticed is that it crossed from demotion to gate on the
+  // way, by 0.023. `floored` below is the answer to that: the term stays, and
+  // what it removes is written down instead of vanishing. The invariant test
+  // fails if a later rescale moves this across the line in either direction.
+  if (floor && views > 0 && views < UNWATCHED && !trusted) {
     n -= WEIGHTS.unwatched;
     reasons.push(`almost unwatched (${views} views)`);
   }
@@ -506,19 +537,61 @@ const rejecting = (reasons) =>
   'nothing disqualifying, just a low score';
 
 /**
+ * The candidates the view floor removed that would otherwise have been kept
+ * (#505).
+ *
+ * WHAT THIS EXISTS TO STOP: `WEIGHTS.unwatched` is 0.45 against a 0.35
+ * threshold, so it does not rank a sub-500-view candidate lower — it deletes
+ * it, and until now deleted it silently. In the #503 diagnostic that hid 17 of
+ * 30 concepts, ELEVEN OF THEM ON A 100% TITLE MATCH at a teachable length:
+ * `straggler` was offered USENIX's "NSDI '13 — Effective Straggler Mitigation",
+ * `activation-patching` a Mechanistic Interpretability lecture. Some of what the
+ * floor catches genuinely is the AI slop #395 was built for. Some of it is a
+ * conference talk with a small audience. Nothing available here can tell those
+ * apart, and while the score decided alone, nobody ever got to try.
+ *
+ * SO THE SCORE STILL DECIDES THE PICK LIST, AND THIS IS KEPT BESIDE IT. These
+ * do not enter `candidates`, do not make a target count as productive, and do
+ * not change what `--redo-empty` retries — re-admitting them would hand back
+ * the slop that made curating the second sweep expensive. They are written down
+ * so that a target reading "nothing kept" can be asked what it turned away.
+ *
+ * "Would otherwise have been kept" is measured, not inferred: the candidate is
+ * re-scored with the floor off. Adding 0.45 back to the reported score would be
+ * wrong, because that score is clamped at zero and a badly-scoring candidate
+ * would reconstruct as a passing one.
+ */
+export function floored(scored, target, allowed, minScore) {
+  return scored.filter(
+    (c) =>
+      // Actually excluded. Without this, `--min-score 0` — the diagnostic mode,
+      // where nothing is filtered at all — reports every low-view candidate as a
+      // near-miss of a bar it cleared.
+      c.score < minScore &&
+      c.reasons.some((r) => r.startsWith('almost unwatched')) &&
+      score(c, target, allowed, { floor: false }).score >= minScore,
+  );
+}
+
+/**
  * The one line a finished target prints. `scored` must already be sorted best
  * first — `outcome` above records the same three states this reports.
+ *
+ * `flooredCount` is appended wherever it is non-zero, kept or not (#505): a
+ * target with one pick and three floored near-misses is a different thing to
+ * read than a target with one pick, and the reader is the one deciding.
  */
-export function reportLine(key, scored, minScore) {
+export function reportLine(key, scored, minScore, flooredCount = 0) {
   const kept = scored.filter((c) => c.score >= minScore);
   const head = `  ${kept.length ? '\u00b7' : ' '} ${key.padEnd(28)} ${String(kept.length).padStart(2)} candidate(s)`;
+  const tail = flooredCount > 0 ? `; ${flooredCount} floored` : '';
   const best = kept[0];
-  if (best) return `${head}  best: ${best.score.toFixed(2)} ${best.author} \u2014 ${best.title.slice(0, 54)}`;
+  if (best) return `${head}  best: ${best.score.toFixed(2)} ${best.author} \u2014 ${best.title.slice(0, 54)}${tail}`;
   const top = scored[0];
   if (!top) return `${head}  \u2014 nothing returned`;
   return (
     `${head}  \u2014 ${scored.length} returned, none kept; ` +
-    `best ${top.score.toFixed(2)} (${rejecting(top.reasons)})`
+    `best ${top.score.toFixed(2)} (${rejecting(top.reasons)})${tail}`
   );
 }
 
@@ -812,7 +885,7 @@ export async function search(argv, opts = {}) {
   const out = flag(argv, '--out') ?? (concepts ? 'video-candidates.concepts.json' : 'video-candidates.domains.json');
   const budget = Number(flag(argv, '--budget') ?? DAILY_UNITS);
   const perTarget = Number(flag(argv, '--per-target') ?? 5);
-  const minScore = Number(flag(argv, '--min-score') ?? 0.35);
+  const minScore = Number(flag(argv, '--min-score') ?? DEFAULT_MIN_SCORE);
 
   const quota = new Quota(budget);
   const all = targets(readNodes(), { concepts });
@@ -913,8 +986,16 @@ export async function search(argv, opts = {}) {
       prior.candidates.push({ target: target.key, scope: target.scope, ...c });
     }
 
+    // Replaced per target, like `candidates` above and for the same reason: a
+    // re-scored target must not keep the near-misses of an older scoring.
+    const held = floored(scored, target, allowed, minScore);
+    prior.floored = [
+      ...(prior.floored ?? []).filter((c) => c.target !== target.key),
+      ...held.map((c) => ({ target: target.key, scope: target.scope, ...c })),
+    ];
+
     prior.outcomes = { ...prior.outcomes, [target.key]: outcome(scored, minScore) };
-    console.log(reportLine(target.key, scored, minScore));
+    console.log(reportLine(target.key, scored, minScore, held.length));
 
     prior.done = [...done];
     save(out, prior);
@@ -923,6 +1004,11 @@ export async function search(argv, opts = {}) {
   save(out, { ...prior, done: [...done] });
   console.log(
     `\n${quota.spent} units spent. ${prior.candidates.length} candidate(s) across ${done.size} target(s) → ${out}\n` +
+      ((prior.floored ?? []).length > 0
+        ? `${(prior.floored ?? []).length} more scored well enough but have under ${UNWATCHED} views, so the floor\n` +
+          `removed them (#505). They are in \`floored\`, not in \`candidates\` — some are AI slop and\n` +
+          `some are conference talks nobody found, and nothing here can tell which.\n`
+        : '') +
       `\nNothing here is an explainer yet. Read it, pick the ones that genuinely teach the\n` +
       `thing, and put the picks in a file:\n\n` +
       `  [{ "target": "attention", "scope": "domain", "url": "https://www.youtube.com/watch?v=..." }]\n\n` +

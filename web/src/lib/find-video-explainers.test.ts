@@ -4,8 +4,10 @@ import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import {
   dismissals,
+  DEFAULT_MIN_SCORE,
   durationSeconds,
   facets,
+  floored,
   inDegree,
   outcome,
   paced,
@@ -20,6 +22,7 @@ import {
   staleDismissals,
   targets,
   STOP_AFTER_REFUSALS,
+  UNWATCHED,
   unknownTargets,
   WEIGHTS,
   withRetry,
@@ -43,6 +46,9 @@ type Target = {
   covers?: number;
   sample?: string[];
 };
+
+/** A candidate with `score()`'s result spread onto it — what `floored` returns. */
+type Scored = { title: string; author: string; views: number; score: number; reasons: string[] };
 
 const node = (id: string, domain: string[], adjacent: string[] = []) => ({
   id,
@@ -1006,5 +1012,145 @@ describe('"0 candidates" no longer means two different things (#503)', () => {
     expect(reportLine('low-rank-factorization', kept, 0.35)).toContain(
       'best: 0.78 A Channel — Vectorization Low Rank Matrix Factorization',
     );
+  });
+});
+
+describe('the view floor is a gate, and what it removes is written down (#505)', () => {
+  const straggler = { scope: 'concept' as const, key: 'straggler', title: 'Straggler' };
+  const video = (title: string, views: number, durationSeconds = 900) => ({
+    title,
+    author: 'USENIX',
+    channelId: 'UCunknown',
+    views,
+    durationSeconds,
+  });
+  const rank = (raw: ReturnType<typeof video>[]) =>
+    raw
+      .map((c) => ({ ...c, ...score(c, straggler, new Set()) }))
+      .sort((a, b) => b.score - a.score);
+
+  describe('the invariant', () => {
+    it('nothing under the view floor can pass, however perfectly it matches', () => {
+      // THE RELATIONSHIP THIS FILE EXISTS TO PIN. `WEIGHTS.unwatched` is 0.45
+      // against a 0.35 threshold, so the best an untrusted candidate can reach
+      // while the floor applies is 0.327 — a perfect title match at a teachable
+      // length with the views prior at its own maximum. That is a gate, not the
+      // demotion #395's comment described, and it crossed the line by 0.023
+      // when #432 rescaled it.
+      //
+      // IF THIS TEST FAILS, SOMEONE MOVED A WEIGHT OR THE THRESHOLD. That may
+      // be deliberate — #505 lists retuning as a real option — but it changes
+      // whether `floored` below can ever be empty, so it is a decision to make
+      // on purpose rather than discover later.
+      const best = score(video('Straggler, clearly explained', UNWATCHED - 1), straggler, new Set());
+      expect(best.reasons).toContain(`almost unwatched (${UNWATCHED - 1} views)`);
+      expect(best.score).toBeLessThan(DEFAULT_MIN_SCORE);
+
+      // One view the other side of the boundary, and the same video is the best
+      // thing in the run. That cliff is the point.
+      const watched = score(video('Straggler, clearly explained', UNWATCHED), straggler, new Set());
+      expect(watched.score).toBeGreaterThan(DEFAULT_MIN_SCORE);
+      expect(watched.score - best.score).toBeGreaterThan(0.4);
+    });
+
+    it('lets the floor be switched off, which is how "would otherwise" is measured', () => {
+      const c = video('Straggler, clearly explained', 412);
+      expect(score(c, straggler, new Set(), { floor: false }).reasons).not.toContain(
+        'almost unwatched (412 views)',
+      );
+      expect(score(c, straggler, new Set(), { floor: false }).score).toBeGreaterThan(
+        DEFAULT_MIN_SCORE,
+      );
+    });
+  });
+
+  describe('floored', () => {
+    it('holds what the floor alone kept out', () => {
+      // THE PLANT. Remove the floor's effect from `floored` and this is empty,
+      // which is the state that hid 17 of 30 concepts in the #503 diagnostic —
+      // 11 of them on a 100% title match, this one among them.
+      const scored = rank([
+        video("NSDI '13 - Effective Straggler Mitigation", 412),
+        video('Straggler talk', 40_000),
+      ]);
+      const held = floored(scored, straggler, new Set(), DEFAULT_MIN_SCORE);
+      expect(held.map((c: Scored) => c.title)).toEqual(["NSDI '13 - Effective Straggler Mitigation"]);
+    });
+
+    it('leaves out anything the floor was not what stopped', () => {
+      // A video sharing no word with the concept is stopped by the #432 gate and
+      // would be stopped by it at any view count. Listing it as a near-miss
+      // would be a lie about why it is not a candidate.
+      const scored = rank([video('Unrelated cooking video', 50), video('Straggler talk', 40_000)]);
+      expect(floored(scored, straggler, new Set(), DEFAULT_MIN_SCORE)).toEqual([]);
+    });
+
+    it('does not reconstruct a score by adding the weight back', () => {
+      // A candidate that scored badly for other reasons is CLAMPED AT ZERO, so
+      // score + 0.45 reads as 0.45 and passes. Re-scoring with the floor off is
+      // the difference between a near-miss and an arithmetic artefact: one word
+      // of three, too short, 50 views — 0.067 unfloored, nowhere near the bar.
+      const lowRank = { scope: 'concept' as const, key: 'x', title: 'Low-Rank Factorization' };
+      const c = video('Factorization in 20 seconds', 50, 20);
+      const scored = [{ ...c, ...score(c, lowRank, new Set()) }];
+      expect(scored[0]?.score).toBe(0);
+      expect(score(c, lowRank, new Set(), { floor: false }).score).toBeLessThan(DEFAULT_MIN_SCORE);
+      expect(floored(scored, lowRank, new Set(), DEFAULT_MIN_SCORE)).toEqual([]);
+    });
+
+    it('keeps a short video the floor genuinely removed, judgement included', () => {
+      // 60s and a perfect title is the AI-slop shape, and it would have passed
+      // without the floor — 0.60 − 0.15 + prior. It belongs in the list with
+      // `too short` attached, because filtering it here would be this file
+      // making the call that the list exists to hand to a person.
+      const scored = rank([video('Straggler shorts', 300, 60)]);
+      const held = floored(scored, straggler, new Set(), DEFAULT_MIN_SCORE);
+      expect(held).toHaveLength(1);
+      expect(held[0]?.reasons).toContain('too short');
+    });
+
+    it('is empty when nothing is being filtered at all', () => {
+      // `--min-score 0` keeps everything, so the floor removes nothing and there
+      // is no near-miss to report. THIS FAILED WHEN FIRST WRITTEN: the predicate
+      // asked only whether the floor had fired and whether the candidate would
+      // pass without it, never whether it had actually been excluded, so the
+      // diagnostic mode reported every low-view candidate as a near-miss of a
+      // bar it had cleared.
+      const scored = rank([video("NSDI '13 - Effective Straggler Mitigation", 412)]);
+      expect(floored(scored, straggler, new Set(), 0)).toEqual([]);
+    });
+  });
+
+  describe('a floored near-miss is not a candidate', () => {
+    it('does not make a target productive, so --redo-empty still retries it', () => {
+      // THE PROMISE OF KEEPING THESE IN A SEPARATE LIST. A target whose only
+      // result is a near-miss has not been answered, and the next query change
+      // must still pay to ask it again. Put these in `candidates` instead and
+      // `productive` counts them, and `--redo-empty` skips the targets the
+      // change was for — which is the #403 mistake with a new cause.
+      const prior = {
+        done: ['straggler'],
+        candidates: [],
+        floored: [{ target: 'straggler', scope: 'concept', title: "NSDI '13", score: 0.327 }],
+      };
+      const all = [{ scope: 'concept' as const, key: 'straggler', title: 'Straggler' }];
+      expect(pending(all, prior, { redoEmpty: true }).map((t: Target) => t.key)).toEqual([
+        'straggler',
+      ]);
+    });
+  });
+
+  describe('the run says so', () => {
+    it('names the count whether or not anything was kept', () => {
+      const withPick = rank([video("NSDI '13", 412), video('Straggler talk', 40_000)]);
+      expect(reportLine('straggler', withPick, DEFAULT_MIN_SCORE, 1)).toContain('1 floored');
+      const withoutPick = rank([video("NSDI '13", 412)]);
+      expect(reportLine('straggler', withoutPick, DEFAULT_MIN_SCORE, 1)).toContain('1 floored');
+    });
+
+    it('says nothing when nothing was floored', () => {
+      const scored = rank([video('Straggler talk', 40_000)]);
+      expect(reportLine('straggler', scored, DEFAULT_MIN_SCORE, 0)).not.toContain('floored');
+    });
   });
 });
