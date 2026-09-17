@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT, fromSearch, parseDepth, resolve, searchFor } from './depth';
+import { DEFAULT, DEPTHS, fromSearch, hrefFor, parseDepth, resolve, searchFor } from './depth';
 
 /**
  * The precedence, tested without a DOM (#42).
@@ -93,5 +93,35 @@ describe('writing the parameter back', () => {
     expect(searchFor('?from=search', 'math')).toBe('?from=search&depth=math');
     // And switching back to the default keeps the others.
     expect(searchFor('?from=search&depth=math', 'intuition')).toBe('?from=search');
+  });
+});
+
+describe('hrefFor builds the link that opens a concept at a depth (#508)', () => {
+  it('leaves the default unmarked, exactly as the address bar does', () => {
+    // THE PLANT. Build this by concatenation and it becomes
+    // `/c/attention?depth=intuition` — a second spelling of a page the toggle
+    // itself writes as `/c/attention` the moment a reader switches back.
+    expect(hrefFor('attention', 'intuition')).toBe('/c/attention');
+    expect(hrefFor('attention', 'intuition')).toBe(`/c/attention${searchFor('', 'intuition')}`);
+  });
+
+  it('marks a deliberate depth', () => {
+    expect(hrefFor('attention', 'engineer')).toBe('/c/attention?depth=engineer');
+    expect(hrefFor('kv-cache', 'math')).toBe('/c/kv-cache?depth=math');
+  });
+
+  it('agrees with what a toggle would leave in the address bar', () => {
+    // The two surfaces have one rule between them, which is the point of
+    // routing this through searchFor rather than writing the string twice.
+    for (const d of DEPTHS) {
+      expect(hrefFor('attention', d)).toBe(`/c/attention${searchFor('', d)}`);
+    }
+  });
+
+  it('round-trips through the parser that reads it back', () => {
+    for (const d of DEPTHS) {
+      const href = hrefFor('attention', d);
+      expect(resolve(fromSearch(href.slice(href.indexOf('?'))), null)).toBe(d);
+    }
   });
 });
