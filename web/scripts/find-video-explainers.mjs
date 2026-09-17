@@ -149,10 +149,50 @@ export function inDegree(nodes) {
  * word "methods" would actively reward the wrong videos. So a domain target
  * also carries its most-referenced concepts, and both the query and the
  * relevance score are built from those instead.
+ *
+ * A CONCEPT CARRIES ITS NEIGHBOURS FOR THE SAME REASON, ONE LEVEL DOWN (#504).
+ * `Throughput machine learning explained` was answered with Fireship's "Machine
+ * Learning Explained in 100 Seconds" — as were `code-generation`,
+ * `verifier-model` and `zero-redundancy-optimizer`. One video, four different
+ * questions: the signature of a query whose variable part is being ignored,
+ * because three of its five words are fixed boilerplate. `Throughput Continuous
+ * Batching Tail Latency explained` is the question a person would have asked,
+ * and the node already declares every word of it.
  */
+
+/**
+ * How many neighbours a concept borrows for context. Three, like a domain's
+ * samples — enough to place the concept, few enough that the title still leads.
+ */
+const CONTEXT_EDGES = 3;
+
+/**
+ * A node's edge neighbours as titles, in declaration order so a target is the
+ * same on every run. Ids with no node are dropped rather than searched for: the
+ * schema permits an edge to a concept planned in the same PR, and a kebab slug
+ * in a query is noise.
+ */
+function neighbourTitles(node, titleOf) {
+  const seen = new Set();
+  for (const kind of ['requires', 'unlocks', 'adjacent']) {
+    for (const e of node.edges?.[kind] ?? []) {
+      const title = titleOf.get(e.id);
+      if (title) seen.add(title);
+      if (seen.size === CONTEXT_EDGES) return [...seen];
+    }
+  }
+  return [...seen];
+}
+
 export function targets(nodes, { concepts = false } = {}) {
   if (concepts) {
-    return nodes.map((n) => ({ scope: 'concept', key: n.id, title: n.title ?? n.id }));
+    const titleOf = new Map(nodes.map((n) => [n.id, n.title ?? n.id]));
+    return nodes.map((n) => ({
+      scope: 'concept',
+      key: n.id,
+      title: n.title ?? n.id,
+      sample: neighbourTitles(n, titleOf),
+    }));
   }
 
   const degree = inDegree(nodes);
@@ -209,20 +249,30 @@ const FIELD = 'machine learning';
 /**
  * The query a target becomes. Plain words — YouTube's search is not a DSL.
  *
- * The domain's own name is included but does the lighter half of the work; the
- * sample concepts are what make "Core" mean attention rather than the English
- * adjective. A concept has no samples, so it borrows `FIELD` instead.
+ * The target's own name is included but does the lighter half of the work; the
+ * samples are what make "Core" mean attention rather than the English adjective,
+ * and what make "Offload" mean ZeRO rather than a decision-making seminar. A
+ * domain samples its most-referenced concepts; a concept samples its declared
+ * neighbours (#504).
+ *
+ * `FIELD` IS NOW THE FALLBACK, NOT THE RULE. It says "somewhere in machine
+ * learning", which is true of all 482 concepts and so distinguishes none of
+ * them — and when YouTube's index matches the title weakly, "somewhere in
+ * machine learning" is the entire effective query and generic ML content comes
+ * back. It is still the best available context for a node with no edges, and
+ * that is the only case it is used for now.
  *
  * THE QUERY CHANGES; THE SCORING DOES NOT. `facets` still returns `[title]` for
- * a concept, so `FIELD` never contributes overlap and cannot inflate a score.
- * It changes which videos YouTube offers, and nothing about how they are ranked
- * once offered — which is what keeps `attention` at 0.97 and `backpropagation`
- * at 0.97 rather than quietly re-tuning the names that already work.
+ * a concept, so neither `FIELD` nor a neighbour ever contributes overlap or can
+ * inflate a score. This changes which videos YouTube offers, and nothing about
+ * how they are ranked once offered — which is what keeps `attention` at 0.97 and
+ * `backpropagation` at 0.97 rather than quietly re-tuning the names that already
+ * work.
  */
-export const queryFor = (t) =>
-  t.scope === 'domain'
-    ? `${t.title} ${(t.sample ?? []).join(' ')} explained`.replace(/\s+/g, ' ').trim()
-    : `${t.title} ${FIELD} explained`;
+export const queryFor = (t) => {
+  const context = (t.sample ?? []).join(' ') || (t.scope === 'concept' ? FIELD : '');
+  return `${t.title} ${context} explained`.replace(/\s+/g, ' ').trim();
+};
 
 // ---------------------------------------------------------------- scoring
 
@@ -234,6 +284,15 @@ const words = (s) => new Set(String(s).toLowerCase().match(WORD) ?? []);
  *
  * A domain is its label AND each sample concept, scored independently — see the
  * note in `score`. A concept is only itself.
+ *
+ * A CONCEPT'S SAMPLES ARE DELIBERATELY ABSENT HERE, AND THAT IS A DECISION
+ * RATHER THAN AN OMISSION (#504). A domain *contains* its samples, so a video
+ * about one of them is a video about the domain. A concept's neighbour is a
+ * different concept with its own page, and ADR-0017 is explicit that
+ * `explainers` is where a reader goes to be taught IT. Admit neighbours here and
+ * a Tail Latency video is attached to `throughput` scoring 100% for the
+ * privilege. Neighbours change which videos are offered; they must not change
+ * what counts as being on topic.
  */
 export const facets = (t) =>
   t.scope === 'domain' ? [t.title, ...(t.sample ?? [])] : [t.title];
@@ -389,6 +448,78 @@ export function score(candidate, target, allowedChannelIds = new Set()) {
   }
 
   return { score: Math.max(0, Math.min(1, n)), reasons };
+}
+
+/**
+ * What a finished target actually found, as opposed to what survived (#503).
+ *
+ * "0 candidates" HAS ALWAYS MEANT TWO DIFFERENT THINGS and printed one word for
+ * both: YouTube returned nothing, or YouTube returned five things and every one
+ * of them scored under the threshold. Those call for opposite follow-ups — the
+ * first says no video exists and a query change is hopeless, the second says the
+ * videos exist and the scorer rejected them — and the run could not tell them
+ * apart, so a reader of the output could not either.
+ *
+ * That is not hypothetical. Thirty concepts were dismissed in #502 with the
+ * reason "YouTube returns nothing for this concept, not merely nothing good",
+ * written from this number. Re-queried with `--min-score 0`, all thirty returned
+ * five candidates each. The reason was false for every one of them, and this
+ * function exists so the next one cannot be written that way.
+ */
+/**
+ * @typedef {object} Outcome
+ * @property {number} returned how many videos YouTube offered
+ * @property {number} kept how many cleared the threshold
+ * @property {number} [best] the top score, when nothing was kept
+ * @property {string} [reason] the term that kept the top candidate out
+ * @property {string[]} [reasons] every term that fired on it
+ * @property {string} [title] what the top candidate was, for a reader
+ */
+
+/** @returns {Outcome} */
+export function outcome(scored, minScore) {
+  const kept = scored.filter((c) => c.score >= minScore).length;
+  /** @type {Outcome} */
+  const o = { returned: scored.length, kept };
+  const top = scored[0];
+  if (kept === 0 && top) {
+    o.best = Number(top.score.toFixed(3));
+    o.reason = rejecting(top.reasons);
+    o.reasons = top.reasons;
+    o.title = top.title;
+  }
+  return o;
+}
+
+/**
+ * Which of a candidate's reasons explains why it did not make the cut.
+ *
+ * NOT `reasons[0]`, WHICH IS THE OPPOSITE OF USEFUL HERE. The list is built in
+ * scoring order, so a floored candidate leads with `matches "Straggler" 100%` —
+ * the reason it nearly passed, printed as the reason it failed. The mechanisms
+ * are the three terms that subtract: the #432 gate, the #395 view floor, and the
+ * length penalty. If none fired, the candidate simply did not score enough, and
+ * saying so plainly beats naming a term that was in its favour.
+ */
+const rejecting = (reasons) =>
+  reasons.find((r) => r === 'no topic overlap' || r.startsWith('almost unwatched') || r === 'too short') ??
+  'nothing disqualifying, just a low score';
+
+/**
+ * The one line a finished target prints. `scored` must already be sorted best
+ * first — `outcome` above records the same three states this reports.
+ */
+export function reportLine(key, scored, minScore) {
+  const kept = scored.filter((c) => c.score >= minScore);
+  const head = `  ${kept.length ? '\u00b7' : ' '} ${key.padEnd(28)} ${String(kept.length).padStart(2)} candidate(s)`;
+  const best = kept[0];
+  if (best) return `${head}  best: ${best.score.toFixed(2)} ${best.author} \u2014 ${best.title.slice(0, 54)}`;
+  const top = scored[0];
+  if (!top) return `${head}  \u2014 nothing returned`;
+  return (
+    `${head}  \u2014 ${scored.length} returned, none kept; ` +
+    `best ${top.score.toFixed(2)} (${rejecting(top.reasons)})`
+  );
 }
 
 // ---------------------------------------------------------------- the api
@@ -769,10 +900,10 @@ export async function search(argv, opts = {}) {
       continue;
     }
 
-    const ranked = found
+    const scored = found
       .map((c) => ({ ...c, ...score(c, target, allowed) }))
-      .filter((c) => c.score >= minScore)
       .sort((a, b) => b.score - a.score);
+    const ranked = scored.filter((c) => c.score >= minScore);
 
     done.add(target.key);
     // Replace rather than append: a re-scored target must not leave its old
@@ -782,11 +913,8 @@ export async function search(argv, opts = {}) {
       prior.candidates.push({ target: target.key, scope: target.scope, ...c });
     }
 
-    const best = ranked[0];
-    console.log(
-      `  ${ranked.length ? '·' : ' '} ${target.key.padEnd(28)} ${String(ranked.length).padStart(2)} candidate(s)` +
-        (best ? `  best: ${best.score.toFixed(2)} ${best.author} — ${best.title.slice(0, 54)}` : ''),
-    );
+    prior.outcomes = { ...prior.outcomes, [target.key]: outcome(scored, minScore) };
+    console.log(reportLine(target.key, scored, minScore));
 
     prior.done = [...done];
     save(out, prior);

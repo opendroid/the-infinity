@@ -7,12 +7,14 @@ import {
   durationSeconds,
   facets,
   inDegree,
+  outcome,
   paced,
   pending,
   queryFor,
   readDismissed,
   readNodes,
   refusals,
+  reportLine,
   score,
   search,
   staleDismissals,
@@ -100,10 +102,14 @@ describe('targets picks domains first, biggest first', () => {
   });
 
   it('switches to concept scope on request', () => {
+    // A concept carries a sample too, as of #504 — its declared neighbours. It
+    // is empty here because this fixture declares no edges, and the assertion
+    // that it must never exist was the belief that "a concept target is already
+    // as specific as it gets". Thirty concepts were dismissed on that belief.
     const t = targets([node('speculative-decoding', ['Inference'])], { concepts: true });
-    expect(t).toEqual([{ scope: 'concept', key: 'speculative-decoding', title: 'speculative-decoding' }]);
-    // No sample: a concept target is already as specific as it gets.
-    expect(t[0]).not.toHaveProperty('sample');
+    expect(t).toEqual([
+      { scope: 'concept', key: 'speculative-decoding', title: 'speculative-decoding', sample: [] },
+    ]);
   });
 });
 
@@ -864,5 +870,141 @@ describe('a dismissal is a state the checkpoint keeps (#437)', () => {
       expect(staleDismissals([{ target: 'custom-kernel', reason: 'x' }], new Set())).toEqual([]);
       expect(staleDismissals(undefined, new Set(['a']))).toEqual([]);
     });
+  });
+});
+
+describe("a concept's neighbours are its query context (#504)", () => {
+  /** A node whose edges span all three kinds, which the fixture above does not. */
+  const linked = (id: string, title: string, edges: Record<string, string[]>) => ({
+    id,
+    title,
+    domain: ['Systems'],
+    edges: Object.fromEntries(
+      Object.entries(edges).map(([kind, ids]) => [kind, ids.map((i) => ({ id: i }))]),
+    ),
+  });
+
+  const corpus = [
+    linked('throughput', 'Throughput', {
+      requires: ['continuous-batching'],
+      adjacent: ['tail-latency', 'accelerator-utilization', 'arithmetic-intensity'],
+    }),
+    linked('continuous-batching', 'Continuous Batching', {}),
+    linked('tail-latency', 'Tail Latency', {}),
+    linked('accelerator-utilization', 'Accelerator Utilization', {}),
+    linked('arithmetic-intensity', 'Arithmetic Intensity', {}),
+  ];
+
+  it('borrows up to three neighbour titles, requires first', () => {
+    const t = targets(corpus, { concepts: true }).find((x: Target) => x.key === 'throughput');
+    expect(t?.sample).toEqual(['Continuous Batching', 'Tail Latency', 'Accelerator Utilization']);
+  });
+
+  it('builds the query a person would have typed', () => {
+    // THE PLANT. Revert queryFor to `${title} ${FIELD} explained` and this is
+    // "Throughput machine learning explained" — the query that was answered
+    // with Fireship's "Machine Learning Explained in 100 Seconds", as were
+    // code-generation, verifier-model and zero-redundancy-optimizer. One video,
+    // four questions.
+    const t = targets(corpus, { concepts: true }).find((x: Target) => x.key === 'throughput');
+    expect(queryFor(t)).toBe('Throughput Continuous Batching Tail Latency Accelerator Utilization explained');
+    expect(queryFor(t)).not.toContain('machine learning');
+  });
+
+  it('falls back to the field when a node declares no edges', () => {
+    // Five concepts are in this state — softmax, tokenization, loss-function,
+    // layer-normalization, markov-decision-process. Everything points at them
+    // and they point at nothing, and their names are unambiguous enough that
+    // #401's field is genuinely the best context available.
+    const t = targets([linked('softmax', 'Softmax', {})], { concepts: true })[0];
+    expect(t?.sample).toEqual([]);
+    expect(queryFor(t)).toBe('Softmax machine learning explained');
+  });
+
+  it('drops an edge to a node that does not exist yet', () => {
+    // The schema permits an edge to a concept planned in the same PR. A kebab
+    // slug is noise in a query, so it is left out rather than searched for.
+    const t = targets([linked('a', 'Alpha', { requires: ['not-written-yet'] })], { concepts: true })[0];
+    expect(t?.sample).toEqual([]);
+  });
+
+  it('keeps neighbours out of scoring, whatever the query does with them', () => {
+    // THE DECISION, NOT AN OMISSION. A domain contains its samples; a concept's
+    // neighbour is a different concept with its own page, and ADR-0017 says
+    // `explainers` is where a reader goes to be taught IT. Let neighbours into
+    // facets and a Tail Latency video is attached to `throughput` at 100%.
+    const t = targets(corpus, { concepts: true }).find((x: Target) => x.key === 'throughput');
+    expect(facets(t)).toEqual(['Throughput']);
+
+    const latencyVideo = {
+      title: 'Tail Latency, clearly explained',
+      author: 'Some Channel',
+      channelId: 'UCx',
+      views: 40_000,
+      durationSeconds: 900,
+    };
+    expect(score(latencyVideo, t, new Set()).reasons).toEqual(['no topic overlap']);
+  });
+});
+
+describe('"0 candidates" no longer means two different things (#503)', () => {
+  const cand = (title: string, sc: number, reasons: string[]) => ({
+    title,
+    author: 'A Channel',
+    score: sc,
+    reasons,
+  });
+
+  const nothing: ReturnType<typeof cand>[] = [];
+  const noOverlap = [cand('Machine Learning Explained in 100 Seconds', 0, ['no topic overlap'])];
+  const floored = [
+    cand("NSDI '13 - Effective Straggler Mitigation", 0.327, [
+      'matches "Straggler" 100%',
+      'teachable length',
+      'almost unwatched (499 views)',
+    ]),
+  ];
+
+  it('prints a different line for nothing returned than for nothing kept', () => {
+    // THE PLANT, AND THE WHOLE ISSUE. Thirty concepts were dismissed in #502
+    // with "YouTube returns nothing for this concept, not merely nothing good",
+    // written off a number that could not tell those apart. All thirty had
+    // returned five candidates each.
+    const a = reportLine('straggler', nothing, 0.35);
+    const b = reportLine('straggler', noOverlap, 0.35);
+    expect(a).not.toBe(b);
+    expect(a).toContain('nothing returned');
+    expect(b).toContain('1 returned, none kept');
+  });
+
+  it('names the term that rejected the candidate, not the one in its favour', () => {
+    // reasons[0] here is `matches "Straggler" 100%` — the reason it nearly
+    // passed. Printing that as the reason it failed is worse than printing
+    // nothing, because it reads as an explanation.
+    expect(reportLine('straggler', floored, 0.35)).toContain('almost unwatched (499 views)');
+    expect(reportLine('straggler', floored, 0.35)).not.toContain('best 0.33 (matches');
+  });
+
+  it('records the three states in the checkpoint, so a dismissal can cite one', () => {
+    expect(outcome(nothing, 0.35)).toEqual({ returned: 0, kept: 0 });
+    expect(outcome(noOverlap, 0.35)).toMatchObject({ returned: 1, kept: 0, reason: 'no topic overlap' });
+    expect(outcome(floored, 0.35)).toMatchObject({
+      returned: 1,
+      kept: 0,
+      best: 0.327,
+      reason: 'almost unwatched (499 views)',
+    });
+  });
+
+  it('says so plainly when nothing disqualifying fired', () => {
+    const low = [cand('Something partly related', 0.3, ['matches "Offline-Online Gap" 50%'])];
+    expect(outcome(low, 0.35).reason).toBe('nothing disqualifying, just a low score');
+  });
+
+  it('reports a kept candidate exactly as it always did', () => {
+    const kept = [cand('Vectorization Low Rank Matrix Factorization', 0.777, ['matches "X" 100%'])];
+    expect(reportLine('low-rank-factorization', kept, 0.35)).toContain(
+      'best: 0.78 A Channel — Vectorization Low Rank Matrix Factorization',
+    );
   });
 });
