@@ -468,7 +468,9 @@ async function main() {
     // "arXiv:1706.03762 — Attention Is All You Need" is a link in a line of
     // text, not a control. `display: inline` with adjacent text is the test.
     step = 'checking standalone targets are big enough to tap';
-    for (const path of ['/', '/concepts', '/c/attention', '/search?q=attention', '/request']) {
+    // `/concepts/foundations` is the largest domain page (#509) — 37 rows, so
+    // it is the worst case of the route class, which is the one worth sweeping.
+    for (const path of ['/', '/concepts', '/concepts/foundations', '/c/attention', '/search?q=attention', '/request']) {
       await page.goto(ORIGIN + path, { waitUntil: 'networkidle' });
       await page.waitForTimeout(250);
       const small = await page.evaluate(() => {

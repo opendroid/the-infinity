@@ -94,6 +94,65 @@ export function directory(nodes: ResolvedNode[]): Group[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
+/**
+ * A domain name as a URL segment (#509, ADR-0024).
+ *
+ * `Foundations` → `foundations`, and `/concepts/foundations` is its page. The
+ * names in this corpus are single words today, which is exactly the condition
+ * under which a naive slug looks correct and stays correct until someone
+ * authors "Dense Prediction" as a top-level domain.
+ */
+export function slugFor(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+export interface DomainRoute {
+  name: string;
+  slug: string;
+  path: string;
+  count: number;
+  /** The `domain[1]` labels underneath, sorted — what the card shows. */
+  sections: string[];
+}
+
+/**
+ * Every domain that needs a page, derived from the nodes.
+ *
+ * THROWS ON A COLLISION RATHER THAN SERVING ONE DOMAIN'S PAGE FOR TWO. Two
+ * names can slug the same — "Multi-modal" and "Multimodal" both reach
+ * `multimodal` — and the failure mode is silent: `getStaticPaths` would emit
+ * one path, one of the two domains would quietly vanish from the site, and the
+ * count on the directory card would still say it was there. A build that stops
+ * is the cheap version of that bug.
+ *
+ * An empty slug is the same class of problem from the other end: a domain named
+ * only in punctuation would claim `/concepts/`, which is the directory itself.
+ */
+export function domainRoutes(groups: Group[]): DomainRoute[] {
+  const seen = new Map<string, string>();
+  return groups.map((g) => {
+    const slug = slugFor(g.name);
+    if (slug === '') {
+      throw new Error(`domain ${JSON.stringify(g.name)} has no usable URL segment`);
+    }
+    const taken = seen.get(slug);
+    if (taken !== undefined) {
+      throw new Error(`domains ${JSON.stringify(taken)} and ${JSON.stringify(g.name)} both slug to "${slug}"`);
+    }
+    seen.set(slug, g.name);
+    return {
+      name: g.name,
+      slug,
+      path: `/concepts/${slug}`,
+      count: g.count,
+      sections: g.sections.map((s) => s.name),
+    };
+  });
+}
+
 /** Totals for the index's own header. Counted, not asserted. */
 export function tally(groups: Group[]): { concepts: number; verified: number; frontier: number } {
   const entries = groups.flatMap((g) => g.sections.flatMap((s) => s.entries));

@@ -43,6 +43,7 @@ const BUDGET_PATH = join(WEB, 'perf-budget.json');
 const ROUTES = [
   { id: '/', match: (r) => r === '/' },
   { id: '/concepts', match: (r) => r === '/concepts' },
+  { id: '/concepts/*', match: (r) => r.startsWith('/concepts/') },
   { id: '/search', match: (r) => r === '/search' },
   { id: '/request', match: (r) => r === '/request' },
   { id: '/404', match: (r) => r === '/404' },

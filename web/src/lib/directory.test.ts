@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { blurb, directory, tally } from './directory';
+import { blurb, directory, domainRoutes, slugFor, tally } from './directory';
 import { allNodes } from './content';
 import type { ResolvedNode } from './graph';
 
@@ -106,5 +106,46 @@ describe('over the real graph', () => {
         for (const e of s.entries) expect(e.blurb.length).toBeGreaterThan(10);
       }
     }
+  });
+});
+
+describe('a domain is a route (#509, ADR-0024)', () => {
+  const grouped = (names: string[]) =>
+    directory(names.map((n, i) => node(`c${i}`, `C${i}`, [n, 'Core'], 'verified')));
+
+  it('turns a domain name into its URL segment', () => {
+    expect(slugFor('Foundations')).toBe('foundations');
+    expect(slugFor('Dense Prediction')).toBe('dense-prediction');
+    expect(slugFor('Multi-modal')).toBe('multi-modal');
+  });
+
+  it('derives a path, a count and the sections beneath it', () => {
+    const routes = domainRoutes(grouped(['Attention', 'Attention', 'Systems']));
+    expect(routes.map((r) => r.path)).toEqual(['/concepts/attention', '/concepts/systems']);
+    expect(routes[0]?.count).toBe(2);
+    expect(routes[0]?.sections).toEqual(['Core']);
+  });
+
+  it('refuses two domains that slug the same, rather than losing one silently', () => {
+    // THE PLANT, AND THE REASON THIS THROWS. getStaticPaths would emit one path
+    // for both, one domain would vanish from the site, and the directory card
+    // would still count it as present. Nothing else in the build notices.
+    expect(() => domainRoutes(grouped(['Multi-modal', 'Multi modal']))).toThrow(
+      /both slug to "multi-modal"/,
+    );
+  });
+
+  it('refuses a name with no usable segment, which would claim the directory itself', () => {
+    expect(() => domainRoutes(grouped(['///']))).toThrow(/no usable URL segment/);
+  });
+
+  it('covers every domain in the real corpus, with no collisions', () => {
+    // The guard above is only worth having if it is actually exercised against
+    // what ships. 47 domains today; this fails the day one is authored that
+    // collides with another.
+    const routes = domainRoutes(directory(allNodes));
+    expect(routes.length).toBeGreaterThan(40);
+    expect(new Set(routes.map((r) => r.slug)).size).toBe(routes.length);
+    expect(routes.reduce((n, r) => n + r.count, 0)).toBe(allNodes.length);
   });
 });

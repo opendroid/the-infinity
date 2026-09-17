@@ -1,0 +1,83 @@
+---
+// The directory. One card per domain, and the concepts live a click away
+// (#509, ADR-0024).
+//
+// THIS PAGE USED TO BE THE WHOLE INDEX, and it was right for the graph it was
+// built for. Its comment said so: "with six domains it fits on one line, and at
+// 300 nodes it is the only thing that keeps this page navigable." At 482
+// concepts in 47 domains it was 438,968 bytes — 16x the landing page and 4.6x
+// the heaviest concept page — and every reader downloaded the whole corpus to
+// find one concept. perf-budget.json had already named it "THE ONE THAT MOVES"
+// and deliberately declined to cap it, because "failing a build for publishing
+// content would be the budget fighting the product." So the shape changed
+// instead of the ceiling.
+//
+// WHERE THE THREAD RUNS HERE: it does not, and that is the answer rather than
+// an omission (CLAUDE.md §5). The thread means the path a reader took — the
+// landing lemniscate, the trail ribbon, the shared trail. A directory is not a
+// traversal; it is the map you consult before one. Drawing a line through 47
+// cards would spend the product's one visual idea on decoration.
+//
+// Still entirely static. No island, no API call, no JavaScript.
+import Base from '../../layouts/Base.astro';
+import Topbar from '../../components/Topbar.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import { allNodes } from '../../lib/content';
+import { directory, domainRoutes, tally } from '../../lib/directory';
+
+const groups = directory(allNodes);
+const totals = tally(groups);
+// Throws on a slug collision, so a domain cannot vanish from the site silently.
+const routes = domainRoutes(groups);
+---
+
+<Base
+  title="Every concept · theinfinity.ai"
+  description={`All ${totals.concepts} concepts in the graph, across ${routes.length} domains — attention, architecture, optimization, systems, inference.`}
+>
+  <Topbar />
+
+  <main class="mx-auto max-w-[860px] px-[26px] py-12">
+    <Eyebrow>The whole graph</Eyebrow>
+    <h1 class="mt-1.5 font-display text-[30px] font-semibold leading-[1.16] text-starlight max-md:text-[23px]">
+      Every concept
+    </h1>
+
+    {/*
+      The smoke test anchors on "concepts across", and the sentence is load
+      bearing beyond that: it is the only place the size of the graph is stated
+      now that the page no longer shows it by being enormous.
+    */}
+    <p class="mt-2.5 max-w-[62ch] text-[15px] leading-[1.65] text-dust">
+      {totals.concepts} concepts across {routes.length} domains. {totals.verified} reviewed and
+      merged, {totals.frontier} awaiting that review — pick a domain and follow the thread.
+    </p>
+
+    <ul role="list" class="mt-9 grid grid-cols-2 gap-[9px] p-0 max-md:grid-cols-1">
+      {
+        routes.map((route) => (
+          <li class="m-0 list-none">
+            <a
+              href={route.path}
+              class="flex h-full flex-col rounded-row border border-line bg-nebula px-[15px] py-[13px] no-underline hover:border-thread"
+            >
+              <span class="flex items-baseline justify-between gap-3">
+                <span class="font-display text-[15px] font-semibold text-starlight">{route.name}</span>
+                {/*
+                  Mono for the count, per CLAUDE.md §5 — it is data, not prose.
+                  Tabular so 8 and 37 line up down the column.
+                */}
+                <span class="shrink-0 font-mono text-[11px] tabular-nums tracking-[.12em] text-dust">
+                  {route.count}
+                </span>
+              </span>
+              <span class="mt-[7px] font-mono text-[10px] uppercase leading-[1.5] tracking-[.14em] text-dust">
+                {route.sections.join(' · ')}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Base>
