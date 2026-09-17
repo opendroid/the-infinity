@@ -23,7 +23,7 @@ export const DEFAULT: Depth = 'intuition';
 export const PARAM = 'depth';
 const KEY = 'depth';
 
-const DEPTHS: readonly Depth[] = ['intuition', 'engineer', 'math'];
+export const DEPTHS: readonly Depth[] = ['intuition', 'engineer', 'math'];
 
 /**
  * A `Depth` or null, never a throw.
@@ -73,6 +73,26 @@ export function searchFor(search: string, depth: Depth): string {
   else params.set(PARAM, depth);
   const q = params.toString();
   return q === '' ? '' : `?${q}`;
+}
+
+/**
+ * The link that opens a concept at a depth (#508).
+ *
+ * BUILT FROM `searchFor` RATHER THAN BY CONCATENATION, so a link into a depth
+ * and the address bar after a toggle cannot disagree. That matters for the
+ * default: `searchFor` deletes the parameter at `intuition`, so this yields a
+ * bare `/c/attention` — the same URL the toggle leaves behind when a reader
+ * switches back. Concatenating `?depth=intuition` here would produce a second
+ * spelling of the same page, which is a canonical-URL problem invented for no
+ * reason.
+ *
+ * Arriving on one of these is not merely a one-page override: `DepthToggle`
+ * adopts a linked depth as the ongoing preference, so the next concept follows
+ * it too (#42). That is what makes three links on the landing page a way to
+ * choose how to read the site, rather than three ways to read one concept.
+ */
+export function hrefFor(id: string, depth: Depth): string {
+  return `/c/${id}${searchFor('', depth)}`;
 }
 
 // Every access is guarded. localStorage throws rather than returning null when

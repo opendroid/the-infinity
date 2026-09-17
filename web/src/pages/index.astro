@@ -5,6 +5,7 @@
 import Base from '../layouts/Base.astro';
 import Thread from '../components/Thread.astro';
 import { allNodes, stats } from '../lib/content';
+import { DEPTHS, hrefFor } from '../lib/depth';
 import { placeLayout, readLayout } from '../lib/layout';
 
 const { concepts, grewThisWeek, frontier: awaitingReview } = stats();
@@ -28,6 +29,22 @@ const bead = (b: (typeof layout.left)[number]) => ({
 const verified = layout.left.map(bead);
 const frontier = layout.right.map(bead);
 const chips = layout.chips;
+
+// THE FIRST CHIP, NOT A NAME WRITTEN HERE (#508). Which concepts sit on the
+// thread is already a committed decision in lemniscate.json, and
+// `validate:content` fails the PR if a chip names a concept that does not
+// exist. Hard-coding `attention` here would be a second answer to a question
+// that file already answers, free to disagree with it after a layout change.
+// `chips[0]` is `T | undefined` under `noUncheckedIndexedAccess`, and that is a
+// fair question rather than a nuisance: nothing forces lemniscate.json to carry
+// chips. So the line renders only when there is a concept to name, and a layout
+// without chips loses a sentence instead of failing a build.
+const sample = chips[0];
+const LABEL: Record<(typeof DEPTHS)[number], string> = {
+  intuition: 'Intuition',
+  engineer: 'Engineer',
+  math: 'Math',
+};
 ---
 
 <Base
@@ -136,6 +153,54 @@ const chips = layout.chips;
           )
         }
       </p>
+
+      {/*
+        THE LEDE ABOVE ALREADY CLAIMS "connected at three depths" AND NOTHING ON
+        THIS PAGE ACTED ON IT (#508). The toggle is mounted on `/c/[id]` and
+        nowhere else, so a reader arriving as a mathematician met a paragraph
+        written for a stranger with no sign that a Math body existed underneath.
+
+        Three anchors, and deliberately not a control. A chooser here would ask
+        someone to pick between three words before they have seen what any of
+        them does to a page; showing one real concept at each depth demonstrates
+        the idea instead of quizzing them on it. It is also why this is not a
+        second CTA: it sits in the quietest type on the screen, in the same mono
+        register as the count above it, and the glow stays on the search field
+        alone — the two rules this route's own comments set.
+
+        These links work because the toggle ADOPTS a linked depth as the ongoing
+        preference (#42), so choosing Math here means Math on the next concept
+        too. `hrefFor` leaves Intuition unmarked, so the default link is the
+        ordinary `/c/<id>` a reader would otherwise get.
+
+        WITHOUT JAVASCRIPT THE PARAMETER IS INERT: the page is static, all three
+        bodies ship in its HTML, and it is the island that swaps them. A no-JS
+        reader follows these links to the intuition body — the same thing they
+        would have got from the chip above, so nothing is lost, and nothing here
+        pretends otherwise.
+      */}
+      {sample && (
+        <p class="mt-2 font-mono text-[12px] text-dust">
+          {/*
+            The title as authored, not lower-cased. The concept is derived from
+            the layout file, so this has to hold for whatever it names next —
+            and `"lora"` or `"kv cache"` is a worse sentence than the capitals
+            the node itself carries.
+          */}
+          new here? read {sample.title} at{' '}
+          {DEPTHS.map((depth, i) => (
+            <>
+              {i > 0 && <span class="px-1 text-line">&middot;</span>}
+              <a
+                href={hrefFor(sample.id, depth)}
+                class="text-[11px] uppercase tracking-[.16em] text-dust underline decoration-line underline-offset-4 hover:text-starlight hover:decoration-thread"
+              >
+                {LABEL[depth]}
+              </a>
+            </>
+          ))}
+        </p>
+      )}
     </div>
   </main>
 </Base>
