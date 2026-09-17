@@ -18,9 +18,11 @@ import {
   refusals,
   reportLine,
   score,
+  shouldWiden,
   search,
   staleDismissals,
   targets,
+  widenedQueryFor,
   STOP_AFTER_REFUSALS,
   UNWATCHED,
   unknownTargets,
@@ -1151,6 +1153,101 @@ describe('the view floor is a gate, and what it removes is written down (#505)',
     it('says nothing when nothing was floored', () => {
       const scored = rank([video('Straggler talk', 40_000)]);
       expect(reportLine('straggler', scored, DEFAULT_MIN_SCORE, 0)).not.toContain('floored');
+    });
+  });
+});
+
+describe('an empty narrow query falls back to the one that works (#514)', () => {
+  const linked = (id: string, title: string, neighbours: string[]) => ({
+    id,
+    title,
+    domain: ['Systems', 'Memory'],
+    edges: { requires: neighbours.map((n) => ({ id: n })) },
+  });
+  const corpus = [
+    linked('offload', 'Offload', ['zero-redundancy-optimizer', 'arithmetic-intensity']),
+    linked('zero-redundancy-optimizer', 'ZeRO', []),
+    linked('arithmetic-intensity', 'Arithmetic Intensity', []),
+  ];
+  const offload = () =>
+    targets(corpus, { concepts: true }).find((t: Target) => t.key === 'offload');
+  const rich = { affords: () => true };
+  const broke = { affords: () => false };
+
+  describe('widenedQueryFor', () => {
+    it('is the query #504 replaced, not a cleverer middle rung', () => {
+      // MEASURED, NOT ARGUED: the FIELD query returned five candidates for all
+      // thirty targets in the #503 diagnostic. Title-plus-one-neighbour is the
+      // tempting version and is untested, which is how #504 half-lost.
+      expect(widenedQueryFor(offload())).toBe('Offload machine learning explained');
+      expect(queryFor(offload())).toBe('Offload ZeRO Arithmetic Intensity explained');
+    });
+
+    it('is null when the narrow query already is the wide one', () => {
+      // A concept with no edges is already using FIELD. A second identical
+      // search would spend 100 units to be refused the same way.
+      const lone = targets([linked('softmax', 'Softmax', [])], { concepts: true })[0];
+      expect(queryFor(lone)).toBe('Softmax machine learning explained');
+      expect(widenedQueryFor(lone)).toBeNull();
+    });
+
+    it('is null for a domain, which already carries its samples', () => {
+      expect(widenedQueryFor({ scope: 'domain', title: 'Core', sample: ['Attention'] })).toBeNull();
+    });
+  });
+
+  describe('shouldWiden', () => {
+    it('retries a target that returned nothing', () => {
+      // THE PLANT. Without the fallback this is false and the target stays
+      // empty — which is the state 12 of 30 reached in #513, including
+      // low-rank-factorization and memory-planning, both of which had 0.78
+      // candidates under the old query.
+      expect(shouldWiden(offload(), [], rich)).toBe(true);
+    });
+
+    it('does not retry a target whose candidates merely scored badly', () => {
+      // Empty is not the same as bad, and only empty earns the second search.
+      // Five candidates that all scored zero is #515's problem; re-asking buys
+      // the same five videos for another 100 units.
+      expect(shouldWiden(offload(), [{ title: 'something' }], rich)).toBe(false);
+    });
+
+    it('does not retry when there is nothing to widen to', () => {
+      const lone = targets([linked('softmax', 'Softmax', [])], { concepts: true })[0];
+      expect(shouldWiden(lone, [], rich)).toBe(false);
+    });
+
+    it('does not retry when the budget cannot afford it', () => {
+      // The run stops cleanly at its budget; a fallback must not be the thing
+      // that overruns it.
+      expect(shouldWiden(offload(), [], broke)).toBe(false);
+    });
+  });
+
+  describe('the run says which query answered', () => {
+    it('marks a widened target, so "nothing returned" keeps meaning both queries', () => {
+      // Without this, #503's distinction quietly degrades: a bare "nothing
+      // returned" would mean one query on some targets and two on others.
+      expect(reportLine('offload', [], DEFAULT_MIN_SCORE, 0, true)).toContain(
+        'nothing returned by either query',
+      );
+      expect(reportLine('offload', [], DEFAULT_MIN_SCORE, 0, false)).toBe(
+        reportLine('offload', [], DEFAULT_MIN_SCORE, 0, false),
+      );
+      expect(reportLine('offload', [], DEFAULT_MIN_SCORE, 0, false)).not.toContain('either query');
+    });
+
+    it('composes with the floored count rather than replacing it', () => {
+      const scored = [
+        { title: 'x', author: 'a', score: 0.9, reasons: ['matches "Offload" 100%'] },
+      ];
+      const line = reportLine('offload', scored, DEFAULT_MIN_SCORE, 2, true);
+      expect(line).toContain('widened, 2 floored');
+    });
+
+    it('records it in the checkpoint, and only when true', () => {
+      expect(outcome([], DEFAULT_MIN_SCORE, true)).toEqual({ returned: 0, kept: 0, widened: true });
+      expect(outcome([], DEFAULT_MIN_SCORE, false)).toEqual({ returned: 0, kept: 0 });
     });
   });
 });
