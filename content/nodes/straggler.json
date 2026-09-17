@@ -62,6 +62,13 @@
       "title": "How to Train Really Large Models on Many GPUs?",
       "author": "Lilian Weng",
       "url": "https://lilianweng.github.io/posts/2021-09-25-train-large/"
+    },
+    {
+      "kind": "video",
+      "scope": "concept",
+      "title": "NSDI '13 - Effective Straggler Mitigation: Attack of the Clones",
+      "author": "USENIX",
+      "url": "https://www.youtube.com/watch?v=A70l7_Nt4uw"
     }
   ],
   "review": {
