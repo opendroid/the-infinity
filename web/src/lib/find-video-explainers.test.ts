@@ -4,11 +4,13 @@ import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import {
   dismissals,
+  distinctive,
   DEFAULT_MIN_SCORE,
   durationSeconds,
   facets,
   floored,
   inDegree,
+  missingDistinctive,
   outcome,
   paced,
   pending,
@@ -116,7 +118,15 @@ describe('targets picks domains first, biggest first', () => {
     // as specific as it gets". Thirty concepts were dismissed on that belief.
     const t = targets([node('speculative-decoding', ['Inference'])], { concepts: true });
     expect(t).toEqual([
-      { scope: 'concept', key: 'speculative-decoding', title: 'speculative-decoding', sample: [] },
+      {
+        scope: 'concept',
+        key: 'speculative-decoding',
+        title: 'speculative-decoding',
+        sample: [],
+        // #515: the words of this title that no other concept uses. In a
+        // one-node corpus that is all of them.
+        distinctive: ['speculative', 'decoding'],
+      },
     ]);
   });
 });
@@ -1249,5 +1259,127 @@ describe('an empty narrow query falls back to the one that works (#514)', () => 
       expect(outcome([], DEFAULT_MIN_SCORE, true)).toEqual({ returned: 0, kept: 0, widened: true });
       expect(outcome([], DEFAULT_MIN_SCORE, false)).toEqual({ returned: 0, kept: 0 });
     });
+  });
+});
+
+describe('the distinctive-word warning, which moves nothing (#515)', () => {
+  const corpus = readNodes();
+  const conceptTargets = targets(corpus, { concepts: true });
+  const at = (key: string) => conceptTargets.find((t: Target) => t.key === key);
+  const video = (title: string) => ({
+    title,
+    author: 'Someone',
+    channelId: 'UCunknown',
+    views: 40_000,
+    durationSeconds: 900,
+  });
+
+  describe('which words are distinctive', () => {
+    it('is measured over the corpus, not asserted', () => {
+      const d = distinctive(corpus);
+      expect(d.get('mixture-of-depths')).toContain('depth');
+      // `model` is in 21 of 482 titles, so it distinguishes nothing.
+      expect(d.get('verifier-model')).not.toContain('model');
+      expect(d.get('verifier-model')).toContain('verifier');
+    });
+
+    it('never treats an English stopword as distinctive', () => {
+      // THE PLANT. `a` appears in exactly one concept title, so without the
+      // stopword list the frequency count calls it distinctive and
+      // `needle-in-a-haystack` demands the word "a" of every candidate.
+      const d = distinctive(corpus);
+      for (const [, words] of d) {
+        expect(words).not.toContain('a');
+        expect(words).not.toContain('the');
+        expect(words).not.toContain('of');
+      }
+    });
+  });
+
+  describe('what it flags', () => {
+    it('flags a sibling concept, which is the case it was built for', () => {
+      expect(missingDistinctive(video('What is Mixture of Experts?'), at('mixture-of-depths')))
+        .toEqual(['depth']);
+      expect(missingDistinctive(video('Agent Memory EXPLAINED - Complete Architecture'), at('memory-planning')))
+        .toEqual(['planning']);
+      expect(
+        missingDistinctive(
+          video('Direct Preference Optimization (DPO): Your Language Model is Secretly a Reward Model'),
+          at('verifier-model'),
+        ),
+      ).toEqual(['verifier']);
+    });
+
+    it('is silent on the right video', () => {
+      expect(missingDistinctive(video('Turing-NLG, DeepSpeed and the ZeRO optimizer'), at('zero-redundancy-optimizer')))
+        .toEqual([]);
+    });
+
+    it('counts a plural as the word, or it flags the canonical video', () => {
+      // THE PLANT, AND IT CAUGHT ME. The first stemmer turned "cores" into
+      // "cor" via a blanket -es rule, so NVIDIA's "Tensor Cores in a Nutshell"
+      // — the canonical video for this concept, already merged — carried
+      // `missing "core"`. -es only after a sibilant.
+      expect(missingDistinctive(video('Tensor Cores in a Nutshell'), at('tensor-core'))).toEqual([]);
+      expect(missingDistinctive(video('Collective Communications'), at('collective-communication')))
+        .toEqual([]);
+      expect(missingDistinctive(video('Approximate Nearest Neighbors : Data Science Concepts'), at('approximate-nearest-neighbor')))
+        .toEqual([]);
+    });
+  });
+
+  describe('it does not touch the score, and that is the whole decision', () => {
+    it('scores identically with the warning and without it', () => {
+      // THE INVARIANT. As a gate this rejected 18 of the 224 concept videos a
+      // human had already approved. It is advisory precisely so that ranking is
+      // unaffected, and this is the assertion that keeps it that way.
+      const t = at('mixture-of-depths');
+      const c = video('What is Mixture of Experts?');
+      const withWarning = score(c, t, new Set());
+      const withoutWarning = score(c, { ...t, distinctive: [] }, new Set());
+      expect(withWarning.score).toBe(withoutWarning.score);
+      expect(withWarning.reasons).toContain('missing "depth"');
+      expect(withoutWarning.reasons).not.toContain('missing "depth"');
+    });
+
+    it('does not become the reason a candidate was rejected', () => {
+      // `rejecting` names the term that kept a candidate out. A warning keeps
+      // nothing out, so it must never be reported as the cause.
+      const t = at('memory-planning');
+      const flat = { ...video('Agent Memory EXPLAINED'), views: 40, durationSeconds: 900 };
+      const r = score(flat, t, new Set());
+      expect(r.reasons).toContain('missing "planning"');
+      expect(outcome([{ ...flat, ...r }], DEFAULT_MIN_SCORE).reason).toMatch(/almost unwatched/);
+    });
+
+    it('would be unusable as a filter, measured against what we already accepted', () => {
+      // The number that decided this. If a future change makes the warning act
+      // on the score, this is the cost it is paying, in videos already merged.
+      const byKey = new Map(conceptTargets.map((t: Target) => [t.key, t]));
+      let checked = 0;
+      let flagged = 0;
+      for (const node of corpus) {
+        for (const e of node.explainers ?? []) {
+          if (e.kind !== 'video' || e.scope !== 'concept') continue;
+          checked += 1;
+          if (missingDistinctive({ title: e.title }, byKey.get(node.id)).length > 0) flagged += 1;
+        }
+      }
+      expect(checked).toBeGreaterThan(200);
+      // Fine for a warning nobody is forced to act on; fatal for a gate.
+      expect(flagged / checked).toBeGreaterThan(0.02);
+      expect(flagged / checked).toBeLessThan(0.15);
+    });
+  });
+
+  it('shows the reader the warning on the line they read', () => {
+    const t = at('memory-planning');
+    const c = video('Agent Memory EXPLAINED - Complete Architecture');
+    const scored = [{ ...c, ...score(c, t, new Set()) }];
+    const line = reportLine('memory-planning', scored, DEFAULT_MIN_SCORE, 0, false);
+    expect(line).toContain('missing "planning"');
+    expect(reportLine('memory-planning', scored, DEFAULT_MIN_SCORE, 2, true)).toContain(
+      'widened, 2 floored, missing "planning"',
+    );
   });
 });

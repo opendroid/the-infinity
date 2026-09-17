@@ -198,11 +198,15 @@ function neighbourTitles(node, titleOf) {
 export function targets(nodes, { concepts = false } = {}) {
   if (concepts) {
     const titleOf = new Map(nodes.map((n) => [n.id, n.title ?? n.id]));
+    // Computed once over the whole corpus rather than per target: "distinctive"
+    // is a fact about this graph, not about one concept.
+    const rare = distinctive(nodes);
     return nodes.map((n) => ({
       scope: 'concept',
       key: n.id,
       title: n.title ?? n.id,
       sample: neighbourTitles(n, titleOf),
+      distinctive: rare.get(n.id) ?? [],
     }));
   }
 
@@ -334,6 +338,81 @@ export function shouldWiden(target, videos, quota) {
 }
 
 // ---------------------------------------------------------------- scoring
+
+/**
+ * Words too common in English for this corpus to recognise as common (#515).
+ *
+ * MEASURED, NOT GUESSED AT: `needle-in-a-haystack` demanded the word "a",
+ * because `a` appears in exactly one of 482 concept titles and the frequency
+ * count therefore called it distinctive. A specialist corpus this size cannot
+ * identify English stopwords from its own distribution.
+ */
+const STOPWORDS = new Set(
+  'a an the of and or to in for with on is are as at by from into vs via'.split(' '),
+);
+
+/**
+ * Crude plural stripping, and crude is the right amount.
+ *
+ * NVIDIA's "Tensor Cores in a Nutshell" is the canonical video for
+ * `tensor-core` and was flagged as missing "core"; ARCHER's "Collective
+ * Communications" likewise, and "Approximate Nearest Neighbors" likewise. Three
+ * of the 23 false flags in the #515 measurement were a trailing s. A real
+ * stemmer is a dependency for a warning string.
+ */
+const stem = (w) => {
+  // `-es` only after a sibilant, or "cores" becomes "cor" and the warning fires
+  // on the very video this rule was meant to stop flagging. Consistency matters
+  // more than correctness here: both sides are stemmed the same way, so
+  // "analysis" mangling to "analysi" costs nothing.
+  if (w.length > 4 && /(?:ch|sh|s|x|z)es$/.test(w)) return w.slice(0, -2);
+  if (w.length > 3 && w.endsWith('s') && !w.endsWith('ss')) return w.slice(0, -1);
+  return w;
+};
+
+/** Content words, stemmed. Used only for the warning — never for overlap. */
+const contentWords = (s) =>
+  new Set([...(String(s).toLowerCase().match(/[a-z0-9]+/g) ?? [])].filter((w) => !STOPWORDS.has(w)).map(stem));
+
+/**
+ * The words that belong to one concept and no other.
+ *
+ * `depths` is in one title of 482; `model` is in 21. A video that matches
+ * `Mixture of Depths` on {mixture, of} and misses `depths` is very likely about
+ * the sibling concept, and this is how a reader is told so.
+ */
+export function distinctive(nodes) {
+  const df = new Map();
+  for (const n of nodes) {
+    for (const w of contentWords(n.title ?? n.id)) df.set(w, (df.get(w) ?? 0) + 1);
+  }
+  const out = new Map();
+  for (const n of nodes) {
+    out.set(n.id, [...contentWords(n.title ?? n.id)].filter((w) => (df.get(w) ?? 0) <= 1));
+  }
+  return out;
+}
+
+/**
+ * Which of a concept's distinctive words a candidate's title does not carry.
+ *
+ * A WARNING, NEVER A GATE, AND THE MEASUREMENT IS WHY (#515). As a filter this
+ * rule rejects 18 of the 224 concept-scope videos already picked by a human and
+ * merged — 3Blue1Brown's "Bayes theorem" for `bayesian-inference`, Robert
+ * Miles on `deceptive-alignment`, Khan Academy on `statistical-significance`,
+ * NVIDIA's "Tensor Cores" for `tensor-core`. Good teaching videos paraphrase,
+ * so title overlap cannot tell a SIBLING CONCEPT from a PARAPHRASE OF THE RIGHT
+ * ONE: both are partial matches. Trading 3 false positives for 18 false
+ * negatives is a bad trade at every threshold measured.
+ *
+ * So the score is untouched and the reader is told. That is #505's shape again
+ * — when nothing mechanical can tell the difference, put it in front of the
+ * person rather than guess on their behalf.
+ */
+export function missingDistinctive(candidate, target) {
+  const have = contentWords(candidate.title);
+  return (target.distinctive ?? []).filter((w) => !have.has(w));
+}
 
 const WORD = /[a-z0-9]+/g;
 const words = (s) => new Set(String(s).toLowerCase().match(WORD) ?? []);
@@ -470,6 +549,14 @@ export function score(candidate, target, allowedChannelIds = new Set(), { floor 
   // Naming the facet is the difference between a number and a reason: it says
   // the video matched "Softmax", not that it matched "Foundations" somehow.
   reasons.push(`matches "${matched}" ${Math.round(overlap * 100)}%`);
+
+  // THE WARNING, WHICH MOVES NOTHING (#515). `n` is untouched here on purpose:
+  // as a gate this rejected 18 of 224 videos a human had already approved, so
+  // it tells the reader and leaves the ranking alone.
+  const absent = missingDistinctive(candidate, target);
+  if (absent.length > 0) {
+    reasons.push(`missing ${absent.map((w) => `"${w}"`).join(', ')}`);
+  }
 
   // A teaching video is minutes, not seconds and not a whole conference day.
   const secs = candidate.durationSeconds;
@@ -641,7 +728,13 @@ export function reportLine(key, scored, minScore, flooredCount = 0, widened = fa
   if (flooredCount > 0) notes.push(`${flooredCount} floored`);
   const tail = notes.length > 0 ? `; ${notes.join(', ')}` : '';
   const best = kept[0];
-  if (best) return `${head}  best: ${best.score.toFixed(2)} ${best.author} \u2014 ${best.title.slice(0, 54)}${tail}`;
+  if (best) {
+    // Read off the reasons rather than passed in again: `score` already put it
+    // there, and two sources for one fact is how they come to disagree.
+    const warn = best.reasons.find((r) => r.startsWith('missing '));
+    const suffix = warn ? `${tail}${tail ? ',' : ';'} ${warn}` : tail;
+    return `${head}  best: ${best.score.toFixed(2)} ${best.author} \u2014 ${best.title.slice(0, 54)}${suffix}`;
+  }
   const top = scored[0];
   if (!top) return `${head}  \u2014 nothing returned${widened ? ' by either query' : ''}`;
   return (
