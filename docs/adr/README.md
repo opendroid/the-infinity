@@ -52,6 +52,8 @@ point.
 | [0020](0020-link-checking-is-two-jobs.md) | Link checking is two jobs — a fast gate and a slow, polite sweep | **accepted** |
 | [0021](0021-a-domain-scoped-explainer-names-its-domain.md) | A domain-scoped explainer names its domain | **accepted** |
 | [0022](0022-an-edge-review-pass-that-never-ran.md) | An edge-review pass that never ran | **accepted** |
+| [0023](0023-the-landing-search-is-a-form.md) | The landing search is a form, and the header search is an island | **accepted** |
+| [0024](0024-a-domain-is-a-route.md) | A domain is a route, and the index is a directory of them | *proposed* |
 
 ## Planned
 
