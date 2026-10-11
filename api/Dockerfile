@@ -20,7 +20,7 @@
 # image: at the time of the change both registries reported
 # sha256:0178a641fbb4858c5f1b48e34bdaabe0350a330a1b1149aabd498d0699ff5fb2 for
 # this tag. It can in principle lag on a freshly-moved tag.
-FROM mirror.gcr.io/library/golang:1.26-alpine AS build
+FROM mirror.gcr.io/library/golang:1.27-alpine AS build
 
 WORKDIR /src
 

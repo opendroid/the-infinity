@@ -72,6 +72,19 @@ install method was, and pinning harder without changing it would not have helped
 `bin/` is gitignored, and the fetched binary is stamped with its version so bumping the pin
 forces a refetch rather than silently reusing what is already there.
 
+**This has now happened twice, so treat it as a rule: `.golangci-version` moves with the `go`
+directive.** Going to `go 1.27.0` reproduced the error one version up — v2.12.2's release
+binary is built with go1.26.2 and refused the module, and v2.14.0 (built with go1.27.0) runs
+clean ([#523](https://github.com/opendroid/the-infinity/issues/523)). The binary prints what
+built it, so `./bin/golangci-lint --version` answers it rather than a guess.
+
+**`make vuln` needs the same thing and gets it differently.** `govulncheck` is run through
+`go run pkg@version`, which builds the tool with *that* module's toolchain — and no published
+`golang.org/x/vuln` declares go1.27 (v1.9.0, the newest, still says `go 1.26.0`), so every
+version of it refuses a 1.27 module. The `vuln` target therefore forces `GOTOOLCHAIN` from
+the `go` directive in `go.mod`. It is the same finding as the linter's, in the one place still
+using `go install`'s mechanism: the pin is not the problem, the build is.
+
 Worth having: `contextcheck` and `noctx` are both enabled and neither `go vet` nor `gofmt`
 sees them, so without a working local linter CI is the first thing that tells you.
 

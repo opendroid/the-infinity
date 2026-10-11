@@ -77,6 +77,14 @@ GOLANGCI_STAMP   := bin/.golangci-$(GOLANGCI_BARE)
 #
 # The published binary for the same version is built with go1.26.2 and runs
 # clean. So the failure was never the pin being stale; it was the install method.
+#
+# IT HAS NOW HAPPENED TWICE, which makes it a rule rather than an anecdote
+# (#523). Moving the module to go1.27.0 reproduced the same error one version
+# up — v2.12.2's release binary is built with go1.26.2, so it refused a module
+# targeting 1.27. **`.golangci-version` moves with the `go` directive or lint
+# stops working**, and lint is a required check. v2.14.0 is built with go1.27.0
+# and runs clean; the binary prints what it was built with, so `--version` after
+# a refetch is how you check rather than guess.
 $(GOLANGCI_STAMP):
 	@mkdir -p bin
 	@rm -f $(GOLANGCI) bin/.golangci-*
@@ -87,8 +95,43 @@ $(GOLANGCI_STAMP):
 	@touch $@
 	@$(GOLANGCI) --version
 
+# THE TOOLCHAIN IS FORCED, AND FOR THE SAME REASON THE LINTER IS A RELEASE
+# BINARY (#523). `go run pkg@version` builds the tool with the toolchain THAT
+# module's go.mod selects, and no published golang.org/x/vuln declares go1.27 —
+# v1.9.0, the newest, still says go 1.26.0. So the tool comes out built with
+# go1.26 and refuses to analyse this module:
+#
+#   cmd/server/main.go:6:1: package requires newer Go version go1.27
+#   (application built with go1.26)
+#
+# Identical in shape to the golangci-lint note above: the pin was never the
+# problem, the install method was. Remove this and `make vuln` fails on every
+# module targeting a Go newer than x/vuln's own directive.
+#
+# READ FROM go.mod RATHER THAN WRITTEN HERE, so the next toolchain bump is one
+# line in one file and cannot leave this one behind.
+#
+# THE DIRECTIVE CARRIES A PATCH LEVEL, AND THAT IS LOAD-BEARING (#523). It was
+# `go 1.27.0`, and the first CI run of that change failed — correctly:
+#
+#   Found in: html/template@go1.27    Fixed in: html/template@go1.27.2
+#   Your code is affected by 11 vulnerabilities from the Go standard library.
+#
+# govulncheck analyses the stdlib of the toolchain it is given, so forcing the
+# directive's exact version pinned the scan to an UNPATCHED standard library and
+# the check said so. `go 1.27.2` is the floor the vulnerability database asks
+# for, and the directive is where that floor belongs.
+#
+# The runners and the image float ABOVE it on purpose: setup-go takes `1.27` and
+# the Dockerfile takes `1.27-alpine`, so both pick up a new patch without a
+# commit. This target analyses the floor instead, which means a patch that fixes
+# something new makes it fail until go.mod is raised. That is the direction worth
+# having — it over-reports and tells you, rather than passing quietly on a stdlib
+# nobody checked.
+GO_DIRECTIVE := $(shell awk '/^go /{print $$2; exit}' go.mod)
+
 vuln: ## Known vulnerabilities in reachable code paths. Needs to reach vuln.go.dev
-	@go run golang.org/x/vuln/cmd/govulncheck@$$(cat .govulncheck-version) ./...
+	@GOTOOLCHAIN=go$(GO_DIRECTIVE) go run golang.org/x/vuln/cmd/govulncheck@$$(cat .govulncheck-version) ./...
 
 lint: $(GOLANGCI_STAMP) ## go vet, gofmt check, and the pinned golangci-lint
 	go vet ./...
