@@ -110,6 +110,24 @@ $(GOLANGCI_STAMP):
 #
 # READ FROM go.mod RATHER THAN WRITTEN HERE, so the next toolchain bump is one
 # line in one file and cannot leave this one behind.
+#
+# THE DIRECTIVE CARRIES A PATCH LEVEL, AND THAT IS LOAD-BEARING (#523). It was
+# `go 1.27.0`, and the first CI run of that change failed — correctly:
+#
+#   Found in: html/template@go1.27    Fixed in: html/template@go1.27.2
+#   Your code is affected by 11 vulnerabilities from the Go standard library.
+#
+# govulncheck analyses the stdlib of the toolchain it is given, so forcing the
+# directive's exact version pinned the scan to an UNPATCHED standard library and
+# the check said so. `go 1.27.2` is the floor the vulnerability database asks
+# for, and the directive is where that floor belongs.
+#
+# The runners and the image float ABOVE it on purpose: setup-go takes `1.27` and
+# the Dockerfile takes `1.27-alpine`, so both pick up a new patch without a
+# commit. This target analyses the floor instead, which means a patch that fixes
+# something new makes it fail until go.mod is raised. That is the direction worth
+# having — it over-reports and tells you, rather than passing quietly on a stdlib
+# nobody checked.
 GO_DIRECTIVE := $(shell awk '/^go /{print $$2; exit}' go.mod)
 
 vuln: ## Known vulnerabilities in reachable code paths. Needs to reach vuln.go.dev

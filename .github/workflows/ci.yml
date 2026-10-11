@@ -274,6 +274,14 @@ jobs:
       # READ FROM go.mod rather than from GO_VERSION, so the directive the
       # linter and the compiler obey is the one this obeys too — GO_VERSION is
       # '1.27' and a toolchain name needs the patch.
+      #
+      # WHICH IS WHY go.mod CARRIES ONE. At `go 1.27.0` this step failed on the
+      # first run of #523, correctly: eleven stdlib vulnerabilities reachable
+      # from this service, all "Fixed in: go1.27.2". Forcing the directive's
+      # exact version pins the scan to the stdlib that directive names, so the
+      # directive has to name a patched one. GO_VERSION and the Dockerfile stay
+      # on the minor and float upward; this analyses the floor, so a newly
+      # patched CVE reddens the build until go.mod is raised.
       - id: go-directive
         working-directory: api
         run: |
