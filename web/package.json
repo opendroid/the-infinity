@@ -19,11 +19,11 @@
     "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
-    "@astrojs/react": "^6.0.2",
+    "@astrojs/react": "^6.0.6",
     "@tailwindcss/vite": "^4.3.3",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
-    "astro": "^7.2.8",
+    "astro": "^7.3.8",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwindcss": "^4.3.3"
@@ -31,17 +31,17 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10.0.1",
-    "@testing-library/react": "^16.3.2",
-    "@types/node": "^26.1.2",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "astro-eslint-parser": "^1.4.0",
-    "eslint": "^10.8.0",
+    "eslint": "^10.12.0",
     "eslint-plugin-astro": "^1.7.0",
     "jsdom": "^30.0.1",
     "playwright-core": "1.63.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.65.0",
+    "typescript-eslint": "^8.71.1",
     "vitest": "^4.1.11"
   }
 }
