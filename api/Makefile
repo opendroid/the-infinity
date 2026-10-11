@@ -77,6 +77,14 @@ GOLANGCI_STAMP   := bin/.golangci-$(GOLANGCI_BARE)
 #
 # The published binary for the same version is built with go1.26.2 and runs
 # clean. So the failure was never the pin being stale; it was the install method.
+#
+# IT HAS NOW HAPPENED TWICE, which makes it a rule rather than an anecdote
+# (#523). Moving the module to go1.27.0 reproduced the same error one version
+# up — v2.12.2's release binary is built with go1.26.2, so it refused a module
+# targeting 1.27. **`.golangci-version` moves with the `go` directive or lint
+# stops working**, and lint is a required check. v2.14.0 is built with go1.27.0
+# and runs clean; the binary prints what it was built with, so `--version` after
+# a refetch is how you check rather than guess.
 $(GOLANGCI_STAMP):
 	@mkdir -p bin
 	@rm -f $(GOLANGCI) bin/.golangci-*
@@ -87,8 +95,25 @@ $(GOLANGCI_STAMP):
 	@touch $@
 	@$(GOLANGCI) --version
 
+# THE TOOLCHAIN IS FORCED, AND FOR THE SAME REASON THE LINTER IS A RELEASE
+# BINARY (#523). `go run pkg@version` builds the tool with the toolchain THAT
+# module's go.mod selects, and no published golang.org/x/vuln declares go1.27 —
+# v1.9.0, the newest, still says go 1.26.0. So the tool comes out built with
+# go1.26 and refuses to analyse this module:
+#
+#   cmd/server/main.go:6:1: package requires newer Go version go1.27
+#   (application built with go1.26)
+#
+# Identical in shape to the golangci-lint note above: the pin was never the
+# problem, the install method was. Remove this and `make vuln` fails on every
+# module targeting a Go newer than x/vuln's own directive.
+#
+# READ FROM go.mod RATHER THAN WRITTEN HERE, so the next toolchain bump is one
+# line in one file and cannot leave this one behind.
+GO_DIRECTIVE := $(shell awk '/^go /{print $$2; exit}' go.mod)
+
 vuln: ## Known vulnerabilities in reachable code paths. Needs to reach vuln.go.dev
-	@go run golang.org/x/vuln/cmd/govulncheck@$$(cat .govulncheck-version) ./...
+	@GOTOOLCHAIN=go$(GO_DIRECTIVE) go run golang.org/x/vuln/cmd/govulncheck@$$(cat .govulncheck-version) ./...
 
 lint: $(GOLANGCI_STAMP) ## go vet, gofmt check, and the pinned golangci-lint
 	go vet ./...

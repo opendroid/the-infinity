@@ -30,7 +30,7 @@ concurrency:
 
 env:
   # Pinned so a green CI stays green. Bumping either is a deliberate commit.
-  GO_VERSION: '1.26'
+  GO_VERSION: '1.27'
   NODE_VERSION: '22'
 
 jobs:
@@ -258,8 +258,33 @@ jobs:
           test -n "$version" || { echo "::error::.govulncheck-version is empty or unreadable"; exit 1; }
           echo "value=$version" >> "$GITHUB_OUTPUT"
 
+      # THE TOOLCHAIN IS FORCED, FOR THE REASON api/Makefile's `vuln` target
+      # records (#523). `go run pkg@version` builds the tool with the toolchain
+      # THAT module's go.mod selects, and no published golang.org/x/vuln
+      # declares go1.27 — v1.9.0, the newest, still says go 1.26.0. The tool
+      # then comes out built with go1.26 and refuses this module:
+      #
+      #   cmd/server/main.go:6:1: package requires newer Go version go1.27
+      #   (application built with go1.26)
+      #
+      # setup-go above installs GO_VERSION, which is NOT sufficient: the target
+      # module's own requirement is what selects the toolchain for `go run`, so
+      # it resolves down to 1.26 whatever this runner has.
+      #
+      # READ FROM go.mod rather than from GO_VERSION, so the directive the
+      # linter and the compiler obey is the one this obeys too — GO_VERSION is
+      # '1.27' and a toolchain name needs the patch.
+      - id: go-directive
+        working-directory: api
+        run: |
+          version=$(awk '/^go /{print $2; exit}' go.mod)
+          test -n "$version" || { echo "::error::no go directive in api/go.mod"; exit 1; }
+          echo "value=$version" >> "$GITHUB_OUTPUT"
+
       - name: Known vulnerabilities
         working-directory: api
+        env:
+          GOTOOLCHAIN: go${{ steps.go-directive.outputs.value }}
         run: go run golang.org/x/vuln/cmd/govulncheck@${{ steps.govulncheck-version.outputs.value }} ./...
 
       # The jar is fetched directly rather than through `gcloud components
