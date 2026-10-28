@@ -5,7 +5,7 @@ go 1.27.2
 require (
 	cloud.google.com/go/firestore v1.26.0
 	cloud.google.com/go/logging v1.20.0
-	github.com/go-chi/chi/v5 v5.3.2
+	github.com/go-chi/chi/v5 v5.4.0
 	golang.org/x/time v0.16.0
 	google.golang.org/api v0.301.0
 	google.golang.org/grpc v1.84.0
