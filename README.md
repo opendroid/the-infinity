@@ -6,6 +6,8 @@
 
 [theinfinity.ai](https://theinfinity.ai)
 
+Built by Ajay Thakur · [GitHub](https://github.com/opendroid)
+
 </div>
 
 ---
@@ -18,7 +20,7 @@ path you took through the graph and turn it into something you can share.
 **This is a learning project and a portfolio piece.** It has no users to answer to and no
 revenue to chase, which is the point: it is built the way I would want to build something
 at work if the schedule ever allowed it. Where craft and velocity disagree here, craft
-wins. Eighty-nine concepts today, eighty-six of them read by a human.
+wins. The graph holds 482 concepts as of 2026-11-18, every one of them read by a human.
 
 ## Try it
 
@@ -61,11 +63,24 @@ The reasoning lives in [ADRs](docs/adr) rather than here. The ones that shaped t
 | [0009](docs/adr/0009-notation-in-bodies.md) | `_` and `^` in body copy instead of KaTeX, and the migration that avoided |
 | [0011](docs/adr/0011-analytics-from-request-logs.md) | Analytics read from request logs — no analytics JavaScript ships at all |
 
+## Stack
+
+Kept in step with [`CLAUDE.md`](CLAUDE.md) §2, which is the source of truth.
+
+| Surface | Choice |
+|---|---|
+| `/web` | Astro + TypeScript, React islands (viz primitives, depth toggle, trail, mini-map), Tailwind |
+| `/api` | Go on Cloud Run — `net/http` + [chi](https://github.com/go-chi/chi), distroless container, scale-to-zero |
+| Data | Firestore (Native mode): `concepts` (published from git) · `trails`, `concept_requests`, `concept_reviews`, `counters` (runtime — [ADR-0004](docs/adr/0004-runtime-collections.md)) |
+| Hosting | Firebase Hosting (Blaze) — CDN + TLS. `/api/**` rewrite → Cloud Run service `api` (no GCLB) |
+| Region | `us-west1` for Cloud Run and Firestore |
+| Domain | `theinfinity.ai` — registered at GoDaddy, A records pointing at Firebase since the cutover ([#65](https://github.com/opendroid/the-infinity/issues/65)). `the-infinity-ai.web.app` still serves the same site and canonicals to it |
+
 ## Repository
 
 | Path | What |
 |---|---|
-| [`/web`](web) | Astro + TypeScript, React islands, Tailwind. Five viz primitives, seven routes |
+| [`/web`](web) | Astro + TypeScript, React islands, Tailwind. Six viz primitives, eight routes |
 | [`/api`](api) | Go on Cloud Run — chi, distroless, scale-to-zero |
 | [`/content/nodes`](content/nodes) | The concept graph, one JSON file per concept |
 | [`/content/schema`](content/schema) | The schema CI validates every node against |
