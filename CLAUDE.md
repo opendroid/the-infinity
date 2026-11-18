@@ -332,7 +332,13 @@ run and its two repository variables are set.
   worth making is worth being able to find the reasoning for later.
 - One prompt = one session; one subsystem at a time. `/compact` when a session runs long.
 - **Plan before implementing.** Restate the task, list files you'll touch, flag design
-  decisions, and wait for a human OK on anything non-obvious.
+  decisions. In an interactive session, wait for a human OK on anything non-obvious. On an
+  issue labelled `agent:ready`, the acceptance tests are that OK: a decision they don't
+  cover goes on the issue as a question comment, and that item stops.
+- **A wrong PR is fixed at its cause, not in its branch.** Rewrite the acceptance test, add
+  a sabotage row, add a one-line rule here, or write an ADR, then relabel the issue
+  `agent:ready`. Hand edits to a `claude/` branch are for typos and outages; an outage fix
+  gets an issue for the test that would have caught it.
 - **Smallest change that satisfies the acceptance criteria.** No opportunistic refactors
   riding along in a feature PR.
 - Subagents are **reviewers and test-runners only** — never parallel builders on one issue.
