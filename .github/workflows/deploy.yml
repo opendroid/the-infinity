@@ -161,3 +161,39 @@ jobs:
             echo 'Search would answer "no results" for anything missing from it. Re-run the deploy.'
             exit 1
           fi
+
+  # Everything LAUNCH 1.5, 3.2, 3.3 and 3.4 ask a person to confirm by hand,
+  # asserted instead, against the live site rather than the build.
+  #
+  # A SEPARATE JOB, not more steps on `deploy`. Two reasons. A failure here
+  # means the deploy shipped and the result is wrong, which is a different
+  # thing from a deploy that did not finish, and one red job per meaning is
+  # how a run stays readable at 2am. And it can be re-run on its own from the
+  # Actions UI without re-publishing the graph and re-pushing the image.
+  #
+  # The assertions live in infra/verify-deploy.sh rather than inline here
+  # because this workflow only runs on `main`: steps written inline could not
+  # be run — or watched to fail — until after the merge that ships them, and a
+  # check nobody has seen fail is a claim rather than a check (PLAN.md §8).
+  # The script runs by hand against any origin, which is what made its
+  # sabotage table possible before it ever ran here.
+  verify:
+    name: verify
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: vars.WIF_PROVIDER != '' && vars.DEPLOY_SERVICE_ACCOUNT != ''
+    steps:
+      - uses: actions/checkout@v5
+
+      - id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOY_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v3
+
+      # PROJECT_ID, REGION and SERVICE reach the script from the workflow-level
+      # env above; repeating them here would be a second place to update.
+      - name: The live site is what was deployed
+        run: ./infra/verify-deploy.sh
