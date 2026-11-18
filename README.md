@@ -65,16 +65,8 @@ The reasoning lives in [ADRs](docs/adr) rather than here. The ones that shaped t
 
 ## Stack
 
-Kept in step with [`CLAUDE.md`](CLAUDE.md) §2, which is the source of truth.
-
-| Surface | Choice |
-|---|---|
-| `/web` | Astro + TypeScript, React islands (viz primitives, depth toggle, trail, mini-map), Tailwind |
-| `/api` | Go on Cloud Run — `net/http` + [chi](https://github.com/go-chi/chi), distroless container, scale-to-zero |
-| Data | Firestore (Native mode): `concepts` (published from git) · `trails`, `concept_requests`, `concept_reviews`, `counters` (runtime — [ADR-0004](docs/adr/0004-runtime-collections.md)) |
-| Hosting | Firebase Hosting (Blaze) — CDN + TLS. `/api/**` rewrite → Cloud Run service `api` (no GCLB) |
-| Region | `us-west1` for Cloud Run and Firestore |
-| Domain | `theinfinity.ai` — registered at GoDaddy, A records pointing at Firebase since the cutover ([#65](https://github.com/opendroid/the-infinity/issues/65)). `the-infinity-ai.web.app` still serves the same site and canonicals to it |
+The stack lives in [`CLAUDE.md` §2](CLAUDE.md#2-stack). This file points there instead of
+copying it, so the two cannot drift.
 
 ## Repository
 
