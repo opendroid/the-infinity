@@ -1,6 +1,6 @@
 module github.com/opendroid/the-infinity/api
 
-go 1.27.2
+go 1.27.4
 
 require (
 	cloud.google.com/go/firestore v1.26.0
