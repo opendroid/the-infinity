@@ -25,9 +25,17 @@ Closes #
      visible below. Things a machine cannot check go here: a page opened in a
      browser, a script run twice to prove it resumes, a measurement taken. -->
 
+## Sabotage
+
+<!-- For each new or changed check, break the code on purpose and show the check fail. 'n/a — no new check' is an answer; an empty table is not. -->
+
+| Sabotage | Expected | Result |
+|---|---|---|
+
 ## Checklist
 
 - [ ] There is an issue, and this references it
 - [ ] Smallest change that meets the acceptance criteria — no refactors riding along
 - [ ] Anything hard to reverse (a dependency, a data-model change, a serving strategy) has an ADR in `/docs/adr/`
 - [ ] `CLAUDE.md` updated if a command, a constraint, or a piece of layout changed
+- [ ] Every new or changed check has been shown failing (Sabotage)
