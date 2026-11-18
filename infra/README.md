@@ -171,6 +171,52 @@ Two flags carry more weight than they look:
   burst. This is the flag that bounds the bill, and it is why it is not left at the
   default.
 
+## Verifying a deploy — `./infra/verify-deploy.sh`
+
+`deploy.yml` ships the graph, the API and the site. Nothing used to check afterwards that
+the live site matched, which is why LAUNCH 1.5, 3.2, 3.3 and 3.4 were things a person
+confirmed by hand with a handful of `curl` commands. This script is those commands, with
+the expected answers written down (#542). A `verify` job runs it after every deploy.
+
+```bash
+./infra/verify-deploy.sh                 # the live site, everything
+./infra/verify-deploy.sh --http-only     # no gcloud credentials to hand
+SITE=https://the-infinity-ai.web.app ./infra/verify-deploy.sh --http-only
+```
+
+It asserts the apex serves 200 over HTTPS with a valid certificate; that `www` answers
+**301** to the apex; that `/api/v1/stats` returns JSON **through the domain**, which is the
+one that catches Hosting's `/api/**` rewrite being wrong rather than the service being
+down; that `/` carries no `X-Robots-Tag` and `robots.txt` still says `Allow: /` with a
+`Sitemap:` line; that `/t/**` still carries `noindex`; that `sitemap.xml` lists one `<url>`
+per node, per domain and per fixed route; and, from the Cloud Run service itself, the two
+load-bearing flags above plus the write cap and the two per-IP rate limits.
+
+Three things about it are deliberate and easy to undo by accident:
+
+- **It runs against the apex**, unlike the search-index check in the same workflow, which
+  uses `.web.app` so that a DNS problem cannot masquerade as a bad build. Four of these
+  assertions are *about* the domain, so pointing them at `.web.app` would let them pass
+  while `theinfinity.ai` was dark.
+- **Every expected value is an environment variable, and each reaches exactly one check.**
+  That is not tidiness. The script fails on the first miss, so a knob shared between two
+  checks could never be used to watch the second one fail, and an assertion nobody has
+  seen fail is a claim rather than a check.
+- **The three rate-limit defaults are read out of the Go source**, never written down
+  here or in the script. Two copies of a number is how they drift, and the drift would be
+  silent — the service shaped one way and the check asserting the other. A non-numeric
+  match is a failure, not a skip, because renaming the constant to another identifier
+  still *matches* and would otherwise be compared against itself and pass.
+
+The rate-limit checks assert **agreement with the source**, not merely non-zero. Non-zero
+cannot fail: every helper in `api/cmd/server/main.go` rejects a value `<= 0` and falls back
+to a positive compiled default, so there is no deployment in which it is false. What can
+go wrong is an override set on the service by hand while the repository still says
+something else, and that is what is caught.
+
+The shebang is `bash`, not `zsh` like the scripts above, because this one runs unattended
+on a CI runner where bash is guaranteed. The body is clean under both, same as the others.
+
 ## Hosting
 
 Config is committed at [`web/firebase.json`](../web/firebase.json) — do **not** run
