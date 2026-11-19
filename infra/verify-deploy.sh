@@ -45,10 +45,11 @@ EXPECT_ROBOTS_TAG=${EXPECT_ROBOTS_TAG:-}
 EXPECT_ROBOTS_ALLOW=${EXPECT_ROBOTS_ALLOW:-1}
 EXPECT_ROBOTS_SITEMAP=${EXPECT_ROBOTS_SITEMAP:-1}
 EXPECT_TRAIL_TAG=${EXPECT_TRAIL_TAG:-noindex, nofollow}
-# `/` and `/concepts` are the hand-written pair in lib/siteindex's
-# `indexedRoutes`. The domain routes are NOT fixed — they are derived from the
-# nodes, which is why they are counted below rather than added here.
-EXPECT_FIXED_ROUTES=${EXPECT_FIXED_ROUTES:-2}
+# `/`, `/concepts` and `/about` (#544) are the hand-written three in
+# lib/siteindex's `indexedRoutes`. The domain routes are NOT fixed — they are
+# derived from the nodes, which is why they are counted below rather than added
+# here.
+EXPECT_FIXED_ROUTES=${EXPECT_FIXED_ROUTES:-3}
 NODES_DIR=${NODES_DIR:-$ROOT/content/nodes}
 
 HTTP_ONLY=0
