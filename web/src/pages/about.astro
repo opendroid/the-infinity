@@ -1,0 +1,120 @@
+---
+// What the site is, how it is built, and who built it (#544). The footer's
+// "Ajay Thakur" is the way in, from every route.
+//
+// NO ISLAND, SO NO TOPBAR. The Topbar mounts the search overlay and the trail
+// count, about 73 KB gzipped of JavaScript for four short sections of prose,
+// and #544 says plainly that no islands are added. So this page is budgeted at
+// zero in perf-budget.json, like `/`, and an island here has to argue for
+// itself in a pull request rather than arrive. The eyebrow is the way back to
+// the graph — as the eyebrow is the way back up on a domain page — and the page
+// ends on two more ways in, so it is not a dead end (CLAUDE.md §1).
+//
+// WHERE THE THREAD RUNS HERE: it does not, for the reason it does not run
+// through /concepts (CLAUDE.md §5). The thread is the path a reader takes
+// through the graph; this page is about the graph rather than a step in it.
+//
+// THE COUNTS ARE READ FROM THE CONTENT AT BUILD, NOT WRITTEN HERE. A number
+// typed into prose goes stale with the next batch — PLAN.md §8 tells that story
+// (#319). Reading them is also what makes this page's `lastmod` in the sitemap
+// true: it is the newest concept's date, because the page changes when the
+// graph does.
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import { allNodes } from '../lib/content';
+import { directory, domainRoutes, tally } from '../lib/directory';
+
+const groups = directory(allNodes);
+const totals = tally(groups);
+const domains = domainRoutes(groups).length;
+
+const REPO = 'https://github.com/opendroid/the-infinity';
+const GPL = 'https://the-gpl.com';
+const GITHUB = 'https://github.com/opendroid';
+
+const PROSE = 'mt-3 max-w-[62ch] text-[15px] leading-[1.65] text-starlight';
+const LINK = 'text-thread underline underline-offset-2';
+---
+
+<Base
+  title="About · theinfinity.ai"
+  description="What theinfinity.ai is, how it is built, and who built it."
+>
+  {/*
+    The handoff's landing padding — 56px over 52px, 36px over 40px on a phone —
+    rather than the 12px the directory pages leave under their Topbar: with no
+    bar above it, this page starts at the top edge. Written in px because this
+    repo's spacing scale is keyed by pixel value, so `py-12` is 12px, not 3rem.
+  */}
+  <main class="mx-auto max-w-[680px] px-[26px] pb-[52px] pt-[56px] max-md:pb-[40px] max-md:pt-[36px]">
+    <Eyebrow>
+      {/*
+        A real 24px box, for the reason the domain page's eyebrow link is one:
+        at the eyebrow's own 11px it would be a standalone control under the
+        WCAG 2.2 AA 2.5.8 minimum. The negative margin gives the height back to
+        the layout so the heading does not move.
+      */}
+      <a href="/" class="-my-[7px] inline-flex min-h-[24px] items-center text-dust no-underline hover:text-starlight">
+        theinfinity.ai
+      </a>
+    </Eyebrow>
+    <h1 class="mt-1.5 font-display text-[30px] font-semibold leading-[1.16] text-starlight max-md:text-[23px]">
+      About
+    </h1>
+
+    <p class="mt-2.5 max-w-[62ch] text-[15px] leading-[1.65] text-dust">
+      A concept graph for AI and machine learning: {totals.concepts} concepts across {domains} domains,
+      each one a page you can read at three depths.
+    </p>
+
+    <section class="mt-[34px]">
+      <h2 class="font-mono text-[10px] uppercase tracking-[.18em] text-dust">What it is</h2>
+      <p class={PROSE}>
+        Every concept is one page with a 30-second intuition, an engineer's view and the math — the same
+        idea three ways, switched in place — plus a figure and typed edges to what it requires, what it
+        unlocks and what sits alongside it. Follow an edge and the site keeps the path you took as a
+        trail you can share.
+      </p>
+      <p class={PROSE}>
+        Each concept carries a trust tier. Verified means a person read the page and merged it; frontier
+        means it was drafted from the sources it cites and is waiting for that review. Both cite primary
+        sources.
+      </p>
+    </section>
+
+    <section class="mt-[34px]">
+      <h2 class="font-mono text-[10px] uppercase tracking-[.18em] text-dust">How it's built</h2>
+      <p class={PROSE}>
+        The graph is content as code. Every concept is a JSON file in{' '}
+        <a href={REPO} class={LINK}>the repository</a>, validated against a schema, and it changes only
+        when a pull request is merged — the merge is the act of verification. Concepts are drafted, and
+        the code is written, with Claude Code at authoring time; nothing on the site calls a language
+        model.
+      </p>
+      <p class={PROSE}>
+        Pages are pre-rendered with Astro and served from Firebase Hosting's CDN, so a concept reads
+        without JavaScript. Small React islands add the depth toggle, the figures, search and the trail.
+        A Go API on Cloud Run serves the graph to them and keeps shared trails in Firestore.
+      </p>
+    </section>
+
+    <section class="mt-[34px]">
+      <h2 class="font-mono text-[10px] uppercase tracking-[.18em] text-dust">Who built it</h2>
+      {/*
+        DRAFT (#544). Ajay edits this paragraph before the pull request merges;
+        an agent wrote it from what the repository says about itself. Nothing
+        else on this page depends on its wording.
+      */}
+      <p class={PROSE}>
+        Ajay Thakur builds theinfinity.ai in the open, as a learning project and a portfolio piece. He
+        also made <a href={GPL} class={LINK}>the-gpl.com</a>, chapters and demos on Go. The rest of his
+        work is on <a href={GITHUB} class={LINK}>GitHub</a>.
+      </p>
+    </section>
+
+    <p class="mt-8 border-t border-line pt-6 text-[14px] text-dust">
+      <a href="/concepts" class={LINK}>Browse every concept</a>, or{' '}
+      <a href="/" class={LINK}>start from the beginning of the thread</a>.
+    </p>
+  </main>
+</Base>

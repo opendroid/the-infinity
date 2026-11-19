@@ -42,6 +42,7 @@ const BUDGET_PATH = join(WEB, 'perf-budget.json');
  */
 const ROUTES = [
   { id: '/', match: (r) => r === '/' },
+  { id: '/about', match: (r) => r === '/about' },
   { id: '/concepts', match: (r) => r === '/concepts' },
   { id: '/concepts/*', match: (r) => r.startsWith('/concepts/') },
   { id: '/search', match: (r) => r === '/search' },
@@ -53,7 +54,10 @@ const ROUTES = [
 
 const gz = (buf) => gzipSync(buf, { level: 9 }).length;
 
-function htmlFiles(dir, out = []) {
+// Exported, with routeOf, for the smoke test's footer check (#544): one
+// definition of "the routes the build produced", rather than a second walk free
+// to disagree with this one about what a route is.
+export function htmlFiles(dir, out = []) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const full = join(dir, entry.name);
     if (entry.isDirectory()) htmlFiles(full, out);
@@ -62,7 +66,7 @@ function htmlFiles(dir, out = []) {
   return out;
 }
 
-function routeOf(file) {
+export function routeOf(file) {
   const rel = '/' + relative(DIST, file).replaceAll('\\', '/');
   if (rel.endsWith('/index.html')) return rel.slice(0, -'/index.html'.length) || '/';
   return rel.replace(/\.html$/, '');

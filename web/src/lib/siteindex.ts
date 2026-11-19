@@ -78,7 +78,10 @@ export function indexedConcepts(nodes: ResolvedNode[]): IndexedConcept[] {
  * The fixed routes worth indexing, and the reasoning for what is missing.
  *
  * `lastmod` is the newest concept, because these pages are views over the graph
- * and change exactly when it does.
+ * and change exactly when it does. `/about` too (#544): it states the size of
+ * the graph from the content at build, so it changes when the graph does.
+ * Priority 0.5 — it is about the graph, not part of it, so it ranks below every
+ * page that is.
  *
  * NOT HERE, deliberately:
  *   /t/**    user-created, unbounded, and duplicate content by construction —
@@ -107,14 +110,21 @@ export function indexedRoutes(concepts: IndexedConcept[]): IndexedPage[] {
       priority: '0.9',
       note: 'the full index, grouped by domain, with each concept’s tier',
     },
+    {
+      path: '/about',
+      title: 'About',
+      lastmod: newest,
+      priority: '0.5',
+      note: 'what the site is, how it is built, and who built it',
+    },
   ];
 }
 
 /**
  * The 47 domain pages (#509, ADR-0024).
  *
- * SEPARATE FROM `indexedRoutes` BECAUSE THEY ARE NOT FIXED. Those two entries
- * are a hand-written list and can be, because `/` and `/concepts` exist
+ * SEPARATE FROM `indexedRoutes` BECAUSE THEY ARE NOT FIXED. Those entries are
+ * a hand-written list and can be, because `/`, `/concepts` and `/about` exist
  * whatever the graph does. A domain route exists only because nodes name it, so
  * it is derived from the same `directory` the pages are built from — the one
  * traversal this file exists to keep singular. A hand-kept list here would be a

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -77,5 +78,7 @@ const card = new URL('/og.png', Astro.site).href;
   </head>
   <body>
     <slot />
+    {/* After the page, so every route carries the credit by construction (#544). */}
+    <Footer />
   </body>
 </html>

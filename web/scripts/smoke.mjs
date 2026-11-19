@@ -27,6 +27,7 @@ import { setTimeout as sleep } from 'node:timers/promises';
 import { setTimeout, clearTimeout } from 'node:timers';
 import { chromium } from 'playwright-core';
 import { glowing } from './box-shadow.mjs';
+import { htmlFiles, routeOf } from './perf-budget.mjs';
 
 const WEB = resolve(process.cwd());
 const DIST = join(WEB, 'dist');
@@ -35,6 +36,31 @@ const PORT = Number(process.env.SMOKE_PORT ?? 4322);
 const ORIGIN = `http://127.0.0.1:${PORT}`;
 /** A slug no concept will ever claim, so the 404 route is not a race with content. */
 const MISSING = 'smoke-test-no-such-concept';
+/** The footer on every route (#544), word for word, and where its GitHub link goes. */
+const CREDIT = 'Built by Ajay Thakur · GitHub';
+const GITHUB = 'https://github.com/opendroid';
+
+/**
+ * One page of every route the build produced, for the footer check (#544).
+ *
+ * READ FROM `dist`, NOT LISTED HERE. "Every route has the footer" is a claim
+ * about routes nobody has written yet, and a list in this file would only ever
+ * check the routes its author knew about — the lesson perf-budget.mjs records,
+ * whose first version measured a pattern list against itself and missed a new
+ * page. A route with many pages (`/c/*`, `/concepts/*`) is one template, so its
+ * first page stands for the rest, which is the assumption the perf budget makes.
+ */
+function oneOfEachRoute() {
+  const routes = htmlFiles(DIST)
+    .map((file) => routeOf(file))
+    .sort();
+  const first = new Map();
+  for (const route of routes) {
+    const family = route.split('/').length > 2 ? route.replace(/[^/]+$/, '*') : route;
+    if (!first.has(family)) first.set(family, route);
+  }
+  return [...first.values()];
+}
 
 const failures = [];
 const fail = (what) => failures.push(what);
@@ -470,7 +496,7 @@ async function main() {
     step = 'checking standalone targets are big enough to tap';
     // `/concepts/foundations` is the largest domain page (#509) — 37 rows, so
     // it is the worst case of the route class, which is the one worth sweeping.
-    for (const path of ['/', '/concepts', '/concepts/foundations', '/c/attention', '/search?q=attention', '/request']) {
+    for (const path of ['/', '/about', '/concepts', '/concepts/foundations', '/c/attention', '/search?q=attention', '/request']) {
       await page.goto(ORIGIN + path, { waitUntil: 'networkidle' });
       await page.waitForTimeout(250);
       const small = await page.evaluate(() => {
@@ -498,6 +524,36 @@ async function main() {
       if (small.length > 0) {
         fail(`${path}: ${small.length} standalone target(s) under 24px — ${small.slice(0, 4).join(', ')}`);
       }
+    }
+
+    // 11 — EVERY ROUTE SAYS WHO BUILT IT (#544). One page of each route the
+    //      build produced, so a route added later is checked without anyone
+    //      adding it here. The footer comes from Base.astro, which is exactly why
+    //      it is checked page by page: a page that stops rendering through Base
+    //      loses it silently, and nothing else would notice.
+    //
+    //      By ROLE, not by tag. A `<footer>` nested in `main` or a `section` is
+    //      not the page's contentinfo landmark, and a screen reader jumping to
+    //      the landmark would not find the credit — a tag selector would pass it.
+    //      Static HTML, so no wait for islands.
+    step = 'checking every route carries the footer';
+    for (const path of oneOfEachRoute()) {
+      await page.goto(ORIGIN + path, { waitUntil: 'domcontentloaded' });
+      const footer = page.getByRole('contentinfo');
+      const count = await footer.count();
+      if (count !== 1) {
+        fail(`${path}: ${count} contentinfo landmarks — expected the one footer saying who built the site`);
+        continue;
+      }
+      if (!(await footer.isVisible())) fail(`${path}: the footer is in the page but not visible`);
+      const said = (await footer.innerText()).replace(/\s+/g, ' ').trim();
+      if (said !== CREDIT) fail(`${path}: the footer reads "${said}", not "${CREDIT}"`);
+      const github = footer.getByRole('link', { name: 'GitHub', exact: true });
+      const href = (await github.count()) === 1 ? await github.getAttribute('href') : null;
+      if (href !== GITHUB) fail(`${path}: the footer's GitHub link goes to ${href ?? 'nowhere'}, not ${GITHUB}`);
+      const about = footer.getByRole('link', { name: 'Ajay Thakur', exact: true });
+      const to = (await about.count()) === 1 ? await about.getAttribute('href') : null;
+      if (to !== '/about') fail(`${path}: the footer's name links to ${to ?? 'nowhere'}, not /about`);
     }
 
     step = 'checking the search field survives a short viewport';
@@ -534,7 +590,8 @@ async function main() {
   }
   console.log(
     `✓ smoke: 404 suggestions, ${node.id}'s slider and depth toggle, mini-map degradation, ` +
-      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, prose links, nesting, tap targets (all routes), short viewport, landing`,
+      `focus after a failed share, search, list semantics, focus ring, the one glow, reflow, prose links, nesting, tap targets (all routes), ` +
+      `footer credit (every built route), short viewport, landing`,
   );
   return 0;
 }
