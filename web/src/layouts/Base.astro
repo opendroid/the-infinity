@@ -77,8 +77,25 @@ const card = new URL('/og.png', Astro.site).href;
     />
   </head>
   <body>
-    <slot />
-    {/* After the page, so every route carries the credit by construction (#544). */}
-    <Footer />
+    {/*
+      The footer is here so every route carries the credit by construction
+      (#544). It is held at the foot of the viewport rather than under the
+      content, because islands grow short pages after first paint — search
+      results, a loaded trail, the 404's suggestions — and a footer sitting
+      under the content was shoved down each time — measured at 390x844 with a
+      slow API, layout shift on /search went from 0.031 without a footer to
+      0.095 with one. Pinned, it is back to 0.031, and it moves only when the
+      page is taller than the screen, which is when it is out of view.
+
+      Wrappers rather than a flex body: a flex item with `mx-auto` stops
+      stretching and shrinks to fit its content, so every centred `main` on the
+      site would have narrowed.
+    */}
+    <div class="flex min-h-dvh flex-col">
+      <div class="flex-1">
+        <slot />
+      </div>
+      <Footer />
+    </div>
   </body>
 </html>

@@ -3,8 +3,8 @@
 //
 // RENDERED BY THE LAYOUT, NOT BY EACH PAGE. Every route goes through
 // Base.astro, so a new page gets the credit without anyone remembering it, and
-// `npm run smoke` visits one page of every route the build produced and fails
-// on any page without it — which is what catches a page that stops using Base.
+// `npm run smoke` reads every built page for it and checks one page of every
+// route in a browser — which is what catches a page that stops using Base.
 //
 // STATIC: TWO LINKS AND NO ISLAND. This sits on `/`, which perf-budget.json
 // holds at zero JavaScript, so anything here that needed hydrating would cost
@@ -14,13 +14,17 @@
 // GitHub link is the profile, the same one README.md's credit line carries —
 // /about is where the repository itself is linked.
 //
-// The link style is the landing page's quiet one — dust, with the underline
-// turning violet on hover — because this line sits under the one glowing field
-// on `/` and must not read as a second invitation. Each link is a 24px box for
-// WCAG 2.2 AA 2.5.8, the size the tap-target sweep in `npm run smoke` measures.
+// Quiet links, in the register of the landing page's own — dust, turning
+// starlight with a violet underline on hover — because this line sits under
+// the one glowing field on `/` and must not read as a second invitation. The
+// underline is dust rather than the landing page's `line`: the links are the
+// same colour as "Built by", so the underline is the only thing marking them as
+// links (WCAG 1.4.1), and `line` on `void` is 1.4:1 — there, but barely seen.
+// Each link is a 24px box for WCAG 2.2 AA 2.5.8, the size the tap-target sweep
+// in `npm run smoke` measures.
 const GITHUB = 'https://github.com/opendroid';
 const LINK =
-  'inline-flex min-h-[24px] items-center text-dust underline decoration-line underline-offset-4 hover:text-starlight hover:decoration-thread';
+  'inline-flex min-h-[24px] items-center text-dust underline decoration-dust underline-offset-4 hover:text-starlight hover:decoration-thread';
 ---
 
 <footer class="border-t border-line px-[26px] py-3.5 text-[13px] text-dust">

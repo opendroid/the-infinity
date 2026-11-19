@@ -80,7 +80,14 @@ describe('what the sitemap lists', () => {
 
   it('dates the derived pages from the newest concept', () => {
     const newest = concepts.map((c) => c.lastmod).sort().at(-1);
-    expect(indexedRoutes(concepts).map((p) => p.lastmod)).toEqual([newest, newest, newest]);
+    const dated = indexedRoutes(concepts).filter((p) => p.path !== '/about');
+    expect(dated.map((p) => p.lastmod)).toEqual([newest, newest]);
+  });
+
+  it('leaves /about undated rather than borrowing the graph’s date', () => {
+    // Its prose is edited by hand (#544). The newest concept would date the
+    // page to before it existed; an absent lastmod is the true statement.
+    expect(indexedRoutes(concepts).find((p) => p.path === '/about')).not.toHaveProperty('lastmod');
   });
 });
 

@@ -41,9 +41,11 @@ export const GET: APIRoute = ({ site }) => {
       // no-trailing-slash paths. A sitemap that disagrees with the canonical
       // tag on the page it points at is a crawler telling you so, later.
       const loc = new URL(page.path, site).href;
+      // Optional in the protocol, and left out where nothing knows the date
+      // (`/about`, #544) — a guessed `lastmod` is a crawler being misled.
+      const lastmod = page.lastmod ? `\n    <lastmod>${xml(page.lastmod)}</lastmod>` : '';
       return `  <url>
-    <loc>${xml(loc)}</loc>
-    <lastmod>${xml(page.lastmod)}</lastmod>
+    <loc>${xml(loc)}</loc>${lastmod}
     <priority>${xml(page.priority)}</priority>
   </url>`;
     })

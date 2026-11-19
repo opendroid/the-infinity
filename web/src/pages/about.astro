@@ -3,8 +3,8 @@
 // "Ajay Thakur" is the way in, from every route.
 //
 // NO ISLAND, SO NO TOPBAR. The Topbar mounts the search overlay and the trail
-// count, about 73 KB gzipped of JavaScript for four short sections of prose,
-// and #544 says plainly that no islands are added. So this page is budgeted at
+// count — 73,225 B gzipped on /concepts, which has nothing else — for a page
+// of prose, and #544 says plainly that no islands are added. So this page is budgeted at
 // zero in perf-budget.json, like `/`, and an island here has to argue for
 // itself in a pull request rather than arrive. The eyebrow is the way back to
 // the graph — as the eyebrow is the way back up on a domain page — and the page
@@ -16,9 +16,7 @@
 //
 // THE COUNTS ARE READ FROM THE CONTENT AT BUILD, NOT WRITTEN HERE. A number
 // typed into prose goes stale with the next batch — PLAN.md §8 tells that story
-// (#319). Reading them is also what makes this page's `lastmod` in the sitemap
-// true: it is the newest concept's date, because the page changes when the
-// graph does.
+// (#319).
 import Base from '../layouts/Base.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import { allNodes } from '../lib/content';
@@ -93,8 +91,10 @@ const LINK = 'text-thread underline underline-offset-2';
       </p>
       <p class={PROSE}>
         Pages are pre-rendered with Astro and served from Firebase Hosting's CDN, so a concept reads
-        without JavaScript. Small React islands add the depth toggle, the figures, search and the trail.
-        A Go API on Cloud Run serves the graph to them and keeps shared trails in Firestore.
+        without JavaScript. Small React islands add the depth toggle, the figures, the mini-map and the
+        trail, and search runs in the browser against a static index. A Go API on Cloud Run answers the
+        mini-map, suggests the nearest concepts when one is missing, and keeps shared trails and
+        requests in Firestore.
       </p>
     </section>
 

@@ -55,8 +55,8 @@ const ROUTES = [
 const gz = (buf) => gzipSync(buf, { level: 9 }).length;
 
 // Exported, with routeOf, for the smoke test's footer check (#544): one
-// definition of "the routes the build produced", rather than a second walk free
-// to disagree with this one about what a route is.
+// definition of which pages the build produced and the path each one serves,
+// rather than a second walk free to disagree with this one.
 export function htmlFiles(dir, out = []) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const full = join(dir, entry.name);

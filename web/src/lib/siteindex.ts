@@ -19,8 +19,12 @@ export interface IndexedPage {
   /** Absolute path, no trailing slash — `trailingSlash: false` in firebase.json. */
   path: string;
   title: string;
-  /** ISO date, from the node's `updated_at`. */
-  lastmod: string;
+  /**
+   * ISO date, from the node's `updated_at`. Absent where nothing knows when
+   * the page last changed — the sitemap then says nothing rather than a date
+   * it cannot back (#544).
+   */
+  lastmod?: string;
   /** How important this page is relative to the others, for sitemap consumers. */
   priority: string;
   /** What this page is, for a reader who only has the index. `llms.txt` only. */
@@ -28,6 +32,8 @@ export interface IndexedPage {
 }
 
 export interface IndexedConcept extends IndexedPage {
+  /** Always known for a concept: it is the node's own `updated_at`. */
+  lastmod: string;
   domain: string;
   tier: Tier;
   /** One sentence. See `summarise`. */
@@ -78,10 +84,12 @@ export function indexedConcepts(nodes: ResolvedNode[]): IndexedConcept[] {
  * The fixed routes worth indexing, and the reasoning for what is missing.
  *
  * `lastmod` is the newest concept, because these pages are views over the graph
- * and change exactly when it does. `/about` too (#544): it states the size of
- * the graph from the content at build, so it changes when the graph does.
- * Priority 0.5 — it is about the graph, not part of it, so it ranks below every
- * page that is.
+ * and change exactly when it does.
+ *
+ * `/about` (#544) has none. Its prose is edited by hand, so the newest concept
+ * would have dated it to before it existed, and nothing here knows a truer
+ * date. Priority 0.5: it is about the graph, not part of it, so it ranks below
+ * every page that is.
  *
  * NOT HERE, deliberately:
  *   /t/**    user-created, unbounded, and duplicate content by construction —
@@ -113,7 +121,6 @@ export function indexedRoutes(concepts: IndexedConcept[]): IndexedPage[] {
     {
       path: '/about',
       title: 'About',
-      lastmod: newest,
       priority: '0.5',
       note: 'what the site is, how it is built, and who built it',
     },

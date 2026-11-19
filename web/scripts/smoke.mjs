@@ -47,8 +47,11 @@ const GITHUB = 'https://github.com/opendroid';
  * about routes nobody has written yet, and a list in this file would only ever
  * check the routes its author knew about — the lesson perf-budget.mjs records,
  * whose first version measured a pattern list against itself and missed a new
- * page. A route with many pages (`/c/*`, `/concepts/*`) is one template, so its
- * first page stands for the rest, which is the assumption the perf budget makes.
+ * page. The pages and their paths come from perf-budget.mjs; the grouping is
+ * this file's own: a path two or more segments deep (`/c/*`, `/concepts/*`) is
+ * one template, so its first page stands for the rest in the browser. The
+ * footer check also reads every built page, so a template that drops the
+ * footer for one slug is still caught.
  */
 function oneOfEachRoute() {
   const routes = htmlFiles(DIST)
@@ -536,9 +539,30 @@ async function main() {
     //      not the page's contentinfo landmark, and a screen reader jumping to
     //      the landmark would not find the credit — a tag selector would pass it.
     //      Static HTML, so no wait for islands.
+    //
+    //      The status is checked because the 404 page carries the footer too:
+    //      a path the server could not find would answer with it, and pass.
     step = 'checking every route carries the footer';
+    // Every page first, from the built HTML — milliseconds for all of them.
+    // The browser below sees one page per route, which cannot notice a
+    // template that drops the footer for one slug; this can. It cannot judge
+    // the landmark, the visibility or the words, which is the browser's half.
+    const bare = htmlFiles(DIST)
+      .filter((file) => {
+        const footers = readFileSync(file, 'utf8').match(/<footer\b[\s\S]*?<\/footer>/g) ?? [];
+        return footers.length !== 1 || !footers[0].includes(`href="${GITHUB}"`);
+      })
+      .map((file) => routeOf(file))
+      .sort();
+    if (bare.length > 0) {
+      fail(`${bare.length} built page(s) without the one footer linking ${GITHUB}: ${bare.slice(0, 4).join(', ')}`);
+    }
     for (const path of oneOfEachRoute()) {
-      await page.goto(ORIGIN + path, { waitUntil: 'domcontentloaded' });
+      const res = await page.goto(ORIGIN + path, { waitUntil: 'domcontentloaded' });
+      if (path !== '/404' && res?.status() !== 200) {
+        fail(`${path}: answered ${res?.status() ?? 'nothing'} — a footer found now would be some other page's`);
+        continue;
+      }
       const footer = page.getByRole('contentinfo');
       const count = await footer.count();
       if (count !== 1) {
