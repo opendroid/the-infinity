@@ -171,7 +171,7 @@ gh workflow run ops.yml     # or Actions → ops → Run workflow
 
 | Step | What it reads |
 |---|---|
-| Service config | `gcloud run services describe api` |
+| Service config | `gcloud run services describe api`, named fields only |
 | Log sample | the API's log for the last hour, newest 20 entries, one line each |
 | `make analytics` | the Hosting request log, last 7 days — see `api/cmd/analytics` |
 
@@ -179,19 +179,32 @@ It authenticates as the **deployer**, through the same federation as `deploy.yml
 needs two viewer roles on top of the deploy ones — `run.viewer` and `logging.viewer`,
 listed in [`infra/cicd.sh`](../../infra/cicd.sh) with the command each one serves.
 **A missing role is red, not empty.** Each step runs even when the one before it failed,
-so a run without `logging.viewer` shows `PERMISSION_DENIED` at both log reads rather than
-stopping at the first; and the sample's pipe runs under `pipefail`, because without it a
-refused read is jq given nothing, which exits 0.
+so a run without `logging.viewer` shows a permission error at both log reads rather than
+stopping at the first. The sample captures gcloud's output before jq reads it, because
+gcloud's printer finishes in a `finally`: a refused read still writes `[]`, and piped
+into jq it would print "no entries in the last hour" beside the error.
 
-**The run log is public, because the repository is.** The describe output is service
-config this repository already contains, and the analytics report is counts over concept
-ids. The log sample is the one that is not safe as gcloud prints it: a Cloud Run request
-log carries the visitor's address, user agent and referrer, and a trail's slug is
-reader-authored state the site keeps out of search
-([ADR-0008](../../docs/adr/0008-shared-trails-from-a-static-shell.md)). So the sample goes
-through an **allowlist** — time, severity, method, status, latency, the path without its
-query or slug, and the server's own log message. A field that appears later is withheld
-until someone adds it on purpose. Anything else is a line saying it was withheld, so an
-`ERROR` on stderr still shows up with its time.
+**The run log is public, because the repository is,** so no step prints what gcloud
+prints by default:
+
+- **Service config** is named fields — URL, traffic, readiness, and the revision
+  template. The default view ends "Last updated on … by" an email, which after a change
+  made by hand is a person's Google account.
+- **The log sample** goes through an **allowlist**: time, severity; for a request its
+  method, status, latency and path; for the server's own lines their level and message,
+  which are string literals in `/api`; and Cloud Run's own lifecycle lines. A path loses
+  its host and query, a trail slug becomes `{slug}` — reader-authored state the site
+  keeps out of search ([ADR-0008](../../docs/adr/0008-shared-trails-from-a-static-shell.md))
+  — and any segment outside `[a-z0-9-]` becomes `{other}`, which is everything a visitor
+  could type that is not a route or a concept id. A request log's address, user agent
+  and referrer are never printed. Any other entry is one line saying it was withheld, so
+  an `ERROR` on stderr still shows up with its time. A field that appears later is
+  withheld until someone adds it on purpose.
+- **The analytics report** is counts, but a concept row is whatever followed `/c/` in a
+  request, checked against nothing — text a visitor can choose. So the step removes the
+  Go problem matcher `setup-go` registered, which would turn a row shaped like
+  `x.go:1:1: text` into an annotation, and wraps the report in `::stop-commands::` with
+  an unpredictable token, so no row can become a workflow command. The text itself is
+  still printed.
 
 Not scheduled, and nothing here writes.
