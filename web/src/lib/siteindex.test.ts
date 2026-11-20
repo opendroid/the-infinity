@@ -47,11 +47,14 @@ describe('what the sitemap lists', () => {
     //
     // THE DOMAIN PAGES ARE A DELIBERATE ADDITION (#509), and this assertion is
     // how they had to be: adding 47 routes turned this red, which is the point
-    // of writing it as the exact set rather than a pattern.
+    // of writing it as the exact set rather than a pattern. So is `/about`
+    // (#544) — and infra/verify-deploy.sh counts these fixed routes against the
+    // live sitemap, so its EXPECT_FIXED_ROUTES moved with it.
     const domains = indexedDomains(allNodes, newestOf(concepts));
     expect(pages.map((p) => p.path)).toEqual([
       '/',
       '/concepts',
+      '/about',
       ...domains.map((d) => d.path),
       ...concepts.map((c) => c.path),
     ]);
@@ -77,7 +80,14 @@ describe('what the sitemap lists', () => {
 
   it('dates the derived pages from the newest concept', () => {
     const newest = concepts.map((c) => c.lastmod).sort().at(-1);
-    expect(indexedRoutes(concepts).map((p) => p.lastmod)).toEqual([newest, newest]);
+    const dated = indexedRoutes(concepts).filter((p) => p.path !== '/about');
+    expect(dated.map((p) => p.lastmod)).toEqual([newest, newest]);
+  });
+
+  it('leaves /about undated rather than borrowing the graph’s date', () => {
+    // Its prose is edited by hand (#544). The newest concept would date the
+    // page to before it existed; an absent lastmod is the true statement.
+    expect(indexedRoutes(concepts).find((p) => p.path === '/about')).not.toHaveProperty('lastmod');
   });
 });
 

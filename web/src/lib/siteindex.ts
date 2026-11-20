@@ -19,8 +19,12 @@ export interface IndexedPage {
   /** Absolute path, no trailing slash — `trailingSlash: false` in firebase.json. */
   path: string;
   title: string;
-  /** ISO date, from the node's `updated_at`. */
-  lastmod: string;
+  /**
+   * ISO date, from the node's `updated_at`. Absent where nothing knows when
+   * the page last changed — the sitemap then says nothing rather than a date
+   * it cannot back (#544).
+   */
+  lastmod?: string;
   /** How important this page is relative to the others, for sitemap consumers. */
   priority: string;
   /** What this page is, for a reader who only has the index. `llms.txt` only. */
@@ -28,6 +32,8 @@ export interface IndexedPage {
 }
 
 export interface IndexedConcept extends IndexedPage {
+  /** Always known for a concept: it is the node's own `updated_at`. */
+  lastmod: string;
   domain: string;
   tier: Tier;
   /** One sentence. See `summarise`. */
@@ -80,6 +86,11 @@ export function indexedConcepts(nodes: ResolvedNode[]): IndexedConcept[] {
  * `lastmod` is the newest concept, because these pages are views over the graph
  * and change exactly when it does.
  *
+ * `/about` (#544) has none. Its prose is edited by hand, so the newest concept
+ * would have dated it to before it existed, and nothing here knows a truer
+ * date. Priority 0.5: it is about the graph, not part of it, so it ranks below
+ * every page that is.
+ *
  * NOT HERE, deliberately:
  *   /t/**    user-created, unbounded, and duplicate content by construction —
  *            several trails cover the same concepts in a different order, so
@@ -107,14 +118,20 @@ export function indexedRoutes(concepts: IndexedConcept[]): IndexedPage[] {
       priority: '0.9',
       note: 'the full index, grouped by domain, with each concept’s tier',
     },
+    {
+      path: '/about',
+      title: 'About',
+      priority: '0.5',
+      note: 'what the site is, how it is built, and who built it',
+    },
   ];
 }
 
 /**
  * The 47 domain pages (#509, ADR-0024).
  *
- * SEPARATE FROM `indexedRoutes` BECAUSE THEY ARE NOT FIXED. Those two entries
- * are a hand-written list and can be, because `/` and `/concepts` exist
+ * SEPARATE FROM `indexedRoutes` BECAUSE THEY ARE NOT FIXED. Those entries are
+ * a hand-written list and can be, because `/`, `/concepts` and `/about` exist
  * whatever the graph does. A domain route exists only because nodes name it, so
  * it is derived from the same `directory` the pages are built from — the one
  * traversal this file exists to keep singular. A hand-kept list here would be a

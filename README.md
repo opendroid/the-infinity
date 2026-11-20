@@ -72,7 +72,7 @@ copying it, so the two cannot drift.
 
 | Path | What |
 |---|---|
-| [`/web`](web) | Astro + TypeScript, React islands, Tailwind. Six viz primitives, eight routes |
+| [`/web`](web) | Astro + TypeScript, React islands, Tailwind. Six viz primitives, nine routes |
 | [`/api`](api) | Go on Cloud Run — chi, distroless, scale-to-zero |
 | [`/content/nodes`](content/nodes) | The concept graph, one JSON file per concept |
 | [`/content/schema`](content/schema) | The schema CI validates every node against |

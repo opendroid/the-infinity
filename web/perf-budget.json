@@ -62,55 +62,61 @@
     "direction: `--set-budgets` LOWERS a budget that still has slack. The danger is not a budget",
     "creeping up, it is the slack quietly disappearing."
   ],
-  "measured_on": "2026-10-11",
+  "measured_on": "2026-11-19",
   "routes": {
     "/": {
       "js_gzip": 0,
       "html_gzip": null,
       "note": "No islands. Zero is the budget; adding one is a decision.",
-      "html_gzip_measured": 2382
+      "html_gzip_measured": 2507
+    },
+    "/about": {
+      "js_gzip": 0,
+      "html_gzip": null,
+      "note": "No islands (#544), so no Topbar either — it mounts two. Zero, like /, and for the same reason: adding one is a decision.",
+      "html_gzip_measured": 2020
     },
     "/concepts": {
       "js_gzip": 77000,
       "html_gzip": null,
       "note": "Search overlay and trail count only. HTML now grows with the number of DOMAINS, not concepts (#509) — 47 cards instead of 482 rows, which is what took it from 37,379 to about 5,000.",
-      "html_gzip_measured": 5203
+      "html_gzip_measured": 5368
     },
     "/concepts/*": {
       "js_gzip": 77000,
       "html_gzip": null,
       "note": "Same islands as the directory above it, so the same budget. HTML is the concept rows /concepts used to carry — the worst page is the largest domain, which is Foundations at 37.",
-      "html_gzip_measured": 4380
+      "html_gzip_measured": 4520
     },
     "/search": {
       "js_gzip": 77000,
       "html_gzip": null,
       "note": "The panel itself. The index is fetched on open, not bundled.",
-      "html_gzip_measured": 3818
+      "html_gzip_measured": 3954
     },
     "/request": {
       "js_gzip": 80000,
       "html_gzip": null,
       "note": "One form.",
-      "html_gzip_measured": 3865
+      "html_gzip_measured": 3989
     },
     "/404": {
       "js_gzip": 80500,
       "html_gzip": null,
       "note": "Nearest concepts plus the request form.",
-      "html_gzip_measured": 4102
+      "html_gzip_measured": 4244
     },
     "/c/*": {
       "js_gzip": 86500,
       "html_gzip": null,
       "note": "The heaviest route, and the worst concept page is the one measured. Depth toggle, viz primitive, mini-map, trail ribbon, trail count, search, review actions.",
-      "html_gzip_measured": 7940
+      "html_gzip_measured": 8065
     },
     "/t/*": {
       "js_gzip": 81500,
       "html_gzip": null,
       "note": "The whole page is one island (ADR-0008).",
-      "html_gzip_measured": 3649
+      "html_gzip_measured": 3790
     }
   }
 }
