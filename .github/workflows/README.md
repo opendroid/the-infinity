@@ -159,3 +159,39 @@ unusable without a token only this repository can cause to be issued.
 The deployer is a separate identity from `api-runtime`, which holds
 `datastore.user` and nothing else. If the runtime identity could also deploy, a
 bug in a request handler would be a bug that can deploy.
+
+## `ops.yml` — by hand
+
+Read-only production facts for a weekly review or a launch-day watch, without a
+laptop holding credentials ([#545](https://github.com/opendroid/the-infinity/issues/545)):
+
+```
+gh workflow run ops.yml     # or Actions → ops → Run workflow
+```
+
+| Step | What it reads |
+|---|---|
+| Service config | `gcloud run services describe api` |
+| Log sample | the API's log for the last hour, newest 20 entries, one line each |
+| `make analytics` | the Hosting request log, last 7 days — see `api/cmd/analytics` |
+
+It authenticates as the **deployer**, through the same federation as `deploy.yml`, and
+needs two viewer roles on top of the deploy ones — `run.viewer` and `logging.viewer`,
+listed in [`infra/cicd.sh`](../../infra/cicd.sh) with the command each one serves.
+**A missing role is red, not empty.** Each step runs even when the one before it failed,
+so a run without `logging.viewer` shows `PERMISSION_DENIED` at both log reads rather than
+stopping at the first; and the sample's pipe runs under `pipefail`, because without it a
+refused read is jq given nothing, which exits 0.
+
+**The run log is public, because the repository is.** The describe output is service
+config this repository already contains, and the analytics report is counts over concept
+ids. The log sample is the one that is not safe as gcloud prints it: a Cloud Run request
+log carries the visitor's address, user agent and referrer, and a trail's slug is
+reader-authored state the site keeps out of search
+([ADR-0008](../../docs/adr/0008-shared-trails-from-a-static-shell.md)). So the sample goes
+through an **allowlist** — time, severity, method, status, latency, the path without its
+query or slug, and the server's own log message. A field that appears later is withheld
+until someone adds it on purpose. Anything else is a line saying it was withheld, so an
+`ERROR` on stderr still shows up with its time.
+
+Not scheduled, and nothing here writes.

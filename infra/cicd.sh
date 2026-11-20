@@ -3,7 +3,8 @@
 # theinfinity.ai — CI/CD identity (Phase 4).
 #
 # Creates the workload identity federation that lets .github/workflows/deploy.yml
-# authenticate to GCP, and the deployer service account it impersonates.
+# authenticate to GCP, and the deployer service account it impersonates. The
+# read-only .github/workflows/ops.yml authenticates the same way.
 #
 #   ./infra/cicd.sh          # zsh, per the shebang
 #   bash infra/cicd.sh       # also fine — the body is compatible with both
@@ -103,13 +104,26 @@ fi
 # Deliberately separate from api-runtime. The runtime identity holds
 # datastore.user and nothing else; if it also held run.admin, a bug in a request
 # handler would be a bug that can deploy.
+#
+# THE LAST TWO ARE THE VIEWER ROLES .github/workflows/ops.yml NEEDS (#545). Both
+# are read-only:
+#
+#   roles/run.viewer      `gcloud run services describe api`. run.admin above
+#                         already covers it; listed so the ops workflow does not
+#                         depend on the deploy role keeping its shape.
+#   roles/logging.viewer  `gcloud logging read` and `make analytics`, which both
+#                         list log entries. Nothing above grants that, so without
+#                         this binding those two steps fail with
+#                         PERMISSION_DENIED — red, rather than an empty report.
 bold "3. Roles"
 for role in \
   roles/run.admin \
   roles/artifactregistry.writer \
   roles/datastore.user \
   roles/firebasehosting.admin \
-  roles/serviceusage.serviceUsageConsumer
+  roles/serviceusage.serviceUsageConsumer \
+  roles/run.viewer \
+  roles/logging.viewer
 do
   settle gcloud projects add-iam-policy-binding "$PROJECT_ID" \
     --member="serviceAccount:${SA_EMAIL}" \
