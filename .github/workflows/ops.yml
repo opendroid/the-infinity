@@ -1,0 +1,162 @@
+# Read-only production facts, by hand (#545): the Cloud Run service's config,
+# a sample of the last hour of its log, and `make analytics`.
+#
+# Weekly reviews and launch-day watching ask for these, and until this workflow
+# they came only from a laptop holding gcloud credentials. Dispatching this
+# needs no credentials at all:
+#
+#   gh workflow run ops.yml        # or Actions → ops → Run workflow
+#
+# THE DEPLOYER IDENTITY, through the federation deploy.yml already uses — so no
+# JSON key and no second identity. It holds two read-only roles for this
+# workflow; infra/cicd.sh lists them and says which command needs which. None
+# of the three commands below has a write path: one describe, two log reads.
+#
+# THE RUN LOG IS PUBLIC, because the repository is. Everything printed here is
+# printed to anyone, so no step prints what gcloud prints by default:
+#
+#   - the service config is named fields, because the default view ends with
+#     the email of whoever last changed the service;
+#   - the log sample goes through an allowlist, because a Cloud Run request log
+#     carries the visitor's address, user agent and referrer, and a trail's
+#     slug is reader-authored state the site keeps out of search (ADR-0008);
+#   - the analytics report is counts, but its concept rows are text a visitor
+#     can choose, so GitHub is stopped from acting on that text.
+name: ops
+
+on:
+  # By hand only. Scheduling it is out of scope (#545).
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  # The OIDC token google-github-actions/auth exchanges, as in deploy.yml.
+  id-token: write
+
+env:
+  PROJECT_ID: the-infinity-ai
+  REGION: us-west1
+  SERVICE: api
+  GO_VERSION: '1.27'
+
+jobs:
+  ops:
+    name: ops
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # NO `if: vars.WIF_PROVIDER != ''` HERE, unlike deploy.yml. There the guard
+    # stops a merge turning main red before the federation exists. Here somebody
+    # asked for a run, and a job skipped for want of an identity shows green with
+    # nothing in it — the empty success #545 rules out. Without the two
+    # variables the auth step fails, and says which input is missing.
+    steps:
+      - uses: actions/checkout@v5
+
+      - id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOY_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v3
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: api/go.sum
+
+      # NAMED FIELDS, NOT gcloud's DEFAULT VIEW. The default ends "Last updated
+      # on … by <email>": the deployer after a deploy, but a person's Google
+      # account after any change made by hand. These are what a review reads —
+      # what is serving, whether it is ready, and how the revision is shaped.
+      - name: Service config
+        run: |
+          gcloud run services describe "$SERVICE" --region="$REGION" --project="$PROJECT_ID" \
+            --format='yaml(status.url, status.latestReadyRevisionName, status.traffic, status.conditions, spec.template)'
+
+      # EVERY FACT RUNS EVEN WHEN THE ONE BEFORE IT FAILED. They need different
+      # permissions, so a run missing a role shows the error at every step that
+      # needs it, rather than stopping at the first and leaving the rest unknown.
+      # The job is still red if any of them failed.
+      - name: Log sample — the last hour, newest 20
+        if: ${{ !cancelled() && steps.auth.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          filter="resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"${SERVICE}\" AND logName:\"run.googleapis.com\""
+          echo "filter: ${filter}"
+          echo "the last hour, newest first, at most 20"
+          echo
+          # CAPTURED, NOT PIPED. gcloud's printer finishes in a `finally`, so a
+          # refused read still writes `[]` to stdout before the error. Piped into
+          # jq, a run without the role would print "no entries in the last hour"
+          # beside PERMISSION_DENIED — and without pipefail it would pass, the
+          # empty success #545 rules out. Under `set -e` the failed assignment
+          # ends the step before jq sees anything.
+          entries=$(gcloud logging read "$filter" \
+            --project="$PROJECT_ID" --freshness=1h --limit=20 --order=desc --format=json)
+          jq -r "$ALLOWLIST" <<<"$entries"
+        env:
+          # AN ALLOWLIST, NOT A DENYLIST. A field that appears in these entries
+          # later is withheld until someone adds it here on purpose; a denylist
+          # would publish it the day it arrived. One line per entry.
+          ALLOWLIST: |
+            # A request's path: no host, no query string, no trail slug, and
+            # no segment outside [a-z0-9-]. Every route and concept id fits
+            # that; an address, an email or a probe for /.env does not, and a
+            # visitor can put any of those in a URL.
+            def path:
+              sub("^[a-z]+://[^/]*"; "")
+              | sub("[?#].*$"; "")
+              | sub("/trails/[^/]+"; "/trails/{slug}")
+              | split("/")
+              | map(if test("^[a-z0-9-]*$") or . == "{slug}" then . else "{other}" end)
+              | join("/");
+            def what:
+              if .httpRequest then
+                [ (.httpRequest.requestMethod // "-"),
+                  (.httpRequest.status // "-" | tostring),
+                  (.httpRequest.latency // "-"),
+                  (.httpRequest.requestUrl // "" | path) ] | join(" ")
+              # The server's own lines. Every slog message in /api is a string
+              # literal; the variable parts are attributes, and none is printed.
+              elif (.jsonPayload.msg // .jsonPayload.message) then
+                [ (.jsonPayload.level // "-"),
+                  (.jsonPayload.msg // .jsonPayload.message) ] | join(" ")
+              # Cloud Run's own lifecycle lines: starts, probes, shutdowns.
+              elif (.logName // "" | endswith("%2Fvarlog%2Fsystem")) then
+                .textPayload // "-"
+              # Free text on stdout or stderr could say anything, a visitor's
+              # address included. The line still appears, with its time and
+              # severity, so an ERROR here is seen; its text is read in the
+              # console.
+              else
+                "(withheld: not on the allowlist; read it in the console)"
+              end;
+            if length == 0 then "no entries in the last hour"
+            else .[] | [ .timestamp, (.severity // "DEFAULT"), what ] | @tsv
+            end
+
+      # THE REPORT PRINTS TEXT A VISITOR CAN CHOOSE. A concept row is whatever
+      # followed /c/ in a request, checked against nothing, so a crafted URL
+      # could print a line GitHub acts on. Two ways, two locks:
+      #
+      #   - a line shaped like a Go error (`x.go:1:1: text`), which the problem
+      #     matcher setup-go registered turns into an annotation. A matcher
+      #     reads every line, so it is removed before the report prints;
+      #   - a workflow command (an annotation, a mask). stop-commands turns
+      #     those off, with a token nobody can predict, and the trap turns them
+      #     back on however the step ends.
+      - name: make analytics
+        if: ${{ !cancelled() && steps.auth.outcome == 'success' }}
+        working-directory: api
+        run: |
+          set -euo pipefail
+          echo "::remove-matcher owner=go::"
+          token=$(cat /proc/sys/kernel/random/uuid)
+          echo "::stop-commands::${token}"
+          trap 'echo "::${token}::"' EXIT
+          make analytics
+        env:
+          # Explicit, as deploy.yml passes -project: cmd/analytics refuses to run
+          # without it rather than detect a project and read the wrong one.
+          GOOGLE_CLOUD_PROJECT: ${{ env.PROJECT_ID }}

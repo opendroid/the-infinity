@@ -302,7 +302,9 @@ alone.
 
 Creates the workload identity federation `.github/workflows/deploy.yml` authenticates
 through, plus a `deployer` service account, and prints the two repository variables to set.
-Re-runnable.
+Re-runnable. The read-only `.github/workflows/ops.yml` uses the same identity and needs two
+viewer roles beyond the deploy ones, `run.viewer` and `logging.viewer`; the script grants
+both and says which command each serves (#545).
 
 **No JSON service-account keys, ever.** A key is a permanent credential in a settings page:
 it does not expire, it is copied wherever it is pasted, and nothing tells you when it leaks.
