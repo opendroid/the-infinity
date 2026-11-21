@@ -31,20 +31,22 @@ import (
 	"github.com/opendroid/the-infinity/api/internal/publish"
 )
 
-// lookup derives the graph so the report can tell an edge from a jump.
+// lookup derives the graph once, so the report can tell an edge from a jump
+// and a concept from anything else a reader sent (#554). Both answers come from
+// the one derivation: no second read of -nodes.
 //
 // now is the clock only because Derive takes one for Stats.GrewThisWeek, which
 // this does not read.
-func lookup(dir string) (analytics.EdgeLookup, error) {
+func lookup(dir string) (analytics.EdgeLookup, analytics.ConceptLookup, error) {
 	authored, err := publish.Load(dir)
 	if err != nil {
-		return nil, fmt.Errorf("reading concept nodes from %s (pass -nodes): %w", dir, err)
+		return nil, nil, fmt.Errorf("reading concept nodes from %s (pass -nodes): %w", dir, err)
 	}
 	g, err := publish.Derive(authored, time.Now())
 	if err != nil {
-		return nil, fmt.Errorf("deriving the graph from %s: %w", dir, err)
+		return nil, nil, fmt.Errorf("deriving the graph from %s: %w", dir, err)
 	}
-	return analytics.EdgesFrom(g), nil
+	return analytics.EdgesFrom(g), analytics.ConceptsFrom(g), nil
 }
 
 // Bounded so a hung read fails with a deadline rather than sitting on a
@@ -64,7 +66,7 @@ func run() error {
 		days    = flag.Int("days", 7, "how many days back to read")
 		top     = flag.Int("top", 15, "how many rows per ranking")
 		limit   = flag.Int("limit", 10000, "most log entries to read")
-		nodes   = flag.String("nodes", "../content/nodes", "concept node JSON, for telling an edge from a jump")
+		nodes   = flag.String("nodes", "../content/nodes", "concept node JSON, for telling an edge from a jump and a concept from anything else")
 	)
 	flag.Parse()
 
@@ -90,7 +92,7 @@ func run() error {
 	// graph has to be read — from the SAME derivation the API publishes and the
 	// pages render (#426, CLAUDE.md §7). Loaded before the network call: being
 	// told the content directory is wrong should not cost a log read.
-	edges, err := lookup(*nodes)
+	edges, concepts, err := lookup(*nodes)
 	if err != nil {
 		return err
 	}
@@ -110,7 +112,7 @@ func run() error {
 
 	now := time.Now().UTC()
 	since := now.AddDate(0, 0, -*days)
-	report, err := analytics.Collect(ctx, source, since, *limit, *top, now, edges)
+	report, err := analytics.Collect(ctx, source, since, *limit, *top, now, edges, concepts)
 	if err != nil {
 		return err
 	}

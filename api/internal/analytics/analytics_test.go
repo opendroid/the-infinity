@@ -3,6 +3,7 @@ package analytics
 import (
 	"context"
 	"errors"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -448,9 +449,14 @@ func TestCollect(t *testing.T) {
 
 	t.Run("answers every question from one read", func(t *testing.T) {
 		f := &fake{entries: []Entry{traversal("attention", "graph-neural-network"), ahrefs, reader, miniMap}}
-		got, err := Collect(context.Background(), f, since, 500, 10, now, liveEdges)
+		got, err := Collect(context.Background(), f, since, 500, 10, now, liveEdges, knows("attention", "graph-neural-network"))
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
+		}
+		// hierarchical-rl is no concept this lookup knows, and still not folded:
+		// Ahrefs asked for it, and TOP CONCEPTS never counted crawlers.
+		if got.NotConcept != (Folded{}) {
+			t.Errorf("NotConcept = %+v, want nothing folded", got.NotConcept)
 		}
 		if got.Total != 4 {
 			t.Errorf("Total = %d, want 4", got.Total)
@@ -474,7 +480,7 @@ func TestCollect(t *testing.T) {
 
 	t.Run("a failed read is returned, not reported as an empty week", func(t *testing.T) {
 		want := errors.New("permission denied")
-		if _, err := Collect(context.Background(), &fake{err: want}, since, 500, 10, now, liveEdges); !errors.Is(err, want) {
+		if _, err := Collect(context.Background(), &fake{err: want}, since, 500, 10, now, liveEdges, knows()); !errors.Is(err, want) {
 			t.Errorf("err = %v, want %v", err, want)
 		}
 	})
@@ -491,6 +497,7 @@ func TestRender(t *testing.T) {
 		Bots:        Share{N: 1, Total: 4},
 		CachePages:  Share{N: 2, Total: 3},
 		CacheAssets: Share{N: 5, Total: 5},
+		isConcept:   knows("attention", "softmax", "backpropagation", "query-key-value"),
 	}
 
 	cases := []struct {
@@ -543,6 +550,20 @@ func TestRender(t *testing.T) {
 				// The heading must not assert what an empty list means.
 				"candidate edges the readership is asking for",
 			},
+		},
+		{
+			// Only Collect sets the lookup. A Report built any other way must
+			// not fall back to printing whatever its rows hold (#554).
+			name: "with no lookup, no ranked id prints",
+			report: &Report{
+				Now:      now,
+				Concepts: []Count{{Key: "jane.doe@example.com", N: 1}},
+				Jumps:    []Edge{{From: "attention", To: "jane.doe@example.com", N: 1}},
+				Moves:    Moves{Jumped: 1},
+			},
+			limit:  10000,
+			want:   []string{"1 of 1 concept-to-concept moves"},
+			absent: []string{"jane.doe@example.com"},
 		},
 	}
 
@@ -831,6 +852,191 @@ func TestRenderLanding(t *testing.T) {
 				if !strings.Contains(b.String(), w) {
 					t.Errorf("missing %q in:\n%s", w, b.String())
 				}
+			}
+		})
+	}
+}
+
+// knows is a ConceptLookup over the ids a test names, and nothing else.
+func knows(ids ...string) ConceptLookup {
+	set := make(map[string]bool, len(ids))
+	for _, id := range ids {
+		set[id] = true
+	}
+	return func(id string) bool { return set[id] }
+}
+
+// everything knows every id: the report as it was before #554, with every row
+// printed and nothing folded. "The numbers don't change" is measured against it.
+func everything(string) bool { return true }
+
+// collect runs a window through Collect and Render, as cmd/analytics does.
+func collect(t *testing.T, entries []Entry, top int, isConcept ConceptLookup) (*Report, string) {
+	t.Helper()
+	now := time.Date(2026, 11, 20, 7, 0, 0, 0, time.UTC)
+	r, err := Collect(context.Background(), &fake{entries: entries}, now.AddDate(0, 0, -7), 10000, top, now, liveEdges, isConcept)
+	if err != nil {
+		t.Fatalf("Collect: %v", err)
+	}
+	var b strings.Builder
+	if err := r.Render(&b, 7, 10000, "logName=…"); err != nil {
+		t.Fatalf("Render: %v", err)
+	}
+	return r, b.String()
+}
+
+// section is every line a rendered report prints under a heading, down to the
+// next blank line, with the padding between columns squeezed to one space.
+func section(out, heading string) []string {
+	i := strings.Index(out, "\n"+heading)
+	if i < 0 {
+		return nil
+	}
+	block, _, _ := strings.Cut(out[i+1:], "\n\n")
+	var lines []string
+	for _, l := range strings.Split(block, "\n")[1:] {
+		lines = append(lines, strings.Join(strings.Fields(l), " "))
+	}
+	return lines
+}
+
+// denominators is every line of a report that counts concept-to-concept moves.
+func denominators(out string) []string {
+	var lines []string
+	for _, l := range strings.Split(out, "\n") {
+		if strings.Contains(l, "concept-to-concept moves") {
+			lines = append(lines, l)
+		}
+	}
+	return lines
+}
+
+// #554: TOP CONCEPTS and JUMPED, NO EDGE rank ids exactly as readers sent them,
+// and `make analytics` prints into a public Actions log (#553). A row prints
+// only for ids the graph knows; the rest is one "(not a concept)" row, last;
+// and no number on the page moves.
+func TestNotAConcept(t *testing.T) {
+	graph := knows("attention", "softmax", "backpropagation", "query-key-value", "graph-neural-network")
+	page := func(path string) Entry {
+		return Entry{URL: "https://theinfinity.ai" + path, UserAgent: reader.UserAgent, Status: 200}
+	}
+
+	cases := []struct {
+		name    string
+		entries []Entry
+		top     int
+		// Every line under each heading, in order. JUMPED's first line is its
+		// denominator, so the expectation states that too.
+		concepts []string
+		jumps    []string
+		// leaks are printed when every id is known, which is what proves the
+		// fixture carries them at all, and must not be printed here.
+		leaks  []string
+		absent []string
+	}{
+		{
+			// The address, and a workflow command percent-encoded as a browser
+			// sends it — conceptID decodes it to `::error title=x::y`.
+			name: "a typed address and a workflow command are counted, not named",
+			entries: []Entry{
+				page("/c/attention"),
+				page("/c/jane.doe@example.com"),
+				page("/c/%3A%3Aerror%20title%3Dx%3A%3Ay"),
+			},
+			top:      15,
+			concepts: []string{"attention 1", "(not a concept) 2"},
+			jumps:    []string{"no concept-to-concept moves in this window"},
+			leaks:    []string{"jane.doe@example.com", "::error"},
+		},
+		{
+			name:     "a jump to a page that is not a concept",
+			entries:  []Entry{traversal("attention", "not-real")},
+			top:      15,
+			concepts: []string{"(not a concept) 1"},
+			jumps:    []string{"1 of 1 concept-to-concept moves", "(not a concept) 1"},
+			leaks:    []string{"not-real"},
+		},
+		{
+			// The From end is the Referer header, and a visitor sends that too.
+			name:     "a jump from a page that is not a concept",
+			entries:  []Entry{traversal("jane.doe@example.com", "attention")},
+			top:      15,
+			concepts: []string{"attention 1"},
+			jumps:    []string{"1 of 1 concept-to-concept moves", "(not a concept) 1"},
+			leaks:    []string{"jane.doe@example.com"},
+		},
+		{
+			name: "nothing unknown, nothing folded",
+			entries: []Entry{
+				page("/c/attention"),
+				traversal("backpropagation", "query-key-value"),
+				traversal("attention", "graph-neural-network"),
+			},
+			top:      15,
+			concepts: []string{"attention 1", "graph-neural-network 1", "query-key-value 1"},
+			jumps:    []string{"1 of 2 concept-to-concept moves", "backpropagation → query-key-value 1"},
+			absent:   []string{notAConcept},
+		},
+		{
+			// The folded row is the window's total, not the printed rows' sum.
+			// #554's post-merge canary is one request, and ranks far below -top.
+			name:     "an id that ranks below -top is still counted",
+			entries:  []Entry{page("/c/attention"), page("/c/attention"), page("/c/not-real")},
+			top:      1,
+			concepts: []string{"attention 2", "(not a concept) 1"},
+			jumps:    []string{"no concept-to-concept moves in this window"},
+			absent:   []string{"not-real"},
+		},
+		{
+			// -top truncates first, as it always has, so the denominator line
+			// reads exactly as it did. The slot the unknown pair ranked into is
+			// folded, not refilled.
+			name: "-top truncates before anything is folded",
+			entries: []Entry{
+				traversal("attention", "not-real"),
+				traversal("attention", "not-real"),
+				traversal("backpropagation", "query-key-value"),
+			},
+			top:      1,
+			concepts: []string{"(not a concept) 2"},
+			jumps:    []string{"3 of 3 concept-to-concept moves; showing the top 1 pair(s)", "(not a concept) 2"},
+			leaks:    []string{"not-real"},
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got, out := collect(t, c.entries, c.top, graph)
+			was, before := collect(t, c.entries, c.top, everything)
+
+			if lines := section(out, "TOP CONCEPTS"); !slices.Equal(lines, c.concepts) {
+				t.Errorf("TOP CONCEPTS prints %q, want %q", lines, c.concepts)
+			}
+			if lines := section(out, "JUMPED, NO EDGE"); !slices.Equal(lines, c.jumps) {
+				t.Errorf("JUMPED, NO EDGE prints %q, want %q", lines, c.jumps)
+			}
+			for _, leak := range c.leaks {
+				if !strings.Contains(before, leak) {
+					t.Errorf("%q is not printed even with every id known, so this case tests nothing:\n%s", leak, before)
+				}
+				if strings.Contains(out, leak) {
+					t.Errorf("printed %q, which is no concept:\n%s", leak, out)
+				}
+			}
+			for _, a := range c.absent {
+				if strings.Contains(out, a) {
+					t.Errorf("unexpected %q in:\n%s", a, out)
+				}
+			}
+
+			// THE NUMBERS DON'T CHANGE. The same window with every id known is
+			// the report before #554, and a run stays reproducible only if the
+			// counts and their denominators agree with it (#482).
+			if got.Total != was.Total || got.Moves != was.Moves {
+				t.Errorf("Total %d, Moves %+v; with every id known, %d and %+v", got.Total, got.Moves, was.Total, was.Moves)
+			}
+			if lines, want := denominators(out), denominators(before); !slices.Equal(lines, want) {
+				t.Errorf("denominators %q; with every id known, %q", lines, want)
 			}
 		})
 	}
