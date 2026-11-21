@@ -98,6 +98,30 @@ type Report struct {
 	// policies on purpose, so one number for both answers neither (#427).
 	CachePages  Share
 	CacheAssets Share
+	// NotConcept is what Concepts and Jumps count and Render never names:
+	// traffic to an id the graph does not know, folded into one row (#554).
+	NotConcept Folded
+	// isConcept is asked before an id from Concepts or Jumps prints. Those rows
+	// rank whatever readers sent, so a row can be text a visitor typed. Collect
+	// sets it; a Report built any other way has none and names no such id.
+	// Traversals needs no check: a row there needs a declared edge, and the
+	// graph declares edges only between its own concepts.
+	isConcept ConceptLookup
+}
+
+// notAConcept labels the one row that stands in for every id the graph does
+// not know (#554). Parentheses and spaces, so it cannot be mistaken for a
+// concept id: those are kebab-case slugs.
+const notAConcept = "(not a concept)"
+
+// Folded is traffic a ranking counts and does not name (#554).
+//
+// Both are totals over the WHOLE window, not over the rows -top keeps: a 404
+// that ranks sixteenth is still traffic to something that is not a concept,
+// and a folded row that only summed the printed rows would undercount it.
+type Folded struct {
+	Requests int // reader requests for /c/<id>, where no concept has that id
+	Jumps    int // jumps with such an id at either end
 }
 
 // Moves counts every concept-to-concept navigation in the window, before -top
@@ -469,12 +493,54 @@ func Cache(entries []Entry, kind Kind) Share {
 	return s
 }
 
+// named reports whether a row may print its ids: only when the graph knows
+// every one of them. A nil lookup knows nothing, so a row with no answer stays
+// unprinted rather than printed by default.
+func named(isConcept ConceptLookup, ids ...string) bool {
+	if isConcept == nil {
+		return false
+	}
+	for _, id := range ids {
+		if !isConcept(id) {
+			return false
+		}
+	}
+	return true
+}
+
+// notConcepts counts, across the window, what TOP CONCEPTS and JUMPED, NO EDGE
+// would name and must not. It re-ranks the window with no -top instead of
+// tallying anything itself, so the same filters decide what counts — crawlers,
+// reloads, links from other sites — and nothing is folded that the rankings
+// would not have counted.
+func notConcepts(entries []Entry, edge EdgeLookup, isConcept ConceptLookup) Folded {
+	var f Folded
+	for _, c := range TopConcepts(entries, 0) {
+		if !named(isConcept, c.Key) {
+			f.Requests += c.N
+		}
+	}
+	_, jumps, _ := Traversals(entries, 0, edge)
+	for _, e := range jumps {
+		if !named(isConcept, e.From, e.To) {
+			f.Jumps += e.N
+		}
+	}
+	return f
+}
+
 // Collect reads the window once and answers all four questions from it.
 //
 // One read, not four: the questions are different views of the same requests,
 // and four reads would be four different windows, four bills, and four chances
 // for the numbers on one screen to disagree with each other.
-func Collect(ctx context.Context, r Reader, since time.Time, limit, top int, now time.Time, edge EdgeLookup) (*Report, error) {
+//
+// isConcept decides which ids may print (#554), and touches no measurement: the
+// rows are ranked and truncated exactly as before, and Total, Moves and every
+// denominator line come out the same whatever it answers, so a run stays
+// reproducible (#482). What it changes is which rows print, and which are
+// counted under one "(not a concept)" row instead.
+func Collect(ctx context.Context, r Reader, since time.Time, limit, top int, now time.Time, edge EdgeLookup, isConcept ConceptLookup) (*Report, error) {
 	entries, err := r.Requests(ctx, since, limit)
 	if err != nil {
 		return nil, err
@@ -492,6 +558,8 @@ func Collect(ctx context.Context, r Reader, since time.Time, limit, top int, now
 		Landing:     LandingVisits(entries),
 		CachePages:  Cache(entries, KindPage),
 		CacheAssets: Cache(entries, KindAsset),
+		NotConcept:  notConcepts(entries, edge, isConcept),
+		isConcept:   isConcept,
 	}, nil
 }
 
@@ -577,7 +645,17 @@ func (r *Report) Render(w io.Writer, days, limit int, filter string) error {
 		b.WriteString("  nothing — no reader opened a concept page in this window\n")
 	}
 	for _, c := range r.Concepts {
+		// Whatever followed /c/ in a request, until the graph says it is a
+		// concept — and this report prints into a public Actions log (#554).
+		if !named(r.isConcept, c.Key) {
+			continue
+		}
 		fmt.Fprintf(&b, "  %-40s %d\n", c.Key, c.N)
+	}
+	// Last, and only when there is something in it. The accepted cost: a
+	// renamed concept that old links still reach is counted here, not named.
+	if n := r.NotConcept.Requests; n > 0 {
+		fmt.Fprintf(&b, "  %-40s %d\n", notAConcept, n)
 	}
 
 	// The question a page-view counter cannot answer, and the reason ADR-0011
@@ -602,7 +680,16 @@ func (r *Report) Render(w io.Writer, days, limit int, filter string) error {
 	fmt.Fprintf(&b, "\nJUMPED, NO EDGE — pairs the readership connected and the graph does not\n")
 	fmt.Fprintf(&b, "  %s\n", moveCount(r.Moves.Jumped, total, len(r.Jumps)))
 	for _, e := range r.Jumps {
+		// BOTH ENDS. A jump is a pair the graph does not connect, so either end
+		// can be text a visitor sent: the URL they asked for, or the Referer
+		// header they sent with it.
+		if !named(r.isConcept, e.From, e.To) {
+			continue
+		}
 		fmt.Fprintf(&b, "  %-44s %-9s %d\n", e.From+" → "+e.To, "", e.N)
+	}
+	if n := r.NotConcept.Jumps; n > 0 {
+		fmt.Fprintf(&b, "  %-44s %-9s %d\n", notAConcept, "", n)
 	}
 
 	// Printed so the number can be reproduced by hand. A measurement nobody
