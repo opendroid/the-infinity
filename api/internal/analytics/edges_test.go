@@ -110,6 +110,36 @@ func TestEdgesFrom(t *testing.T) {
 	}
 }
 
+func TestConceptsFrom(t *testing.T) {
+	// Through the real derivation, as TestEdgesFrom is, so "a concept" means
+	// what the API serves and not what a hand-built map says.
+	isConcept := ConceptsFrom(derived(t, []publish.AuthoredNode{
+		node("positional-encoding", nil, nil),
+		node("rotary-position-embedding", []string{"positional-encoding"}, nil),
+	}))
+
+	cases := []struct {
+		name string
+		id   string
+		want bool
+	}{
+		{"a concept", "rotary-position-embedding", true},
+		{"a concept that declares no edges of its own", "positional-encoding", true},
+		// The reason this asks the graph rather than checking the id's shape.
+		{"a well-formed slug that is no concept", "jane-doe-example-com", false},
+		{"text a visitor typed", "jane.doe@example.com", false},
+		{"an id is matched exactly, case included", "Rotary-Position-Embedding", false},
+		{"nothing at all", "", false},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			if got := isConcept(c.id); got != c.want {
+				t.Errorf("isConcept(%q) = %v, want %v", c.id, got, c.want)
+			}
+		})
+	}
+}
+
 func TestNoEdgesKnowsNothing(t *testing.T) {
 	if _, ok := NoEdges("attention", "softmax"); ok {
 		t.Error("NoEdges must declare no edge, or every jump is reported as one")

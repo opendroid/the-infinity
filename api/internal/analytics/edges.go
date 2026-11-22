@@ -50,6 +50,25 @@ func EdgesFrom(g *publish.Graph) EdgeLookup {
 	}
 }
 
+// ConceptLookup answers whether an id names a concept in the graph (#554).
+//
+// TOP CONCEPTS and JUMPED, NO EDGE rank ids exactly as readers sent them, and
+// `make analytics` prints into a public Actions log (#553). This is what a row
+// is checked against before it prints. It asks the graph rather than checking
+// the id's shape: `jane-doe-example-com` is a well-formed slug, and it is not
+// one of ours.
+type ConceptLookup func(id string) bool
+
+// ConceptsFrom builds a lookup over an already-derived graph — the same graph
+// EdgesFrom reads, so the two lookups cannot disagree about what exists.
+func ConceptsFrom(g *publish.Graph) ConceptLookup {
+	ids := make(map[string]bool, len(g.Concepts))
+	for _, c := range g.Concepts {
+		ids[c.ID] = true
+	}
+	return func(id string) bool { return ids[id] }
+}
+
 // NoEdges knows of no edges at all, so every traversal is reported as a jump.
 // Used when the node corpus could not be read: saying so is honest, and
 // reporting every jump as an edge would not be.
