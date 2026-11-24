@@ -14,13 +14,14 @@
 #   collections              the drill restores what backups.sh exports
 #   --dry-run                prints exactly testdata/restore-drill.dry-run.golden,
 #                            and calls nothing
-#   the drill, faked         a pass, each way a comparison fails, an export that
-#                            never lands, a failed create or import, and --keep:
-#                            the exit status, what is named, and whether the
-#                            scratch database was deleted. The fakes answer in
-#                            the shapes the gcloud and Firestore REST reference
-#                            pages give; they are not Google, and the first
-#                            real drill is the test of that
+#   the drill, faked         a pass, each way a comparison fails, an export or a
+#                            database that takes several polls, an export that
+#                            never lands, failed creates, imports and deletes,
+#                            and --keep: the exit status, what is named, and
+#                            whether the scratch database was deleted. The fakes
+#                            answer in the shapes the gcloud reference and the
+#                            Firestore REST reference give; they are not Google,
+#                            and the first real drill is the test of that
 #
 # When the dry-run output changes on purpose, a mismatch prints the command
 # that regenerates the golden file. Read the diff before committing it: the
@@ -62,51 +63,70 @@ logical_lines() {
   ' "$1"
 }
 
-# ── Never touches (default) ─────────────────────────────────────────────────
-# An allowlist, not a denylist: the one firestore read is named, and anything
-# else a line runs under `firestore` must carry the scratch database's flag,
-# once. A second --database would win over the first. The counts at the end
-# are what stop this passing by reading nothing.
-never_touches_live() {
-  local line rest problems='' imports=0 creates=0 deletes=0 counts=0 gets=0
-  while IFS= read -r line; do
-    case "$line" in
-      *'firestore databases describe'*) ;;
-      *'firestore '*)
-        case "$line" in *'firestore import '*) imports=$((imports + 1)) ;; esac
-        case "$line" in *'firestore databases create '*) creates=$((creates + 1)) ;; esac
-        case "$line" in *'firestore databases delete '*) deletes=$((deletes + 1)) ;; esac
-        rest=${line#*--database}
-        case "$line" in
-          *'--database=restore-drill-'*)
-            case "$rest" in
-              *--database*) problems="${problems}${NL}two --database flags: ${line}" ;;
-            esac
-            ;;
-          *) problems="${problems}${NL}no --database=restore-drill-: ${line}" ;;
-        esac
-        ;;
+# occurrences TEXT PATTERN — how many times PATTERN appears in TEXT.
+occurrences() {
+  local text=$1 n=0
+  while :; do
+    case "$text" in
+      *"$2"*) n=$((n + 1)); text=${text#*"$2"} ;;
+      *) break ;;
     esac
+  done
+  printf '%s' "$n"
+}
+
+# ── Never touches (default) ─────────────────────────────────────────────────
+# An allowlist, not a denylist: the one firestore read is named, and a line
+# running anything else under `firestore` must carry the scratch database's
+# flag, once. A second --database would win over the first. Occurrences are
+# counted rather than the line matched whole, so a write cannot hide on the
+# same line as a read. The counts at the end are what stop this passing by
+# reading nothing.
+never_touches_live() {
+  local line rest problems='' imports=0 creates=0 deletes=0 counts=0
+  while IFS= read -r line; do
+    if [ "$(occurrences "$line" 'firestore ')" -gt "$(occurrences "$line" 'firestore databases describe')" ]; then
+      case "$line" in *'firestore import '*) imports=$((imports + 1)) ;; esac
+      case "$line" in *'firestore databases create '*) creates=$((creates + 1)) ;; esac
+      case "$line" in *'firestore databases delete '*) deletes=$((deletes + 1)) ;; esac
+      rest=${line#*--database}
+      case "$line" in
+        *'--database=restore-drill-'*)
+          case "$rest" in
+            *--database*) problems="${problems}${NL}two --database flags: ${line}" ;;
+          esac
+          ;;
+        *) problems="${problems}${NL}no --database=restore-drill-: ${line}" ;;
+      esac
+    fi
     case "$line" in
       *'curl '*)
+        if [ "$(occurrences "$line" 'curl ')" -gt 1 ]; then
+          problems="${problems}${NL}two curls on one line: ${line}"
+        fi
         case "$line" in
-          *':runAggregationQuery'*) counts=$((counts + 1)) ;;
-          *' -X'* | *' --request'* | *' -d'* | *' --data'* | *' -F'* | *' --form'* | *' -T'* | *' --upload-file'* | *' --json'*)
+          *' -X'* | *' --request'*)
             case "$line" in
               *'databases/restore-drill-'*) ;;
-              *) problems="${problems}${NL}a curl that sends, to something other than restore-drill-: ${line}" ;;
+              *) problems="${problems}${NL}a curl that picks its method, not to restore-drill-: ${line}" ;;
             esac
             ;;
-          *) gets=$((gets + 1)) ;;
+          *':runAggregationQuery'*) counts=$((counts + 1)) ;;
+          *' -d'* | *' --data'* | *' -F'* | *' --form'* | *' -T'* | *' --upload-file'* | *' --json'*)
+            case "$line" in
+              *'databases/restore-drill-'*) ;;
+              *) problems="${problems}${NL}a curl that sends, not to restore-drill-: ${line}" ;;
+            esac
+            ;;
         esac
         ;;
     esac
   done < <(logical_lines "$SCRIPT")
-  if [ "$imports" -lt 1 ] || [ "$creates" -lt 1 ] || [ "$deletes" -lt 1 ] || [ "$counts" -lt 1 ] || [ "$gets" -lt 1 ]; then
-    problems="${problems}${NL}read ${imports} import, ${creates} create, ${deletes} delete, ${counts} count and ${gets} GET lines; each should be at least one"
+  if [ "$imports" -lt 1 ] || [ "$creates" -lt 1 ] || [ "$deletes" -lt 1 ] || [ "$counts" -lt 1 ]; then
+    problems="${problems}${NL}read ${imports} import, ${creates} create, ${deletes} delete and ${counts} count lines; each should be at least one"
   fi
   if [ -z "$problems" ]; then
-    pass "never touches (default): ${imports} import, ${creates} create and ${deletes} delete lines all name --database=restore-drill-"
+    pass "never touches (default): every line that imports, creates or deletes names --database=restore-drill-, once"
   else
     fail "never touches (default)" "${problems#"$NL"}"
   fi
@@ -141,6 +161,11 @@ collections() {
 }
 
 # ── The fakes ───────────────────────────────────────────────────────────────
+# Each answers only the exact commands a drill runs, so a changed flag reaches
+# "no answer" and exit 99 instead of a plausible reply. Time is modelled the
+# way the README's Backups section describes it: `jobs run` returns before the
+# export exists, the prefix appears on a later listing, and its
+# .overall_export_metadata after that. Settings are files in $FAKE.
 mkdir -p "$WORK/bin"
 cat >"$WORK/bin/gcloud" <<'FAKE_GCLOUD'
 #!/usr/bin/env bash
@@ -148,29 +173,69 @@ cat >"$WORK/bin/gcloud" <<'FAKE_GCLOUD'
 set -euo pipefail
 printf 'gcloud %s\n' "$*" >>"$FAKE/calls"
 bucket=gs://the-infinity-ai-firestore-backups
+new="$bucket/2026-11-23T10:00:00_42/"
+scratch=restore-drill-20261123
+operation=projects/the-infinity-ai/databases/$scratch/operations/fake-create
+# tick NAME — count one more call of a kind, and print the count.
+tick() {
+  local n
+  n=$(cat "$FAKE/$1" 2>/dev/null || echo 0)
+  n=$((n + 1))
+  echo "$n" >"$FAKE/$1"
+  echo "$n"
+}
+setting() { cat "$FAKE/$1" 2>/dev/null || echo "$2"; }
 case "$*" in
   "storage ls $bucket/")
-    cat "$FAKE/prefixes" ;;
-  "storage ls $bucket/"*/)
-    folder=${3%/}
-    printf '%s\n' "${3}${folder##*/}.overall_export_metadata" "${3}all_namespaces/" ;;
+    cat "$FAKE/prefixes"
+    if [ -e "$FAKE/export-started" ] && [ "$(tick bucket-listings)" -ge "$(setting prefix-on-listing 1)" ]; then
+      echo "$new"
+    fi ;;
+  "storage ls $new")
+    echo "${new}all_namespaces/"
+    if [ "$(setting metadata-on-listing 1)" != never ] &&
+      [ "$(tick prefix-listings)" -ge "$(setting metadata-on-listing 1)" ]; then
+      echo "${new}2026-11-23T10:00:00_42.overall_export_metadata"
+      touch "$FAKE/metadata-written"
+    fi ;;
   "scheduler jobs run firestore-weekly-export --location=us-west1 --project=the-infinity-ai")
     if [ -e "$FAKE/export-lands" ]; then
-      printf '%s\n' "$bucket/2026-11-23T10:00:00_42/" >>"$FAKE/prefixes"
+      touch "$FAKE/export-started"
     fi ;;
   "firestore databases describe --database=(default) --project=the-infinity-ai --format=value(locationId)")
     echo us-west1 ;;
-  "firestore databases create "*)
+  "firestore databases create --database=$scratch --location=us-west1 --type=firestore-native --project=the-infinity-ai --format=value(name)")
     if [ -e "$FAKE/create-fails" ]; then
       echo "ERROR: (gcloud.firestore.databases.create) ALREADY_EXISTS: fake" >&2
       exit 1
+    fi
+    echo "$operation" ;;
+  "firestore operations describe $operation --database=$scratch --project=the-infinity-ai --format=value(done,error.message)")
+    if [ -e "$FAKE/create-error" ]; then
+      printf 'True\t%s\n' "$(cat "$FAKE/create-error")"
+    elif [ "$(tick create-polls)" -ge "$(setting create-done-on-poll 1)" ]; then
+      echo True
+    else
+      echo
     fi ;;
-  "firestore import "*)
+  "firestore import ${new%/} --database=$scratch --collection-ids=trails,concept_requests,concept_reviews --project=the-infinity-ai")
+    if [ ! -e "$FAKE/metadata-written" ]; then
+      echo "ERROR: (gcloud.firestore.import) the export has no overall_export_metadata yet" >&2
+      exit 1
+    fi
+    if [ "$(cat "$FAKE/create-polls" 2>/dev/null || echo 0)" -lt "$(setting create-done-on-poll 1)" ]; then
+      echo "ERROR: (gcloud.firestore.import) $scratch is still being created" >&2
+      exit 1
+    fi
     if [ -e "$FAKE/import-fails" ]; then
       echo "ERROR: (gcloud.firestore.import) fake failure" >&2
       exit 1
     fi ;;
-  "firestore databases delete "*) ;;
+  "firestore databases delete --database=$scratch --project=the-infinity-ai --quiet")
+    if [ "$(tick deletes)" -le "$(setting delete-failures 0)" ]; then
+      echo "ERROR: (gcloud.firestore.databases.delete) fake failure" >&2
+      exit 1
+    fi ;;
   "auth print-access-token")
     echo fake-token-5d1e ;;
   *)
@@ -199,8 +264,12 @@ case "$url" in
   *:runAggregationQuery)
     collection=${data#*'"collectionId":"'}
     collection=${collection%%'"'*}
-    printf '[{"result":{"aggregateFields":{"n":{"integerValue":"%s"}}},"readTime":"2026-11-23T10:05:00Z"}]\n' \
-      "$(cat "$FAKE/count.$db.$collection")" ;;
+    if [ -e "$FAKE/no-count.$db.$collection" ]; then
+      echo '[{"readTime":"2026-11-23T10:05:00Z"}]'
+    else
+      printf '[{"result":{"aggregateFields":{"n":{"integerValue":"%s"}}},"readTime":"2026-11-23T10:05:00Z"}]\n' \
+        "$(cat "$FAKE/count.$db.$collection")"
+    fi ;;
   *'?orderBy=__name__&pageSize=1')
     collection=${url%%\?*}
     collection=${collection##*/}
@@ -224,7 +293,8 @@ page() {
 }
 
 # new_fake — a project in which the drill passes: one old export, a new one
-# that lands, and two databases that agree. concept_reviews is empty in both.
+# that lands on the first poll, and two databases that agree. concept_reviews
+# is empty in both.
 new_fake() {
   local db
   FAKE=$(mktemp -d "$WORK/fake.XXXXXX")
@@ -266,12 +336,24 @@ refute_out() {
   esac
 }
 called() { grep -qF -- "$1" "$FAKE/calls"; }
+calls_of() { grep -cF -- "$1" "$FAKE/calls" || true; }
+expect_calls() {
+  local n
+  n=$(calls_of "$2")
+  [ "$n" = "$1" ] || { REASON="${n} calls of '$2', expected $1"; return 1; }
+}
 expect_deleted() {
   called "gcloud firestore databases delete --database=${SCRATCH} " || { REASON="${SCRATCH} was not deleted"; return 1; }
 }
 expect_not_deleted() {
   if called 'firestore databases delete'; then
     REASON="a database was deleted: $(grep -F 'databases delete' "$FAKE/calls")"
+    return 1
+  fi
+}
+expect_not_created() {
+  if called 'firestore databases create'; then
+    REASON='a database was created'
     return 1
   fi
 }
@@ -341,7 +423,56 @@ passes() {
   expect_status 0 && expect_out 'restore-drill: PASS' &&
     expect_out "| 2026-11-23 | \`${NEW_EXPORT}\` | 3 | 2 | 0 | " &&
     expect_out 'note  concept_reviews: empty in both' && expect_out 'ok    trails/a-trail: every field matches' &&
+    refute_out 'no document was sampled' &&
     expect_deleted && expect_writes_named_scratch && expect_token_hidden
+}
+# `jobs run` returns at once; the prefix shows up on the third listing and its
+# metadata on the second listing of the prefix. Importing early fails.
+lands_late() {
+  new_fake
+  echo 3 >"$FAKE/prefix-on-listing"
+  echo 2 >"$FAKE/metadata-on-listing"
+  TIMEOUT=60
+  drill
+  TIMEOUT=0
+  expect_status 0 && expect_out "ok    landed: ${NEW_EXPORT}" && expect_calls 2 "gcloud storage ls ${BUCKET}/${NEW_EXPORT}/"
+}
+metadata_never() {
+  new_fake
+  echo never >"$FAKE/metadata-on-listing"
+  drill
+  expect_status 1 && expect_out 'export never landed' && expect_not_created && expect_not_deleted
+}
+never_lands() {
+  new_fake
+  rm "$FAKE/export-lands"
+  drill
+  expect_status 1 && expect_out 'export never landed' && expect_not_created && expect_not_deleted
+}
+create_slow() {
+  new_fake
+  echo 3 >"$FAKE/create-done-on-poll"
+  drill
+  expect_status 0 && expect_calls 3 'gcloud firestore operations describe ' && expect_out 'restore-drill: PASS'
+}
+create_errors() {
+  new_fake
+  echo 'fake: no capacity in us-west1' >"$FAKE/create-error"
+  drill
+  expect_status 1 && expect_out "creating ${SCRATCH} failed: fake: no capacity in us-west1" && expect_not_called_import &&
+    expect_deleted
+}
+expect_not_called_import() {
+  if called 'firestore import'; then
+    REASON='the import ran'
+    return 1
+  fi
+}
+create_fails() {
+  new_fake
+  touch "$FAKE/create-fails"
+  drill
+  expect_status 1 && expect_out 'If an earlier drill left' && expect_not_deleted
 }
 count_differs() {
   new_fake
@@ -349,6 +480,12 @@ count_differs() {
   drill
   expect_status 1 && expect_out 'FAIL  concept_requests: 2 in (default), 1 restored' &&
     expect_out 'differ between (default) and the restore: concept_requests' && refute_out 'PASS' && expect_deleted
+}
+no_count() {
+  new_fake
+  touch "$FAKE/no-count.(default).concept_requests" "$FAKE/no-count.$SCRATCH.concept_requests"
+  drill
+  expect_status 1 && expect_out 'runAggregationQuery answered without a count' && refute_out 'PASS' && expect_deleted
 }
 fields_differ() {
   new_fake
@@ -374,24 +511,37 @@ counted_but_unlisted() {
     expect_out 'FAIL  concept_requests: 2 counted in (default), but listing it returned no document to sample' &&
     expect_out 'differ between (default) and the restore: concept_requests' && expect_deleted
 }
-never_lands() {
+all_empty() {
+  local db c
   new_fake
-  rm "$FAKE/export-lands"
+  for db in '(default)' "$SCRATCH"; do
+    for c in trails concept_requests concept_reviews; do
+      echo 0 >"$FAKE/count.$db.$c"
+      echo '{}' >"$FAKE/page.$db.$c"
+    done
+  done
   drill
-  expect_status 1 && expect_out 'export never landed' && expect_not_deleted &&
-    { if called 'databases create'; then REASON='a database was created'; return 1; fi; }
-}
-create_fails() {
-  new_fake
-  touch "$FAKE/create-fails"
-  drill
-  expect_status 1 && expect_out "could not create ${SCRATCH}" && expect_not_deleted
+  expect_status 0 && expect_out 'note  no document was sampled: every collection is empty' &&
+    expect_out "| 2026-11-23 | \`${NEW_EXPORT}\` | 0 | 0 | 0 | "
 }
 import_fails() {
   new_fake
   touch "$FAKE/import-fails"
   drill
   expect_status 1 && expect_deleted
+}
+delete_retried() {
+  new_fake
+  echo 1 >"$FAKE/delete-failures"
+  drill
+  expect_status 0 && expect_out 'the delete failed. It is tried once more on the way out' &&
+    expect_out 'restore-drill: PASS' && expect_calls 2 "gcloud firestore databases delete --database=${SCRATCH} "
+}
+delete_keeps_failing() {
+  new_fake
+  echo 9 >"$FAKE/delete-failures"
+  drill
+  expect_status 1 && expect_out 'restore-drill: PASS' && expect_out "could not delete ${SCRATCH}"
 }
 keep() {
   new_fake
@@ -411,13 +561,21 @@ bash32
 collections
 dry_run
 check "a drill that matches exits 0 and prints the log row" passes
+check "an export whose prefix and metadata take several polls is waited for, not imported early" lands_late
+check "a prefix that never gets its metadata is 'export never landed', and creates nothing" metadata_never
+check "an export that never starts is 'export never landed', and creates nothing" never_lands
+check "a database that takes several polls to create is waited for" create_slow
+check "a create operation that ends in an error exits 1 before importing" create_errors
+check "a create that fails exits 1 and deletes nothing it did not create" create_fails
 check "a count that differs exits 1 and names the collection" count_differs
+check "an answer without a count exits 1, rather than counting as zero" no_count
 check "a field that differs exits 1 and names the collection" fields_differ
 check "a different first document exits 1 and names the collection" first_differs
 check "documents counted but none listed exits 1, rather than passing as empty" counted_but_unlisted
-check "an export that never lands exits 1, 'export never landed', and creates nothing" never_lands
-check "a create that fails exits 1 and deletes nothing it did not create" create_fails
+check "every collection empty passes, and says that proves nothing" all_empty
 check "a failed import exits 1, and the trap deletes the scratch database" import_fails
+check "a delete that fails once is retried on the way out" delete_retried
+check "a delete that keeps failing exits 1 and says so" delete_keeps_failing
 check "--keep leaves the scratch database" keep
 check "--keep leaves it on a failure too" keep_on_failure
 

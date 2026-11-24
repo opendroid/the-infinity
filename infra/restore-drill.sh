@@ -4,7 +4,7 @@
 # without touching live data (#557).
 #
 #   ./infra/restore-drill.sh              # in Cloud Shell, quarterly: Feb, May, Aug, Nov
-#   ./infra/restore-drill.sh --dry-run    # print every command it would run, run none
+#   ./infra/restore-drill.sh --dry-run    # print every gcloud and curl command, run none
 #   ./infra/restore-drill.sh --keep       # leave the scratch database behind for a look
 #
 # AN EXPORT THAT HAS NEVER BEEN RESTORED IS A BELIEF, NOT A BACKUP (LAUNCH.md
@@ -30,13 +30,15 @@
 # on one that lacks it, and a test that has to trust a variable's value is a
 # test of the variable. Reads go to both databases; that is the comparison.
 #
-# --dry-run IS THE SAME CODE PATH with execution switched off. Every command
-# goes through show() on its way to running, so what --dry-run prints, and the
-# test compares with infra/testdata/restore-drill.dry-run.golden, is what a
-# real run executes rather than a second copy of it that could drift.
+# --dry-run IS THE SAME CODE PATH with execution switched off. Every gcloud and
+# curl command goes through show() on its way to running, so what --dry-run
+# prints, and the test compares with infra/testdata/restore-drill.dry-run.golden,
+# is what a real run executes rather than a second copy of it that could drift.
+# jq and sleep are local and not printed.
 #
-# bash 3.2, so it also runs from a Mac: no associative arrays, no mapfile, no
-# `date -d`, no `timeout`.
+# bash 3.2, as #557 asks: no associative arrays, no mapfile, no `date -d`, no
+# `timeout`. curl needs --fail-with-body, which is 7.76 or later; Cloud Shell
+# has it.
 set -euo pipefail
 
 PROJECT_ID="${PROJECT_ID:-the-infinity-ai}"
@@ -52,16 +54,19 @@ COLLECTIONS="trails concept_requests concept_reviews"
 DRILL_DATE="${DRILL_DATE:-$(date -u +%Y%m%d)}"   # names the scratch database
 EXPORT_TIMEOUT="${EXPORT_TIMEOUT:-600}"          # seconds to wait for the export
 POLL_SECONDS="${POLL_SECONDS:-15}"
+CREATE_TIMEOUT=300                               # seconds to wait for the database
 
 FIRESTORE="https://firestore.googleapis.com/v1/projects/${PROJECT_ID}"
 NL='
 '
+TAB=$(printf '\t')
+HINT=''
 
 usage() {
   cat <<'EOF'
 usage: infra/restore-drill.sh [--dry-run] [--keep]
 
-  --dry-run  print every command a drill runs, and run none of them
+  --dry-run  print every gcloud and curl command a drill runs, and run none
   --keep     leave restore-drill-<yyyymmdd> behind instead of deleting it
 
 Restores the newest weekly export into a throwaway database and compares it
@@ -95,14 +100,24 @@ note() { printf '  note  %s\n' "$*"; }
 bad()  { printf '  FAIL  %s\n' "$*"; }
 die()  { printf 'restore-drill: %s\n' "$*" >&2; exit 1; }
 
-# show CMD... — print CMD as a shell would read it back. Quoted by hand,
-# because printf %q quotes differently in bash 3.2 and 5, and the golden file
-# has to match under both.
+# show CMD... — print CMD as a shell would read it back. Quoted by hand, with
+# prefix and suffix removal: printf %q, and the replacement half of
+# ${var//pat/rep}, both behave differently in bash 3.2, and the golden file has
+# to match under every bash.
 show() {
-  local line='+' arg
+  local line='+' arg rest quoted
   for arg in "$@"; do
     case "$arg" in
-      '' | *[![:alnum:]_./:=,@%+-]*) line="$line '${arg//\'/\'\\\'\'}'" ;;
+      '' | *[![:alnum:]_./:=,@%+-]*)
+        quoted='' rest=$arg
+        while :; do
+          case "$rest" in
+            *"'"*) quoted="${quoted}${rest%%"'"*}'\\''"; rest=${rest#*"'"} ;;
+            *) quoted="${quoted}${rest}"; break ;;
+          esac
+        done
+        line="$line '${quoted}'"
+        ;;
       *) line="$line $arg" ;;
     esac
   done
@@ -120,7 +135,8 @@ run() {
 
 # capture VAR STAND_IN CMD... — show CMD, run it, and keep what it prints in
 # VAR. Under --dry-run nothing runs and VAR gets STAND_IN, chosen to walk the
-# rest of the dry run down the path a passing drill takes.
+# rest of the dry run down the path a passing drill takes. On a failure, HINT,
+# if set, follows the error.
 capture() {
   local var=$1 stand_in=$2 out
   shift 2
@@ -131,7 +147,7 @@ capture() {
     if [ -n "$out" ]; then
       printf '%s\n' "$out" >&2
     fi
-    die "this failed: $(show "$@")"
+    die "this failed: $(show "$@")${HINT:+$NL$HINT}"
   fi
   printf -v "$var" '%s' "$out"
 }
@@ -177,7 +193,7 @@ number_in() {
 }
 
 # Set by capture, through printf -v, which shellcheck cannot follow.
-before='' now='' contents='' location='' token=''
+before='' now='' contents='' location='' operation='' state='' token=''
 live_answer='' scratch_answer='' live_page='' scratch_page=''
 
 failed=''
@@ -205,7 +221,7 @@ release_scratch() {
 on_exit() {
   local status=$?
   if [ "$SCRATCH_CREATED" = 1 ] && ! release_scratch; then
-    printf 'restore-drill: restore-drill-%s was NOT deleted, and bills for storage until it is:\n' "$DRILL_DATE" >&2
+    printf 'restore-drill: could not delete restore-drill-%s. If it exists, it bills for storage until it is deleted:\n' "$DRILL_DATE" >&2
     printf '  gcloud firestore databases delete --database=restore-drill-%s --project=%s\n' "$DRILL_DATE" "$PROJECT_ID" >&2
     if [ "$status" = 0 ]; then
       status=1
@@ -225,13 +241,14 @@ fi
 
 echo "restore-drill: project ${PROJECT_ID}, scratch database restore-drill-${DRILL_DATE}"
 if [ "$DRY_RUN" = 1 ]; then
-  echo "restore-drill: --dry-run, so every command is printed and none is run"
+  echo "restore-drill: --dry-run, so every gcloud and curl command is printed and none is run"
 fi
 
 # ── 1. A new export ──────────────────────────────────────────────────────────
-# Landed means its prefix holds <prefix>.overall_export_metadata. Firestore
-# writes that file last and an import reads it first, so a new prefix without
-# it is an export still running, or one that failed.
+# `jobs run` returns once the job is triggered, before the export exists, so
+# this polls. Landed means a new prefix holds <prefix>.overall_export_metadata:
+# Firestore writes that file last and an import reads it first, so a new
+# prefix without it is an export still running, or one that failed.
 step "1. Trigger ${JOB_NAME}, and wait up to ${EXPORT_TIMEOUT}s for a new export to land"
 capture before '' gcloud storage ls "gs://${BUCKET}/"
 run gcloud scheduler jobs run "$JOB_NAME" --location="$JOB_REGION" --project="$PROJECT_ID"
@@ -264,14 +281,32 @@ export_name=${export_uri##*/}
 ok "landed: ${export_name}"
 
 # ── 2. The scratch database ──────────────────────────────────────────────────
+# `databases create` returns its operation without waiting for it: in the SDK,
+# its Run returns CreateDatabase's Operation, and of the commands here only
+# `import` calls WaitForOperation. An import into a database still being
+# created would fail, so this waits on the operation.
 step "2. Create restore-drill-${DRILL_DATE} in the location of (default)"
 capture location '<location-of-(default)>' \
   gcloud firestore databases describe --database='(default)' --project="$PROJECT_ID" --format='value(locationId)'
-if ! run gcloud firestore databases create --database=restore-drill-"$DRILL_DATE" --location="$location" \
-  --type=firestore-native --project="$PROJECT_ID"; then
-  die "could not create restore-drill-${DRILL_DATE}. If an earlier drill left it, delete it and wait about five minutes, which is how long Firestore holds a deleted database's id: gcloud firestore databases delete --database=restore-drill-${DRILL_DATE} --project=${PROJECT_ID}"
-fi
+HINT="If an earlier drill left restore-drill-${DRILL_DATE}, delete it, then wait about five minutes, which is how long Firestore holds a deleted database's id: gcloud firestore databases delete --database=restore-drill-${DRILL_DATE} --project=${PROJECT_ID}"
+capture operation '<create-operation>' gcloud firestore databases create --database=restore-drill-"$DRILL_DATE" \
+  --location="$location" --type=firestore-native --project="$PROJECT_ID" --format='value(name)'
+HINT=''
 SCRATCH_CREATED=1
+ready_by=$((SECONDS + CREATE_TIMEOUT))
+while :; do
+  capture state 'True' gcloud firestore operations describe "$operation" --database=restore-drill-"$DRILL_DATE" \
+    --project="$PROJECT_ID" --format='value(done,error.message)'
+  case "$state" in
+    True | "True${TAB}") break ;;
+    "True${TAB}"*) die "creating restore-drill-${DRILL_DATE} failed: ${state#"True${TAB}"}" ;;
+  esac
+  if [ "$SECONDS" -ge "$ready_by" ]; then
+    die "restore-drill-${DRILL_DATE} was still being created after ${CREATE_TIMEOUT}s"
+  fi
+  sleep "$POLL_SECONDS"
+done
+ok "created restore-drill-${DRILL_DATE}"
 
 # ── 3. The import ────────────────────────────────────────────────────────────
 # Without --async, gcloud waits for the import to finish.
@@ -283,6 +318,7 @@ run gcloud firestore import "$export_uri" --database=restore-drill-"$DRILL_DATE"
 # Live is counted after the export, so a reader who writes in between fails
 # this without the backup being wrong. Run it again before believing that.
 step "4. Count each collection in (default) and in restore-drill-${DRILL_DATE}"
+note "each curl reads its Authorization header on stdin (-H @-): a bearer token from the command before it"
 capture token '<access-token>' gcloud auth print-access-token
 AUTH_HEADER="Authorization: Bearer ${token}"
 counts=''
@@ -311,6 +347,7 @@ done
 # step 4 counted documents in, whose listing then returns none, is a failure:
 # otherwise a read that quietly returned nothing would pass as "empty".
 step "5. Compare the first document by id in each collection, field for field"
+sampled=0
 for collection in $COLLECTIONS; do
   first live_page '(default)' "$collection"
   first scratch_page "restore-drill-${DRILL_DATE}" "$collection"
@@ -333,6 +370,7 @@ for collection in $COLLECTIONS; do
     add_failure "$collection"
   elif [ "$live_fields" = "$scratch_fields" ]; then
     ok "${live_id}: every field matches"
+    sampled=$((sampled + 1))
   else
     bad "${live_id}: fields differ. Run with --keep to read both"
     add_failure "$collection"
@@ -340,8 +378,12 @@ for collection in $COLLECTIONS; do
 done
 
 # ── 6. Clean up ──────────────────────────────────────────────────────────────
+# A delete that fails here is tried once more by the trap on the way out, so
+# the verdict below still prints; the exit status says if both failed.
 step "6. Delete restore-drill-${DRILL_DATE}"
-release_scratch
+if ! release_scratch; then
+  note "the delete failed. It is tried once more on the way out"
+fi
 
 if [ "$DRY_RUN" = 1 ]; then
   step "restore-drill: --dry-run, so nothing ran and nothing was compared"
@@ -352,6 +394,9 @@ if [ -n "$failed" ]; then
 fi
 
 step "restore-drill: PASS. Every count and every sampled document matched. For the Restore drill log in infra/README.md:"
+if [ "$sampled" = 0 ]; then
+  note "no document was sampled: every collection is empty, so this proves only that empty restores to empty"
+fi
 # shellcheck disable=SC2016 # the backticks are markdown, not a command
 printf '| %s-%s-%s | `%s` |%s %dm %02ds |\n' \
   "${DRILL_DATE:0:4}" "${DRILL_DATE:4:2}" "${DRILL_DATE:6:2}" "$export_name" "$counts" \

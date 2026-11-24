@@ -136,7 +136,7 @@ enables it on a database that already exists.
 May, Aug, Nov** — in Cloud Shell, from a clone:
 
 ```bash
-./infra/restore-drill.sh --dry-run   # every command it would run; runs none
+./infra/restore-drill.sh --dry-run   # every gcloud and curl command it would run; runs none
 ./infra/restore-drill.sh             # the drill: paste the row it ends with into the table below
 ./infra/restore-drill.sh --keep      # the same, leaving the scratch database for a look
 ```
@@ -147,7 +147,8 @@ creates `restore-drill-<yyyymmdd>` in the location of `(default)`, imports the e
 document count, and its first document by id field for field, with live. Then it deletes the
 scratch database; a `trap` does that on any exit, unless `--keep` is given. It exits 0 only
 when every count and every sampled document match, and otherwise names the collection that
-differs.
+differs. `gcloud firestore databases create` returns before the database exists, so the
+script waits on the create operation before importing.
 
 `gcloud firestore import` without `--database` imports into `(default)`, so every line in the
 script that creates, imports or deletes names `--database=restore-drill-…`, and
