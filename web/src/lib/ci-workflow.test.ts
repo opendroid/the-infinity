@@ -108,8 +108,11 @@ describe('links.yml checks citation identity, and nothing hides it (#558)', () =
 
   it('as a step after Verify explainers', () => {
     const at = LINKS.indexOf('- name: Check citation identity');
+    const explainers = LINKS.indexOf('- name: Verify explainers');
     expect(at, 'links.yml has no step named Check citation identity').toBeGreaterThan(-1);
-    expect(at).toBeGreaterThan(LINKS.indexOf('- name: Verify explainers'));
+    // Without this, renaming the explainer step makes the next line pass on -1.
+    expect(explainers, 'links.yml has no step named Verify explainers').toBeGreaterThan(-1);
+    expect(at).toBeGreaterThan(explainers);
   });
 
   it('with if: always(), so a red explainer check cannot skip it', () => {

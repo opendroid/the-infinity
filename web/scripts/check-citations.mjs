@@ -42,7 +42,6 @@
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { setTimeout as sleepFor } from 'node:timers/promises';
 import {
   byUrl,
   crawlDelays,
@@ -51,6 +50,7 @@ import {
   partitionByDelay,
   politeFetch,
   pool,
+  starGroupDelay,
   THROTTLED,
   skippedNotice,
   unreachableHosts,
@@ -170,14 +170,13 @@ async function resolves(url) {
 /** The export API, which answers in Atom: one `<entry>` per paper. */
 export const ARXIV_API = 'https://export.arxiv.org/api/query';
 
-/** Ids per request — #558's figure, which makes 485 papers five requests. */
+/** Ids per request, at most — #558's figure, which makes 485 papers five requests. */
 export const ARXIV_BATCH = 100;
 
 /**
- * Seconds between requests, as a FLOOR. arXiv's API terms ask for no more than
- * one request every three seconds, on one connection at a time. A longer
- * `Crawl-delay` in the host's robots.txt wins, read at runtime as ADR-0020
- * requires; nothing lowers this.
+ * Seconds between requests, as a FLOOR: the API manual asks clients to "play
+ * nice and incorporate a 3 second delay". The host's robots.txt is read too, as
+ * ADR-0020 requires, and a longer `Crawl-delay` there wins; nothing lowers this.
  */
 export const ARXIV_GAP_SECONDS = 3;
 
@@ -188,11 +187,21 @@ export const USER_AGENT =
 /** A title that is not exact, but at least this similar, warns rather than fails. */
 export const WARN_AT = 0.9;
 
+/**
+ * Tries at a batch whose answer holds none of its papers. An empty page is the
+ * API's known flaky answer — other clients retry it — and three of them in a
+ * row is the service, not a verdict on a hundred titles.
+ */
+const EMPTY_TRIES = 3;
+
 /** How many results a title search reads for an exact match. */
 const SEARCH_RESULTS = 25;
 
 /** Per attempt. A hundred-paper answer is a few hundred kilobytes. */
 const TIMEOUT_MS = 30_000;
+
+/** Resolves after `ms`, on the global timer — which a test can run instantly. */
+const wait = (ms) => new Promise((done) => setTimeout(done, ms));
 
 /**
  * @typedef {object} Citation
@@ -217,7 +226,6 @@ const TIMEOUT_MS = 30_000;
  * @property {(url: string, init: { headers: Record<string, string>, signal: AbortSignal }) => Promise<FetchAnswer>} [fetchImpl]
  * @property {(ms: number) => Promise<unknown>} [sleep] injected so a test proves
  *   the gap without spending it
- * @property {number} [gapSeconds] the host's own Crawl-delay; never lowers the floor
  * @property {(line: string) => void} [out] stdout, for what does not fail the run
  * @property {(line: string) => void} [err] stderr, for what does
  */
@@ -236,16 +244,22 @@ export function arxivId(ref) {
 }
 
 /**
- * One paper however it is spelled: without a version, and without the subject
- * class a pre-2007 id may carry — `math.GT/0309136` is `math/0309136`, because
- * the subject class was never part of the identifier. An answer's `<id>` is an
- * abs url ending in a version, so a request and its answer meet only here.
+ * An id the way it is sent: a pre-2007 subject class dropped — `math.GT/0309136`
+ * goes as `math/0309136`, the shape the API manual's own examples use
+ * (`cs/9901002v1`) — and any version kept, since a ref that names one means it.
+ */
+const asSent = (id) => id.replace(/^([a-z-]+)\.[A-Za-z]{2}\//, '$1/');
+
+/**
+ * One paper however it is spelled: as sent, and without a version. An
+ * answer's `<id>` is an abs url ending in a version, so a request and its
+ * answer meet only here.
  *
  * @param {string} id
  * @returns {string}
  */
 export function paperKey(id) {
-  return id.replace(/v\d+$/, '').replace(/^([a-z-]+)\.[A-Za-z]{2}\//, '$1/');
+  return asSent(id).replace(/v\d+$/, '');
 }
 
 /**
@@ -285,8 +299,8 @@ export function normalize(title) {
   }
   return s
     .replace(/[{}]/g, '') // BibTeX case protection: {B}ayesian
+    .normalize('NFKD') // before lowercasing, which a styled 𝐀 only reaches as A
     .toLowerCase()
-    .normalize('NFKD')
     .replace(/\p{M}/gu, '') // the accent NFKD split off: é → e
     .replace(/\p{Cf}/gu, '') // soft hyphen, zero-width space: invisible, so no break
     .replace(/[^\p{L}\p{N}]+/gu, ' ')
@@ -343,7 +357,10 @@ export function classify(stored, arxiv) {
 }
 
 /** A code point from a numeric reference, or U+FFFD for one that cannot be. */
-const codePoint = (n) => (Number.isInteger(n) && n >= 0 && n <= 0x10ffff ? String.fromCodePoint(n) : '�');
+const codePoint = (n) =>
+  Number.isInteger(n) && n >= 0 && n <= 0x10ffff ? String.fromCodePoint(n) : String.fromCodePoint(0xfffd);
+
+const oneLine = (s) => s.replace(/\s+/g, ' ').trim();
 
 /** XML's five entities and numeric references; `&amp;` last, so `&amp;lt;` stays `&lt;`. */
 const decodeXml = (s) =>
@@ -356,6 +373,12 @@ const decodeXml = (s) =>
     .replace(/&apos;/g, "'")
     .replace(/&amp;/g, '&');
 
+/** Each `<entry>` of an Atom answer, as the text between its tags. */
+const ENTRY = /<entry\b[^>]*>([\s\S]*?)<\/entry>/g;
+
+/** The text of the first `<tag>` in an entry, undefined if it has none. */
+const textOf = (entry, tag) => new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`).exec(entry)?.[1];
+
 /**
  * Paper titles from an arXiv Atom answer, keyed by `paperKey`, in the order the
  * answer gives them — relevance, for a search.
@@ -363,43 +386,70 @@ const decodeXml = (s) =>
  * ENTRIES ONLY. The feed carries a `<title>` of its own, the query echoed back,
  * and reading that as a paper's would compare every citation with a sentence
  * about the request. An entry whose `<id>` is not an abs url is arXiv reporting
- * an error, titled "Error", and is skipped rather than read as a paper by that
- * name. A regex, not an XML parser, because this is all that is read, and an
- * XML dependency would cost more than it is worth — the call ci-workflow.test.ts
- * makes about YAML.
+ * an error, titled "Error" — `feedError` reads those — and is skipped rather
+ * than read as a paper by that name. A regex, not an XML parser, because this
+ * is all that is read, and an XML dependency would cost more than it is worth:
+ * the call ci-workflow.test.ts makes about YAML.
  *
  * @param {string} xml
  * @returns {Map<string, string | null>} paper → its title, null if it has none
  */
 export function parseFeed(xml) {
   const titles = new Map();
-  for (const [, entry] of xml.matchAll(/<entry\b[^>]*>([\s\S]*?)<\/entry>/g)) {
-    const id = /<id\b[^>]*>([\s\S]*?)<\/id>/.exec(entry)?.[1]?.trim() ?? '';
-    const abs = /^https?:\/\/arxiv\.org\/abs\/(\S+)$/.exec(id);
+  for (const [, entry] of xml.matchAll(ENTRY)) {
+    const abs = /^https?:\/\/arxiv\.org\/abs\/(\S+)$/.exec(textOf(entry, 'id')?.trim() ?? '');
     if (!abs) continue;
     const paper = paperKey(abs[1]);
     if (titles.has(paper)) continue;
-    const title = /<title\b[^>]*>([\s\S]*?)<\/title>/.exec(entry)?.[1];
+    const title = textOf(entry, 'title');
     titles.set(paper, title === undefined ? null : decodeXml(title).trim() || null);
   }
   return titles;
 }
 
 /**
- * One serial client for the export API. Every request it sends — the lookups
- * and the title searches alike — waits the gap after the one before, and says
- * whose it is.
+ * arXiv's own message when an answer is an error, or null when it is not.
+ *
+ * ONE BAD ID REFUSES THE WHOLE REQUEST. The API manual: "Errors are returned as
+ * Atom feeds with a single entry representing the error" — so a malformed id
+ * among a hundred returns no paper at all, and its entry is the only thing
+ * that says why. The entry's `<id>` sits under `arxiv.org/api/errors`; its
+ * `<summary>` is the message, which for an id reads "incorrect id format for
+ * 1234.12345" and so names the id to take out.
+ *
+ * @param {string} xml
+ * @returns {string | null}
+ */
+export function feedError(xml) {
+  for (const [, entry] of xml.matchAll(ENTRY)) {
+    if (!/arxiv\.org\/api\/errors/.test(textOf(entry, 'id') ?? '')) continue;
+    const message = textOf(entry, 'summary') ?? textOf(entry, 'title') ?? '';
+    return oneLine(decodeXml(message)) || 'an error entry with no message';
+  }
+  return null;
+}
+
+/**
+ * One serial client for the export API. Every request it sends — robots.txt,
+ * the lookups and the title searches alike — waits the gap after the one
+ * before, and says whose it is.
+ *
+ * THE HOST'S POLICY IS READ THROUGH IT, before the first query (ADR-0020), so
+ * even that request is named and spaced: the first lookup still waits after it.
  *
  * THE GAP WRAPS EACH ATTEMPT, NOT EACH CALL. `politeFetch` retries a 429 or a
  * 503, and a `Retry-After: 0` would otherwise send the retry straight back:
- * spacing the fetch it retries through keeps "one request every three seconds"
- * true of the requests arXiv actually receives.
+ * spacing the fetch it retries through keeps the gap true of the requests arXiv
+ * actually receives.
+ *
+ * An answer is `titles` and `refusal` — arXiv's error message, which may come
+ * with a 4xx — or `error`, for the network and the service: no answer, a 5xx,
+ * still throttled after retrying.
  *
  * @param {IdentityOptions} opts
- * @returns {(url: string) => Promise<{ titles: Map<string, string | null>, error?: undefined } | { error: string, titles?: undefined }>}
  */
-function arxivClient({ fetchImpl = fetch, sleep = sleepFor, gapSeconds = 0 }) {
-  const gapMs = Math.max(ARXIV_GAP_SECONDS, gapSeconds) * 1000;
+function arxivClient({ fetchImpl = fetch, sleep = wait }) {
+  let gapMs = ARXIV_GAP_SECONDS * 1000;
   let sent = 0;
   const spaced = async (url) => {
     if (sent > 0) await sleep(gapMs);
@@ -409,28 +459,108 @@ function arxivClient({ fetchImpl = fetch, sleep = sleepFor, gapSeconds = 0 }) {
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
   };
+
+  const readPolicy = async () => {
+    try {
+      const res = await spaced(`https://${hostOf(ARXIV_API)}/robots.txt`);
+      const seconds = res.ok ? starGroupDelay(await res.text()) : null;
+      if (seconds !== null) gapMs = Math.max(gapMs, seconds * 1000);
+    } catch {
+      // Unread is the same as unstated: the floor holds either way.
+    }
+  };
+  let policy = null;
+
   return async (url) => {
+    policy ??= readPolicy();
+    await policy;
     try {
       const res = await politeFetch(url, {}, { fetchImpl: spaced, sleep });
-      if (!res.ok) {
-        return {
-          error: THROTTLED.has(res.status)
-            ? `${hostOf(url)} still asked us to slow down after retrying (HTTP ${res.status})`
-            : `${hostOf(url)} answered HTTP ${res.status}`,
-        };
+      const refusable = res.status >= 400 && res.status < 500 && !THROTTLED.has(res.status);
+      if (res.ok || refusable) {
+        const xml = await res.text();
+        const refusal = feedError(xml);
+        if (res.ok || refusal !== null) return { titles: parseFeed(xml), refusal };
       }
-      return { titles: parseFeed(await res.text()) };
+      return {
+        error: THROTTLED.has(res.status)
+          ? `${hostOf(url)} still asked us to slow down after retrying (HTTP ${res.status})`
+          : `${hostOf(url)} answered HTTP ${res.status}`,
+      };
     } catch (err) {
       return { error: `could not reach ${hostOf(url)} (${err instanceof Error ? err.message : String(err)})` };
     }
   };
 }
 
+/** The ids of `batch` that arXiv's message names, as whole words. */
+const namedIn = (message, batch) => {
+  const words = new Set(message.split(/[\s,;:]+/).map((w) => w.replace(/\.$/, '')));
+  return batch.filter((id) => words.has(id));
+};
+
+/**
+ * Every paper's title from arXiv, or why there is none (#558).
+ *
+ * BALANCED BATCHES, at most ARXIV_BATCH each: 485 papers go as five of 97,
+ * not four of 100 and one of 85, so no paper is left in a request of its own
+ * unless the corpus is one paper — the one request where "arXiv returned
+ * nothing" cannot tell a missing paper from a flaky page.
+ *
+ * A REFUSAL NAMES ITS ID, and the batch goes again without it, so one
+ * malformed id costs one paper a verdict rather than a hundred their check. A
+ * refusal that names none of the batch leaves the batch unchecked, quoting
+ * arXiv, rather than guessing which id it meant.
+ *
+ * @returns {Promise<{ titles: Map<string, string | null>, refused: Map<string, string>, unchecked: Map<string, string> }>}
+ */
+async function lookUp(ids, ask) {
+  const titles = new Map();
+  const refused = new Map();
+  const unchecked = new Map();
+  const per = Math.ceil(ids.length / Math.ceil(ids.length / ARXIV_BATCH));
+  for (let i = 0; i < ids.length; i += per) {
+    let batch = ids.slice(i, i + per);
+    let empty = 0;
+    const leave = (why) => batch.forEach((id) => unchecked.set(paperKey(id), why));
+    while (batch.length > 0) {
+      // max_results goes with every id_list: the API stops at ten results
+      // unless told otherwise, which would leave ninety papers a batch absent.
+      const answer = await ask(`${ARXIV_API}?id_list=${batch.join(',')}&start=0&max_results=${batch.length}`);
+      if (answer.error !== undefined) {
+        leave(answer.error);
+        break;
+      }
+      if (answer.refusal !== null) {
+        const named = namedIn(answer.refusal, batch);
+        if (named.length === 0) {
+          leave(`arXiv refused the request — "${answer.refusal}" — and one bad id refuses every paper asked with it`);
+          break;
+        }
+        named.forEach((id) => refused.set(paperKey(id), answer.refusal));
+        batch = batch.filter((id) => !named.includes(id));
+        continue;
+      }
+      const papers = batch.map(paperKey);
+      if (papers.some((p) => answer.titles.has(p))) {
+        papers.forEach((p) => titles.set(p, answer.titles.get(p) ?? null));
+        break;
+      }
+      empty += 1;
+      if (empty < EMPTY_TRIES) continue;
+      leave(`${EMPTY_TRIES} answers in a row held none of the ${batch.length} paper(s) asked for — the service, not a verdict`);
+      break;
+    }
+  }
+  return { titles, refused, unchecked };
+}
+
 /**
  * The search a failure's candidate comes from: arXiv's title search for the
  * stored title as a phrase, read for an EXACT normalized match. A near match is
  * not a candidate — it is how a sibling paper would get proposed in this one's
- * place, which is the defect this check exists to find.
+ * place, which is the defect this check exists to find. Two papers carrying
+ * the very same title are both named, because picking one is a person's call.
  *
  * @returns {Promise<string>} what follows `candidate:` on the failure
  */
@@ -442,13 +572,14 @@ async function candidateFor(want, ask) {
   );
   // "none" alone would say a search ran and found nothing. It did not run.
   if (answer.error !== undefined) return `none (the title search failed: ${answer.error})`;
-  for (const [paper, title] of answer.titles) {
-    if (title !== null && normalize(title) === want) return `arXiv:${paper}`;
-  }
-  return 'none';
+  if (answer.refusal !== null) return `none (arXiv refused the title search: "${answer.refusal}")`;
+  const exact = [...answer.titles]
+    .filter(([, title]) => title !== null && normalize(title) === want)
+    .map(([paper]) => `arXiv:${paper}`);
+  if (exact.length === 0) return 'none';
+  return exact.length === 1 ? exact[0] : `${exact.join(' or ')} — ${exact.length} papers carry this exact title`;
 }
 
-const oneLine = (s) => s.replace(/\s+/g, ' ').trim();
 const byRef = (a, b) => (a.ref < b.ref ? -1 : a.ref > b.ref ? 1 : 0);
 const cited = (groups) => groups.reduce((n, g) => n + g.nodes.length, 0);
 
@@ -496,27 +627,7 @@ export async function identityCheck(citations, opts = {}) {
   }
 
   const ask = arxivClient(opts);
-  const titles = new Map();
-  const unchecked = new Map();
-  const asking = [...ids.values()];
-  for (let i = 0; i < asking.length; i += ARXIV_BATCH) {
-    const batch = asking.slice(i, i + ARXIV_BATCH);
-    // max_results AS WELL AS id_list: the API stops at ten results unless told
-    // otherwise, which would leave ninety papers in every batch looking absent.
-    const answer = await ask(`${ARXIV_API}?id_list=${batch.join(',')}&start=0&max_results=${batch.length}`);
-    const papers = batch.map(paperKey);
-    // NONE OF A BATCH IS THE SERVICE, NOT A HUNDRED WRONG TITLES — told apart by
-    // breadth, the rule the sweep applies to a host that answers nothing at all.
-    const why =
-      answer.error ??
-      (papers.some((p) => answer.titles.has(p))
-        ? null
-        : `${hostOf(ARXIV_API)} answered with none of the ${batch.length} paper(s) asked for`);
-    for (const p of papers) {
-      if (why === null) titles.set(p, answer.titles.get(p) ?? null);
-      else unchecked.set(p, why);
-    }
-  }
+  const { titles, refused, unchecked } = await lookUp([...ids.values()].map(asSent), ask);
 
   const passed = [];
   const warned = [];
@@ -528,7 +639,7 @@ export async function identityCheck(citations, opts = {}) {
       continue;
     }
     const arxiv = titles.get(g.paper) ?? null;
-    const verdict = classify(g.title, arxiv);
+    const verdict = refused.has(g.paper) ? 'fail' : classify(g.title, arxiv);
     (verdict === 'pass' ? passed : verdict === 'warn' ? warned : failed).push({ ...g, arxiv });
   }
 
@@ -543,16 +654,31 @@ export async function identityCheck(citations, opts = {}) {
     );
   }
 
+  // THE COUNT BEFORE THE SEARCHES, which are a request each: a step that runs
+  // out of time halfway down this list has still said how long it was.
+  if (failed.length > 0) {
+    const papers = new Set(failed.map((g) => g.paper)).size;
+    err(
+      `${cited(failed)} citation(s) on ${papers} paper(s) carry a title arXiv does not give that id. ` +
+        `Each, with a candidate from arXiv's title search:`,
+    );
+  }
+
   // One search per distinct stored title, however many papers share it.
   const candidates = new Map();
   for (const g of failed.sort(byRef)) {
     const want = normalize(g.title);
     if (!candidates.has(want)) candidates.set(want, await candidateFor(want, ask));
+    const arxiv = refused.has(g.paper)
+      ? `(none — arXiv refused this id: "${refused.get(g.paper)}")`
+      : g.arxiv === null
+        ? '(none — arXiv returned no title for this id)'
+        : oneLine(g.arxiv);
     err(
       `  ✗ ${g.ref} — the stored title is not arXiv's title for this id\n` +
         `      node(s):   ${g.nodes.join(', ')}\n` +
         `      stored:    ${g.title}\n` +
-        `      arXiv:     ${g.arxiv === null ? '(none — arXiv returned no title for this id)' : oneLine(g.arxiv)}\n` +
+        `      arXiv:     ${arxiv}\n` +
         `      candidate: ${candidates.get(want)}`,
     );
   }
@@ -563,21 +689,18 @@ export async function identityCheck(citations, opts = {}) {
       const why = unchecked.get(g.paper);
       reasons.set(why, (reasons.get(why) ?? 0) + g.nodes.length);
     }
-    if (notArxiv.length > 0) reasons.set('not an arXiv id, so arXiv holds no title to compare', notArxiv.length);
+    if (notArxiv.length > 0) {
+      reasons.set('not an arXiv id, so this check has no title to compare it with', notArxiv.length);
+    }
     err(
       `\n${cited(skipped) + notArxiv.length} citation(s) NOT checked for identity:\n` +
         [...reasons].map(([why, n]) => `  ${n} citation(s): ${why}`).join('\n') +
-        `\n\nThat says nothing about whether those titles are right. Re-run where ` +
-        `${hostOf(ARXIV_API)} is reachable — links.yml is.`,
+        `\nThat says nothing about whether those titles are right — only that this run could not compare them.`,
     );
   }
 
   // A WRONG TITLE OUTRANKS AN INCOMPLETE RUN, as a dead page does in the sweep.
-  if (failed.length > 0) {
-    const papers = new Set(failed.map((g) => g.paper)).size;
-    err(`\n${cited(failed)} citation(s) on ${papers} paper(s) carry a title arXiv does not give that id.`);
-    return 1;
-  }
+  if (failed.length > 0) return 1;
   if (skipped.length > 0 || notArxiv.length > 0) return 2;
 
   const near = cited(warned);
@@ -614,9 +737,11 @@ async function main() {
       console.error(`\n${problems.length} structural problem(s).`);
       process.exit(1);
     }
-    const host = hostOf(ARXIV_API);
-    const delays = await crawlDelays([host]);
-    process.exit(await identityCheck(citations, { gapSeconds: delays.get(host) }));
+    // exitCode, not exit(): exit() ends the process with writes to a pipe still
+    // queued, and a CI log is a pipe. The end of this report is the list of
+    // wrong titles a follow-up applies, so it has to arrive whole.
+    process.exitCode = await identityCheck(citations);
+    return;
   }
 
   // ONE FETCH PER PAPER, NOT PER CITATION (#373). 800 citations are 485

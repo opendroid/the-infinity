@@ -125,23 +125,23 @@ ago), and the first delayed host added to it should slow the sweep, not the gate
 *does this URL load*. A real paper under the wrong id passes that, and it is the defect
 every verification batch has found most often (LAUNCH.md §6). `check:citations --identity`
 asks the next question — is the paper at this id the one the node names — by sending every
-distinct arXiv id to the export API, a hundred to a request, and comparing each stored title
-with the title arXiv gives back. Both are normalised first (case, punctuation, Unicode
-dashes, LaTeX, whitespace). An exact match passes, a Levenshtein similarity of 0.90 or more
-warns, and anything else fails. A failure names a candidate id only when arXiv's title
-search returns an exact match for the stored title.
+distinct arXiv id to the export API, at most a hundred to a request, and comparing each
+stored title with the title arXiv gives back. Both are normalised first (case, punctuation,
+Unicode dashes, LaTeX, whitespace). An exact match passes, a Levenshtein similarity of 0.90
+or more warns, and anything else fails. A failure names a candidate id only when arXiv's
+title search returns an exact match for the stored title.
 
 **It is a third step in `links.yml`, after the explainers and before the sweep.** It is not
 a pull-request gate, and the reason is not its price. 485 papers are five requests, under a
-minute even at the three seconds between requests that arXiv's API terms ask for. The reason
-is the one the 2026-09-13 amendment above records for explainers: cheap is not the same as
-reliable, and a gate that reaches a third party fails for causes the pull request cannot
-fix. arXiv is also the host the authoring sandbox cannot reach, so a gate on it would be red
-wherever content is written. A new citation still gets the structural checks at merge, which
-catch an invented id. A real id carrying the wrong title is found on Sunday, or sooner when
-the job is started by hand after a large content merge.
+minute at the three-second delay arXiv's API manual asks clients for. The reason is the one
+the 2026-09-13 amendment above records for explainers: cheap is not the same as reliable,
+and a gate that reaches a third party fails for causes the pull request cannot fix. arXiv
+is also the host the authoring sandbox cannot reach, so a gate on it would be red wherever
+content is written. A new citation still gets the structural checks at merge, which catch
+an invented id. A real id carrying the wrong title is found on Sunday, or sooner when the
+job is started by hand after a large content merge.
 
-**Three seconds is a floor, not the policy.** It is hard-coded because the API's terms state
+**Three seconds is a floor, not the policy.** It is hard-coded because the API manual states
 it rather than robots.txt. The host's `robots.txt` is still read at runtime, as this ADR
-requires, and a longer `Crawl-delay` there wins. Every attempt is spaced, retries included,
-so a `Retry-After: 0` cannot send one straight back.
+requires, and a longer `Crawl-delay` there wins. Every request is spaced, robots.txt and
+retries included, so a `Retry-After: 0` cannot send one straight back.
