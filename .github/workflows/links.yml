@@ -81,6 +81,19 @@ jobs:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: npm run check:explainers
 
+      # IDENTITY, NOT RESOLVABILITY (#558). A real-but-wrong paper resolves, so
+      # the sweep below passes it, and it is the defect verification has found
+      # most often. This compares every stored title with the one arXiv's export
+      # API gives that id — a hundred ids to a request, three seconds apart, so
+      # the corpus is five requests plus one title search per mismatch. Weekly
+      # rather than on the pull request for the reason the explainers are: it
+      # reaches a third party (ADR-0020's addendum). `if: always()` so a red
+      # explainer check does not hide it.
+      - name: Check citation identity
+        if: always()
+        timeout-minutes: 20
+        run: npm run check:citations -- --identity
+
       # The two-hour one. `if: always()` so a red explainer check does not
       # cancel the sweep this workflow exists for.
       - name: Resolve every citation

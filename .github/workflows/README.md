@@ -119,6 +119,14 @@ arXiv id, a `ref` and `url` naming different papers, a date in the future — no
 need the network. What moves here is detecting rot in citations that were real when they
 merged.
 
+**Between the two runs a third check, on identity** ([#558](https://github.com/opendroid/the-infinity/issues/558)).
+A real paper under the wrong id resolves, so the sweep passes it. `check:citations --identity`
+compares each stored title with the title arXiv's export API gives that id, a hundred ids to
+a request and three seconds apart: five requests, not two hours. It still runs here and not
+on the pull request, for the reason the explainer check moved here: it reaches a third party
+(ADR-0020's addendum). It has `if: always()`, like the sweep, so a red explainer check
+cannot skip it.
+
 **No `issues: write`.** A failed scheduled run already emails the owner; a bot that opens
 an issue per dead link is a bot someone mutes.
 
