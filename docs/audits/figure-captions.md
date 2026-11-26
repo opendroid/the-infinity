@@ -58,9 +58,9 @@ every bar the same violet (UpdateSpectrum.tsx:136). The left group is a seeded, 
 decaying sequence, sorted largest first and scaled so its tallest bar is 1
 (spectrum.ts:83-87). The right group is the same values, each pulled toward the group's mean
 by a fraction *t* (spectrum.ts:92-93): the total is preserved, so tall bars fall as short ones
-rise, and the order never changes. At *t* = 1 every bar sits at the mean, between about 0.4 and
-0.8 of the tallest depending on the seed, and lower with more bars. The header lists every param
-(UpdateSpectrum.tsx:66-70).
+rise, and the order never changes. At *t* = 1 every bar sits at the mean, between about 0.4
+and 0.8 of the tallest depending on the seed, and lower with more bars. The header lists
+every param (UpdateSpectrum.tsx:66-70).
 
 | param | what it does | where |
 |---|---|---|
@@ -83,12 +83,12 @@ below come down to:
 
 ### `loss-curve` — `LossCurve.tsx`, `losscurve.ts`
 
-Loss against training step (LossCurve.tsx:6): a solid line of 120 samples (losscurve.ts:46) and, when a param
-calls for one, a dashed counterfactual on the same vertical scale (LossCurve.tsx:63, 100-117).
-Under the plot: `step 0`, `dashed = <label>` and the value of `steps` (LossCurve.tsx:121-125).
-The header lists every param but `holdout` and `decay` (LossCurve.tsx:44, 79-84). The solid
-line starts at 6 and falls fast, then slowly, toward a floor (losscurve.ts:97, 108-109), with
-seeded jitter (losscurve.ts:133).
+Loss against training step (LossCurve.tsx:6): a solid line of 120 samples (losscurve.ts:46)
+and, when a param calls for one, a dashed counterfactual on the same vertical scale
+(LossCurve.tsx:63, 100-117). Under the plot: `step 0`, `dashed = <label>` and the value of
+`steps` (LossCurve.tsx:121-125). The header lists every param but `holdout` and `decay`
+(LossCurve.tsx:44, 79-84). The solid line starts at 6 and falls fast, then slowly, toward a
+floor (losscurve.ts:97, 108-109), with seeded jitter (losscurve.ts:133).
 
 | param | what it does | where |
 |---|---|---|
@@ -144,12 +144,12 @@ at 85%, the one that should not at 40% (ThresholdSweep.tsx:90-94), and a vertica
 (ThresholdSweep.tsx:95-103). Everything right of the cut is flagged; under the axis,
 `let through · cut · flagged` (threshold.ts:121-128, ThresholdSweep.tsx:106-110). Under the
 figure, three counts out of 1,000 (threshold.ts:26), caught, false alarms and missed, and
-precision as a percentage (ThresholdSweep.tsx:116-119). Recall and the total are only in the screen-reader
-line (threshold.ts:157-163).
+precision as a percentage (ThresholdSweep.tsx:116-119). Recall and the total are only in
+the screen-reader line (threshold.ts:157-163).
 
 | param | what it does | where |
 |---|---|---|
-| `separation` | Where the should-be-flagged hump sits, in spreads; the other sits at 0. 0–6, default 2. In axis units it moves only that hump, so false alarms do not change with it. On screen the axis stretches with it, so the other hump and the cut slide left and narrow | threshold.ts:74, 103-110 |
+| `separation` | Where the should-be-flagged hump sits, in spreads; the other sits at 0. 0–6, default 2. In axis units it moves only that hump, so false alarms do not change with it. On screen the axis stretches with it, so the other hump narrows and slides left, and the cut slides with it | threshold.ts:74, 103-110 |
 | `threshold` | Where the cut falls on the same axis, −3 to 9, default 1 | threshold.ts:75, 125-128 |
 | `base_rate` | Share that should be flagged, 0.001–1, default 0.5. Both humps are scaled together by it, so a rare population draws small | threshold.ts:76, 111-118 |
 
