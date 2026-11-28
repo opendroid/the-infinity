@@ -1,0 +1,41 @@
+restore-drill: project the-infinity-ai, scratch database restore-drill-20261123
+restore-drill: --dry-run, so every gcloud and curl command is printed and none is run
+
+1. Trigger firestore-weekly-export, and wait up to 600s for a new export to land
++ gcloud storage ls gs://the-infinity-ai-firestore-backups/
++ gcloud scheduler jobs run firestore-weekly-export --location=us-west1 --project=the-infinity-ai
++ gcloud storage ls gs://the-infinity-ai-firestore-backups/
++ gcloud storage ls 'gs://the-infinity-ai-firestore-backups/<new-export>/'
+  ok    landed: <new-export>
+
+2. Create restore-drill-20261123 in the location of (default)
++ gcloud firestore databases describe '--database=(default)' --project=the-infinity-ai '--format=value(locationId)'
++ gcloud firestore databases create --database=restore-drill-20261123 '--location=<location-of-(default)>' --type=firestore-native --project=the-infinity-ai '--format=value(name)'
++ gcloud firestore operations describe '<create-operation>' --database=restore-drill-20261123 --project=the-infinity-ai '--format=value(done,error.message)'
+  ok    created restore-drill-20261123
+
+3. Import <new-export> into restore-drill-20261123
++ gcloud firestore import 'gs://the-infinity-ai-firestore-backups/<new-export>' --database=restore-drill-20261123 --collection-ids=trails,concept_requests,concept_reviews --project=the-infinity-ai
+
+4. Count each collection in (default) and in restore-drill-20261123
+  note  each curl reads its Authorization header on stdin (-H @-): a bearer token from the command before it
++ gcloud auth print-access-token
++ curl -sS --fail-with-body -H @- -H 'Content-Type: application/json' --data '{"structuredAggregationQuery":{"structuredQuery":{"from":[{"collectionId":"trails"}]},"aggregations":[{"alias":"n","count":{}}]}}' 'https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/(default)/documents:runAggregationQuery'
++ curl -sS --fail-with-body -H @- -H 'Content-Type: application/json' --data '{"structuredAggregationQuery":{"structuredQuery":{"from":[{"collectionId":"trails"}]},"aggregations":[{"alias":"n","count":{}}]}}' https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/restore-drill-20261123/documents:runAggregationQuery
++ curl -sS --fail-with-body -H @- -H 'Content-Type: application/json' --data '{"structuredAggregationQuery":{"structuredQuery":{"from":[{"collectionId":"concept_requests"}]},"aggregations":[{"alias":"n","count":{}}]}}' 'https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/(default)/documents:runAggregationQuery'
++ curl -sS --fail-with-body -H @- -H 'Content-Type: application/json' --data '{"structuredAggregationQuery":{"structuredQuery":{"from":[{"collectionId":"concept_requests"}]},"aggregations":[{"alias":"n","count":{}}]}}' https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/restore-drill-20261123/documents:runAggregationQuery
++ curl -sS --fail-with-body -H @- -H 'Content-Type: application/json' --data '{"structuredAggregationQuery":{"structuredQuery":{"from":[{"collectionId":"concept_reviews"}]},"aggregations":[{"alias":"n","count":{}}]}}' 'https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/(default)/documents:runAggregationQuery'
++ curl -sS --fail-with-body -H @- -H 'Content-Type: application/json' --data '{"structuredAggregationQuery":{"structuredQuery":{"from":[{"collectionId":"concept_reviews"}]},"aggregations":[{"alias":"n","count":{}}]}}' https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/restore-drill-20261123/documents:runAggregationQuery
+
+5. Compare the first document by id in each collection, field for field
++ curl -sS --fail-with-body -H @- 'https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/(default)/documents/trails?orderBy=__name__&pageSize=1'
++ curl -sS --fail-with-body -H @- 'https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/restore-drill-20261123/documents/trails?orderBy=__name__&pageSize=1'
++ curl -sS --fail-with-body -H @- 'https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/(default)/documents/concept_requests?orderBy=__name__&pageSize=1'
++ curl -sS --fail-with-body -H @- 'https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/restore-drill-20261123/documents/concept_requests?orderBy=__name__&pageSize=1'
++ curl -sS --fail-with-body -H @- 'https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/(default)/documents/concept_reviews?orderBy=__name__&pageSize=1'
++ curl -sS --fail-with-body -H @- 'https://firestore.googleapis.com/v1/projects/the-infinity-ai/databases/restore-drill-20261123/documents/concept_reviews?orderBy=__name__&pageSize=1'
+
+6. Delete restore-drill-20261123
++ gcloud firestore databases delete --database=restore-drill-20261123 --project=the-infinity-ai --quiet
+
+restore-drill: --dry-run, so nothing ran and nothing was compared

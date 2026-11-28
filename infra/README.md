@@ -129,6 +129,40 @@ not before.
 Delete protection on the database is handled by `setup.sh`, not here. Re-running `setup.sh`
 enables it on a database that already exists.
 
+### Restore drill log
+
+`./infra/restore-drill.sh` proves the newest export restores, **without touching live data**
+([#557](https://github.com/opendroid/the-infinity/issues/557)). Run it **quarterly — Feb,
+May, Aug, Nov** — in Cloud Shell, from a clone:
+
+```bash
+./infra/restore-drill.sh --dry-run   # every gcloud and curl command it would run; runs none
+./infra/restore-drill.sh             # the drill: paste the row it ends with into the table below
+./infra/restore-drill.sh --keep      # the same, leaving the scratch database for a look
+```
+
+It triggers `firestore-weekly-export`, waits up to ten minutes for a new prefix to land,
+creates `restore-drill-<yyyymmdd>` in the location of `(default)`, imports the export into it
+(`trails`, `concept_requests` and `concept_reviews` only), and compares each collection's
+document count, and its first document by id field for field, with live. Then it deletes the
+scratch database; a `trap` does that on any exit, unless `--keep` is given. It exits 0 only
+when every count and every sampled document match, and otherwise names the collection that
+differs. `gcloud firestore databases create` returns before the database exists, so the
+script waits on the create operation before importing.
+
+`gcloud firestore import` without `--database` imports into `(default)`, so every line in the
+script that creates, imports or deletes names `--database=restore-drill-…`, and
+`bash infra/restore-drill.test.sh` fails if one does not. The same test compares `--dry-run`
+with [`testdata/restore-drill.dry-run.golden`](testdata/restore-drill.dry-run.golden) and runs
+the pass and fail paths against a fake `gcloud` and `curl`. None of it needs GCP.
+
+Two things fail a drill without the backup being bad: a reader writing between the export and
+the count, which a second run settles; and a second drill within about five minutes of the
+first on the same day, because Firestore holds a deleted database's id that long.
+
+| Date | Export | `trails` | `concept_requests` | `concept_reviews` | Run time |
+|---|---|---|---|---|---|
+
 ## What it does not do
 
 - **DNS.** The registrar is GoDaddy and the A records point at Firebase Hosting, changed
