@@ -77,10 +77,11 @@ The whole architecture is shaped by cost discipline, so this is not box-ticking.
       `RATE_LIMIT_PER_MINUTE`, `READ_RATE_LIMIT_PER_MINUTE`) (evidence at `2d1164b`:
       `api/cmd/server/main.go:81-88` reads all three; the defaults are 500 writes a day at
       `api/internal/apihttp/middleware.go:24` and 6 and 60 requests a minute per IP at
-      `api/internal/ratelimit/limiter.go:55` and `:77`; `api/internal/router/router.go:66`,
-      `:113` and `:124` mount them; and `infra/verify-deploy.sh:238-263` found those three
-      values, with no override, on the live service in
-      [deploy #292](https://github.com/opendroid/the-infinity/actions/runs/46115527563/job/140888860370))
+      `api/internal/ratelimit/limiter.go:55` and `:77`; they are wired in at
+      `api/internal/router/router.go:66-69`, `:113` and `:124`; and in
+      [deploy #292](https://github.com/opendroid/the-infinity/actions/runs/46115527563/job/140888860370)
+      `infra/verify-deploy.sh:221-241` found no override on the live service, so those
+      defaults are in effect)
 - [x] No recurring analytics cost — [ADR-0011](adr/0011-analytics-from-request-logs.md)
       chose request logs over a hosted product
 
@@ -107,8 +108,8 @@ gcloud run services describe api --region us-west1 \
       [ADR-0011](adr/0011-analytics-from-request-logs.md) depends on. Project settings →
       Integrations → Cloud Logging → Link. Until this is done there is no page-view data
       at all, and the ADR stays `proposed` (evidence:
-      `docs/adr/0011-analytics-from-request-logs.md:3` at `2d1164b` reads `accepted`, linked
-      on 2026-09-11, #64; `:234-242` records 200 entries read from the live log that day)
+      `docs/adr/0011-analytics-from-request-logs.md:3-4` at `2d1164b` reads `accepted`,
+      linked on 2026-09-11, #64; `:234-242` records reading 200 live log entries that day)
 - [ ] One query run against real traffic, so the shape is known before it is needed
 
 ```sh
