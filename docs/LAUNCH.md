@@ -19,10 +19,13 @@ have to happen after the deploy rather than before.
 - [x] `theinfinity.ai` serves over HTTPS with a valid certificate
 - [x] `www.theinfinity.ai` redirects to the apex — `301`, not a certificate error
 - [x] `the-infinity-ai.web.app` still serves and canonicals to the real domain
-- [ ] **The API answers through the domain, not just the Cloud Run URL.** Firebase Hosting
+- [x] **The API answers through the domain, not just the Cloud Run URL.** Firebase Hosting
       rewrites `/api/**` and preserves the full path, which is why the service mounts at
       `/api/v1` and not `/v1` ([ADR-0001](adr/0001-infrastructure.md)) — a mistake that
-      only shows up after the first Hosting deploy
+      only shows up after the first Hosting deploy (evidence:
+      `infra/verify-deploy.sh:113-115` at `2d1164b`, added in #551 and run after every
+      deploy by `.github/workflows/deploy.yml:199`, passed against the live domain in
+      [deploy #292](https://github.com/opendroid/the-infinity/actions/runs/46115527563/job/140888860370))
 
 ```sh
 curl -sSI https://theinfinity.ai/ | head -1
@@ -59,13 +62,26 @@ The whole architecture is shaped by cost discipline, so this is not box-ticking.
 
 - [ ] **Budget alerts confirmed live at $10 and $25** — set in `infra/setup.sh`, but
       confirm in the console that they exist and point at an address you read
-- [ ] **`--max-instances` is set on the Cloud Run service.** `--min-instances=0` bounds
+- [x] **`--max-instances` is set on the Cloud Run service.** `--min-instances=0` bounds
       *idle* cost and does nothing about a traffic spike; max-instances is what actually
-      bounds the bill (`infra/README.md`)
-- [ ] **`--service-account` is set.** Without it Cloud Run falls back to an
-      Editor-privileged default identity — silently
-- [ ] Daily write cap and per-IP rate limits are on (`DAILY_WRITE_CAP`,
-      `RATE_LIMIT_PER_MINUTE`, `READ_RATE_LIMIT_PER_MINUTE`)
+      bounds the bill (`infra/README.md`) (evidence: `.github/workflows/deploy.yml:112` at
+      `2d1164b` sets it to 4; `infra/verify-deploy.sh:176-178` read 4 off the live service in
+      [deploy #292](https://github.com/opendroid/the-infinity/actions/runs/46115527563/job/140888860370))
+- [x] **`--service-account` is set.** Without it Cloud Run falls back to an
+      Editor-privileged default identity — silently (evidence:
+      `.github/workflows/deploy.yml:109` at `2d1164b` sets it, and
+      `infra/verify-deploy.sh:170-172` read
+      `api-runtime@the-infinity-ai.iam.gserviceaccount.com` off the live service in
+      [deploy #292](https://github.com/opendroid/the-infinity/actions/runs/46115527563/job/140888860370))
+- [x] Daily write cap and per-IP rate limits are on (`DAILY_WRITE_CAP`,
+      `RATE_LIMIT_PER_MINUTE`, `READ_RATE_LIMIT_PER_MINUTE`) (evidence at `2d1164b`:
+      `api/cmd/server/main.go:81-88` reads all three; the defaults are 500 writes a day at
+      `api/internal/apihttp/middleware.go:24` and 6 and 60 requests a minute per IP at
+      `api/internal/ratelimit/limiter.go:55` and `:77`; they are wired in at
+      `api/internal/router/router.go:66-69`, `:113` and `:124`; and in
+      [deploy #292](https://github.com/opendroid/the-infinity/actions/runs/46115527563/job/140888860370)
+      `infra/verify-deploy.sh:221-241` found no override on the live service, so those
+      defaults are in effect)
 - [x] No recurring analytics cost — [ADR-0011](adr/0011-analytics-from-request-logs.md)
       chose request logs over a hosted product
 
@@ -88,10 +104,12 @@ gcloud run services describe api --region us-west1 \
 
 - [x] Structured logs with trace correlation (#2) — a Cloud Trace entry expands to the log
       lines that request emitted
-- [ ] **Cloud Logging linked for Hosting request logs** — the console step
+- [x] **Cloud Logging linked for Hosting request logs** — the console step
       [ADR-0011](adr/0011-analytics-from-request-logs.md) depends on. Project settings →
       Integrations → Cloud Logging → Link. Until this is done there is no page-view data
-      at all, and the ADR stays `proposed`
+      at all, and the ADR stays `proposed` (evidence:
+      `docs/adr/0011-analytics-from-request-logs.md:3-4` at `2d1164b` reads `accepted`,
+      linked on 2026-09-11, #64; `:234-242` records reading 200 live log entries that day)
 - [ ] One query run against real traffic, so the shape is known before it is needed
 
 ```sh
@@ -101,7 +119,11 @@ gcloud logging read 'resource.type=cloud_run_revision AND logName:"stdout"' \
 
 ## 6. The content is true
 
-- [ ] **Every M1 and M2 issue closed.** Not deferred, not "basically done"
+- [x] **Every M1 and M2 issue closed.** Not deferred, not "basically done" (evidence,
+      2026-11-27: GitHub's `search/issues` for
+      `repo:opendroid/the-infinity is:issue is:open milestone:"M1 — walking skeleton"`
+      returns a `total_count` of 0, and 0 again with `milestone:"M2 — core product"`; all
+      16 and all 23 closed as completed, none as not planned)
 - [x] Every node validates against the schema, and every citation resolves — the second
       half of that was ticked for a long while with nothing enforcing it, and is now swept
       weekly by [`links.yml`](../.github/workflows/links.yml). It is not a pull-request
