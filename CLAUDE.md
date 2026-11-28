@@ -241,6 +241,7 @@ the next seeded node, not broken.
     handoff-v1/     the design source of truth — 5 routes, tokens, components, API
     mockups.html    earlier three-screen exploration, superseded
   /adr      architecture decision records
+  /audits   screens a person confirms row by row — figure captions against their templates (#559)
 /.github
   pull_request_template.md
   /workflows  ci.yml — every PR · deploy.yml — merge to main
