@@ -83,6 +83,40 @@ describe('the network half is off the pull request and still exists (#489)', () 
   });
 
   it('links.yml still sweeps the citations too', () => {
-    expect(invocations(LINKS, 'check:citations')).toHaveLength(1);
+    // In full: since #558 the script runs twice there, and only the run with no
+    // flags is the sweep.
+    expect(invocations(LINKS, 'check:citations').filter((flags) => flags === '')).toHaveLength(1);
+  });
+});
+
+describe('links.yml checks citation identity, and nothing hides it (#558)', () => {
+  /** A links.yml step's own lines, from its `- name:` to the next, comments dropped. */
+  function linksStep(name: string): string {
+    const start = LINKS.indexOf(`- name: ${name}`);
+    if (start === -1) return '';
+    const next = LINKS.indexOf('- name:', start + 1);
+    return LINKS.slice(start, next === -1 ? undefined : next)
+      .split('\n')
+      .filter((line) => !line.trim().startsWith('#'))
+      .join('\n');
+  }
+
+  it('runs check:citations --identity exactly once', () => {
+    expect(invocations(LINKS, 'check:citations').filter((flags) => flags === '-- --identity')).toHaveLength(1);
+    expect(linksStep('Check citation identity')).toContain('run: npm run check:citations -- --identity');
+  });
+
+  it('as a step after Verify explainers', () => {
+    const at = LINKS.indexOf('- name: Check citation identity');
+    const explainers = LINKS.indexOf('- name: Verify explainers');
+    expect(at, 'links.yml has no step named Check citation identity').toBeGreaterThan(-1);
+    // Without this, renaming the explainer step makes the next line pass on -1.
+    expect(explainers, 'links.yml has no step named Verify explainers').toBeGreaterThan(-1);
+    expect(at).toBeGreaterThan(explainers);
+  });
+
+  it('with if: always(), so a red explainer check cannot skip it', () => {
+    // A failed step skips every later one that lacks this — the #423 failure.
+    expect(linksStep('Check citation identity')).toMatch(/^\s*if: always\(\)\s*$/m);
   });
 });
